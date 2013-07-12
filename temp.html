@@ -1,0 +1,84 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th colspan="2">options</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th><em>zIndex</em></th>
+        <td>
+            対象の要素が固定されたときに設定するz-indexを指定します。<br />
+            デフォルトは10です。
+        </td>
+    </tr>
+    <tr>
+        <th><em>top</em></th>
+        <td>
+            対象の要素の高さが固定されたときのtopの位置を指定します。<br />
+            デフォルトは0です。
+       </td>
+    </tr>
+    <tr>
+        <th><em>bottom</em></th>
+        <td>
+            対象の要素の高さがwindowの縦サイズより大きいときは、要素の一番下がページ下部で固定されます。<br />
+            その場合のbottomの位置を指定します。<br />
+            デフォルトは0です。
+        </td>
+    </tr>
+    <tr>
+        <th><em>onFixed</em></th>
+        <td>
+            要素の固定が開始される直前に呼び出される関数が設定できます。<br />
+            falseを返すと固定は開始されません。<br />
+            詳しくは<a href="./#onFixed">onFixed</a>を参照してください。
+        </td>
+    </tr>
+    <tr>
+        <th><em>onStatic</em></th>
+        <td>
+            要素の固定が解除される直前に呼び出される関数が設定できます。<br />
+            falseを返すと固定は解除されません。<br />
+            詳しくは<a href="./#onStatic">onStatic</a>を参照してください。
+        </td>
+    </tr>
+    <tr>
+        <th><em>onResize</em></th>
+        <td>
+            windowがリサイズされた直後に呼び出される関数が指定できます。<br />
+            詳しくは<a href="./#onResize">onResize</a>を参照してください。
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<h3 id="onFixed">onFixed(element, scroll, options)<h3>
+<p>
+要素の固定が開始される直前に実行されます。
+</p>
+<ul>
+    <li>
+        element
+        <ul>
+            <li>要素のオブジェクト</li>
+        </ul>
+    </li>
+    <li>
+        scroll
+        <ul>
+            <li>現在のスクロール位置</li>
+        </ul>
+    </li>
+    <li>
+        options
+        <ul>
+            <li>オプションの配列</li>
+        </ul>
+    </li>
+</ul>
+
+<h3 id="onStatic">onStatic(element, scroll, options)<h3>
+
+<h3 id="onResize">onResize(element, scroll, options)<h3>
