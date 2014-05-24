@@ -9,11 +9,11 @@ html,body {
 }
 
 #container {
-	background-image:url("/img/th_P4062921.jpg");
-	background-position:center top;
-	background-repeat:no-repeat;
+	background-image: url("/img/th_P4062921.jpg");
+	background-position: center top;
+	background-repeat: no-repeat;
 	background-attachment: fixed;
-	background-size:cover;
+	background-size: cover;
     min-height: 100%;
 }
 
@@ -27,6 +27,11 @@ html,body {
 	text-decoration: none;
 }
 
+.navbar .social-plugin {
+	float: right;
+	padding-top: 10px;
+}
+
 .contents {
     margin-top: 40px;
 }
@@ -38,7 +43,7 @@ html,body {
 
 .paper {
 	background-color:rgba(255, 255, 255, 0.7);
-	padding-top: 20px;
+	padding: 20px 0;
 }
 
 .paper .inner {
@@ -71,9 +76,17 @@ html,body {
     text-decoration: none;
 }
 
+.paper .contact {
+	text-align: right;
+}
+
 @media (min-width: 768px) and (max-width: 979px) {
 	#container {
 		width: 724px;
+	}
+	
+	.navbar-fixed-top {
+    	margin-bottom: 0px;
 	}
 	.contents {
     	margin-top: 0px;
