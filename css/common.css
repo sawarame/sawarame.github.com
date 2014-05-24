@@ -1,7 +1,21 @@
 @CHARSET "UTF-8";
 
+html,body {
+    height:100%;
+}
+
 * {
     font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3',Meiryo,メイリオ,sans-serif;
+}
+
+#container {
+	background-image:url("/img/th_P4062921.jpg");
+	background-position:center top;
+	background-repeat:no-repeat;
+	-moz-background-size:cover;
+	background-size:cover;
+    height:100%;
+    min-height: 100%;
 }
 
 .navbar h1 {
@@ -15,7 +29,7 @@
 }
 
 .contents {
-    margin-top: 50px;
+    margin-top: 40px;
 }
 
 .contents h2 {
@@ -23,38 +37,56 @@
     line-height: 40px;
 }
 
-.contents h2.caption {
+.paper {
+	background-color:rgba(255,255,255,0.7);
+	padding-top: 20px;
+}
+
+.paper .inner {
+	width: 90%;
+	margin: 0 auto;
+}
+
+.profile-image {
+    position: relative;
+    float: left;
+    padding-right: 5px;
+}
+
+.profile-image span {
+    background-color: rgba(0, 0, 0, 0.6);
+    bottom: 0;
+    color: #FFFFFF;
+    display: inline-block;
+    left: 0;
+    padding: 4px 0;
+    position: absolute;
     text-align: center;
+    text-decoration: none;
+    width: 120px;
+    z-index: 1;
 }
 
-.breadcrumb {
-	margin: 60px 0 20px;
+.profile-image span a{
+    color: #FFFFFF;
+    text-decoration: none;
 }
 
-.form-element {
-	border: solid 1px #DEDEDE;
-	background-color: #F5F5F5;
-	border-radius: 4px;
-	padding: 10px;
-	margin-bottom: 10px;
+@media (min-width: 768px) and (max-width: 979px) {
+	#container {
+		width: 724px;
+	}
+	.contents {
+    	margin-top: 0px;
+	}
 }
 
-.form-element dl {
-	margin: 5px 0;
+@media (max-width: 767px) {
+	#container {
+		background-image:none;
+	}
+	.contents {
+    	margin-top: 0px;
+	}
 }
 
-.form-element dl dt{
-	font-weight: bold;
-	float: left;
-	margin-left: 20px;
-	padding-top: 5px;
-}
-
-.form-element dl dd {
-	float: right;
-	margin-right: 10px;
-}
-
-.form-element input, .form-element select, .from-element textarea {
-	margin-bottom: 0px;
-}
