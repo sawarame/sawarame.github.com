@@ -8,8 +8,7 @@ html,body {
     font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3',Meiryo,メイリオ,sans-serif;
 }
 
-#container {
-	background-color: #000000;
+.easybg-css {
 	background-image: url("/img/th_P4062921.jpg");
 	background-position: center top;
 	background-repeat: no-repeat;
@@ -86,7 +85,6 @@ html,body {
 	#container {
 		width: 724px;
 	}
-	
 	.navbar-fixed-top {
     	margin-bottom: 0px;
 	}
@@ -96,11 +94,11 @@ html,body {
 }
 
 @media (max-width: 767px) {
-	#container {
-		background-image:none;
-	}
 	.contents {
     	margin-top: 0px;
+	}
+	.navbar-fixed-top {
+    	margin-bottom: 0px;
 	}
 }
 
