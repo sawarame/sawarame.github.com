@@ -43,9 +43,22 @@
 					var timer = null;
 					timer = setInterval(function()
 					{
-						var index = Math.floor(Math.random() * $this.settings.images.length);
-						methods.changeImage.apply($this, [index]);
+						if($this.settings.work)
+						{
+							var index = Math.floor(Math.random() * $this.settings.images.length);
+							methods.changeImage.apply($this, [index]);
+						}
 					}, $this.settings.interval);
+					
+					$(window).blur(function()
+					{
+						methods.stop.apply($this);
+					});
+					
+					$(window).focus(function()
+					{
+						methods.start.apply($this);
+					});
 				}
 			});
 		},
@@ -173,6 +186,20 @@
 		setOpacity : function(opacity)
 		{
 			this.css('opacity', opacity);
+		},
+		/*
+		 * 処理を一旦停止
+		 */
+		stop : function()
+		{
+			this.settings.work = false;
+		},
+		/*
+		 * 処理を再開
+		 */
+		start : function()
+		{
+			this.settings.work = true;
 		}
 	};
 	
@@ -180,6 +207,7 @@
 		images : null,
 		interval : 30000, // 30秒
 		speed : 1000, // 1秒
+		work : true, 
 		cloneClassId : null,
 		cloneClassName : 'easybgClone'
 	}
