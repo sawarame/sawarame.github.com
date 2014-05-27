@@ -10,6 +10,6 @@ $(window).load(function()
 		interval: 10000,
 		initIndex : 0,
 		ignoreError : true,
-		debug : true
+		debug : false
 	});
 });
