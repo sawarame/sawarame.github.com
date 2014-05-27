@@ -7,6 +7,9 @@ $(window).load(function()
 			'/img/th_P5253029.jpg', 
 			'/img/th_P5253043.jpg'
 		],
-		interval: 15000
+		interval: 10000,
+		initIndex : 0,
+		ignoreError : true,
+		debug : true
 	});
 });

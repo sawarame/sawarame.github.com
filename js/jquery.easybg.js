@@ -1,4 +1,4 @@
-/*
+/**
  * easybg ver 1.0.
  *
  * written by sawarame 鰆目 靖士
@@ -6,9 +6,9 @@
  *
  */
 (function($)
-{
+{	
 	var methods = {
-		/*
+		/**
 		 * 初期化処理
 		 */
 		init : function(options)
@@ -32,37 +32,86 @@
 					}
 					
 					// 画像を先読みする
-					for(var i = 0; i < $this.settings.images.length; i++)
+					var promises = [];
+					$.each($this.settings.images, function()
 					{
-						$("<img>").attr("src", $this.settings.images[i]);
-					}
-					
-					// 初期画像を表示
-					methods.setImageUrl.apply($this, [$this.settings.images[0]]);
-					
-					var timer = null;
-					timer = setInterval(function()
-					{
-						if($this.settings.work)
+						var imgFileName = this;
+						var img = new Image();
+						var defer = $.Deferred();
+						// 画像読み込み成功時
+						img.onload = function()
 						{
-							var index = Math.floor(Math.random() * $this.settings.images.length);
-							methods.changeImage.apply($this, [index]);
-						}
-					}, $this.settings.interval);
-					
-					$(window).blur(function()
-					{
-						methods.stop.apply($this);
+							methods.log.apply($this, ['"' + this.src + '"の読み込み成功']);
+							defer.resolve();
+							defer = null;
+						};
+						// 画像読み込み失敗
+						img.onerror = function()
+						{
+							methods.error.apply($this, ['"' + this.src + '"の読み込み失敗']);
+							// エラーを無視する場合
+							if($this.settings.ignoreError)
+							{
+								// 画像配列から対象の要素を削除
+								for(var i = 0; i < $this.settings.images.length; i++)
+								{
+									var reg = new RegExp($this.settings.images[i] + "$");
+									if(this.src.match(reg))
+									{
+										methods.log.apply($this, ['"' + this.src + '"の設定を解除します。']);
+										$this.settings.images.splice(i,1);
+									}
+								}
+								defer.resolve();
+							}
+							else
+							{
+								defer.reject();
+							}
+							defer = null;
+						};
+						img.src = imgFileName;
+						promises.push(defer.promise());
 					});
 					
-					$(window).focus(function()
+					// 画像の読み込みがすべて完了した時
+					$.when.apply(null, promises).then(function()
 					{
-						methods.start.apply($this);
+						methods.log.apply($this, ['全画像の読み込み完了しましたので処理を開始します。']);
+						// 初期画像を表示
+						methods.changeImage.apply($this, [$this.settings.initIndex]);
+						
+						var timer = null;
+						timer = setInterval(function()
+						{
+							if($this.settings.work)
+							{
+								var index = Math.floor(Math.random() * $this.settings.images.length);
+								methods.changeImage.apply($this, [index]);
+							}
+						}, $this.settings.interval);
+						
+						// windowからフォーカスが外れた時は処理をしない様にする
+						$(window).blur(function()
+						{
+							methods.stop.apply($this);
+						});
+						
+						// windowにフォーカスが戻ってきたら処理を再開
+						$(window).focus(function()
+						{
+							methods.start.apply($this);
+						});
+					},
+					// 画像の読み込みが失敗した時
+					function()
+					{
+						methods.error.apply($this, ['画像の読み込みに失敗認め終了します。']);
 					});
 				}
 			});
 		},
-		/*
+		/**
 		 * 破棄処理
 		 */
 		destory : function()
@@ -76,7 +125,7 @@
 				$this.removeData('easybg');
 			});
 		},
-		/*
+		/**
 		 * 背景画像を変更する処理
 		 */
 		changeImage : function(index)
@@ -92,7 +141,8 @@
 			this.prepend(child2);
 			
 			// 一旦要素の画像の設定を解除
-			methods.setImageUrl.apply(this, ['']);
+			//methods.setImageUrl.apply(this, ['']);
+			methods.setImage.apply(this, ['none']);
 			
 			var self = this;
 			var timer = null;
@@ -115,15 +165,18 @@
 					methods.setOpacity.apply(child1, [opacity]);
 				}
 			}, self.settings.speed / 100);
+			
+			methods.log.apply(this, ['"' + this.settings.images[index] + '"に切替']);
 		},
-		/*
+		/**
 		 * 要素のクローンを作成し要素に被せる
 		 */
 		makeClone : function()
 		{
-			// 要素のクローンを作成
+			// 要素のクローンを作成(style, class属性をコピー)
 			//var child = this.clone(false).empty();
 			var child = $('<div />');
+			child.attr('style', this.attr('style'));
 			child.attr('class', this.attr('class'));
 			
 			// IDは別で設定（デフォルトNULL）
@@ -145,71 +198,97 @@
 			});
 			return child;
 		},
-		/*
+		/**
 		 * 背景画像を設定
 		 */
 		setImage : function(image)
 		{
 			this.css('background-image', image );
 		},
-		/*
+		/**
 		 * 背景画像を設定
 		 */
 		setImageUrl : function(image)
 		{
 			this.css('background-image', 'url(' + image + ')');
 		},
-		/*
+		/**
 		 * 背景画像を設定
 		 */
 		getImage : function()
 		{
 			return this.css('background-image');
 		},
-		/*
+		/**
 		 * z-indexを指定
 		 */
 		setZIndex : function(index)
 		{
 			this.css('z-index', index);
 		},
-		/*
+		/**
 		 * z-indexを取得
 		 */
 		getZIndex : function(index)
 		{
 			return parseInt(this.css('zIndex'), 10) || 0;
 		},
-		/*
+		/**
 		 * z-indexを取得
 		 */
 		setOpacity : function(opacity)
 		{
 			this.css('opacity', opacity);
 		},
-		/*
+		/**
 		 * 処理を一旦停止
 		 */
 		stop : function()
 		{
 			this.settings.work = false;
+			methods.log.apply(this, ['処理を一時停止']);
 		},
-		/*
+		/**
 		 * 処理を再開
 		 */
 		start : function()
 		{
 			this.settings.work = true;
+			methods.log.apply(this, ['処理を再開']);
+		},
+		/**
+		 * コンソールにログ出力
+		 */
+		log : function(str)
+		{
+			if(this.settings.debug)
+			{
+				console.log(str);
+			}
+		},
+		/**
+		 * コンソールにエラー出力
+		 */
+		error : function(str)
+		{
+			if(this.settings.debug)
+			{
+				console.error(str);
+			}
 		}
 	};
 	
+	// 初期値
 	var defaults = {
 		images : null,
 		interval : 30000, // 30秒
 		speed : 1000, // 1秒
+		initIndex : 0,
 		work : true, 
 		cloneClassId : null,
-		cloneClassName : 'easybgClone'
+		cloneClassName : 'easybgClone',
+		ignoreError : false,
+		debug : false
 	}
 	
 	$.fn.easybg = function(method)
@@ -228,4 +307,4 @@
 		}
 	}
 	
-})( jQuery );
+})(jQuery);
