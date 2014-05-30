@@ -1,5 +1,6 @@
 /**
- * easybg ver 1.0.
+ * easybg ver 1.0.1
+ * 指定した背景画像を自動で切り替えるjQueryプラグイン
  *
  * written by sawarame 鰆目 靖士
  * http://sawara.me/
@@ -129,42 +130,36 @@
 		 * 背景画像を変更する処理
 		 */
 		changeImage : function(index)
-		{	
+		{
+			// クローンを作成し、要素の裏側に配置
 			var child1 = methods.makeClone.apply(this);
 			methods.setImage.apply(child1, [methods.getImage.apply(this)]);
 			methods.setZIndex.apply(child1, [methods.getZIndex.apply(this) - 1]);
 			this.prepend(child1);
 			
+			// クローンを作成し次の画像を設定し、更にクローンの裏側に配置
 			var child2 = methods.makeClone.apply(this);
 			methods.setImageUrl.apply(child2, [this.settings.images[index]]);
 			methods.setZIndex.apply(child2, [methods.getZIndex.apply(child1) - 1]);
 			this.prepend(child2);
 			
 			// 一旦要素の画像の設定を解除
-			//methods.setImageUrl.apply(this, ['']);
 			methods.setImage.apply(this, ['none']);
-			
+
+			// 表側のクローンを透明に変更させる
 			var self = this;
-			var timer = null;
-			var opacity = 1;
-			timer = setInterval(function()
-			{
-				opacity -= 0.01;
-				if(opacity <= 0)
+			child1.animate(
+				{opacity: 0},
+				self.settings.speed,
+				'linear',
+				function()
 				{
 					// 変更が完了したら要素の画像設定を変更し、クローンを削除
 					methods.setImageUrl.apply(self, [self.settings.images[index]]);
 					child1.empty().remove();
 					child2.empty().remove();
-					
-					clearInterval(timer);
-					timer = null;
 				}
-				else
-				{
-					methods.setOpacity.apply(child1, [opacity]);
-				}
-			}, self.settings.speed / 100);
+			);
 			
 			methods.log.apply(this, ['"' + this.settings.images[index] + '"に切替']);
 		},

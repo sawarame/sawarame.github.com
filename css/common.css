@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
 html,body {
-    height:100%;
+    /*height:100%;*/
 }
 
 * {
@@ -9,25 +9,20 @@ html,body {
 }
 
 .easybg-css {
-	background-image: url("/img/th_P4062921.jpg");
+	/*background-image: url("/img/th_P4062921.jpg");*/
 	background-position: center top;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: cover;
-    min-height: 100%;
-}
-
-.navbar h1 {
-	float: left;
-	font-size: 20px;
-	line-height: 20px;
-}
-
-.navbar h1 a:HOVER {
-	text-decoration: none;
+    /*min-height: 100%;*/
 }
 
 .navbar .social-plugin {
+	float: left;
+	padding-top: 10px;
+}
+
+.navbar .contact {
 	float: right;
 	padding-top: 10px;
 }
@@ -41,9 +36,28 @@ html,body {
     line-height: 40px;
 }
 
+.contents h3 {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.topmain {
+	padding: 200px 0 300px;
+	color: #FFFFFF;
+	text-shadow: 1px 1px 3px #000; 
+}
+
+.topmain h1, .topmain div {
+	margin-left: 30px;
+}
+
+.topmain div {
+	width: 500px;
+}
+
 .paper {
 	background-color:rgba(255, 255, 255, 0.7);
-	padding: 20px 0;
+	padding: 10px 0 20px;
 }
 
 .paper .inner {
@@ -51,34 +65,13 @@ html,body {
 	margin: 0 auto;
 }
 
-.profile-image {
-    position: relative;
-    float: left;
-    padding-right: 10px;
-    margin-bottom: 5px;
+dl.profile dt {
+	float:left;
+	width: 70px;
 }
 
-.profile-image span {
-    background-color: rgba(0, 0, 0, 0.6);
-    bottom: 0;
-    color: #FFFFFF;
-    display: inline-block;
-    left: 0;
-    padding: 4px 0;
-    position: absolute;
-    text-align: center;
-    text-decoration: none;
-    width: 120px;
-    z-index: 1;
-}
-
-.profile-image span a{
-    color: #FFFFFF;
-    text-decoration: none;
-}
-
-.paper .contact {
-	text-align: right;
+dl.profile dd {
+	margin-left: 80px;
 }
 
 @media (min-width: 768px) and (max-width: 979px) {
@@ -87,9 +80,14 @@ html,body {
 	}
 	.navbar-fixed-top {
     	margin-bottom: 0px;
+    	position: fixed;
 	}
 	.contents {
     	margin-top: 0px;
+	}
+	
+	.topmain div {
+		width: 400px;
 	}
 }
 
@@ -107,6 +105,9 @@ html,body {
 	}
 	.navbar-fixed-top {
     	margin-bottom: 0px;
+	}
+	.topmain div {
+		width: auto;
 	}
 }
 
