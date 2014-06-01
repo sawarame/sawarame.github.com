@@ -42,7 +42,7 @@ html,body {
 }
 
 .topmain {
-	padding: 200px 0 300px;
+	padding: 150px 0 220px;
 	color: #FFFFFF;
 	text-shadow: 1px 1px 3px #000; 
 }
@@ -53,6 +53,10 @@ html,body {
 
 .topmain div {
 	width: 500px;
+}
+
+.topmain a {
+	color: #7fdae7;
 }
 
 .paper {

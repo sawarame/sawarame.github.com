@@ -131,6 +131,13 @@
 		 */
 		changeImage : function(index)
 		{
+			// クローンが既に存在すれば何もしない
+			if(this.find('.' + this.settings.cloneClassName).size() > 0)
+			{
+				methods.log.apply(this, ['切替中に切替えはできません。']);
+				return;
+			}
+				
 			// クローンを作成し、要素の裏側に配置
 			var child1 = methods.makeClone.apply(this);
 			methods.setImage.apply(child1, [methods.getImage.apply(this)]);
@@ -298,7 +305,7 @@
 		}
 		else
 		{
-			alert('Method ' +  method + ' does not exist on jQuery.tooltip');
+			alert('Method ' +  method + ' does not exist on jquery.easybg');
 		}
 	}
 	
