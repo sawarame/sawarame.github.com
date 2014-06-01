@@ -1,6 +1,6 @@
 /**
  * easyscrl ver 1.0.0
- * IDへのリンクをスムーズにscrollさせる
+ * IDへのリンクをぬるっとscrollさせる
  *
  * written by sawarame 鰆目 靖士
  * http://sawara.me/

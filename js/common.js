@@ -15,7 +15,7 @@ $(window).load(function()
 			'http://sawara.me/img/th_P8312333.jpg'
 		],
 		interval: 15000,
-		speed: 3000,
+		speed: 1500,
 		initIndex : 0,
 		ignoreError : true,
 		debug : false
