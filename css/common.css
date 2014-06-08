@@ -55,6 +55,11 @@ html,body {
 	width: 500px;
 }
 
+.topmain p {
+	font-size: 100%;
+	line-height: 150%;
+}
+
 .topmain a {
 	color: #7fdae7;
 }

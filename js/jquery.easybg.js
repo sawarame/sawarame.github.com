@@ -81,6 +81,7 @@
 						methods.log.apply($this, ['全画像の読み込み完了しましたので処理を開始します。']);
 						// 初期画像を表示
 						methods.changeImage.apply($this, [$this.settings.initIndex]);
+						//methods.setImage.apply($this, [$this.settings.initIndex]);
 						
 						var timer = null;
 						timer = setInterval(function()
