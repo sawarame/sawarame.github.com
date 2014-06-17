@@ -1,5 +1,5 @@
 /**
- * easybg ver 1.0.1
+ * easybg ver 1.0.2
  * 指定した背景画像を自動で切り替えるjQueryプラグイン
  *
  * written by sawarame 鰆目 靖士
@@ -20,7 +20,13 @@
 				var data = $this.data('easybg');
 				if(!data)
 				{
+					// メンバ変数初期化
 					$this.settings = $.extend(defaults, options);
+					
+					// 現在のインデックス
+					$this.workFlg = true;
+					$this.currentIndex = $this.settings.initIndex;
+					
 					// 画像名が設定されていなければ何もしない
 					if($this.settings.images === null)
 					{
@@ -80,15 +86,36 @@
 					{
 						methods.log.apply($this, ['全画像の読み込み完了しましたので処理を開始します。']);
 						// 初期画像を表示
-						methods.changeImage.apply($this, [$this.settings.initIndex]);
-						//methods.setImage.apply($this, [$this.settings.initIndex]);
+						methods.changeImage.apply($this, [$this.currentIndex]);
+						//methods.setImage.apply($this, [$this.currentIndex]);
 						
 						var timer = null;
 						timer = setInterval(function()
 						{
-							if($this.settings.work)
+							if($this.workFlg)
 							{
-								var index = Math.floor(Math.random() * $this.settings.images.length);
+								var index = 0;
+								switch($this.settings.changeMode)
+								{
+									case 'random':
+										do
+										{
+											index = Math.floor(Math.random() * $this.settings.images.length);
+										}
+										while($this.settings.images.length != 1 && index == $this.currentIndex);
+										$this.currentIndex = index;
+										break;
+										
+									case 'normal':
+									default:
+										if(++$this.currentIndex >= $this.settings.images.length)
+										{
+											$this.currentIndex = 0;
+										}
+										index = $this.currentIndex;
+										break;
+								}
+								
 								methods.changeImage.apply($this, [index]);
 							}
 						}, $this.settings.interval);
@@ -169,7 +196,7 @@
 				}
 			);
 			
-			methods.log.apply(this, ['"' + this.settings.images[index] + '"に切替']);
+			methods.log.apply(this, [index + ':"' + this.settings.images[index] + '"に切替']);
 		},
 		/**
 		 * 要素のクローンを作成し要素に被せる
@@ -248,7 +275,7 @@
 		 */
 		stop : function()
 		{
-			this.settings.work = false;
+			this.workFlg = false;
 			methods.log.apply(this, ['処理を一時停止']);
 		},
 		/**
@@ -256,7 +283,7 @@
 		 */
 		start : function()
 		{
-			this.settings.work = true;
+			this.workFlg = true;
 			methods.log.apply(this, ['処理を再開']);
 		},
 		/**
@@ -286,14 +313,15 @@
 		images : null,
 		interval : 30000, // 30秒
 		speed : 1000, // 1秒
+		ignoreError : false,
+		changeMode : 'normal', // normal or random
+		
 		initIndex : 0,
-		work : true, 
 		cloneClassId : null,
 		cloneClassName : 'easybgClone',
-		ignoreError : false,
 		debug : false
 	}
-	
+
 	$.fn.easybg = function(method)
 	{
 		if(methods[method])

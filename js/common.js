@@ -14,10 +14,11 @@ $(window).load(function()
 			'http://sawara.me/img/th_P8111986.jpg', 
 			'http://sawara.me/img/th_P8312333.jpg'
 		],
-		interval: 15000,
-		speed: 1500,
+		interval: 10000,
+		speed: 1000,
 		initIndex : 0,
 		ignoreError : true,
+		changeMode : 'random', 
 		debug : false
 	});
 	
