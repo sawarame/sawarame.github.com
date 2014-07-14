@@ -12,7 +12,9 @@ $(window).load(function()
 			'http://sawara.me/img/th_P5253029.jpg', 
 			'http://sawara.me/img/th_P5253043.jpg', 
 			'http://sawara.me/img/th_P8111986.jpg', 
-			'http://sawara.me/img/th_P8312333.jpg'
+			'http://sawara.me/img/th_P8312333.jpg',
+			'http://sawara.me/img/th_P4161517.jpg',
+			'http://sawara.me/img/th_P4161534.jpg'
 		],
 		interval: 10000,
 		speed: 1000,
