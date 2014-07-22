@@ -1,5 +1,5 @@
 /**
- * easybg ver 1.0.2
+ * easybg ver 1.0.3
  * 指定した背景画像を自動で切り替えるjQueryプラグイン
  *
  * written by sawarame 鰆目 靖士
@@ -18,126 +18,129 @@
 			{
 				var $this = $(this);
 				var data = $this.data('easybg');
-				if(!data)
+				if(data)
 				{
-					// メンバ変数初期化
-					$this.settings = $.extend(defaults, options);
-					
-					// 現在のインデックス
-					$this.workFlg = true;
-					$this.currentIndex = $this.settings.initIndex;
-					
-					// 画像名が設定されていなければ何もしない
-					if($this.settings.images === null)
-					{
-						return true;
-					}
-					// 配列でなければ配列にする
-					if(!($this.settings.images instanceof Array))
-					{
-						$this.settings.images = [$this.settings.images];
-					}
-					
-					// 画像を先読みする
-					var promises = [];
-					$.each($this.settings.images, function()
-					{
-						var imgFileName = this;
-						var img = new Image();
-						var defer = $.Deferred();
-						// 画像読み込み成功時
-						img.onload = function()
-						{
-							methods.log.apply($this, ['"' + this.src + '"の読み込み成功']);
-							defer.resolve();
-							defer = null;
-						};
-						// 画像読み込み失敗
-						img.onerror = function()
-						{
-							methods.error.apply($this, ['"' + this.src + '"の読み込み失敗']);
-							// エラーを無視する場合
-							if($this.settings.ignoreError)
-							{
-								// 画像配列から対象の要素を削除
-								for(var i = 0; i < $this.settings.images.length; i++)
-								{
-									var reg = new RegExp($this.settings.images[i] + "$");
-									if(this.src.match(reg))
-									{
-										methods.log.apply($this, ['"' + this.src + '"の設定を解除します。']);
-										$this.settings.images.splice(i,1);
-									}
-								}
-								defer.resolve();
-							}
-							else
-							{
-								defer.reject();
-							}
-							defer = null;
-						};
-						img.src = imgFileName;
-						promises.push(defer.promise());
-					});
-					
-					// 画像の読み込みがすべて完了した時
-					$.when.apply(null, promises).then(function()
-					{
-						methods.log.apply($this, ['全画像の読み込み完了しましたので処理を開始します。']);
-						// 初期画像を表示
-						methods.changeImage.apply($this, [$this.currentIndex]);
-						//methods.setImage.apply($this, [$this.currentIndex]);
-						
-						var timer = null;
-						timer = setInterval(function()
-						{
-							if($this.workFlg)
-							{
-								var index = 0;
-								switch($this.settings.changeMode)
-								{
-									case 'random':
-										do
-										{
-											index = Math.floor(Math.random() * $this.settings.images.length);
-										}
-										while($this.settings.images.length != 1 && index == $this.currentIndex);
-										$this.currentIndex = index;
-										break;
-										
-									case 'normal':
-									default:
-										if(++$this.currentIndex >= $this.settings.images.length)
-										{
-											$this.currentIndex = 0;
-										}
-										index = $this.currentIndex;
-										break;
-								}
-								
-								methods.changeImage.apply($this, [index]);
-							}
-						}, $this.settings.interval);
-						
-						// windowからフォーカスが外れた時は処理をしない様にする
-						$(window).blur(function()
-						{
-							methods.stop.apply($this);
-						});
-						
-						// windowにフォーカスが戻ってきたら処理を再開
-						$(window).focus(function()
-						{
-							methods.start.apply($this);
-						});
-					},
-					// 画像の読み込みが失敗した時
-					function()
-					{
-						methods.error.apply($this, ['画像の読み込みに失敗認め終了します。']);
-					});
+					return true;
 				}
+				// メンバ変数初期化
+				$this.settings = $.extend(defaults, options);
+				
+				// 現在のインデックス
+				$this.workFlg = true;
+				$this.currentIndex = $this.settings.initIndex;
+				
+				// 画像名が設定されていなければ何もしない
+				if($this.settings.images === null)
+				{
+					return true;
+				}
+				// 配列でなければ配列にする
+				if(!($this.settings.images instanceof Array))
+				{
+					$this.settings.images = [$this.settings.images];
+				}
+				
+				// 画像を先読みする
+				var promises = [];
+				$.each($this.settings.images, function()
+				{
+					var imgFileName = this;
+					var img = new Image();
+					var defer = $.Deferred();
+					// 画像読み込み成功時
+					img.onload = function()
+					{
+						methods.log.apply($this, ['"' + this.src + '"の読み込み成功']);
+						defer.resolve();
+						defer = null;
+					};
+					// 画像読み込み失敗
+					img.onerror = function()
+					{
+						methods.error.apply($this, ['"' + this.src + '"の読み込み失敗']);
+						// エラーを無視する場合
+						if($this.settings.ignoreError)
+						{
+							// 画像配列から対象の要素を削除
+							for(var i = 0; i < $this.settings.images.length; i++)
+							{
+								var reg = new RegExp($this.settings.images[i] + "$");
+								if(this.src.match(reg))
+								{
+									methods.log.apply($this, ['"' + this.src + '"の設定を解除します。']);
+									$this.settings.images.splice(i,1);
+								}
+							}
+							defer.resolve();
+						}
+						else
+						{
+							defer.reject();
+						}
+						defer = null;
+					};
+					img.src = imgFileName;
+					promises.push(defer.promise());
+				});
+				
+				// 画像の読み込みがすべて完了した時
+				$.when.apply(null, promises).then(function()
+				{
+					methods.log.apply($this, ['全画像の読み込み完了しましたので処理を開始します。']);
+					// 初期画像を表示
+					methods.changeImage.apply($this, [$this.currentIndex]);
+					//methods.setImage.apply($this, [$this.currentIndex]);
+					
+					var timer = null;
+					timer = setInterval(function()
+					{
+						if($this.workFlg)
+						{
+							var index = 0;
+							switch($this.settings.changeMode)
+							{
+								case 'random':
+									do
+									{
+										index = Math.floor(Math.random() * $this.settings.images.length);
+									}
+									while($this.settings.images.length != 1 && index == $this.currentIndex);
+									$this.currentIndex = index;
+									break;
+									
+								case 'normal':
+								default:
+									if(++$this.currentIndex >= $this.settings.images.length)
+									{
+										$this.currentIndex = 0;
+									}
+									index = $this.currentIndex;
+									break;
+							}
+							
+							methods.changeImage.apply($this, [index]);
+						}
+					}, $this.settings.interval);
+					
+					// windowからフォーカスが外れた時は処理をしない様にする
+					$(window).blur(function()
+					{
+						methods.stop.apply($this);
+					});
+					
+					// windowにフォーカスが戻ってきたら処理を再開
+					$(window).focus(function()
+					{
+						methods.start.apply($this);
+					});
+				},
+				// 画像の読み込みが失敗した時
+				function()
+				{
+					methods.error.apply($this, ['画像の読み込みに失敗認め終了します。']);
+				});
+				
+				$this.data('easybg', {target : $this});
 			});
 		},
 		/**
@@ -148,9 +151,6 @@
 			return this.each(function()
 			{
 				var $this = $(this);
-				var data = $this.data('easybg');
-				$(window).unbind('.easybg');
-				data.easybg.remove();
 				$this.removeData('easybg');
 			});
 		},
@@ -177,10 +177,10 @@
 			methods.setImageUrl.apply(child2, [this.settings.images[index]]);
 			methods.setZIndex.apply(child2, [methods.getZIndex.apply(child1) - 1]);
 			this.prepend(child2);
-			
+
 			// 一旦要素の画像の設定を解除
 			methods.setImage.apply(this, ['none']);
-
+			
 			// 表側のクローンを透明に変更させる
 			var self = this;
 			child1.animate(
@@ -215,14 +215,11 @@
 			// クローンにclassを設定
 			child.addClass(this.settings.cloneClassName);
 			
-			// 元要素のpositionをrelativeにする
-			this.css('position', 'relative');
-			
 			// クローンを元要素に被せる
 			child.css({
-				position : 'absolute',
-				top : '0',
-				left : '0',
+				position : 'fixed',
+				top : this.offset().left,
+				left : this.offset().top,
 				width : this.outerWidth(),
 				height : this.outerHeight()
 			});

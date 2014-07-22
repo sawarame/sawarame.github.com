@@ -21,11 +21,21 @@ $(window).load(function()
 		initIndex : 0,
 		ignoreError : true,
 		changeMode : 'random', 
-		debug : false
+		debug : true
 	});
 	
 	$(".easyscrl").easyscrl({
 		marginTop: 50,
 		debug: false
+	});
+	
+	
+	$("#easymdialog").easymdialog({
+		title: 'vine',
+		debug: true
+	});
+	$('#openMdialog').click(function()
+	{
+		$("#easymdialog").easymdialog('open');
 	});
 });

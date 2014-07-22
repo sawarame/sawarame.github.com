@@ -1,5 +1,5 @@
 /**
- * easyscrl ver 1.0.0
+ * easyscrl ver 1.0.1
  * IDへのリンクをぬるっとscrollさせるjQueryプラグイン
  *
  * written by sawarame 鰆目 靖士
@@ -18,29 +18,32 @@
 			{
 				var $this = $(this);
 				var data = $this.data('easyscrl');
-				if(!data)
+				if(data)
 				{
-					$this.settings = $.extend(defaults, options);
-					
-					$this.click(function()
-					{
-						self = $(this);
-						methods.log.apply($this, [self.attr('href')]);
-						var target = $(self.attr('href'));
-						if(target.size() > 0)
-						{
-							var top = target.offset().top;
-							methods.log.apply($this, [top]);
-							// してした位置へスクロール
-							$('html,body').animate(
-								{scrollTop: (top - $this.settings.marginTop) },
-								$this.settings.speed,
-								$this.settings.easing
-							);
-						}
-						return false;
-					});
+					return true;
 				}
+				$this.settings = $.extend(defaults, options);
+				
+				$this.click(function()
+				{
+					self = $(this);
+					methods.log.apply($this, [self.attr('href')]);
+					var target = $(self.attr('href'));
+					if(target.size() > 0)
+					{
+						var top = target.offset().top;
+						methods.log.apply($this, [top]);
+						// してした位置へスクロール
+						$('html,body').animate(
+							{scrollTop: (top - $this.settings.marginTop) },
+							$this.settings.speed,
+							$this.settings.easing
+						);
+					}
+					return false;
+				});
+				
+				$this.data('easyscrl', {target : $this});
 			});
 		},
 		/**
@@ -51,9 +54,6 @@
 			return this.each(function()
 			{
 				var $this = $(this);
-				var data = $this.data('easyscrl');
-				$(window).unbind('.easyscrl');
-				data.easyscrl.remove();
 				$this.removeData('easyscrl');
 			});
 		},
