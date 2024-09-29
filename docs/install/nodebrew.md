@@ -4,6 +4,10 @@
 
 # nodebrew
 
+nodeのバージョン管理ツール
+
+[GitHub](https://github.com/hokaccha/nodebrew)
+
 homebrewでインストールします。
 ```bash
 brew install nodebrew
