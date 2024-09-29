@@ -7,14 +7,14 @@
         <lastBuildDate>Sat, 28 Sep 2024 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
-        <language>en</language>
+        <language>ja</language>
         <item>
             <title><![CDATA[Greetings!]]></title>
             <link>https://sawarame.github.io/blog/greetings</link>
             <guid>https://sawarame.github.io/blog/greetings</guid>
             <pubDate>Sat, 28 Sep 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Tes]]></description>
-            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tes">Tes<a href="https://sawarame.github.io/blog/greetings#tes" class="hash-link" aria-label="Direct link to Tes" title="Direct link to Tes">​</a></h2>]]></content:encoded>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tes">Tes<a href="https://sawarame.github.io/blog/greetings#tes" class="hash-link" aria-label="Tes への直接リンク" title="Tes への直接リンク">​</a></h2>]]></content:encoded>
         </item>
     </channel>
 </rss>
