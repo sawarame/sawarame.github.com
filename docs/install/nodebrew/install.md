@@ -1,12 +1,16 @@
 ---
-sidebar_position: 3
+sidebar_position: 1
 ---
 
-# nodebrew
+# Install and setup
+
+## About nodebrew
 
 nodeのバージョン管理ツール
 
 [GitHub](https://github.com/hokaccha/nodebrew)
+
+## Install
 
 homebrewでインストールします。
 ```bash
@@ -23,6 +27,10 @@ nodebrew setup
 # for nodebrew
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 ```
+
+## Setup
+
+### Install Node
 
 使用可能なnodeのバージョンを確認
 ```bash

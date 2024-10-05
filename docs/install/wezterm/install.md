@@ -2,15 +2,21 @@
 sidebar_position: 2
 ---
 
-# WezTerm
+# Install and setup
+
+## About WezTerm
 
 ターミナルエミュレーター
+
+## Install
 
 homebrew経由でインストール
 
 ```bash
 brew install wezterm
 ```
+
+## Setup
 
 設定ファイル作成
 

@@ -1,11 +1,16 @@
 ---
-sidebar_position: 3
+sidebar_position: 1
 ---
 
-# jEnv
+# Install and setup
+
+## About jEnv
+
 Javaのバージョン管理ツール
 
 [GitHub](https://github.com/jenv/jenv)
+
+## Install
 
 homebrewでインストール
 
@@ -19,12 +24,18 @@ brew install jenv
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
 ```
- 
-``` もしくは下記コマンドを実行
+
+もしくは下記コマンドを実行
+
+```
 echo '# for jenv' >> ~/.zshrc
 echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.zshrc
 echo 'eval "$(jenv init -)"' >> ~/.zshrc
 ```
+
+## Setup
+
+### Instal Java
 
 OpenJDKインストール
 ```bash
@@ -37,7 +48,8 @@ jEnvに追加
 jenv add /Library/Java/JavaVirtualMachines/openjdk-21.jdk/Contents/Home
 ```
 
-追加するJavaのディレクトリは下記コマンドで確認できます。
+追加するJavaのディレクトリは下記コマンドで確認できる
+
 ```bash
 /usr/libexec/java_home -V
 ```

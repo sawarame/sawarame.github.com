@@ -44,3 +44,10 @@ VisualStudioCodeの基本設定
 プロジェクトマネージャー
 
 ![project_manager](./img/project_manager.png)
+
+
+### GitLens
+
+![git_lens
+](./img/git_lens
+.png)
