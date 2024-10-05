@@ -74,9 +74,15 @@ const config: Config = {
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'installSidebar',
           position: 'left',
-          label: 'Tutorial',
+          label: 'Install notes',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'cheatsheetSidebar',
+          position: 'left',
+          label: 'Cheat sheets',
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
@@ -93,8 +99,8 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
-              label: 'Tutorial',
-              to: '/docs/intro',
+              label: 'Install notes',
+              to: '/docs/install',
             },
           ],
         },

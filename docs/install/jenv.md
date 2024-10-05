@@ -1,11 +1,13 @@
 ---
-
+sidebar_position: 3
 ---
 
 # jEnv
 Javaのバージョン管理ツール
 
 [GitHub](https://github.com/jenv/jenv)
+
+homebrewでインストール
 
 ```bash
 brew install jenv
@@ -65,6 +67,3 @@ jEnvから削除する場合
 ```bash
 brew remove 21.0
 ```
-
-j
-
