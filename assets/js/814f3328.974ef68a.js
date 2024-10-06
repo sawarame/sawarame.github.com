@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunksawarame_github_com=self.webpackChunksawarame_github_com||[]).push([[7472],{5513:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Greetings!","permalink":"/blog/greetings","unlisted":false,"date":"2024-09-28T00:00:00.000Z"}]}')}}]);
