@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Install and setup
 
-## About Prezto?
+## About Prezto
 
 zsh設定フレームワーク
 

@@ -4,12 +4,16 @@ sidebar_position: 1
 
 # Install and setup
 
+# About Visual Studio Code
+
+IDE
+
 # Install
 
 homebrewでインストール
 
 ```bash
-brew search visual-studio-code
+brew install visual-studio-code
 ```
 
 ## Setup
@@ -46,8 +50,12 @@ VisualStudioCodeの基本設定
 ![project_manager](./img/project_manager.png)
 
 
+### Material Icon Theme
+
+プロジェクトツリーのアイコンの見た目をよくしてくれる
+
+![material_icon_theme](./img/material_icon_theme.png)
+
 ### GitLens
 
-![git_lens
-](./img/git_lens
-.png)
+![git_lens](./img/git_lens.png)
