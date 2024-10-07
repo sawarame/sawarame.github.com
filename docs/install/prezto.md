@@ -1,10 +1,8 @@
 ---
-sidebar_position: 1
+sidebar_position: 2.1
 ---
 
-# Install and setup
-
-## About Prezto
+# Prezto
 
 zsh設定フレームワーク
 

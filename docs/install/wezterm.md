@@ -2,9 +2,7 @@
 sidebar_position: 2
 ---
 
-# Install and setup
-
-## About WezTerm
+# WezTerm
 
 ターミナルエミュレーター
 

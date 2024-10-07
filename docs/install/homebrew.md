@@ -2,9 +2,7 @@
 sidebar_position: 1
 ---
 
-# Install and setup
-
-## About Homebrew
+# Homebrew
 
 macOS用のパッケージ管理ツール
 

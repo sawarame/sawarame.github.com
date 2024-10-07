@@ -1,10 +1,8 @@
 ---
-sidebar_position: 1
+sidebar_position: 3
 ---
 
-# Install and setup
-
-## About nodebrew
+# nodebrew
 
 nodeのバージョン管理ツール
 
