@@ -20,6 +20,6 @@ macOS用のパッケージ管理ツール
 
 ```zsh
 echo >> /Users/${USER}/.zprofile
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/work/.zprofile
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/${USER}/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
 ```
