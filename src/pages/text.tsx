@@ -10,6 +10,10 @@ import {
   FormLabel,
 } from '@mui/material';
 
+const createSavedText = (text: string[]) => {
+  return text.join(`\n--------------------\n`);
+};
+
 /**
  * プレーンテキスト作業場本体.
  */
@@ -36,6 +40,7 @@ export default function Text(): JSX.Element {
                   multiline
                   fullWidth
                   value={state.workText} 
+                  minRows={10}
                   onChange={(e) => {
                     setState({...state, workText: e.target.value});
                   }}
@@ -57,6 +62,14 @@ export default function Text(): JSX.Element {
                   <Button
                     variant="outlined"
                     onClick={() => {
+                      if (state.workText == "") {
+                        return;
+                      }
+                      navigator.clipboard.writeText(state.workText);
+                    }}>コピー</Button>
+                  <Button
+                    variant="outlined"
+                    onClick={() => {
                       setState({
                         ...state,
                         workText: "",
@@ -73,9 +86,15 @@ export default function Text(): JSX.Element {
                   disabled 
                   multiline
                   fullWidth
-                  value={state.savedTexts.join(`\n--------------------\n`)}
+                  minRows={10}
+                  value={createSavedText(state.savedTexts)}
                 />
                 <Stack spacing={2} direction="row">  
+                  <Button
+                    variant="outlined"
+                    onClick={(e) => {
+                      navigator.clipboard.writeText(createSavedText(state.savedTexts));
+                    }}>コピー</Button>
                   <Button
                     variant="outlined"
                     onClick={(e) => {
