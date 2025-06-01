@@ -10,8 +10,48 @@ import {
   FormLabel,
 } from '@mui/material';
 
-const createSavedText = (text: string[]) => {
-  return text.join(`\n--------------------\n`);
+/**
+ * 保存するテキストの形式.
+ */
+type SavedText = {
+  date: Date,
+  text: string,
+};
+
+/**
+ * 保存したテキストを文字列形式で作成する.
+ * @param text 
+ * @returns 
+ */
+const createSavedText = (text: SavedText[]) => {
+  let savedText = "";
+  text.forEach((v) => {
+    savedText += `[${v.date.toLocaleString()}] ---------------------\n${v.text}\n\n`;
+  });
+  return savedText;
+};
+
+/**
+ * テキストをダウンロードする.
+ * @param text 
+ */
+const downloadText = (text: string) => {
+  var date = new Date();
+  const pad = (n: number) => n.toString().padStart(2, '0');
+  
+  const year = date.getFullYear();
+  const month = pad(date.getMonth() + 1);
+  const day = pad(date.getDate());
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+  const seconds = pad(date.getSeconds());
+
+  const blob = new Blob([text], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${year}${month}${day}${hours}${minutes}${seconds}.txt`;
+  a.click();
 };
 
 /**
@@ -19,7 +59,10 @@ const createSavedText = (text: string[]) => {
  */
 export default function Text(): JSX.Element {
 
-  const [state, setState] = useState({
+  const [state, setState] = useState<{
+    workText: string, 
+    savedTexts: SavedText[],
+  }>({
     workText: '',
     savedTexts: [],
   });
@@ -52,11 +95,14 @@ export default function Text(): JSX.Element {
                       if (state.workText == "") {
                         return;
                       }
-                      var tmpTexts = state.savedTexts;
-                      tmpTexts.unshift(state.workText);
+                      var savedTexts = state.savedTexts;
+                      savedTexts.unshift({
+                        date: new Date(),
+                        text: state.workText.trim(),
+                      });
                       setState({
                         ...state,
-                        savedTexts: tmpTexts,
+                        savedTexts,
                       });
                     }}>保存</Button>
                   <Button
@@ -89,7 +135,12 @@ export default function Text(): JSX.Element {
                   minRows={10}
                   value={createSavedText(state.savedTexts)}
                 />
-                <Stack spacing={2} direction="row">  
+                <Stack spacing={2} direction="row">
+                  <Button
+                    variant="outlined"
+                    onClick={(e) => {
+                      downloadText(createSavedText(state.savedTexts));
+                    }}>ダウンロード</Button>
                   <Button
                     variant="outlined"
                     onClick={(e) => {
