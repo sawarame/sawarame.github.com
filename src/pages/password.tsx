@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Layout from '@theme/Layout';
 import MuiTheme from '@site/src/components/MuiTheme';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import {
   Container,
   Grid2 as Grid,
@@ -89,7 +90,9 @@ const PasswordTextField = ({
  * パスワードジェネレーター本体.
  */
 export default function Password(): JSX.Element {
-   
+  const title = 'パスワードジェネレーター';
+  const description = '条件を指定してパスワードを作成できます。ブラウザ上で動作するため、作成したパスワードは安全に利用できます。';
+  const {siteConfig} = useDocusaurusContext();
   const [state, setState] = useState({
     filterStr: '',
     length: 16,
@@ -99,13 +102,16 @@ export default function Password(): JSX.Element {
   });
 
   return (
-    <Layout>
+    <Layout
+      title={`${title} ${siteConfig.title}`}
+      description={description}
+    >
       <MuiTheme>
         <Container maxWidth='xl' sx={{marginTop: 5, marginBottom: 5}}>
           <Grid container spacing={2}>
             <Grid size={{ xs: 12, md: 12 }}>
-              <h1>パスワードジェネレーター</h1>
-              <p>条件を指定してパスワードを作成できます。ブラウザ上で動作するため、作成したパスワードは安全に利用できます。</p>
+              <h1>{title}</h1>
+              <p>{description}</p>
             </Grid>
             <Grid size={{ xs: 12, md: 4 }}>
               <TextField 

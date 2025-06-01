@@ -3,9 +3,9 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'sawarameのページ',
+  title: 'sawara.me',
   tagline: 'Dinosaurs are cool',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/sawara.ico',
 
   // Set the production url of your site here
   url: 'https://sawarame.github.io',
@@ -66,10 +66,10 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'sawarameのページ',
+      title: 'sawara.me',
       logo: {
-        alt: 'sawarameのページのロゴ',
-        src: 'img/logo.svg',
+        alt: 'sawara.meのロゴ',
+        src: 'img/sawara.png',
       },
       items: [
         {
@@ -109,10 +109,23 @@ const config: Config = {
           ],
         },
         {
+          title: 'Tools',
+          items: [
+            {
+              label: 'パスワードジェネレーター',
+              to: '/password',
+            },
+            {
+              label: 'プレーンテキスト作業場',
+              to: '/text',
+            },
+          ],
+        },
+        {
           title: 'SNS',
           items: [
             {
-              label: 'Twitter',
+              label: 'X',
               href: 'https://twitter.com/sawarame',
             },
           ],

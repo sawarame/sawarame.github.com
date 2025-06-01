@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Layout from '@theme/Layout';
 import MuiTheme from '@site/src/components/MuiTheme';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import {
   Container,
   Grid2 as Grid,
@@ -69,6 +70,10 @@ const downloadText = (text: string) => {
  */
 export default function Text(): JSX.Element {
 
+  const title = 'プレーンテキスト作業場';
+  const description = 'プレーンテキストで文章を編集するためのツールです。保存したテキストはブラウザのローカルストレージに保存されます。';
+  const {siteConfig} = useDocusaurusContext();
+
   const [state, setState] = useState<{
     workText: string, 
     savedTexts: SavedText[],
@@ -99,13 +104,16 @@ export default function Text(): JSX.Element {
   }, [state]);
 
   return (
-    <Layout>
+    <Layout
+      title={`${title} ${siteConfig.title}`}
+      description={description}
+    >
       <MuiTheme>
         <Container maxWidth='xl' sx={{marginTop: 5, marginBottom: 5}}>
           <Grid container spacing={2}>
             <Grid size={{ xs: 12, md: 12 }}>
-              <h1>プレーンテキスト作業場</h1>
-              <p>プレーンテキストで文章を編集するためのツールです。保存したテキストはブラウザのローカルストレージに保存されます。</p>
+              <h1>{title}</h1>
+              <p>{description}</p>
             </Grid>
             <Grid size={{ xs: 12, md: 6 }} spacing={2}>
               <FormLabel>作業場</FormLabel>
