@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Layout from '@theme/Layout';
 import MuiTheme from '@site/src/components/MuiTheme';
 import {
@@ -18,6 +18,8 @@ type SavedText = {
   text: string,
 };
 
+const pad = (n: number) => n.toString().padStart(2, '0');
+
 /**
  * 保存したテキストを文字列形式で作成する.
  * @param text 
@@ -26,7 +28,16 @@ type SavedText = {
 const createSavedText = (text: SavedText[]) => {
   let savedText = "";
   text.forEach((v) => {
-    savedText += `[${v.date.toLocaleString()}] ---------------------\n${v.text}\n\n`;
+    
+    const year = v.date.getFullYear();
+    const month = pad(v.date.getMonth() + 1);
+    const day = pad(v.date.getDate());
+    const hours = pad(v.date.getHours());
+    const minutes = pad(v.date.getMinutes());
+    const seconds = pad(v.date.getSeconds());
+    var date = `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
+
+    savedText += `[${date}] ---------------------\n${v.text}\n\n`;
   });
   return savedText;
 };
@@ -37,7 +48,6 @@ const createSavedText = (text: SavedText[]) => {
  */
 const downloadText = (text: string) => {
   var date = new Date();
-  const pad = (n: number) => n.toString().padStart(2, '0');
   
   const year = date.getFullYear();
   const month = pad(date.getMonth() + 1);
@@ -67,6 +77,27 @@ export default function Text(): JSX.Element {
     savedTexts: [],
   });
 
+  // ローカルストレージから保存したテキストを読み込む
+  useEffect(() => {
+    const loadedTexts = localStorage.getItem("SavedTexts");
+    if (loadedTexts !== null) {
+      var persed = JSON.parse(loadedTexts) as {date: string; text: string;}[]; 
+      var savedTexts = persed.map(v => ({
+        ...v,
+        date: new Date(v.date),
+      } as SavedText));
+      setState({
+        ...state,
+        savedTexts,
+      });
+    }
+  }, []);
+
+  // ローカルストレージにテキストを保存する
+  useEffect(() => {
+    localStorage.setItem("SavedTexts", JSON.stringify(state.savedTexts));
+  }, [state]);
+
   return (
     <Layout>
       <MuiTheme>
@@ -74,7 +105,7 @@ export default function Text(): JSX.Element {
           <Grid container spacing={2}>
             <Grid size={{ xs: 12, md: 12 }}>
               <h1>プレーンテキスト作業場</h1>
-              <p>プレーンテキストで文章を編集するためのツールです。ブラウザ上で動作するため、ページを閉じると保存したテキストも削除されます。</p>
+              <p>プレーンテキストで文章を編集するためのツールです。保存したテキストはブラウザのローカルストレージに保存されます。</p>
             </Grid>
             <Grid size={{ xs: 12, md: 6 }} spacing={2}>
               <FormLabel>作業場</FormLabel>
@@ -102,6 +133,7 @@ export default function Text(): JSX.Element {
                       });
                       setState({
                         ...state,
+                        workText: '',
                         savedTexts,
                       });
                     }}>保存</Button>
@@ -113,14 +145,6 @@ export default function Text(): JSX.Element {
                       }
                       navigator.clipboard.writeText(state.workText);
                     }}>コピー</Button>
-                  <Button
-                    variant="outlined"
-                    onClick={() => {
-                      setState({
-                        ...state,
-                        workText: "",
-                      });
-                    }}>クリア</Button>
                 </Stack>
               </Stack>
             </Grid>
