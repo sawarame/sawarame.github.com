@@ -8,7 +8,7 @@ const config: Config = {
   favicon: 'img/sawara.ico',
 
   // Set the production url of your site here
-  url: 'https://sawarame.github.io',
+  url: 'https://sawara.me',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -37,8 +37,8 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/sawarame/sawarame.github.com/tree/master/',
+          // editUrl:
+          //   'https://github.com/sawarame/sawarame.github.com/tree/master/',
         },
         blog: {
           showReadingTime: true,
@@ -48,8 +48,8 @@ const config: Config = {
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/sawarame/sawarame.github.com/tree/master/',
+          // editUrl:
+          //   'https://github.com/sawarame/sawarame.github.com/tree/master/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
