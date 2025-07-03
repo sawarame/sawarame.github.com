@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>sawara.me Blog</title>
-        <link>https://sawarame.github.io/blog</link>
+        <link>https://sawara.me/blog</link>
         <description>sawara.me Blog</description>
         <lastBuildDate>Sat, 28 Sep 2024 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
@@ -10,11 +10,11 @@
         <language>ja</language>
         <item>
             <title><![CDATA[Greetings!]]></title>
-            <link>https://sawarame.github.io/blog/greetings</link>
-            <guid>https://sawarame.github.io/blog/greetings</guid>
+            <link>https://sawara.me/blog/greetings</link>
+            <guid>https://sawara.me/blog/greetings</guid>
             <pubDate>Sat, 28 Sep 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Tes]]></description>
-            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tes">Tes<a href="https://sawarame.github.io/blog/greetings#tes" class="hash-link" aria-label="Tes への直接リンク" title="Tes への直接リンク">​</a></h2>]]></content:encoded>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tes">Tes<a href="https://sawara.me/blog/greetings#tes" class="hash-link" aria-label="Tes への直接リンク" title="Tes への直接リンク">​</a></h2>]]></content:encoded>
         </item>
     </channel>
 </rss>

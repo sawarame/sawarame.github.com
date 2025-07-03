@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://sawarame.github.io/blog</id>
+    <id>https://sawara.me/blog</id>
     <title>sawara.me Blog</title>
     <updated>2024-09-28T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://sawarame.github.io/blog"/>
+    <link rel="alternate" href="https://sawara.me/blog"/>
     <subtitle>sawara.me Blog</subtitle>
-    <icon>https://sawarame.github.io/img/sawara.ico</icon>
+    <icon>https://sawara.me/img/sawara.ico</icon>
     <entry>
         <title type="html"><![CDATA[Greetings!]]></title>
-        <id>https://sawarame.github.io/blog/greetings</id>
-        <link href="https://sawarame.github.io/blog/greetings"/>
+        <id>https://sawara.me/blog/greetings</id>
+        <link href="https://sawara.me/blog/greetings"/>
         <updated>2024-09-28T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Tes]]></summary>
-        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tes">Tes<a href="https://sawarame.github.io/blog/greetings#tes" class="hash-link" aria-label="Tes への直接リンク" title="Tes への直接リンク">​</a></h2>]]></content>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tes">Tes<a href="https://sawara.me/blog/greetings#tes" class="hash-link" aria-label="Tes への直接リンク" title="Tes への直接リンク">​</a></h2>]]></content>
         <author>
             <name>Yasushi Sawarame</name>
             <uri>https://github.comsawarame/</uri>
