@@ -17,3 +17,20 @@ hola:
   label: Hola
   permalink: /hola
   description: Hola tag description
+
+
+keyboard:
+  label: 自作キーボード
+  permalink: /keyboard
+
+keyball44:
+  label: Keyball44
+  permalink: /keyball44
+
+seasidex:
+  label: SeaSideX
+  permalink: /seasidex
+
+seaside44:
+  label: SeaSide44
+  permalink: /seaside44
