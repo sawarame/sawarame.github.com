@@ -5,7 +5,7 @@
 <meta name="generator" content="Docusaurus v3.8.1">
 <title data-rh="true">「SeaSide44」タグの記事が1件件あります | sawara.me</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://sawara.me/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://sawara.me/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://sawara.me/blog/tags/seaside44"><meta data-rh="true" property="og:locale" content="ja"><meta data-rh="true" name="docusaurus_locale" content="ja"><meta data-rh="true" name="docsearch:language" content="ja"><meta data-rh="true" property="og:title" content="「SeaSide44」タグの記事が1件件あります | sawara.me"><meta data-rh="true" name="docusaurus_tag" content="blog_tags_posts"><meta data-rh="true" name="docsearch:docusaurus_tag" content="blog_tags_posts"><link data-rh="true" rel="icon" href="/img/sawara.ico"><link data-rh="true" rel="canonical" href="https://sawara.me/blog/tags/seaside44"><link data-rh="true" rel="alternate" href="https://sawara.me/blog/tags/seaside44" hreflang="ja"><link data-rh="true" rel="alternate" href="https://sawara.me/blog/tags/seaside44" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="sawara.me RSS Feed">
 <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="sawara.me Atom Feed"><link rel="stylesheet" href="/assets/css/styles.38a1e016.css">
-<script src="/assets/js/runtime~main.cc31ca73.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.bac7038d.js" defer="defer"></script>
 <script src="/assets/js/main.59f21c6e.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -56,7 +56,7 @@
 <!-- -->→　上手くはんだ付けしないと、バッテリー装着時に干渉して上手く収まりません。また熱しすぎると被覆が溶けて見た目が汚くなるし、ショートの原因にもなりそう。</li>
 </ul>
 <p>という感じです。これらはすべて私がやらかしてしまったことです。</p>
-<p>これらさえ気をつけて作業をすれば、素人の私でも完成できましたので、難易度が高すぎるというわけではないでですが、はんだ付けや細かい作業に自信がない人は注意しておいた方がよさそうです。</p>
+<p>これらさえ気をつけて作業をすれば、素人の私でも完成できましたので、難易度が高すぎるというわけではないですが、はんだ付けや細かい作業に自信がない人は注意しておいた方がよさそうです。</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="省電力化の設定">省電力化の設定<a href="#省電力化の設定" class="hash-link" aria-label="省電力化の設定 への直接リンク" title="省電力化の設定 への直接リンク">​</a></h2>
 <p>ファームウェアの書き換えは<a href="https://github.com/hama-be/SeaSideX-documentation/blob/main/docs/buildguide.md#4-5-zmk%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%AE%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA%E3%81%A8%E3%83%93%E3%83%AB%E3%83%89%E6%96%B9%E6%B3%95" target="_blank" rel="noopener noreferrer">ビルドガイド</a>にある通りに行えばOKです。</p>
 <p>基本このまま使うとバッテリー持ちが悪いなと感じましたので、色々設定を変えて試してみます。</p>
@@ -79,7 +79,7 @@
 <p>左右両方のバッテリー情報を管理するようにしても、ホスト側で対応していなければ左右どちらかのバッテリー残量しか表示されない。基本右手側（中央側）の方が電池消耗は早いはずなので、右手側のみのバッテリー残量が表示できれば問題ない。</p>
 <p>左手側のバッテリー残量はLEDで判断する運用にするため、左側もバッテリー残量のLED表示対応追加。</p>
 <div class="language-diff codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockTitle_OeMC">SeaSide44_L.conf</div><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-diff codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">+ # 電源オン時のLEDインジケータの有効/無効</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+ CONFIG_RGBLED_WIDGET=y</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+ # バッテリー残量が30%未満の時黄色、20%未満の時赤色表示</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+ CONFIG_RGBLED_WIDGET_BATTERY_LEVEL_HIGH=30</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+ CONFIG_RGBLED_WIDGET_BATTERY_LEVEL_CRITICAL=10</span><br></span></code></pre></div></div>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="気付いたこととか">気付いたこととか<a href="#気付いたこととか" class="hash-link" aria-label="気付い  たこととか への直接リンク" title="気付いたこととか への直接リンク">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="気付いたこととか">気付いたこととか<a href="#気付いたこととか" class="hash-link" aria-label="気付いた  こととか への直接リンク" title="気付いたこととか への直接リンク">​</a></h2>
 <p>無線化をして当初の目的は達成できました。配線の煩わしさから解放され、マルチデバイスで快適に利用できるようになりました。</p>
 <p>実際に無線化してみて、当初は想定していなかった、メリットやデメリットをまとめてみたいと思います。</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="メリットよかったこと">メリット・よかったこと<a href="#メリットよかったこと" class="hash-link" aria-label="メリット・よかったこと への直接リンク" title="メリット・よかったこと への直接リンク">​</a></h3>
@@ -89,7 +89,7 @@
 <li><a href="https://nickcoutsos.github.io/keymap-editor/" target="_blank" rel="noopener noreferrer">ZMK Keypam Editor</a>でキーマップを編集して、そのままgit hubに連携できる<br>
 <!-- -->ファームウェアを書き換えてキーマップが元に戻ってしまうということがなくなった。QMKの時はファームウェア書き換え後、<a href="https://qmk018.remap-keys.app/" target="_blank" rel="noopener noreferrer">Remap</a>でキーマップを設定していた。</li>
 <li>最大レイヤ数が増えた<br>
-<!-- -->どこまで追加できるか試してないけど、QMKの時は6レイヤまでしか追加できなかったけど、それ以上追加しても問題なさそう。WINとMac用のレイヤを分けたりとか、柔軟な運用ができそう。QMKの時は左右で別々のキーマップを設定して対応してたりしてた  。</li>
+<!-- -->QMKの時は6レイヤまでしか追加できなかったけど、それ以上追加しても問題なさそう(どこまで追加できるか試してないけど)。WINとMac用のレイヤを分けたりとか、柔軟な運用ができそう。QMKの時は左右で別々のキーマップを設定して対応してたりしてた。</li>
 <li>USB接続でも動作する<br>
 <!-- -->Bluetoothの接続が不安定だったり、バッテリー電源がなくなった場合は、USBで接続すればUSB接続で動作する。USBとBluetooth両方接続した場合は、USB接続の方が優先される模様。</li>
 </ul>

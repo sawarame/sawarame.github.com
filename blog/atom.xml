@@ -57,7 +57,7 @@
 <!-- -->→　上手くはんだ付けしないと、バッテリー装着時に干渉して上手く収まりません。また熱しすぎると被覆が溶けて見た目が汚くなるし、ショートの原因にもなりそう。</li>
 </ul>
 <p>という感じです。これらはすべて私がやらかしてしまったことです。</p>
-<p>これらさえ気をつけて作業をすれば、素人の私でも完成できましたので、難易度が高すぎるというわけではないでですが、はんだ付けや細かい作業に自信がない人は注意しておいた方がよさそうです。</p>
+<p>これらさえ気をつけて作業をすれば、素人の私でも完成できましたので、難易度が高すぎるというわけではないですが、はんだ付けや細かい作業に自信がない人は注意しておいた方がよさそうです。</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="省電力化の設定">省電力化の設定<a href="https://sawara.me/blog/seaside44-build-log#%E7%9C%81%E9%9B%BB%E5%8A%9B%E5%8C%96%E3%81%AE%E8%A8%AD%E5%AE%9A" class="hash-link" aria-label="省電力化の設定 への直接リンク" title="省電力化の設定 への直接リンク">​</a></h2>
 <p>ファームウェアの書き換えは<a href="https://github.com/hama-be/SeaSideX-documentation/blob/main/docs/buildguide.md#4-5-zmk%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%AE%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA%E3%81%A8%E3%83%93%E3%83%AB%E3%83%89%E6%96%B9%E6%B3%95" target="_blank" rel="noopener noreferrer">ビルドガイド</a>にある通りに行えばOKです。</p>
 <p>基本このまま使うとバッテリー持ちが悪いなと感じましたので、色々設定を変えて試してみます。</p>
@@ -90,7 +90,7 @@
 <li><a href="https://nickcoutsos.github.io/keymap-editor/" target="_blank" rel="noopener noreferrer">ZMK Keypam Editor</a>でキーマップを編集して、そのままgit hubに連携できる<br>
 <!-- -->ファームウェアを書き換えてキーマップが元に戻ってしまうということがなくなった。QMKの時はファームウェア書き換え後、<a href="https://qmk018.remap-keys.app/" target="_blank" rel="noopener noreferrer">Remap</a>でキーマップを設定していた。</li>
 <li>最大レイヤ数が増えた<br>
-<!-- -->どこまで追加できるか試してないけど、QMKの時は6レイヤまでしか追加できなかったけど、それ以上追加しても問題なさそう。WINとMac用のレイヤを分けたりとか、柔軟な運用ができそう。QMKの時は左右で別々のキーマップを設定して対応してたりしてた。</li>
+<!-- -->QMKの時は6レイヤまでしか追加できなかったけど、それ以上追加しても問題なさそう(どこまで追加できるか試してないけど)。WINとMac用のレイヤを分けたりとか、柔軟な運用ができそう。QMKの時は左右で別々のキーマップを設定して対応してたりしてた。</li>
 <li>USB接続でも動作する<br>
 <!-- -->Bluetoothの接続が不安定だったり、バッテリー電源がなくなった場合は、USBで接続すればUSB接続で動作する。USBとBluetooth両方接続した場合は、USB接続の方が優先される模様。</li>
 </ul>
@@ -105,7 +105,7 @@
 <!-- -->ZMKになったからなのか、トラックボールの基盤が省電力版になったからなのか、スクロール動作が思ったように行かなくなり、スクロールし過ぎるというミス操作が増えてしまった。ファームウェアで調整できるかもしれないが、QMKの時はファームウェアを書き換えなくてもスクロールスピードの調整はできた。ZMKだとそういう操作が見当たらないので、いちいちファームウェアを書き換えて調整するしかなさそう。<br>
 <!-- -->この辺りは慣れてくれば気にならなくなってくるかも。</li>
 </ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="感想">感想<a href="https://sawara.me/blog/seaside44-build-log#%E6%84%9F%E6%83%B3" class="hash-link" aria-label="感��想 への直接リンク" title="感想 への直接リンク">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="感想">感想<a href="https://sawara.me/blog/seaside44-build-log#%E6%84%9F%E6%83%B3" class="hash-link" aria-label="感想 �への直接リンク" title="感想 への直接リンク">​</a></h2>
 <p>まだ使い始めて時間はたっていないですが、今のところ問題なく動作しており理想通りの形になってくれたのかなと思います。あとは省電力設定が効いて電池持ちが長くなれば最高です。</p>
 <p>今のところKeyball44サイズで無線化したいとなると、SeasideX一択になるのかなと思います。</p>
 <p>最後にSeasideXの開発・販売をしてくださった <a href="https://x.com/ybybybmh" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 1200 1227" style="vertical-align:middle;height:13px;width:13px" class="xSvg_y3PF"><path d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z"></path></svg>はま</a> さん、本当にありがとうございました！</p>]]></content>
