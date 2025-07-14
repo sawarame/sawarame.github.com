@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunksawarame_github_com=self.webpackChunksawarame_github_com||[]).push([[7472],{5513:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Keyball44\u3092\u5ff5\u9858\u306e\u7121\u7dda\u5316","permalink":"/blog/seaside44-build-log","unlisted":false,"date":"2025-07-14T00:00:00.000Z"}]}')}}]);

@@ -4,17 +4,116 @@
         <title>sawara.me Blog</title>
         <link>https://sawara.me/blog</link>
         <description>sawara.me Blog</description>
-        <lastBuildDate>Sat, 28 Sep 2024 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 14 Jul 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>ja</language>
         <item>
-            <title><![CDATA[Greetings!]]></title>
-            <link>https://sawara.me/blog/greetings</link>
-            <guid>https://sawara.me/blog/greetings</guid>
-            <pubDate>Sat, 28 Sep 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[Tes]]></description>
-            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tes">Tes<a href="https://sawara.me/blog/greetings#tes" class="hash-link" aria-label="Tes への直接リンク" title="Tes への直接リンク">​</a></h2>]]></content:encoded>
+            <title><![CDATA[Keyball44を念願の無線化]]></title>
+            <link>https://sawara.me/blog/seaside44-build-log</link>
+            <guid>https://sawara.me/blog/seaside44-build-log</guid>
+            <pubDate>Mon, 14 Jul 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[SeaSide44]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="SeaSide44" src="https://sawara.me/assets/images/IMG_1843@0.5x-dddf093b872abd4df9a8f870d899bb12.webp" width="1906" height="644" class="img_ev3q"></p>
+<p>Keyball44を無線化したお話です。</p>
+<p>無線化までの経緯や、省電力化のための試行錯誤を書きます。</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="なぜkeyball44を無線�化したかったのか">なぜKeyball44を無線化したかったのか<a href="https://sawara.me/blog/seaside44-build-log#%E3%81%AA%E3%81%9Ckeyball44%E3%82%92%E7%84%A1%E7%B7%9A%E5%8C%96%E3%81%97%E3%81%9F%E3%81%8B%E3%81%A3%E3%81%9F%E3%81%AE%E3%81%8B" class="hash-link" aria-label="なぜKeyball44を無線化したかったのか への直接リンク" title="なぜKeyball44を無線化したかったのか への直接リンク">​</a></h2>
+<p>主な理由は下記の通り。</p>
+<ul>
+<li>普段3台のデバイスを使用しており、USBケーブルを差し替えて使うのは面倒くさい</li>
+<li>デバイスのUSBポートを1つ消費してしまう</li>
+<li>卓上がケーブルでゴチャゴチャする</li>
+</ul>
+<p>これらを解消するためには無線化しかないですが、知識のない自分にとってはハードルが高い。<br>
+<!-- -->無線化されたトラックボール付き分割キーボードは既に販売されている物はありましたが、Keyball44のサイズ感の物はなさそうでした。</p>
+<ul>
+<li><a href="https://booth.pm/ja/items/5774326" target="_blank" rel="noopener noreferrer">torabo-tsuki トラックボール付き無線分割キーボードキット</a></li>
+<li><a href="https://booth.pm/ja/items/6010869" target="_blank" rel="noopener noreferrer">roBa 【トラックボール付きワイヤレス自作キーボードキット】</a></li>
+</ul>
+<p>ということで、無線化をほぼ諦めていたところこのような商品を発見。</p>
+<ul>
+<li><a href="https://seasideworks.booth.pm/items/6657043" target="_blank" rel="noopener noreferrer">SeaSideX【Keyball無線化キット】(旧SeaSide39)</a></li>
+</ul>
+<p>これは買うしかない、ということで迷わすポチりました。</p>
+<p><img decoding="async" loading="lazy" alt="SeaSide44" src="https://sawara.me/assets/images/IMG_1711@0.5x-edd89735bce33ad698403452ff894971.webp" width="2016" height="1104" class="img_ev3q"></p>
+<p>専用ケースも買ってしまった。</p>
+<p>そしてマイコン・バッテリーもそれぞれ2つずつ購入。</p>
+<ul>
+<li><a href="https://www.amazon.co.jp/dp/B09T9VVQG7" target="_blank" rel="noopener noreferrer">Seeed Studio XIAO nRF52840</a></li>
+<li><a href="https://www.amazon.co.jp/dp/B0CKRBTW8Z" target="_blank" rel="noopener noreferrer">DC 3.7V 220mAh 502025</a></li>
+</ul>
+<p>推奨バッテリーが売り切れてたので、サイズが同じものを独自で調べて買ったものになります。しかしこのバッテリーですが、<a href="https://github.com/hama-be/SeaSideX-documentation/blob/main/docs/buildguide.md#2-2-1-%E3%83%90%E3%83%83%E3%83%86%E3%83%AA%E3%83%BC%E3%81%AE%E9%81%B8%E3%81%B3%E6%96%B9%E3%81%A8%E6%B3%A8%E6%84%8F%E7%82%B9" target="_blank" rel="noopener noreferrer">極性が逆になっており、組み立て時に極性を逆にして取り付ける必要があります</a>。</p>
+<p>こんな感じで、ビルドガイドとは逆に基盤にコネクタをはんだ付け対応しました。</p>
+<img src="https://sawara.me/assets/images/IMG_1717@0.5x-30980784fb7a4699232c7b5aa47756d7.webp" alt="SeaSideX バッテリー極性" width="300">
+<p>以下無線化前のものをKeyball44、無線化後のものをSeaside44と呼んでいきます。</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="組み込み作業について">組み込み作業について<a href="https://sawara.me/blog/seaside44-build-log#%E7%B5%84%E3%81%BF%E8%BE%BC%E3%81%BF%E4%BD%9C%E6%A5%AD%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6" class="hash-link" aria-label="組み込み作業について への直接リンク" title="組み込み作業について への直接リンク">​</a></h2>
+<p>実際に無線化キットを組み込む作業ですが、Keyball44を組み立てる時より工程は少ないので短時間で完了します。しかし難易度はKeybaal44より高いと感じました。</p>
+<p>注意点としては、</p>
+<ul>
+<li>バッテリの極性（先述の通り）<br>
+<!-- -->→　極性を逆で接続すると、マイコンが壊れてしまいます。</li>
+<li>コンスルーピン用のスルーホールとマイコン用のスルーホールが近い<br>
+<!-- -->→　コンスルーピンをはんだ付けしているときに、下手するとマイコン用のスルーホールにはんだが流れて穴を埋めてしまいます。</li>
+<li><a href="https://github.com/hama-be/SeaSideX-documentation/blob/main/docs/buildguide.md#3-8-2-seaside44%E7%94%A8%E9%85%8D%E7%B7%9A" target="_blank" rel="noopener noreferrer">SeaSide44用配線</a><br>
+<!-- -->→　上手くはんだ付けしないと、バッテリー装着時に干渉して上手く収まりません。また熱しすぎると被覆が溶けて見た目が汚くなるし、ショートの原因にもなりそう。</li>
+</ul>
+<p>という感じです。これらはすべて私がやらかしてしまったことです。</p>
+<p>これらさえ気をつけて作業をすれば、素人の私でも完成できましたので、難易度が高すぎるというわけではないでですが、はんだ付けや細かい作業に自信がない人は注意しておいた方がよさそうです。</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="省電力化の設定">省電力化の設定<a href="https://sawara.me/blog/seaside44-build-log#%E7%9C%81%E9%9B%BB%E5%8A%9B%E5%8C%96%E3%81%AE%E8%A8%AD%E5%AE%9A" class="hash-link" aria-label="省電力化の設定 への直接リンク" title="省電力化の設定 への直接リンク">​</a></h2>
+<p>ファームウェアの書き換えは<a href="https://github.com/hama-be/SeaSideX-documentation/blob/main/docs/buildguide.md#4-5-zmk%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%AE%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA%E3%81%A8%E3%83%93%E3%83%AB%E3%83%89%E6%96%B9%E6%B3%95" target="_blank" rel="noopener noreferrer">ビルドガイド</a>にある通りに行えばOKです。</p>
+<p>基本このまま使うとバッテリー持ちが悪いなと感じましたので、色々設定を変えて試してみます。</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="ロータリーエンコーダーを無効化">ロータリーエンコーダーを無効化<a href="https://sawara.me/blog/seaside44-build-log#%E3%83%AD%E3%83%BC%E3%82%BF%E3%83%AA%E3%83%BC%E3%82%A8%E3%83%B3%E3%82%B3%E3%83%BC%E3%83%80%E3%83%BC%E3%82%92%E7%84%A1%E5%8A%B9%E5%8C%96" class="hash-link" aria-label="ロータリーエンコーダーを無効化 への直接リンク" title="ロータリーエンコーダーを無効化 への直接リンク">​</a></h3>
+<p>keyballにはロータリーエンコーダーは付いてないので、設定を削除。</p>
+<div class="language-diff codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockTitle_OeMC">SeaSide44_L.conf</div><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-diff codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">- CONFIG_EC11=y</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- CONFIG_EC11_TRIGGER_GLOBAL_THREAD=y</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="bluetooth接続数調整">Bluetooth接続数調整<a href="https://sawara.me/blog/seaside44-build-log#bluetooth%E6%8E%A5%E7%B6%9A%E6%95%B0%E8%AA%BF%E6%95%B4" class="hash-link" aria-label="Bluetooth接続数調整 への直接リンク" title="Bluetooth接続数調整 への直接リンク">​</a></h3>
+<p>左側は基本右側（中央側）への接続しか行わないので、Bluetooth接続数を1に変更。</p>
+<div class="language-diff codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockTitle_OeMC">SeaSide44_L.conf</div><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-diff codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">+ # buluetooth の最大接続数を 1 に設定</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+ CONFIG_BT_MAX_CONN=1</span><br></span></code></pre></div></div>
+<p>右側（中央側）も用途に応じて変更します。</p>
+<div class="language-diff codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockTitle_OeMC">SeaSide44_R.conf</div><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-diff codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">+ # buluetooth の最大接続数を 4 に設定</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+ CONFIG_BT_MAX_CONN=4</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="bluetooth送信電力を弱める">Bluetooth送信電力を弱める<a href="https://sawara.me/blog/seaside44-build-log#bluetooth%E9%80%81%E4%BF%A1%E9%9B%BB%E5%8A%9B%E3%82%92%E5%BC%B1%E3%82%81%E3%82%8B" class="hash-link" aria-label="Bluetooth送信電力を弱める への直接リンク" title="Bluetooth送信電力を弱める への直接リンク">​</a></h3>
+<p>基本、接続先とは1m以内で使用しているので、送信電力を弱めても問題なささそう。</p>
+<p>左右両方対応します。</p>
+<div class="language-diff codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockTitle_OeMC">SeaSide44_L.conf</div><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-diff codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">+ # Bluetooth の送信電力を -12dBm に設定</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+ CONFIG_BT_CTLR_TX_PWR_MINUS_12=y</span><br></span></code></pre></div></div>
+<div class="language-diff codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockTitle_OeMC">SeaSide44_R.conf</div><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-diff codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">+ # Bluetooth の送信電力を -12dBm に設定</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+ CONFIG_BT_CTLR_TX_PWR_MINUS_12=y</span><br></span></code></pre></div></div>
+<p>これでBluetooth接続が不安定になれば<code>CONFIG_BT_CTLR_TX_PWR_MINUS_8=y</code>とかにしてみる。</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="左側のバッテリー情報を中央側で管理しないように">左側のバッテリー情報を中央側で管理しないように<a href="https://sawara.me/blog/seaside44-build-log#%E5%B7%A6%E5%81%B4%E3%81%AE%E3%83%90%E3%83%83%E3%83%86%E3%83%AA%E3%83%BC%E6%83%85%E5%A0%B1%E3%82%92%E4%B8%AD%E5%A4%AE%E5%81%B4%E3%81%A7%E7%AE%A1%E7%90%86%E3%81%97%E3%81%AA%E3%81%84%E3%82%88%E3%81%86%E3%81%AB" class="hash-link" aria-label="左側のバッテリー情報を中央側で管理しないように への直接リンク" title="左側のバッテリー情報を中央側で管理しないように への直接リンク">​</a></h3>
+<div class="language-diff codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockTitle_OeMC">SeaSide44_R.conf</div><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-diff codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># BLE スプリットキーボードのバッテリー情報を中央側で管理</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- CONFIG_ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_PROXY=y</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+ CONFIG_ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_PROXY=n</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># BLE スプリットキーボードのバッテリー情報を取得</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- CONFIG_ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_FETCHING=y</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+ CONFIG_ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_FETCHING=n</span><br></span></code></pre></div></div>
+<p>左右両方のバッテリー情報を管理するようにしても、ホスト側で対応していなければ左右どちらかのバッテリー残量しか表示されない。基本右手側（中央側）の方が電池消耗は早いはずなので、右手側のみのバッテリー残量が表示できれば問題ない。</p>
+<p>左手側のバッテリー残量はLEDで判断する運用にするため、左側もバッテリー残量のLED表示対応追加。</p>
+<div class="language-diff codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockTitle_OeMC">SeaSide44_L.conf</div><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-diff codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">+ # 電源オン時のLEDインジケータの有効/無効</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+ CONFIG_RGBLED_WIDGET=y</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+ # バッテリー残量が30%未満の時黄色、20%未満の時赤色表示</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+ CONFIG_RGBLED_WIDGET_BATTERY_LEVEL_HIGH=30</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+ CONFIG_RGBLED_WIDGET_BATTERY_LEVEL_CRITICAL=10</span><br></span></code></pre></div></div>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="気付いたこととか">気付いたこととか<a href="https://sawara.me/blog/seaside44-build-log#%E6%B0%97%E4%BB%98%E3%81%84%E3%81%9F%E3%81%93%E3%81%A8%E3%81%A8%E3%81%8B" class="hash-link" aria-label="気付いたこととか への直接リンク" title="気付いたこととか への直接リンク">​</a></h2>
+<p>無線化をして当初の目的は達成できました。配線の煩わしさから解放され、マルチデバイスで快適に利用できるようになりました。</p>
+<p>実際に無線化してみて、当初は想定していなかった、メリットやデメリットをまとめてみたいと思います。</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="メリットよかったこと">メリット・よかったこと<a href="https://sawara.me/blog/seaside44-build-log#%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88%E3%82%88%E3%81%8B%E3%81%A3%E3%81%9F%E3%81%93%E3%81%A8" class="hash-link" aria-label="メリット・よかったこと への直接リンク" title="メリット・よかったこと への直接リンク">​</a></h3>
+<ul>
+<li>Shiftを押さなくても横スクロールができるようになった<br>
+<!-- -->QMKの時はスクロールレイヤ+Shiftキーを押して横スクロールしていたが、ZMKになってスクロールレイヤだけで横スクロールができるようになったので楽になった。(もしかしたらQMKでもできたのかもしれない)</li>
+<li><a href="https://nickcoutsos.github.io/keymap-editor/" target="_blank" rel="noopener noreferrer">ZMK Keypam Editor</a>でキーマップを編集して、そのままgit hubに連携できる<br>
+<!-- -->ファームウェアを書き換えてキーマップが元に戻ってしまうということがなくなった。QMKの時はファームウェア書き換え後、<a href="https://qmk018.remap-keys.app/" target="_blank" rel="noopener noreferrer">Remap</a>でキーマップを設定していた。</li>
+<li>最大レイヤ数が増えた<br>
+<!-- -->どこまで追加できるか試してないけど、QMKの時は6レイヤまでしか追加できなかったけど、それ以上追加しても問題なさそう。WINとMac用のレイヤを分けたりとか、柔軟な運用ができそう。QMKの時は左右で別々のキーマップを設定して対応してたりしてた。</li>
+<li>USB接続でも動作する<br>
+<!-- -->Bluetoothの接続が不安定だったり、バッテリー電源がなくなった場合は、USBで接続すればUSB接続で動作する。USBとBluetooth両方接続した場合は、USB接続の方が優先される模様。</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="デメリット残念だったこと">デメリット・残念だったこと<a href="https://sawara.me/blog/seaside44-build-log#%E3%83%87%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88%E6%AE%8B%E5%BF%B5%E3%81%A0%E3%81%A3%E3%81%9F%E3%81%93%E3%81%A8" class="hash-link" aria-label="デメリット・残念だったこと への直接リンク" title="デメリット・残念だったこと への直接リンク">​</a></h3>
+<ul>
+<li>USBにマグネットコネクタを使うと、電源スイッチが切り替えづらい。<br>
+<!-- -->マイコンからUSBメス部分がもげるのを防ぐため、無線化前からマグネットコネクタを使用しておりましたが、これをSeaside44で使用すると電源スイッチとかなり近くなってしまい、結構操作しづらくなってしまった。</li>
+</ul>
+<img src="https://sawara.me/assets/images/IMG_1343@0.5x-5540c7c96d25e63e91984983f07146ce.webp" alt="Seaside44の電源スイッチ" width="300">
+<ul>
+<li>スクロールがシビア<br>
+<!-- -->ZMKになったからなのか、トラックボールの基盤が省電力版になったからなのか、スクロール動作が思ったように行かなくなり、スクロールし過ぎるというミス操作が増えてしまった。ファームウェアで調整できるかもしれないが、QMKの時はファームウェアを書き換えなくてもスクロールスピードの調整はできた。ZMKだとそういう操作が見当たらないので、いちいちファームウェアを書き換えて調整するしかなさそう。<br>
+<!-- -->この辺りは慣れてくれば気にならなくなってくるかも。</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="感想">感想<a href="https://sawara.me/blog/seaside44-build-log#%E6%84%9F%E6%83%B3" class="hash-link" aria-label="感��想 への直接リンク" title="感想 への直接リンク">​</a></h2>
+<p>まだ使い始めて時間はたっていないですが、今のところ問題なく動作しており理想通りの形になってくれたのかなと思います。あとは省電力設定が効いて電池持ちが長くなれば最高です。</p>
+<p>今のところKeyball44サイズで無線化したいとなると、SeasideX一択になるのかなと思います。</p>
+<p>最後にSeasideXの開発・販売をしてくださった <a href="https://x.com/ybybybmh" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 1200 1227" style="vertical-align:middle;height:13px;width:13px" class="xSvg_y3PF"><path d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z"></path></svg>はま</a> さん、本当にありがとうございました！</p>]]></content:encoded>
+            <category>自作キーボード</category>
+            <category>Keyball44</category>
+            <category>SeaSideX</category>
+            <category>SeaSide44</category>
         </item>
     </channel>
 </rss>
