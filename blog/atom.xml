@@ -24,10 +24,11 @@
 <li>卓上がケーブルでゴチャゴチャする</li>
 </ul>
 <p>これらを解消するためには無線化しかないですが、知識のない自分にとってはハードルが高い。<br>
-<!-- -->無線化されたトラックボール付き分割キーボードは既に販売されている物はありましたが、Keyball44のサイズ感の物はなさそうでした。</p>
+<!-- -->無線化されたトラックボール付き分割キーボードは既に販売されている物はありましたが、ほぼ売り切れ状態、、</p>
 <ul>
 <li><a href="https://booth.pm/ja/items/5774326" target="_blank" rel="noopener noreferrer">torabo-tsuki トラックボール付き無線分割キーボードキット</a></li>
 <li><a href="https://booth.pm/ja/items/6010869" target="_blank" rel="noopener noreferrer">roBa 【トラックボール付きワイヤレス自作キーボードキット】</a></li>
+<li><a href="https://booth.pm/ja/items/6376654" target="_blank" rel="noopener noreferrer">moNa2</a></li>
 </ul>
 <p>ということで、無線化をほぼ諦めていたところこのような商品を発見。</p>
 <ul>
@@ -105,9 +106,8 @@
 <!-- -->ZMKになったからなのか、トラックボールの基盤が省電力版になったからなのか、スクロール動作が思ったように行かなくなり、スクロールし過ぎるというミス操作が増えてしまった。ファームウェアで調整できるかもしれないが、QMKの時はファームウェアを書き換えなくてもスクロールスピードの調整はできた。ZMKだとそういう操作が見当たらないので、いちいちファームウェアを書き換えて調整するしかなさそう。<br>
 <!-- -->この辺りは慣れてくれば気にならなくなってくるかも。</li>
 </ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="感想">感想<a href="https://sawara.me/blog/seaside44-build-log#%E6%84%9F%E6%83%B3" class="hash-link" aria-label="感想 �への直接リンク" title="感想 への直接リンク">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="感想">感想<a href="https://sawara.me/blog/seaside44-build-log#%E6%84%9F%E6%83%B3" class="hash-link" aria-label="感想 への直接リンク" title="感想 への直接リンク">​</a></h2>
 <p>まだ使い始めて時間はたっていないですが、今のところ問題なく動作しており理想通りの形になってくれたのかなと思います。あとは省電力設定が効いて電池持ちが長くなれば最高です。</p>
-<p>今のところKeyball44サイズで無線化したいとなると、SeasideX一択になるのかなと思います。</p>
 <p>最後にSeasideXの開発・販売をしてくださった <a href="https://x.com/ybybybmh" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 1200 1227" style="vertical-align:middle;height:13px;width:13px" class="xSvg_y3PF"><path d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z"></path></svg>はま</a> さん、本当にありがとうございました！</p>]]></content>
         <author>
             <name>sawarame</name>
