@@ -1,23 +1,15 @@
-facebook:
-  label: Facebook
-  permalink: /facebook
-  description: Facebook tag description
-
 hello:
   label: Hello
   permalink: /hello
   description: Hello tag description
 
-docusaurus:
-  label: Docusaurus
-  permalink: /docusaurus
-  description: Docusaurus tag description
+dev-environment:
+  label: dev-environment
+  permalink: /dev-environment
 
-hola:
-  label: Hola
-  permalink: /hola
-  description: Hola tag description
-
+ipad:
+  label: ipad
+  permalink: /ipad
 
 keyboard:
   label: 自作キーボード
