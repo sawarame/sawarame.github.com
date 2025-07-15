@@ -117,7 +117,7 @@ export default function Text(): JSX.Element {
             </Grid>
             <Grid size={{ xs: 12, md: 6 }} spacing={2}>
               <FormLabel>作業場</FormLabel>
-              <Stack spacing={2}> 
+              <Stack spacing={2}>
                 <TextField 
                   multiline
                   fullWidth
@@ -159,34 +159,52 @@ export default function Text(): JSX.Element {
 
             <Grid size={{ xs: 12, md: 6 }}>
               <FormLabel>保存したテキスト</FormLabel>
-              <Stack spacing={2}> 
-                <TextField
-                  disabled 
-                  multiline
-                  fullWidth
-                  minRows={10}
-                  value={createSavedText(state.savedTexts)}
-                />
-                <Stack spacing={2} direction="row">
-                  <Button
-                    variant="outlined"
-                    onClick={(e) => {
-                      downloadText(createSavedText(state.savedTexts));
-                    }}>ダウンロード</Button>
-                  <Button
-                    variant="outlined"
-                    onClick={(e) => {
-                      navigator.clipboard.writeText(createSavedText(state.savedTexts));
-                    }}>コピー</Button>
-                  <Button
-                    variant="outlined"
-                    onClick={(e) => {
-                      setState({
-                        ...state,
-                        savedTexts: [],
-                      });
-                    }}>クリア</Button>
-                </Stack>
+              {state.savedTexts.length > 0 ? (
+                state.savedTexts.map((savedText, index) => (
+                  <Stack spacing={2} direction="row" sx={{ paddingTop: 2 }}>
+                    <TextField
+                      key={`${savedText.date.toISOString()}-${index}`}
+                      disabled
+                      multiline
+                      fullWidth
+                      label={savedText.date.toLocaleString('ja-JP')}
+                      value={savedText.text}
+                    />
+                    
+                    <Button
+                      variant="outlined"
+                      onClick={(e) => {
+                        var savedTexts = state.savedTexts;
+                        savedTexts.splice(index, 1);
+                        setState({
+                          ...state,
+                          savedTexts,
+                        });
+                      }}>削除</Button>
+                  </Stack>
+                ))
+              ) : (
+                <div style={{ color: 'rgba(0, 0, 0, 0.6)', textAlign: 'center', paddingTop: '20px' }}>保存されたテキストはありません。</div>
+              )}
+              <Stack spacing={2} direction="row" sx={{ paddingTop: 2 }}>
+                <Button
+                  variant="outlined"
+                  onClick={(e) => {
+                    downloadText(createSavedText(state.savedTexts));
+                  }}>ダウンロード</Button>
+                <Button
+                  variant="outlined"
+                  onClick={(e) => {
+                    navigator.clipboard.writeText(createSavedText(state.savedTexts));
+                  }}>コピー</Button>
+                <Button
+                  variant="outlined"
+                  onClick={(e) => {
+                    setState({
+                      ...state,
+                      savedTexts: [],
+                    });
+                  }}>全削除</Button>
               </Stack>
             </Grid>
           </Grid>
