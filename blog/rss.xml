@@ -4,28 +4,10 @@
         <title>sawara.me Blog</title>
         <link>https://sawara.me/blog</link>
         <description>sawara.me Blog</description>
-        <lastBuildDate>Tue, 22 Jul 2025 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 14 Jul 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>ja</language>
-        <item>
-            <title><![CDATA[iPad miniでMacで出来るようなことがしたい]]></title>
-            <link>https://sawara.me/blog/ipad-mini-mac-like</link>
-            <guid>https://sawara.me/blog/ipad-mini-mac-like</guid>
-            <pubDate>Tue, 22 Jul 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[iPadはMacの代わりにはなりません。界隈ではそのような結論が出ているようですが、頑張ってiPad(しかもmini)でMacでやっていることを出来るようにしてみた話です。]]></description>
-            <content:encoded><![CDATA[<p>iPadはMacの代わりにはなりません。界隈ではそのような結論が出ているようですが、頑張ってiPad(しかもmini)でMacでやっていることを出来るようにしてみた話です。</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="期待感">期待感<a href="https://sawara.me/blog/ipad-mini-mac-like#%E6%9C%9F%E5%BE%85%E6%84%9F" class="hash-link" aria-label="期待感 への直接リンク" title="期待感 への直接リンク">​</a></h2>
-<ul>
-<li>小さいので持ち運びが楽</li>
-<li>タッチスクリーン操作ができる</li>
-<li>Apple pencilが使える</li>
-</ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="macでやっていること">Macでやっていること<a href="https://sawara.me/blog/ipad-mini-mac-like#mac%E3%81%A7%E3%82%84%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B%E3%81%93%E3%81%A8" class="hash-link" aria-label="Macでやっていること への直接リンク" title="Macでやっていること への直接リンク">​</a></h2>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="画面共有でmacと繋げる">画面共有でMacと繋げる<a href="https://sawara.me/blog/ipad-mini-mac-like#%E7%94%BB%E9%9D%A2%E5%85%B1%E6%9C%89%E3%81%A7mac%E3%81%A8%E7%B9%8B%E3%81%92%E3%82%8B" class="hash-link" aria-label="画面共有でMacと繋げる への直接リンク" title="画面共有でMacと繋げる への直接リンク">​</a></h2>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="visual-studio-codeのremote-tunnelsを使う">Visual Studio CodeのRemote Tunnelsを使う<a href="https://sawara.me/blog/ipad-mini-mac-like#visual-studio-code%E3%81%AEremote-tunnels%E3%82%92%E4%BD%BF%E3%81%86" class="hash-link" aria-label="Visual Studio CodeのRemote Tunnelsを使う への直接リンク" title="Visual Studio CodeのRemote Tunnelsを使う への直接リンク">​</a></h2>]]></content:encoded>
-            <category>ipad</category>
-        </item>
         <item>
             <title><![CDATA[Keyball44を念願の無線化]]></title>
             <link>https://sawara.me/blog/seaside44-build-log</link>
