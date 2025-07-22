@@ -2,11 +2,29 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://sawara.me/blog</id>
     <title>sawara.me Blog</title>
-    <updated>2025-07-14T00:00:00.000Z</updated>
+    <updated>2025-07-22T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://sawara.me/blog"/>
     <subtitle>sawara.me Blog</subtitle>
     <icon>https://sawara.me/img/sawara.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[iPad miniでMacで出来るようなことがしたい]]></title>
+        <id>https://sawara.me/blog/ipad-mini-mac-like</id>
+        <link href="https://sawara.me/blog/ipad-mini-mac-like"/>
+        <updated>2025-07-22T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[iPadはMacの代わりにはなりません。界隈ではそのような結論が出ているようですが、頑張ってiPad(しかもmini)でMacでやっていることを出来るようにしてみた話です。]]></summary>
+        <content type="html"><![CDATA[<p>iPadはMacの代わりにはなりません。界隈ではそのような結論が出ているようですが、頑張ってiPad(しかもmini)でMacでやっていることを出来るようにしてみた話です。</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="期待感">期待感<a href="https://sawara.me/blog/ipad-mini-mac-like#%E6%9C%9F%E5%BE%85%E6%84%9F" class="hash-link" aria-label="期待感 への直接リンク" title="期待感 への直接リンク">​</a></h2>
+<ul>
+<li>小さいので持ち運びが楽</li>
+<li>タッチスクリーン操作ができる</li>
+<li>Apple pencilが使える</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="macでやっていること">Macでやっていること<a href="https://sawara.me/blog/ipad-mini-mac-like#mac%E3%81%A7%E3%82%84%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B%E3%81%93%E3%81%A8" class="hash-link" aria-label="Macでやっていること への直接リンク" title="Macでやっていること への直接リンク">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="画面共有でmacと繋げる">画面共有でMacと繋げる<a href="https://sawara.me/blog/ipad-mini-mac-like#%E7%94%BB%E9%9D%A2%E5%85%B1%E6%9C%89%E3%81%A7mac%E3%81%A8%E7%B9%8B%E3%81%92%E3%82%8B" class="hash-link" aria-label="画面共有でMacと繋げる への直接リンク" title="画面共有でMacと繋げる への直接リンク">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="visual-studio-codeのremote-tunnelsを使う">Visual Studio CodeのRemote Tunnelsを使う<a href="https://sawara.me/blog/ipad-mini-mac-like#visual-studio-code%E3%81%AEremote-tunnels%E3%82%92%E4%BD%BF%E3%81%86" class="hash-link" aria-label="Visual Studio CodeのRemote Tunnelsを使う への直接リンク" title="Visual Studio CodeのRemote Tunnelsを使う への直接リンク">​</a></h2>]]></content>
+        <category label="ipad" term="ipad"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Keyball44を念願の無線化]]></title>
         <id>https://sawara.me/blog/seaside44-build-log</id>
@@ -16,7 +34,7 @@
         <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="SeaSide44" src="https://sawara.me/assets/images/IMG_1843@0.5x-dddf093b872abd4df9a8f870d899bb12.webp" width="1906" height="644" class="img_ev3q"></p>
 <p>Keyball44を無線化したお話です。</p>
 <p>無線化までの経緯や、省電力化のための試行錯誤を書きます。</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="なぜkeyball44を無線�化したかったのか">なぜKeyball44を無線化したかったのか<a href="https://sawara.me/blog/seaside44-build-log#%E3%81%AA%E3%81%9Ckeyball44%E3%82%92%E7%84%A1%E7%B7%9A%E5%8C%96%E3%81%97%E3%81%9F%E3%81%8B%E3%81%A3%E3%81%9F%E3%81%AE%E3%81%8B" class="hash-link" aria-label="なぜKeyball44を無線化したかったのか への直接リンク" title="なぜKeyball44を無線化したかったのか への直接リンク">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="なぜkeyball44を無線化したかったのか">なぜKeyball44を無線化したかったのか<a href="https://sawara.me/blog/seaside44-build-log#%E3%81%AA%E3%81%9Ckeyball44%E3%82%92%E7%84%A1%E7%B7%9A%E5%8C%96%E3%81%97%E3%81%9F%E3%81%8B%E3%81%A3%E3%81%9F%E3%81%AE%E3%81%8B" class="hash-link" aria-label="なぜKeyball44を無線化したかったのか への直接リンク" title="なぜKeyball44を無線化したかったのか への直接リンク">​</a></h2>
 <p>主な理由は下記の通り。</p>
 <ul>
 <li>普段3台のデバイスを使用しており、USBケーブルを差し替えて使うのは面倒くさい</li>
@@ -109,10 +127,6 @@
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="感想">感想<a href="https://sawara.me/blog/seaside44-build-log#%E6%84%9F%E6%83%B3" class="hash-link" aria-label="感想 への直接リンク" title="感想 への直接リンク">​</a></h2>
 <p>まだ使い始めて時間はたっていないですが、今のところ問題なく動作しており理想通りの形になってくれたのかなと思います。あとは省電力設定が効いて電池持ちが長くなれば最高です。</p>
 <p>最後にSeasideXの開発・販売をしてくださった <a href="https://x.com/ybybybmh" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 1200 1227" style="vertical-align:middle;height:13px;width:13px" class="xSvg_y3PF"><path d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z"></path></svg>はま</a> さん、本当にありがとうございました！</p>]]></content>
-        <author>
-            <name>sawarame</name>
-            <uri>https://github.comsawarame/</uri>
-        </author>
         <category label="自作キーボード" term="自作キーボード"/>
         <category label="Keyball44" term="Keyball44"/>
         <category label="SeaSideX" term="SeaSideX"/>
