@@ -180,7 +180,7 @@ export default function Text(): JSX.Element {
                           ...state,
                           savedTexts,
                         });
-                      }}>削除</Button>
+                      }}>x</Button>
                   </Stack>
                 ))
               ) : (
