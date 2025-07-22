@@ -7,6 +7,10 @@ dev-environment:
   label: dev-environment
   permalink: /dev-environment
 
+vscode:
+  label: vscode
+  permalink: /vscode
+
 ipad:
   label: ipad
   permalink: /ipad
