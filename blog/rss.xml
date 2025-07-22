@@ -16,9 +16,9 @@
             <description><![CDATA[iPadを本格的なプログラミング開発端末として活用するための方法として、VS Code Tunnelsを使った開発環境の構築手順を紹介します。]]></description>
             <content:encoded><![CDATA[<p>iPadを本格的なプログラミング開発端末として活用するための方法として、VS Code Tunnelsを使った開発環境の構築手順を紹介します。</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="ipadで開発がしたい">iPadで開発がしたい<a href="https://sawara.me/blog/ipad-development-environment#ipad%E3%81%A7%E9%96%8B%E7%99%BA%E3%81%8C%E3%81%97%E3%81%9F%E3%81%84" class="hash-link" aria-label="iPadで開発がしたい への直接リンク" title="iPadで開発がしたい への直接リンク">​</a></h2>
-<p>なぜiPadで開発がしたいのかというと、特に理由はありません。ただiPadを持っているから、といのが主な理由です。</p>
+<p>iPadで開発がしたいということに特に理由はありません。ただiPadを持っているから、といのが主な理由です。</p>
 <p>私が持っているのはiPad miniなので、手軽に持ち運びできるデバイスで開発ができれば便利そうと思ったのがきっかけではあります。</p>
-<p>しかし、iPadでプログラミング開発となると、いくつかの壁がありました。</p>
+<p>しかし、iPadでプログラミング開発となると、いくつかの壁があります。</p>
 <ul>
 <li><strong>OSの制約</strong>: iPadOSでは、ローカルサーバーを立てたり、Dockerコンテナを動かしたりといった、モダンな開発で必須となる作業が難しい。</li>
 <li><strong>IDEがない</strong>: PCで使っているような高機能なIDE（統合開発環境）がiPadにはない。</li>
@@ -62,7 +62,7 @@ VS Codeを開き、コマンドパレット（<code>Cmd+Shift+P</code>）から�
 <li><strong>ネットワーク依存</strong>: 通信環境によっては、入力の遅延などが気になる場面があるかもしれません。</li>
 <li><strong>外付けキーボードは必須</strong>: ソフトウェアキーボードでのコーディングは現実的ではありません。iPadの持ち運びの容易さのメリットは失いますが、物理キーボードの持ち運びも必須になります。
 <img decoding="async" loading="lazy" alt="ソフトウェアキーボード" src="https://sawara.me/assets/images/ipad-development-environment_003-66ce7da8c62cfc62967bdbd3d455cb74.webp" width="1133" height="714" class="img_ev3q">
-ソフトウェアキーボードだとほとんで編集領域が見えない、、</li>
+ソフトウェアキーボードだとほとんど編集領域が見ない、、</li>
 <li><strong>専用アプリが欲しい</strong>: ブラウザ上で動作するので、ショートカットキーがブラウザで反応してしまったりするので、VS Code Tunnels専用のアプリがあるといいなとお思いましたが、現状なさそうでした。</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="まとめ">まとめ<a href="https://sawara.me/blog/ipad-development-environment#%E3%81%BE%E3%81%A8%E3%82%81" class="hash-link" aria-label="まとめ への直接リンク" title="まとめ への直接リンク">​</a></h2>
