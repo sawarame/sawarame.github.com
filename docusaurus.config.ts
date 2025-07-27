@@ -13,6 +13,15 @@ const config: Config = {
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
+  // By default, Docusaurus generates location pages like /docs/intro.html and then
+  // redirects from /docs/intro to /docs/intro.html. Many hosting providers already
+  // do this automatically. So you can safely turn this off if you don't need it.
+  //
+  // This is recommended for GitHub Pages deployments.
+  // See: https://docusaurus.io/docs/deployment#deploying-to-github-pages
+  // See: https://docusaurus.io/docs/api/docusaurus-config#trailingSlash
+  trailingSlash: false,
+
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'sawarame', // Usually your GitHub org/user name.
