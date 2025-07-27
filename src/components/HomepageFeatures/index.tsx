@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import Heading from '@theme/Heading';
+import Link from '@docusaurus/Link';
 import styles from './styles.module.css';
 
 type FeatureItem = {
@@ -10,32 +11,33 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
+    title: 'Install notes',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        個人PCにインストールしたソフトや開発環境の構築手順の個人的なメモです。
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Cheat sheets',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        よく使うコマンドや設定のメモをまとめたチートシートです。
       </>
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'Tools',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        パスワードジェネレーターや、その他個人的に使うツールを置いています。
+        <ul>
+          <li><Link to="/password">パスワードジェネレーター</Link></li>
+          <li><Link to="/text">プレーンテキスト作業場</Link></li>
+        </ul>
       </>
     ),
   },
@@ -49,7 +51,7 @@ function Feature({title, Svg, description}: FeatureItem) {
       </div>
       <div className="text--center padding-horiz--md">
         <Heading as="h3">{title}</Heading>
-        <p>{description}</p>
+        <p className="text--left">{description}</p>
       </div>
     </div>
   );

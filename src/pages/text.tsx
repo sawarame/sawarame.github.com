@@ -10,6 +10,7 @@ import {
   Stack,
   FormLabel,
 } from '@mui/material';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 /**
  * 保存するテキストの形式.
@@ -180,7 +181,9 @@ export default function Text(): JSX.Element {
                           ...state,
                           savedTexts,
                         });
-                      }}>x</Button>
+                      }}>
+                      <DeleteForeverIcon />
+                    </Button>
                   </Stack>
                 ))
               ) : (
