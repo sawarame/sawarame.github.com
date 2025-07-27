@@ -14,15 +14,15 @@
         <updated>2025-07-22T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[iPadを本格的なプログラミング開発端末として活用するための方法として、VS Code Tunnelsを使った開発環境の構築手順を紹介します。]]></summary>
         <content type="html"><![CDATA[<p>iPadを本格的なプログラミング開発端末として活用するための方法として、VS Code Tunnelsを使った開発環境の構築手順を紹介します。</p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ipadで開発がしたい">iPadで開発がしたい<a href="https://sawara.me/blog/ipad-development-environment#ipad%E3%81%A7%E9%96%8B%E7%99%BA%E3%81%8C%E3%81%97%E3%81%9F%E3%81%84" class="hash-link" aria-label="iPadで開発がしたい への直接リンク" title="iPadで開発がしたい への直接リンク">​</a></h2>
-<p>iPadで開発がしたいということに特に理由はありません。ただiPadを持っているから、といのが主な理由です。</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="ipadで開発するメリット">iPadで開発するメリット<a href="https://sawara.me/blog/ipad-development-environment#ipad%E3%81%A7%E9%96%8B%E7%99%BA%E3%81%99%E3%82%8B%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88" class="hash-link" aria-label="iPadで開発するメリット への直接リンク" title="iPadで開発するメリット への直接リンク">​</a></h2>
+<p>iPadで開発するということに特に理由はありません。ただiPadを持っているから、といのが主な理由です。</p>
 <p>私が持っているのはiPad miniなので、手軽に持ち運びできるデバイスで開発ができれば便利そうと思ったのがきっかけではあります。</p>
 <p>しかし、iPadでプログラミング開発となると、いくつかの壁があります。</p>
 <ul>
 <li><strong>OSの制約</strong>: iPadOSでは、ローカルサーバーを立てたり、Dockerコンテナを動かしたりといった、モダンな開発で必須となる作業が難しい。</li>
 <li><strong>IDEがない</strong>: PCで使っているような高機能なIDE（統合開発環境）がiPadにはない。</li>
 </ul>
-<p>これらの課題を解決し、iPadを開発マシンに変えるのが「VS Code Tunnels」です。</p>
+<p>これらの課題を解決し、iPadで開発できるようにするのが「VS Code Tunnels」です。</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="vs-code-tunnelsとは">VS Code Tunnelsとは？<a href="https://sawara.me/blog/ipad-development-environment#vs-code-tunnels%E3%81%A8%E3%81%AF" class="hash-link" aria-label="VS Code Tunnelsとは？ への直接リンク" title="VS Code Tunnelsとは？ への直接リンク">​</a></h2>
 <p><a href="https://code.visualstudio.com/docs/remote/tunnels" target="_blank" rel="noopener noreferrer">VS Code Tunnels</a>は、一言で言うと「<strong>手元のPCで動いているVS Code環境に、どこからでもブラウザ経由で安全にアクセスできる機能</strong>」です。</p>
 <p>メインの開発マシン（MacやWindows、Linux）でトンネルを有効にすると、<code>vscode.dev</code> というURLを通じて、iPadのブラウザからいつものVS Code環境をそのまま利用できるようになります。</p>
@@ -49,7 +49,7 @@ VS Codeを開き、コマンドパレット（<code>Cmd+Shift+P</code>）から�
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="実際に使ってみた感想">実際に使ってみた感想<a href="https://sawara.me/blog/ipad-development-environment#%E5%AE%9F%E9%9A%9B%E3%81%AB%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F%E6%84%9F%E6%83%B3" class="hash-link" aria-label="実際に使ってみた感想 への直接リンク" title="実際に使ってみた感想 への直接リンク">​</a></h2>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="メリット">メリット<a href="https://sawara.me/blog/ipad-development-environment#%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88" class="hash-link" aria-label="メリット への直接リ��ンク" title="メリット への直接リンク">​</a></h3>
 <ul>
-<li><strong>完全なVS Code体験</strong>: 拡張機能、ターミナル、デバッガなど、デスクトップ版とほぼ変わらない機能が使えます。ファイルの編集はもちろん、<code>git</code>コマンドの実行やサーバーの起動も可能です。</li>
+<li><strong>どこでもVS Codeが使える</strong>: 拡張機能、ターミナル、デバッガなど、デスクトップ版とほぼ変わらない機能が使えます。ファイルの編集はもちろん、<code>git</code>コマンドの実行やサーバーの起動も可能です。</li>
 <li><strong>環境構築が不要</strong>: iPad側にはブラウザさえあればOK。面倒な環境構築は一切必要ありません。</li>
 <li><strong>どこでも開発</strong>: ホストマシンが起動していれば、外出先のカフェや移動中の新幹線の中でも、iPadひとつで本格的な開発ができます。</li>
 <li><strong>ポートフォワーディング</strong>: ホストマシンで起動したWebサーバー（例: <code>localhost:3000</code>）も、VS Codeの「ポート」タブから外部に公開設定をすることで、iPadのブラウザからプレビューできます。これもブラウザのVS Code上から設定できるので、事前にサーバーを起動しておく必要はありません。
