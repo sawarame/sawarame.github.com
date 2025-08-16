@@ -91,3 +91,20 @@ prompt -s [テーマ名]
 ```
 zstyle ':prezto:module:prompt' theme '[テーマ名]'
 ```
+
+テーマは`powerlevel10k`がおすすめ。
+
+下記コマンドで見た目がカスタマイズできる
+
+```bash
+p10k configure
+```
+
+`powerlevel10k`はNerd Font対応フォントが必要が必要になるので、[こちら](https://github.com/romkatv/powerlevel10k#fonts)からフォントをダウンロードしてインストールします。  
+フォントをインストールしたらターミナルの設定でフォントを変更ます。VSCodeのターミナルに設定する場合は、下記設定を追加します。
+
+```json
+{
+  "terminal.integrated.fontFamily": "MesloLGS NF"
+}
+```
