@@ -6,7 +6,7 @@ sidebar_position: 3
 
 IDE
 
-# Install
+## Install
 
 homebrewでインストール
 

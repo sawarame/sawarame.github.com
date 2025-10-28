@@ -15,7 +15,7 @@ homebrewでインストールします。
 brew install nodebrew
 ```
 
-インストール後下記コマンで出力されたexportを` ~/.zshrc`に記載します。
+インストール後下記コマンドで出力されたexportを` ~/.zshrc`に記載します。
 ```bash
 nodebrew setup
 ```
