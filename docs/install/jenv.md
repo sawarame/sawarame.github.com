@@ -45,13 +45,7 @@ sudo ln -sfn /opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk /Library/Java/Java
 
 jEnvに追加
 ```bash
-jenv add /Library/Java/JavaVirtualMachines/openjdk-21.jdk/Contents/Home
-```
-
-追加するJavaのディレクトリは下記コマンドで確認できる
-
-```bash
-/usr/libexec/java_home -V
+jenv add /opt/homebrew/opt/openjdk@21/
 ```
 
 jEnvに追加されたか確認
