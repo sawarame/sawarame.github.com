@@ -67,11 +67,11 @@ const downloadText = (text: string) => {
 };
 
 /**
- * プレーンテキスト作業場本体.
+ * プレーンテキスト作業所本体.
  */
 export default function Text(): JSX.Element {
 
-  const title = 'プレーンテキスト作業場';
+  const title = 'プレーンテキスト作業所';
   const description = 'プレーンテキストで文章を編集するためのツールです。保存したテキストはブラウザのローカルストレージに保存されます。';
   const {siteConfig} = useDocusaurusContext();
 
