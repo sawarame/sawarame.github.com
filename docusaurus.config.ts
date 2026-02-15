@@ -44,6 +44,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
+          routeBasePath: '/',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           // editUrl:
@@ -81,18 +82,18 @@ const config: Config = {
         src: 'img/sawara.png',
       },
       items: [
-        {
-          type: 'docSidebar',
-          sidebarId: 'installSidebar',
-          position: 'left',
-          label: 'Install notes',
-        },
-        {
-          type: 'docSidebar',
-          sidebarId: 'cheatsheetSidebar',
-          position: 'left',
-          label: 'Cheat sheets',
-        },
+        // {
+        //   type: 'docSidebar',
+        //   sidebarId: 'installSidebar',
+        //   position: 'left',
+        //   label: 'Install notes',
+        // },
+        // {
+        //   type: 'docSidebar',
+        //   sidebarId: 'cheatsheetSidebar',
+        //   position: 'left',
+        //   label: 'Cheat sheets',
+        // },
         // {to: '/blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/facebook/docusaurus',
@@ -104,41 +105,41 @@ const config: Config = {
     footer: {
       style: 'dark',
       links: [
-        {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Install notes',
-              to: '/docs/install',
-            },
-            {
-              label: 'Cheat sheets',
-              to: '/docs/cheatsheet',
-            },
-          ],
-        },
-        {
-          title: 'Tools',
-          items: [
-            {
-              label: 'パスワードジェネレーター',
-              to: '/password',
-            },
-            {
-              label: 'プレーンテキスト作業場',
-              to: '/text',
-            },
-          ],
-        },
-        {
-          title: 'SNS',
-          items: [
-            {
-              label: 'X',
-              href: 'https://twitter.com/sawarame',
-            },
-          ],
-        },
+        // {
+        //   title: 'Docs',
+        //   items: [
+        //     {
+        //       label: 'Install notes',
+        //       to: '/docs/install',
+        //     },
+        //     {
+        //       label: 'Cheat sheets',
+        //       to: '/docs/cheatsheet',
+        //     },
+        //   ],
+        // },
+        // {
+        //   title: 'Tools',
+        //   items: [
+        //     {
+        //       label: 'パスワードジェネレーター',
+        //       to: '/password',
+        //     },
+        //     {
+        //       label: 'プレーンテキスト作業場',
+        //       to: '/text',
+        //     },
+        //   ],
+        // },
+        // {
+        //   title: 'SNS',
+        //   items: [
+        //     {
+        //       label: 'X',
+        //       href: 'https://twitter.com/sawarame',
+        //     },
+        //   ],
+        // },
         // {
         //   title: 'More',
         //   items: [
