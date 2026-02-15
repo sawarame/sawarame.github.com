@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunksawarame_github_com=self.webpackChunksawarame_github_com||[]).push([[472],{5513:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[]}')}}]);
