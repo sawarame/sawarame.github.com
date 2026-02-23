@@ -79,19 +79,8 @@ const generatePassword = (availableSymbols: string, filterStr: string, length: n
  * パスワードを設定したテキストエリア.
  */
 const PasswordTextField = ({
-  availableSymbols,
-  filterStr,
-  length,
-  createTimes,
-  useSameChar,
-  useSymbols,
+  passwords,
 }) => {
-
-  let passwords = [];
-  for(let cnt = 0; cnt < createTimes; cnt++) {
-    passwords.push(generatePassword(availableSymbols, filterStr, length, useSameChar, useSymbols));
-  }
-
   return (
     <Stack spacing={2}>
       {passwords.map((password, index) => (
@@ -128,6 +117,43 @@ export default function Password(): JSX.Element {
     useSameChar: true,
     useSymbols: true,
   });
+  const [passwords, setPasswords] = useState([]);
+
+  React.useEffect(() => {
+    const newPasswords = [];
+    for (let cnt = 0; cnt < state.createTimes; cnt++) {
+      newPasswords.push(
+        generatePassword(
+          state.availableSymbols,
+          state.filterStr,
+          state.length,
+          state.useSameChar,
+          state.useSymbols
+        )
+      );
+    }
+    setPasswords(newPasswords);
+  }, [state]);
+
+  const handleSave = () => {
+    const content = passwords.join('\n');
+    const blob = new Blob([content], {type: 'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    const now = new Date();
+    const YYYY = now.getFullYear();
+    const MM = (now.getMonth() + 1).toString().padStart(2, '0');
+    const DD = now.getDate().toString().padStart(2, '0');
+    const HH = now.getHours().toString().padStart(2, '0');
+    const mm = now.getMinutes().toString().padStart(2, '0');
+    const SS = now.getSeconds().toString().padStart(2, '0');
+    a.download = `${YYYY}${MM}${DD}${HH}${mm}${SS}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <Layout
@@ -207,14 +233,11 @@ export default function Password(): JSX.Element {
 
             <Grid size={{ xs: 12, md: 12 }}>
               <FormLabel>作成したパスワード</FormLabel>
-              <PasswordTextField
-                availableSymbols={state.availableSymbols}
-                filterStr={state.filterStr}
-                length={state.length}
-                createTimes={state.createTimes}
-                useSameChar={state.useSameChar}
-                useSymbols={state.useSymbols}
-              />
+              <PasswordTextField passwords={passwords} />
+            </Grid>
+
+            <Grid size={{ xs: 12, md: 12 }}>
+              <Button variant="outlined" onClick={handleSave}>ファイルに保存</Button>
             </Grid>
             
           </Grid>
