@@ -21,15 +21,42 @@ export default function Device(): JSX.Element {
     userAgent: '',
     physicalSize: '',
     logicalSize: '',
+    ipAddress: 'IPアドレスを読み込み中...',
   });
 
   useEffect(() => {
+    const isBot = /bot|crawler|spider|crawling/i.test(navigator.userAgent);
+    if (isBot) {
+      setState(s => ({
+        ...s,
+        ipAddress: 'ボット/クローラーからのアクセスと判定されたため、IPアドレスは表示されません。',
+      }));
+      return;
+    }
+
+    const fetchIpAddress = async () => {
+      try {
+        const response = await fetch('https://api.sawara.me/v1/ipaddress/');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setState(s => ({...s, ipAddress: data.ip}));
+      } catch (error) {
+        console.error('IPアドレスの取得に失敗しました。', error);
+        setState(s => ({...s, ipAddress: 'IPアドレスの取得に失敗しました。'}));
+      }
+    };
+
+    fetchIpAddress();
+
     const updateState = () => {
-      setState({
+      setState(s => ({
+        ...s,
         userAgent: navigator.userAgent,
         physicalSize: `${window.screen.width} x ${window.screen.height}`,
         logicalSize: `${window.innerWidth} x ${window.innerHeight}`,
-      });
+      }));
     };
 
     updateState();
@@ -51,6 +78,17 @@ export default function Device(): JSX.Element {
               <p>{description}</p>
             </Grid>
             
+            <Grid size={{ xs: 12 }}>
+              <FormLabel>IPアドレス</FormLabel>
+              <TextField 
+                fullWidth
+                value={state.ipAddress}
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+            </Grid>
+
             <Grid size={{ xs: 12 }}>
               <FormLabel>ユーザーエージェント</FormLabel>
               <TextField 
