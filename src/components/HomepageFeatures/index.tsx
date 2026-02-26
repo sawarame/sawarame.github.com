@@ -36,7 +36,7 @@ const FeatureList: FeatureItem[] = [
         パスワードジェネレーターや、その他個人的に使うツールを置いています。
         <ul>
           <li><Link to="/password">パスワードジェネレーター</Link></li>
-          <li><Link to="/text">プレーンテキスト作業所</Link></li>
+          <li><Link to="/text">テキスト保存場所</Link></li>
         </ul>
       </>
     ),

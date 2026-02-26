@@ -13,6 +13,7 @@ import {
   FormControlLabel,
 } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 /**
  * 保存するテキストの形式.
@@ -41,7 +42,7 @@ const createSavedText = (text: SavedText[]) => {
     const seconds = pad(v.date.getSeconds());
     var date = `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
 
-    savedText += `[${date}] ---------------------\n${v.text}\n\n`;
+    savedText += `[${date}] \n${v.text}\n\n`;
   });
   return savedText;
 };
@@ -69,12 +70,12 @@ const downloadText = (text: string) => {
 };
 
 /**
- * プレーンテキスト作業所本体.
+ * テキスト保存場所本体.
  */
 export default function Text(): JSX.Element {
 
-  const title = 'プレーンテキスト作業所';
-  const description = 'プレーンテキストで文章を編集するためのツールです。保存したテキストはブラウザのローカルストレージに保存されます。';
+  const title = 'テキスト保存場所';
+  const description = 'テキストを一時的に保存するための場所です。保存したテキストはブラウザのローカルストレージに保存されます。';
   const {siteConfig} = useDocusaurusContext();
 
   const [state, setState] = useState<{
@@ -154,13 +155,23 @@ export default function Text(): JSX.Element {
                 state.savedTexts.map((savedText, index) => (
                   <Stack spacing={2} direction="row" sx={{ paddingTop: 2 }} key={`${savedText.date.toISOString()}-${index}`}>
                     <TextField
-                      disabled
+                      InputProps={{
+                        readOnly: true,
+                      }}
                       multiline
                       fullWidth
+                      maxRows={3}
                       label={savedText.date.toLocaleString('ja-JP')}
                       value={savedText.text}
                     />
                     
+                    <Button
+                      variant="outlined"
+                      onClick={(e) => {
+                        navigator.clipboard.writeText(savedText.text);
+                      }}>
+                      <ContentCopyIcon />
+                    </Button>
                     <Button
                       variant="outlined"
                       onClick={(e) => {
@@ -187,7 +198,7 @@ export default function Text(): JSX.Element {
                     variant="outlined"
                     onClick={(e) => {
                       navigator.clipboard.writeText(createSavedText(state.savedTexts));
-                    }}>コピー</Button>
+                    }}><ContentCopyIcon />全コピー</Button>
                   <Button
                     variant="outlined"
                     onClick={(e) => {
@@ -195,7 +206,7 @@ export default function Text(): JSX.Element {
                         ...state,
                         savedTexts: [],
                       });
-                    }}>全削除</Button>
+                    }}><DeleteForeverIcon />全削除</Button>
                 </Stack>
               )}
             </Grid>
@@ -227,14 +238,6 @@ export default function Text(): JSX.Element {
                     onClick={() => {
                       handleSave();
                     }}>保存</Button>
-                  <Button
-                    variant="outlined"
-                    onClick={() => {
-                      if (state.workText == "") {
-                        return;
-                      }
-                      navigator.clipboard.writeText(state.workText);
-                    }}>コピー</Button>
                   <FormControlLabel
                     control={
                       <Checkbox

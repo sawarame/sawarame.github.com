@@ -126,7 +126,7 @@ const config: Config = {
         //       to: '/password',
         //     },
         //     {
-        //       label: 'プレーンテキスト作業所',
+        //       label: 'テキスト保存場所',
         //       to: '/text',
         //     },
         //   ],
