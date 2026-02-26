@@ -9,6 +9,8 @@ import {
   Button,
   Stack,
   FormLabel,
+  Checkbox,
+  FormControlLabel,
 } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
@@ -83,6 +85,8 @@ export default function Text(): JSX.Element {
     savedTexts: [],
   });
 
+  const [saveOnEnter, setSaveOnEnter] = useState(false);
+
   // ローカルストレージから保存したテキストを読み込む
   useEffect(() => {
     const loadedTexts = localStorage.getItem("SavedTexts");
@@ -97,12 +101,39 @@ export default function Text(): JSX.Element {
         savedTexts,
       });
     }
+
+    const loadedSaveOnEnter = localStorage.getItem("SaveOnEnter");
+    if (loadedSaveOnEnter !== null) {
+      setSaveOnEnter(JSON.parse(loadedSaveOnEnter));
+    }
   }, []);
 
   // ローカルストレージにテキストを保存する
   useEffect(() => {
     localStorage.setItem("SavedTexts", JSON.stringify(state.savedTexts));
-  }, [state]);
+  }, [state.savedTexts]);
+
+  // ローカルストレージに設定を保存する
+  useEffect(() => {
+    localStorage.setItem("SaveOnEnter", JSON.stringify(saveOnEnter));
+  }, [saveOnEnter]);
+
+  const handleSave = () => {
+    if (state.workText == "") {
+      return;
+    }
+    setState({
+      ...state,
+      workText: '',
+      savedTexts: [
+        ...state.savedTexts,
+        {
+          date: new Date(),
+          text: state.workText.trim(),
+        }
+      ],
+    });
+  };
 
   return (
     <Layout
@@ -121,9 +152,8 @@ export default function Text(): JSX.Element {
               <FormLabel>保存したテキスト</FormLabel>
               {state.savedTexts.length > 0 ? (
                 state.savedTexts.map((savedText, index) => (
-                  <Stack spacing={2} direction="row" sx={{ paddingTop: 2 }}>
+                  <Stack spacing={2} direction="row" sx={{ paddingTop: 2 }} key={`${savedText.date.toISOString()}-${index}`}>
                     <TextField
-                      key={`${savedText.date.toISOString()}-${index}`}
                       disabled
                       multiline
                       fullWidth
@@ -181,25 +211,21 @@ export default function Text(): JSX.Element {
                   onChange={(e) => {
                     setState({...state, workText: e.target.value});
                   }}
+                  onKeyDown={(e) => {
+                    const isModEnter = (e.metaKey || e.ctrlKey) && e.key === 'Enter';
+                    const isEnterOnly = e.key === 'Enter' && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey;
+
+                    if ((saveOnEnter && isEnterOnly) || (!saveOnEnter && isModEnter)) {
+                      e.preventDefault();
+                      handleSave();
+                    }
+                  }}
                 />
-                <Stack spacing={2} direction="row">  
+                <Stack spacing={2} direction="row" alignItems="center">  
                   <Button
                     variant="outlined"
                     onClick={() => {
-                      if (state.workText == "") {
-                        return;
-                      }
-                      setState({
-                        ...state,
-                        workText: '',
-                        savedTexts: [
-                          ...state.savedTexts,
-                          {
-                            date: new Date(),
-                            text: state.workText.trim(),
-                          }
-                        ],
-                      });
+                      handleSave();
                     }}>保存</Button>
                   <Button
                     variant="outlined"
@@ -209,6 +235,15 @@ export default function Text(): JSX.Element {
                       }
                       navigator.clipboard.writeText(state.workText);
                     }}>コピー</Button>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={saveOnEnter}
+                        onChange={(e) => setSaveOnEnter(e.target.checked)}
+                      />
+                    }
+                    label="エンターで保存"
+                  />
                 </Stack>
               </Stack>
             </Grid>
