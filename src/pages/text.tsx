@@ -116,6 +116,60 @@ export default function Text(): JSX.Element {
               <h1>{title}</h1>
               <p>{description}</p>
             </Grid>
+
+            <Grid size={{ xs: 12, md: 6 }}>
+              <FormLabel>保存したテキスト</FormLabel>
+              {state.savedTexts.length > 0 ? (
+                state.savedTexts.map((savedText, index) => (
+                  <Stack spacing={2} direction="row" sx={{ paddingTop: 2 }}>
+                    <TextField
+                      key={`${savedText.date.toISOString()}-${index}`}
+                      disabled
+                      multiline
+                      fullWidth
+                      label={savedText.date.toLocaleString('ja-JP')}
+                      value={savedText.text}
+                    />
+                    
+                    <Button
+                      variant="outlined"
+                      onClick={(e) => {
+                        setState({
+                          ...state,
+                          savedTexts: state.savedTexts.filter((_, i) => i !== index),
+                        });
+                      }}>
+                      <DeleteForeverIcon />
+                    </Button>
+                  </Stack>
+                ))
+              ) : (
+                <div style={{ color: 'rgba(0, 0, 0, 0.6)', textAlign: 'center', paddingTop: '20px' }}>保存されたテキストはありません。</div>
+              )}
+              {state.savedTexts.length > 0 && (
+                <Stack spacing={2} direction="row" sx={{ paddingTop: 2 }}>
+                  <Button
+                    variant="outlined"
+                    onClick={(e) => {
+                      downloadText(createSavedText(state.savedTexts));
+                    }}>ダウンロード</Button>
+                  <Button
+                    variant="outlined"
+                    onClick={(e) => {
+                      navigator.clipboard.writeText(createSavedText(state.savedTexts));
+                    }}>コピー</Button>
+                  <Button
+                    variant="outlined"
+                    onClick={(e) => {
+                      setState({
+                        ...state,
+                        savedTexts: [],
+                      });
+                    }}>全削除</Button>
+                </Stack>
+              )}
+            </Grid>
+            
             <Grid size={{ xs: 12, md: 6 }} spacing={2}>
               <FormLabel>作業場</FormLabel>
               <Stack spacing={2}>
@@ -135,15 +189,16 @@ export default function Text(): JSX.Element {
                       if (state.workText == "") {
                         return;
                       }
-                      var savedTexts = state.savedTexts;
-                      savedTexts.unshift({
-                        date: new Date(),
-                        text: state.workText.trim(),
-                      });
                       setState({
                         ...state,
                         workText: '',
-                        savedTexts,
+                        savedTexts: [
+                          ...state.savedTexts,
+                          {
+                            date: new Date(),
+                            text: state.workText.trim(),
+                          }
+                        ],
                       });
                     }}>保存</Button>
                   <Button
@@ -158,58 +213,6 @@ export default function Text(): JSX.Element {
               </Stack>
             </Grid>
 
-            <Grid size={{ xs: 12, md: 6 }}>
-              <FormLabel>保存したテキスト</FormLabel>
-              {state.savedTexts.length > 0 ? (
-                state.savedTexts.map((savedText, index) => (
-                  <Stack spacing={2} direction="row" sx={{ paddingTop: 2 }}>
-                    <TextField
-                      key={`${savedText.date.toISOString()}-${index}`}
-                      disabled
-                      multiline
-                      fullWidth
-                      label={savedText.date.toLocaleString('ja-JP')}
-                      value={savedText.text}
-                    />
-                    
-                    <Button
-                      variant="outlined"
-                      onClick={(e) => {
-                        var savedTexts = state.savedTexts;
-                        savedTexts.splice(index, 1);
-                        setState({
-                          ...state,
-                          savedTexts,
-                        });
-                      }}>
-                      <DeleteForeverIcon />
-                    </Button>
-                  </Stack>
-                ))
-              ) : (
-                <div style={{ color: 'rgba(0, 0, 0, 0.6)', textAlign: 'center', paddingTop: '20px' }}>保存されたテキストはありません。</div>
-              )}
-              <Stack spacing={2} direction="row" sx={{ paddingTop: 2 }}>
-                <Button
-                  variant="outlined"
-                  onClick={(e) => {
-                    downloadText(createSavedText(state.savedTexts));
-                  }}>ダウンロード</Button>
-                <Button
-                  variant="outlined"
-                  onClick={(e) => {
-                    navigator.clipboard.writeText(createSavedText(state.savedTexts));
-                  }}>コピー</Button>
-                <Button
-                  variant="outlined"
-                  onClick={(e) => {
-                    setState({
-                      ...state,
-                      savedTexts: [],
-                    });
-                  }}>全削除</Button>
-              </Stack>
-            </Grid>
           </Grid>
         </Container>
       </MuiTheme>
