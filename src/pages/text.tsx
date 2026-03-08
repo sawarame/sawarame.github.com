@@ -212,7 +212,6 @@ export default function Text(): JSX.Element {
             </Grid>
             
             <Grid size={{ xs: 12, md: 6 }} spacing={2}>
-              <FormLabel>作業場</FormLabel>
               <Stack spacing={2}>
                 <TextField 
                   multiline
@@ -223,6 +222,9 @@ export default function Text(): JSX.Element {
                     setState({...state, workText: e.target.value});
                   }}
                   onKeyDown={(e) => {
+                    if (e.nativeEvent.isComposing) {
+                      return;
+                    }
                     const isModEnter = (e.metaKey || e.ctrlKey) && e.key === 'Enter';
                     const isEnterOnly = e.key === 'Enter' && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey;
 
