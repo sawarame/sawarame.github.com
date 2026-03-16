@@ -24,6 +24,10 @@ URLやテキストからQRコードを生成します。
 
 ## ブラウザ拡張機能
 
+### [EnvIcon](https://chromewebstore.google.com/detail/envicon/fkapincooiacacfebhkmjoekabbffako)
+
+本番・検証・開発環境でfaviconを書き換えることができる、開発者向けのブラウザ拡張機能です。
+
 ### [Gemini Spark](https://chromewebstore.google.com/detail/gemini-spark/iolhhcbgkkmlfndhmpclkabebjlinkic)
 
 Google Gemini のウェブインターフェースを強化するためのブラウザ拡張機能です。
