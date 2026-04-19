@@ -1,5 +1,5 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
@@ -160,6 +160,11 @@ const config: Config = {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
+    metadata: [
+      { name: 'keywords', content: 'Webツール, 便利ツール, ミニツール, 開発者向けツール, ブラウザ拡張機能, sawara.me' },
+      { name: 'description', content: 'sawara.me - Ship small things. 日常のちょっとした不便を解決する、小さな便利ツールやアプリケーションを公開しているサイトです。' },
+      //{ name: 'twitter:card', content: 'summary_large_image' },
+    ],
   } satisfies Preset.ThemeConfig,
 };
 

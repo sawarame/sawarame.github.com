@@ -89,7 +89,7 @@ function HeroSection() {
       <div className={styles.heroContent}>
         <div className={styles.heroBadge}>
           <span className={styles.heroBadgeDot} />
-          個人ツール & ブラウザ拡張機能
+          便利ツール & ブラウザ拡張機能
         </div>
         <h1 className={styles.heroTitle}>{siteConfig.title}</h1>
         <p className={styles.heroSubtitle}>{siteConfig.tagline}</p>
@@ -185,7 +185,7 @@ export default function Home(): JSX.Element {
   return (
     <Layout
       title={siteConfig.title}
-      description="sawara.me — 個人ツールとブラウザ拡張機能の置き場"
+      description="sawara.me — 日常のちょっとした不便を解決する、小さな便利ツールやアプリケーションを公開しているサイトです。"
     >
       <HeroSection />
 
