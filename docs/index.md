@@ -1,7 +1,7 @@
 ---
 id: intro
 title: Welcome
-slug: /
+slug: /intro
 ---
 
 ## ツール集

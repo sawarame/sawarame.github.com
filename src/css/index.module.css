@@ -1,0 +1,433 @@
+/* ============================================================
+   Shared
+   ============================================================ */
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+
+.hero {
+  position: relative;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0f0c29 0%, #1a1a3e 50%, #0d1b4b 100%);
+  padding: 5rem 1.5rem;
+}
+
+[data-theme='light'] .hero {
+  background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #1565c0 100%);
+}
+
+.heroBackground {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.heroOrb1,
+.heroOrb2,
+.heroOrb3 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.25;
+  animation: float 8s ease-in-out infinite;
+}
+
+.heroOrb1 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #667eea, transparent);
+  top: -150px;
+  left: -100px;
+  animation-delay: 0s;
+}
+
+.heroOrb2 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, #f093fb, transparent);
+  bottom: -100px;
+  right: -80px;
+  animation-delay: 3s;
+}
+
+.heroOrb3 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, #4facfe, transparent);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: 6s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-20px) scale(1.05); }
+}
+
+.heroOrb3 {
+  animation-name: floatCenter;
+}
+
+@keyframes floatCenter {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, calc(-50% - 15px)) scale(1.05); }
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 700px;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 100px;
+  padding: 0.4rem 1rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.05em;
+}
+
+.heroBadgeDot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 8px #4ade80;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 8px #4ade80; }
+  50% { box-shadow: 0 0 16px #4ade80, 0 0 24px #4ade8060; }
+}
+
+.heroTitle {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+  margin: 0 0 1rem;
+  background: linear-gradient(135deg, #fff 0%, #c7d2fe 60%, #a5b4fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroSubtitle {
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 2.5rem;
+  line-height: 1.7;
+}
+
+.heroActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.heroPrimaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.85rem 2rem;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff !important;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none !important;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.45);
+}
+
+.heroPrimaryBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(102, 126, 234, 0.6);
+}
+
+.heroSecondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.85rem 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff !important;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none !important;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.heroSecondaryBtn:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* ============================================================
+   Sections
+   ============================================================ */
+
+.section {
+  padding: 5rem 1.5rem;
+  background: var(--ifm-background-color);
+}
+
+.sectionAlt {
+  padding: 5rem 1.5rem;
+  background: var(--ifm-background-surface-color);
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.sectionLabel {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ifm-color-primary);
+  margin-bottom: 0.75rem;
+}
+
+.sectionTitle {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  margin: 0 0 0.75rem;
+  color: var(--ifm-font-color-base);
+}
+
+.sectionSubtitle {
+  font-size: 1rem;
+  color: var(--ifm-color-secondary-darkest);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ============================================================
+   Cards Grid
+   ============================================================ */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ============================================================
+   Tool Card
+   ============================================================ */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 16px;
+  padding: 1.6rem;
+  text-decoration: none !important;
+  color: var(--ifm-font-color-base) !important;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: linear-gradient(135deg, var(--ifm-color-primary-lightest), transparent);
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  border-color: var(--ifm-color-primary-light);
+}
+
+.card:hover::before {
+  opacity: 0.06;
+}
+
+.cardIconWrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+  flex-shrink: 0;
+}
+
+.cardIcon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.cardBody {
+  flex: 1;
+}
+
+.cardTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: var(--ifm-font-color-base);
+}
+
+.cardDescription {
+  font-size: 0.875rem;
+  color: var(--ifm-color-secondary-darkest);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.cardArrow {
+  margin-top: 1.2rem;
+  font-size: 1rem;
+  color: var(--ifm-color-primary);
+  font-weight: 700;
+  transition: transform 0.2s;
+}
+
+.card:hover .cardArrow {
+  transform: translateX(4px);
+}
+
+/* ============================================================
+   Extension Card
+   ============================================================ */
+
+.extensionCard {
+  display: flex;
+  flex-direction: column;
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 16px;
+  padding: 1.6rem;
+  text-decoration: none !important;
+  color: var(--ifm-font-color-base) !important;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.extensionCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  border-color: var(--ifm-color-primary-light);
+}
+
+.extensionCardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+
+.extensionBadge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.6rem;
+  border-radius: 100px;
+  background: var(--ifm-color-primary-lightest);
+  color: var(--ifm-color-primary-darkest);
+  white-space: nowrap;
+}
+
+[data-theme='dark'] .extensionBadge {
+  background: rgba(79, 157, 255, 0.15);
+  color: var(--ifm-color-primary-light);
+}
+
+.extensionLink {
+  margin-top: 1.2rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  transition: transform 0.2s;
+  display: inline-block;
+}
+
+.extensionCard:hover .extensionLink {
+  transform: translateX(4px);
+}
+
+.extensionIconWrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--ifm-color-emphasis-100);
+}
+
+.extensionIcon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media screen and (max-width: 768px) {
+  .hero {
+    padding: 4rem 1rem;
+    min-height: auto;
+  }
+
+  .heroActions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .section,
+  .sectionAlt {
+    padding: 3.5rem 1rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -4,7 +4,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'sawara.me',
-  tagline: '忘れるための記録場所',
+  tagline: 'Ship small things.',
   favicon: 'img/sawara.ico',
 
   // Set the production url of your site here
