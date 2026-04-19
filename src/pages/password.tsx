@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Layout from '@theme/Layout';
 import MuiTheme from '@site/src/components/MuiTheme';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -16,7 +16,8 @@ import {
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DownloadIcon from '@mui/icons-material/Download';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import styles from './password.module.css';
+import common from '@site/src/css/common.module.css';
+import styles from '@site/src/css/password.module.css';
 
 /** 使用する文字列. */
 const lowerCase = 'abcdefghijklmnopqrstuvwxyz'
@@ -24,19 +25,8 @@ const upperCase = lowerCase.toLocaleUpperCase()
 const numbers = '0123456789'
 const symbols = '`~!@#$%^&*()-_[{]}=+;:\'",<.>/?\\|'
 
-/**
- * パスワードを作成する.
- *
- * @param availableSymbols 使用可能な記号の文字列
- * @param filterStr 使用しない文字
- * @param length パスワードの長さ
- * @param useSameChar 同じ文字を使用するかどうか
- * @param useSymbols 記号を使用するかどうか
- * @returns
- */
 const generatePassword = (availableSymbols: string, filterStr: string, length: number, useSameChar: boolean, useSymbols: boolean) => {
   if (length < 1) return '';
-
   let symbolChars = '';
   if (useSymbols) {
     if (availableSymbols) {
@@ -46,23 +36,14 @@ const generatePassword = (availableSymbols: string, filterStr: string, length: n
       symbolChars = symbols;
     }
   }
-
   const chars = lowerCase + upperCase + numbers + symbolChars;
   const s = chars.repeat(useSameChar ? 5 : 1);
-
-  let a = s.split(""),
-      b = filterStr.split(""),
-      n = a.length;
-
+  let a = s.split(""), b = filterStr.split(""), n = a.length;
   a = a.filter((c) => !b.includes(c));
-
   if (a.length < 1) return '';
-
   for (let i = n - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1));
-    let tmp = a[i];
-    a[i] = a[j];
-    a[j] = tmp;
+    let tmp = a[i]; a[i] = a[j]; a[j] = tmp;
   }
   return a.join("").substring(0, length);
 };
@@ -70,13 +51,7 @@ const generatePassword = (availableSymbols: string, filterStr: string, length: n
 const generateAll = (state) => {
   const result = [];
   for (let cnt = 0; cnt < state.createTimes; cnt++) {
-    result.push(generatePassword(
-      state.availableSymbols,
-      state.filterStr,
-      state.length,
-      state.useSameChar,
-      state.useSymbols,
-    ));
+    result.push(generatePassword(state.availableSymbols, state.filterStr, state.length, state.useSameChar, state.useSymbols));
   }
   return result;
 };
@@ -87,15 +62,15 @@ const generateAll = (state) => {
 
 function PageHeader() {
   return (
-    <div className={styles.pageHeader}>
-      <div className={styles.pageHeaderBg}>
+    <div className={common.pageHeader}>
+      <div className={common.pageHeaderBg}>
         <div className={styles.pageHeaderOrb1} />
         <div className={styles.pageHeaderOrb2} />
       </div>
-      <div className={styles.pageHeaderContent}>
+      <div className={common.pageHeaderContent}>
         <span className={styles.pageHeaderIcon}>🔐</span>
         <h1 className={styles.pageHeaderTitle}>パスワードジェネレーター</h1>
-        <p className={styles.pageHeaderDesc}>
+        <p className={common.pageHeaderDesc}>
           条件を指定してパスワードを作成できます。ブラウザ上で動作するため、作成したパスワードは安全に利用できます。
         </p>
       </div>
@@ -105,77 +80,31 @@ function PageHeader() {
 
 function SettingsCard({ state, setState }) {
   return (
-    <div className={styles.card}>
-      <h2 className={styles.cardTitle}>
-        <span className={styles.cardTitleIcon}>⚙️</span>
+    <div className={common.card}>
+      <h2 className={common.cardTitle}>
+        <span className={common.cardTitleIcon}>⚙️</span>
         設定
       </h2>
       <div className={styles.settingsGrid}>
         <div className={styles.settingsField}>
-          <TextField
-            label="パスワードの長さ"
-            type="number"
-            variant="outlined"
-            size="small"
-            value={state.length}
-            fullWidth
-            inputProps={{ min: 1, max: 128 }}
-            onChange={(e) => setState({ ...state, length: parseInt(e.target.value) || 1 })}
-          />
+          <TextField label="パスワードの長さ" type="number" variant="outlined" size="small" value={state.length} fullWidth
+            inputProps={{ min: 1, max: 128 }} onChange={(e) => setState({ ...state, length: parseInt(e.target.value) || 1 })} />
         </div>
         <div className={styles.settingsField}>
-          <TextField
-            label="作成数"
-            type="number"
-            variant="outlined"
-            size="small"
-            value={state.createTimes}
-            fullWidth
-            inputProps={{ min: 1, max: 20 }}
-            onChange={(e) => setState({ ...state, createTimes: parseInt(e.target.value) || 1 })}
-          />
+          <TextField label="作成数" type="number" variant="outlined" size="small" value={state.createTimes} fullWidth
+            inputProps={{ min: 1, max: 20 }} onChange={(e) => setState({ ...state, createTimes: parseInt(e.target.value) || 1 })} />
         </div>
         <div className={styles.settingsField}>
-          <TextField
-            label="使用しない文字"
-            variant="outlined"
-            size="small"
-            value={state.filterStr}
-            fullWidth
-            onChange={(e) => setState({ ...state, filterStr: e.target.value })}
-          />
+          <TextField label="使用しない文字" variant="outlined" size="small" value={state.filterStr} fullWidth
+            onChange={(e) => setState({ ...state, filterStr: e.target.value })} />
         </div>
         <div className={styles.settingsField}>
-          <TextField
-            label="使用可能な記号（空欄=全記号）"
-            variant="outlined"
-            size="small"
-            value={state.availableSymbols}
-            fullWidth
-            onChange={(e) => setState({ ...state, availableSymbols: e.target.value })}
-          />
+          <TextField label="使用可能な記号（空欄=全記号）" variant="outlined" size="small" value={state.availableSymbols} fullWidth
+            onChange={(e) => setState({ ...state, availableSymbols: e.target.value })} />
         </div>
         <div className={styles.settingsCheckboxes}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={state.useSameChar}
-                onChange={(e) => setState({ ...state, useSameChar: e.target.checked })}
-                size="small"
-              />
-            }
-            label="同じ文字を使用する"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={state.useSymbols}
-                onChange={(e) => setState({ ...state, useSymbols: e.target.checked })}
-                size="small"
-              />
-            }
-            label="記号を使用する"
-          />
+          <FormControlLabel control={<Checkbox checked={state.useSameChar} onChange={(e) => setState({ ...state, useSameChar: e.target.checked })} size="small" />} label="同じ文字を使用する" />
+          <FormControlLabel control={<Checkbox checked={state.useSymbols} onChange={(e) => setState({ ...state, useSymbols: e.target.checked })} size="small" />} label="記号を使用する" />
         </div>
       </div>
     </div>
@@ -187,13 +116,7 @@ function PasswordRow({ password, onCopy }) {
     <div className={styles.passwordRow}>
       <code className={styles.passwordText}>{password || '—'}</code>
       <Tooltip title="コピー">
-        <IconButton
-          size="small"
-          onClick={() => onCopy(password)}
-          disabled={!password}
-          className={styles.copyBtn}
-          aria-label="パスワードをコピー"
-        >
+        <IconButton size="small" onClick={() => onCopy(password)} disabled={!password} className={styles.copyBtn} aria-label="パスワードをコピー">
           <ContentCopyIcon fontSize="small" />
         </IconButton>
       </Tooltip>
@@ -203,33 +126,21 @@ function PasswordRow({ password, onCopy }) {
 
 function ResultCard({ passwords, onRefresh, onSave, onCopy }) {
   return (
-    <div className={styles.card}>
+    <div className={common.card}>
       <div className={styles.resultCardHeader}>
-        <h2 className={styles.cardTitle}>
-          <span className={styles.cardTitleIcon}>🔑</span>
+        <h2 className={common.cardTitleNoMargin}>
+          <span className={common.cardTitleIcon}>🔑</span>
           生成されたパスワード
         </h2>
         <div className={styles.resultActions}>
           <Tooltip title="再生成">
-            <IconButton size="small" onClick={onRefresh} aria-label="再生成">
-              <RefreshIcon fontSize="small" />
-            </IconButton>
+            <IconButton size="small" onClick={onRefresh} aria-label="再生成"><RefreshIcon fontSize="small" /></IconButton>
           </Tooltip>
-          <Button
-            variant="outlined"
-            size="small"
-            startIcon={<DownloadIcon />}
-            onClick={onSave}
-            className={styles.saveBtn}
-          >
-            保存
-          </Button>
+          <Button variant="outlined" size="small" startIcon={<DownloadIcon />} onClick={onSave} className={styles.saveBtn}>保存</Button>
         </div>
       </div>
       <Stack spacing={1}>
-        {passwords.map((pw, i) => (
-          <PasswordRow key={i} password={pw} onCopy={onCopy} />
-        ))}
+        {passwords.map((pw, i) => <PasswordRow key={i} password={pw} onCopy={onCopy} />)}
       </Stack>
     </div>
   );
@@ -244,50 +155,28 @@ export default function Password(): JSX.Element {
   const description = '条件を指定してパスワードを作成できます。ブラウザ上で動作するため、作成したパスワードは安全に利用できます。';
   const { siteConfig } = useDocusaurusContext();
 
-  const [state, setState] = useState({
-    availableSymbols: '',
-    filterStr: '',
-    length: 16,
-    createTimes: 5,
-    useSameChar: true,
-    useSymbols: true,
-  });
-
-  const [passwords, setPasswords] = useState(() => generateAll({
-    availableSymbols: '',
-    filterStr: '',
-    length: 16,
-    createTimes: 5,
-    useSameChar: true,
-    useSymbols: true,
-  }));
-
+  const defaultState = { availableSymbols: '', filterStr: '', length: 16, createTimes: 5, useSameChar: true, useSymbols: true };
+  const [state, setState] = useState(defaultState);
+  const [passwords, setPasswords] = useState(() => generateAll(defaultState));
   const [snackbar, setSnackbar] = useState({ open: false, message: '' });
 
-  React.useEffect(() => {
-    setPasswords(generateAll(state));
-  }, [state]);
+  React.useEffect(() => { setPasswords(generateAll(state)); }, [state]);
 
   const handleRefresh = () => setPasswords(generateAll(state));
-
   const handleCopy = (password: string) => {
     if (!password) return;
     navigator.clipboard.writeText(password);
     setSnackbar({ open: true, message: 'コピーしました！' });
   };
-
   const handleSave = () => {
-    const content = passwords.join('\n');
-    const blob = new Blob([content], { type: 'text/plain' });
+    const blob = new Blob([passwords.join('\n')], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     const now = new Date();
     const pad = (n: number) => n.toString().padStart(2, '0');
     a.download = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
 
@@ -295,32 +184,16 @@ export default function Password(): JSX.Element {
     <Layout title={`${title} | ${siteConfig.title}`} description={description}>
       <MuiTheme>
         <PageHeader />
-        <div className={styles.body}>
+        <div className={common.body}>
           <div className={styles.container}>
             <div className={styles.layout}>
-              <div className={styles.layoutLeft}>
-                <SettingsCard state={state} setState={setState} />
-              </div>
-              <div className={styles.layoutRight}>
-                <ResultCard
-                  passwords={passwords}
-                  onRefresh={handleRefresh}
-                  onCopy={handleCopy}
-                  onSave={handleSave}
-                />
-              </div>
+              <div><SettingsCard state={state} setState={setState} /></div>
+              <div><ResultCard passwords={passwords} onRefresh={handleRefresh} onCopy={handleCopy} onSave={handleSave} /></div>
             </div>
           </div>
         </div>
-        <Snackbar
-          open={snackbar.open}
-          autoHideDuration={2000}
-          onClose={() => setSnackbar({ ...snackbar, open: false })}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        >
-          <Alert severity="success" variant="filled" sx={{ borderRadius: 2 }}>
-            {snackbar.message}
-          </Alert>
+        <Snackbar open={snackbar.open} autoHideDuration={2000} onClose={() => setSnackbar({ ...snackbar, open: false })} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+          <Alert severity="success" variant="filled" sx={{ borderRadius: 2 }}>{snackbar.message}</Alert>
         </Snackbar>
       </MuiTheme>
     </Layout>

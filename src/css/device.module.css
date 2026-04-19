@@ -1,26 +1,6 @@
-/* ============================================================
-   Page Header
-   ============================================================ */
+/* デバイス情報確認固有スタイル */
 
-.pageHeader {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, #0f0c29 0%, #1a1a3e 50%, #0d1b4b 100%);
-  padding: 3.5rem 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-[data-theme='light'] .pageHeader {
-  background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #1565c0 100%);
-}
-
-.pageHeaderBg {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
+/* ---- Header orbs & colors ---- */
 
 .pageHeaderOrb1 {
   position: absolute;
@@ -46,12 +26,6 @@
   right: -60px;
 }
 
-.pageHeaderContent {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-}
-
 .pageHeaderIcon {
   display: inline-block;
   font-size: 2.5rem;
@@ -70,22 +44,7 @@
   background-clip: text;
 }
 
-.pageHeaderDesc {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.7);
-  max-width: 560px;
-  margin: 0 auto;
-  line-height: 1.7;
-}
-
-/* ============================================================
-   Body / Layout
-   ============================================================ */
-
-.body {
-  padding: 2.5rem 1.5rem 4rem;
-  background: var(--ifm-background-color);
-}
+/* ---- Layout ---- */
 
 .container {
   max-width: 900px;
@@ -106,41 +65,9 @@
   .grid {
     grid-template-columns: 1fr;
   }
-
-  .body {
-    padding: 2rem 1rem 3rem;
-  }
 }
 
-/* ============================================================
-   Card
-   ============================================================ */
-
-.card {
-  background: var(--ifm-card-background-color);
-  border: 1px solid var(--ifm-color-emphasis-200);
-  border-radius: 16px;
-  padding: 1.75rem;
-  height: 100%;
-}
-
-.cardTitle {
-  font-size: 1rem;
-  font-weight: 700;
-  margin: 0 0 1.25rem;
-  color: var(--ifm-font-color-base);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.cardTitleIcon {
-  font-size: 1.1rem;
-}
-
-/* ============================================================
-   Info Row
-   ============================================================ */
+/* ---- Info rows ---- */
 
 .infoRow {
   padding: 1rem 0;
