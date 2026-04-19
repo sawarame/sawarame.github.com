@@ -1,132 +1,211 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '@theme/Layout';
-import MuiTheme from '@site/src/components/MuiTheme';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import {
-  Container,
-  Grid2 as Grid,
-  TextField,
-  FormLabel,
-} from '@mui/material';
+import { IconButton, Snackbar, Alert, Tooltip } from '@mui/material';
+import MuiTheme from '@site/src/components/MuiTheme';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import styles from './device.module.css';
 
-/**
- * デバイス情報確認ページ.
- */
+// ============================================================
+// Sub Components
+// ============================================================
+
+function PageHeader() {
+  return (
+    <div className={styles.pageHeader}>
+      <div className={styles.pageHeaderBg}>
+        <div className={styles.pageHeaderOrb1} />
+        <div className={styles.pageHeaderOrb2} />
+      </div>
+      <div className={styles.pageHeaderContent}>
+        <span className={styles.pageHeaderIcon}>📱</span>
+        <h1 className={styles.pageHeaderTitle}>デバイス情報確認</h1>
+        <p className={styles.pageHeaderDesc}>
+          現在利用しているデバイスの画面サイズやユーザーエージェント情報を表示します。
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function InfoRow({
+  label,
+  value,
+  note,
+  onCopy,
+  mono = false,
+}: {
+  label: string;
+  value: string;
+  note?: string;
+  onCopy?: (value: string) => void;
+  mono?: boolean;
+}) {
+  return (
+    <div className={styles.infoRow}>
+      <div className={styles.infoRowTop}>
+        <span className={styles.infoLabel}>{label}</span>
+        {note && <span className={styles.infoNote}>{note}</span>}
+        {onCopy && (
+          <Tooltip title="コピー">
+            <IconButton
+              size="small"
+              onClick={() => onCopy(value)}
+              className={styles.copyBtn}
+              aria-label={`${label}をコピー`}
+            >
+              <ContentCopyIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
+        )}
+      </div>
+      <p className={`${styles.infoValue} ${mono ? styles.infoValueMono : ''}`}>
+        {value || '—'}
+      </p>
+    </div>
+  );
+}
+
+function SectionCard({
+  icon,
+  title,
+  children,
+}: {
+  icon: string;
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className={styles.card}>
+      <h2 className={styles.cardTitle}>
+        <span className={styles.cardTitleIcon}>{icon}</span>
+        {title}
+      </h2>
+      {children}
+    </div>
+  );
+}
+
+// ============================================================
+// Page
+// ============================================================
+
 export default function Device(): JSX.Element {
   const title = 'デバイス情報確認';
   const description = '現在利用しているデバイスの画面サイズやユーザーエージェント情報を表示します。';
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
 
   const [state, setState] = useState({
     userAgent: '',
     physicalSize: '',
     logicalSize: '',
-    ipAddress: 'IPアドレスを読み込み中...',
+    ipAddress: '読み込み中...',
   });
+  const [snackbar, setSnackbar] = useState({ open: false, message: '' });
 
   useEffect(() => {
     const isBot = /bot|crawler|spider|crawling/i.test(navigator.userAgent);
     if (isBot) {
-      setState(s => ({
+      setState((s) => ({
         ...s,
         ipAddress: 'ボット/クローラーからのアクセスと判定されたため、IPアドレスは表示されません。',
       }));
-      return;
+    } else {
+      (async () => {
+        try {
+          const res = await fetch('https://api.sawara.me/v1/ipaddress/');
+          if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+          const data = await res.json();
+          setState((s) => ({ ...s, ipAddress: data.ip }));
+        } catch (err) {
+          console.error('IPアドレスの取得に失敗しました。', err);
+          setState((s) => ({ ...s, ipAddress: '取得に失敗しました。' }));
+        }
+      })();
     }
 
-    const fetchIpAddress = async () => {
-      try {
-        const response = await fetch('https://api.sawara.me/v1/ipaddress/');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setState(s => ({...s, ipAddress: data.ip}));
-      } catch (error) {
-        console.error('IPアドレスの取得に失敗しました。', error);
-        setState(s => ({...s, ipAddress: 'IPアドレスの取得に失敗しました。'}));
-      }
-    };
-
-    fetchIpAddress();
-
-    const updateState = () => {
-      setState(s => ({
+    const update = () => {
+      setState((s) => ({
         ...s,
         userAgent: navigator.userAgent,
-        physicalSize: `${window.screen.width} x ${window.screen.height}`,
-        logicalSize: `${window.innerWidth} x ${window.innerHeight}`,
+        physicalSize: `${window.screen.width} × ${window.screen.height} px`,
+        logicalSize: `${window.innerWidth} × ${window.innerHeight} px`,
       }));
     };
-
-    updateState();
-
-    window.addEventListener('resize', updateState);
-    return () => window.removeEventListener('resize', updateState);
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
   }, []);
 
+  const handleCopy = (value: string) => {
+    navigator.clipboard.writeText(value);
+    setSnackbar({ open: true, message: 'コピーしました！' });
+  };
+
   return (
-    <Layout
-      title={`${title} ${siteConfig.title}`}
-      description={description}
-    >
+    <Layout title={`${title} | ${siteConfig.title}`} description={description}>
       <MuiTheme>
-        <Container maxWidth='xl' sx={{marginTop: 5, marginBottom: 5}}>
-          <Grid container spacing={2}>
-            <Grid size={{ xs: 12, md: 12 }}>
-              <h1>{title}</h1>
-              <p>{description}</p>
-            </Grid>
-            
-            <Grid size={{ xs: 12 }}>
-              <FormLabel>IPアドレス</FormLabel>
-              <TextField 
-                fullWidth
-                value={state.ipAddress}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-            </Grid>
+        <PageHeader />
 
-            <Grid size={{ xs: 12 }}>
-              <FormLabel>ユーザーエージェント</FormLabel>
-              <TextField 
-                fullWidth
-                multiline
-                value={state.userAgent}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-            </Grid>
+        <div className={styles.body}>
+          <div className={styles.container}>
+            <div className={styles.grid}>
 
-            <Grid size={{ xs: 12, md: 6 }}>
-              <FormLabel>物理画面サイズ</FormLabel>
-              <TextField 
-                fullWidth
-                value={state.physicalSize}
-                helperText="window.screen"
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-            </Grid>
+              {/* ネットワーク */}
+              <SectionCard icon="🌐" title="ネットワーク">
+                <InfoRow
+                  label="IPアドレス"
+                  value={state.ipAddress}
+                  onCopy={handleCopy}
+                  mono
+                />
+              </SectionCard>
 
-            <Grid size={{ xs: 12, md: 6 }}>
-              <FormLabel>論理画面サイズ</FormLabel>
-              <TextField 
-                fullWidth
-                value={state.logicalSize}
-                helperText="window.inner"
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-            </Grid>
-          </Grid>
-        </Container>
+              {/* 画面サイズ */}
+              <SectionCard icon="🖥️" title="画面サイズ">
+                <InfoRow
+                  label="物理解像度"
+                  value={state.physicalSize}
+                  note="window.screen"
+                  onCopy={handleCopy}
+                  mono
+                />
+                <InfoRow
+                  label="ウィンドウサイズ"
+                  value={state.logicalSize}
+                  note="window.inner"
+                  onCopy={handleCopy}
+                  mono
+                />
+              </SectionCard>
+
+              {/* ユーザーエージェント */}
+              <div className={styles.fullWidth}>
+                <SectionCard icon="🔍" title="ユーザーエージェント">
+                  <InfoRow
+                    label="User-Agent"
+                    value={state.userAgent}
+                    onCopy={handleCopy}
+                    mono
+                  />
+                </SectionCard>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <Snackbar
+          open={snackbar.open}
+          autoHideDuration={2000}
+          onClose={() => setSnackbar((s) => ({ ...s, open: false }))}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        >
+          <Alert severity="success" variant="filled" sx={{ borderRadius: 2 }}>
+            {snackbar.message}
+          </Alert>
+        </Snackbar>
       </MuiTheme>
     </Layout>
   );
-};
+}

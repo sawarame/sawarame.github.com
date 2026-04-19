@@ -1,0 +1,206 @@
+/* ============================================================
+   Page Header
+   ============================================================ */
+
+.pageHeader {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0f0c29 0%, #1a1a3e 50%, #0d1b4b 100%);
+  padding: 3.5rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-theme='light'] .pageHeader {
+  background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #1565c0 100%);
+}
+
+.pageHeaderBg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.pageHeaderOrb1 {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #4facfe, transparent);
+  filter: blur(70px);
+  opacity: 0.2;
+  top: -100px;
+  left: -80px;
+}
+
+.pageHeaderOrb2 {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #00f2fe, transparent);
+  filter: blur(70px);
+  opacity: 0.2;
+  bottom: -80px;
+  right: -60px;
+}
+
+.pageHeaderContent {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.pageHeaderIcon {
+  display: inline-block;
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  filter: drop-shadow(0 4px 12px rgba(79, 172, 254, 0.4));
+}
+
+.pageHeaderTitle {
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 0.75rem;
+  background: linear-gradient(135deg, #fff 0%, #bae6fd 60%, #7dd3fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pageHeaderDesc {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ============================================================
+   Body / Layout
+   ============================================================ */
+
+.body {
+  padding: 2.5rem 1.5rem 4rem;
+  background: var(--ifm-background-color);
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    padding: 2rem 1rem 3rem;
+  }
+}
+
+/* ============================================================
+   Card
+   ============================================================ */
+
+.card {
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 16px;
+  padding: 1.75rem;
+  height: 100%;
+}
+
+.cardTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 1.25rem;
+  color: var(--ifm-font-color-base);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cardTitleIcon {
+  font-size: 1.1rem;
+}
+
+/* ============================================================
+   Info Row
+   ============================================================ */
+
+.infoRow {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.infoRow:first-of-type {
+  padding-top: 0;
+}
+
+.infoRow:last-of-type {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.infoRowTop {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.infoLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ifm-color-primary);
+}
+
+.infoNote {
+  font-size: 0.7rem;
+  font-family: 'Menlo', 'Monaco', 'Consolas', monospace;
+  color: var(--ifm-color-secondary-darkest);
+  background: var(--ifm-color-emphasis-100);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+}
+
+.copyBtn {
+  margin-left: auto !important;
+  color: var(--ifm-color-primary) !important;
+  opacity: 0.6;
+  transition: opacity 0.15s !important;
+}
+
+.copyBtn:hover {
+  opacity: 1 !important;
+}
+
+.infoValue {
+  font-size: 0.9rem;
+  color: var(--ifm-font-color-base);
+  margin: 0;
+  line-height: 1.6;
+  word-break: break-all;
+}
+
+.infoValueMono {
+  font-family: 'Menlo', 'Monaco', 'Consolas', monospace;
+  font-size: 0.875rem;
+}
