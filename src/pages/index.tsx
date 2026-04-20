@@ -68,7 +68,7 @@ const extensions = [
     title: 'MdPicker',
     description:
       'ウェブページのリンクをMarkdown形式で簡単にコピーできるブラウザ拡張機能です。',
-    link: 'https://chromewebstore.google.com/detail/mdpicker/eepnjnfgehgmmpfkjedngofblojheild',
+    link: 'https://chromewebstore.google.com/detail/mdpicker/aihoeldnpdpcbjbcgamhhkgnpmihooep',
     badge: 'Chrome Web Store',
   },
 ];

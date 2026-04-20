@@ -79,7 +79,7 @@ const config: Config = {
       title: 'sawara.me',
       logo: {
         alt: 'sawara.meのロゴ',
-        src: 'img/sawara.png',
+        src: 'img/sawara_logo.svg',
       },
       items: [
         // {
