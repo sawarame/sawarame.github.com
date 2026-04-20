@@ -28,3 +28,14 @@
   --ifm-color-primary-lightest: #91c3ff;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* スマホ等でテーマ切り替えボタンが消えないようにする対応
+ * Docusaurusはデフォルトでモバイル表示時にナビゲーションバーの右端のテーマ切り替えボタンを非表示にし、
+ * 代わりにハンバーガーメニュー内に表示しますが、navbar.itemsが空だとハンバーガーメニュー自体が表示されず、
+ * テーマの切り替えができなくなるため、モバイル表示でも常に表示するよう上書きします。
+ */
+@media (max-width: 996px) {
+  [class*='colorModeToggle'] {
+    display: flex !important;
+  }
+}
