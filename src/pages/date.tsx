@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Layout from '@theme/Layout';
 import MuiTheme from '@site/src/components/MuiTheme';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -10,8 +10,12 @@ import {
   Tooltip,
   Snackbar,
   Alert,
+  InputAdornment,
+  FormControlLabel,
+  Checkbox,
 } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import common from '@site/src/css/common.module.css';
 
 // --- Date Utils ---
@@ -184,9 +188,10 @@ export default function DateComparison(): JSX.Element {
 
   const [date1, setDate1] = useState('');
   const [date2, setDate2] = useState('');
+  const [alwaysCurrent, setAlwaysCurrent] = useState(false);
 
-  // Removed handleBlur
-
+  const datePickerRef1 = useRef<HTMLInputElement>(null);
+  const datePickerRef2 = useRef<HTMLInputElement>(null);
 
   // Set default state safely
   useEffect(() => {
@@ -194,6 +199,20 @@ export default function DateComparison(): JSX.Element {
     setDate1(formatDate(now));
     setDate2('');
   }, []);
+
+  // Update date1 continuously if alwaysCurrent is true
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (alwaysCurrent) {
+      setDate1(formatDate(new Date()));
+      timer = setInterval(() => {
+        setDate1(formatDate(new Date()));
+      }, 1000);
+    }
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [alwaysCurrent]);
 
   return (
     <Layout title={`${title} | ${siteConfig.title}`} description={description}>
@@ -208,15 +227,52 @@ export default function DateComparison(): JSX.Element {
                 比較する日付
               </h2>
               <Stack spacing={3} style={{ marginTop: '1rem' }}>
-                <TextField
-                  label="Date 1"
-                  variant="outlined"
-                  fullWidth
-                  value={date1}
-                  onChange={(e) => setDate1(e.target.value)}
-                  helperText={parseCustomDate(date1) ? formatDate(parseCustomDate(date1)!) : ' '}
-                  placeholder="2026/1/1 12:00:00, UNIXTIME, etc."
-                />
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={alwaysCurrent}
+                        onChange={(e) => setAlwaysCurrent(e.target.checked)}
+                        size="small"
+                      />
+                    }
+                    label={<span style={{ fontSize: '0.85rem' }}>常に現在時刻と比較</span>}
+                  />
+                  <TextField
+                    label="Date 1"
+                    variant="outlined"
+                    fullWidth
+                    value={date1}
+                    onChange={(e) => setDate1(e.target.value)}
+                    disabled={alwaysCurrent}
+                    helperText={parseCustomDate(date1) ? formatDate(parseCustomDate(date1)!) : ' '}
+                    placeholder="2026/1/1 12:00:00, UNIXTIME, etc."
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton 
+                            onClick={() => datePickerRef1.current?.showPicker()} 
+                            edge="end"
+                            disabled={alwaysCurrent}
+                          >
+                            <CalendarMonthIcon />
+                          </IconButton>
+                          <input 
+                            type="datetime-local" 
+                            step="1"
+                            ref={datePickerRef1} 
+                            onChange={(e) => {
+                              if (e.target.value) {
+                                setDate1(formatDate(new Date(e.target.value)));
+                              }
+                            }} 
+                            style={{ width: 0, height: 0, border: 0, padding: 0, visibility: 'hidden', position: 'absolute' }} 
+                          />
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+                </div>
                 <TextField
                   label="Date 2"
                   variant="outlined"
@@ -225,6 +281,26 @@ export default function DateComparison(): JSX.Element {
                   onChange={(e) => setDate2(e.target.value)}
                   helperText={parseCustomDate(date2) ? formatDate(parseCustomDate(date2)!) : ' '}
                   placeholder="2026/1/1 12:00:00, UNIXTIME, etc."
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={() => datePickerRef2.current?.showPicker()} edge="end">
+                          <CalendarMonthIcon />
+                        </IconButton>
+                        <input 
+                          type="datetime-local" 
+                          step="1"
+                          ref={datePickerRef2} 
+                          onChange={(e) => {
+                            if (e.target.value) {
+                              setDate2(formatDate(new Date(e.target.value)));
+                            }
+                          }} 
+                          style={{ width: 0, height: 0, border: 0, padding: 0, visibility: 'hidden', position: 'absolute' }} 
+                        />
+                      </InputAdornment>
+                    )
+                  }}
                 />
               </Stack>
             </div>
