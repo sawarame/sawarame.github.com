@@ -12,10 +12,13 @@ import {
   Tooltip,
   Snackbar,
   Alert,
+  InputAdornment,
 } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DownloadIcon from '@mui/icons-material/Download';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from '@mui/icons-material/Add';
 import common from '@site/src/css/common.module.css';
 import styles from '@site/src/css/password.module.css';
 
@@ -88,11 +91,45 @@ function SettingsCard({ state, setState }) {
       <div className={styles.settingsGrid}>
         <div className={styles.settingsField}>
           <TextField label="パスワードの長さ" type="number" variant="outlined" size="small" value={state.length} fullWidth
-            inputProps={{ min: 1, max: 128 }} onChange={(e) => setState({ ...state, length: parseInt(e.target.value) || 1 })} />
+            inputProps={{ min: 1, max: 128, style: { textAlign: 'center' } }} onChange={(e) => setState({ ...state, length: parseInt(e.target.value) || 1 })}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <IconButton size="small" edge="start" onClick={() => setState({ ...state, length: Math.max(1, state.length - 1) })}>
+                    <RemoveIcon fontSize="small" />
+                  </IconButton>
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton size="small" edge="end" onClick={() => setState({ ...state, length: Math.min(128, state.length + 1) })}>
+                    <AddIcon fontSize="small" />
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
+          />
         </div>
         <div className={styles.settingsField}>
           <TextField label="作成数" type="number" variant="outlined" size="small" value={state.createTimes} fullWidth
-            inputProps={{ min: 1, max: 20 }} onChange={(e) => setState({ ...state, createTimes: parseInt(e.target.value) || 1 })} />
+            inputProps={{ min: 1, max: 20, style: { textAlign: 'center' } }} onChange={(e) => setState({ ...state, createTimes: parseInt(e.target.value) || 1 })}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <IconButton size="small" edge="start" onClick={() => setState({ ...state, createTimes: Math.max(1, state.createTimes - 1) })}>
+                    <RemoveIcon fontSize="small" />
+                  </IconButton>
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton size="small" edge="end" onClick={() => setState({ ...state, createTimes: Math.min(20, state.createTimes + 1) })}>
+                    <AddIcon fontSize="small" />
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
+          />
         </div>
         <div className={styles.settingsField}>
           <TextField label="使用しない文字" variant="outlined" size="small" value={state.filterStr} fullWidth
