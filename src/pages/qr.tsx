@@ -24,7 +24,7 @@ function PageHeader() {
         <span className={styles.pageHeaderIcon}>📷</span>
         <h1 className={styles.pageHeaderTitle}>QRコード作成</h1>
         <p className={common.pageHeaderDesc}>
-          URLや様々な情報からQRコードを生成します。
+          URLや様々な情報からQRコードを生成します。Wi-Fiやカレンダー登録などにも対応しています。
         </p>
       </div>
     </div>
@@ -39,22 +39,22 @@ type Mode = 'text' | 'wifi' | 'contact' | 'event' | 'email';
 
 export default function QR(): React.JSX.Element {
   const title = 'QRコード作成';
-  const description = 'URLや様々な情報からQRコードを生成します。';
+  const description = 'URLや様々な情報からQRコードを生成します。Wi-Fiやカレンダー登録などにも対応しています。';
   const { siteConfig } = useDocusaurusContext();
 
   const [mode, setMode] = useState<Mode>('text');
 
   // Form states
   const [textInput, setTextInput] = useState('https://sawara.me');
-  
+
   const [wifiEncryption, setWifiEncryption] = useState('WPA');
   const [wifiSsid, setWifiSsid] = useState('');
   const [wifiPassword, setWifiPassword] = useState('');
-  
+
   const [contactName, setContactName] = useState('');
   const [contactTel, setContactTel] = useState('');
   const [contactEmail, setContactEmail] = useState('');
-  
+
   const [eventName, setEventName] = useState('');
   const [eventStart, setEventStart] = useState('');
   const [eventEnd, setEventEnd] = useState('');
@@ -218,14 +218,14 @@ END:VCALENDAR
                   )}
 
                   {mode !== 'text' && (
-                    <TextField 
-                      fullWidth 
-                      label="生成される文字列" 
-                      variant="outlined" 
-                      value={generatedText} 
-                      multiline 
-                      minRows={3} 
-                      InputProps={{ readOnly: true }} 
+                    <TextField
+                      fullWidth
+                      label="生成される文字列"
+                      variant="outlined"
+                      value={generatedText}
+                      multiline
+                      minRows={3}
+                      InputProps={{ readOnly: true }}
                     />
                   )}
 
