@@ -44,6 +44,13 @@ const tools = [
     link: '/qr',
     gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
   },
+  {
+    icon: '🗓️',
+    title: '日付比較ツール',
+    description: '二つの日付の差分を計算します。様々なフォーマットの日付入力に対応しています。',
+    link: '/date',
+    gradient: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)',
+  },
 ];
 
 const extensions = [
