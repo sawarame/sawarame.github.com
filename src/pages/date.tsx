@@ -191,9 +191,8 @@ export default function DateComparison(): JSX.Element {
   // Set default state safely
   useEffect(() => {
     const now = new Date();
-    const nextYear = new Date(now.getFullYear() + 1, 0, 1); // Jan 1st of next year
     setDate1(formatDate(now));
-    setDate2(formatDate(nextYear));
+    setDate2('');
   }, []);
 
   return (
