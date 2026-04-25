@@ -74,7 +74,7 @@ function PageHeader() {
         <span className={styles.pageHeaderIcon}>🔐</span>
         <h1 className={styles.pageHeaderTitle}>パスワードジェネレーター</h1>
         <p className={common.pageHeaderDesc}>
-          条件を指定してパスワードを作成できます。ブラウザ上で動作するため、作成したパスワードは安全に利用できます。
+          条件を指定してパスワードを作成できます。設定内容はURLに含まれるため、URLを共有することで同じ条件のパスワードを再度生成することも可能です。ブラウザ上で動作するため、作成したパスワードは安全に利用できます。
         </p>
       </div>
     </div>
