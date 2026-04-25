@@ -58,6 +58,13 @@ const tools = [
     link: '/exif',
     gradient: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)',
   },
+  {
+    icon: '🖼️',
+    title: '画像軽量化・クロップツール',
+    description: 'ブラウザ上で画像を軽量化し、WebPなどの形式に変換します。一括処理やクロップ・EXIF情報の削除にも対応しています。',
+    link: '/image',
+    gradient: 'linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%)',
+  },
 ];
 
 const extensions = [
