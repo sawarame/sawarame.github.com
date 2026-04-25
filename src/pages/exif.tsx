@@ -70,7 +70,7 @@ function PageHeader() {
           backgroundClip: 'text'
         }}>写真Exif情報チェッカー</h1>
         <p className={common.pageHeaderDesc}>
-          アップロードした写真からカメラ情報、撮影日時、GPSなどのメタデータを読み取ります。写真はサーバーに送信されず、すべてブラウザ内で処理されるため安全です。
+          アップロードした写真（JPEG形式）からカメラ情報、撮影日時、GPSなどのメタデータを読み取ります。写真はサーバーに送信されず、すべてブラウザ内で処理されるため安全です。
         </p>
       </div>
     </div>
@@ -145,7 +145,7 @@ function UploadArea({ onFileSelect }: { onFileSelect: (file: File) => void }) {
           クリックまたはドラッグ＆ドロップでファイルを選択
         </p>
         <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.85rem', color: 'var(--ifm-color-emphasis-600)' }}>
-          対応フォーマット: JPEG, PNG, HEIC, WEBPなど
+          対応フォーマット: JPEG (EXIF情報の読み取りは主にJPEGに対応しています)
         </p>
         <input
           type="file"

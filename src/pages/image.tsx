@@ -348,6 +348,7 @@ function BeforeAfterSlider({ beforeUrl, afterUrl }: { beforeUrl: string; afterUr
 export default function ImageOptimizer(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   const [images, setImages] = useState<ImageFile[]>([]);
+  const [isDragOver, setIsDragOver] = useState(false);
   const [settings, setSettings] = useState<OptimizationSettings>({
     format: 'webp',
     quality: 0.8,
@@ -510,17 +511,57 @@ export default function ImageOptimizer(): JSX.Element {
             
             <Stack spacing={4}>
               {/* 1. Upload Section */}
-              <Box 
-                onDrop={(e) => { e.preventDefault(); handleFileSelect(e.dataTransfer.files); }} 
-                onDragOver={(e) => e.preventDefault()} 
-                onClick={() => fileInputRef.current?.click()} 
-                sx={{ border: '2px dashed var(--ifm-color-emphasis-300)', borderRadius: '16px', p: 6, textAlign: 'center', cursor: 'pointer', transition: 'all 0.2s', '&:hover': { borderColor: 'var(--ifm-color-primary)', bgcolor: 'action.hover' } }}
-              >
-                <CloudUploadIcon sx={{ fontSize: 64, color: 'text.secondary', mb: 2 }} />
-                <Typography variant="h6" fontWeight={800}>画像をドラッグ＆ドロップしてアップロード</Typography>
-                <Typography variant="body2" color="text.secondary">複数選択可。JPEG, PNG, WebPに対応</Typography>
-                <input type="file" multiple accept="image/*" hidden ref={fileInputRef} onChange={(e) => handleFileSelect(e.target.files)} />
-              </Box>
+              <div className={common.card}>
+                <h2 className={common.cardTitle}>
+                  <span className={common.cardTitleIcon}>📁</span>
+                  画像を選択
+                </h2>
+                <Box
+                  onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
+                  onDragLeave={() => setIsDragOver(false)}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    setIsDragOver(false);
+                    handleFileSelect(e.dataTransfer.files);
+                  }}
+                  onClick={() => fileInputRef.current?.click()}
+                  sx={{
+                    marginTop: '1rem',
+                    padding: '3rem 1rem',
+                    border: '2px dashed',
+                    borderColor: isDragOver ? 'primary.main' : 'var(--ifm-color-emphasis-300)',
+                    borderRadius: '12px',
+                    backgroundColor: isDragOver ? 'action.hover' : 'var(--ifm-background-color)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease-in-out',
+                    textAlign: 'center',
+                    '&:hover': {
+                      backgroundColor: 'action.hover',
+                      borderColor: 'primary.main',
+                    }
+                  }}
+                >
+                  <CloudUploadIcon sx={{ fontSize: 48, color: 'var(--ifm-color-emphasis-500)', marginBottom: '1rem' }} />
+                  <p style={{ margin: 0, fontWeight: 600, color: 'var(--ifm-color-emphasis-800)' }}>
+                    クリックまたはドラッグ＆ドロップでファイルを選択
+                  </p>
+                  <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.85rem', color: 'var(--ifm-color-emphasis-600)' }}>
+                    対応フォーマット: JPEG, PNG, WebPなど
+                  </p>
+                  <input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    hidden
+                    ref={fileInputRef}
+                    onChange={(e) => handleFileSelect(e.target.files)}
+                  />
+                </Box>
+              </div>
 
               {/* 2. Image List & Settings (Only visible after upload) */}
               {images.length > 0 && (
