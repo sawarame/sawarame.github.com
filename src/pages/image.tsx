@@ -53,6 +53,17 @@ function checkWebpSupport(): boolean {
   return false;
 }
 
+function getImageDimensions(file: Blob): Promise<string> {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      resolve(`${img.naturalWidth} x ${img.naturalHeight}`);
+    };
+    img.onerror = () => resolve('Unknown');
+    img.src = URL.createObjectURL(file);
+  });
+}
+
 function readFileAsDataURL(file: Blob): Promise<string> {
   return new Promise((resolve) => {
     const reader = new FileReader();
@@ -149,7 +160,9 @@ interface ImageFile {
   displayUrl: string;
   status: 'pending' | 'processing' | 'completed' | 'error';
   originalSize: number;
+  originalDimensions?: string;
   compressedSize?: number;
+  compressedDimensions?: string;
   compressedBlob?: Blob;
   compressedUrl?: string;
   error?: string;
@@ -384,21 +397,25 @@ export default function ImageOptimizer(): JSX.Element {
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' });
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileSelect = (files: FileList | null) => {
+  const handleFileSelect = async (files: FileList | null) => {
     if (!files) return;
-    const newImages: ImageFile[] = Array.from(files)
+    const newImagesPromises = Array.from(files)
       .filter(file => file.type.startsWith('image/'))
-      .map(file => {
+      .map(async file => {
         const url = URL.createObjectURL(file);
+        const dimensions = await getImageDimensions(file);
         return {
           id: Math.random().toString(36).substr(2, 9),
           file,
           previewUrl: url,
           displayUrl: url,
-          status: 'pending',
+          status: 'pending' as const,
           originalSize: file.size,
+          originalDimensions: dimensions,
         };
       });
+    
+    const newImages = await Promise.all(newImagesPromises);
     setImages(prev => [...prev, ...newImages]);
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
@@ -457,8 +474,11 @@ export default function ImageOptimizer(): JSX.Element {
           URL.revokeObjectURL(updatedImages[i].compressedUrl!);
         }
 
+        const compDimensions = await getImageDimensions(compressedFile);
+
         updatedImages[i].status = 'completed';
         updatedImages[i].compressedSize = compressedFile.size;
+        updatedImages[i].compressedDimensions = compDimensions;
         updatedImages[i].compressedBlob = compressedFile;
         updatedImages[i].compressedUrl = URL.createObjectURL(compressedFile);
       } catch (error) {
@@ -483,6 +503,8 @@ export default function ImageOptimizer(): JSX.Element {
     try {
       const blob = await getCroppedImg(imgRef.current, completedCrop, aspect);
       const url = URL.createObjectURL(blob);
+      const dimensions = await getImageDimensions(blob);
+
       setImages(prev => prev.map(img => {
         if (img.id === cropTarget.id) {
           if (img.displayUrl !== img.previewUrl) URL.revokeObjectURL(img.displayUrl);
@@ -491,7 +513,9 @@ export default function ImageOptimizer(): JSX.Element {
             displayUrl: url,
             croppedBlob: blob,
             status: 'pending',
+            originalDimensions: dimensions, // Update original dims to the cropped state
             compressedSize: undefined,
+            compressedDimensions: undefined,
             compressedUrl: undefined
           };
         }
@@ -599,18 +623,41 @@ export default function ImageOptimizer(): JSX.Element {
                   <Stack spacing={2}>
                     {images.map((img) => (
                       <Card key={img.id} sx={{ borderRadius: '12px', border: '1px solid var(--ifm-color-emphasis-200)' }} elevation={0}>
-                        <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 3 }}>
-                          <img src={img.displayUrl} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: '8px' }} />
-                          <Box sx={{ flexGrow: 1, minWidth: 0 }}>
-                            <Typography variant="body1" fontWeight={700} noWrap>{img.file.name}</Typography>
-                            <Stack direction="row" spacing={1.5} alignItems="center">
-                              <Typography variant="body2" color="text.secondary">{formatSize(img.originalSize)}</Typography>
-                              {img.compressedSize && (
-                                <Typography variant="body2" color="success.main" fontWeight={700}>→ {formatSize(img.compressedSize)}</Typography>
-                              )}
-                            </Stack>
+                        <Stack 
+                          direction={{ xs: 'column', sm: 'row' }} 
+                          spacing={{ xs: 1, sm: 3 }} 
+                          sx={{ p: 2, alignItems: { xs: 'stretch', sm: 'center' } }}
+                        >
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexGrow: 1, minWidth: 0 }}>
+                            <img src={img.displayUrl} style={{ width: 64, height: 64, objectFit: 'cover', borderRadius: '8px' }} />
+                            <Box sx={{ flexGrow: 1, minWidth: 0 }}>
+                              <Typography variant="body2" fontWeight={700} noWrap>{img.file.name}</Typography>
+                              <Stack spacing={0}>
+                                <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
+                                  <Typography variant="caption" color="text.secondary">{formatSize(img.originalSize)}</Typography>
+                                  {img.compressedSize && (
+                                    <Typography variant="caption" color="success.main" fontWeight={700}>→ {formatSize(img.compressedSize)}</Typography>
+                                  )}
+                                </Stack>
+                                <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
+                                  <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>{img.originalDimensions || '---'}</Typography>
+                                  {img.compressedDimensions && (
+                                    <Typography variant="caption" color="success.main" fontWeight={600} sx={{ fontSize: '0.7rem' }}>→ {img.compressedDimensions}</Typography>
+                                  )}
+                                </Stack>
+                              </Stack>
+                            </Box>
                           </Box>
-                          <Stack direction="row" spacing={1}>
+
+                          <Box sx={{ display: { xs: 'flex', sm: 'none' }, justifyContent: 'flex-end', gap: 1, pt: 1, borderTop: '1px solid var(--ifm-color-emphasis-100)' }}>
+                            <Button size="small" startIcon={<CropIcon />} onClick={() => onCropClick(img)}>クロップ</Button>
+                            {img.status === 'completed' && (
+                              <Button size="small" startIcon={<CompareIcon />} color="info" onClick={() => setCompareImages({ before: img.displayUrl, after: img.compressedUrl! })}>比較</Button>
+                            )}
+                            <IconButton size="small" color="error" onClick={() => removeImage(img.id)}><DeleteIcon fontSize="small" /></IconButton>
+                          </Box>
+
+                          <Stack direction="row" spacing={1} sx={{ display: { xs: 'none', sm: 'flex' } }}>
                             <Tooltip title="クロップ">
                               <IconButton onClick={() => onCropClick(img)} color="primary"><CropIcon /></IconButton>
                             </Tooltip>
@@ -621,7 +668,7 @@ export default function ImageOptimizer(): JSX.Element {
                             )}
                             <IconButton color="error" onClick={() => removeImage(img.id)}><DeleteIcon /></IconButton>
                           </Stack>
-                        </Box>
+                        </Stack>
                       </Card>
                     ))}
                   </Stack>
