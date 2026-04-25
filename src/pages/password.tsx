@@ -194,11 +194,19 @@ export default function Password(): JSX.Element {
 
   const defaultState = { availableSymbols: '', filterStr: '', length: 16, createTimes: 5, useSameChar: true, useSymbols: true };
   const [state, setState] = useState(defaultState);
-  const [passwords, setPasswords] = useState(() => generateAll(defaultState));
+  const [passwords, setPasswords] = useState<string[]>([]);
   const [snackbar, setSnackbar] = useState({ open: false, message: '' });
+  const [isMounted, setIsMounted] = useState(false);
+
+  // マウント状態の管理
+  React.useEffect(() => {
+    setIsMounted(true);
+    setPasswords(generateAll(state));
+  }, []);
 
   // URLパラメータから初期状態を取得
   React.useEffect(() => {
+    if (!isMounted) return;
     const searchParams = new URLSearchParams(window.location.search);
     if (searchParams.toString() === '') return;
 
@@ -213,10 +221,11 @@ export default function Password(): JSX.Element {
                   searchParams.get('use_sym') === 'true' ? true : defaultState.useSymbols,
     };
     setState(newState);
-  }, []);
+  }, [isMounted]);
 
   // 状態が変更されたらURLパラメータを更新
   React.useEffect(() => {
+    if (!isMounted) return;
     const params = new URLSearchParams();
     if (state.length !== defaultState.length) params.set('len', state.length.toString());
     if (state.createTimes !== defaultState.createTimes) params.set('count', state.createTimes.toString());
@@ -230,9 +239,12 @@ export default function Password(): JSX.Element {
     if (window.location.search !== (newSearch ? '?' + newSearch : '')) {
       window.history.replaceState(null, '', newUrl);
     }
-  }, [state]);
+  }, [state, isMounted]);
 
-  React.useEffect(() => { setPasswords(generateAll(state)); }, [state]);
+  React.useEffect(() => {
+    if (!isMounted) return;
+    setPasswords(generateAll(state));
+  }, [state, isMounted]);
 
   const handleRefresh = () => setPasswords(generateAll(state));
   const handleCopy = (password: string) => {
