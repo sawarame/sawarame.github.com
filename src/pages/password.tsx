@@ -197,6 +197,41 @@ export default function Password(): JSX.Element {
   const [passwords, setPasswords] = useState(() => generateAll(defaultState));
   const [snackbar, setSnackbar] = useState({ open: false, message: '' });
 
+  // URLパラメータから初期状態を取得
+  React.useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    if (searchParams.toString() === '') return;
+
+    const newState = {
+      availableSymbols: searchParams.get('symbols') ?? defaultState.availableSymbols,
+      filterStr: searchParams.get('exclude') ?? defaultState.filterStr,
+      length: parseInt(searchParams.get('len')) || defaultState.length,
+      createTimes: parseInt(searchParams.get('count')) || defaultState.createTimes,
+      useSameChar: searchParams.get('same') === 'false' ? false : 
+                   searchParams.get('same') === 'true' ? true : defaultState.useSameChar,
+      useSymbols: searchParams.get('use_sym') === 'false' ? false : 
+                  searchParams.get('use_sym') === 'true' ? true : defaultState.useSymbols,
+    };
+    setState(newState);
+  }, []);
+
+  // 状態が変更されたらURLパラメータを更新
+  React.useEffect(() => {
+    const params = new URLSearchParams();
+    if (state.length !== defaultState.length) params.set('len', state.length.toString());
+    if (state.createTimes !== defaultState.createTimes) params.set('count', state.createTimes.toString());
+    if (state.filterStr !== defaultState.filterStr) params.set('exclude', state.filterStr);
+    if (state.availableSymbols !== defaultState.availableSymbols) params.set('symbols', state.availableSymbols);
+    if (state.useSameChar !== defaultState.useSameChar) params.set('same', state.useSameChar.toString());
+    if (state.useSymbols !== defaultState.useSymbols) params.set('use_sym', state.useSymbols.toString());
+
+    const newSearch = params.toString();
+    const newUrl = window.location.pathname + (newSearch ? '?' + newSearch : '');
+    if (window.location.search !== (newSearch ? '?' + newSearch : '')) {
+      window.history.replaceState(null, '', newUrl);
+    }
+  }, [state]);
+
   React.useEffect(() => { setPasswords(generateAll(state)); }, [state]);
 
   const handleRefresh = () => setPasswords(generateAll(state));
