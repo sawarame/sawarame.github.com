@@ -29,7 +29,7 @@ import {
   Autocomplete,
   TextField,
 } from '@mui/material';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DownloadIcon from '@mui/icons-material/Download';
 import CompareIcon from '@mui/icons-material/Compare';
@@ -599,7 +599,7 @@ export default function ImageOptimizer(): JSX.Element {
                     }
                   }}
                 >
-                  <CloudUploadIcon sx={{ fontSize: 48, color: 'var(--ifm-color-emphasis-500)', marginBottom: '1rem' }} />
+                  <AddPhotoAlternateIcon sx={{ fontSize: 48, color: 'var(--ifm-color-emphasis-500)', marginBottom: '1rem' }} />
                   <p style={{ margin: 0, fontWeight: 600, color: 'var(--ifm-color-emphasis-800)' }}>
                     クリックまたはドラッグ＆ドロップでファイルを選択
                   </p>

@@ -60,9 +60,9 @@ const tools = [
   },
   {
     icon: '🖼️',
-    title: '画像軽量化・クロップツール',
-    description: 'ブラウザ上で画像を軽量化し、WebPなどの形式に変換します。一括処理やクロップ・EXIF情報の削除にも対応しています。',
-    link: '/image',
+    title: '画像軽量化・変換ツール',
+    description: 'ブラウザ上で画像を軽量化し、WebPなどの形式に変換します。一括処理やEXIF情報の削除にも対応しています。',
+    link: '/resize',
     gradient: 'linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%)',
   },
 ];

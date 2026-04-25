@@ -18,7 +18,7 @@ import {
   Box,
 } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import DeleteIcon from '@mui/icons-material/Delete';
 import common from '@site/src/css/common.module.css';
 import exifr from 'exifr';
@@ -140,7 +140,7 @@ function UploadArea({ onFileSelect }: { onFileSelect: (file: File) => void }) {
           }
         }}
       >
-        <CloudUploadIcon sx={{ fontSize: 48, color: 'var(--ifm-color-emphasis-500)', marginBottom: '1rem' }} />
+        <AddPhotoAlternateIcon sx={{ fontSize: 48, color: 'var(--ifm-color-emphasis-500)', marginBottom: '1rem' }} />
         <p style={{ margin: 0, fontWeight: 600, color: 'var(--ifm-color-emphasis-800)' }}>
           クリックまたはドラッグ＆ドロップでファイルを選択
         </p>
