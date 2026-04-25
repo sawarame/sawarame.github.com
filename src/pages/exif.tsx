@@ -68,7 +68,7 @@ function PageHeader() {
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text'
-        }}>写真EXIF情報チェック</h1>
+        }}>写真Exif情報チェッカー</h1>
         <p className={common.pageHeaderDesc}>
           アップロードした写真からカメラ情報、撮影日時、GPSなどのメタデータを読み取ります。写真はサーバーに送信されず、すべてブラウザ内で処理されるため安全です。
         </p>
@@ -258,7 +258,7 @@ function ExifResultCard({ exifData, onClear, fileName, imageUrl }: { exifData: E
 // --- Main Page ---
 
 export default function ExifViewer(): JSX.Element {
-  const title = '写真EXIF情報チェック';
+  const title = '写真Exif情報チェッカー';
   const description = 'アップロードした写真からカメラ情報、撮影日時、GPSなどのメタデータを読み取ります。';
   const { siteConfig } = useDocusaurusContext();
 

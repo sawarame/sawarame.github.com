@@ -53,7 +53,7 @@ const tools = [
   },
   {
     icon: '📸',
-    title: '写真EXIF情報チェック',
+    title: '写真Exif情報チェッカー',
     description: '写真の撮影日時やカメラ情報、GPSなどを読み取ります。写真はサーバーに送信されず、すべてブラウザ内で処理されるため安全です。',
     link: '/exif',
     gradient: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)',
