@@ -188,9 +188,7 @@ function PageHeader() {
           backgroundClip: 'text'
         }}>画像軽量化・クロップツール</h1>
         <p className={common.pageHeaderDesc}>
-          ブラウザ上で画像をクロップ（切り抜き）し、WebPなどに変換して軽量化します。
-          <br />
-          <strong>🔒 プライバシー保護:</strong> 画像はサーバーに送信されず、すべてブラウザ内で完結するため安全です。
+          ブラウザ上で画像をクロップ（切り抜き）し、WebPなどに変換して軽量化します。画像はサーバーに送信されず、すべてブラウザ内で完結するため安全です。
         </p>
       </div>
     </div>
