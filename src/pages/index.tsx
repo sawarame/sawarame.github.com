@@ -31,7 +31,7 @@ const tools = [
   },
   {
     icon: '📱',
-    title: 'デバイス情報確認',
+    title: 'デバイス情報チェッカー',
     description:
       '現在利用しているデバイスの画面サイズやユーザーエージェント情報を表示します。',
     link: '/device',

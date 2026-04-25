@@ -20,7 +20,7 @@ function PageHeader() {
       </div>
       <div className={common.pageHeaderContent}>
         <span className={styles.pageHeaderIcon}>📱</span>
-        <h1 className={styles.pageHeaderTitle}>デバイス情報確認</h1>
+        <h1 className={styles.pageHeaderTitle}>デバイス情報チェッカー</h1>
         <p className={common.pageHeaderDesc}>
           現在利用しているデバイスの画面サイズやユーザーエージェント情報を表示します。
         </p>
@@ -67,7 +67,7 @@ function SectionCard({ icon, title, children, full = false }: { icon: string; ti
 // ============================================================
 
 export default function Device(): JSX.Element {
-  const title = 'デバイス情報確認';
+  const title = 'デバイス情報チェッカー';
   const description = '現在利用しているデバイスの画面サイズやユーザーエージェント情報を表示します。';
   const { siteConfig } = useDocusaurusContext();
 
