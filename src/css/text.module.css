@@ -119,6 +119,11 @@
   border-color: var(--ifm-color-primary-light);
 }
 
+.pinned {
+  border-color: var(--ifm-color-primary) !important;
+  background: color-mix(in srgb, var(--ifm-color-primary) 5%, var(--ifm-color-emphasis-100)) !important;
+}
+
 .savedItemMeta {
   display: flex;
   align-items: center;

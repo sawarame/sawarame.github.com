@@ -16,16 +16,18 @@ import {
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DownloadIcon from '@mui/icons-material/Download';
+import PushPinIcon from '@mui/icons-material/PushPin';
+import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
 import common from '@site/src/css/common.module.css';
 import styles from '@site/src/css/text.module.css';
 
-type SavedText = { date: Date; text: string };
+type SavedText = { date: Date; text: string; pinned?: boolean };
 
 const pad = (n: number) => n.toString().padStart(2, '0');
 const formatDate = (date: Date) =>
   `${date.getFullYear()}/${pad(date.getMonth() + 1)}/${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
 const createSavedText = (texts: SavedText[]) =>
-  texts.map((v) => `[${formatDate(v.date)}]\n${v.text}`).join('\n\n');
+  texts.map((v) => `[${formatDate(v.date)}]${v.pinned ? ' [PIN]' : ''}\n${v.text}`).join('\n\n');
 const downloadText = (text: string) => {
   const now = new Date();
   const filename = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}.txt`;
@@ -58,14 +60,18 @@ function PageHeader() {
   );
 }
 
-function SavedTextCard({ savedText, index, onCopy, onDelete }: { savedText: SavedText; index: number; onCopy: (t: string) => void; onDelete: (i: number) => void }) {
+function SavedTextCard({ savedText, onCopy, onDelete, onTogglePin }: { savedText: SavedText; onCopy: (t: string) => void; onDelete: () => void; onTogglePin: () => void }) {
   return (
-    <div className={styles.savedItem}>
+    <div className={`${styles.savedItem} ${savedText.pinned ? styles.pinned : ''}`}>
       <div className={styles.savedItemMeta}>
-        <span className={styles.savedItemDate}>{formatDate(savedText.date)}</span>
+        <span className={styles.savedItemDate}>
+          {savedText.pinned && <PushPinIcon fontSize="inherit" sx={{ mr: 0.5, verticalAlign: 'middle', fontSize: '0.9rem' }} />}
+          {formatDate(savedText.date)}
+        </span>
         <div className={styles.savedItemActions}>
+          <Tooltip title={savedText.pinned ? "ピン留めを解除" : "ピン留め"}><IconButton size="small" onClick={onTogglePin} aria-label="ピン留め" color={savedText.pinned ? "primary" : "default"}>{savedText.pinned ? <PushPinIcon fontSize="small" /> : <PushPinOutlinedIcon fontSize="small" />}</IconButton></Tooltip>
           <Tooltip title="コピー"><IconButton size="small" onClick={() => onCopy(savedText.text)} aria-label="コピー"><ContentCopyIcon fontSize="small" /></IconButton></Tooltip>
-          <Tooltip title="削除"><IconButton size="small" onClick={() => onDelete(index)} aria-label="削除" color="error"><DeleteForeverIcon fontSize="small" /></IconButton></Tooltip>
+          <Tooltip title="削除"><IconButton size="small" onClick={onDelete} aria-label="削除" color="error"><DeleteForeverIcon fontSize="small" /></IconButton></Tooltip>
         </div>
       </div>
       <p className={styles.savedItemText}>{savedText.text}</p>
@@ -89,7 +95,7 @@ export default function Text(): JSX.Element {
   useEffect(() => {
     const loadedTexts = localStorage.getItem('SavedTexts');
     if (loadedTexts !== null) {
-      const parsed = JSON.parse(loadedTexts) as { date: string; text: string }[];
+      const parsed = JSON.parse(loadedTexts) as { date: string; text: string; pinned?: boolean }[];
       const savedTexts = parsed.map((v) => ({ ...v, date: new Date(v.date) } as SavedText));
       setState((s) => ({ ...s, savedTexts }));
     }
@@ -102,13 +108,28 @@ export default function Text(): JSX.Element {
 
   const handleSave = () => {
     if (state.workText.trim() === '') return;
-    setState((s) => ({ ...s, workText: '', savedTexts: [...s.savedTexts, { date: new Date(), text: s.workText.trim() }] }));
+    setState((s) => ({ ...s, workText: '', savedTexts: [{ date: new Date(), text: state.workText.trim(), pinned: false }, ...s.savedTexts] }));
   };
   const handleCopy = (text: string) => { navigator.clipboard.writeText(text); setSnackbar({ open: true, message: 'コピーしました！' }); };
-  const handleCopyAll = () => { navigator.clipboard.writeText(createSavedText(state.savedTexts)); setSnackbar({ open: true, message: '全テキストをコピーしました！' }); };
-  const handleDelete = (index: number) => setState((s) => ({ ...s, savedTexts: s.savedTexts.filter((_, i) => i !== index) }));
+  const handleCopyAll = () => { navigator.clipboard.writeText(createSavedText(displayTexts)); setSnackbar({ open: true, message: '全テキストをコピーしました！' }); };
+  const handleDelete = (id: string) => setState((s) => ({ ...s, savedTexts: s.savedTexts.filter((t) => t.date.toISOString() !== id) }));
   const handleDeleteAll = () => setState((s) => ({ ...s, savedTexts: [] }));
-  const handleDownload = () => downloadText(createSavedText(state.savedTexts));
+  const handleDownload = () => downloadText(createSavedText(displayTexts));
+  const handleTogglePin = (id: string) => {
+    setState((s) => ({
+      ...s,
+      savedTexts: s.savedTexts.map((t) =>
+        t.date.toISOString() === id ? { ...t, pinned: !t.pinned } : t
+      ),
+    }));
+  };
+
+  // 表示用のリストを作成：ピン留めを優先し、それ以外は日付降順
+  const displayTexts = [...state.savedTexts].sort((a, b) => {
+    if (a.pinned && !b.pinned) return -1;
+    if (!a.pinned && b.pinned) return 1;
+    return b.date.getTime() - a.date.getTime();
+  });
 
   return (
     <Layout title={`${title} | ${siteConfig.title}`} description={description}>
@@ -162,9 +183,17 @@ export default function Text(): JSX.Element {
                   </div>
                   {state.savedTexts.length > 0 ? (
                     <Stack spacing={1.5}>
-                      {[...state.savedTexts].reverse().map((savedText, i) => {
-                        const originalIndex = state.savedTexts.length - 1 - i;
-                        return <SavedTextCard key={`${savedText.date.toISOString()}-${originalIndex}`} savedText={savedText} index={originalIndex} onCopy={handleCopy} onDelete={handleDelete} />;
+                      {displayTexts.map((savedText) => {
+                        const id = savedText.date.toISOString();
+                        return (
+                          <SavedTextCard
+                            key={id}
+                            savedText={savedText}
+                            onCopy={handleCopy}
+                            onDelete={() => handleDelete(id)}
+                            onTogglePin={() => handleTogglePin(id)}
+                          />
+                        );
                       })}
                     </Stack>
                   ) : (
