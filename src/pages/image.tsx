@@ -45,6 +45,14 @@ import piexif from 'piexifjs';
 
 // --- Utils ---
 
+function checkWebpSupport(): boolean {
+  const canvas = document.createElement('canvas');
+  if (canvas.getContext && canvas.getContext('2d')) {
+    return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+  }
+  return false;
+}
+
 function readFileAsDataURL(file: Blob): Promise<string> {
   return new Promise((resolve) => {
     const reader = new FileReader();
@@ -349,12 +357,21 @@ export default function ImageOptimizer(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   const [images, setImages] = useState<ImageFile[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [webpSupported, setWebpSupported] = useState(true);
   const [settings, setSettings] = useState<OptimizationSettings>({
     format: 'webp',
     quality: 0.8,
     maxWidthOrHeight: undefined,
     preserveExif: false,
   });
+
+  useEffect(() => {
+    const supported = checkWebpSupport();
+    setWebpSupported(supported);
+    if (!supported) {
+      setSettings(prev => ({ ...prev, format: 'jpeg' }));
+    }
+  }, []);
   const [isProcessing, setIsProcessing] = useState(false);
   const [compareImages, setCompareImages] = useState<{ before: string, after: string } | null>(null);
   
@@ -401,18 +418,30 @@ export default function ImageOptimizer(): JSX.Element {
   const processImages = async () => {
     setIsProcessing(true);
     const updatedImages = [...images];
+    
+    // Check if mobile for stability (disable worker)
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     for (let i = 0; i < updatedImages.length; i++) {
-      // Always process or re-process
       updatedImages[i].status = 'processing';
       setImages([...updatedImages]);
 
       try {
         const sourceFile = updatedImages[i].croppedBlob || updatedImages[i].file;
+        
+        if (settings.format === 'webp' && !webpSupported) {
+          throw new Error('お使いのブラウザはWebP変換に対応していません。JPEG形式を選択してください。');
+        }
+
+        // Dynamic target size based on quality to force compression
+        // e.g. Quality 0.8 (80%) -> Max size 0.8MB
+        // This ensures the library actually performs compression instead of skipping.
+        const targetSizeMB = settings.quality * 2; 
+
         const options = {
-          maxSizeMB: 10,
-          maxWidthOrHeight: settings.maxWidthOrHeight,
-          useWebWorker: true,
+          maxSizeMB: targetSizeMB,
+          maxWidthOrHeight: settings.maxWidthOrHeight, // No hard limit unless specified
+          useWebWorker: !isMobile,
           initialQuality: settings.quality,
           fileType: settings.format === 'original' ? undefined : `image/${settings.format}`,
           preserveExif: settings.preserveExif,
@@ -424,7 +453,6 @@ export default function ImageOptimizer(): JSX.Element {
           compressedFile = await preserveExifManually(updatedImages[i].file, compressedFile) as File;
         }
 
-        // Cleanup old compressed URL if it exists
         if (updatedImages[i].compressedUrl) {
           URL.revokeObjectURL(updatedImages[i].compressedUrl!);
         }
@@ -434,8 +462,10 @@ export default function ImageOptimizer(): JSX.Element {
         updatedImages[i].compressedBlob = compressedFile;
         updatedImages[i].compressedUrl = URL.createObjectURL(compressedFile);
       } catch (error) {
+        console.error('Compression error:', error);
         updatedImages[i].status = 'error';
-        updatedImages[i].error = '処理失敗';
+        updatedImages[i].error = error instanceof Error ? error.message : '処理失敗';
+        setSnackbar({ open: true, message: `エラー: ${updatedImages[i].file.name} の処理に失敗しました。`, severity: 'error' });
       }
       setImages([...updatedImages]);
     }
@@ -604,14 +634,24 @@ export default function ImageOptimizer(): JSX.Element {
                         <Grid item xs={12} sm={6}>
                           <FormControl fullWidth size="small">
                             <InputLabel>出力フォーマット</InputLabel>
-                            <Select value={settings.format} label="出力フォーマット" onChange={(e) => setSettings({ ...settings, format: e.target.value as ImageFormat })}>
+                            <Select 
+                              value={settings.format} 
+                              label="出力フォーマット" 
+                              onChange={(e) => setSettings({ ...settings, format: e.target.value as ImageFormat })}
+                            >
                               <MenuItem value="original">オリジナル</MenuItem>
-                              <MenuItem value="webp">WebP (推奨)</MenuItem>
+                              <MenuItem value="webp" disabled={!webpSupported}>
+                                WebP {webpSupported ? '(推奨)' : '(非対応のブラウザです)'}
+                              </MenuItem>
                               <MenuItem value="jpeg">JPEG</MenuItem>
                               <MenuItem value="png">PNG</MenuItem>
                             </Select>
-                          </FormControl>
-                        </Grid>
+                            {!webpSupported && (
+                              <Typography variant="caption" color="error" sx={{ mt: 0.5, display: 'block' }}>
+                                ※お使いのブラウザはWebP変換に未対応のため、JPEGを推奨します。
+                              </Typography>
+                            )}
+                          </FormControl>                        </Grid>
                         <Grid item xs={12} sm={6}>
                           <Autocomplete
                             freeSolo
