@@ -167,6 +167,33 @@ interface ImageFile {
   compressedUrl?: string;
   error?: string;
   croppedBlob?: Blob;
+  cropAspect?: number;
+}
+
+// --- Utils ---
+
+async function resizeToExact(blob: Blob, width: number, height: number, format: string): Promise<Blob> {
+  const img = new Image();
+  const url = URL.createObjectURL(blob);
+  await new Promise((resolve) => {
+    img.onload = resolve;
+    img.src = url;
+  });
+  
+  const canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return blob;
+  
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(img, 0, 0, width, height);
+  
+  URL.revokeObjectURL(url);
+  return new Promise((resolve) => {
+    canvas.toBlob((b) => resolve(b || blob), format);
+  });
 }
 const ASPECT_RATIOS = [
   { label: '自由', value: undefined },
@@ -466,6 +493,21 @@ export default function ImageOptimizer(): JSX.Element {
 
         let compressedFile = await imageCompression(sourceFile as File, options);
 
+        // Snap to exact dimensions if an aspect ratio was intended and we have a max size
+        if (updatedImages[i].cropAspect && settings.maxWidthOrHeight) {
+          const expectedWidth = settings.maxWidthOrHeight;
+          const expectedHeight = Math.round(expectedWidth / updatedImages[i].cropAspect!);
+          
+          // Check current dimensions
+          const currentDims = await getImageDimensions(compressedFile);
+          const [curW, curH] = currentDims.split(' x ').map(Number);
+          
+          // If we are off by a tiny bit, force it to the exact size
+          if (curW !== expectedWidth || Math.abs(curH - expectedHeight) <= 2) {
+            compressedFile = await resizeToExact(compressedFile, expectedWidth, expectedHeight, `image/${settings.format === 'original' ? updatedImages[i].file.type.split('/')[1] : settings.format}`) as File;
+          }
+        }
+
         if (settings.preserveExif && (settings.format === 'jpeg' || (settings.format === 'original' && updatedImages[i].file.type === 'image/jpeg'))) {
           compressedFile = await preserveExifManually(updatedImages[i].file, compressedFile) as File;
         }
@@ -514,6 +556,7 @@ export default function ImageOptimizer(): JSX.Element {
             croppedBlob: blob,
             status: 'pending',
             originalDimensions: dimensions, // Update original dims to the cropped state
+            cropAspect: aspect, // Store the aspect ratio used
             compressedSize: undefined,
             compressedDimensions: undefined,
             compressedUrl: undefined
