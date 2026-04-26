@@ -136,12 +136,18 @@ function SettingsCard({ state, setState }) {
             onChange={(e) => setState({ ...state, filterStr: e.target.value })} />
         </div>
         <div className={styles.settingsField}>
+          <FormControlLabel
+            control={<Checkbox checked={state.useSymbols} onChange={(e) => setState({ ...state, useSymbols: e.target.checked })} size="small" />}
+            label="記号を使用する"
+          />
+        </div>
+        <div className={styles.settingsField}>
           <TextField label="使用可能な記号（空欄=全記号）" variant="outlined" size="small" value={state.availableSymbols} fullWidth
+            disabled={!state.useSymbols}
             onChange={(e) => setState({ ...state, availableSymbols: e.target.value })} />
         </div>
         <div className={styles.settingsCheckboxes}>
           <FormControlLabel control={<Checkbox checked={state.useSameChar} onChange={(e) => setState({ ...state, useSameChar: e.target.checked })} size="small" />} label="同じ文字を使用する" />
-          <FormControlLabel control={<Checkbox checked={state.useSymbols} onChange={(e) => setState({ ...state, useSymbols: e.target.checked })} size="small" />} label="記号を使用する" />
         </div>
       </div>
     </div>
