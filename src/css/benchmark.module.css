@@ -72,15 +72,33 @@
   box-shadow: 0 4px 15px rgba(var(--ifm-color-primary-rgb), 0.3) !important;
 }
 
-.resultContainer {
+.resultsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
   margin-top: 3rem;
   padding-top: 2rem;
   border-top: 1px dashed var(--ifm-color-emphasis-300);
   animation: fadeIn 0.5s ease-out;
 }
 
+.resultCard {
+  background: var(--ifm-color-emphasis-100);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .resultsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .scoreLabel {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
   color: var(--ifm-color-emphasis-600);
   margin-bottom: 0.5rem;
 }

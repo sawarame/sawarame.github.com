@@ -8,41 +8,36 @@ import common from '@site/src/css/common.module.css';
 import styles from '@site/src/css/benchmark.module.css';
 
 // ============================================================
-// Logic
+// Worker Logic (Blob URL approach)
 // ============================================================
 
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-
-async function runBenchmark(onProgress: (msg: string, percent: number) => void): Promise<number> {
-  const passes = 5;
-  const times: number[] = [];
+const workerScript = `
+self.onmessage = function(e) {
+  const passes = e.data.passes || 5;
+  const times = [];
 
   for (let p = 1; p <= passes; p++) {
-    onProgress(`測定中... (${p}/${passes} 回目)`, (p / passes) * 100);
-    // UIを更新し、ガベージコレクションやJITコンパイルのためのアイドル時間を確保する
-    await sleep(50); 
-
     const start = performance.now();
 
-    // 1. 浮動小数点演算 (Floating Point Math)
+    // 1. 浮動小数点演算
     let floatSum = 0;
-    for (let i = 0; i < 10_000_000; i++) {
+    for (let i = 0; i < 10000000; i++) {
       floatSum += Math.sin(i) * Math.cos(i) + Math.sqrt(i);
     }
 
-    // 2. 整数・ビット演算 (Integer & Bitwise Math)
+    // 2. 整数・ビット演算
     let intSum = 0;
-    for (let i = 0; i < 50_000_000; i++) {
+    for (let i = 0; i < 50000000; i++) {
       intSum += (i * 1337) ^ (i << 2);
     }
 
-    // 3. メモリアクセス (Memory & Array Operations)
-    const size = 5_000_000;
+    // 3. メモリアクセス
+    const size = 5000000;
     const arr = new Int32Array(size);
     for (let i = 0; i < size; i++) arr[i] = i;
     let memSum = 0;
     for (let i = 0; i < size; i++) {
-      const idx = (i * 7919) % size; // 素数を使った疑似ランダムアクセス
+      const idx = (i * 7919) % size;
       memSum += arr[idx];
       arr[idx] = memSum % 100;
     }
@@ -50,33 +45,86 @@ async function runBenchmark(onProgress: (msg: string, percent: number) => void):
     const end = performance.now();
     times.push(end - start);
 
-    // 最適化によるコード削除（Dead Code Elimination）を防ぐための処理
     if (floatSum === 0 && intSum === 0 && memSum === 0) {
-      console.log('Anti-optimization triggered');
+      console.log('Anti-opt');
     }
+    
+    self.postMessage({ type: 'progress', pass: p, time: end - start });
   }
 
-  // 初回はJITコンパイルのオーバーヘッドが乗るため、複数回の平均を取る
   const avgTime = times.reduce((a, b) => a + b, 0) / times.length;
+  self.postMessage({ type: 'done', avgTime });
+};
+`;
 
-  // 0除算を防ぐ
-  if (avgTime === 0) return 9999;
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-  // スコア計算 (係数は調整が必要。平均250msならスコア2000になるように設定)
-  const score = Math.floor(500_000 / avgTime);
-  return score;
+function runWorkerTask(passes: number, onProgress?: (p: number) => void): Promise<number> {
+  return new Promise((resolve) => {
+    const blob = new Blob([workerScript], { type: 'application/javascript' });
+    const worker = new Worker(URL.createObjectURL(blob));
+    
+    worker.onmessage = (e) => {
+      if (e.data.type === 'progress' && onProgress) {
+        onProgress(e.data.pass);
+      } else if (e.data.type === 'done') {
+        worker.terminate();
+        resolve(e.data.avgTime);
+      }
+    };
+    worker.postMessage({ passes });
+  });
 }
 
-function getRankInfo(score: number) {
-  if (score >= 2000) {
-    return { rank: 'S', label: 'Rank S', desc: 'ハイエンドPC (M4 Proなど最新SoC)', className: styles.rankS };
-  } else if (score >= 1000) {
-    return { rank: 'A', label: 'Rank A', desc: '高性能ノートPC / 最新iPhone', className: styles.rankA };
-  } else if (score >= 500) {
-    return { rank: 'B', label: 'Rank B', desc: '一般的なビジネスPC / ミドルレンジスマホ', className: styles.rankB };
-  } else {
-    return { rank: 'C', label: 'Rank C', desc: 'エントリーモデル / 旧世代デバイス', className: styles.rankC };
+async function runSingleCoreBenchmark(passes: number, onProgress?: (msg: string) => void): Promise<number> {
+  let completedPasses = 0;
+  const avgTime = await runWorkerTask(passes, () => {
+    completedPasses++;
+    if (onProgress) {
+      onProgress(`シングルコア測定中... (${completedPasses}/${passes} 回目)`);
+    }
+  });
+  if (avgTime === 0) return 9999;
+  return Math.floor(500_000 / avgTime);
+}
+
+async function runMultiCoreBenchmark(cores: number, passes: number, onProgress?: (msg: string) => void): Promise<number> {
+  const workers: Promise<number>[] = [];
+  const startAll = performance.now();
+  let completedPasses = 0;
+  const totalPasses = passes * cores;
+  
+  for (let i = 0; i < cores; i++) {
+    workers.push(runWorkerTask(passes, () => {
+      completedPasses++;
+      if (onProgress) {
+        onProgress(`マルチコア測定中... (${Math.floor((completedPasses / totalPasses) * 100)}%)`);
+      }
+    }));
   }
+  
+  await Promise.all(workers);
+  const endAll = performance.now();
+  const totalTime = endAll - startAll;
+  
+  if (totalTime === 0) return 9999;
+  // MultiScore = 500_000 * cores * passes / totalTime
+  const multiScore = Math.floor((500_000 * cores * passes) / totalTime);
+  return multiScore;
+}
+
+function getSingleCoreRankInfo(score: number) {
+  if (score >= 2000) return { rank: 'S', label: 'Rank S', desc: 'ハイエンドPC (M4 Proなど最新SoC)', className: styles.rankS };
+  if (score >= 1000) return { rank: 'A', label: 'Rank A', desc: '高性能ノートPC / 最新iPhone', className: styles.rankA };
+  if (score >= 500) return { rank: 'B', label: 'Rank B', desc: '一般的なビジネスPC / ミドルレンジスマホ', className: styles.rankB };
+  return { rank: 'C', label: 'Rank C', desc: 'エントリーモデル / 旧世代デバイス', className: styles.rankC };
+}
+
+function getMultiCoreRankInfo(score: number) {
+  if (score >= 10000) return { rank: 'S', label: 'Rank S', desc: 'ハイエンドPC (M4 Proなど最新SoC)', className: styles.rankS };
+  if (score >= 5000) return { rank: 'A', label: 'Rank A', desc: '高性能ノートPC / 最新iPhone', className: styles.rankA };
+  if (score >= 2500) return { rank: 'B', label: 'Rank B', desc: '一般的なビジネスPC / ミドルレンジスマホ', className: styles.rankB };
+  return { rank: 'C', label: 'Rank C', desc: 'エントリーモデル / 旧世代デバイス', className: styles.rankC };
 }
 
 // ============================================================
@@ -110,28 +158,40 @@ export default function Benchmark(): JSX.Element {
   const description = 'お使いのブラウザ・デバイスの演算性能を測定し、スコアとランクで評価します。';
   const { siteConfig } = useDocusaurusContext();
 
+  const [cores, setCores] = React.useState<number>(4);
   const [isMeasuring, setIsMeasuring] = useState(false);
   const [progressMsg, setProgressMsg] = useState('');
-  const [score, setScore] = useState<number | null>(null);
+  
+  const [singleScore, setSingleScore] = useState<number | null>(null);
+  const [multiScore, setMultiScore] = useState<number | null>(null);
+
+  React.useEffect(() => {
+    setCores(navigator.hardwareConcurrency || 4);
+  }, []);
 
   const handleStart = async () => {
     setIsMeasuring(true);
-    setScore(null);
+    setSingleScore(null);
+    setMultiScore(null);
     setProgressMsg('準備中...');
     
-    // UIを更新させてからベンチマークを開始
     await sleep(100);
 
-    const resultScore = await runBenchmark((msg) => {
-      setProgressMsg(msg);
-    });
+    // 1. シングルコア測定
+    const sScore = await runSingleCoreBenchmark(5, setProgressMsg);
+    setSingleScore(sScore);
 
-    setScore(resultScore);
+    // マルチ測定との間に少し間を置く
+    setProgressMsg('マルチコア測定準備中...');
+    await sleep(800);
+
+    // 2. マルチコア測定
+    const mScore = await runMultiCoreBenchmark(cores, 5, setProgressMsg);
+    setMultiScore(mScore);
+
     setIsMeasuring(false);
     setProgressMsg('');
   };
-
-  const rankInfo = score !== null ? getRankInfo(score) : null;
 
   return (
     <Layout title={`${title} | ${siteConfig.title}`} description={description}>
@@ -166,15 +226,37 @@ export default function Benchmark(): JSX.Element {
                 </p>
               </div>
 
-              {rankInfo && (
-                <div className={styles.resultContainer}>
-                  <div className={styles.scoreLabel}>測定スコア</div>
-                  <div className={styles.scoreValue}>{score?.toLocaleString()}</div>
-                  <div className={`${styles.rankBadge} ${rankInfo.className}`}>
-                    {rankInfo.label}
+              {singleScore !== null && (
+                <div className={styles.resultsGrid}>
+                  <div className={styles.resultCard}>
+                    <div className={styles.scoreLabel}>シングルコア ({1} Worker)</div>
+                    <div className={styles.scoreValue}>{singleScore.toLocaleString()}</div>
+                    <div className={`${styles.rankBadge} ${getSingleCoreRankInfo(singleScore).className}`}>
+                      {getSingleCoreRankInfo(singleScore).label}
+                    </div>
+                    <div className={styles.deviceImage}>
+                      目安: <strong>{getSingleCoreRankInfo(singleScore).desc}</strong>
+                    </div>
                   </div>
-                  <div className={styles.deviceImage}>
-                    目安: <strong>{rankInfo.desc}</strong>
+
+                  <div className={styles.resultCard}>
+                    <div className={styles.scoreLabel}>マルチコア ({cores} Workers)</div>
+                    {multiScore !== null ? (
+                      <>
+                        <div className={styles.scoreValue}>{multiScore.toLocaleString()}</div>
+                        <div className={`${styles.rankBadge} ${getMultiCoreRankInfo(multiScore).className}`}>
+                          {getMultiCoreRankInfo(multiScore).label}
+                        </div>
+                        <div className={styles.deviceImage}>
+                          目安: <strong>{getMultiCoreRankInfo(multiScore).desc}</strong>
+                        </div>
+                      </>
+                    ) : (
+                      <div style={{ padding: '2rem 0' }}>
+                        <CircularProgress />
+                        <div style={{ marginTop: '1rem', color: 'var(--ifm-color-emphasis-600)' }}>測定中...</div>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -183,30 +265,35 @@ export default function Benchmark(): JSX.Element {
             <table className={styles.referenceTable}>
               <thead>
                 <tr>
-                  <th>スコア</th>
                   <th>ランク</th>
+                  <th>シングルコア目安</th>
+                  <th>マルチコア目安</th>
                   <th>デバイスのイメージ</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>2000以上</td>
                   <td><strong>Rank S</strong></td>
+                  <td>2000以上</td>
+                  <td>10000以上</td>
                   <td>ハイエンドPC (M4 Proなど最新SoC)</td>
                 </tr>
                 <tr>
-                  <td>1000〜1999</td>
                   <td><strong>Rank A</strong></td>
+                  <td>1000〜1999</td>
+                  <td>5000〜9999</td>
                   <td>高性能ノートPC / 最新iPhone</td>
                 </tr>
                 <tr>
-                  <td>500〜999</td>
                   <td><strong>Rank B</strong></td>
+                  <td>500〜999</td>
+                  <td>2500〜4999</td>
                   <td>一般的なビジネスPC / ミドルレンジスマホ</td>
                 </tr>
                 <tr>
-                  <td>500未満</td>
                   <td><strong>Rank C</strong></td>
+                  <td>500未満</td>
+                  <td>2500未満</td>
                   <td>エントリーモデル / 旧世代デバイス</td>
                 </tr>
               </tbody>
