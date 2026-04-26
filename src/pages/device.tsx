@@ -71,7 +71,14 @@ export default function Device(): JSX.Element {
   const description = '現在利用しているデバイスの画面サイズやユーザーエージェント情報を表示します。';
   const { siteConfig } = useDocusaurusContext();
 
-  const [state, setState] = useState({ userAgent: '', physicalSize: '', logicalSize: '', ipAddress: '読み込み中...' });
+  const [state, setState] = useState({
+    userAgent: '',
+    physicalSize: '',
+    logicalSize: '',
+    ipAddress: '読み込み中...',
+    hardwareConcurrency: '',
+    deviceMemory: ''
+  });
   const [snackbar, setSnackbar] = useState({ open: false, message: '' });
 
   useEffect(() => {
@@ -92,7 +99,18 @@ export default function Device(): JSX.Element {
       })();
     }
     const update = () => {
-      setState((s) => ({ ...s, userAgent: navigator.userAgent, physicalSize: `${window.screen.width} × ${window.screen.height} px`, logicalSize: `${window.innerWidth} × ${window.innerHeight} px` }));
+      // メモリ容量 (navigator.deviceMemory) はブラウザによって未実装の場合がある
+      const memory = (navigator as any).deviceMemory ? `${(navigator as any).deviceMemory} GB` : '不明（未対応のブラウザです）';
+      const cores = navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} コア` : '不明';
+
+      setState((s) => ({
+        ...s,
+        userAgent: navigator.userAgent,
+        physicalSize: `${window.screen.width} × ${window.screen.height} px`,
+        logicalSize: `${window.innerWidth} × ${window.innerHeight} px`,
+        hardwareConcurrency: cores,
+        deviceMemory: memory
+      }));
     };
     update();
     window.addEventListener('resize', update);
@@ -111,18 +129,23 @@ export default function Device(): JSX.Element {
         <div className={common.body}>
           <div className={styles.container}>
             <div className={styles.grid}>
-              <SectionCard icon="🌐" title="ネットワーク" full>
+              <SectionCard icon="🌐" title="ネットワーク">
                 <InfoRow label="IPアドレス" value={state.ipAddress} onCopy={handleCopy} mono />
               </SectionCard>
-              <SectionCard icon="🖥️" title="画面サイズ" full>
+              <SectionCard icon="🖥️" title="画面サイズ">
                 <InfoRow label="物理解像度" value={state.physicalSize} note="window.screen" onCopy={handleCopy} mono />
                 <InfoRow label="ウィンドウサイズ" value={state.logicalSize} note="window.inner" onCopy={handleCopy} mono />
               </SectionCard>
-              <div className={styles.fullWidth}>
-                <SectionCard icon="🔍" title="ユーザーエージェント">
-                  <InfoRow label="User-Agent" value={state.userAgent} onCopy={handleCopy} mono />
-                </SectionCard>
-              </div>
+              <SectionCard icon="⚙️" title="ハードウェア">
+                <InfoRow label="論理コア数" value={state.hardwareConcurrency} note="hardwareConcurrency" onCopy={handleCopy} mono />
+                <InfoRow label="メモリ容量" value={state.deviceMemory} note="deviceMemory" onCopy={handleCopy} mono />
+                <p className={styles.disclaimer}>
+                  ※プライバシー保護のため、正確な容量が制限されたり、丸められた値が表示される場合があります。
+                </p>
+              </SectionCard>
+              <SectionCard icon="🔍" title="ユーザーエージェント">
+                <InfoRow label="User-Agent" value={state.userAgent} onCopy={handleCopy} mono />
+              </SectionCard>
             </div>
           </div>
         </div>
