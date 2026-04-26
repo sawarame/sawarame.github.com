@@ -114,17 +114,17 @@ async function runMultiCoreBenchmark(cores: number, passes: number, onProgress?:
 }
 
 function getSingleCoreRankInfo(score: number) {
-  if (score >= 2000) return { rank: 'S', label: 'Rank S', desc: 'ハイエンドPC (M4 Proなど最新SoC)', className: styles.rankS };
-  if (score >= 1000) return { rank: 'A', label: 'Rank A', desc: '高性能ノートPC / 最新iPhone', className: styles.rankA };
-  if (score >= 500) return { rank: 'B', label: 'Rank B', desc: '一般的なビジネスPC / ミドルレンジスマホ', className: styles.rankB };
-  return { rank: 'C', label: 'Rank C', desc: 'エントリーモデル / 旧世代デバイス', className: styles.rankC };
+  if (score >= 2000) return { rank: 'S', label: 'Rank S', desc: '最新世代のハイエンド端末', className: styles.rankS };
+  if (score >= 1000) return { rank: 'A', label: 'Rank A', desc: '高性能なPC・プレミアムスマホ', className: styles.rankA };
+  if (score >= 500) return { rank: 'B', label: 'Rank B', desc: '一般的なPC・ミドルクラススマホ', className: styles.rankB };
+  return { rank: 'C', label: 'Rank C', desc: '旧世代端末・エントリーモデル', className: styles.rankC };
 }
 
 function getMultiCoreRankInfo(score: number) {
-  if (score >= 8000) return { rank: 'S', label: 'Rank S', desc: 'ハイエンドPC (M4 Proなど最新SoC)', className: styles.rankS };
-  if (score >= 4000) return { rank: 'A', label: 'Rank A', desc: '高性能ノートPC / 最新iPhone', className: styles.rankA };
-  if (score >= 1000) return { rank: 'B', label: 'Rank B', desc: '一般的なビジネスPC / ミドルレンジスマホ', className: styles.rankB };
-  return { rank: 'C', label: 'Rank C', desc: 'エントリーモデル / 旧世代デバイス', className: styles.rankC };
+  if (score >= 8000) return { rank: 'S', label: 'Rank S', desc: '最新世代のハイエンド端末', className: styles.rankS };
+  if (score >= 4000) return { rank: 'A', label: 'Rank A', desc: '高性能なPC・プレミアムスマホ', className: styles.rankA };
+  if (score >= 1000) return { rank: 'B', label: 'Rank B', desc: '一般的なPC・ミドルクラススマホ', className: styles.rankB };
+  return { rank: 'C', label: 'Rank C', desc: '旧世代端末・エントリーモデル', className: styles.rankC };
 }
 
 // ============================================================
@@ -276,25 +276,25 @@ export default function Benchmark(): JSX.Element {
                   <td><strong>Rank S</strong></td>
                   <td>2000以上</td>
                   <td>8000以上</td>
-                  <td>ハイエンドPC (M4 Proなど最新SoC)</td>
+                  <td>最新世代のハイエンド端末</td>
                 </tr>
                 <tr>
                   <td><strong>Rank A</strong></td>
                   <td>1000〜1999</td>
                   <td>4000〜7999</td>
-                  <td>高性能ノートPC / 最新iPhone</td>
+                  <td>高性能なPC・プレミアムスマホ</td>
                 </tr>
                 <tr>
                   <td><strong>Rank B</strong></td>
                   <td>500〜999</td>
                   <td>1000〜3999</td>
-                  <td>一般的なビジネスPC / ミドルレンジスマホ</td>
+                  <td>一般的なPC・ミドルクラススマホ</td>
                 </tr>
                 <tr>
                   <td><strong>Rank C</strong></td>
                   <td>500未満</td>
                   <td>1000未満</td>
-                  <td>エントリーモデル / 旧世代デバイス</td>
+                  <td>旧世代端末・エントリーモデル</td>
                 </tr>
               </tbody>
             </table>
