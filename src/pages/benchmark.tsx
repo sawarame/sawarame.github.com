@@ -117,14 +117,18 @@ function getSingleCoreRankInfo(score: number) {
   if (score >= 2000) return { rank: 'S', label: 'Rank S', desc: '最新世代のハイエンド端末', className: styles.rankS };
   if (score >= 1000) return { rank: 'A', label: 'Rank A', desc: '高性能なPC・プレミアムスマホ', className: styles.rankA };
   if (score >= 500) return { rank: 'B', label: 'Rank B', desc: '一般的なPC・ミドルクラススマホ', className: styles.rankB };
-  return { rank: 'C', label: 'Rank C', desc: '旧世代端末・エントリーモデル', className: styles.rankC };
+  if (score >= 250) return { rank: 'C', label: 'Rank C', desc: '数年前のPC・型落ちスマホ', className: styles.rankC };
+  if (score >= 100) return { rank: 'D', label: 'Rank D', desc: '旧世代端末・エントリーモデル', className: styles.rankD };
+  return { rank: 'E', label: 'Rank E', desc: 'レガシーデバイス・非常に古い端末', className: styles.rankE };
 }
 
 function getMultiCoreRankInfo(score: number) {
   if (score >= 8000) return { rank: 'S', label: 'Rank S', desc: '最新世代のハイエンド端末', className: styles.rankS };
   if (score >= 4000) return { rank: 'A', label: 'Rank A', desc: '高性能なPC・プレミアムスマホ', className: styles.rankA };
   if (score >= 1000) return { rank: 'B', label: 'Rank B', desc: '一般的なPC・ミドルクラススマホ', className: styles.rankB };
-  return { rank: 'C', label: 'Rank C', desc: '旧世代端末・エントリーモデル', className: styles.rankC };
+  if (score >= 500) return { rank: 'C', label: 'Rank C', desc: '数年前のPC・型落ちスマホ', className: styles.rankC };
+  if (score >= 100) return { rank: 'D', label: 'Rank D', desc: '旧世代端末・エントリーモデル', className: styles.rankD };
+  return { rank: 'E', label: 'Rank E', desc: 'レガシーデバイス・非常に古い端末', className: styles.rankE };
 }
 
 // ============================================================
@@ -292,9 +296,21 @@ export default function Benchmark(): JSX.Element {
                 </tr>
                 <tr>
                   <td><strong>Rank C</strong></td>
-                  <td>500未満</td>
-                  <td>1000未満</td>
+                  <td>250〜499</td>
+                  <td>500〜999</td>
+                  <td>数年前のPC・型落ちスマホ</td>
+                </tr>
+                <tr>
+                  <td><strong>Rank D</strong></td>
+                  <td>100〜249</td>
+                  <td>100〜499</td>
                   <td>旧世代端末・エントリーモデル</td>
+                </tr>
+                <tr>
+                  <td><strong>Rank E</strong></td>
+                  <td>100未満</td>
+                  <td>100未満</td>
+                  <td>レガシーデバイス・非常に古い端末</td>
                 </tr>
               </tbody>
             </table>

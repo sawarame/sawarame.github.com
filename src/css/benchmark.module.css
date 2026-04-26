@@ -138,6 +138,14 @@
   background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
 }
 
+.rankD {
+  background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+}
+
+.rankE {
+  background: linear-gradient(135deg, #868f96 0%, #596164 100%);
+}
+
 .deviceImage {
   margin-top: 1rem;
   font-size: 1.1rem;
