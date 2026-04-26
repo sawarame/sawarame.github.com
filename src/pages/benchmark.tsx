@@ -63,7 +63,7 @@ function runWorkerTask(passes: number, onProgress?: (p: number) => void): Promis
   return new Promise((resolve) => {
     const blob = new Blob([workerScript], { type: 'application/javascript' });
     const worker = new Worker(URL.createObjectURL(blob));
-    
+
     worker.onmessage = (e) => {
       if (e.data.type === 'progress' && onProgress) {
         onProgress(e.data.pass);
@@ -93,7 +93,7 @@ async function runMultiCoreBenchmark(cores: number, passes: number, onProgress?:
   const startAll = performance.now();
   let completedPasses = 0;
   const totalPasses = passes * cores;
-  
+
   for (let i = 0; i < cores; i++) {
     workers.push(runWorkerTask(passes, () => {
       completedPasses++;
@@ -102,11 +102,11 @@ async function runMultiCoreBenchmark(cores: number, passes: number, onProgress?:
       }
     }));
   }
-  
+
   await Promise.all(workers);
   const endAll = performance.now();
   const totalTime = endAll - startAll;
-  
+
   if (totalTime === 0) return 9999;
   // MultiScore = 500_000 * cores * passes / totalTime
   const multiScore = Math.floor((500_000 * cores * passes) / totalTime);
@@ -121,9 +121,9 @@ function getSingleCoreRankInfo(score: number) {
 }
 
 function getMultiCoreRankInfo(score: number) {
-  if (score >= 10000) return { rank: 'S', label: 'Rank S', desc: 'ハイエンドPC (M4 Proなど最新SoC)', className: styles.rankS };
-  if (score >= 5000) return { rank: 'A', label: 'Rank A', desc: '高性能ノートPC / 最新iPhone', className: styles.rankA };
-  if (score >= 2500) return { rank: 'B', label: 'Rank B', desc: '一般的なビジネスPC / ミドルレンジスマホ', className: styles.rankB };
+  if (score >= 8000) return { rank: 'S', label: 'Rank S', desc: 'ハイエンドPC (M4 Proなど最新SoC)', className: styles.rankS };
+  if (score >= 4000) return { rank: 'A', label: 'Rank A', desc: '高性能ノートPC / 最新iPhone', className: styles.rankA };
+  if (score >= 1000) return { rank: 'B', label: 'Rank B', desc: '一般的なビジネスPC / ミドルレンジスマホ', className: styles.rankB };
   return { rank: 'C', label: 'Rank C', desc: 'エントリーモデル / 旧世代デバイス', className: styles.rankC };
 }
 
@@ -161,7 +161,7 @@ export default function Benchmark(): JSX.Element {
   const [cores, setCores] = React.useState<number>(4);
   const [isMeasuring, setIsMeasuring] = useState(false);
   const [progressMsg, setProgressMsg] = useState('');
-  
+
   const [singleScore, setSingleScore] = useState<number | null>(null);
   const [multiScore, setMultiScore] = useState<number | null>(null);
 
@@ -174,7 +174,7 @@ export default function Benchmark(): JSX.Element {
     setSingleScore(null);
     setMultiScore(null);
     setProgressMsg('準備中...');
-    
+
     await sleep(100);
 
     // 1. シングルコア測定
@@ -199,7 +199,7 @@ export default function Benchmark(): JSX.Element {
         <PageHeader />
         <div className={common.body}>
           <div className={styles.container}>
-            
+
             <div className={styles.benchCard}>
               <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>ブラウザの演算性能をテスト</h2>
               <p style={{ color: 'var(--ifm-color-emphasis-700)' }}>
@@ -275,25 +275,25 @@ export default function Benchmark(): JSX.Element {
                 <tr>
                   <td><strong>Rank S</strong></td>
                   <td>2000以上</td>
-                  <td>10000以上</td>
+                  <td>8000以上</td>
                   <td>ハイエンドPC (M4 Proなど最新SoC)</td>
                 </tr>
                 <tr>
                   <td><strong>Rank A</strong></td>
                   <td>1000〜1999</td>
-                  <td>5000〜9999</td>
+                  <td>4000〜7999</td>
                   <td>高性能ノートPC / 最新iPhone</td>
                 </tr>
                 <tr>
                   <td><strong>Rank B</strong></td>
                   <td>500〜999</td>
-                  <td>2500〜4999</td>
+                  <td>1000〜3999</td>
                   <td>一般的なビジネスPC / ミドルレンジスマホ</td>
                 </tr>
                 <tr>
                   <td><strong>Rank C</strong></td>
                   <td>500未満</td>
-                  <td>2500未満</td>
+                  <td>1000未満</td>
                   <td>エントリーモデル / 旧世代デバイス</td>
                 </tr>
               </tbody>
