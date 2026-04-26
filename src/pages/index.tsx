@@ -65,6 +65,13 @@ const tools = [
     link: '/resize',
     gradient: 'linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%)',
   },
+  {
+    icon: '🚀',
+    title: 'デバイスベンチマーク',
+    description: 'ブラウザ上でデバイスの演算性能を測定し、スコアとランクで評価します。',
+    link: '/benchmark',
+    gradient: 'linear-gradient(135deg, #ff0844 0%, #ffb199 100%)',
+  },
 ];
 
 const extensions = [

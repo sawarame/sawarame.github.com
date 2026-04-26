@@ -1,0 +1,156 @@
+/* ---- Header orbs & colors ---- */
+
+.pageHeaderOrb1 {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ff0844, transparent);
+  filter: blur(70px);
+  opacity: 0.2;
+  top: -100px;
+  left: -80px;
+}
+
+.pageHeaderOrb2 {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffb199, transparent);
+  filter: blur(70px);
+  opacity: 0.2;
+  bottom: -80px;
+  right: -60px;
+}
+
+.pageHeaderIcon {
+  display: inline-block;
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  filter: drop-shadow(0 4px 12px rgba(255, 8, 68, 0.4));
+}
+
+.pageHeaderTitle {
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 0.75rem;
+  background: linear-gradient(135deg, #fff 0%, #ffb199 60%, #ff0844 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ---- Main layout ---- */
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.benchCard {
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.buttonWrap {
+  margin: 2rem 0;
+}
+
+.benchButton {
+  font-size: 1.25rem !important;
+  padding: 0.75rem 3rem !important;
+  border-radius: 50px !important;
+  text-transform: none !important;
+  font-weight: bold !important;
+  box-shadow: 0 4px 15px rgba(var(--ifm-color-primary-rgb), 0.3) !important;
+}
+
+.resultContainer {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px dashed var(--ifm-color-emphasis-300);
+  animation: fadeIn 0.5s ease-out;
+}
+
+.scoreLabel {
+  font-size: 1.2rem;
+  color: var(--ifm-color-emphasis-600);
+  margin-bottom: 0.5rem;
+}
+
+.scoreValue {
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--ifm-color-primary);
+  margin: 0;
+  line-height: 1;
+}
+
+.rankBadge {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 12px;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.rankS {
+  background: linear-gradient(135deg, #ff0844 0%, #ffb199 100%);
+}
+
+.rankA {
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+}
+
+.rankB {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.rankC {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.deviceImage {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.referenceTable {
+  margin-top: 3rem;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.referenceTable th,
+.referenceTable td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.referenceTable th {
+  background: var(--ifm-color-emphasis-100);
+  font-weight: bold;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
