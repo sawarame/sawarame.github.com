@@ -108,7 +108,6 @@ async function runMultiCoreBenchmark(cores: number, passes: number, onProgress?:
   const totalTime = endAll - startAll;
 
   if (totalTime === 0) return 9999;
-  // MultiScore = 500_000 * cores * passes / totalTime
   const multiScore = Math.floor((500_000 * cores * passes) / totalTime);
   return multiScore;
 }
@@ -130,6 +129,231 @@ function getMultiCoreRankInfo(score: number) {
   if (score >= 100) return { rank: 'D', label: 'Rank D', desc: '不足気味。並列処理には向かず、動作が制限されます', className: styles.rankD };
   return { rank: 'E', label: 'Rank E', desc: '著しく低い。並列処理の恩恵をほとんど受けられません', className: styles.rankE };
 }
+
+// ============================================================
+// Feature Check Logic
+// ============================================================
+
+const benchmarkData = [
+  {
+    category: "SNS・メディア閲覧",
+    summary: "動画や画像がサクサク、綺麗に見えるか",
+    items: [
+      { 
+        id: "avif-webp", 
+        name: "AVIF / WebP 対応", 
+        check: () => {
+          if (typeof window === 'undefined') return false;
+          try {
+            // 1. Canvasを使ったエンコード判定 (WebP)
+            const canvas = document.createElement('canvas');
+            if (canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0) {
+              return true;
+            }
+            // 2. CSS.supportsを使った判定 (image-set type指定)
+            if (typeof CSS !== 'undefined') {
+              const supportsWebp = CSS.supports('background-image', 'image-set(url("check.webp") type("image/webp"))');
+              const supportsAvif = CSS.supports('background-image', 'image-set(url("check.avif") type("image/avif"))');
+              if (supportsWebp || supportsAvif) return true;
+            }
+            // 3. Canvasを使った判定 (AVIF)
+            if (canvas.toDataURL('image/avif').indexOf('data:image/avif') === 0) {
+              return true;
+            }
+          } catch (e) {
+            return false;
+          }
+          return false;
+        }, 
+        desc: "次世代の超軽量画像。読み込み速度に直結します。" 
+      },
+      { 
+        id: "av1", 
+        name: "AV1 デコード", 
+        check: () => {
+          if (typeof document === 'undefined') return false;
+          // video要素のcanPlayTypeでAV1コーデックの再生可否を確認
+          const v = document.createElement('video');
+          return v.canPlayType('video/mp4; codecs="av01.0.05M.08"') !== "";
+        }, 
+        desc: "YouTubeの4K動画などを低負荷・高画質で再生できます。" 
+      },
+      { 
+        id: "priority-hints", 
+        name: "Priority Hints", 
+        check: () => {
+          // HTMLImageElementにfetchPriorityプロパティが存在するか確認
+          return typeof HTMLImageElement !== 'undefined' && 'fetchPriority' in HTMLImageElement.prototype;
+        }, 
+        desc: "重要な画像を優先して読み込み、表示速度を改善します。" 
+      },
+      { 
+        id: "object-fit", 
+        name: "Object-fit / Aspect-ratio", 
+        check: () => {
+          // CSS.supportsでaspect-ratioプロパティのサポートを確認
+          return typeof CSS !== 'undefined' && CSS.supports('aspect-ratio', '1/1');
+        }, 
+        desc: "写真が変に伸びたり潰れたりせず、綺麗に枠に収まります。" 
+      },
+      { 
+        id: "css-layer", 
+        name: "CSS @layer", 
+        check: () => {
+          // CSSLayerBlockRuleインターフェースの存在を確認
+          return typeof window !== 'undefined' && 'CSSLayerBlockRule' in window;
+        }, 
+        desc: "大規模サイトのスタイルが意図通りに正しく適用されます。" 
+      }
+    ]
+  },
+  {
+    category: "ビジネス・ツール",
+    summary: "NotionやFigma等のアプリ級サイトが動くか",
+    items: [
+      { 
+        id: "anchor-pos", 
+        name: "Anchor Positioning API", 
+        check: () => {
+          // CSS.supportsでアンカーポジショニングのプロパティを確認
+          return typeof CSS !== 'undefined' && CSS.supports('anchor-name', '--a');
+        }, 
+        desc: "ポップアップがボタンに吸い付くように正しく表示されます。" 
+      },
+      { 
+        id: "popover", 
+        name: "Popover API", 
+        check: () => {
+          // HTMLElementにshowPopoverメソッドが存在するか確認
+          return typeof HTMLElement !== 'undefined' && 'showPopover' in HTMLElement.prototype;
+        }, 
+        desc: "メニューが他の要素に邪魔されず最前面に表示されます。" 
+      },
+      { 
+        id: "compression", 
+        name: "Compression Streams API", 
+        check: () => {
+          // CompressionStreamインターフェースの存在を確認
+          return typeof window !== 'undefined' && 'CompressionStream' in window;
+        }, 
+        desc: "ブラウザ上でファイルを高速にZIP圧縮・解凍できます。" 
+      },
+      { 
+        id: "crypto", 
+        name: "Web Crypto API", 
+        check: () => {
+          // window.cryptoおよびSubtleCryptoの存在を確認
+          return typeof window !== 'undefined' && !!window.crypto && !!window.crypto.subtle;
+        }, 
+        desc: "セキュアな通信やパスワード管理・暗号化を可能にします。" 
+      },
+      { 
+        id: "indexeddb-v3", 
+        name: "IndexedDB (v3)", 
+        check: () => {
+          // indexedDB.databasesメソッドの存在を確認
+          return typeof indexedDB !== 'undefined' && 'databases' in indexedDB;
+        }, 
+        desc: "大容量データを保存し、オフラインでも作業を継続できます。" 
+      }
+    ]
+  },
+  {
+    category: "エンタメ・クリエイティブ",
+    summary: "3D、アニメーション、ゲームが快適か",
+    items: [
+      { 
+        id: "webgpu", 
+        name: "WebGPU", 
+        check: () => {
+          // navigator.gpuプロパティの存在を確認
+          return typeof navigator !== 'undefined' && 'gpu' in navigator;
+        }, 
+        desc: "本格的な3DゲームやAI画像生成がブラウザで動きます。" 
+      },
+      { 
+        id: "view-transitions", 
+        name: "View Transitions API", 
+        check: () => {
+          // document.startViewTransitionメソッドの存在を確認
+          return typeof document !== 'undefined' && !!document.startViewTransition;
+        }, 
+        desc: "画面遷移がアプリのように滑らかにフェードします。" 
+      },
+      { 
+        id: "scroll-animations", 
+        name: "Scroll-driven Animations", 
+        check: () => {
+          // CSS.supportsでスクロール駆動アニメーションのサポートを確認
+          return typeof CSS !== 'undefined' && CSS.supports('animation-timeline', 'scroll()');
+        }, 
+        desc: "スクロールに連動するリッチな演出に対応しています。" 
+      },
+      { 
+        id: "offscreen-canvas", 
+        name: "Offscreen Canvas", 
+        check: () => {
+          // OffscreenCanvasインターフェースの存在を確認
+          return typeof window !== 'undefined' && 'OffscreenCanvas' in window;
+        }, 
+        desc: "重いグラフィック処理を裏側で回し、動作を軽くします。" 
+      },
+      { 
+        id: "spatial-audio", 
+        name: "Web Audio (Spatial Audio)", 
+        check: () => {
+          if (typeof window === 'undefined') return false;
+          // PannerNodeまたはAudioPannerNodeのインターフェースを確認
+          const Panner = window.PannerNode || (window as any).AudioPannerNode;
+          return !!Panner && 'panningModel' in Panner.prototype;
+        }, 
+        desc: "ブラウザでの立体音響に対応しています。" 
+      }
+    ]
+  },
+  {
+    category: "システム・セキュリティ",
+    summary: "アプリ化、通知、ログインの快適さ",
+    items: [
+      { 
+        id: "passkeys", 
+        name: "WebAuthn (Passkeys)", 
+        check: () => {
+          // PublicKeyCredentialインターフェースの存在を確認
+          return typeof window !== 'undefined' && !!window.PublicKeyCredential;
+        }, 
+        desc: "指紋や顔認証で、パスワードなしでログインできます。" 
+      },
+      { 
+        id: "badging", 
+        name: "Badging API", 
+        check: () => {
+          // navigator.setAppBadgeメソッドの存在を確認
+          return typeof navigator !== 'undefined' && 'setAppBadge' in navigator;
+        }, 
+        desc: "アプリアイコンに未読数を表示できます。" 
+      },
+      { 
+        id: "wake-lock", 
+        name: "Screen Wake Lock API", 
+        check: () => {
+          // navigator.wakeLockプロパティの存在を確認
+          return typeof navigator !== 'undefined' && 'wakeLock' in navigator;
+        }, 
+        desc: "閲覧中に画面が勝手に消えないように制御できます。" 
+      },
+      { 
+        id: "file-system", 
+        name: "File System Access API", 
+        check: () => {
+          // showOpenFilePickerメソッドの存在を確認
+          return typeof window !== 'undefined' && 'showOpenFilePicker' in window;
+        }, 
+        desc: "端末内のファイルを直接編集・保存できます。" 
+      }
+    ]
+  }
+];
 
 // ============================================================
 // Sub Components
@@ -169,6 +393,10 @@ export default function Benchmark(): JSX.Element {
   const [singleScore, setSingleScore] = useState<number | null>(null);
   const [multiScore, setMultiScore] = useState<number | null>(null);
 
+  // Feature results state
+  const [featureResults, setFeatureResults] = useState<Record<string, boolean | null>>({});
+  const [openCategory, setOpenCategory] = useState<number | null>(null);
+
   React.useEffect(() => {
     setCores(navigator.hardwareConcurrency || 4);
   }, []);
@@ -177,11 +405,13 @@ export default function Benchmark(): JSX.Element {
     setIsMeasuring(true);
     setSingleScore(null);
     setMultiScore(null);
+    setFeatureResults({}); // Reset feature checks
     setProgressMsg('準備中...');
 
     await sleep(100);
 
     // 1. シングルコア測定
+    setProgressMsg('シングルコア測定準備中...');
     const sScore = await runSingleCoreBenchmark(5, setProgressMsg);
     setSingleScore(sScore);
 
@@ -192,6 +422,16 @@ export default function Benchmark(): JSX.Element {
     // 2. マルチコア測定
     const mScore = await runMultiCoreBenchmark(cores, 5, setProgressMsg);
     setMultiScore(mScore);
+
+    // 3. ブラウザ機能チェック (最後に実行)
+    setProgressMsg('機能サポート状況を判定中...');
+    for (const cat of benchmarkData) {
+      for (const item of cat.items) {
+        const result = await item.check();
+        setFeatureResults(prev => ({ ...prev, [item.id]: result }));
+        await sleep(30);
+      }
+    }
 
     setIsMeasuring(false);
     setProgressMsg('');
@@ -230,17 +470,30 @@ export default function Benchmark(): JSX.Element {
                 </p>
               </div>
 
-              {singleScore !== null && (
                 <div className={styles.resultsGrid}>
                   <div className={styles.resultCard}>
-                    <div className={styles.scoreLabel}>シングルコア ({1} Worker)</div>
-                    <div className={styles.scoreValue}>{singleScore.toLocaleString()}</div>
-                    <div className={`${styles.rankBadge} ${getSingleCoreRankInfo(singleScore).className}`}>
-                      {getSingleCoreRankInfo(singleScore).label}
-                    </div>
-                    <div className={styles.deviceImage}>
-                      目安: <strong>{getSingleCoreRankInfo(singleScore).desc}</strong>
-                    </div>
+                    <div className={styles.scoreLabel}>シングルコア (1 Worker)</div>
+                    {singleScore !== null ? (
+                      <>
+                        <div className={styles.scoreValue}>{singleScore.toLocaleString()}</div>
+                        <div className={`${styles.rankBadge} ${getSingleCoreRankInfo(singleScore).className}`}>
+                          {getSingleCoreRankInfo(singleScore).label}
+                        </div>
+                        <div className={styles.deviceImage}>
+                          目安: <strong>{getSingleCoreRankInfo(singleScore).desc}</strong>
+                        </div>
+                      </>
+                    ) : (isMeasuring && !progressMsg.includes('機能サポート')) ? (
+                      <div style={{ padding: '2rem 0' }}>
+                        <CircularProgress />
+                        <div style={{ marginTop: '1rem', color: 'var(--ifm-color-emphasis-600)' }}>測定中...</div>
+                      </div>
+                    ) : (
+                      <div style={{ padding: '2.4rem 0' }}>
+                        <div className={styles.scoreValue} style={{ opacity: 0.2 }}>-</div>
+                        <div style={{ marginTop: '1rem', color: 'var(--ifm-color-emphasis-500)' }}>未実施</div>
+                      </div>
+                    )}
                   </div>
 
                   <div className={styles.resultCard}>
@@ -255,15 +508,61 @@ export default function Benchmark(): JSX.Element {
                           目安: <strong>{getMultiCoreRankInfo(multiScore).desc}</strong>
                         </div>
                       </>
-                    ) : (
+                    ) : (isMeasuring && singleScore !== null && !progressMsg.includes('機能サポート')) ? (
                       <div style={{ padding: '2rem 0' }}>
                         <CircularProgress />
                         <div style={{ marginTop: '1rem', color: 'var(--ifm-color-emphasis-600)' }}>測定中...</div>
                       </div>
+                    ) : (
+                      <div style={{ padding: '2.4rem 0' }}>
+                        <div className={styles.scoreValue} style={{ opacity: 0.2 }}>-</div>
+                        <div style={{ marginTop: '1rem', color: 'var(--ifm-color-emphasis-500)' }}>未実施</div>
+                      </div>
                     )}
                   </div>
                 </div>
-              )}
+            </div>
+
+            <div className={styles.featureSection}>
+              <h2 className={styles.sectionTitle}>ブラウザ機能サポート状況</h2>
+              <div className={styles.categoryGrid}>
+                {benchmarkData.map((cat, idx) => {
+                  const passCount = cat.items.filter(item => featureResults[item.id] === true).length;
+                  const totalCount = cat.items.length;
+                  const isActive = passCount === totalCount;
+                  const isOpen = openCategory === idx;
+
+                  return (
+                    <div 
+                      key={cat.category} 
+                      className={`${styles.categoryCard} ${isActive ? styles.activeCategory : ''} ${isOpen ? styles.categoryCardOpen : ''}`}
+                      onClick={() => setOpenCategory(isOpen ? null : idx)}
+                    >
+                      <div className={styles.categoryHeader}>
+                        <h3 className={styles.categoryTitle}>{cat.category}</h3>
+                        <div className={styles.categoryScore}>{passCount} / {totalCount}</div>
+                      </div>
+                      <div className={styles.categorySummary}>{cat.summary}</div>
+                      
+                      <div className={`${styles.featureList} ${isOpen ? styles.featureListOpen : ''}`}>
+                        {cat.items.map(item => (
+                          <div key={item.id} className={styles.featureItem}>
+                            <div className={styles.checkStatus}>
+                              {featureResults[item.id] === undefined ? '-' : featureResults[item.id] ? '✅' : '❌'}
+                            </div>
+                            <div className={styles.featureContent}>
+                              <div className={styles.featureNameWrap}>
+                                <span className={styles.featureName}>{item.name}</span>
+                              </div>
+                              <div className={styles.featureDesc}>{item.desc}</div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
 
             <table className={styles.referenceTable}>
