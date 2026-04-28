@@ -4,6 +4,10 @@ import MuiTheme from '@site/src/components/MuiTheme';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import {
   TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
   FormControlLabel,
   Checkbox,
   Button,
@@ -13,6 +17,7 @@ import {
   Snackbar,
   Alert,
   InputAdornment,
+  Autocomplete,
 } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -28,6 +33,11 @@ const upperCase = lowerCase.toLocaleUpperCase()
 const numbers = '0123456789'
 const symbols = '`~!@#$%^&*()-_[{]}=+;:\'",<.>/?\\|'
 
+const EXCLUDE_PRESETS = [
+  { label: '大文字を除外', value: upperCase },
+  { label: '小文字を除外', value: lowerCase },
+];
+
 const generatePassword = (availableSymbols: string, filterStr: string, length: number, useSameChar: boolean, useSymbols: boolean) => {
   if (length < 1) return '';
   let symbolChars = '';
@@ -39,7 +49,10 @@ const generatePassword = (availableSymbols: string, filterStr: string, length: n
       symbolChars = symbols;
     }
   }
-  const chars = lowerCase + upperCase + numbers + symbolChars;
+
+  // filterStrは大文字除外・小文字除外・カスタム除外のいずれかが入っている可能性がある
+  const chars = numbers + lowerCase + upperCase + symbolChars;
+
   const s = chars.repeat(useSameChar ? 5 : 1);
   let a = s.split(""), b = filterStr.split(""), n = a.length;
   a = a.filter((c) => !b.includes(c));
@@ -132,8 +145,30 @@ function SettingsCard({ state, setState }) {
           />
         </div>
         <div className={styles.settingsField}>
-          <TextField label="使用しない文字" variant="outlined" size="small" value={state.filterStr} fullWidth
-            onChange={(e) => setState({ ...state, filterStr: e.target.value })} />
+          <Autocomplete
+            freeSolo
+            size="small"
+            options={EXCLUDE_PRESETS}
+            getOptionLabel={(option) => {
+              if (typeof option === 'string') return option;
+              return option.label;
+            }}
+            value={EXCLUDE_PRESETS.find(p => p.value === state.filterStr) || state.filterStr}
+            onInputChange={(event, newValue) => {
+              const preset = EXCLUDE_PRESETS.find(p => p.label === newValue);
+              setState({ ...state, filterStr: preset ? preset.value : newValue });
+            }}
+            onChange={(event, newValue) => {
+              if (newValue && typeof newValue === 'object') {
+                setState({ ...state, filterStr: newValue.value });
+              } else {
+                setState({ ...state, filterStr: newValue || '' });
+              }
+            }}
+            renderInput={(params) => (
+              <TextField {...params} label="使用しない文字" placeholder="除外したい文字を入力（直接入力可）" />
+            )}
+          />
         </div>
         <div className={styles.settingsField}>
           <FormControlLabel
@@ -216,9 +251,18 @@ export default function Password(): JSX.Element {
     const searchParams = new URLSearchParams(window.location.search);
     if (searchParams.toString() === '') return;
 
+    let filterStr = searchParams.get('exclude') ?? defaultState.filterStr;
+    
+    // 互換性維持: 古いパラメータがある場合
+    if (searchParams.get('ex_mode') === 'upper' || searchParams.get('no_upper') === 'true') {
+      filterStr = upperCase;
+    } else if (searchParams.get('ex_mode') === 'lower' || searchParams.get('no_lower') === 'true') {
+      filterStr = lowerCase;
+    }
+
     const newState = {
       availableSymbols: searchParams.get('symbols') ?? defaultState.availableSymbols,
-      filterStr: searchParams.get('exclude') ?? defaultState.filterStr,
+      filterStr,
       length: parseInt(searchParams.get('len')) || defaultState.length,
       createTimes: parseInt(searchParams.get('count')) || defaultState.createTimes,
       useSameChar: searchParams.get('same') === 'false' ? false : 
