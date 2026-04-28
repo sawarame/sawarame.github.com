@@ -200,19 +200,19 @@ const ASPECT_RATIOS = [
   { label: '1:1 (正方形)', value: 1 },
   { label: '8:5 (1.6:1)', value: 1.6 },
   { label: '1.91:1 (OGP)', value: 1.91 },
-  { label: '16:9', value: 16 / 9 },
   { label: '3:1 (X ヘッダー)', value: 3 },
   { label: '4:5 (Instagram)', value: 4 / 5 },
+  { label: '16:9', value: 16 / 9 },
   { label: '4:3', value: 4 / 3 },
 ];
 
 const SNS_PRESETS = [
   { label: '制限なし', width: undefined },
-  { label: '1280px (8:5等)', width: 1280 },
-  { label: '640px (8:5等)', width: 640 },
-  { label: 'OGP (1200px)', width: 1200 },
-  { label: 'Instagram (1080px)', width: 1080 },
-  { label: 'Full HD (1920px)', width: 1920 },
+  { label: '1920px (Full HD)', width: 1920 },
+  { label: '1280px (HD)', width: 1280 },
+  { label: '1200px (OGP)', width: 1200 },
+  { label: '1080px (Instagram)', width: 1080 },
+  { label: '640px (QVGA/nHD)', width: 640 },
 ];
 
 // --- Sub Components ---
@@ -824,7 +824,7 @@ export default function ImageOptimizer(): JSX.Element {
                         onClick={downloadAll} 
                         sx={{ borderRadius: '12px', py: 2, fontWeight: 800, fontSize: '1.1rem' }}
                       >
-                        一括ダウンロード
+                        ダウンロード
                       </Button>
                     )}
                   </Stack>
