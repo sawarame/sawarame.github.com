@@ -237,13 +237,16 @@
   content: 'Complete';
   position: absolute;
   top: 12px;
-  right: -30px;
+  right: -32px;
+  width: 110px;
   background: var(--ifm-color-success);
   color: #fff;
   font-size: 0.7rem;
   font-weight: bold;
-  padding: 2px 30px;
+  padding: 2px 0;
   transform: rotate(45deg);
+  text-align: center;
+  line-height: 1.2;
 }
 
 .okCategory {
@@ -255,13 +258,16 @@
   content: 'OK';
   position: absolute;
   top: 12px;
-  right: -30px;
+  right: -32px;
+  width: 110px;
   background: var(--ifm-color-info);
   color: #fff;
   font-size: 0.7rem;
   font-weight: bold;
-  padding: 2px 30px;
+  padding: 2px 0;
   transform: rotate(45deg);
+  text-align: center;
+  line-height: 1.2;
 }
 
 .categoryHeader {
