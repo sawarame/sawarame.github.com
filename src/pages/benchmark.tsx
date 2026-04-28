@@ -151,24 +151,15 @@ const benchmarkData = [
         check: () => {
           if (typeof window === 'undefined') return false;
           try {
-            // 1. Canvasを使ったエンコード判定 (WebP)
             const canvas = document.createElement('canvas');
-            if (canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0) {
-              return true;
-            }
-            // 2. CSS.supportsを使った判定 (image-set type指定)
+            if (canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0) return true;
             if (typeof CSS !== 'undefined') {
               const supportsWebp = CSS.supports('background-image', 'image-set(url("check.webp") type("image/webp"))');
               const supportsAvif = CSS.supports('background-image', 'image-set(url("check.avif") type("image/avif"))');
               if (supportsWebp || supportsAvif) return true;
             }
-            // 3. Canvasを使った判定 (AVIF)
-            if (canvas.toDataURL('image/avif').indexOf('data:image/avif') === 0) {
-              return true;
-            }
-          } catch (e) {
-            return false;
-          }
+            if (canvas.toDataURL('image/avif').indexOf('data:image/avif') === 0) return true;
+          } catch (e) { return false; }
           return false;
         }, 
         desc: "次世代の超軽量画像。読み込み速度に直結します。" 
@@ -180,21 +171,33 @@ const benchmarkData = [
         must: true,
         check: () => {
           if (typeof document === 'undefined') return false;
-          // video要素のcanPlayTypeでAV1コーデックの再生可否を確認
           const v = document.createElement('video');
           return v.canPlayType('video/mp4; codecs="av01.0.05M.08"') !== "";
         }, 
         desc: "YouTubeの4K動画などを低負荷・高画質で再生できます。" 
       },
       { 
+        id: "web-share", 
+        name: "Web Share API", 
+        url: "https://developer.mozilla.org/ja/docs/Web/API/Web_Share_API",
+        must: false,
+        check: () => typeof navigator !== 'undefined' && !!navigator.share,
+        desc: "OS標準の共有メニューを呼び出し、画像やリンクを素早く共有できます。" 
+      },
+      { 
+        id: "speculation-rules", 
+        name: "Speculation Rules", 
+        url: "https://developer.mozilla.org/ja/docs/Web/API/Speculation_Rules_API",
+        must: false,
+        check: () => typeof HTMLScriptElement !== 'undefined' && !!(HTMLScriptElement as any).supports && (HTMLScriptElement as any).supports('speculationrules'),
+        desc: "リンクをクリックする前にページを予備ロードし、一瞬で画面遷移させます。" 
+      },
+      { 
         id: "fetch-priority", 
         name: "HTMLImageElement: fetchPriority", 
         url: "https://developer.mozilla.org/ja/docs/Web/API/HTMLImageElement/fetchPriority",
         must: true,
-        check: () => {
-          // HTMLImageElementにfetchPriorityプロパティが存在するか確認
-          return typeof HTMLImageElement !== 'undefined' && 'fetchPriority' in HTMLImageElement.prototype;
-        }, 
+        check: () => typeof HTMLImageElement !== 'undefined' && 'fetchPriority' in HTMLImageElement.prototype, 
         desc: "重要な画像を優先して読み込み、表示速度を改善します。" 
       },
       { 
@@ -202,10 +205,7 @@ const benchmarkData = [
         name: "Object-fit / Aspect-ratio", 
         url: "https://developer.mozilla.org/ja/docs/Web/CSS/Reference/Properties/aspect-ratio",
         must: true,
-        check: () => {
-          // CSS.supportsでaspect-ratioプロパティのサポートを確認
-          return typeof CSS !== 'undefined' && CSS.supports('aspect-ratio', '1/1');
-        }, 
+        check: () => typeof CSS !== 'undefined' && CSS.supports('aspect-ratio', '1/1'), 
         desc: "写真が変に伸びたり潰れたりせず、綺麗に枠に収まります。" 
       },
       { 
@@ -213,10 +213,7 @@ const benchmarkData = [
         name: "CSS @layer", 
         url: "https://developer.mozilla.org/ja/docs/Web/CSS/Reference/At-rules/@layer",
         must: true,
-        check: () => {
-          // CSSLayerBlockRuleインターフェースの存在を確認
-          return typeof window !== 'undefined' && 'CSSLayerBlockRule' in window;
-        }, 
+        check: () => typeof window !== 'undefined' && 'CSSLayerBlockRule' in window, 
         desc: "大規模サイトのスタイルが意図通りに正しく適用されます。" 
       }
     ]
@@ -226,14 +223,27 @@ const benchmarkData = [
     summary: "NotionやFigma等のアプリ級サイトが動くか",
     items: [
       { 
+        id: "eyedropper", 
+        name: "EyeDropper API", 
+        url: "https://developer.mozilla.org/ja/docs/Web/API/EyeDropper_API",
+        must: false,
+        check: () => typeof window !== 'undefined' && 'EyeDropper' in window,
+        desc: "画面上の任意の色を抽出できるスポイト機能。デザイン作業を効率化します。" 
+      },
+      { 
+        id: "navigation-api", 
+        name: "Navigation API", 
+        url: "https://developer.mozilla.org/en-US/docs/Web/API/Navigation_API",
+        must: false,
+        check: () => typeof window !== 'undefined' && 'navigation' in window,
+        desc: "SPAの画面遷移をより滑らかに、安定して制御できる次世代の基盤技術です。" 
+      },
+      { 
         id: "anchor-pos", 
         name: "Anchor Positioning API", 
         url: "https://developer.mozilla.org/ja/docs/Web/CSS/Reference/Properties/position-anchor",
         must: true,
-        check: () => {
-          // CSS.supportsでアンカーポジショニングのプロパティを確認
-          return typeof CSS !== 'undefined' && CSS.supports('anchor-name', '--a');
-        }, 
+        check: () => typeof CSS !== 'undefined' && CSS.supports('anchor-name', '--a'), 
         desc: "ポップアップがボタンに吸い付くように正しく表示されます。" 
       },
       { 
@@ -241,10 +251,7 @@ const benchmarkData = [
         name: "Popover API",
         url: "https://developer.mozilla.org/ja/docs/Web/API/Popover_API",
         must: true,
-        check: () => {
-          // HTMLElementにshowPopoverメソッドが存在するか確認
-          return typeof HTMLElement !== 'undefined' && 'showPopover' in HTMLElement.prototype;
-        }, 
+        check: () => typeof HTMLElement !== 'undefined' && 'showPopover' in HTMLElement.prototype, 
         desc: "メニューが他の要素に邪魔されず最前面に表示されます。" 
       },
       { 
@@ -252,10 +259,7 @@ const benchmarkData = [
         name: "Compression Streams API", 
         url: "https://developer.mozilla.org/ja/docs/Web/API/Compression_Streams_API",
         must: true,
-        check: () => {
-          // CompressionStreamインターフェースの存在を確認
-          return typeof window !== 'undefined' && 'CompressionStream' in window;
-        }, 
+        check: () => typeof window !== 'undefined' && 'CompressionStream' in window, 
         desc: "ブラウザ上でファイルを高速にZIP圧縮・解凍できます。" 
       },
       { 
@@ -263,10 +267,7 @@ const benchmarkData = [
         name: "Web Crypto API", 
         url: "https://developer.mozilla.org/ja/docs/Web/API/Web_Crypto_API",
         must: true,
-        check: () => {
-          // window.cryptoおよびSubtleCryptoの存在を確認
-          return typeof window !== 'undefined' && !!window.crypto && !!window.crypto.subtle;
-        }, 
+        check: () => typeof window !== 'undefined' && !!window.crypto && !!window.crypto.subtle, 
         desc: "セキュアな通信やパスワード管理・暗号化を可能にします。" 
       },
       { 
@@ -274,10 +275,7 @@ const benchmarkData = [
         name: "IndexedDB (v3)", 
         url: "https://developer.mozilla.org/ja/docs/Web/API/IndexedDB_API",
         must: true,
-        check: () => {
-          // indexedDB.databasesメソッドの存在を確認
-          return typeof indexedDB !== 'undefined' && 'databases' in indexedDB;
-        }, 
+        check: () => typeof indexedDB !== 'undefined' && 'databases' in indexedDB, 
         desc: "大容量データを保存し、オフラインでも作業を継続できます。" 
       }
     ]
@@ -291,21 +289,23 @@ const benchmarkData = [
         name: "WebGPU", 
         url: "https://developer.mozilla.org/ja/docs/Web/API/WebGPU_API",
         must: true,
-        check: () => {
-          // navigator.gpuプロパティの存在を確認
-          return typeof navigator !== 'undefined' && 'gpu' in navigator;
-        }, 
+        check: () => typeof navigator !== 'undefined' && 'gpu' in navigator, 
         desc: "本格的な3DゲームやAI画像生成がブラウザで動きます。" 
+      },
+      { 
+        id: "webxr", 
+        name: "WebXR Device API", 
+        url: "https://developer.mozilla.org/ja/docs/Web/API/WebXR_Device_API",
+        must: false,
+        check: () => typeof navigator !== 'undefined' && 'xr' in navigator,
+        desc: "ブラウザからVR（仮想現実）やAR（拡張現実）デバイスを直接操作できます。" 
       },
       { 
         id: "view-transitions", 
         name: "View Transitions API", 
         url: "https://developer.mozilla.org/ja/docs/Web/API/View_Transition_API",
         must: true,
-        check: () => {
-          // document.startViewTransitionメソッドの存在を確認
-          return typeof document !== 'undefined' && !!document.startViewTransition;
-        }, 
+        check: () => typeof document !== 'undefined' && !!document.startViewTransition, 
         desc: "画面遷移がアプリのように滑らかにフェードします。" 
       },
       { 
@@ -313,10 +313,7 @@ const benchmarkData = [
         name: "Scroll-driven Animations", 
         url: "https://developer.mozilla.org/ja/docs/Web/CSS/Reference/Properties/animation-timeline",
         must: true,
-        check: () => {
-          // CSS.supportsでスクロール駆動アニメーションのサポートを確認
-          return typeof CSS !== 'undefined' && CSS.supports('animation-timeline', 'scroll()');
-        }, 
+        check: () => typeof CSS !== 'undefined' && CSS.supports('animation-timeline', 'scroll()'), 
         desc: "スクロールに連動するリッチな演出に対応しています。" 
       },
       { 
@@ -324,10 +321,7 @@ const benchmarkData = [
         name: "Offscreen Canvas", 
         url: "https://developer.mozilla.org/ja/docs/Web/API/OffscreenCanvas",
         must: true,
-        check: () => {
-          // OffscreenCanvasインターフェースの存在を確認
-          return typeof window !== 'undefined' && 'OffscreenCanvas' in window;
-        }, 
+        check: () => typeof window !== 'undefined' && 'OffscreenCanvas' in window, 
         desc: "重いグラフィック処理を裏側で回し、動作を軽くします。" 
       },
       { 
@@ -337,7 +331,6 @@ const benchmarkData = [
         must: true,
         check: () => {
           if (typeof window === 'undefined') return false;
-          // PannerNodeまたはAudioPannerNodeのインターフェースを確認
           const Panner = window.PannerNode || (window as any).AudioPannerNode;
           return !!Panner && 'panningModel' in Panner.prototype;
         }, 
@@ -354,10 +347,7 @@ const benchmarkData = [
         name: "WebAuthn (Passkeys)", 
         url: "https://developer.mozilla.org/ja/docs/Web/API/Web_Authentication_API",
         must: true,
-        check: () => {
-          // PublicKeyCredentialインターフェースの存在を確認
-          return typeof window !== 'undefined' && !!window.PublicKeyCredential;
-        }, 
+        check: () => typeof window !== 'undefined' && !!window.PublicKeyCredential, 
         desc: "指紋や顔認証で、パスワードなしでログインできます。" 
       },
       { 
@@ -365,10 +355,7 @@ const benchmarkData = [
         name: "Badging API", 
         url: "https://developer.mozilla.org/ja/docs/Web/API/Badging_API",
         must: false,
-        check: () => {
-          // navigator.setAppBadgeメソッドの存在を確認
-          return typeof navigator !== 'undefined' && 'setAppBadge' in navigator;
-        }, 
+        check: () => typeof navigator !== 'undefined' && 'setAppBadge' in navigator, 
         desc: "アプリアイコンに未読数を表示できます。" 
       },
       { 
@@ -376,21 +363,23 @@ const benchmarkData = [
         name: "Screen Wake Lock API", 
         url: "https://developer.mozilla.org/ja/docs/Web/API/Screen_Wake_Lock_API",
         must: true,
-        check: () => {
-          // navigator.wakeLockプロパティの存在を確認
-          return typeof navigator !== 'undefined' && 'wakeLock' in navigator;
-        }, 
+        check: () => typeof navigator !== 'undefined' && 'wakeLock' in navigator, 
         desc: "閲覧中に画面が勝手に消えないように制御できます。" 
+      },
+      { 
+        id: "web-usb", 
+        name: "Web USB", 
+        url: "https://developer.mozilla.org/ja/docs/Web/API/WebUSB_API",
+        must: false,
+        check: () => typeof navigator !== 'undefined' && 'usb' in navigator,
+        desc: "USB接続された専用デバイスを、ブラウザから直接制御できます。" 
       },
       { 
         id: "file-system", 
         name: "File System Access API", 
         url: "https://developer.mozilla.org/ja/docs/Web/API/File_System_API",
         must: false,
-        check: () => {
-          // showOpenFilePickerメソッドの存在を確認
-          return typeof window !== 'undefined' && 'showOpenFilePicker' in window;
-        }, 
+        check: () => typeof window !== 'undefined' && 'showOpenFilePicker' in window, 
         desc: "端末内のファイルを直接編集・保存できます。" 
       }
     ]
