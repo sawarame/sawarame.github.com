@@ -143,7 +143,11 @@
 }
 
 .rankE {
-  background: linear-gradient(135deg, #868f96 0%, #596164 100%);
+  background: linear-gradient(135deg, #bdc3c7 0%, #95a5a6 100%);
+}
+
+.rankF {
+  background: linear-gradient(135deg, #434343 0%, #000000 100%);
 }
 
 .deviceImage {
@@ -152,22 +156,85 @@
   color: var(--ifm-color-emphasis-700);
 }
 
-.referenceTable {
-  margin-top: 3rem;
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
+/* Rank Reference List (Modal) */
+.rankReferenceList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0.5rem 0;
 }
 
-.referenceTable th,
-.referenceTable td {
-  padding: 1rem;
+.rankReferenceItem {
+  padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--ifm-color-emphasis-200);
 }
 
-.referenceTable th {
+.rankReferenceItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.rankReferenceHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.rankReferenceBadge {
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  font-weight: 900;
+  color: #fff;
+  font-size: 1.1rem;
+  min-width: 80px;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.rankReferenceScores {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.rankScoreDetail {
   background: var(--ifm-color-emphasis-100);
-  font-weight: bold;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  color: var(--ifm-color-emphasis-700);
+  border: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.rankScoreDetail strong {
+  color: var(--ifm-color-emphasis-900);
+}
+
+.rankReferenceDesc {
+  font-size: 0.9rem;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 520px) {
+  .rankReferenceHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .rankReferenceScores {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .rankScoreDetail {
+    text-align: center;
+    padding: 0.4rem;
+  }
 }
 
 @keyframes fadeIn {

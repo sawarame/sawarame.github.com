@@ -408,6 +408,16 @@ function PageHeader() {
   );
 }
 
+const rankReferenceData = [
+  { rank: 'Rank S', single: '4000以上', multi: '30000以上', desc: '比類なき速さ。ハイエンドを凌駕する最高峰の性能', className: styles.rankS },
+  { rank: 'Rank A', single: '2000〜3999', multi: '10000〜29999', desc: '非常に快適。大抵のアプリが極めてスムーズに動作', className: styles.rankA },
+  { rank: 'Rank B', single: '1000〜1999', multi: '4000〜9999', desc: '快適。一般的な利用には全く支障のない性能', className: styles.rankB },
+  { rank: 'Rank C', single: '250〜999', multi: '500〜3999', desc: '実用的。標準的なブラウジングに十分な性能', className: styles.rankC },
+  { rank: 'Rank D', single: '100〜249', multi: '200〜499', desc: '控えめ。負荷により動作が鈍くなる可能性', className: styles.rankD },
+  { rank: 'Rank E', single: '50〜99', multi: '100〜199', desc: '低速。古い端末や省電力モードの可能性', className: styles.rankE },
+  { rank: 'Rank F', single: '50未満', multi: '100未満', desc: '動作困難。現代のWeb標準に対し大幅な性能不足', className: styles.rankF },
+];
+
 // ============================================================
 // Page
 // ============================================================
@@ -637,7 +647,7 @@ export default function Benchmark(): JSX.Element {
             <Dialog
               open={isModalOpen}
               onClose={() => setIsModalOpen(false)}
-              maxWidth="md"
+              maxWidth="sm"
               fullWidth
               PaperProps={{
                 style: { borderRadius: '16px', padding: '8px' }
@@ -652,60 +662,26 @@ export default function Benchmark(): JSX.Element {
                 </div>
               </DialogTitle>
               <DialogContent dividers>
-                <table className={styles.referenceTable} style={{ marginTop: 0 }}>
-                  <thead>
-                    <tr>
-                      <th>ランク</th>
-                      <th>シングルコア目安</th>
-                      <th>マルチコア目安</th>
-                      <th>デバイスのイメージ</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><strong>Rank S</strong></td>
-                      <td>4000以上</td>
-                      <td>30000以上</td>
-                      <td>比類なき速さ。ハイエンドを凌駕する最高峰の性能</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Rank A</strong></td>
-                      <td>2000〜3999</td>
-                      <td>10000〜29999</td>
-                      <td>非常に快適。大抵のアプリが極めてスムーズに動作</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Rank B</strong></td>
-                      <td>1000〜1999</td>
-                      <td>4000〜9999</td>
-                      <td>快適。一般的な利用には全く支障のない性能</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Rank C</strong></td>
-                      <td>250〜999</td>
-                      <td>500〜3999</td>
-                      <td>実用的。標準的なブラウジングに十分な性能</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Rank D</strong></td>
-                      <td>100〜249</td>
-                      <td>200〜499</td>
-                      <td>控えめ。負荷により動作が鈍くなる可能性</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Rank E</strong></td>
-                      <td>50〜99</td>
-                      <td>100〜199</td>
-                      <td>低速。古い端末や省電力モードの可能性</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Rank F</strong></td>
-                      <td>50未満</td>
-                      <td>100未満</td>
-                      <td>動作困難。現代のWeb標準に対し大幅な性能不足</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div className={styles.rankReferenceList}>
+                  {rankReferenceData.map((item) => (
+                    <div key={item.rank} className={styles.rankReferenceItem}>
+                      <div className={styles.rankReferenceHeader}>
+                        <span className={`${styles.rankReferenceBadge} ${item.className}`}>
+                          {item.rank}
+                        </span>
+                        <div className={styles.rankReferenceScores}>
+                          <div className={styles.rankScoreDetail}>
+                            <span>シングル:</span> <strong>{item.single}</strong>
+                          </div>
+                          <div className={styles.rankScoreDetail}>
+                            <span>マルチ:</span> <strong>{item.multi}</strong>
+                          </div>
+                        </div>
+                      </div>
+                      <p className={styles.rankReferenceDesc}>{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
               </DialogContent>
               <DialogActions>
                 <Button onClick={() => setIsModalOpen(false)} color="primary">
