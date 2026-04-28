@@ -391,3 +391,18 @@
 .rankF {
   background: linear-gradient(135deg, #868f96 0%, #596164 100%);
 }
+
+.modalLinkWrap {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.modalLink {
+  text-transform: none !important;
+  color: var(--ifm-color-primary) !important;
+  font-weight: bold !important;
+}
+
+.modalLink:hover {
+  text-decoration: underline;
+}
