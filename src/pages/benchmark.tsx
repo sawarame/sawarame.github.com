@@ -193,9 +193,9 @@ const benchmarkData = [
         desc: "リンクをクリックする前にページを予備ロードし、一瞬で画面遷移させます。" 
       },
       { 
-        id: "fetch-priority", 
-        name: "HTMLImageElement: fetchPriority", 
-        url: "https://developer.mozilla.org/ja/docs/Web/API/HTMLImageElement/fetchPriority",
+        id: "fetchpriority", 
+        name: "fetchpriority属性", 
+        url: "https://developer.mozilla.org/ja/docs/Web/HTML/Reference/Attributes/fetchpriority",
         must: true,
         check: () => typeof HTMLImageElement !== 'undefined' && 'fetchPriority' in HTMLImageElement.prototype, 
         desc: "重要な画像を優先して読み込み、表示速度を改善します。" 
