@@ -142,6 +142,8 @@ const benchmarkData = [
       { 
         id: "avif-webp", 
         name: "AVIF / WebP 対応", 
+        url: "https://developer.mozilla.org/ja/docs/Web/Media/Guides/Formats/Image_types",
+        must: true,
         check: () => {
           if (typeof window === 'undefined') return false;
           try {
@@ -169,7 +171,9 @@ const benchmarkData = [
       },
       { 
         id: "av1", 
-        name: "AV1 デコード", 
+        name: "AV1 デコード",
+        url: "https://developer.mozilla.org/ja/docs/Web/Media/Formats/Video_codecs#AV1", 
+        must: true,
         check: () => {
           if (typeof document === 'undefined') return false;
           // video要素のcanPlayTypeでAV1コーデックの再生可否を確認
@@ -179,8 +183,10 @@ const benchmarkData = [
         desc: "YouTubeの4K動画などを低負荷・高画質で再生できます。" 
       },
       { 
-        id: "priority-hints", 
-        name: "Priority Hints", 
+        id: "fetch-priority", 
+        name: "fetchPriority", 
+        url: "https://developer.mozilla.org/ja/docs/Web/HTML/Reference/Attributes/fetchpriority",
+        must: true,
         check: () => {
           // HTMLImageElementにfetchPriorityプロパティが存在するか確認
           return typeof HTMLImageElement !== 'undefined' && 'fetchPriority' in HTMLImageElement.prototype;
@@ -190,6 +196,8 @@ const benchmarkData = [
       { 
         id: "object-fit", 
         name: "Object-fit / Aspect-ratio", 
+        url: "https://developer.mozilla.org/ja/docs/Web/CSS/Reference/Properties/aspect-ratio",
+        must: true,
         check: () => {
           // CSS.supportsでaspect-ratioプロパティのサポートを確認
           return typeof CSS !== 'undefined' && CSS.supports('aspect-ratio', '1/1');
@@ -199,6 +207,8 @@ const benchmarkData = [
       { 
         id: "css-layer", 
         name: "CSS @layer", 
+        url: "https://developer.mozilla.org/ja/docs/Web/CSS/Reference/At-rules/@layer",
+        must: true,
         check: () => {
           // CSSLayerBlockRuleインターフェースの存在を確認
           return typeof window !== 'undefined' && 'CSSLayerBlockRule' in window;
@@ -214,6 +224,8 @@ const benchmarkData = [
       { 
         id: "anchor-pos", 
         name: "Anchor Positioning API", 
+        url: "https://developer.mozilla.org/ja/docs/Web/CSS/Reference/Properties/position-anchor",
+        must: true,
         check: () => {
           // CSS.supportsでアンカーポジショニングのプロパティを確認
           return typeof CSS !== 'undefined' && CSS.supports('anchor-name', '--a');
@@ -222,7 +234,9 @@ const benchmarkData = [
       },
       { 
         id: "popover", 
-        name: "Popover API", 
+        name: "Popover API",
+        url: "https://developer.mozilla.org/ja/docs/Web/API/Popover_API",
+        must: true,
         check: () => {
           // HTMLElementにshowPopoverメソッドが存在するか確認
           return typeof HTMLElement !== 'undefined' && 'showPopover' in HTMLElement.prototype;
@@ -232,6 +246,8 @@ const benchmarkData = [
       { 
         id: "compression", 
         name: "Compression Streams API", 
+        url: "https://developer.mozilla.org/ja/docs/Web/API/Compression_Streams_API",
+        must: true,
         check: () => {
           // CompressionStreamインターフェースの存在を確認
           return typeof window !== 'undefined' && 'CompressionStream' in window;
@@ -241,6 +257,8 @@ const benchmarkData = [
       { 
         id: "crypto", 
         name: "Web Crypto API", 
+        url: "https://developer.mozilla.org/ja/docs/Web/API/Web_Crypto_API",
+        must: true,
         check: () => {
           // window.cryptoおよびSubtleCryptoの存在を確認
           return typeof window !== 'undefined' && !!window.crypto && !!window.crypto.subtle;
@@ -250,6 +268,8 @@ const benchmarkData = [
       { 
         id: "indexeddb-v3", 
         name: "IndexedDB (v3)", 
+        url: "https://developer.mozilla.org/ja/docs/Web/API/IndexedDB_API",
+        must: true,
         check: () => {
           // indexedDB.databasesメソッドの存在を確認
           return typeof indexedDB !== 'undefined' && 'databases' in indexedDB;
@@ -265,6 +285,8 @@ const benchmarkData = [
       { 
         id: "webgpu", 
         name: "WebGPU", 
+        url: "https://developer.mozilla.org/ja/docs/Web/API/WebGPU_API",
+        must: true,
         check: () => {
           // navigator.gpuプロパティの存在を確認
           return typeof navigator !== 'undefined' && 'gpu' in navigator;
@@ -274,6 +296,8 @@ const benchmarkData = [
       { 
         id: "view-transitions", 
         name: "View Transitions API", 
+        url: "https://developer.mozilla.org/ja/docs/Web/API/View_Transition_API",
+        must: true,
         check: () => {
           // document.startViewTransitionメソッドの存在を確認
           return typeof document !== 'undefined' && !!document.startViewTransition;
@@ -283,6 +307,8 @@ const benchmarkData = [
       { 
         id: "scroll-animations", 
         name: "Scroll-driven Animations", 
+        url: "https://developer.mozilla.org/ja/docs/Web/CSS/Reference/Properties/animation-timeline",
+        must: true,
         check: () => {
           // CSS.supportsでスクロール駆動アニメーションのサポートを確認
           return typeof CSS !== 'undefined' && CSS.supports('animation-timeline', 'scroll()');
@@ -292,6 +318,8 @@ const benchmarkData = [
       { 
         id: "offscreen-canvas", 
         name: "Offscreen Canvas", 
+        url: "https://developer.mozilla.org/ja/docs/Web/API/OffscreenCanvas",
+        must: true,
         check: () => {
           // OffscreenCanvasインターフェースの存在を確認
           return typeof window !== 'undefined' && 'OffscreenCanvas' in window;
@@ -301,6 +329,8 @@ const benchmarkData = [
       { 
         id: "spatial-audio", 
         name: "Web Audio (Spatial Audio)", 
+        url: "https://developer.mozilla.org/ja/docs/Web/API/Web_Audio_API",
+        must: true,
         check: () => {
           if (typeof window === 'undefined') return false;
           // PannerNodeまたはAudioPannerNodeのインターフェースを確認
@@ -312,12 +342,14 @@ const benchmarkData = [
     ]
   },
   {
-    category: "システム・セキュリティ",
+    category: "システム・その他",
     summary: "アプリ化、通知、ログインの快適さ",
     items: [
       { 
         id: "passkeys", 
         name: "WebAuthn (Passkeys)", 
+        url: "https://developer.mozilla.org/ja/docs/Web/API/Web_Authentication_API",
+        must: true,
         check: () => {
           // PublicKeyCredentialインターフェースの存在を確認
           return typeof window !== 'undefined' && !!window.PublicKeyCredential;
@@ -327,6 +359,8 @@ const benchmarkData = [
       { 
         id: "badging", 
         name: "Badging API", 
+        url: "https://developer.mozilla.org/ja/docs/Web/API/Badging_API",
+        must: false,
         check: () => {
           // navigator.setAppBadgeメソッドの存在を確認
           return typeof navigator !== 'undefined' && 'setAppBadge' in navigator;
@@ -336,6 +370,8 @@ const benchmarkData = [
       { 
         id: "wake-lock", 
         name: "Screen Wake Lock API", 
+        url: "https://developer.mozilla.org/ja/docs/Web/API/Screen_Wake_Lock_API",
+        must: true,
         check: () => {
           // navigator.wakeLockプロパティの存在を確認
           return typeof navigator !== 'undefined' && 'wakeLock' in navigator;
@@ -345,6 +381,8 @@ const benchmarkData = [
       { 
         id: "file-system", 
         name: "File System Access API", 
+        url: "https://developer.mozilla.org/ja/docs/Web/API/File_System_API",
+        must: false,
         check: () => {
           // showOpenFilePickerメソッドの存在を確認
           return typeof window !== 'undefined' && 'showOpenFilePicker' in window;
@@ -527,32 +565,59 @@ export default function Benchmark(): JSX.Element {
               <h2 className={styles.sectionTitle}>ブラウザ機能サポート状況</h2>
               <div className={styles.categoryGrid}>
                 {benchmarkData.map((cat, idx) => {
-                  const passCount = cat.items.filter(item => featureResults[item.id] === true).length;
-                  const totalCount = cat.items.length;
-                  const isActive = passCount === totalCount;
+                  const items = cat.items;
+                  const passedItems = items.filter(item => featureResults[item.id] === true);
+                  const mustItems = items.filter(item => item.must);
+                  const passedMustItems = mustItems.filter(item => featureResults[item.id] === true);
+                  
+                  const isComplete = passedItems.length === items.length;
+                  const isOK = !isComplete && passedMustItems.length === mustItems.length;
+                  
                   const isOpen = openCategory === idx;
+                  const passCount = passedItems.length;
+                  const totalCount = items.length;
 
                   return (
                     <div 
                       key={cat.category} 
-                      className={`${styles.categoryCard} ${isActive ? styles.activeCategory : ''} ${isOpen ? styles.categoryCardOpen : ''}`}
+                      className={`
+                        ${styles.categoryCard} 
+                        ${isComplete ? styles.completeCategory : ''} 
+                        ${isOK ? styles.okCategory : ''} 
+                        ${isOpen ? styles.categoryCardOpen : ''}
+                      `}
                       onClick={() => setOpenCategory(isOpen ? null : idx)}
                     >
                       <div className={styles.categoryHeader}>
                         <h3 className={styles.categoryTitle}>{cat.category}</h3>
-                        <div className={styles.categoryScore}>{passCount} / {totalCount}</div>
+                        <div className={styles.categoryScore}>
+                          {passCount} / {totalCount}
+                        </div>
                       </div>
                       <div className={styles.categorySummary}>{cat.summary}</div>
                       
                       <div className={`${styles.featureList} ${isOpen ? styles.featureListOpen : ''}`}>
                         {cat.items.map(item => (
-                          <div key={item.id} className={styles.featureItem}>
+                          <div 
+                            key={item.id} 
+                            className={`${styles.featureItem} ${item.url ? styles.featureItemClickable : ''}`}
+                            onClick={(e) => {
+                              if (item.url) {
+                                e.stopPropagation();
+                                window.open(item.url, '_blank', 'noopener,noreferrer');
+                              }
+                            }}
+                          >
                             <div className={styles.checkStatus}>
                               {featureResults[item.id] === undefined ? '-' : featureResults[item.id] ? '✅' : '❌'}
                             </div>
                             <div className={styles.featureContent}>
                               <div className={styles.featureNameWrap}>
-                                <span className={styles.featureName}>{item.name}</span>
+                                <span className={styles.featureName}>
+                                  {item.name}
+                                  {item.must && <span className={styles.mustTag}>必須</span>}
+                                </span>
+                                {item.url && <span className={styles.externalIcon}>↗</span>}
                               </div>
                               <div className={styles.featureDesc}>{item.desc}</div>
                             </div>
