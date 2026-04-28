@@ -40,7 +40,7 @@ const tools = [
   {
     icon: '📷',
     title: 'QRコード作成',
-    description: 'URLやテキストからQRコードを生成します。Wi-Fiやカレンダー登録などにも対応しています。',
+    description: 'URLやテキストからQRコードを生成します。ロゴの埋め込みやWi-Fi・カレンダー登録のQRコード作成などにも対応しています。',
     link: '/qr',
     gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
   },
