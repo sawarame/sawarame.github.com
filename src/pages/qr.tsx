@@ -2,9 +2,11 @@ import React, { useState, useRef, useMemo } from 'react';
 import Layout from '@theme/Layout';
 import MuiTheme from '@site/src/components/MuiTheme';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { TextField, Button, Stack, Snackbar, Alert, Tooltip, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { TextField, Button, Stack, Snackbar, Alert, Tooltip, FormControl, InputLabel, Select, MenuItem, Box, IconButton, Typography } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { QRCodeCanvas } from 'qrcode.react';
 import common from '@site/src/css/common.module.css';
 import styles from '@site/src/css/qr.module.css';
@@ -24,7 +26,7 @@ function PageHeader() {
         <span className={styles.pageHeaderIcon}>📷</span>
         <h1 className={styles.pageHeaderTitle}>QRコード作成</h1>
         <p className={common.pageHeaderDesc}>
-          URLや様々な情報からQRコードを生成します。Wi-Fiやカレンダー登録などにも対応しています。
+          URLや様々な情報からQRコードを生成します。ロゴの埋め込みにも対応しています。
         </p>
       </div>
     </div>
@@ -39,7 +41,7 @@ type Mode = 'text' | 'wifi' | 'contact' | 'event' | 'email';
 
 export default function QR(): React.JSX.Element {
   const title = 'QRコード作成';
-  const description = 'URLや様々な情報からQRコードを生成します。Wi-Fiやカレンダー登録などにも対応しています。';
+  const description = 'URLや様々な情報からQRコードを生成します。ロゴの埋め込みにも対応しています。';
   const { siteConfig } = useDocusaurusContext();
 
   const [mode, setMode] = useState<Mode>('text');
@@ -63,8 +65,10 @@ export default function QR(): React.JSX.Element {
   const [emailSub, setEmailSub] = useState('');
   const [emailBody, setEmailBody] = useState('');
 
+  const [logoImage, setLogoImage] = useState<string | null>(null);
   const [snackbar, setSnackbar] = useState({ open: false, message: '' });
   const qrRef = useRef<HTMLCanvasElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Generate QR Value dynamically
   const generatedText = useMemo(() => {
@@ -102,6 +106,24 @@ END:VCALENDAR
         return '';
     }
   }, [mode, textInput, wifiEncryption, wifiSsid, wifiPassword, contactName, contactTel, contactEmail, eventName, eventStart, eventEnd, emailTo, emailSub, emailBody]);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setLogoImage(event.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeLogo = () => {
+    setLogoImage(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
 
   const downloadQRCode = () => {
     const canvas = qrRef.current;
@@ -229,6 +251,45 @@ END:VCALENDAR
                     />
                   )}
 
+                  {/* ロゴアップロードセクション */}
+                  <Box sx={{ border: '1px dashed #ccc', borderRadius: 2, p: 2, textAlign: 'center' }}>
+                    <Typography variant="subtitle2" sx={{ mb: 1, color: 'text.secondary', fontWeight: 600 }}>
+                      中心にロゴを埋め込む (オプション)
+                    </Typography>
+                    <input
+                      accept="image/*"
+                      style={{ display: 'none' }}
+                      id="logo-upload"
+                      type="file"
+                      onChange={handleFileChange}
+                      ref={fileInputRef}
+                    />
+                    {!logoImage ? (
+                      <label htmlFor="logo-upload">
+                        <Button
+                          variant="outlined"
+                          component="span"
+                          startIcon={<CloudUploadIcon />}
+                          size="small"
+                          sx={{ textTransform: 'none' }}
+                        >
+                          ロゴ画像をアップロード
+                        </Button>
+                      </label>
+                    ) : (
+                      <Stack direction="row" alignItems="center" justifyContent="center" spacing={2}>
+                        <Box
+                          component="img"
+                          src={logoImage}
+                          sx={{ width: 40, height: 40, objectFit: 'contain', borderRadius: 1, border: '1px solid #eee' }}
+                        />
+                        <IconButton size="small" color="error" onClick={removeLogo}>
+                          <DeleteIcon fontSize="small" />
+                        </IconButton>
+                      </Stack>
+                    )}
+                  </Box>
+
                   <Stack direction="row" spacing={1.5} flexWrap="wrap">
                     <Button variant="contained" startIcon={<DownloadIcon />} onClick={downloadQRCode} disabled={!generatedText} className={styles.actionBtn}>
                       画像を保存
@@ -253,7 +314,21 @@ END:VCALENDAR
                 <div className={styles.qrWrap}>
                   {generatedText ? (
                     <div className={styles.qrInner}>
-                      <QRCodeCanvas value={generatedText} size={240} level="H" includeMargin ref={qrRef} />
+                      <QRCodeCanvas
+                        value={generatedText}
+                        size={240}
+                        level="H"
+                        includeMargin
+                        ref={qrRef}
+                        imageSettings={logoImage ? {
+                          src: logoImage,
+                          x: undefined,
+                          y: undefined,
+                          height: 48,
+                          width: 48,
+                          excavate: true,
+                        } : undefined}
+                      />
                     </div>
                   ) : (
                     <div className={styles.qrEmpty}>
