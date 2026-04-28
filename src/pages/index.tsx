@@ -66,6 +66,13 @@ const tools = [
     gradient: 'linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%)',
   },
   {
+    icon: '📄',
+    title: 'PDF画像変換',
+    description: 'PDFを1ページずつ画像に変換します。プレビューを見ながら必要なページだけを選択可能。ブラウザ上で完結するため安全です。',
+    link: '/pdf2img',
+    gradient: 'linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%)',
+  },
+  {
     icon: '🚀',
     title: 'デバイスベンチマーク',
     description: 'ブラウザ上でデバイスの演算性能を測定し、スコアとランクで評価します。',
