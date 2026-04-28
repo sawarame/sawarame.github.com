@@ -149,7 +149,7 @@ type ImageFormat = 'original' | 'webp' | 'png' | 'jpeg';
 interface OptimizationSettings {
   format: ImageFormat;
   quality: number;
-  maxWidthOrHeight: number | undefined;
+  maxWidth: number | undefined;
   preserveExif: boolean;
 }
 
@@ -401,7 +401,7 @@ export default function ImageOptimizer(): JSX.Element {
   const [settings, setSettings] = useState<OptimizationSettings>({
     format: 'webp',
     quality: 0.8,
-    maxWidthOrHeight: undefined,
+    maxWidth: undefined,
     preserveExif: false,
   });
 
@@ -478,13 +478,23 @@ export default function ImageOptimizer(): JSX.Element {
         }
 
         // Dynamic target size based on quality to force compression
-        // e.g. Quality 0.8 (80%) -> Max size 0.8MB
-        // This ensures the library actually performs compression instead of skipping.
         const targetSizeMB = settings.quality * 2; 
+
+        // Calculate maxWidthOrHeight for imageCompression to target width
+        let compressionMaxWidthOrHeight = undefined;
+        if (settings.maxWidth) {
+          const dims = updatedImages[i].originalDimensions || '0 x 0';
+          const [origW, origH] = dims.split(' x ').map(Number);
+          if (origW > settings.maxWidth) {
+            const scale = settings.maxWidth / origW;
+            // The longest side should be set such that width becomes settings.maxWidth
+            compressionMaxWidthOrHeight = Math.max(settings.maxWidth, Math.round(origH * scale));
+          }
+        }
 
         const options = {
           maxSizeMB: targetSizeMB,
-          maxWidthOrHeight: settings.maxWidthOrHeight, // No hard limit unless specified
+          maxWidthOrHeight: compressionMaxWidthOrHeight,
           useWebWorker: !isMobile,
           initialQuality: settings.quality,
           fileType: settings.format === 'original' ? undefined : `image/${settings.format}`,
@@ -494,8 +504,8 @@ export default function ImageOptimizer(): JSX.Element {
         let compressedFile = await imageCompression(sourceFile as File, options);
 
         // Snap to exact dimensions if an aspect ratio was intended and we have a max size
-        if (updatedImages[i].cropAspect && settings.maxWidthOrHeight) {
-          const expectedWidth = settings.maxWidthOrHeight;
+        if (updatedImages[i].cropAspect && settings.maxWidth) {
+          const expectedWidth = settings.maxWidth;
           const expectedHeight = Math.round(expectedWidth / updatedImages[i].cropAspect!);
           
           // Check current dimensions
@@ -751,26 +761,26 @@ export default function ImageOptimizer(): JSX.Element {
                               if (typeof option === 'string') return option;
                               return option.label;
                             }}
-                            value={SNS_PRESETS.find(p => p.width === settings.maxWidthOrHeight && p.width !== undefined) || (settings.maxWidthOrHeight ? settings.maxWidthOrHeight.toString() : '制限なし')}
+                            value={SNS_PRESETS.find(p => p.width === settings.maxWidth && p.width !== undefined) || (settings.maxWidth ? settings.maxWidth.toString() : '制限なし')}
                             onInputChange={(event, newValue) => {
                               if (newValue === '制限なし' || newValue === '') {
-                                setSettings({ ...settings, maxWidthOrHeight: undefined });
+                                setSettings({ ...settings, maxWidth: undefined });
                               } else {
                                 const num = parseInt(newValue.replace(/[^0-9]/g, ''), 10);
                                 if (!isNaN(num)) {
-                                  setSettings({ ...settings, maxWidthOrHeight: num });
+                                  setSettings({ ...settings, maxWidth: num });
                                 }
                               }
                             }}
                             onChange={(event, newValue) => {
                               if (newValue && typeof newValue === 'object') {
-                                setSettings({ ...settings, maxWidthOrHeight: newValue.width });
+                                setSettings({ ...settings, maxWidth: newValue.width });
                               } else if (newValue === '制限なし' || !newValue) {
-                                setSettings({ ...settings, maxWidthOrHeight: undefined });
+                                setSettings({ ...settings, maxWidth: undefined });
                               }
                             }}
                             renderInput={(params) => (
-                              <TextField {...params} label="最大幅/高さ (px)" placeholder="数値(px)を入力" />
+                              <TextField {...params} label="最大幅 (px)" placeholder="数値(px)を入力" />
                             )}
                           />
                         </Grid>                        <Grid item xs={12}>
