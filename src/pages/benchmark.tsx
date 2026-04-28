@@ -113,21 +113,23 @@ async function runMultiCoreBenchmark(cores: number, passes: number, onProgress?:
 }
 
 function getSingleCoreRankInfo(score: number) {
-  if (score >= 2000) return { rank: 'S', label: 'Rank S', desc: '非常に快適。最新のハイエンドデバイス並の速度です', className: styles.rankS };
-  if (score >= 1000) return { rank: 'A', label: 'Rank A', desc: '快適。大抵のWebアプリがストレスなく動作します', className: styles.rankA };
-  if (score >= 250) return { rank: 'B', label: 'Rank B', desc: '実用的。一般的なブラウジングには十分な性能です', className: styles.rankB };
-  if (score >= 100) return { rank: 'C', label: 'Rank C', desc: '控えめ。複雑なページでは少し時間がかかるかもしれません', className: styles.rankC };
-  if (score >= 50) return { rank: 'D', label: 'Rank D', desc: '低速。古い端末や省電力モードの影響が考えられます', className: styles.rankD };
-  return { rank: 'E', label: 'Rank E', desc: '非常に低速。動作に支障が出る可能性があります', className: styles.rankE };
+  if (score >= 4000) return { rank: 'S', label: 'Rank S', desc: '比類なき速さ。最新のハイエンド端末の中でも最高峰の処理能力です', className: styles.rankS };
+  if (score >= 2000) return { rank: 'A', label: 'Rank A', desc: '快適。大抵のWebアプリがストレスなく動作します', className: styles.rankA };
+  if (score >= 1000) return { rank: 'B', label: 'Rank B', desc: '実用的。一般的なブラウジングには十分な性能です', className: styles.rankB };
+  if (score >= 250) return { rank: 'C', label: 'Rank C', desc: '控えめ。複雑なページでは少し時間がかかるかもしれません', className: styles.rankC };
+  if (score >= 100) return { rank: 'D', label: 'Rank D', desc: '低速。古い端末や省電力モードの影響が考えられます', className: styles.rankD };
+  if (score >= 50) return { rank: 'E', label: 'Rank E', desc: '非常に低速。動作に支障が出る可能性があります', className: styles.rankE };
+  return { rank: 'F', label: 'Rank F', desc: '現代のWebサービスを利用するには大幅な性能不足です', className: styles.rankF };
 }
 
 function getMultiCoreRankInfo(score: number) {
-  if (score >= 8000) return { rank: 'S', label: 'Rank S', desc: '極めて強力。重い並列処理もスムーズにこなせます', className: styles.rankS };
-  if (score >= 4000) return { rank: 'A', label: 'Rank A', desc: '強力。複数のタスクを同時に開いても安定します', className: styles.rankA };
-  if (score >= 500) return { rank: 'B', label: 'Rank B', desc: '標準的。マルチタスクも問題なく行える性能です', className: styles.rankB };
-  if (score >= 200) return { rank: 'C', label: 'Rank C', desc: '最小限。並列処理が増えると動作が鈍くなることがあります', className: styles.rankC };
-  if (score >= 100) return { rank: 'D', label: 'Rank D', desc: '不足気味。並列処理には向かず、動作が制限されます', className: styles.rankD };
-  return { rank: 'E', label: 'Rank E', desc: '著しく低い。並列処理の恩恵をほとんど受けられません', className: styles.rankE };
+  if (score >= 30000) return { rank: 'S', label: 'Rank S', desc: 'デスクトップ級。圧倒的な並列処理能力で、あらゆる重い作業を軽快にこなします', className: styles.rankS };
+  if (score >= 10000) return { rank: 'A', label: 'Rank A', desc: '強力。複数のタスクを同時に開いても安定します', className: styles.rankA };
+  if (score >= 4000) return { rank: 'B', label: 'Rank B', desc: '標準的。マルチタスクも問題なく行える性能です', className: styles.rankB };
+  if (score >= 500) return { rank: 'C', label: 'Rank C', desc: '最小限。並列処理が増えると動作が鈍くなることがあります', className: styles.rankC };
+  if (score >= 200) return { rank: 'D', label: 'Rank D', desc: '不足気味。並列処理には向かず、動作が制限されます', className: styles.rankD };
+  if (score >= 100) return { rank: 'E', label: 'Rank E', desc: '著しく低い。並列処理の恩恵をほとんど受けられません', className: styles.rankE };
+  return { rank: 'F', label: 'Rank F', desc: '並列処理がほぼ機能せず、ブラウジングが困難な状態です', className: styles.rankF };
 }
 
 // ============================================================
@@ -642,39 +644,45 @@ export default function Benchmark(): JSX.Element {
               <tbody>
                 <tr>
                   <td><strong>Rank S</strong></td>
-                  <td>2000以上</td>
-                  <td>8000以上</td>
-                  <td>非常に快適。ハイエンドデバイス並の性能</td>
+                  <td>4000以上</td>
+                  <td>30000以上</td>
+                  <td>比類なき速さ。ハイエンドを凌駕する最高峰の性能</td>
                 </tr>
                 <tr>
                   <td><strong>Rank A</strong></td>
-                  <td>1000〜1999</td>
-                  <td>4000〜7999</td>
-                  <td>快適。大抵のアプリがスムーズに動作</td>
+                  <td>2000〜3999</td>
+                  <td>10000〜29999</td>
+                  <td>非常に快適。大抵のアプリが極めてスムーズに動作</td>
                 </tr>
                 <tr>
                   <td><strong>Rank B</strong></td>
-                  <td>250〜999</td>
-                  <td>500〜3999</td>
-                  <td>実用的。一般的な利用には十分な性能</td>
+                  <td>1000〜1999</td>
+                  <td>4000〜9999</td>
+                  <td>快適。一般的な利用には全く支障のない性能</td>
                 </tr>
                 <tr>
                   <td><strong>Rank C</strong></td>
+                  <td>250〜999</td>
+                  <td>500〜3999</td>
+                  <td>実用的。標準的なブラウジングに十分な性能</td>
+                </tr>
+                <tr>
+                  <td><strong>Rank D</strong></td>
                   <td>100〜249</td>
                   <td>200〜499</td>
                   <td>控えめ。負荷により動作が鈍くなる可能性</td>
                 </tr>
                 <tr>
-                  <td><strong>Rank D</strong></td>
+                  <td><strong>Rank E</strong></td>
                   <td>50〜99</td>
                   <td>100〜199</td>
                   <td>低速。古い端末や省電力モードの可能性</td>
                 </tr>
                 <tr>
-                  <td><strong>Rank E</strong></td>
+                  <td><strong>Rank F</strong></td>
                   <td>50未満</td>
                   <td>100未満</td>
-                  <td>非常に低速。動作に支障が出るレベル</td>
+                  <td>動作困難。現代のWeb標準に対し大幅な性能不足</td>
                 </tr>
               </tbody>
             </table>

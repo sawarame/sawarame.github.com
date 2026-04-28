@@ -387,3 +387,7 @@
   color: var(--ifm-color-emphasis-500);
   margin-left: 0.5rem;
 }
+
+.rankF {
+  background: linear-gradient(135deg, #868f96 0%, #596164 100%);
+}
