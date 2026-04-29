@@ -449,20 +449,26 @@ export default function Benchmark(): JSX.Element {
   const getBrowserInfo = () => {
     const ua = navigator.userAgent;
     let browser = "Unknown Browser";
-    if (ua.indexOf("Firefox") > -1) browser = "Firefox";
+    
+    // Order matters (Edge/Opera often contain Chrome/Safari strings)
+    if (ua.indexOf("Firefox") > -1 || ua.indexOf("FxiOS") > -1) browser = "Firefox";
     else if (ua.indexOf("SamsungBrowser") > -1) browser = "Samsung Browser";
     else if (ua.indexOf("Opera") > -1 || ua.indexOf("OPR") > -1) browser = "Opera";
     else if (ua.indexOf("Trident") > -1) browser = "Internet Explorer";
-    else if (ua.indexOf("Edge") > -1 || ua.indexOf("Edg") > -1) browser = "Edge";
-    else if (ua.indexOf("Chrome") > -1) browser = "Chrome";
+    else if (ua.indexOf("Edge") > -1 || ua.indexOf("Edg") > -1 || ua.indexOf("EdgiOS") > -1) browser = "Edge";
+    else if (ua.indexOf("Chrome") > -1 || ua.indexOf("CriOS") > -1) browser = "Chrome";
     else if (ua.indexOf("Safari") > -1) browser = "Safari";
 
-    const version = ua.match(/(?:firefox|sdk|version|chrome|safari|opr|edge|edg)[\/: ]([\d\.]+)/i);
+    const version = ua.match(/(?:firefox|fxios|sdk|version|chrome|crios|safari|opr|edge|edg|edgios)[\/: ]([\d\.]+)/i);
     const vStr = version ? version[1].split('.')[0] : "";
     
     let os = "Unknown OS";
     if (ua.indexOf("Win") > -1) os = "Windows";
-    else if (ua.indexOf("Mac") > -1) os = "macOS";
+    else if (ua.indexOf("Mac") > -1) {
+      // iPadOS sometimes reports as Mac (desktop mode), checking touch support
+      if (navigator.maxTouchPoints > 0) os = "iOS";
+      else os = "macOS";
+    }
     else if (ua.indexOf("Android") > -1) os = "Android";
     else if (ua.indexOf("iPhone") > -1 || ua.indexOf("iPad") > -1) os = "iOS";
     else if (ua.indexOf("Linux") > -1) os = "Linux";
@@ -600,18 +606,17 @@ export default function Benchmark(): JSX.Element {
       const blob = await generateBenchmarkImage();
       if (!blob) return;
 
-      const text = `デバイスベンチマーク結果\nシングル: ${singleScore.toLocaleString()} / マルチ: ${multiScore.toLocaleString()}\n`;
-      const url = 'https://sawara.me/benchmark';
-      
+      const text = `デバイスベンチマーク結果\nシングル: ${singleScore.toLocaleString()} / マルチ: ${multiScore.toLocaleString()}\nhttps://sawara.me/benchmark`;
+
       const file = new File([blob], 'benchmark_result.png', { type: 'image/png' });
-      
+
       // Check if navigator.share is supported for files
       if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
         await navigator.share({
           files: [file],
           text: text,
-          url: url,
         });
+
       } else {
         // Fallback: Clipboard + Twitter Intent
         const item = new ClipboardItem({ 'image/png': blob });
