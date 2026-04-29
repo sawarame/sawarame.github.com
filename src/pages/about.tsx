@@ -9,7 +9,7 @@ import {
   Container,
   Card,
   CardContent,
-  Grid,
+  Grid2,
 } from '@mui/material';
 import SecurityIcon from '@mui/icons-material/Security';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
@@ -56,8 +56,8 @@ export default function About(): JSX.Element {
               <Typography variant="h4" gutterBottom sx={{ fontWeight: 800, textAlign: 'center', mb: 4 }}>
                 コンセプト
               </Typography>
-              <Grid container spacing={4}>
-                <Grid item xs={12} md={6}>
+              <Grid2 container spacing={4}>
+                <Grid2 size={{ xs: 12, md: 6 }}>
                   <Card sx={{ height: '100%', borderRadius: '16px', border: '1px solid var(--ifm-color-emphasis-200)' }} elevation={0}>
                     <CardContent sx={{ p: 3 }}>
                       <Stack spacing={2}>
@@ -73,8 +73,8 @@ export default function About(): JSX.Element {
                       </Stack>
                     </CardContent>
                   </Card>
-                </Grid>
-                <Grid item xs={12} md={6}>
+                </Grid2>
+                <Grid2 size={{ xs: 12, md: 6 }}>
                   <Card sx={{ height: '100%', borderRadius: '16px', border: '1px solid var(--ifm-color-emphasis-200)' }} elevation={0}>
                     <CardContent sx={{ p: 3 }}>
                       <Stack spacing={2}>
@@ -90,8 +90,8 @@ export default function About(): JSX.Element {
                       </Stack>
                     </CardContent>
                   </Card>
-                </Grid>
-              </Grid>
+                </Grid2>
+              </Grid2>
             </section>
 
             <section>
@@ -115,13 +115,13 @@ export default function About(): JSX.Element {
               <Typography variant="h4" gutterBottom sx={{ fontWeight: 800, textAlign: 'center', mb: 4 }}>
                 技術スタック
               </Typography>
-              <Grid container spacing={2}>
+              <Grid2 container spacing={2}>
                 {[
                   { icon: <DevicesIcon />, label: 'Docusaurus (React)', desc: '高速な静的サイト生成', link: 'https://docusaurus.io/' },
                   { icon: <ExtensionIcon />, label: 'Material UI', desc: '一貫性のある美しいUIコンポーネント', link: 'https://mui.com/material-ui/' },
                   { icon: <SecurityIcon />, label: 'TypeScript', desc: '型安全による安定した動作', link: 'https://www.typescriptlang.org/ja/' },
                 ].map((item, i) => (
-                  <Grid item xs={12} sm={4} key={i}>
+                  <Grid2 size={{ xs: 12, sm: 4 }} key={i}>
                     <Box sx={{ textAlign: 'center', p: 2 }}>
                       <Box sx={{ color: 'text.secondary', mb: 1 }}>{item.icon}</Box>
                       <a href={item.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -131,9 +131,9 @@ export default function About(): JSX.Element {
                       </a>
                       <Typography variant="caption" color="text.secondary">{item.desc}</Typography>
                     </Box>
-                  </Grid>
+                  </Grid2>
                 ))}
-              </Grid>
+              </Grid2>
             </section>
 
           </Stack>

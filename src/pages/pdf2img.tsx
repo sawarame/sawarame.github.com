@@ -11,7 +11,7 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  Grid,
+  Grid2,
   Card,
   CardContent,
   CircularProgress,
@@ -322,8 +322,8 @@ export default function PdfToImg(): JSX.Element {
                   <Card sx={{ borderRadius: '16px', border: '1px solid var(--ifm-color-emphasis-200)', bgcolor: 'rgba(0,0,0,0.01)' }} elevation={0}>
                     <CardContent sx={{ p: 3 }}>
                       <Typography variant="h6" gutterBottom sx={{ fontWeight: 800 }}>⚙️ 変換設定</Typography>
-                      <Grid container spacing={3} sx={{ mt: 1 }}>
-                        <Grid item xs={12} sm={6}>
+                      <Grid2 container spacing={3} sx={{ mt: 1 }}>
+                        <Grid2 size={{ xs: 12, sm: 6 }}>
                           <FormControl fullWidth size="small">
                             <InputLabel>出力フォーマット</InputLabel>
                             <Select 
@@ -336,8 +336,8 @@ export default function PdfToImg(): JSX.Element {
                               ))}
                             </Select>
                           </FormControl>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
+                        </Grid2>
+                        <Grid2 size={{ xs: 12, sm: 6 }}>
                           <Autocomplete
                             freeSolo
                             size="small"
@@ -359,8 +359,8 @@ export default function PdfToImg(): JSX.Element {
                               <TextField {...params} label="最大横幅 (px)" placeholder="数値(px)を入力" />
                             )}
                           />
-                        </Grid>
-                      </Grid>
+                        </Grid2>
+                      </Grid2>
 
                       <Divider sx={{ my: 3 }} />
 
@@ -378,11 +378,11 @@ export default function PdfToImg(): JSX.Element {
                         </Box>
                       )}
 
-                      <Grid container spacing={2} sx={{ maxHeight: '500px', overflowY: 'auto', p: 1, bgcolor: 'var(--ifm-background-color)', borderRadius: '8px', border: '1px solid var(--ifm-color-emphasis-200)' }}>
+                      <Grid2 container spacing={2} sx={{ maxHeight: '500px', overflowY: 'auto', p: 1, bgcolor: 'var(--ifm-background-color)', borderRadius: '8px', border: '1px solid var(--ifm-color-emphasis-200)' }}>
                         {Array.from({ length: totalPages }, (_, i) => i + 1).map((page, idx) => {
                           const isSelected = selectedPages.includes(page);
                           return (
-                            <Grid item xs={6} sm={4} md={3} key={page}>
+                            <Grid2 size={{ xs: 6, sm: 4, md: 3 }} key={page}>
                               <Card 
                                 sx={{ 
                                   position: 'relative',
@@ -427,10 +427,10 @@ export default function PdfToImg(): JSX.Element {
                                   </Box>
                                 </CardActionArea>
                               </Card>
-                            </Grid>
+                            </Grid2>
                           );
                         })}
-                      </Grid>
+                      </Grid2>
                     </CardContent>
                   </Card>
 

@@ -16,7 +16,7 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  Grid,
+  Grid2,
   Card,
   CardContent,
   CircularProgress,
@@ -730,8 +730,8 @@ export default function ImageOptimizer(): JSX.Element {
                   <Card sx={{ borderRadius: '16px', border: '1px solid var(--ifm-color-emphasis-200)', bgcolor: 'rgba(0,0,0,0.01)' }} elevation={0}>
                     <CardContent sx={{ p: 3 }}>
                       <Typography variant="h6" gutterBottom sx={{ fontWeight: 800 }}>⚙️ 最適化設定</Typography>
-                      <Grid container spacing={4} sx={{ mt: 1 }}>
-                        <Grid item xs={12} sm={6}>
+                      <Grid2 container spacing={4} sx={{ mt: 1 }}>
+                        <Grid2 size={{ xs: 12, sm: 6 }}>
                           <FormControl fullWidth size="small">
                             <InputLabel>出力フォーマット</InputLabel>
                             <Select 
@@ -751,8 +751,8 @@ export default function ImageOptimizer(): JSX.Element {
                                 ※お使いのブラウザはWebP変換に未対応のため、JPEGを推奨します。
                               </Typography>
                             )}
-                          </FormControl>                        </Grid>
-                        <Grid item xs={12} sm={6}>
+                          </FormControl>                        </Grid2>
+                        <Grid2 size={{ xs: 12, sm: 6 }}>
                           <Autocomplete
                             freeSolo
                             size="small"
@@ -783,13 +783,13 @@ export default function ImageOptimizer(): JSX.Element {
                               <TextField {...params} label="最大幅 (px)" placeholder="数値(px)を入力" />
                             )}
                           />
-                        </Grid>                        <Grid item xs={12}>
+                        </Grid2>                        <Grid2 size={12}>
                           <Box sx={{ px: 1 }}>
                             <Typography variant="body2" color="text.secondary" gutterBottom>画質: {Math.round(settings.quality * 100)}%</Typography>
                             <Slider value={settings.quality} min={0.1} max={1.0} step={0.05} onChange={(_, v) => setSettings({ ...settings, quality: v as number })} />
                           </Box>
-                        </Grid>
-                        <Grid item xs={12}>
+                        </Grid2>
+                        <Grid2 size={12}>
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -808,8 +808,8 @@ export default function ImageOptimizer(): JSX.Element {
                                 </Tooltip>
                               </Box>
                             }
-                          />                        </Grid>
-                      </Grid>
+                          />                        </Grid2>
+                      </Grid2>
                     </CardContent>
                   </Card>
 
