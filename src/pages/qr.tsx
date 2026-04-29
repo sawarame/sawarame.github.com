@@ -7,6 +7,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ShareIcon from '@mui/icons-material/Share';
 import { QRCodeCanvas } from 'qrcode.react';
 import common from '@site/src/css/common.module.css';
 import styles from '@site/src/css/qr.module.css';
@@ -67,6 +68,7 @@ export default function QR(): React.JSX.Element {
 
   const [logoImage, setLogoImage] = useState<string | null>(null);
   const [snackbar, setSnackbar] = useState({ open: false, message: '' });
+  const [isSharing, setIsSharing] = useState(false);
   const qrRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -162,6 +164,50 @@ END:VCALENDAR
         navigator.clipboard.write([item]).then(() => setSnackbar({ open: true, message: '画像をコピーしました！' }));
       }
     });
+  };
+
+  const handleShare = async () => {
+    if (isSharing) return;
+    const canvas = qrRef.current;
+    if (!canvas) return;
+
+    setIsSharing(true);
+    try {
+      canvas.toBlob(async (blob) => {
+        if (!blob) {
+          setIsSharing(false);
+          return;
+        }
+
+        const file = new File([blob], 'qr_code.png', { type: 'image/png' });
+        
+        // Use Web Share API if supported
+        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({
+              files: [file],
+            });
+          } catch (e) {
+            if (e instanceof Error && e.name !== 'AbortError') {
+              console.error('Share failed:', e);
+            }
+          }
+        } else {
+          // Fallback: Clipboard only
+          try {
+            const item = new ClipboardItem({ 'image/png': blob });
+            await navigator.clipboard.write([item]);
+            setSnackbar({ open: true, message: '画像をクリップボードにコピーしました！' });
+          } catch (err) {
+            console.error('Clipboard copy failed:', err);
+          }
+        }
+        setIsSharing(false);
+      }, 'image/png');
+    } catch (e) {
+      console.error(e);
+      setIsSharing(false);
+    }
   };
 
   return (
@@ -301,6 +347,16 @@ END:VCALENDAR
                         </Button>
                       </span>
                     </Tooltip>
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      startIcon={<ShareIcon />}
+                      onClick={handleShare}
+                      disabled={!generatedText || isSharing}
+                      className={styles.actionBtn}
+                    >
+                      共有
+                    </Button>
                   </Stack>
                 </Stack>
               </div>

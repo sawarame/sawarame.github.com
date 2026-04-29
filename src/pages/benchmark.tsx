@@ -771,18 +771,16 @@ export default function Benchmark(): JSX.Element {
                   >
                     スコアの目安について
                   </Button>
-                  {(singleScore !== null || multiScore !== null) && !isMeasuring && (
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      startIcon={isSharing ? <CircularProgress size={20} /> : <ShareIcon />}
-                      onClick={handleShareX}
-                      disabled={isSharing}
-                      style={{ borderRadius: '20px', fontWeight: 'bold', textTransform: 'none' }}
-                    >
-                      結果を共有
-                    </Button>
-                  )}
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    startIcon={isSharing ? <CircularProgress size={20} /> : <ShareIcon />}
+                    onClick={handleShareX}
+                    disabled={isSharing || isMeasuring || (singleScore === null && multiScore === null)}
+                    style={{ borderRadius: '20px', fontWeight: 'bold', textTransform: 'none' }}
+                  >
+                    結果を共有
+                  </Button>
                 </div>
             </div>
 
