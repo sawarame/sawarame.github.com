@@ -207,7 +207,7 @@ END:VCALENDAR
           try {
             const item = new ClipboardItem({ 'image/png': blob });
             await navigator.clipboard.write([item]);
-            setSnackbar({ open: true, message: '画像をクリップボードにコピーしました！' });
+            setSnackbar({ open: true, message: 'QRをクリップボードにコピーしました！' });
           } catch (err) {
             console.error('Clipboard copy failed:', err);
           }
@@ -347,15 +347,27 @@ END:VCALENDAR
                   </Box>
 
                   <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
-                    <Button variant="contained" startIcon={<DownloadIcon />} onClick={downloadQRCode} disabled={!generatedText} className={styles.actionBtn} fullWidth>
-                      画像を保存
+                    <Button
+                      variant="contained"
+                      startIcon={<DownloadIcon />}
+                      onClick={downloadQRCode}
+                      disabled={!generatedText}
+                      className={styles.actionBtn}
+                      sx={{ flex: 1 }}
+                    >
+                      QRを保存
                     </Button>
                     <Tooltip title="クリップボードに画像としてコピー">
-                      <span style={{ flex: 1 }}>
-                        <Button variant="outlined" startIcon={<ContentCopyIcon />} onClick={copyToClipboard} disabled={!generatedText} className={styles.actionBtn} fullWidth>
-                          画像をコピー
-                        </Button>
-                      </span>
+                      <Button
+                        variant="outlined"
+                        startIcon={<ContentCopyIcon />}
+                        onClick={copyToClipboard}
+                        disabled={!generatedText}
+                        className={styles.actionBtn}
+                        sx={{ flex: 1 }}
+                      >
+                        QRをコピー
+                      </Button>
                     </Tooltip>
                     {canShareFiles && (
                       <Button
@@ -365,7 +377,7 @@ END:VCALENDAR
                         onClick={handleShare}
                         disabled={!generatedText || isSharing}
                         className={styles.actionBtn}
-                        fullWidth
+                        sx={{ flex: 1 }}
                       >
                         共有
                       </Button>

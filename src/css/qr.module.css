@@ -70,6 +70,17 @@
   border-radius: 8px !important;
   text-transform: none !important;
   font-weight: 600 !important;
+  padding: 8px 12px !important;
+  font-size: 0.875rem !important;
+  white-space: nowrap !important;
+  min-width: 0 !important;
+}
+
+@media (max-width: 900px) and (min-width: 641px) {
+  .actionBtn {
+    font-size: 0.75rem !important;
+    padding: 6px 8px !important;
+  }
 }
 
 /* ---- QR Preview ---- */
