@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://sawara.me/blog</id>
+    <title>sawara.me Blog</title>
+    <updated>2026-04-29T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://sawara.me/blog"/>
+    <subtitle>sawara.me Blog</subtitle>
+    <icon>https://sawara.me/img/sawara.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[このサイトについて]]></title>
+        <id>https://sawara.me/blog/introducing-sawarame</id>
+        <link href="https://sawara.me/blog/introducing-sawarame"/>
+        <updated>2026-04-29T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[こんにちは。管理人の sawarame です。]]></summary>
+        <content type="html"><![CDATA[<p>こんにちは。管理人の sawarame です。</p>
+<p>このサイトは、個人的に日々の生活や仕事の中で「ちょっとこういうツールが欲しいな」と思ったものを形にして集めた、ツールボックス集です。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="なぜ作ったのか">なぜ作ったのか？<a href="https://sawara.me/blog/introducing-sawarame#%E3%81%AA%E3%81%9C%E4%BD%9C%E3%81%A3%E3%81%9F%E3%81%AE%E3%81%8B" class="hash-link" aria-label="なぜ作ったのか？ への直接リンク" title="なぜ作ったのか？ への直接リンク" translate="no">​</a></h3>
+<p>世の中には便利なツールが溢れていますが、意外と「痒いところに手が届かない」ことや、「自分のデータをサーバーに送りたくない」という不安を感じることがありました。</p>
+<p>そのため、このサイトのすべてのツールは <strong>ブラウザ上で完結（クライアントサイド処理）</strong> するように作られています。画像やPDF、パスワードの生成などは、あなたのデバイスの外にデータが出ることはありませんので、安心して使うことができます。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="公開しているツールたちのこだわり">公開しているツールたちのこだわり<a href="https://sawara.me/blog/introducing-sawarame#%E5%85%AC%E9%96%8B%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%83%84%E3%83%BC%E3%83%AB%E3%81%9F%E3%81%A1%E3%81%AE%E3%81%93%E3%81%A0%E3%82%8F%E3%82%8A" class="hash-link" aria-label="公開しているツールたちのこだわり への直接リンク" title="公開しているツールたちのこだわり への直接リンク" translate="no">​</a></h3>
+<p>現在公開しているツールには、それぞれ地味ながらこだわったポイントがあります。</p>
+<ol>
+<li class=""><strong>パスワードジェネレーター</strong><br>
+<!-- -->単にパスワードを自動生成するだけでなく、<strong>URLパラメータとの同期</strong>にこだわりました。長さや使用文字の設定がすべてURLに反映されるので、お気に入りの設定をブックマークしたり、チームで「この設定でパスワード作って」と共有したりできます。</li>
+<li class=""><strong>テキスト保存場所</strong><br>
+<!-- -->ブラウザの <code>localStorage</code> を利用した、テキストデータを保存できる場所です。ブラウザを閉じてもデータが消えず、何かふと思ったことメモしておける機能として開発しました。よくコピペするワードとかを置いておけるスニペットとして使うこともできます。　<strong>ピン留め機能</strong> を実装したので、作業中に何度も使うテンプレを常に最上部に置いておけます。</li>
+<li class=""><strong>デバイス情報チェッカー</strong><br>
+<!-- -->デバイスの画面サイズやユーザーエージェントを確認できます。意外とスマホやタブレットのサイズってよくわからないことがあるので、実機でアクセスすることで実際の画面サイズを確認することができます。レスポンシブサイトとか上手く動かない時に役立ちます。</li>
+<li class=""><strong>QRコード作成</strong><br>
+<!-- -->Wi-Fi、連絡先、カレンダー登録など、多彩なフォーマットに対応しています。特に<strong>ロゴ埋め込み</strong>は、読み取り精度を落とさないよう誤り訂正レベルを自動で「H」に引き上げ、ロゴ背後のドットを除去するなどの処理をブラウザ内で行っています。</li>
+<li class=""><strong>日付比較ツール</strong><br>
+<!-- -->「2026年4月30日」といった日本語形式やUNIX TIMESTAMPなど、<strong>入力フォーマットの寛容さ</strong>にこだわりました。どんな形式でコピーしてきても、いい感じにパースして差分を出してくれます。常に現在時刻との比較を出すこともできますので、Xデーまでのカウントダウンや、過去の日付からどらくらいの時間が経過したか出力しておくこともできます。</li>
+<li class=""><strong>写真Exif情報チェッカー</strong><br>
+<!-- -->写真データからExifデータを取得し、表示します。撮影条件だけでなく、GPS情報があれば緯度経度を表示し、<strong>Googleマップへのリンク</strong>を即座に生成します。「どこで撮ったっけ？」を安全かつ素早く確認できます。</li>
+<li class=""><strong>画像軽量化・クロップツール</strong><br>
+<strong>WebPへの変換</strong>はもちろん、スライダーによる<strong>Before/Afterの比較プレビュー</strong>、主要なSNS（OGPやX）に合わせたアスペクト比プリセットなど、サイト・ブログ・SNS運営に便利な機能となるように開発しました。</li>
+<li class=""><strong>PDF画像変換</strong><br>
+<code>pdfjs-dist</code> を使い、ブラウザ内でPDFをレンダリングします。<strong>必要なページだけを選んでZIPで固める</strong>という、シンプルながらWebサービスでは意外と少ない挙動を大切にしました。</li>
+<li class=""><strong>Web快適度測定（ベンチマーク）</strong><br>
+<!-- -->ただのスコア測定ではなく、<strong>Web Workerを用いたマルチスレッド演算</strong> によるマルチコアのベンチマークができます。また、最新のWeb技術（WebGPUやPasskeys等）への対応状況をカテゴリ別に診断する機能もあり、自分の環境の「モダンさ」を可視化できるようにしています。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ブラウザ拡張機能も公開中">ブラウザ拡張機能も公開中<a href="https://sawara.me/blog/introducing-sawarame#%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E6%8B%A1%E5%BC%B5%E6%A9%9F%E8%83%BD%E3%82%82%E5%85%AC%E9%96%8B%E4%B8%AD" class="hash-link" aria-label="ブラウザ拡張機能も公開中 への直接リンク" title="ブラウザ拡張機能も公開中 への直接リンク" translate="no">​</a></h3>
+<p>日々のブラウジングを少し便利にする拡張機能も、Chrome Web Store で公開しています。</p>
+<ul>
+<li class=""><strong>EnvIcon</strong>:<br>
+<!-- -->本番・検証・開発環境でfaviconを動的に書き換えます。「検証環境のつもりで本番を触っていた」という、<strong>エンジニアなら一度はやるヒヤリハット</strong> を防ぎたくて作りました。faviconの書き換えだけではなく、ページ内でのバッジ表示や、デベロッパーツールのコンソールの環境表示に対応しています。</li>
+<li class=""><strong>Gemini Spark</strong>:<br>
+<!-- -->Google Gemini のWEB UIのプロンプト入力を「Enterで改行、Cmd+Enterで送信」という挙動に変更します。改行しようと思っただけなのに、何度も送信してしまうことがあったので作ってみました。今後GeminiのWEB UIをアップグレードする機能を追加しようと思っているのですが、今のところ何も思いついていません、、、</li>
+<li class=""><strong>MdPicker</strong>:<br>
+<!-- -->閲覧中のページタイトルとURLを、ワンクリックでMarkdown形式のリンクにしてコピーします。ブログ執筆やドキュメント作成のスピードを上げるための必須ツールです。</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="これから">これから<a href="https://sawara.me/blog/introducing-sawarame#%E3%81%93%E3%82%8C%E3%81%8B%E3%82%89" class="hash-link" aria-label="これから への直接リンク" title="これから への直接リンク" translate="no">​</a></h3>
+<p>自分自身が使いやすいと思うものを、これからも少しずつ増やしていく予定です。
+「痒いところに手が届く」そんな場所を目指しています。</p>]]></content>
+        <author>
+            <name>sawarame</name>
+            <uri>https://github.comsawarame/</uri>
+        </author>
+        <category label="sawarame" term="sawarame"/>
+    </entry>
+</feed>
