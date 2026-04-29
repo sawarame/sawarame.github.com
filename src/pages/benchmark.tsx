@@ -750,7 +750,7 @@ export default function Benchmark(): JSX.Element {
                   className={styles.benchButton}
                   startIcon={isMeasuring ? <CircularProgress size={24} color="inherit" /> : <SpeedIcon />}
                 >
-                  {isMeasuring ? progressMsg : '測定開始'}
+                  {isMeasuring ? '測定中...' : '測定開始'}
                 </Button>
               </div>
 
@@ -781,10 +781,12 @@ export default function Benchmark(): JSX.Element {
                           目安: <strong>{getSingleCoreRankInfo(singleScore).desc}</strong>
                         </div>
                       </>
-                    ) : (isMeasuring && !progressMsg.includes('機能サポート')) ? (
+                    ) : (isMeasuring && progressMsg.includes('シングルコア')) ? (
                       <div style={{ padding: '2rem 0' }}>
                         <CircularProgress />
-                        <div style={{ marginTop: '1rem', color: 'var(--ifm-color-emphasis-600)' }}>測定中...</div>
+                        <div style={{ marginTop: '1rem', color: 'var(--ifm-color-primary)', fontWeight: 'bold' }}>
+                          {progressMsg.replace('シングルコア測定中...', '') || '測定中...'}
+                        </div>
                       </div>
                     ) : (
                       <div style={{ padding: '2.4rem 0' }}>
@@ -806,10 +808,12 @@ export default function Benchmark(): JSX.Element {
                           目安: <strong>{getMultiCoreRankInfo(multiScore).desc}</strong>
                         </div>
                       </>
-                    ) : (isMeasuring && singleScore !== null && !progressMsg.includes('機能サポート')) ? (
+                    ) : (isMeasuring && progressMsg.includes('マルチコア')) ? (
                       <div style={{ padding: '2rem 0' }}>
                         <CircularProgress />
-                        <div style={{ marginTop: '1rem', color: 'var(--ifm-color-emphasis-600)' }}>測定中...</div>
+                        <div style={{ marginTop: '1rem', color: 'var(--ifm-color-primary)', fontWeight: 'bold' }}>
+                          {progressMsg.replace('マルチコア測定中...', '') || '測定中...'}
+                        </div>
                       </div>
                     ) : (
                       <div style={{ padding: '2.4rem 0' }}>
