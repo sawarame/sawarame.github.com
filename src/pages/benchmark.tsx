@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { Button, CircularProgress, Dialog, DialogTitle, DialogContent, DialogActions, IconButton } from '@mui/material';
+import { Button, CircularProgress, Dialog, DialogTitle, DialogContent, DialogActions, IconButton, Tooltip } from '@mui/material';
 import MuiTheme from '@site/src/components/MuiTheme';
 import SpeedIcon from '@mui/icons-material/Speed';
 import CloseIcon from '@mui/icons-material/Close';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import XIcon from '@mui/icons-material/X';
+import ShareIcon from '@mui/icons-material/Share';
 import common from '@site/src/css/common.module.css';
 import styles from '@site/src/css/benchmark.module.css';
 
@@ -438,10 +440,194 @@ export default function Benchmark(): JSX.Element {
   const [featureResults, setFeatureResults] = useState<Record<string, boolean | null>>({});
   const [openCategory, setOpenCategory] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSharing, setIsSharing] = useState(false);
 
   React.useEffect(() => {
     setCores(navigator.hardwareConcurrency || 4);
   }, []);
+
+  const getBrowserInfo = () => {
+    const ua = navigator.userAgent;
+    let browser = "Unknown Browser";
+    if (ua.indexOf("Firefox") > -1) browser = "Firefox";
+    else if (ua.indexOf("SamsungBrowser") > -1) browser = "Samsung Browser";
+    else if (ua.indexOf("Opera") > -1 || ua.indexOf("OPR") > -1) browser = "Opera";
+    else if (ua.indexOf("Trident") > -1) browser = "Internet Explorer";
+    else if (ua.indexOf("Edge") > -1 || ua.indexOf("Edg") > -1) browser = "Edge";
+    else if (ua.indexOf("Chrome") > -1) browser = "Chrome";
+    else if (ua.indexOf("Safari") > -1) browser = "Safari";
+
+    const version = ua.match(/(?:firefox|sdk|version|chrome|safari|opr|edge|edg)[\/: ]([\d\.]+)/i);
+    const vStr = version ? version[1].split('.')[0] : "";
+    
+    let os = "Unknown OS";
+    if (ua.indexOf("Win") > -1) os = "Windows";
+    else if (ua.indexOf("Mac") > -1) os = "macOS";
+    else if (ua.indexOf("Android") > -1) os = "Android";
+    else if (ua.indexOf("iPhone") > -1 || ua.indexOf("iPad") > -1) os = "iOS";
+    else if (ua.indexOf("Linux") > -1) os = "Linux";
+
+    return `${browser} ${vStr} (${os})`;
+  };
+
+  const generateBenchmarkImage = async (): Promise<Blob | null> => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1200;
+    canvas.height = 750; // 高さを持たせる
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return null;
+
+    // Background
+    const grad = ctx.createLinearGradient(0, 0, 1200, 750);
+    grad.addColorStop(0, '#1a1a1a');
+    grad.addColorStop(1, '#2d2d2d');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 1200, 750);
+
+    // Orbs (Branding)
+    ctx.globalAlpha = 0.3;
+    const orb1 = ctx.createRadialGradient(200, 100, 0, 200, 100, 500);
+    orb1.addColorStop(0, '#ff0844');
+    orb1.addColorStop(1, 'transparent');
+    ctx.fillStyle = orb1;
+    ctx.beginPath(); ctx.arc(200, 100, 500, 0, Math.PI * 2); ctx.fill();
+
+    const orb2 = ctx.createRadialGradient(1000, 650, 0, 1000, 650, 400);
+    orb2.addColorStop(0, '#ffb199');
+    orb2.addColorStop(1, 'transparent');
+    ctx.fillStyle = orb2;
+    ctx.beginPath(); ctx.arc(1000, 650, 400, 0, Math.PI * 2); ctx.fill();
+    ctx.globalAlpha = 1.0;
+
+    // Title / Branding
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 32px sans-serif';
+    ctx.fillText('sawara.me', 60, 70);
+    ctx.font = 'bold 56px sans-serif';
+    ctx.fillText('Benchmark Results', 60, 140);
+
+    // Browser Info
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.font = '24px sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(getBrowserInfo(), 1140, 70);
+    ctx.textAlign = 'left';
+
+    // Results Box
+    ctx.fillStyle = 'rgba(255,255,255,0.05)';
+    ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+    ctx.lineWidth = 2;
+    const r = 24;
+    const x = 60, y = 200, w = 1080, h = 480; // Boxを少し高く
+    ctx.beginPath();
+    ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+    ctx.fill(); ctx.stroke();
+
+    const drawResult = (label: string, score: number, rankInfo: any, startX: number) => {
+      ctx.fillStyle = '#aaa';
+      ctx.font = '24px sans-serif';
+      ctx.fillText(label, startX, 270);
+      
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 90px sans-serif';
+      ctx.fillText(score.toLocaleString(), startX, 370);
+
+      // Rank Badge
+      const badgeW = 240, badgeH = 80;
+      const bx = startX, by = 420;
+      let badgeGrad = ctx.createLinearGradient(bx, by, bx + badgeW, by + badgeH);
+      if (rankInfo.rank === 'S') { badgeGrad.addColorStop(0, '#ff0844'); badgeGrad.addColorStop(1, '#ffb199'); }
+      else if (rankInfo.rank === 'A') { badgeGrad.addColorStop(0, '#f6d365'); badgeGrad.addColorStop(1, '#fda085'); }
+      else if (rankInfo.rank === 'B') { badgeGrad.addColorStop(0, '#4facfe'); badgeGrad.addColorStop(1, '#00f2fe'); }
+      else if (rankInfo.rank === 'C') { badgeGrad.addColorStop(0, '#43e97b'); badgeGrad.addColorStop(1, '#38f9d7'); }
+      else { badgeGrad.addColorStop(0, '#868f96'); badgeGrad.addColorStop(1, '#596164'); }
+
+      ctx.fillStyle = badgeGrad;
+      const br = 12;
+      ctx.beginPath();
+      ctx.moveTo(bx + br, by); ctx.lineTo(bx + badgeW - br, by); ctx.quadraticCurveTo(bx + badgeW, by, bx + badgeW, by + br);
+      ctx.lineTo(bx + badgeW, by + badgeH - br); ctx.quadraticCurveTo(bx + badgeW, by + badgeH, bx + badgeW - br, by + badgeH);
+      ctx.lineTo(bx + br, by + badgeH); ctx.quadraticCurveTo(bx, by + badgeH, bx, by + badgeH - br);
+      ctx.lineTo(bx, by + br); ctx.quadraticCurveTo(bx, by, bx + br, by);
+      ctx.closePath(); ctx.fill();
+
+      ctx.fillStyle = '#fff';
+      ctx.font = '900 44px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(rankInfo.label, bx + badgeW / 2, by + 56);
+      ctx.textAlign = 'left';
+
+      // Description
+      ctx.fillStyle = '#bbb';
+      ctx.font = '22px sans-serif';
+      const desc = rankInfo.desc;
+      const maxWidth = 460;
+      let line = '';
+      let yPos = 540;
+      const chars = desc.split('');
+      for (let n = 0; n < chars.length; n++) {
+        let testLine = line + chars[n];
+        let metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && n > 0) {
+          ctx.fillText(line, startX, yPos);
+          line = chars[n];
+          yPos += 32;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line, startX, yPos);
+    };
+
+    if (singleScore !== null) drawResult('Single Core Score', singleScore, getSingleCoreRankInfo(singleScore), 120);
+    if (multiScore !== null) drawResult(`Multi Core Score (${cores} Cores)`, multiScore, getMultiCoreRankInfo(multiScore), 620);
+
+    return new Promise((resolve) => {
+      canvas.toBlob((blob) => resolve(blob), 'image/png');
+    });
+  };
+
+  const handleShareX = async () => {
+    if (isSharing) return;
+    if (singleScore === null || multiScore === null) return;
+    
+    setIsSharing(true);
+    try {
+      const blob = await generateBenchmarkImage();
+      if (!blob) return;
+
+      const text = `デバイスベンチマーク結果\nシングル: ${singleScore.toLocaleString()} / マルチ: ${multiScore.toLocaleString()}\n`;
+      const url = 'https://sawara.me/benchmark';
+      
+      const file = new File([blob], 'benchmark_result.png', { type: 'image/png' });
+      
+      // Check if navigator.share is supported for files
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          text: text,
+          url: url,
+        });
+      } else {
+        // Fallback: Clipboard + Twitter Intent
+        const item = new ClipboardItem({ 'image/png': blob });
+        await navigator.clipboard.write([item]);
+        alert('結果画像をクリップボードにコピーしました！\nX（Twitter）などの投稿画面に貼り付けて投稿してください。');
+        const xUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+        window.open(xUrl, '_blank');
+      }
+    } catch (e) {
+      if (e instanceof Error && e.name !== 'AbortError') {
+        console.error('Share failed:', e);
+      }
+    } finally {
+      setIsSharing(false);
+    }
+  };
 
   const handleStart = async () => {
     setIsMeasuring(true);
@@ -513,6 +699,14 @@ export default function Benchmark(): JSX.Element {
               </div>
 
                 <div className={styles.resultsGrid}>
+                  {/* Measurement Environment info */}
+                  <div style={{ gridColumn: '1 / -1', textAlign: 'left', marginBottom: '0.5rem' }}>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--ifm-color-emphasis-600)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <span>測定環境:</span>
+                      <strong style={{ color: 'var(--ifm-color-emphasis-800)' }}>{getBrowserInfo()}</strong>
+                    </div>
+                  </div>
+
                   <div className={styles.resultCard}>
                     <div className={styles.scoreLabel}>シングルコア (1 Worker)</div>
                     {singleScore !== null ? (
@@ -564,7 +758,7 @@ export default function Benchmark(): JSX.Element {
                   </div>
                 </div>
 
-                <div className={styles.modalLinkWrap}>
+                <div className={styles.modalLinkWrap} style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
                   <Button
                     startIcon={<InfoOutlinedIcon />}
                     onClick={() => setIsModalOpen(true)}
@@ -572,6 +766,18 @@ export default function Benchmark(): JSX.Element {
                   >
                     スコアの目安について
                   </Button>
+                  {(singleScore !== null || multiScore !== null) && !isMeasuring && (
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      startIcon={isSharing ? <CircularProgress size={20} /> : <ShareIcon />}
+                      onClick={handleShareX}
+                      disabled={isSharing}
+                      style={{ borderRadius: '20px', fontWeight: 'bold', textTransform: 'none' }}
+                    >
+                      結果を共有
+                    </Button>
+                  )}
                 </div>
             </div>
 
