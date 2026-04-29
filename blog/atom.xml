@@ -53,10 +53,6 @@
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="これから">これから<a href="https://sawara.me/blog/introducing-sawarame#%E3%81%93%E3%82%8C%E3%81%8B%E3%82%89" class="hash-link" aria-label="これから への直接リンク" title="これから への直接リンク" translate="no">​</a></h3>
 <p>自分自身が使いやすいと思うものを、これからも少しずつ増やしていく予定です。
 「痒いところに手が届く」そんな場所を目指しています。</p>]]></content>
-        <author>
-            <name>sawarame</name>
-            <uri>https://github.comsawarame/</uri>
-        </author>
-        <category label="sawarame" term="sawarame"/>
+        <category label="sawara.me" term="sawara.me"/>
     </entry>
 </feed>

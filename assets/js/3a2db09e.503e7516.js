@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunksawarame_github_com=self.webpackChunksawarame_github_com||[]).push([[8121],{8070:a=>{a.exports=JSON.parse('{"tags":[{"label":"sawarame","permalink":"/blog/tags/sawarame","count":1}]}')}}]);
