@@ -69,8 +69,18 @@ export default function QR(): React.JSX.Element {
   const [logoImage, setLogoImage] = useState<string | null>(null);
   const [snackbar, setSnackbar] = useState({ open: false, message: '' });
   const [isSharing, setIsSharing] = useState(false);
+  const [canShareFiles, setCanShareFiles] = useState(false);
   const qrRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Check Web Share API support
+  React.useEffect(() => {
+    if (typeof navigator !== 'undefined' && navigator.canShare) {
+      // Create a dummy file to check sharing capability
+      const file = new File([''], 'test.png', { type: 'image/png' });
+      setCanShareFiles(navigator.canShare({ files: [file] }));
+    }
+  }, []);
 
   // Generate QR Value dynamically
   const generatedText = useMemo(() => {
@@ -336,27 +346,30 @@ END:VCALENDAR
                     )}
                   </Box>
 
-                  <Stack direction="row" spacing={1.5} flexWrap="wrap">
-                    <Button variant="contained" startIcon={<DownloadIcon />} onClick={downloadQRCode} disabled={!generatedText} className={styles.actionBtn}>
+                  <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
+                    <Button variant="contained" startIcon={<DownloadIcon />} onClick={downloadQRCode} disabled={!generatedText} className={styles.actionBtn} fullWidth>
                       画像を保存
                     </Button>
                     <Tooltip title="クリップボードに画像としてコピー">
-                      <span>
-                        <Button variant="outlined" startIcon={<ContentCopyIcon />} onClick={copyToClipboard} disabled={!generatedText} className={styles.actionBtn}>
+                      <span style={{ flex: 1 }}>
+                        <Button variant="outlined" startIcon={<ContentCopyIcon />} onClick={copyToClipboard} disabled={!generatedText} className={styles.actionBtn} fullWidth>
                           画像をコピー
                         </Button>
                       </span>
                     </Tooltip>
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      startIcon={<ShareIcon />}
-                      onClick={handleShare}
-                      disabled={!generatedText || isSharing}
-                      className={styles.actionBtn}
-                    >
-                      共有
-                    </Button>
+                    {canShareFiles && (
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        startIcon={<ShareIcon />}
+                        onClick={handleShare}
+                        disabled={!generatedText || isSharing}
+                        className={styles.actionBtn}
+                        fullWidth
+                      >
+                        共有
+                      </Button>
+                    )}
                   </Stack>
                 </Stack>
               </div>
