@@ -19,8 +19,8 @@
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="なぜ作ったのか">なぜ作ったのか？<a href="https://sawara.me/blog/introducing-sawarame#%E3%81%AA%E3%81%9C%E4%BD%9C%E3%81%A3%E3%81%9F%E3%81%AE%E3%81%8B" class="hash-link" aria-label="なぜ作ったのか？ への直接リンク" title="なぜ作ったのか？ への直接リンク" translate="no">​</a></h3>
 <p>世の中には便利なツールが溢れていますが、意外と「痒いところに手が届かない」ことや、「自分のデータをサーバーに送りたくない」という不安を感じることがありました。</p>
 <p>そのため、このサイトのすべてのツールは <strong>ブラウザ上で完結（クライアントサイド処理）</strong> するように作られています。画像やPDF、パスワードの生成などは、あなたのデバイスの外にデータが出ることはありませんので、安心して使うことができます。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="公開しているツールたちのこだわり">公開しているツールたちのこだわり<a href="https://sawara.me/blog/introducing-sawarame#%E5%85%AC%E9%96%8B%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%83%84%E3%83%BC%E3%83%AB%E3%81%9F%E3%81%A1%E3%81%AE%E3%81%93%E3%81%A0%E3%82%8F%E3%82%8A" class="hash-link" aria-label="公開しているツールたちのこだわり への直接リンク" title="公開しているツールたちのこだわり への直接リンク" translate="no">​</a></h3>
-<p>現在公開しているツールには、それぞれ地味ながらこだわったポイントがあります。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="公開しているツールについて">公開しているツールについて<a href="https://sawara.me/blog/introducing-sawarame#%E5%85%AC%E9%96%8B%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%83%84%E3%83%BC%E3%83%AB%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6" class="hash-link" aria-label="公開しているツールについて への直接リンク" title="公開しているツールについて への直接リンク" translate="no">​</a></h3>
+<p>現在公開しているツールには、それぞれ地味ながらこだわったポイントがあります。似たようなツールは他でもありますが、自分なりに使いやすい機能に仕上げています。</p>
 <ol>
 <li class=""><strong>パスワードジェネレーター</strong><br>
 <!-- -->単にパスワードを自動生成するだけでなく、<strong>URLパラメータとの同期</strong>にこだわりました。長さや使用文字の設定がすべてURLに反映されるので、お気に入りの設定をブックマークしたり、チームで「この設定でパスワード作って」と共有したりできます。</li>
