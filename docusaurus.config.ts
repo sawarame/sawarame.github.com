@@ -127,11 +127,10 @@ const config: Config = {
         // },
 
         {
-          title: 'SNS',
+          title: 'sawara.me',
           items: [
+            {to: '/', label: 'ホーム'},
             {to: '/about', label: 'sawara.meについて'},
-            {to: '/#tools', label: 'ブラウザで使えるツール'},
-            {to: '/#extensions', label: 'ブラウザ拡張機能'},
           ],
         },
         {
