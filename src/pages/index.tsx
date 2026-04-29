@@ -74,7 +74,7 @@ const tools = [
   },
   {
     icon: '🚀',
-    title: 'デバイスベンチマーク',
+    title: 'Web快適度測定',
     description: 'ブラウザ上でデバイスの演算性能を測定し、スコアとランクで評価します。',
     link: '/benchmark',
     gradient: 'linear-gradient(135deg, #ff0844 0%, #ffb199 100%)',

@@ -401,7 +401,7 @@ function PageHeader() {
       </div>
       <div className={common.pageHeaderContent}>
         <span className={styles.pageHeaderIcon}>🚀</span>
-        <h1 className={styles.pageHeaderTitle}>デバイスベンチマーク</h1>
+        <h1 className={styles.pageHeaderTitle}>Web快適度測定</h1>
         <p className={common.pageHeaderDesc}>
           お使いのブラウザ・デバイスの演算性能を測定し、スコアとランクで評価します。
         </p>
@@ -425,7 +425,7 @@ const rankReferenceData = [
 // ============================================================
 
 export default function Benchmark(): JSX.Element {
-  const title = 'デバイスベンチマーク';
+  const title = 'Web快適度測定';
   const description = 'お使いのブラウザ・デバイスの演算性能を測定し、スコアとランクで評価します。';
   const { siteConfig } = useDocusaurusContext();
 
@@ -479,16 +479,16 @@ export default function Benchmark(): JSX.Element {
   const generateBenchmarkImage = async (): Promise<Blob | null> => {
     const canvas = document.createElement('canvas');
     canvas.width = 1200;
-    canvas.height = 750; // 高さを持たせる
+    canvas.height = 920; // コンテンツ増加に合わせて高さを調整
     const ctx = canvas.getContext('2d');
     if (!ctx) return null;
 
     // Background
-    const grad = ctx.createLinearGradient(0, 0, 1200, 750);
+    const grad = ctx.createLinearGradient(0, 0, 1200, 920);
     grad.addColorStop(0, '#1a1a1a');
     grad.addColorStop(1, '#2d2d2d');
     ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 1200, 750);
+    ctx.fillRect(0, 0, 1200, 920);
 
     // Orbs (Branding)
     ctx.globalAlpha = 0.3;
@@ -498,11 +498,11 @@ export default function Benchmark(): JSX.Element {
     ctx.fillStyle = orb1;
     ctx.beginPath(); ctx.arc(200, 100, 500, 0, Math.PI * 2); ctx.fill();
 
-    const orb2 = ctx.createRadialGradient(1000, 650, 0, 1000, 650, 400);
+    const orb2 = ctx.createRadialGradient(1000, 800, 0, 1000, 800, 400);
     orb2.addColorStop(0, '#ffb199');
     orb2.addColorStop(1, 'transparent');
     ctx.fillStyle = orb2;
-    ctx.beginPath(); ctx.arc(1000, 650, 400, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(1000, 800, 400, 0, Math.PI * 2); ctx.fill();
     ctx.globalAlpha = 1.0;
 
     // Title / Branding
@@ -510,7 +510,7 @@ export default function Benchmark(): JSX.Element {
     ctx.font = 'bold 32px sans-serif';
     ctx.fillText('sawara.me', 60, 70);
     ctx.font = 'bold 56px sans-serif';
-    ctx.fillText('Benchmark Results', 60, 140);
+    ctx.fillText('Web快適度測定結果', 60, 140);
 
     // Browser Info
     ctx.fillStyle = 'rgba(255,255,255,0.5)';
@@ -519,12 +519,12 @@ export default function Benchmark(): JSX.Element {
     ctx.fillText(getBrowserInfo(), 1140, 70);
     ctx.textAlign = 'left';
 
-    // Results Box
+    // Results Box (Main Score)
     ctx.fillStyle = 'rgba(255,255,255,0.05)';
     ctx.strokeStyle = 'rgba(255,255,255,0.1)';
     ctx.lineWidth = 2;
     const r = 24;
-    const x = 60, y = 200, w = 1080, h = 480; // Boxを少し高く
+    const x = 60, y = 200, w = 1080, h = 420;
     ctx.beginPath();
     ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r);
     ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
@@ -567,7 +567,7 @@ export default function Benchmark(): JSX.Element {
       ctx.fillText(rankInfo.label, bx + badgeW / 2, by + 56);
       ctx.textAlign = 'left';
 
-      // Description
+      // Description (Score side only)
       ctx.fillStyle = '#bbb';
       ctx.font = '22px sans-serif';
       const desc = rankInfo.desc;
@@ -592,6 +592,63 @@ export default function Benchmark(): JSX.Element {
     if (singleScore !== null) drawResult('Single Core Score', singleScore, getSingleCoreRankInfo(singleScore), 120);
     if (multiScore !== null) drawResult(`Multi Core Score (${cores} Cores)`, multiScore, getMultiCoreRankInfo(multiScore), 620);
 
+    // Feature Support Section
+    const fsY = 660;
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 32px sans-serif';
+    ctx.fillText('Web機能サポート状況', 60, fsY);
+
+    const drawFeatureBadge = (catName: string, passed: number, total: number, index: number) => {
+      const colW = 260;
+      const bx = 60 + index * colW;
+      const by = fsY + 40;
+      const bw = 240, bh = 140;
+
+      // Card
+      ctx.fillStyle = 'rgba(255,255,255,0.05)';
+      ctx.beginPath();
+      const br = 16;
+      ctx.moveTo(bx + br, by); ctx.lineTo(bx + bw - br, by); ctx.quadraticCurveTo(bx + bw, by, bx + bw, by + br);
+      ctx.lineTo(bx + bw, by + bh - br); ctx.quadraticCurveTo(bx + bw, by + bh, bx + bw - br, by + bh);
+      ctx.lineTo(bx + br, by + bh); ctx.quadraticCurveTo(bx, by + bh, bx, by + bh - br);
+      ctx.lineTo(bx, by + br); ctx.quadraticCurveTo(bx, by, bx + br, by);
+      ctx.closePath(); ctx.fill();
+
+      // Category Label
+      ctx.fillStyle = '#aaa';
+      ctx.font = '20px sans-serif';
+      ctx.fillText(catName, bx + 20, by + 45);
+
+      // Score Badge
+      const isComplete = passed === total;
+      const isLow = passed < total / 2;
+      
+      let badgeCol = '#4facfe'; // Default Blue
+      if (isComplete) badgeCol = '#43e97b'; // Success Green
+      if (isLow) badgeCol = '#aaa'; // Grey
+
+      ctx.fillStyle = badgeCol;
+      const sbx = bx + 20, sby = by + 70, sbw = 120, sbh = 44;
+      const sbr = 8;
+      ctx.beginPath();
+      ctx.moveTo(sbx + sbr, sby); ctx.lineTo(sbx + sbw - sbr, sby); ctx.quadraticCurveTo(sbx + sbw, sby, sbx + sbw, sby + sbr);
+      ctx.lineTo(sbx + sbw, sby + sbh - sbr); ctx.quadraticCurveTo(sbx + sbw, sby + sbh, sbx + sbw - sbr, sby + sbh);
+      ctx.lineTo(sbx + sbr, sby + sbh); ctx.quadraticCurveTo(sbx, sby + sbh, sbx, sby + sbh - sbr);
+      ctx.lineTo(sbx, sby + sbr); ctx.quadraticCurveTo(sbx, sby, sbx + sbr, sby);
+      ctx.closePath(); ctx.fill();
+
+      ctx.fillStyle = '#000';
+      ctx.font = 'bold 24px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(`${passed} / ${total}`, sbx + sbw / 2, sby + 31);
+      ctx.textAlign = 'left';
+    };
+
+    benchmarkData.forEach((cat, idx) => {
+      const passedCount = cat.items.filter(item => featureResults[item.id] === true).length;
+      drawFeatureBadge(cat.category, passedCount, cat.items.length, idx);
+    });
+
     return new Promise((resolve) => {
       canvas.toBlob((blob) => resolve(blob), 'image/png');
     });
@@ -606,7 +663,7 @@ export default function Benchmark(): JSX.Element {
       const blob = await generateBenchmarkImage();
       if (!blob) return;
 
-      const text = `デバイスベンチマーク結果\nシングル: ${singleScore.toLocaleString()} / マルチ: ${multiScore.toLocaleString()}\nhttps://sawara.me/benchmark`;
+      const text = `Web快適度測定結果\nシングル: ${singleScore.toLocaleString()} / マルチ: ${multiScore.toLocaleString()}\nhttps://sawara.me/benchmark`;
 
       const file = new File([blob], 'benchmark_result.png', { type: 'image/png' });
 
