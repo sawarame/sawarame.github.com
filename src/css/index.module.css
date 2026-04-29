@@ -14,13 +14,12 @@
 
 .hero {
   position: relative;
-  min-height: 520px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   background: linear-gradient(135deg, #0f0c29 0%, #1a1a3e 50%, #0d1b4b 100%);
-  padding: 5rem 1.5rem;
+  padding: 3rem 1.5rem;
 }
 
 [data-theme='light'] .hero {
@@ -228,7 +227,7 @@
 .sectionSubtitle {
   font-size: 1rem;
   color: var(--ifm-color-secondary-darkest);
-  max-width: 560px;
+  max-width: 720px;
   margin: 0 auto;
   line-height: 1.7;
 }
