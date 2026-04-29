@@ -120,20 +120,20 @@ function getSingleCoreRankInfo(score: number) {
   if (score >= 4000) return { rank: 'S', label: 'Rank S', desc: '比類なき速さ。最新のハイエンド端末の中でも最高峰の処理能力です', className: styles.rankS };
   if (score >= 2000) return { rank: 'A', label: 'Rank A', desc: '快適。大抵のWebアプリがストレスなく動作します', className: styles.rankA };
   if (score >= 1000) return { rank: 'B', label: 'Rank B', desc: '実用的。一般的なブラウジングには十分な性能です', className: styles.rankB };
-  if (score >= 250) return { rank: 'C', label: 'Rank C', desc: '控えめ。複雑なページでは少し時間がかかるかもしれません', className: styles.rankC };
-  if (score >= 100) return { rank: 'D', label: 'Rank D', desc: '低速。古い端末や省電力モードの影響が考えられます', className: styles.rankD };
-  if (score >= 50) return { rank: 'E', label: 'Rank E', desc: '非常に低速。動作に支障が出る可能性があります', className: styles.rankE };
+  if (score >= 250) return { rank: 'C', label: 'Rank C', desc: '標準的。一般的なページを閲覧するのに十分な性能です', className: styles.rankC };
+  if (score >= 100) return { rank: 'D', label: 'Rank D', desc: '控えめ。複雑なページでは少し時間がかかるかもしれません', className: styles.rankD };
+  if (score >= 50) return { rank: 'E', label: 'Rank E', desc: '低速。古い端末や省電力モードの影響が考えられます', className: styles.rankE };
   return { rank: 'F', label: 'Rank F', desc: '動作困難。現代のWebサービスを利用するには大幅な性能不足です', className: styles.rankF };
 }
 
 function getMultiCoreRankInfo(score: number) {
   if (score >= 30000) return { rank: 'S', label: 'Rank S', desc: 'デスクトップ級。圧倒的な並列処理能力で、あらゆる重い作業を軽快にこなします', className: styles.rankS };
   if (score >= 10000) return { rank: 'A', label: 'Rank A', desc: '強力。複数のタスクを同時に開いても安定します', className: styles.rankA };
-  if (score >= 4000) return { rank: 'B', label: 'Rank B', desc: '標準的。マルチタスクも問題なく行える性能です', className: styles.rankB };
-  if (score >= 500) return { rank: 'C', label: 'Rank C', desc: '最小限。並列処理が増えると動作が鈍くなることがあります', className: styles.rankC };
-  if (score >= 200) return { rank: 'D', label: 'Rank D', desc: '不足気味。並列処理には向かず、動作が制限されます', className: styles.rankD };
-  if (score >= 100) return { rank: 'E', label: 'Rank E', desc: '著しく低い。並列処理の恩恵をほとんど受けられません', className: styles.rankE };
-  return { rank: 'F', label: 'Rank F', desc: '極めて深刻。並列処理がほぼ機能せず、ブラウジングが困難な状態です', className: styles.rankF };
+  if (score >= 4000) return { rank: 'B', label: 'Rank B', desc: '快適。複数のタスクを並行しても余裕のある性能です', className: styles.rankB };
+  if (score >= 500) return { rank: 'C', label: 'Rank C', desc: '標準的。マルチタスクも問題なく行える性能です', className: styles.rankC };
+  if (score >= 200) return { rank: 'D', label: 'Rank D', desc: '最小限。並列処理が増えると動作が鈍くなることがあります', className: styles.rankD };
+  if (score >= 100) return { rank: 'E', label: 'Rank E', desc: '不足気味。並列処理には向かず、動作が制限されます', className: styles.rankE };
+  return { rank: 'F', label: 'Rank F', desc: '著しく低い。並列処理の恩恵をほとんど受けられません', className: styles.rankF };
 }
 
 // ============================================================
@@ -413,9 +413,9 @@ function PageHeader() {
 const rankReferenceData = [
   { rank: 'Rank S', single: '4000以上', multi: '30000以上', desc: '比類なき速さ。ハイエンドを凌駕する最高峰の性能', className: styles.rankS },
   { rank: 'Rank A', single: '2000〜3999', multi: '10000〜29999', desc: '非常に快適。大抵のアプリが極めてスムーズに動作', className: styles.rankA },
-  { rank: 'Rank B', single: '1000〜1999', multi: '4000〜9999', desc: '快適。一般的な利用には全く支障のない性能', className: styles.rankB },
-  { rank: 'Rank C', single: '250〜999', multi: '500〜3999', desc: '実用的。標準的なブラウジングに十分な性能', className: styles.rankC },
-  { rank: 'Rank D', single: '100〜249', multi: '200〜499', desc: '控えめ。負荷により動作が鈍くなる可能性', className: styles.rankD },
+  { rank: 'Rank B', single: '1000〜1999', multi: '4000〜9999', desc: '快適。複数のタスクを並行しても余裕のある性能', className: styles.rankB },
+  { rank: 'Rank C', single: '250〜999', multi: '500〜3999', desc: '標準的。一般的なページ閲覧に十分な性能', className: styles.rankC },
+  { rank: 'Rank D', single: '100〜249', multi: '200〜499', desc: '基本的。負荷により読み込みが遅くなる可能性', className: styles.rankD },
   { rank: 'Rank E', single: '50〜99', multi: '100〜199', desc: '低速。古い端末や省電力モードの可能性', className: styles.rankE },
   { rank: 'Rank F', single: '50未満', multi: '100未満', desc: '動作困難。現代のWeb標準に対し大幅な性能不足', className: styles.rankF },
 ];
@@ -479,16 +479,16 @@ export default function Benchmark(): JSX.Element {
   const generateBenchmarkImage = async (): Promise<Blob | null> => {
     const canvas = document.createElement('canvas');
     canvas.width = 1200;
-    canvas.height = 920; // コンテンツ増加に合わせて高さを調整
+    canvas.height = 960; // コンテンツ増加に合わせて高さを調整
     const ctx = canvas.getContext('2d');
     if (!ctx) return null;
 
     // Background
-    const grad = ctx.createLinearGradient(0, 0, 1200, 920);
+    const grad = ctx.createLinearGradient(0, 0, 1200, 960);
     grad.addColorStop(0, '#1a1a1a');
     grad.addColorStop(1, '#2d2d2d');
     ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 1200, 920);
+    ctx.fillRect(0, 0, 1200, 960);
 
     // Orbs (Branding)
     ctx.globalAlpha = 0.3;
@@ -498,11 +498,11 @@ export default function Benchmark(): JSX.Element {
     ctx.fillStyle = orb1;
     ctx.beginPath(); ctx.arc(200, 100, 500, 0, Math.PI * 2); ctx.fill();
 
-    const orb2 = ctx.createRadialGradient(1000, 800, 0, 1000, 800, 400);
+    const orb2 = ctx.createRadialGradient(1000, 840, 0, 1000, 840, 400);
     orb2.addColorStop(0, '#ffb199');
     orb2.addColorStop(1, 'transparent');
     ctx.fillStyle = orb2;
-    ctx.beginPath(); ctx.arc(1000, 800, 400, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(1000, 840, 400, 0, Math.PI * 2); ctx.fill();
     ctx.globalAlpha = 1.0;
 
     // Title / Branding
@@ -593,16 +593,16 @@ export default function Benchmark(): JSX.Element {
     if (multiScore !== null) drawResult(`Multi Core Score (${cores} Cores)`, multiScore, getMultiCoreRankInfo(multiScore), 620);
 
     // Feature Support Section
-    const fsY = 660;
+    const fsY = 700;
     ctx.fillStyle = '#fff';
     ctx.font = 'bold 32px sans-serif';
     ctx.fillText('Web機能サポート状況', 60, fsY);
 
     const drawFeatureBadge = (catName: string, passed: number, total: number, index: number) => {
-      const colW = 260;
+      const colW = 270;
       const bx = 60 + index * colW;
-      const by = fsY + 40;
-      const bw = 240, bh = 140;
+      const by = fsY + 50;
+      const bw = 260, bh = 140;
 
       // Card
       ctx.fillStyle = 'rgba(255,255,255,0.05)';
@@ -616,8 +616,8 @@ export default function Benchmark(): JSX.Element {
 
       // Category Label
       ctx.fillStyle = '#aaa';
-      ctx.font = '20px sans-serif';
-      ctx.fillText(catName, bx + 20, by + 45);
+      ctx.font = '19px sans-serif';
+      ctx.fillText(catName, bx + 15, by + 45);
 
       // Score Badge
       const isComplete = passed === total;
@@ -628,7 +628,7 @@ export default function Benchmark(): JSX.Element {
       if (isLow) badgeCol = '#aaa'; // Grey
 
       ctx.fillStyle = badgeCol;
-      const sbx = bx + 20, sby = by + 70, sbw = 120, sbh = 44;
+      const sbx = bx + 15, sby = by + 70, sbw = 120, sbh = 44;
       const sbr = 8;
       ctx.beginPath();
       ctx.moveTo(sbx + sbr, sby); ctx.lineTo(sbx + sbw - sbr, sby); ctx.quadraticCurveTo(sbx + sbw, sby, sbx + sbw, sby + sbr);
