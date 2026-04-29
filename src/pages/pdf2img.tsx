@@ -136,7 +136,11 @@ export default function PdfToImg(): JSX.Element {
 
     try {
       const arrayBuffer = await selectedFile.arrayBuffer();
-      const loadingTask = pdfjs.getDocument({ data: arrayBuffer });
+      const loadingTask = pdfjs.getDocument({
+        data: arrayBuffer,
+        cMapUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/cmaps/`,
+        cMapPacked: true,
+      });
       const loadedPdf = await loadingTask.promise;
       
       setFile(selectedFile);
