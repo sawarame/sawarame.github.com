@@ -105,7 +105,6 @@ export default function About(): JSX.Element {
                   </Typography>
                   <Typography variant="body1" sx={{ maxWidth: '600px', lineHeight: 1.8 }}>
                     Webツールだけでなく、特定のサイトの使い勝手を向上させたり、開発効率を大幅に高めるための Chrome / Edge 向け自作拡張機能の公開・提供も行っています。
-                    日々のルーチンをよりスマートにするための「Spark（ひらめき）」をお届けします。
                   </Typography>
                 </Stack>
               </Card>
