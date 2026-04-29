@@ -136,6 +136,11 @@ function HeroSection() {
             拡張機能を見る
           </a>
         </div>
+        <div style={{ marginTop: '1.5rem', opacity: 0.8 }}>
+          <Link to="/about" style={{ color: '#fff', fontSize: '0.9rem', textDecoration: 'underline' }}>
+            このサイトについて
+          </Link>
+        </div>
       </div>
     </section>
   );

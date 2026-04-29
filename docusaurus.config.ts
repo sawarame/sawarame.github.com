@@ -88,21 +88,9 @@ const config: Config = {
         src: 'img/sawara_logo.svg',
       },
       items: [
+        // {to: '/about', label: 'About', position: 'left'},
         // {
-        //   type: 'docSidebar',
-        //   sidebarId: 'installSidebar',
-        //   position: 'left',
-        //   label: 'Install notes',
-        // },
-        // {
-        //   type: 'docSidebar',
-        //   sidebarId: 'cheatsheetSidebar',
-        //   position: 'left',
-        //   label: 'Cheat sheets',
-        // },
-        // {to: '/blog', label: 'Blog', position: 'left'},
-        // {
-        //   href: 'https://github.com/facebook/docusaurus',
+        //   href: 'https://github.com/sawarame/sawara.me',
         //   label: 'GitHub',
         //   position: 'right',
         // },
@@ -137,28 +125,37 @@ const config: Config = {
         //     },
         //   ],
         // },
-        // {
-        //   title: 'SNS',
-        //   items: [
-        //     {
-        //       label: 'X',
-        //       href: 'https://twitter.com/sawarame',
-        //     },
-        //   ],
-        // },
-        // {
-        //   title: 'More',
-        //   items: [
-        //     {
-        //       label: 'Blog',
-        //       to: '/blog',
-        //     },
-        //     {
-        //       label: 'GitHub',
-        //       href: 'https://github.com/sawarame',
-        //     },
-        //   ],
-        // },
+
+        {
+          title: 'SNS',
+          items: [
+            {to: '/about', label: 'sawara.meについて'},
+            {to: '/#tools', label: 'ブラウザで使えるツール'},
+            {to: '/#extensions', label: 'ブラウザ拡張機能'},
+          ],
+        },
+        {
+          title: 'SNS',
+          items: [
+            {
+              label: 'X',
+              href: 'https://twitter.com/sawarame',
+            },
+          ],
+        },
+        {
+          title: 'More',
+          items: [
+            // {
+            //   label: 'Blog',
+            //   to: '/blog',
+            // },
+            {
+              label: 'GitHub',
+              href: 'https://github.com/sawarame',
+            },
+          ],
+        },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} sawara.me`,
     },
