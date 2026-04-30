@@ -740,6 +740,12 @@ export default function Benchmark(): JSX.Element {
                 「測定開始」ボタンをクリックすると、ブラウザ上で負荷の高い演算処理を実行し、その処理速度からスコアを算出します。
               </p>
 
+              <div style={{ marginTop: '1.5rem', textAlign: 'left', background: 'var(--ifm-color-warning-contrast-background)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--ifm-color-warning-dark)' }}>
+                <p style={{ color: 'var(--ifm-color-warning-dark)', fontSize: '0.85rem', margin: 0, lineHeight: 1.5 }}>
+                  ⚠️ <strong>注意:</strong> このベンチマークテストは負荷の高い計算を行うため、スマートフォンやモバイル端末では一時的にバッテリーを大きく消耗する場合があります。
+                </p>
+              </div>
+
               <div className={styles.buttonWrap}>
                 <Button
                   variant="contained"
@@ -752,12 +758,6 @@ export default function Benchmark(): JSX.Element {
                 >
                   {isMeasuring ? '測定中...' : '測定開始'}
                 </Button>
-              </div>
-
-              <div style={{ marginTop: '1.5rem', textAlign: 'left', background: 'var(--ifm-color-warning-contrast-background)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--ifm-color-warning-dark)' }}>
-                <p style={{ color: 'var(--ifm-color-warning-dark)', fontSize: '0.85rem', margin: 0, lineHeight: 1.5 }}>
-                  ⚠️ <strong>注意:</strong> このベンチマークテストは負荷の高い計算を行うため、スマートフォンやモバイル端末では一時的にバッテリーを大きく消耗する場合があります。
-                </p>
               </div>
 
                 <div className={styles.resultsGrid}>
