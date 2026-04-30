@@ -424,16 +424,17 @@ export default function ImageOptimizer(): JSX.Element {
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' });
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileSelect = async (files: FileList | null) => {
+  const handleFileSelect = useCallback(async (files: FileList | File[] | null) => {
     if (!files) return;
-    const newImagesPromises = Array.from(files)
+    const filesArray = Array.from(files);
+    const newImagesPromises = filesArray
       .filter(file => file.type.startsWith('image/'))
       .map(async file => {
         const url = URL.createObjectURL(file);
         const dimensions = await getImageDimensions(file);
         return {
           id: Math.random().toString(36).substr(2, 9),
-          file,
+          file: file as File,
           previewUrl: url,
           displayUrl: url,
           status: 'pending' as const,
@@ -443,9 +444,33 @@ export default function ImageOptimizer(): JSX.Element {
       });
     
     const newImages = await Promise.all(newImagesPromises);
-    setImages(prev => [...prev, ...newImages]);
+    if (newImages.length > 0) {
+      setImages(prev => [...prev, ...newImages]);
+    }
     if (fileInputRef.current) fileInputRef.current.value = '';
-  };
+  }, []);
+
+  useEffect(() => {
+    const handlePaste = (e: ClipboardEvent) => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+
+      const files: File[] = [];
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image') !== -1) {
+          const file = items[i].getAsFile();
+          if (file) files.push(file);
+        }
+      }
+
+      if (files.length > 0) {
+        handleFileSelect(files);
+      }
+    };
+
+    window.addEventListener('paste', handlePaste);
+    return () => window.removeEventListener('paste', handlePaste);
+  }, [handleFileSelect]);
 
   const removeImage = (id: string) => {
     setImages(prev => {
@@ -654,10 +679,10 @@ export default function ImageOptimizer(): JSX.Element {
                 >
                   <AddPhotoAlternateIcon sx={{ fontSize: 48, color: 'var(--ifm-color-emphasis-500)', marginBottom: '1rem' }} />
                   <p style={{ margin: 0, fontWeight: 600, color: 'var(--ifm-color-emphasis-800)' }}>
-                    クリックまたはドラッグ＆ドロップでファイルを選択
+                    クリック・ドラッグ＆ドロップ、または貼り付けで選択
                   </p>
                   <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.85rem', color: 'var(--ifm-color-emphasis-600)' }}>
-                    対応フォーマット: JPEG, PNG, WebPなど
+                    対応フォーマット: JPEG, PNG, WebPなど（Command/Ctrl+Vでの貼り付けも可能）
                   </p>
                   <input
                     type="file"
