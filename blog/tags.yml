@@ -30,3 +30,11 @@ seasidex:
 seaside44:
   label: SeaSide44
   permalink: /seaside44
+
+sawara.me:
+  label: sawara.me
+  permalink: /sawara-me
+
+Web快適度測定:
+  label: Web快適度測定
+  permalink: /benchmark
