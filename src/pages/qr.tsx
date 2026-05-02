@@ -336,13 +336,13 @@ export default function QR(): React.JSX.Element {
                     <input
                       accept="image/*"
                       style={{ display: 'none' }}
-                      id="logo-upload"
+                      id="logo-select"
                       type="file"
                       onChange={handleFileChange}
                       ref={fileInputRef}
                     />
                     {!logoImage ? (
-                      <label htmlFor="logo-upload">
+                      <label htmlFor="logo-select">
                         <Button
                           variant="outlined"
                           component="span"
@@ -351,7 +351,7 @@ export default function QR(): React.JSX.Element {
                           sx={{ textTransform: 'none' }}
                           disabled={usePresetLogo}
                         >
-                          ロゴ画像をアップロード
+                          ロゴ画像を選択
                         </Button>
                       </label>
                     ) : (
