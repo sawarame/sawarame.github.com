@@ -1,0 +1,14 @@
+{
+  "title": {
+    "message": "sawara.me",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "sawara.me Logo",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Blog": {
+    "message": "Blog",
+    "description": "Navbar item with label Blog"
+  }
+}

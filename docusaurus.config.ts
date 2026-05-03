@@ -41,7 +41,7 @@ const config: Config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'ja',
-    locales: ['ja'],
+    locales: ['ja', 'en'],
   },
 
   presets: [
@@ -93,6 +93,10 @@ const config: Config = {
       },
       items: [
         {to: '/blog', label: 'Blog', position: 'left'},
+        {
+          type: 'localeDropdown',
+          position: 'right',
+        },
         // {to: '/about', label: 'About', position: 'left'},
         // {
         //   href: 'https://github.com/sawarame/sawara.me',

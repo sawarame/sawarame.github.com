@@ -1,0 +1,42 @@
+{
+  "link.title.sawara.me": {
+    "message": "sawara.me",
+    "description": "The title of the footer links column with title=sawara.me in the footer"
+  },
+  "link.title.SNS": {
+    "message": "SNS",
+    "description": "The title of the footer links column with title=SNS in the footer"
+  },
+  "link.title.More": {
+    "message": "More",
+    "description": "The title of the footer links column with title=More in the footer"
+  },
+  "link.item.label.ホーム": {
+    "message": "Home",
+    "description": "The label of footer link with label=ホーム linking to /"
+  },
+  "link.item.label.sawara.meについて": {
+    "message": "About sawara.me",
+    "description": "The label of footer link with label=sawara.meについて linking to /about"
+  },
+  "link.item.label.X": {
+    "message": "X",
+    "description": "The label of footer link with label=X linking to https://twitter.com/sawarame"
+  },
+  "link.item.label.LinkedIn": {
+    "message": "LinkedIn",
+    "description": "The label of footer link with label=LinkedIn linking to https://www.linkedin.com/in/sawarame"
+  },
+  "link.item.label.Blog": {
+    "message": "Blog",
+    "description": "The label of footer link with label=Blog linking to /blog"
+  },
+  "link.item.label.GitHub": {
+    "message": "GitHub",
+    "description": "The label of footer link with label=GitHub linking to https://github.com/sawarame"
+  },
+  "copyright": {
+    "message": "Copyright © 2026 sawara.me",
+    "description": "The footer copyright"
+  }
+}
