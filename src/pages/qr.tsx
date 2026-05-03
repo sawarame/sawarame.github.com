@@ -374,44 +374,6 @@ export default function QR(): React.JSX.Element {
                       </Stack>
                     )}
                   </Box>
-
-                  <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
-                    <Button
-                      variant="contained"
-                      startIcon={<DownloadIcon />}
-                      onClick={downloadQRCode}
-                      disabled={!generatedText}
-                      className={styles.actionBtn}
-                      sx={{ flex: 1 }}
-                    >
-                      QRを保存
-                    </Button>
-                    <Tooltip title="クリップボードに画像としてコピー">
-                      <Button
-                        variant="outlined"
-                        startIcon={<ContentCopyIcon />}
-                        onClick={copyToClipboard}
-                        disabled={!generatedText}
-                        className={styles.actionBtn}
-                        sx={{ flex: 1 }}
-                      >
-                        QRをコピー
-                      </Button>
-                    </Tooltip>
-                    {canShareFiles && (
-                      <Button
-                        variant="outlined"
-                        color="primary"
-                        startIcon={<ShareIcon />}
-                        onClick={handleShare}
-                        disabled={!generatedText || isSharing}
-                        className={styles.actionBtn}
-                        sx={{ flex: 1 }}
-                      >
-                        共有
-                      </Button>
-                    )}
-                  </Stack>
                 </Stack>
               </div>
 
@@ -423,23 +385,63 @@ export default function QR(): React.JSX.Element {
                 </h2>
                 <div className={styles.qrWrap}>
                   {generatedText ? (
-                    <div className={styles.qrInner}>
-                      <QRCodeCanvas
-                        value={generatedText}
-                        size={240}
-                        level="H"
-                        includeMargin
-                        ref={qrRef}
-                        imageSettings={activeLogo ? {
-                          src: activeLogo,
-                          x: undefined,
-                          y: undefined,
-                          height: 48,
-                          width: 48,
-                          excavate: true,
-                        } : undefined}
-                      />
-                    </div>
+                    <Stack spacing={3} alignItems="center" sx={{ width: '100%' }}>
+                      <div className={styles.qrInner}>
+                        <QRCodeCanvas
+                          value={generatedText}
+                          size={240}
+                          level="H"
+                          includeMargin
+                          ref={qrRef}
+                          imageSettings={activeLogo ? {
+                            src: activeLogo,
+                            x: undefined,
+                            y: undefined,
+                            height: 48,
+                            width: 48,
+                            excavate: true,
+                          } : undefined}
+                        />
+                      </div>
+
+                      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} sx={{ width: '100%' }}>
+                        <Button
+                          variant="contained"
+                          startIcon={<DownloadIcon />}
+                          onClick={downloadQRCode}
+                          disabled={!generatedText}
+                          className={styles.actionBtn}
+                          sx={{ flex: 1 }}
+                        >
+                          QRを保存
+                        </Button>
+                        <Tooltip title="クリップボードに画像としてコピー">
+                          <Button
+                            variant="outlined"
+                            startIcon={<ContentCopyIcon />}
+                            onClick={copyToClipboard}
+                            disabled={!generatedText}
+                            className={styles.actionBtn}
+                            sx={{ flex: 1 }}
+                          >
+                            QRをコピー
+                          </Button>
+                        </Tooltip>
+                        {canShareFiles && (
+                          <Button
+                            variant="outlined"
+                            color="primary"
+                            startIcon={<ShareIcon />}
+                            onClick={handleShare}
+                            disabled={!generatedText || isSharing}
+                            className={styles.actionBtn}
+                            sx={{ flex: 1 }}
+                          >
+                            共有
+                          </Button>
+                        )}
+                      </Stack>
+                    </Stack>
                   ) : (
                     <div className={styles.qrEmpty}>
                       <span className={styles.qrEmptyIcon}>🔲</span>
