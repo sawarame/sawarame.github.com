@@ -882,7 +882,7 @@ export default function ImageOptimizer(): JSX.Element {
               <Typography variant="subtitle2" gutterBottom>{translate({ id: 'resize.crop.aspect', message: '比率を選択:' })}</Typography>
               <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
                 {ASPECT_RATIOS.map(r => (
-                  <Button key={r.label} size="small" variant={aspect === r.value ? 'contained' : 'outlined'} sx={{ borderRadius: '20px', mb: 1 }} onClick={() => {
+                  <Button key={r.value !== undefined ? r.value : 'free'} size="small" variant={aspect === r.value ? 'contained' : 'outlined'} sx={{ borderRadius: '20px', mb: 1 }} onClick={() => {
                     setAspect(r.value);
                     if (r.value && imgRef.current) {
                       setCrop(centerAspectCrop(imgRef.current.width, imgRef.current.height, r.value));

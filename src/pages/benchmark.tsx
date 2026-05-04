@@ -309,7 +309,7 @@ const benchmarkData = [
         name: translate({ id: "benchmark.cat.creative.viewtransitions.name", message: "View Transitions API" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/API/View_Transition_API",
         must: true,
-        check: () => typeof document !== 'undefined' && !!document.startViewTransition, 
+        check: () => typeof document !== 'undefined' && !!(document as any).startViewTransition, 
         desc: translate({ id: "benchmark.cat.creative.viewtransitions.desc", message: "画面遷移がアプリのように滑らかにフェードします。" }) 
       },
       { 
