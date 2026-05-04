@@ -476,250 +476,955 @@
     "message": "Tags",
     "description": "The title of the tag list page"
   },
-
-  "common.clear": { "message": "Clear" },
-  "common.cancel": { "message": "Cancel" },
-  "common.close": { "message": "Close" },
-  "common.download": { "message": "Download" },
-  "common.file": { "message": "File:" },
-  "common.copy": { "message": "Copy" },
-  "common.copied": { "message": "Copied!" },
-  "common.save": { "message": "Save" },
-  "common.delete": { "message": "Delete" },
-  "common.deleteAll": { "message": "Delete All" },
-  "common.copyAll": { "message": "Copy All" },
-
-  "date.header.title": { "message": "Date Comparison Tool" },
-  "date.header.desc": { "message": "Calculate the difference between two dates. Supports various date input formats." },
-  "date.input.title": { "message": "Dates to Compare" },
-  "date.input.alwaysCurrent": { "message": "Always compare with current time" },
-  "date.result.title": { "message": "Difference Result" },
-  "date.result.dayLabel": { "message": "Days / Hours / Minutes / Seconds" },
-  "date.result.totalSec": { "message": "Total Seconds" },
-  "date.unit.days": { "message": " days" },
-  "date.unit.hours": { "message": " hours" },
-  "date.unit.minutes": { "message": " minutes" },
-  "date.unit.seconds": { "message": " seconds" },
-  "date.unit.sec": { "message": " seconds" },
-
-  "device.header.title": { "message": "Device Info Checker" },
-  "device.header.desc": { "message": "Displays screen size and user agent information for your current device." },
-  "device.loading": { "message": "Loading..." },
-  "device.ip.bot": { "message": "Detected as a bot/crawler. IP address is not displayed." },
-  "device.ip.error": { "message": "Failed to retrieve." },
-  "device.memory.unknown": { "message": "Unknown (not supported by this browser)" },
-  "device.cores.unit": { "message": " cores" },
-  "device.cores.unknown": { "message": "Unknown" },
-  "device.section.network": { "message": "Network" },
-  "device.section.screen": { "message": "Screen Size" },
-  "device.section.hardware": { "message": "Hardware" },
-  "device.section.ua": { "message": "User Agent" },
-  "device.info.ip": { "message": "IP Address" },
-  "device.info.physicalSize": { "message": "Physical Resolution" },
-  "device.info.logicalSize": { "message": "Window Size" },
-  "device.info.cores": { "message": "Logical Cores" },
-  "device.info.memory": { "message": "Memory" },
-  "device.disclaimer": { "message": "※ For privacy protection, the exact value may be restricted or rounded by the browser." },
-
-  "text.header.title": { "message": "Text Scratchpad" },
-  "text.header.desc": { "message": "A place to temporarily save text. Saved text is stored in your browser's local storage." },
-  "text.pin.pin": { "message": "Pin" },
-  "text.pin.unpin": { "message": "Unpin" },
-  "text.copiedAll": { "message": "All text copied!" },
-  "text.input.title": { "message": "Enter Text" },
-  "text.input.placeholder": { "message": "Type text here..." },
-  "text.input.saveOnEnter": { "message": "Save on Enter" },
-  "text.saved.title": { "message": "Saved Texts" },
-  "text.saved.empty": { "message": "No saved texts yet" },
-
-  "password.header.title": { "message": "Password Generator" },
-  "password.header.desc": { "message": "Create passwords with specific conditions. Settings are included in the URL for easy sharing. Runs safely in the browser." },
-  "password.settings.title": { "message": "Settings" },
-  "password.settings.length": { "message": "Password Length" },
-  "password.settings.count": { "message": "Number of Passwords" },
-  "password.settings.exclude.label": { "message": "Excluded Characters" },
-  "password.settings.exclude.placeholder": { "message": "Enter characters to exclude (free input)" },
-  "password.settings.exclude.upperCase": { "message": "Exclude Uppercase" },
-  "password.settings.exclude.lowerCase": { "message": "Exclude Lowercase" },
-  "password.settings.useSymbols": { "message": "Use symbols" },
-  "password.settings.symbols.label": { "message": "Allowed symbols (empty = all symbols)" },
-  "password.settings.useSameChar": { "message": "Allow repeated characters" },
-  "password.result.title": { "message": "Generated Passwords" },
-  "password.result.regenerate": { "message": "Regenerate" },
-  "password.copy.ariaLabel": { "message": "Copy password" },
-
-  "exif.header.title": { "message": "Photo Exif Viewer" },
-  "exif.header.desc": { "message": "Read camera info, shooting date, GPS, and other metadata from uploaded photos. Photos are processed locally for safety." },
-  "exif.upload.title": { "message": "Select Photo" },
-  "exif.upload.dropLabel": { "message": "Click or drag & drop to select a file" },
-  "exif.upload.formats": { "message": "Supported format: JPEG (EXIF reading is primarily supported for JPEG)" },
-  "exif.result.title": { "message": "EXIF Information" },
-  "exif.result.dateTime": { "message": "Date Taken" },
-  "exif.result.make": { "message": "Camera Make" },
-  "exif.result.model": { "message": "Model" },
-  "exif.result.fNumber": { "message": "Aperture (F-number)" },
-  "exif.result.exposureTime": { "message": "Shutter Speed" },
-  "exif.result.sec": { "message": "s" },
-  "exif.result.iso": { "message": "ISO Speed" },
-  "exif.result.gps": { "message": "GPS Location" },
-  "exif.result.resolution": { "message": "Resolution" },
-  "exif.error.notImage": { "message": "Please select an image file." },
-  "exif.error.noExif": { "message": "No EXIF information found." },
-  "exif.error.parse": { "message": "Failed to load or parse EXIF data from the file." },
-
-  "qr.header.title": { "message": "QR Code Generator" },
-  "qr.header.desc": { "message": "Generate QR codes from URLs and various types of information. Supports logo embedding." },
-  "qr.input.title": { "message": "Enter QR Code Content" },
-  "qr.input.type": { "message": "Type" },
-  "qr.mode.text": { "message": "Text / URL" },
-  "qr.mode.contact": { "message": "Contact" },
-  "qr.mode.event": { "message": "Event (Calendar)" },
-  "qr.mode.email": { "message": "Compose Email" },
-  "qr.text.label": { "message": "URL or Text" },
-  "qr.text.placeholder": { "message": "Enter a URL or text here" },
-  "qr.wifi.encryption": { "message": "Encryption" },
-  "qr.wifi.none": { "message": "None" },
-  "qr.wifi.password": { "message": "Password" },
-  "qr.contact.name": { "message": "Name" },
-  "qr.contact.phone": { "message": "Phone Number" },
-  "qr.contact.email": { "message": "Email Address" },
-  "qr.event.name": { "message": "Event Name" },
-  "qr.event.start": { "message": "Start Date & Time" },
-  "qr.event.end": { "message": "End Date & Time" },
-  "qr.email.to": { "message": "Recipient Email" },
-  "qr.email.subject": { "message": "Subject" },
-  "qr.email.body": { "message": "Body" },
-  "qr.input.generated": { "message": "Generated String" },
-  "qr.logo.title": { "message": "Embed Logo in Center (Optional)" },
-  "qr.logo.usePreset": { "message": "Use preset logo" },
-  "qr.logo.select": { "message": "Select Logo Image" },
-  "qr.preview.title": { "message": "Preview" },
-  "qr.preview.save": { "message": "Save QR" },
-  "qr.preview.copy": { "message": "Copy QR" },
-  "qr.preview.share": { "message": "Share" },
-  "qr.preview.empty": { "message": "QR code will appear here" },
-  "qr.tooltip.copyImage": { "message": "Copy as image to clipboard" },
-  "qr.copied.image": { "message": "Image copied!" },
-  "qr.copied.clipboard": { "message": "QR copied to clipboard!" },
-
-  "qrReader.header.title": { "message": "QR Code Reader" },
-  "qrReader.header.desc": { "message": "Upload a QR code image to decode the embedded string. All processing is done in the browser — images are never sent to a server." },
-  "qrReader.upload.title": { "message": "Select QR Code Image" },
-  "qrReader.upload.ariaLabel": { "message": "Select or drop a QR code image" },
-  "qrReader.upload.dropLabel": { "message": "Click or drag & drop to select an image" },
-  "qrReader.upload.formats": { "message": "Supported formats: PNG / JPEG / WebP / GIF / BMP" },
-  "qrReader.result.title": { "message": "Decoded Result" },
-  "qrReader.result.scanning": { "message": "Scanning..." },
-  "qrReader.result.urlDetected": { "message": "🔗 URL detected" },
-  "qrReader.result.copy": { "message": "Copy Text" },
-  "qrReader.result.open": { "message": "Open URL" },
-  "qrReader.copied": { "message": "Text copied!" },
-  "qrReader.error.notImage": { "message": "Please select an image file." },
-  "qrReader.error.notQR": { "message": "No QR code found. Please check that the image is clear." },
-  "qrReader.error.parse": { "message": "An error occurred during scanning." },
-  "qrReader.error.loadImage": { "message": "Failed to load the image." },
-  "qrReader.guide.title": { "message": "How to Use" },
-  "qrReader.guide.step1": { "message": "Select or drag & drop an image file containing a QR code." },
-  "qrReader.guide.step2": { "message": "The QR code is automatically decoded and the embedded text is displayed." },
-  "qrReader.guide.step3": { "message": "Copy the result to the clipboard with the copy button. URLs can also be opened directly." },
-  "qrReader.guide.security": { "message": "🔒 Uploaded images are never sent to a server. All processing is done in the browser." },
-
-  "resize.header.title": { "message": "Image Resizer & Cropper" },
-  "resize.header.desc": { "message": "Crop and convert images to WebP and other formats entirely in the browser. Images are never sent to a server." },
-  "resize.upload.title": { "message": "Select Image" },
-  "resize.upload.dropLabel": { "message": "Click, drag & drop, or paste to select" },
-  "resize.upload.formats": { "message": "Supported formats: JPEG, PNG, WebP, etc. (Paste with Cmd/Ctrl+V also works)" },
-  "resize.noLimit": { "message": "No limit" },
-  "resize.crop.aspectFree": { "message": "Free" },
-  "resize.crop.title": { "message": "Crop Image" },
-  "resize.crop.aspect": { "message": "Select Aspect Ratio:" },
-  "resize.crop.apply": { "message": "Apply" },
-  "resize.action.crop": { "message": "Crop" },
-  "resize.action.start": { "message": "Start Optimization" },
-  "resize.settings.title": { "message": "Optimization Settings" },
-  "resize.settings.format": { "message": "Output Format" },
-  "resize.settings.maxWidth": { "message": "Max Width (px)" },
-  "resize.settings.maxWidthPlaceholder": { "message": "Enter a value in px" },
-  "resize.settings.quality": { "message": "Quality:" },
-  "resize.settings.preserveExif": { "message": "Preserve EXIF data (JPEG only)" },
-  "resize.format.original": { "message": "Original" },
-  "resize.format.recommended": { "message": "(Recommended)" },
-  "resize.format.webpUnsupported": { "message": "(Not supported by your browser)" },
-  "resize.format.webpWarning": { "message": "※ Your browser does not support WebP conversion. JPEG is recommended." },
-  "resize.exif.webpNote": { "message": "EXIF data cannot be preserved when converting to WebP/PNG due to browser limitations." },
-  "resize.compare.label": { "message": "Before/After Comparison" },
-  "resize.compare.zoom": { "message": "Zoom:" },
-  "resize.compare.reset": { "message": "Reset" },
-  "resize.compare.after": { "message": "After" },
-  "resize.compare.before": { "message": "Before" },
-  "resize.compare.dialogTitle": { "message": "Comparison Preview" },
-  "resize.error.webpUnsupported": { "message": "Your browser does not support WebP conversion. Please select JPEG." },
-  "resize.error.processing": { "message": "Processing failed" },
-  "resize.error.prefix": { "message": "Error:" },
-  "resize.error.failed": { "message": "processing failed." },
-
-  "pdf2img.header.title": { "message": "PDF to Image Converter" },
-  "pdf2img.header.desc": { "message": "Convert PDF files page by page to images (PNG, JPEG, WebP). All processing is done in the browser — files are never sent to a server." },
-  "pdf2img.upload.title": { "message": "Select PDF" },
-  "pdf2img.upload.dropLabel": { "message": "Click or drag & drop to select a PDF" },
-  "pdf2img.action.change": { "message": "Change" },
-  "pdf2img.action.download": { "message": "Download Images" },
-  "pdf2img.settings.title": { "message": "Conversion Settings" },
-  "pdf2img.settings.format": { "message": "Output Format" },
-  "pdf2img.settings.maxWidth": { "message": "Max Width (px)" },
-  "pdf2img.settings.maxWidthPlaceholder": { "message": "Enter a value in px" },
-  "pdf2img.pages.title": { "message": "Page Selection" },
-  "pdf2img.pages.selectAll": { "message": "Select All" },
-  "pdf2img.pages.deselectAll": { "message": "Deselect All" },
-  "pdf2img.pages.noLimit": { "message": "No limit" },
-  "pdf2img.pages.generating": { "message": "Generating previews..." },
-  "pdf2img.error.notPdf": { "message": "Please select a PDF file." },
-  "pdf2img.error.load": { "message": "Failed to load the PDF." },
-  "pdf2img.error.convert": { "message": "An error occurred during conversion." },
-  "pdf2img.success": { "message": "Conversion complete." },
-
-  "benchmark.header.title": { "message": "Web Performance Test" },
-  "benchmark.header.desc": { "message": "Measure your browser and device's computing performance, evaluated with scores and ranks." },
-  "benchmark.ui.testTitle": { "message": "Test Browser Computing Performance" },
-  "benchmark.ui.testDesc": { "message": "Click the \"Start Test\" button to run intensive computations in the browser and calculate a performance score." },
-  "benchmark.ui.warning.bold": { "message": "Warning:" },
-  "benchmark.ui.warning": { "message": "This benchmark runs intensive calculations, which may temporarily drain the battery on smartphones and mobile devices." },
-  "benchmark.ui.start": { "message": "Start Test" },
-  "benchmark.ui.measuring": { "message": "Measuring..." },
-  "benchmark.ui.env": { "message": "Test Environment:" },
-  "benchmark.ui.singleCore": { "message": "Single Core (1 Worker)" },
-  "benchmark.ui.multiCore": { "message": "Multi Core" },
-  "benchmark.ui.estimate": { "message": "Summary:" },
-  "benchmark.ui.notStarted": { "message": "Not yet run" },
-  "benchmark.ui.modalBtn": { "message": "About Score Ranges" },
-  "benchmark.ui.share": { "message": "Share Results" },
-  "benchmark.ui.featureTitle": { "message": "Browser Feature Support" },
-  "benchmark.ui.must": { "message": "Required" },
-  "benchmark.modal.title": { "message": "Score Criteria" },
-  "benchmark.modal.single": { "message": "Single:" },
-  "benchmark.modal.multi": { "message": "Multi:" },
-  "benchmark.progress.preparing": { "message": "Preparing..." },
-  "benchmark.progress.singlePreparing": { "message": "Preparing single-core test..." },
-  "benchmark.progress.multiPreparing": { "message": "Preparing multi-core test..." },
-  "benchmark.progress.feature": { "message": "Checking feature support..." },
-  "benchmark.progress.single": { "message": "Single-core test running..." },
-  "benchmark.progress.multi": { "message": "Multi-core test running..." },
-  "benchmark.progress.pass": { "message": "pass" },
-  "benchmark.canvas.title": { "message": "Web Performance Test Results" },
-  "benchmark.canvas.featureTitle": { "message": "Browser Feature Support" },
-  "benchmark.single.rank.s": { "message": "Unrivaled speed. Top-tier processing power, even among the latest high-end devices." },
-  "benchmark.single.rank.a": { "message": "Comfortable. Most web apps run smoothly without any stress." },
-  "benchmark.single.rank.b": { "message": "Practical. Sufficient for general web browsing." },
-  "benchmark.single.rank.c": { "message": "Standard. Enough for viewing typical pages." },
-  "benchmark.single.rank.d": { "message": "Basic. Complex pages may take a little longer to load." },
-  "benchmark.single.rank.e": { "message": "Slow. May be an older device or in power-saving mode." },
-  "benchmark.single.rank.f": { "message": "Struggling. Significantly underpowered for modern web services." },
-  "benchmark.multi.rank.s": { "message": "Top tier. Overwhelming parallel processing power for any demanding workload." },
-  "benchmark.multi.rank.a": { "message": "Powerful. Handles multiple simultaneous tasks with ease." },
-  "benchmark.multi.rank.b": { "message": "Comfortable. Handles multiple parallel tasks with headroom to spare." },
-  "benchmark.multi.rank.c": { "message": "Standard. Capable of multitasking without issues." },
-  "benchmark.multi.rank.d": { "message": "Minimal. Performance may degrade under heavy parallel workloads." },
-  "benchmark.multi.rank.e": { "message": "Insufficient. Not suited for parallel processing; performance is limited." },
-  "benchmark.multi.rank.f": { "message": "Severely underpowered. Barely benefits from parallel processing." }
+  "common.clear": {
+    "message": "Clear"
+  },
+  "common.cancel": {
+    "message": "Cancel"
+  },
+  "common.close": {
+    "message": "Close"
+  },
+  "common.download": {
+    "message": "Download"
+  },
+  "common.file": {
+    "message": "File:"
+  },
+  "common.copy": {
+    "message": "Copy"
+  },
+  "common.copied": {
+    "message": "Copied!"
+  },
+  "common.save": {
+    "message": "Save"
+  },
+  "common.delete": {
+    "message": "Delete"
+  },
+  "common.deleteAll": {
+    "message": "Delete All"
+  },
+  "common.copyAll": {
+    "message": "Copy All"
+  },
+  "date.header.title": {
+    "message": "Date Comparison Tool"
+  },
+  "date.header.desc": {
+    "message": "Calculate the difference between two dates. Supports various date input formats."
+  },
+  "date.input.title": {
+    "message": "Dates to Compare"
+  },
+  "date.input.alwaysCurrent": {
+    "message": "Always compare with current time"
+  },
+  "date.result.title": {
+    "message": "Difference Result"
+  },
+  "date.result.dayLabel": {
+    "message": "Days / Hours / Minutes / Seconds"
+  },
+  "date.result.totalSec": {
+    "message": "Total Seconds"
+  },
+  "date.unit.days": {
+    "message": " days"
+  },
+  "date.unit.hours": {
+    "message": " hours"
+  },
+  "date.unit.minutes": {
+    "message": " minutes"
+  },
+  "date.unit.seconds": {
+    "message": " seconds"
+  },
+  "date.unit.sec": {
+    "message": " seconds"
+  },
+  "device.header.title": {
+    "message": "Device Info Checker"
+  },
+  "device.header.desc": {
+    "message": "Displays screen size and user agent information for your current device."
+  },
+  "device.loading": {
+    "message": "Loading..."
+  },
+  "device.ip.bot": {
+    "message": "Detected as a bot/crawler. IP address is not displayed."
+  },
+  "device.ip.error": {
+    "message": "Failed to retrieve."
+  },
+  "device.memory.unknown": {
+    "message": "Unknown (not supported by this browser)"
+  },
+  "device.cores.unit": {
+    "message": " cores"
+  },
+  "device.cores.unknown": {
+    "message": "Unknown"
+  },
+  "device.section.network": {
+    "message": "Network"
+  },
+  "device.section.screen": {
+    "message": "Screen Size"
+  },
+  "device.section.hardware": {
+    "message": "Hardware"
+  },
+  "device.section.ua": {
+    "message": "User Agent"
+  },
+  "device.info.ip": {
+    "message": "IP Address"
+  },
+  "device.info.physicalSize": {
+    "message": "Physical Resolution"
+  },
+  "device.info.logicalSize": {
+    "message": "Window Size"
+  },
+  "device.info.cores": {
+    "message": "Logical Cores"
+  },
+  "device.info.memory": {
+    "message": "Memory"
+  },
+  "device.disclaimer": {
+    "message": "※ For privacy protection, the exact value may be restricted or rounded by the browser."
+  },
+  "text.header.title": {
+    "message": "Text Scratchpad"
+  },
+  "text.header.desc": {
+    "message": "A place to temporarily save text. Saved text is stored in your browser's local storage."
+  },
+  "text.pin.pin": {
+    "message": "Pin"
+  },
+  "text.pin.unpin": {
+    "message": "Unpin"
+  },
+  "text.copiedAll": {
+    "message": "All text copied!"
+  },
+  "text.input.title": {
+    "message": "Enter Text"
+  },
+  "text.input.placeholder": {
+    "message": "Type text here..."
+  },
+  "text.input.saveOnEnter": {
+    "message": "Save on Enter"
+  },
+  "text.saved.title": {
+    "message": "Saved Texts"
+  },
+  "text.saved.empty": {
+    "message": "No saved texts yet"
+  },
+  "password.header.title": {
+    "message": "Password Generator"
+  },
+  "password.header.desc": {
+    "message": "Create passwords with specific conditions. Settings are included in the URL for easy sharing. Runs safely in the browser."
+  },
+  "password.settings.title": {
+    "message": "Settings"
+  },
+  "password.settings.length": {
+    "message": "Password Length"
+  },
+  "password.settings.count": {
+    "message": "Number of Passwords"
+  },
+  "password.settings.exclude.label": {
+    "message": "Excluded Characters"
+  },
+  "password.settings.exclude.placeholder": {
+    "message": "Enter characters to exclude (free input)"
+  },
+  "password.settings.exclude.upperCase": {
+    "message": "Exclude Uppercase"
+  },
+  "password.settings.exclude.lowerCase": {
+    "message": "Exclude Lowercase"
+  },
+  "password.settings.useSymbols": {
+    "message": "Use symbols"
+  },
+  "password.settings.symbols.label": {
+    "message": "Allowed symbols (empty = all symbols)"
+  },
+  "password.settings.useSameChar": {
+    "message": "Allow repeated characters"
+  },
+  "password.result.title": {
+    "message": "Generated Passwords"
+  },
+  "password.result.regenerate": {
+    "message": "Regenerate"
+  },
+  "password.copy.ariaLabel": {
+    "message": "Copy password"
+  },
+  "exif.header.title": {
+    "message": "Photo Exif Viewer"
+  },
+  "exif.header.desc": {
+    "message": "Read camera info, shooting date, GPS, and other metadata from uploaded photos. Photos are processed locally for safety."
+  },
+  "exif.upload.title": {
+    "message": "Select Photo"
+  },
+  "exif.upload.dropLabel": {
+    "message": "Click or drag & drop to select a file"
+  },
+  "exif.upload.formats": {
+    "message": "Supported format: JPEG (EXIF reading is primarily supported for JPEG)"
+  },
+  "exif.result.title": {
+    "message": "EXIF Information"
+  },
+  "exif.result.dateTime": {
+    "message": "Date Taken"
+  },
+  "exif.result.make": {
+    "message": "Camera Make"
+  },
+  "exif.result.model": {
+    "message": "Model"
+  },
+  "exif.result.fNumber": {
+    "message": "Aperture (F-number)"
+  },
+  "exif.result.exposureTime": {
+    "message": "Shutter Speed"
+  },
+  "exif.result.sec": {
+    "message": "s"
+  },
+  "exif.result.iso": {
+    "message": "ISO Speed"
+  },
+  "exif.result.gps": {
+    "message": "GPS Location"
+  },
+  "exif.result.resolution": {
+    "message": "Resolution"
+  },
+  "exif.error.notImage": {
+    "message": "Please select an image file."
+  },
+  "exif.error.noExif": {
+    "message": "No EXIF information found."
+  },
+  "exif.error.parse": {
+    "message": "Failed to load or parse EXIF data from the file."
+  },
+  "qr.header.title": {
+    "message": "QR Code Generator"
+  },
+  "qr.header.desc": {
+    "message": "Generate QR codes from URLs and various types of information. Supports logo embedding."
+  },
+  "qr.input.title": {
+    "message": "Enter QR Code Content"
+  },
+  "qr.input.type": {
+    "message": "Type"
+  },
+  "qr.mode.text": {
+    "message": "Text / URL"
+  },
+  "qr.mode.contact": {
+    "message": "Contact"
+  },
+  "qr.mode.event": {
+    "message": "Event (Calendar)"
+  },
+  "qr.mode.email": {
+    "message": "Compose Email"
+  },
+  "qr.text.label": {
+    "message": "URL or Text"
+  },
+  "qr.text.placeholder": {
+    "message": "Enter a URL or text here"
+  },
+  "qr.wifi.encryption": {
+    "message": "Encryption"
+  },
+  "qr.wifi.none": {
+    "message": "None"
+  },
+  "qr.wifi.password": {
+    "message": "Password"
+  },
+  "qr.contact.name": {
+    "message": "Name"
+  },
+  "qr.contact.phone": {
+    "message": "Phone Number"
+  },
+  "qr.contact.email": {
+    "message": "Email Address"
+  },
+  "qr.event.name": {
+    "message": "Event Name"
+  },
+  "qr.event.start": {
+    "message": "Start Date & Time"
+  },
+  "qr.event.end": {
+    "message": "End Date & Time"
+  },
+  "qr.email.to": {
+    "message": "Recipient Email"
+  },
+  "qr.email.subject": {
+    "message": "Subject"
+  },
+  "qr.email.body": {
+    "message": "Body"
+  },
+  "qr.input.generated": {
+    "message": "Generated String"
+  },
+  "qr.logo.title": {
+    "message": "Embed Logo in Center (Optional)"
+  },
+  "qr.logo.usePreset": {
+    "message": "Use preset logo"
+  },
+  "qr.logo.select": {
+    "message": "Select Logo Image"
+  },
+  "qr.preview.title": {
+    "message": "Preview"
+  },
+  "qr.preview.save": {
+    "message": "Save QR"
+  },
+  "qr.preview.copy": {
+    "message": "Copy QR"
+  },
+  "qr.preview.share": {
+    "message": "Share"
+  },
+  "qr.preview.empty": {
+    "message": "QR code will appear here"
+  },
+  "qr.tooltip.copyImage": {
+    "message": "Copy as image to clipboard"
+  },
+  "qr.copied.image": {
+    "message": "Image copied!"
+  },
+  "qr.copied.clipboard": {
+    "message": "QR copied to clipboard!"
+  },
+  "qrReader.header.title": {
+    "message": "QR Code Reader"
+  },
+  "qrReader.header.desc": {
+    "message": "Upload a QR code image to decode the embedded string. All processing is done in the browser — images are never sent to a server."
+  },
+  "qrReader.upload.title": {
+    "message": "Select QR Code Image"
+  },
+  "qrReader.upload.ariaLabel": {
+    "message": "Select or drop a QR code image"
+  },
+  "qrReader.upload.dropLabel": {
+    "message": "Click or drag & drop to select an image"
+  },
+  "qrReader.upload.formats": {
+    "message": "Supported formats: PNG / JPEG / WebP / GIF / BMP"
+  },
+  "qrReader.result.title": {
+    "message": "Decoded Result"
+  },
+  "qrReader.result.scanning": {
+    "message": "Scanning..."
+  },
+  "qrReader.result.urlDetected": {
+    "message": "🔗 URL detected"
+  },
+  "qrReader.result.copy": {
+    "message": "Copy Text"
+  },
+  "qrReader.result.open": {
+    "message": "Open URL"
+  },
+  "qrReader.copied": {
+    "message": "Text copied!"
+  },
+  "qrReader.error.notImage": {
+    "message": "Please select an image file."
+  },
+  "qrReader.error.notQR": {
+    "message": "No QR code found. Please check that the image is clear."
+  },
+  "qrReader.error.parse": {
+    "message": "An error occurred during scanning."
+  },
+  "qrReader.error.loadImage": {
+    "message": "Failed to load the image."
+  },
+  "qrReader.guide.title": {
+    "message": "How to Use"
+  },
+  "qrReader.guide.step1": {
+    "message": "Select or drag & drop an image file containing a QR code."
+  },
+  "qrReader.guide.step2": {
+    "message": "The QR code is automatically decoded and the embedded text is displayed."
+  },
+  "qrReader.guide.step3": {
+    "message": "Copy the result to the clipboard with the copy button. URLs can also be opened directly."
+  },
+  "qrReader.guide.security": {
+    "message": "🔒 Uploaded images are never sent to a server. All processing is done in the browser."
+  },
+  "resize.header.title": {
+    "message": "Image Resizer & Cropper"
+  },
+  "resize.header.desc": {
+    "message": "Crop and convert images to WebP and other formats entirely in the browser. Images are never sent to a server."
+  },
+  "resize.upload.title": {
+    "message": "Select Image"
+  },
+  "resize.upload.dropLabel": {
+    "message": "Click, drag & drop, or paste to select"
+  },
+  "resize.upload.formats": {
+    "message": "Supported formats: JPEG, PNG, WebP, etc. (Paste with Cmd/Ctrl+V also works)"
+  },
+  "resize.noLimit": {
+    "message": "No limit"
+  },
+  "resize.crop.aspectFree": {
+    "message": "Free"
+  },
+  "resize.crop.title": {
+    "message": "Crop Image"
+  },
+  "resize.crop.aspect": {
+    "message": "Select Aspect Ratio:"
+  },
+  "resize.crop.apply": {
+    "message": "Apply"
+  },
+  "resize.action.crop": {
+    "message": "Crop"
+  },
+  "resize.action.start": {
+    "message": "Start Optimization"
+  },
+  "resize.settings.title": {
+    "message": "Optimization Settings"
+  },
+  "resize.settings.format": {
+    "message": "Output Format"
+  },
+  "resize.settings.maxWidth": {
+    "message": "Max Width (px)"
+  },
+  "resize.settings.maxWidthPlaceholder": {
+    "message": "Enter a value in px"
+  },
+  "resize.settings.quality": {
+    "message": "Quality:"
+  },
+  "resize.settings.preserveExif": {
+    "message": "Preserve EXIF data (JPEG only)"
+  },
+  "resize.format.original": {
+    "message": "Original"
+  },
+  "resize.format.recommended": {
+    "message": "(Recommended)"
+  },
+  "resize.format.webpUnsupported": {
+    "message": "(Not supported by your browser)"
+  },
+  "resize.format.webpWarning": {
+    "message": "※ Your browser does not support WebP conversion. JPEG is recommended."
+  },
+  "resize.exif.webpNote": {
+    "message": "EXIF data cannot be preserved when converting to WebP/PNG due to browser limitations."
+  },
+  "resize.compare.label": {
+    "message": "Before/After Comparison"
+  },
+  "resize.compare.zoom": {
+    "message": "Zoom:"
+  },
+  "resize.compare.reset": {
+    "message": "Reset"
+  },
+  "resize.compare.after": {
+    "message": "After"
+  },
+  "resize.compare.before": {
+    "message": "Before"
+  },
+  "resize.compare.dialogTitle": {
+    "message": "Comparison Preview"
+  },
+  "resize.error.webpUnsupported": {
+    "message": "Your browser does not support WebP conversion. Please select JPEG."
+  },
+  "resize.error.processing": {
+    "message": "Processing failed"
+  },
+  "resize.error.prefix": {
+    "message": "Error:"
+  },
+  "resize.error.failed": {
+    "message": "processing failed."
+  },
+  "pdf2img.header.title": {
+    "message": "PDF to Image Converter"
+  },
+  "pdf2img.header.desc": {
+    "message": "Convert PDF files page by page to images (PNG, JPEG, WebP). All processing is done in the browser — files are never sent to a server."
+  },
+  "pdf2img.upload.title": {
+    "message": "Select PDF"
+  },
+  "pdf2img.upload.dropLabel": {
+    "message": "Click or drag & drop to select a PDF"
+  },
+  "pdf2img.action.change": {
+    "message": "Change"
+  },
+  "pdf2img.action.download": {
+    "message": "Download Images"
+  },
+  "pdf2img.settings.title": {
+    "message": "Conversion Settings"
+  },
+  "pdf2img.settings.format": {
+    "message": "Output Format"
+  },
+  "pdf2img.settings.maxWidth": {
+    "message": "Max Width (px)"
+  },
+  "pdf2img.settings.maxWidthPlaceholder": {
+    "message": "Enter a value in px"
+  },
+  "pdf2img.pages.title": {
+    "message": "Page Selection"
+  },
+  "pdf2img.pages.selectAll": {
+    "message": "Select All"
+  },
+  "pdf2img.pages.deselectAll": {
+    "message": "Deselect All"
+  },
+  "pdf2img.pages.noLimit": {
+    "message": "No limit"
+  },
+  "pdf2img.pages.generating": {
+    "message": "Generating previews..."
+  },
+  "pdf2img.error.notPdf": {
+    "message": "Please select a PDF file."
+  },
+  "pdf2img.error.load": {
+    "message": "Failed to load the PDF."
+  },
+  "pdf2img.error.convert": {
+    "message": "An error occurred during conversion."
+  },
+  "pdf2img.success": {
+    "message": "Conversion complete."
+  },
+  "benchmark.header.title": {
+    "message": "Web Performance Test"
+  },
+  "benchmark.header.desc": {
+    "message": "Measure your browser and device's computing performance, evaluated with scores and ranks."
+  },
+  "benchmark.ui.testTitle": {
+    "message": "Test Browser Computing Performance"
+  },
+  "benchmark.ui.testDesc": {
+    "message": "Click the \"Start Test\" button to run intensive computations in the browser and calculate a performance score."
+  },
+  "benchmark.ui.warning.bold": {
+    "message": "Warning:"
+  },
+  "benchmark.ui.warning": {
+    "message": "This benchmark runs intensive calculations, which may temporarily drain the battery on smartphones and mobile devices."
+  },
+  "benchmark.ui.start": {
+    "message": "Start Test"
+  },
+  "benchmark.ui.measuring": {
+    "message": "Measuring..."
+  },
+  "benchmark.ui.env": {
+    "message": "Test Environment:"
+  },
+  "benchmark.ui.singleCore": {
+    "message": "Single Core (1 Worker)"
+  },
+  "benchmark.ui.multiCore": {
+    "message": "Multi Core"
+  },
+  "benchmark.ui.estimate": {
+    "message": "Summary:"
+  },
+  "benchmark.ui.notStarted": {
+    "message": "Not yet run"
+  },
+  "benchmark.ui.modalBtn": {
+    "message": "About Score Ranges"
+  },
+  "benchmark.ui.share": {
+    "message": "Share Results"
+  },
+  "benchmark.ui.featureTitle": {
+    "message": "Browser Feature Support"
+  },
+  "benchmark.ui.must": {
+    "message": "Required"
+  },
+  "benchmark.modal.title": {
+    "message": "Score Criteria"
+  },
+  "benchmark.modal.single": {
+    "message": "Single:"
+  },
+  "benchmark.modal.multi": {
+    "message": "Multi:"
+  },
+  "benchmark.progress.preparing": {
+    "message": "Preparing..."
+  },
+  "benchmark.progress.singlePreparing": {
+    "message": "Preparing single-core test..."
+  },
+  "benchmark.progress.multiPreparing": {
+    "message": "Preparing multi-core test..."
+  },
+  "benchmark.progress.feature": {
+    "message": "Checking feature support..."
+  },
+  "benchmark.progress.single": {
+    "message": "Single-core test running..."
+  },
+  "benchmark.progress.multi": {
+    "message": "Multi-core test running..."
+  },
+  "benchmark.progress.pass": {
+    "message": "pass"
+  },
+  "benchmark.canvas.title": {
+    "message": "Web Performance Test Results"
+  },
+  "benchmark.canvas.featureTitle": {
+    "message": "Browser Feature Support"
+  },
+  "benchmark.single.rank.s": {
+    "message": "Unrivaled speed. Top-tier processing power, even among the latest high-end devices."
+  },
+  "benchmark.single.rank.a": {
+    "message": "Comfortable. Most web apps run smoothly without any stress."
+  },
+  "benchmark.single.rank.b": {
+    "message": "Practical. Sufficient for general web browsing."
+  },
+  "benchmark.single.rank.c": {
+    "message": "Standard. Enough for viewing typical pages."
+  },
+  "benchmark.single.rank.d": {
+    "message": "Basic. Complex pages may take a little longer to load."
+  },
+  "benchmark.single.rank.e": {
+    "message": "Slow. May be an older device or in power-saving mode."
+  },
+  "benchmark.single.rank.f": {
+    "message": "Struggling. Significantly underpowered for modern web services."
+  },
+  "benchmark.multi.rank.s": {
+    "message": "Top tier. Overwhelming parallel processing power for any demanding workload."
+  },
+  "benchmark.multi.rank.a": {
+    "message": "Powerful. Handles multiple simultaneous tasks with ease."
+  },
+  "benchmark.multi.rank.b": {
+    "message": "Comfortable. Handles multiple parallel tasks with headroom to spare."
+  },
+  "benchmark.multi.rank.c": {
+    "message": "Standard. Capable of multitasking without issues."
+  },
+  "benchmark.multi.rank.d": {
+    "message": "Minimal. Performance may degrade under heavy parallel workloads."
+  },
+  "benchmark.multi.rank.e": {
+    "message": "Insufficient. Not suited for parallel processing; performance is limited."
+  },
+  "benchmark.multi.rank.f": {
+    "message": "Severely underpowered. Barely benefits from parallel processing."
+  },
+  "benchmark.cat.sns.category": {
+    "message": "Social & Media"
+  },
+  "benchmark.cat.sns.summary": {
+    "message": "Smooth and high-quality viewing of images and videos"
+  },
+  "benchmark.cat.sns.avif.name": {
+    "message": "AVIF / WebP Support"
+  },
+  "benchmark.cat.sns.avif.desc": {
+    "message": "Next-generation lightweight images. Directly affects loading speed."
+  },
+  "benchmark.cat.sns.av1.name": {
+    "message": "AV1 Decode"
+  },
+  "benchmark.cat.sns.av1.desc": {
+    "message": "Allows playback of 4K videos like YouTube with low overhead and high quality."
+  },
+  "benchmark.cat.sns.webshare.name": {
+    "message": "Web Share API"
+  },
+  "benchmark.cat.sns.webshare.desc": {
+    "message": "Calls the OS standard share menu to quickly share images or links."
+  },
+  "benchmark.cat.sns.speculation.name": {
+    "message": "Speculation Rules"
+  },
+  "benchmark.cat.sns.speculation.desc": {
+    "message": "Preloads pages before clicking links, enabling instant screen transitions."
+  },
+  "benchmark.cat.sns.fetchpriority.name": {
+    "message": "fetchpriority attribute"
+  },
+  "benchmark.cat.sns.fetchpriority.desc": {
+    "message": "Prioritizes loading important images to improve display speed."
+  },
+  "benchmark.cat.sns.objectfit.name": {
+    "message": "Object-fit / Aspect-ratio"
+  },
+  "benchmark.cat.sns.objectfit.desc": {
+    "message": "Ensures photos fit beautifully within their frames without stretching or squishing."
+  },
+  "benchmark.cat.sns.csslayer.name": {
+    "message": "CSS @layer"
+  },
+  "benchmark.cat.sns.csslayer.desc": {
+    "message": "Ensures styles on large sites are correctly applied as intended."
+  },
+  "benchmark.cat.biz.category": {
+    "message": "Business & Tools"
+  },
+  "benchmark.cat.biz.summary": {
+    "message": "Can run app-grade sites like Notion and Figma"
+  },
+  "benchmark.cat.biz.eyedropper.name": {
+    "message": "EyeDropper API"
+  },
+  "benchmark.cat.biz.eyedropper.desc": {
+    "message": "Eyedropper tool to extract any color on the screen. Streamlines design work."
+  },
+  "benchmark.cat.biz.navigation.name": {
+    "message": "Navigation API"
+  },
+  "benchmark.cat.biz.navigation.desc": {
+    "message": "Next-gen foundational technology for smoother, more stable SPA screen transitions."
+  },
+  "benchmark.cat.biz.anchorpos.name": {
+    "message": "Anchor Positioning API"
+  },
+  "benchmark.cat.biz.anchorpos.desc": {
+    "message": "Ensures popups stick correctly to their target buttons."
+  },
+  "benchmark.cat.biz.popover.name": {
+    "message": "Popover API"
+  },
+  "benchmark.cat.biz.popover.desc": {
+    "message": "Displays menus on top of all other elements without interference."
+  },
+  "benchmark.cat.biz.compression.name": {
+    "message": "Compression Streams API"
+  },
+  "benchmark.cat.biz.compression.desc": {
+    "message": "Allows fast ZIP compression and decompression directly in the browser."
+  },
+  "benchmark.cat.biz.crypto.name": {
+    "message": "Web Crypto API"
+  },
+  "benchmark.cat.biz.crypto.desc": {
+    "message": "Enables secure communication, password management, and encryption."
+  },
+  "benchmark.cat.biz.indexeddb.name": {
+    "message": "IndexedDB (v3)"
+  },
+  "benchmark.cat.biz.indexeddb.desc": {
+    "message": "Stores large amounts of data to allow working offline."
+  },
+  "benchmark.cat.creative.category": {
+    "message": "Entertainment & Creative"
+  },
+  "benchmark.cat.creative.summary": {
+    "message": "Comfortable 3D, animations, and gaming"
+  },
+  "benchmark.cat.creative.webgpu.name": {
+    "message": "WebGPU"
+  },
+  "benchmark.cat.creative.webgpu.desc": {
+    "message": "Runs full-scale 3D games and AI image generation in the browser."
+  },
+  "benchmark.cat.creative.webxr.name": {
+    "message": "WebXR Device API"
+  },
+  "benchmark.cat.creative.webxr.desc": {
+    "message": "Directly controls VR and AR devices from the browser."
+  },
+  "benchmark.cat.creative.viewtransitions.name": {
+    "message": "View Transitions API"
+  },
+  "benchmark.cat.creative.viewtransitions.desc": {
+    "message": "Smoothly fades screen transitions like a native app."
+  },
+  "benchmark.cat.creative.scrollanimations.name": {
+    "message": "Scroll-driven Animations"
+  },
+  "benchmark.cat.creative.scrollanimations.desc": {
+    "message": "Supports rich, scroll-linked visual effects."
+  },
+  "benchmark.cat.creative.offscreencanvas.name": {
+    "message": "Offscreen Canvas"
+  },
+  "benchmark.cat.creative.offscreencanvas.desc": {
+    "message": "Offloads heavy graphics processing to the background for smoother performance."
+  },
+  "benchmark.cat.creative.spatialaudio.name": {
+    "message": "Web Audio (Spatial Audio)"
+  },
+  "benchmark.cat.creative.spatialaudio.desc": {
+    "message": "Supports spatial (3D) audio natively in the browser."
+  },
+  "benchmark.cat.sys.category": {
+    "message": "System & Misc"
+  },
+  "benchmark.cat.sys.summary": {
+    "message": "App-like features, notifications, and login comfort"
+  },
+  "benchmark.cat.sys.passkeys.name": {
+    "message": "WebAuthn (Passkeys)"
+  },
+  "benchmark.cat.sys.passkeys.desc": {
+    "message": "Enables passwordless logins using fingerprint or face recognition."
+  },
+  "benchmark.cat.sys.badging.name": {
+    "message": "Badging API"
+  },
+  "benchmark.cat.sys.badging.desc": {
+    "message": "Displays unread badges on app icons."
+  },
+  "benchmark.cat.sys.wakelock.name": {
+    "message": "Screen Wake Lock API"
+  },
+  "benchmark.cat.sys.wakelock.desc": {
+    "message": "Prevents the screen from turning off automatically while browsing."
+  },
+  "benchmark.cat.sys.webusb.name": {
+    "message": "Web USB"
+  },
+  "benchmark.cat.sys.webusb.desc": {
+    "message": "Directly controls USB-connected devices from the browser."
+  },
+  "benchmark.cat.sys.filesystem.name": {
+    "message": "File System Access API"
+  },
+  "benchmark.cat.sys.filesystem.desc": {
+    "message": "Directly edits and saves files on your device."
+  },
+  "benchmark.ref.rank.s.single": {
+    "message": "4000+"
+  },
+  "benchmark.ref.rank.s.multi": {
+    "message": "30000+"
+  },
+  "benchmark.ref.rank.s.desc": {
+    "message": "Unrivaled speed. Top-tier performance surpassing high-end devices."
+  },
+  "benchmark.ref.rank.a.single": {
+    "message": "2000-3999"
+  },
+  "benchmark.ref.rank.a.multi": {
+    "message": "10000-29999"
+  },
+  "benchmark.ref.rank.a.desc": {
+    "message": "Very comfortable. Most apps run extremely smoothly."
+  },
+  "benchmark.ref.rank.b.single": {
+    "message": "1000-1999"
+  },
+  "benchmark.ref.rank.b.multi": {
+    "message": "4000-9999"
+  },
+  "benchmark.ref.rank.b.desc": {
+    "message": "Comfortable. Headroom to spare even when multitasking."
+  },
+  "benchmark.ref.rank.c.single": {
+    "message": "250-999"
+  },
+  "benchmark.ref.rank.c.multi": {
+    "message": "500-3999"
+  },
+  "benchmark.ref.rank.c.desc": {
+    "message": "Standard. Sufficient performance for general web browsing."
+  },
+  "benchmark.ref.rank.d.single": {
+    "message": "100-249"
+  },
+  "benchmark.ref.rank.d.multi": {
+    "message": "200-499"
+  },
+  "benchmark.ref.rank.d.desc": {
+    "message": "Basic. Loading may slow down under load."
+  },
+  "benchmark.ref.rank.e.single": {
+    "message": "50-99"
+  },
+  "benchmark.ref.rank.e.multi": {
+    "message": "100-199"
+  },
+  "benchmark.ref.rank.e.desc": {
+    "message": "Slow. May be an older device or in power-saving mode."
+  },
+  "benchmark.ref.rank.f.single": {
+    "message": "< 50"
+  },
+  "benchmark.ref.rank.f.multi": {
+    "message": "< 100"
+  },
+  "benchmark.ref.rank.f.desc": {
+    "message": "Struggling. Significantly underpowered for modern web standards."
+  },
+  "benchmark.share.title": {
+    "message": "Web Performance Test Results"
+  },
+  "benchmark.share.single": {
+    "message": "Single:"
+  },
+  "benchmark.share.multi": {
+    "message": "Multi:"
+  },
+  "benchmark.share.alert": {
+    "message": "Result image copied to clipboard!\nPlease paste and post it on X (Twitter) or other apps."
+  }
 }
-

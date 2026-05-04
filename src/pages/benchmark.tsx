@@ -144,12 +144,12 @@ function getMultiCoreRankInfo(score: number) {
 
 const benchmarkData = [
   {
-    category: "SNS・メディア閲覧",
-    summary: "動画や画像がサクサク、綺麗に見えるか",
+    category: translate({ id: "benchmark.cat.sns.category", message: "SNS・メディア閲覧" }),
+    summary: translate({ id: "benchmark.cat.sns.summary", message: "動画や画像がサクサク、綺麗に見えるか" }),
     items: [
       { 
         id: "avif-webp", 
-        name: "AVIF / WebP 対応", 
+        name: translate({ id: "benchmark.cat.sns.avif.name", message: "AVIF / WebP 対応" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/Media/Guides/Formats/Image_types",
         must: true,
         check: () => {
@@ -166,11 +166,11 @@ const benchmarkData = [
           } catch (e) { return false; }
           return false;
         }, 
-        desc: "次世代の超軽量画像。読み込み速度に直結します。" 
+        desc: translate({ id: "benchmark.cat.sns.avif.desc", message: "次世代の超軽量画像。読み込み速度に直結します。" }) 
       },
       { 
         id: "av1", 
-        name: "AV1 デコード",
+        name: translate({ id: "benchmark.cat.sns.av1.name", message: "AV1 デコード" }),
         url: "https://developer.mozilla.org/ja/docs/Web/Media/Formats/Video_codecs#AV1", 
         must: true,
         check: () => {
@@ -178,159 +178,159 @@ const benchmarkData = [
           const v = document.createElement('video');
           return v.canPlayType('video/mp4; codecs="av01.0.05M.08"') !== "";
         }, 
-        desc: "YouTubeの4K動画などを低負荷・高画質で再生できます。" 
+        desc: translate({ id: "benchmark.cat.sns.av1.desc", message: "YouTubeの4K動画などを低負荷・高画質で再生できます。" }) 
       },
       { 
         id: "web-share", 
-        name: "Web Share API", 
+        name: translate({ id: "benchmark.cat.sns.webshare.name", message: "Web Share API" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/API/Web_Share_API",
         must: false,
         check: () => typeof navigator !== 'undefined' && !!navigator.share,
-        desc: "OS標準の共有メニューを呼び出し、画像やリンクを素早く共有できます。" 
+        desc: translate({ id: "benchmark.cat.sns.webshare.desc", message: "OS標準の共有メニューを呼び出し、画像やリンクを素早く共有できます。" }) 
       },
       { 
         id: "speculation-rules", 
-        name: "Speculation Rules", 
+        name: translate({ id: "benchmark.cat.sns.speculation.name", message: "Speculation Rules" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/API/Speculation_Rules_API",
         must: false,
         check: () => typeof HTMLScriptElement !== 'undefined' && !!(HTMLScriptElement as any).supports && (HTMLScriptElement as any).supports('speculationrules'),
-        desc: "リンクをクリックする前にページを予備ロードし、一瞬で画面遷移させます。" 
+        desc: translate({ id: "benchmark.cat.sns.speculation.desc", message: "リンクをクリックする前にページを予備ロードし、一瞬で画面遷移させます。" }) 
       },
       { 
         id: "fetchpriority", 
-        name: "fetchpriority属性", 
+        name: translate({ id: "benchmark.cat.sns.fetchpriority.name", message: "fetchpriority属性" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/HTML/Reference/Attributes/fetchpriority",
         must: true,
         check: () => typeof HTMLImageElement !== 'undefined' && 'fetchPriority' in HTMLImageElement.prototype, 
-        desc: "重要な画像を優先して読み込み、表示速度を改善します。" 
+        desc: translate({ id: "benchmark.cat.sns.fetchpriority.desc", message: "重要な画像を優先して読み込み、表示速度を改善します。" }) 
       },
       { 
         id: "object-fit", 
-        name: "Object-fit / Aspect-ratio", 
+        name: translate({ id: "benchmark.cat.sns.objectfit.name", message: "Object-fit / Aspect-ratio" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/CSS/Reference/Properties/aspect-ratio",
         must: true,
         check: () => typeof CSS !== 'undefined' && CSS.supports('aspect-ratio', '1/1'), 
-        desc: "写真が変に伸びたり潰れたりせず、綺麗に枠に収まります。" 
+        desc: translate({ id: "benchmark.cat.sns.objectfit.desc", message: "写真が変に伸びたり潰れたりせず、綺麗に枠に収まります。" }) 
       },
       { 
         id: "css-layer", 
-        name: "CSS @layer", 
+        name: translate({ id: "benchmark.cat.sns.csslayer.name", message: "CSS @layer" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/CSS/Reference/At-rules/@layer",
         must: true,
         check: () => typeof window !== 'undefined' && 'CSSLayerBlockRule' in window, 
-        desc: "大規模サイトのスタイルが意図通りに正しく適用されます。" 
+        desc: translate({ id: "benchmark.cat.sns.csslayer.desc", message: "大規模サイトのスタイルが意図通りに正しく適用されます。" }) 
       }
     ]
   },
   {
-    category: "ビジネス・ツール",
-    summary: "NotionやFigma等のアプリ級サイトが動くか",
+    category: translate({ id: "benchmark.cat.biz.category", message: "ビジネス・ツール" }),
+    summary: translate({ id: "benchmark.cat.biz.summary", message: "NotionやFigma等のアプリ級サイトが動くか" }),
     items: [
       { 
         id: "eyedropper", 
-        name: "EyeDropper API", 
+        name: translate({ id: "benchmark.cat.biz.eyedropper.name", message: "EyeDropper API" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/API/EyeDropper_API",
         must: false,
         check: () => typeof window !== 'undefined' && 'EyeDropper' in window,
-        desc: "画面上の任意の色を抽出できるスポイト機能。デザイン作業を効率化します。" 
+        desc: translate({ id: "benchmark.cat.biz.eyedropper.desc", message: "画面上の任意の色を抽出できるスポイト機能。デザイン作業を効率化します。" }) 
       },
       { 
         id: "navigation-api", 
-        name: "Navigation API", 
+        name: translate({ id: "benchmark.cat.biz.navigation.name", message: "Navigation API" }), 
         url: "https://developer.mozilla.org/en-US/docs/Web/API/Navigation_API",
         must: false,
         check: () => typeof window !== 'undefined' && 'navigation' in window,
-        desc: "SPAの画面遷移をより滑らかに、安定して制御できる次世代の基盤技術です。" 
+        desc: translate({ id: "benchmark.cat.biz.navigation.desc", message: "SPAの画面遷移をより滑らかに、安定して制御できる次世代の基盤技術です。" }) 
       },
       { 
         id: "anchor-pos", 
-        name: "Anchor Positioning API", 
+        name: translate({ id: "benchmark.cat.biz.anchorpos.name", message: "Anchor Positioning API" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/CSS/Reference/Properties/position-anchor",
         must: true,
         check: () => typeof CSS !== 'undefined' && CSS.supports('anchor-name', '--a'), 
-        desc: "ポップアップがボタンに吸い付くように正しく表示されます。" 
+        desc: translate({ id: "benchmark.cat.biz.anchorpos.desc", message: "ポップアップがボタンに吸い付くように正しく表示されます。" }) 
       },
       { 
         id: "popover", 
-        name: "Popover API",
+        name: translate({ id: "benchmark.cat.biz.popover.name", message: "Popover API" }),
         url: "https://developer.mozilla.org/ja/docs/Web/API/Popover_API",
         must: true,
         check: () => typeof HTMLElement !== 'undefined' && 'showPopover' in HTMLElement.prototype, 
-        desc: "メニューが他の要素に邪魔されず最前面に表示されます。" 
+        desc: translate({ id: "benchmark.cat.biz.popover.desc", message: "メニューが他の要素に邪魔されず最前面に表示されます。" }) 
       },
       { 
         id: "compression", 
-        name: "Compression Streams API", 
+        name: translate({ id: "benchmark.cat.biz.compression.name", message: "Compression Streams API" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/API/Compression_Streams_API",
         must: true,
         check: () => typeof window !== 'undefined' && 'CompressionStream' in window, 
-        desc: "ブラウザ上でファイルを高速にZIP圧縮・解凍できます。" 
+        desc: translate({ id: "benchmark.cat.biz.compression.desc", message: "ブラウザ上でファイルを高速にZIP圧縮・解凍できます。" }) 
       },
       { 
         id: "crypto", 
-        name: "Web Crypto API", 
+        name: translate({ id: "benchmark.cat.biz.crypto.name", message: "Web Crypto API" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/API/Web_Crypto_API",
         must: true,
         check: () => typeof window !== 'undefined' && !!window.crypto && !!window.crypto.subtle, 
-        desc: "セキュアな通信やパスワード管理・暗号化を可能にします。" 
+        desc: translate({ id: "benchmark.cat.biz.crypto.desc", message: "セキュアな通信やパスワード管理・暗号化を可能にします。" }) 
       },
       { 
         id: "indexeddb-v3", 
-        name: "IndexedDB (v3)", 
+        name: translate({ id: "benchmark.cat.biz.indexeddb.name", message: "IndexedDB (v3)" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/API/IndexedDB_API",
         must: true,
         check: () => typeof indexedDB !== 'undefined' && 'databases' in indexedDB, 
-        desc: "大容量データを保存し、オフラインでも作業を継続できます。" 
+        desc: translate({ id: "benchmark.cat.biz.indexeddb.desc", message: "大容量データを保存し、オフラインでも作業を継続できます。" }) 
       }
     ]
   },
   {
-    category: "エンタメ・クリエイティブ",
-    summary: "3D、アニメーション、ゲームが快適か",
+    category: translate({ id: "benchmark.cat.creative.category", message: "エンタメ・クリエイティブ" }),
+    summary: translate({ id: "benchmark.cat.creative.summary", message: "3D、アニメーション、ゲームが快適か" }),
     items: [
       { 
         id: "webgpu", 
-        name: "WebGPU", 
+        name: translate({ id: "benchmark.cat.creative.webgpu.name", message: "WebGPU" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/API/WebGPU_API",
         must: true,
         check: () => typeof navigator !== 'undefined' && 'gpu' in navigator, 
-        desc: "本格的な3DゲームやAI画像生成がブラウザで動きます。" 
+        desc: translate({ id: "benchmark.cat.creative.webgpu.desc", message: "本格的な3DゲームやAI画像生成がブラウザで動きます。" }) 
       },
       { 
         id: "webxr", 
-        name: "WebXR Device API", 
+        name: translate({ id: "benchmark.cat.creative.webxr.name", message: "WebXR Device API" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/API/WebXR_Device_API",
         must: false,
         check: () => typeof navigator !== 'undefined' && 'xr' in navigator,
-        desc: "ブラウザからVR（仮想現実）やAR（拡張現実）デバイスを直接操作できます。" 
+        desc: translate({ id: "benchmark.cat.creative.webxr.desc", message: "ブラウザからVR（仮想現実）やAR（拡張現実）デバイスを直接操作できます。" }) 
       },
       { 
         id: "view-transitions", 
-        name: "View Transitions API", 
+        name: translate({ id: "benchmark.cat.creative.viewtransitions.name", message: "View Transitions API" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/API/View_Transition_API",
         must: true,
         check: () => typeof document !== 'undefined' && !!document.startViewTransition, 
-        desc: "画面遷移がアプリのように滑らかにフェードします。" 
+        desc: translate({ id: "benchmark.cat.creative.viewtransitions.desc", message: "画面遷移がアプリのように滑らかにフェードします。" }) 
       },
       { 
         id: "scroll-animations", 
-        name: "Scroll-driven Animations", 
+        name: translate({ id: "benchmark.cat.creative.scrollanimations.name", message: "Scroll-driven Animations" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/CSS/Reference/Properties/animation-timeline",
         must: true,
         check: () => typeof CSS !== 'undefined' && CSS.supports('animation-timeline', 'scroll()'), 
-        desc: "スクロールに連動するリッチな演出に対応しています。" 
+        desc: translate({ id: "benchmark.cat.creative.scrollanimations.desc", message: "スクロールに連動するリッチな演出に対応しています。" }) 
       },
       { 
         id: "offscreen-canvas", 
-        name: "Offscreen Canvas", 
+        name: translate({ id: "benchmark.cat.creative.offscreencanvas.name", message: "Offscreen Canvas" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/API/OffscreenCanvas",
         must: true,
         check: () => typeof window !== 'undefined' && 'OffscreenCanvas' in window, 
-        desc: "重いグラフィック処理を裏側で回し、動作を軽くします。" 
+        desc: translate({ id: "benchmark.cat.creative.offscreencanvas.desc", message: "重いグラフィック処理を裏側で回し、動作を軽くします。" }) 
       },
       { 
         id: "spatial-audio", 
-        name: "Web Audio (Spatial Audio)", 
+        name: translate({ id: "benchmark.cat.creative.spatialaudio.name", message: "Web Audio (Spatial Audio)" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/API/Web_Audio_API",
         must: true,
         check: () => {
@@ -338,53 +338,53 @@ const benchmarkData = [
           const Panner = window.PannerNode || (window as any).AudioPannerNode;
           return !!Panner && 'panningModel' in Panner.prototype;
         }, 
-        desc: "ブラウザでの立体音響に対応しています。" 
+        desc: translate({ id: "benchmark.cat.creative.spatialaudio.desc", message: "ブラウザでの立体音響に対応しています。" }) 
       }
     ]
   },
   {
-    category: "システム・その他",
-    summary: "アプリ化、通知、ログインの快適さ",
+    category: translate({ id: "benchmark.cat.sys.category", message: "システム・その他" }),
+    summary: translate({ id: "benchmark.cat.sys.summary", message: "アプリ化、通知、ログインの快適さ" }),
     items: [
       { 
         id: "passkeys", 
-        name: "WebAuthn (Passkeys)", 
+        name: translate({ id: "benchmark.cat.sys.passkeys.name", message: "WebAuthn (Passkeys)" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/API/Web_Authentication_API",
         must: true,
         check: () => typeof window !== 'undefined' && !!window.PublicKeyCredential, 
-        desc: "指紋や顔認証で、パスワードなしでログインできます。" 
+        desc: translate({ id: "benchmark.cat.sys.passkeys.desc", message: "指紋や顔認証で、パスワードなしでログインできます。" }) 
       },
       { 
         id: "badging", 
-        name: "Badging API", 
+        name: translate({ id: "benchmark.cat.sys.badging.name", message: "Badging API" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/API/Badging_API",
         must: false,
         check: () => typeof navigator !== 'undefined' && 'setAppBadge' in navigator, 
-        desc: "アプリアイコンに未読数を表示できます。" 
+        desc: translate({ id: "benchmark.cat.sys.badging.desc", message: "アプリアイコンに未読数を表示できます。" }) 
       },
       { 
         id: "wake-lock", 
-        name: "Screen Wake Lock API", 
+        name: translate({ id: "benchmark.cat.sys.wakelock.name", message: "Screen Wake Lock API" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/API/Screen_Wake_Lock_API",
         must: true,
         check: () => typeof navigator !== 'undefined' && 'wakeLock' in navigator, 
-        desc: "閲覧中に画面が勝手に消えないように制御できます。" 
+        desc: translate({ id: "benchmark.cat.sys.wakelock.desc", message: "閲覧中に画面が勝手に消えないように制御できます。" }) 
       },
       { 
         id: "web-usb", 
-        name: "Web USB", 
+        name: translate({ id: "benchmark.cat.sys.webusb.name", message: "Web USB" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/API/WebUSB_API",
         must: false,
         check: () => typeof navigator !== 'undefined' && 'usb' in navigator,
-        desc: "USB接続された専用デバイスを、ブラウザから直接制御できます。" 
+        desc: translate({ id: "benchmark.cat.sys.webusb.desc", message: "USB接続された専用デバイスを、ブラウザから直接制御できます。" }) 
       },
       { 
         id: "file-system", 
-        name: "File System Access API", 
+        name: translate({ id: "benchmark.cat.sys.filesystem.name", message: "File System Access API" }), 
         url: "https://developer.mozilla.org/ja/docs/Web/API/File_System_API",
         must: false,
         check: () => typeof window !== 'undefined' && 'showOpenFilePicker' in window, 
-        desc: "端末内のファイルを直接編集・保存できます。" 
+        desc: translate({ id: "benchmark.cat.sys.filesystem.desc", message: "端末内のファイルを直接編集・保存できます。" }) 
       }
     ]
   }
@@ -413,13 +413,13 @@ function PageHeader() {
 }
 
 const rankReferenceData = [
-  { rank: 'Rank S', single: '4000以上', multi: '30000以上', desc: '比類なき速さ。ハイエンドを凌駕する最高峰の性能', className: styles.rankS },
-  { rank: 'Rank A', single: '2000〜3999', multi: '10000〜29999', desc: '非常に快適。大抵のアプリが極めてスムーズに動作', className: styles.rankA },
-  { rank: 'Rank B', single: '1000〜1999', multi: '4000〜9999', desc: '快適。複数のタスクを並行しても余裕のある性能', className: styles.rankB },
-  { rank: 'Rank C', single: '250〜999', multi: '500〜3999', desc: '標準的。一般的なページ閲覧に十分な性能', className: styles.rankC },
-  { rank: 'Rank D', single: '100〜249', multi: '200〜499', desc: '基本的。負荷により読み込みが遅くなる可能性', className: styles.rankD },
-  { rank: 'Rank E', single: '50〜99', multi: '100〜199', desc: '低速。古い端末や省電力モードの可能性', className: styles.rankE },
-  { rank: 'Rank F', single: '50未満', multi: '100未満', desc: '動作困難。現代のWeb標準に対し大幅な性能不足', className: styles.rankF },
+  { rank: 'Rank S', single: translate({ id: 'benchmark.ref.rank.s.single', message: '4000以上' }), multi: translate({ id: 'benchmark.ref.rank.s.multi', message: '30000以上' }), desc: translate({ id: 'benchmark.ref.rank.s.desc', message: '比類なき速さ。ハイエンドを凌駕する最高峰の性能' }), className: styles.rankS },
+  { rank: 'Rank A', single: translate({ id: 'benchmark.ref.rank.a.single', message: '2000〜3999' }), multi: translate({ id: 'benchmark.ref.rank.a.multi', message: '10000〜29999' }), desc: translate({ id: 'benchmark.ref.rank.a.desc', message: '非常に快適。大抵のアプリが極めてスムーズに動作' }), className: styles.rankA },
+  { rank: 'Rank B', single: translate({ id: 'benchmark.ref.rank.b.single', message: '1000〜1999' }), multi: translate({ id: 'benchmark.ref.rank.b.multi', message: '4000〜9999' }), desc: translate({ id: 'benchmark.ref.rank.b.desc', message: '快適。複数のタスクを並行しても余裕のある性能' }), className: styles.rankB },
+  { rank: 'Rank C', single: translate({ id: 'benchmark.ref.rank.c.single', message: '250〜999' }), multi: translate({ id: 'benchmark.ref.rank.c.multi', message: '500〜3999' }), desc: translate({ id: 'benchmark.ref.rank.c.desc', message: '標準的。一般的なページ閲覧に十分な性能' }), className: styles.rankC },
+  { rank: 'Rank D', single: translate({ id: 'benchmark.ref.rank.d.single', message: '100〜249' }), multi: translate({ id: 'benchmark.ref.rank.d.multi', message: '200〜499' }), desc: translate({ id: 'benchmark.ref.rank.d.desc', message: '基本的。負荷により読み込みが遅くなる可能性' }), className: styles.rankD },
+  { rank: 'Rank E', single: translate({ id: 'benchmark.ref.rank.e.single', message: '50〜99' }), multi: translate({ id: 'benchmark.ref.rank.e.multi', message: '100〜199' }), desc: translate({ id: 'benchmark.ref.rank.e.desc', message: '低速。古い端末や省電力モードの可能性' }), className: styles.rankE },
+  { rank: 'Rank F', single: translate({ id: 'benchmark.ref.rank.f.single', message: '50未満' }), multi: translate({ id: 'benchmark.ref.rank.f.multi', message: '100未満' }), desc: translate({ id: 'benchmark.ref.rank.f.desc', message: '動作困難。現代のWeb標準に対し大幅な性能不足' }), className: styles.rankF },
 ];
 
 // ============================================================
@@ -598,7 +598,7 @@ export default function Benchmark(): JSX.Element {
     const fsY = 700;
     ctx.fillStyle = '#fff';
     ctx.font = 'bold 32px sans-serif';
-    ctx.fillText('Web機能サポート状況', 60, fsY);
+    ctx.fillText(translate({ id: 'benchmark.canvas.featureTitle', message: 'Web機能サポート状況' }), 60, fsY);
 
     const drawFeatureBadge = (catName: string, passed: number, total: number, index: number) => {
       const colW = 270;
@@ -665,7 +665,10 @@ export default function Benchmark(): JSX.Element {
       const blob = await generateBenchmarkImage();
       if (!blob) return;
 
-      const text = `Web快適度測定結果\nシングル: ${singleScore.toLocaleString()} / マルチ: ${multiScore.toLocaleString()}\nhttps://sawara.me/benchmark`;
+      const shareTitle = translate({ id: 'benchmark.share.title', message: 'Web快適度測定結果' });
+      const shareSingle = translate({ id: 'benchmark.share.single', message: 'シングル:' });
+      const shareMulti = translate({ id: 'benchmark.share.multi', message: 'マルチ:' });
+      const text = `${shareTitle}\n${shareSingle} ${singleScore.toLocaleString()} / ${shareMulti} ${multiScore.toLocaleString()}\nhttps://sawara.me/benchmark`;
 
       const file = new File([blob], 'benchmark_result.png', { type: 'image/png' });
 
@@ -680,8 +683,9 @@ export default function Benchmark(): JSX.Element {
         // Fallback: Clipboard + Twitter Intent
         const item = new ClipboardItem({ 'image/png': blob });
         await navigator.clipboard.write([item]);
-        alert('結果画像をクリップボードにコピーしました！\nX（Twitter）などの投稿画面に貼り付けて投稿してください。');
-        const xUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+        alert(translate({ id: 'benchmark.share.alert', message: '結果画像をクリップボードにコピーしました！\nX（Twitter）などの投稿画面に貼り付けて投稿してください。' }));
+        const siteUrl = 'https://sawara.me/benchmark';
+        const xUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(siteUrl)}`;
         window.open(xUrl, '_blank');
       }
     } catch (e) {

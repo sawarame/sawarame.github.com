@@ -829,9 +829,9 @@ export default function ImageOptimizer(): JSX.Element {
                             }
                             label={
                               <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                                <Tooltip title={(settings.format === 'webp' || settings.format === 'png') ? "WebP/PNG形式への変換時は、ブラウザの制限によりEXIF情報を保持できません。" : ""}>
+                                <Tooltip title={(settings.format === 'webp' || settings.format === 'png') ? translate({ id: 'resize.exif.webpNote', message: 'WebP/PNG形式への変換時は、ブラウザの制限によりEXIF情報を保持できません。' }) : ""}>
                                   <Typography variant="body2" sx={{ color: (settings.format === 'webp' || settings.format === 'png') ? 'text.disabled' : 'text.primary', cursor: (settings.format === 'webp' || settings.format === 'png') ? 'help' : 'default' }}>
-                                    EXIF情報を保持する (JPEGのみ)
+                                    {translate({ id: 'resize.settings.preserveExif', message: 'EXIF情報を保持する (JPEGのみ)' })}
                                   </Typography>
                                 </Tooltip>
                               </Box>
