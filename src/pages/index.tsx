@@ -99,13 +99,13 @@ const tools = [
     gradient: 'linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%)',
   },
   {
-    icon: '🚀',
+    icon: <img src="/icons/benchmark.svg" alt="Web快適度測定" style={{ width: '36px', height: '36px' }} />,
     titleId: 'home.tools.benchmark.title',
     title: 'Web快適度測定',
     descriptionId: 'home.tools.benchmark.desc',
     description: 'ブラウザ上でデバイスの演算性能を測定し、スコアとランクで評価します。',
     link: '/benchmark',
-    gradient: 'linear-gradient(135deg, #ff0844 0%, #ffb199 100%)',
+    gradient: 'linear-gradient(135deg, #1e3c72 0%, #4facfe 100%)',
   },
 ];
 

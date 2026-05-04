@@ -404,7 +404,7 @@ function PageHeader() {
         <div className={styles.pageHeaderOrb2} />
       </div>
       <div className={common.pageHeaderContent}>
-        <span className={styles.pageHeaderIcon}>🚀</span>
+        <img src="/icons/benchmark.svg" alt="Web快適度測定" className={styles.pageHeaderIcon} style={{ width: '48px', height: '48px', verticalAlign: 'middle' }} />
         <h1 className={styles.pageHeaderTitle}>
           {translate({ id: 'benchmark.header.title', message: 'Web快適度測定' })}
           <span style={{ fontSize: '0.5em', marginLeft: '10px', color: 'var(--ifm-color-emphasis-500)', verticalAlign: 'middle', fontWeight: 'normal' }}>v{BENCHMARK_VERSION}</span>
