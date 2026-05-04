@@ -830,6 +830,24 @@
   "qr.copied.clipboard": {
     "message": "QR copied to clipboard!"
   },
+  "qr.guide.title": {
+    "message": "Usage Guide"
+  },
+  "qr.guide.step1": {
+    "message": "Select the type of QR code you want to generate from the dropdown."
+  },
+  "qr.guide.step2": {
+    "message": "Enter the required information (such as URL or Wi-Fi details), and the QR code will be generated in real-time."
+  },
+  "qr.guide.step3": {
+    "message": "Optionally, you can place a logo image in the center of the QR code (using a preset logo or custom image)."
+  },
+  "qr.guide.step4": {
+    "message": "Download the completed QR code by clicking 'Save', or copy it directly to your clipboard using 'Copy QR'."
+  },
+  "qr.guide.security": {
+    "message": "🔒 All entered information and logo images are processed entirely within your device (in-browser) and are never sent to any server."
+  },
   "qrReader.header.title": {
     "message": "QR Code Reader"
   },
