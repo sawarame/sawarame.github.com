@@ -54,6 +54,15 @@ const tools = [
     gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
   },
   {
+    icon: '🔍',
+    titleId: 'home.tools.qr-reader.title',
+    title: 'QRコード読み取り',
+    descriptionId: 'home.tools.qr-reader.desc',
+    description: 'QRコードの画像をアップロードして、埋め込まれた文字列を解析します。URLの場合は直接開くことも可能。すべてブラウザ内で処理されます。',
+    link: '/qr-reader',
+    gradient: 'linear-gradient(135deg, #818cf8 0%, #c084fc 100%)',
+  },
+  {
     icon: '🗓️',
     titleId: 'home.tools.date.title',
     title: '日付比較ツール',
