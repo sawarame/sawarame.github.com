@@ -869,6 +869,32 @@ export default function ImageOptimizer(): JSX.Element {
                 </>
               )}
 
+              {/* 使い方の説明 */}
+              <div className={common.card}>
+                <h2 className={common.cardTitle}>
+                  <span className={common.cardTitleIcon}>📖</span>
+                  {translate({ id: 'resize.guide.title', message: '使い方' })}
+                </h2>
+                <ol style={{ margin: 0, paddingLeft: '1.25rem', lineHeight: 2, color: 'var(--ifm-color-emphasis-700)', fontSize: '0.92rem' }}>
+                  <li>{translate({ id: 'resize.guide.step1', message: '軽量化したい画像ファイルをドラッグ＆ドロップ、またはクリックして選択します（複数選択対応）。' })}</li>
+                  <li>{translate({ id: 'resize.guide.step2', message: '必要に応じて、「クロップ」ボタンから画像の切り抜きを行えます。' })}</li>
+                  <li>{translate({ id: 'resize.guide.step3', message: '「最適化設定」から、出力フォーマット（WebP推奨）、最大幅、画質などを調整します。' })}</li>
+                  <li>{translate({ id: 'resize.guide.step4', message: '「最適化を開始」をクリックすると、ブラウザ内で変換処理が実行されます。' })}</li>
+                  <li>{translate({ id: 'resize.guide.step5', message: '処理完了後、「比較」ボタンで画質を確認し、「ダウンロード」から画像を保存してください。' })}</li>
+                </ol>
+                <div style={{
+                  marginTop: '1.25rem',
+                  padding: '0.75rem 1rem',
+                  borderRadius: '8px',
+                  background: 'rgba(129, 140, 248, 0.08)',
+                  border: '1px solid rgba(129, 140, 248, 0.2)',
+                  fontSize: '0.85rem',
+                  color: 'var(--ifm-color-emphasis-700)',
+                }}>
+                  {translate({ id: 'resize.guide.security', message: '🔒 画像の軽量化やクロップ処理はすべてお使いの端末（ブラウザ内）で実行され、外部サーバーにデータが送信されることは一切ありません。' })}
+                </div>
+              </div>
+
             </Stack>
 
           </div>

@@ -1010,6 +1010,27 @@
   "resize.error.failed": {
     "message": "processing failed."
   },
+  "resize.guide.title": {
+    "message": "Usage Guide"
+  },
+  "resize.guide.step1": {
+    "message": "Select the images you want to optimize by dragging and dropping or clicking (multiple selection supported)."
+  },
+  "resize.guide.step2": {
+    "message": "If needed, you can crop the images using the 'Crop' button."
+  },
+  "resize.guide.step3": {
+    "message": "Adjust the output format (WebP recommended), maximum width, and quality from the 'Optimization Settings'."
+  },
+  "resize.guide.step4": {
+    "message": "Click 'Start Optimization' to process the images within your browser."
+  },
+  "resize.guide.step5": {
+    "message": "After processing, use the 'Compare' button to check the image quality, and click 'Download' to save the images."
+  },
+  "resize.guide.security": {
+    "message": "🔒 Image optimization and cropping are performed entirely on your device (in-browser). Your data is never sent to any external server."
+  },
   "pdf2img.header.title": {
     "message": "PDF to Image Converter"
   },
