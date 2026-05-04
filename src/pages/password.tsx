@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import Layout from '@theme/Layout';
 import MuiTheme from '@site/src/components/MuiTheme';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { translate } from '@docusaurus/Translate';
 import {
   TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   FormControlLabel,
   Checkbox,
   Button,
@@ -32,11 +29,6 @@ const lowerCase = 'abcdefghijklmnopqrstuvwxyz'
 const upperCase = lowerCase.toLocaleUpperCase()
 const numbers = '0123456789'
 const symbols = '`~!@#$%^&*()-_[{]}=+;:\'",<.>/?\\|'
-
-const EXCLUDE_PRESETS = [
-  { label: '大文字を除外', value: upperCase },
-  { label: '小文字を除外', value: lowerCase },
-];
 
 const generatePassword = (availableSymbols: string, filterStr: string, length: number, useSameChar: boolean, useSymbols: boolean) => {
   if (length < 1) return '';
@@ -85,9 +77,11 @@ function PageHeader() {
       </div>
       <div className={common.pageHeaderContent}>
         <span className={styles.pageHeaderIcon}>🔐</span>
-        <h1 className={styles.pageHeaderTitle}>パスワードジェネレーター</h1>
+        <h1 className={styles.pageHeaderTitle}>
+          {translate({ id: 'password.header.title', message: 'パスワードジェネレーター' })}
+        </h1>
         <p className={common.pageHeaderDesc}>
-          条件を指定してパスワードを作成できます。設定内容はURLに含まれるため、URLを共有することで同じ条件のパスワードを再度生成することも可能です。ブラウザ上で動作するため、作成したパスワードは安全に利用できます。
+          {translate({ id: 'password.header.desc', message: '条件を指定してパスワードを作成できます。設定内容はURLに含まれるため、URLを共有することで同じ条件のパスワードを再度生成することも可能です。ブラウザ上で動作するため、作成したパスワードは安全に利用できます。' })}
         </p>
       </div>
     </div>
@@ -95,15 +89,20 @@ function PageHeader() {
 }
 
 function SettingsCard({ state, setState }) {
+  const excludePresets = [
+    { label: translate({ id: 'password.settings.exclude.upperCase', message: '大文字を除外' }), value: upperCase },
+    { label: translate({ id: 'password.settings.exclude.lowerCase', message: '小文字を除外' }), value: lowerCase },
+  ];
+
   return (
     <div className={common.card}>
       <h2 className={common.cardTitle}>
         <span className={common.cardTitleIcon}>⚙️</span>
-        設定
+        {translate({ id: 'password.settings.title', message: '設定' })}
       </h2>
       <div className={styles.settingsGrid}>
         <div className={styles.settingsField}>
-          <TextField label="パスワードの長さ" type="number" variant="outlined" size="small" value={state.length} fullWidth
+          <TextField label={translate({ id: 'password.settings.length', message: 'パスワードの長さ' })} type="number" variant="outlined" size="small" value={state.length} fullWidth
             inputProps={{ min: 1, max: 128, style: { textAlign: 'center' } }} onChange={(e) => setState({ ...state, length: parseInt(e.target.value) || 1 })}
             InputProps={{
               startAdornment: (
@@ -124,7 +123,7 @@ function SettingsCard({ state, setState }) {
           />
         </div>
         <div className={styles.settingsField}>
-          <TextField label="作成数" type="number" variant="outlined" size="small" value={state.createTimes} fullWidth
+          <TextField label={translate({ id: 'password.settings.count', message: '作成数' })} type="number" variant="outlined" size="small" value={state.createTimes} fullWidth
             inputProps={{ min: 1, max: 20, style: { textAlign: 'center' } }} onChange={(e) => setState({ ...state, createTimes: parseInt(e.target.value) || 1 })}
             InputProps={{
               startAdornment: (
@@ -148,14 +147,14 @@ function SettingsCard({ state, setState }) {
           <Autocomplete
             freeSolo
             size="small"
-            options={EXCLUDE_PRESETS}
+            options={excludePresets}
             getOptionLabel={(option) => {
               if (typeof option === 'string') return option;
               return option.label;
             }}
-            value={EXCLUDE_PRESETS.find(p => p.value === state.filterStr) || state.filterStr}
+            value={excludePresets.find(p => p.value === state.filterStr) || state.filterStr}
             onInputChange={(event, newValue) => {
-              const preset = EXCLUDE_PRESETS.find(p => p.label === newValue);
+              const preset = excludePresets.find(p => p.label === newValue);
               setState({ ...state, filterStr: preset ? preset.value : newValue });
             }}
             onChange={(event, newValue) => {
@@ -166,23 +165,23 @@ function SettingsCard({ state, setState }) {
               }
             }}
             renderInput={(params) => (
-              <TextField {...params} label="使用しない文字" placeholder="除外したい文字を入力（直接入力可）" />
+              <TextField {...params} label={translate({ id: 'password.settings.exclude.label', message: '使用しない文字' })} placeholder={translate({ id: 'password.settings.exclude.placeholder', message: '除外したい文字を入力（直接入力可）' })} />
             )}
           />
         </div>
         <div className={styles.settingsField}>
           <FormControlLabel
             control={<Checkbox checked={state.useSymbols} onChange={(e) => setState({ ...state, useSymbols: e.target.checked })} size="small" />}
-            label="記号を使用する"
+            label={translate({ id: 'password.settings.useSymbols', message: '記号を使用する' })}
           />
         </div>
         <div className={styles.settingsField}>
-          <TextField label="使用可能な記号（空欄=全記号）" variant="outlined" size="small" value={state.availableSymbols} fullWidth
+          <TextField label={translate({ id: 'password.settings.symbols.label', message: '使用可能な記号（空欄=全記号）' })} variant="outlined" size="small" value={state.availableSymbols} fullWidth
             disabled={!state.useSymbols}
             onChange={(e) => setState({ ...state, availableSymbols: e.target.value })} />
         </div>
         <div className={styles.settingsCheckboxes}>
-          <FormControlLabel control={<Checkbox checked={state.useSameChar} onChange={(e) => setState({ ...state, useSameChar: e.target.checked })} size="small" />} label="同じ文字を使用する" />
+          <FormControlLabel control={<Checkbox checked={state.useSameChar} onChange={(e) => setState({ ...state, useSameChar: e.target.checked })} size="small" />} label={translate({ id: 'password.settings.useSameChar', message: '同じ文字を使用する' })} />
         </div>
       </div>
     </div>
@@ -193,8 +192,8 @@ function PasswordRow({ password, onCopy }) {
   return (
     <div className={styles.passwordRow}>
       <code className={styles.passwordText}>{password || '—'}</code>
-      <Tooltip title="コピー">
-        <IconButton size="small" onClick={() => onCopy(password)} disabled={!password} className={styles.copyBtn} aria-label="パスワードをコピー">
+      <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
+        <IconButton size="small" onClick={() => onCopy(password)} disabled={!password} className={styles.copyBtn} aria-label={translate({ id: 'password.copy.ariaLabel', message: 'パスワードをコピー' })}>
           <ContentCopyIcon fontSize="small" />
         </IconButton>
       </Tooltip>
@@ -208,13 +207,15 @@ function ResultCard({ passwords, onRefresh, onSave, onCopy }) {
       <div className={styles.resultCardHeader}>
         <h2 className={common.cardTitleNoMargin}>
           <span className={common.cardTitleIcon}>🔑</span>
-          生成されたパスワード
+          {translate({ id: 'password.result.title', message: '生成されたパスワード' })}
         </h2>
         <div className={styles.resultActions}>
-          <Tooltip title="再生成">
-            <IconButton size="small" onClick={onRefresh} aria-label="再生成"><RefreshIcon fontSize="small" /></IconButton>
+          <Tooltip title={translate({ id: 'password.result.regenerate', message: '再生成' })}>
+            <IconButton size="small" onClick={onRefresh} aria-label={translate({ id: 'password.result.regenerate', message: '再生成' })}><RefreshIcon fontSize="small" /></IconButton>
           </Tooltip>
-          <Button variant="outlined" size="small" startIcon={<DownloadIcon />} onClick={onSave} className={styles.saveBtn}>保存</Button>
+          <Button variant="outlined" size="small" startIcon={<DownloadIcon />} onClick={onSave} className={styles.saveBtn}>
+            {translate({ id: 'common.save', message: '保存' })}
+          </Button>
         </div>
       </div>
       <Stack spacing={1}>
@@ -229,8 +230,6 @@ function ResultCard({ passwords, onRefresh, onSave, onCopy }) {
 // ============================================================
 
 export default function Password(): JSX.Element {
-  const title = 'パスワードジェネレーター';
-  const description = '条件を指定してパスワードを作成できます。ブラウザ上で動作するため、作成したパスワードは安全に利用できます。';
   const { siteConfig } = useDocusaurusContext();
 
   const defaultState = { availableSymbols: '', filterStr: '', length: 16, createTimes: 5, useSameChar: true, useSymbols: true };
@@ -300,7 +299,7 @@ export default function Password(): JSX.Element {
   const handleCopy = (password: string) => {
     if (!password) return;
     navigator.clipboard.writeText(password);
-    setSnackbar({ open: true, message: 'コピーしました！' });
+    setSnackbar({ open: true, message: translate({ id: 'common.copied', message: 'コピーしました！' }) });
   };
   const handleSave = () => {
     const blob = new Blob([passwords.join('\n')], { type: 'text/plain' });
@@ -315,7 +314,10 @@ export default function Password(): JSX.Element {
   };
 
   return (
-    <Layout title={`${title} | ${siteConfig.title}`} description={description}>
+    <Layout
+      title={`${translate({ id: 'password.header.title', message: 'パスワードジェネレーター' })} | ${siteConfig.title}`}
+      description={translate({ id: 'password.header.desc', message: '条件を指定してパスワードを作成できます。ブラウザ上で動作するため、作成したパスワードは安全に利用できます。' })}
+    >
       <MuiTheme>
         <PageHeader />
         <div className={common.body}>

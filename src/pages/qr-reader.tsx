@@ -2,6 +2,7 @@ import React, { useState, useRef, useCallback, DragEvent, ChangeEvent } from 're
 import Layout from '@theme/Layout';
 import MuiTheme from '@site/src/components/MuiTheme';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { translate } from '@docusaurus/Translate';
 import {
   Button,
   IconButton,
@@ -65,10 +66,9 @@ function PageHeader() {
       </div>
       <div className={common.pageHeaderContent}>
         <span className={styles.pageHeaderIcon}>🔍</span>
-        <h1 className={styles.pageHeaderTitle}>QRコード読み取り</h1>
+        <h1 className={styles.pageHeaderTitle}>{translate({ id: 'qrReader.header.title', message: 'QRコード読み取り' })}</h1>
         <p className={common.pageHeaderDesc}>
-          QRコードの画像をアップロードすると、埋め込まれた文字列を解析します。
-          すべてブラウザ内で処理されるため、画像はサーバーに送信されません。
+          {translate({ id: 'qrReader.header.desc', message: 'QRコードの画像をアップロードすると、埋め込まれた文字列を解析します。すべてブラウザ内で処理されるため、画像はサーバーに送信されません。' })}
         </p>
       </div>
     </div>
@@ -116,7 +116,7 @@ function UploadCard({ onFileSelect }: UploadCardProps) {
     <div className={common.card}>
       <h2 className={common.cardTitle}>
         <span className={common.cardTitleIcon}>📁</span>
-        QRコード画像を選択
+        {translate({ id: 'qrReader.upload.title', message: 'QRコード画像を選択' })}
       </h2>
       <div
         className={`${styles.dropArea} ${isDragOver ? styles.dropAreaActive : ''}`}
@@ -127,11 +127,11 @@ function UploadCard({ onFileSelect }: UploadCardProps) {
         role="button"
         tabIndex={0}
         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleClick(); }}
-        aria-label="QRコード画像を選択またはドロップ"
+        aria-label={translate({ id: 'qrReader.upload.ariaLabel', message: 'QRコード画像を選択またはドロップ' })}
       >
         <span className={styles.dropIcon}>📷</span>
-        <p className={styles.dropLabel}>クリックまたはドラッグ＆ドロップで画像を選択</p>
-        <p className={styles.dropSub}>対応フォーマット: PNG / JPEG / WebP / GIF / BMP</p>
+        <p className={styles.dropLabel}>{translate({ id: 'qrReader.upload.dropLabel', message: 'クリックまたはドラッグ＆ドロップで画像を選択' })}</p>
+        <p className={styles.dropSub}>{translate({ id: 'qrReader.upload.formats', message: '対応フォーマット: PNG / JPEG / WebP / GIF / BMP' })}</p>
         <input
           type="file"
           accept="image/*"
@@ -162,7 +162,7 @@ function ResultCard({ imageUrl, fileName, result, scanState, errorMsg, onClear }
   const handleCopy = useCallback(() => {
     if (!result) return;
     navigator.clipboard.writeText(result).then(() => {
-      setSnackbar({ open: true, message: 'テキストをコピーしました！' });
+      setSnackbar({ open: true, message: translate({ id: 'qrReader.copied', message: 'テキストをコピーしました！' }) });
     });
   }, [result]);
 
@@ -174,10 +174,10 @@ function ResultCard({ imageUrl, fileName, result, scanState, errorMsg, onClear }
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
         <h2 className={common.cardTitle} style={{ margin: 0 }}>
           <span className={common.cardTitleIcon}>📊</span>
-          解析結果
+          {translate({ id: 'qrReader.result.title', message: '解析結果' })}
         </h2>
-        <Tooltip title="クリア">
-          <IconButton onClick={onClear} color="error" size="small" aria-label="クリア">
+        <Tooltip title={translate({ id: 'common.clear', message: 'クリア' })}>
+          <IconButton onClick={onClear} color="error" size="small" aria-label={translate({ id: 'common.clear', message: 'クリア' })}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -192,13 +192,13 @@ function ResultCard({ imageUrl, fileName, result, scanState, errorMsg, onClear }
         fontSize: '0.9rem',
         color: 'var(--ifm-color-emphasis-800)',
       }}>
-        ファイル: <strong>{fileName}</strong>
+        {translate({ id: 'common.file', message: 'ファイル:' })} <strong>{fileName}</strong>
       </div>
 
       {/* Preview */}
       {imageUrl && (
         <div className={styles.previewWrap}>
-          <img src={imageUrl} alt="アップロードされたQRコード" className={styles.previewImg} />
+          <img src={imageUrl} alt={translate({ id: 'qrReader.upload.ariaLabel', message: 'QRコード画像を選択またはドロップ' })} className={styles.previewImg} />
         </div>
       )}
 
@@ -206,7 +206,7 @@ function ResultCard({ imageUrl, fileName, result, scanState, errorMsg, onClear }
       {scanState === 'scanning' && (
         <div className={styles.scanningWrap}>
           <CircularProgress size={32} sx={{ color: '#818cf8' }} />
-          <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--ifm-color-emphasis-700)' }}>解析中...</p>
+          <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--ifm-color-emphasis-700)' }}>{translate({ id: 'qrReader.result.scanning', message: '解析中...' })}</p>
           <div className={styles.scanBar} />
         </div>
       )}
@@ -229,7 +229,7 @@ function ResultCard({ imageUrl, fileName, result, scanState, errorMsg, onClear }
       {scanState === 'success' && result !== null && (
         <>
           {resultIsUrl && (
-            <span className={styles.urlChip}>🔗 URL が検出されました</span>
+            <span className={styles.urlChip}>{translate({ id: 'qrReader.result.urlDetected', message: '🔗 URL が検出されました' })}</span>
           )}
           <div className={styles.resultText} style={{ marginTop: resultIsUrl ? '0.75rem' : 0 }}>
             {result}
@@ -241,7 +241,7 @@ function ResultCard({ imageUrl, fileName, result, scanState, errorMsg, onClear }
               onClick={handleCopy}
               sx={{ textTransform: 'none', borderRadius: '8px', fontWeight: 600, background: 'linear-gradient(135deg, #818cf8, #c084fc)', '&:hover': { background: 'linear-gradient(135deg, #6366f1, #a855f7)' } }}
             >
-              テキストをコピー
+              {translate({ id: 'qrReader.result.copy', message: 'テキストをコピー' })}
             </Button>
             {resultIsUrl && (
               <Button
@@ -253,7 +253,7 @@ function ResultCard({ imageUrl, fileName, result, scanState, errorMsg, onClear }
                 component="a"
                 sx={{ textTransform: 'none', borderRadius: '8px', fontWeight: 600, borderColor: '#818cf8', color: '#818cf8', '&:hover': { borderColor: '#6366f1', background: 'rgba(129,140,248,0.08)' } }}
               >
-                URLを開く
+                {translate({ id: 'qrReader.result.open', message: 'URLを開く' })}
               </Button>
             )}
           </div>
@@ -279,8 +279,6 @@ function ResultCard({ imageUrl, fileName, result, scanState, errorMsg, onClear }
 // ============================================================
 
 export default function QrReader(): React.JSX.Element {
-  const title = 'QRコード読み取り';
-  const description = 'QRコードの画像をアップロードして、埋め込まれた文字列を解析します。ブラウザ内で完結するため安全です。';
   const { siteConfig } = useDocusaurusContext();
 
   const [imageUrl, setImageUrl] = useState<string>('');
@@ -298,7 +296,7 @@ export default function QrReader(): React.JSX.Element {
     if (imageUrl) URL.revokeObjectURL(imageUrl);
 
     if (!file.type.startsWith('image/')) {
-      setGlobalSnackbar({ open: true, message: '画像ファイルを選択してください。', severity: 'error' });
+      setGlobalSnackbar({ open: true, message: translate({ id: 'qrReader.error.notImage', message: '画像ファイルを選択してください。' }), severity: 'error' });
       return;
     }
 
@@ -316,17 +314,17 @@ export default function QrReader(): React.JSX.Element {
           setResult(decoded);
           setScanState('success');
         } else {
-          setErrorMsg('QRコードが見つかりませんでした。画像が鮮明か確認してください。');
+          setErrorMsg(translate({ id: 'qrReader.error.notQR', message: 'QRコードが見つかりませんでした。画像が鮮明か確認してください。' }));
           setScanState('error');
         }
       } catch (err) {
         console.error(err);
-        setErrorMsg('解析中にエラーが発生しました。');
+        setErrorMsg(translate({ id: 'qrReader.error.parse', message: '解析中にエラーが発生しました。' }));
         setScanState('error');
       }
     };
     img.onerror = () => {
-      setErrorMsg('画像の読み込みに失敗しました。');
+      setErrorMsg(translate({ id: 'qrReader.error.loadImage', message: '画像の読み込みに失敗しました。' }));
       setScanState('error');
     };
     img.src = url;
@@ -344,7 +342,7 @@ export default function QrReader(): React.JSX.Element {
   const showResult = scanState !== 'idle';
 
   return (
-    <Layout title={`${title} | ${siteConfig.title}`} description={description}>
+    <Layout title={`${translate({ id: 'qrReader.header.title', message: 'QRコード読み取り' })} | ${siteConfig.title}`} description={translate({ id: 'qrReader.header.desc', message: 'QRコードの画像をアップロードして、埋め込まれた文字列を解析します。ブラウザ内で完結するため安全です。' })}>
       <MuiTheme>
         <PageHeader />
         <div className={common.body}>
@@ -372,12 +370,12 @@ export default function QrReader(): React.JSX.Element {
                   <span className={common.cardTitleIcon}>
                     <QrCodeScannerIcon sx={{ fontSize: '1.1rem', verticalAlign: 'middle' }} />
                   </span>
-                  使い方
+                  {translate({ id: 'qrReader.guide.title', message: '使い方' })}
                 </h2>
                 <ol style={{ margin: 0, paddingLeft: '1.25rem', lineHeight: 2, color: 'var(--ifm-color-emphasis-700)', fontSize: '0.92rem' }}>
-                  <li>QRコードが写った画像ファイルを選択またはドラッグ＆ドロップしてください。</li>
-                  <li>自動的にQRコードが解析され、埋め込まれたテキストが表示されます。</li>
-                  <li>結果はコピーボタンでクリップボードにコピーできます。URLの場合は直接開くことも可能です。</li>
+                  <li>{translate({ id: 'qrReader.guide.step1', message: 'QRコードが写った画像ファイルを選択またはドラッグ＆ドロップしてください。' })}</li>
+                  <li>{translate({ id: 'qrReader.guide.step2', message: '自動的にQRコードが解析され、埋め込まれたテキストが表示されます。' })}</li>
+                  <li>{translate({ id: 'qrReader.guide.step3', message: '結果はコピーボタンでクリップボードにコピーできます。URLの場合は直接開くことも可能です。' })}</li>
                 </ol>
                 <div style={{
                   marginTop: '1.25rem',
@@ -388,7 +386,7 @@ export default function QrReader(): React.JSX.Element {
                   fontSize: '0.85rem',
                   color: 'var(--ifm-color-emphasis-700)',
                 }}>
-                  🔒 アップロードした画像はサーバーに送信されません。すべての処理はブラウザ内で完結します。
+                  {translate({ id: 'qrReader.guide.security', message: '🔒 アップロードした画像はサーバーに送信されません。すべての処理はブラウザ内で完結します。' })}
                 </div>
               </div>
             )}

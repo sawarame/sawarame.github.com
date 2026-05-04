@@ -2,6 +2,7 @@ import React, { useState, useRef, useMemo } from 'react';
 import Layout from '@theme/Layout';
 import MuiTheme from '@site/src/components/MuiTheme';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { translate } from '@docusaurus/Translate';
 import { TextField, Button, Stack, Snackbar, Alert, Tooltip, FormControl, InputLabel, Select, MenuItem, Box, IconButton, Typography, FormControlLabel, Checkbox } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -39,9 +40,9 @@ function PageHeader() {
       </div>
       <div className={common.pageHeaderContent}>
         <span className={styles.pageHeaderIcon}>📷</span>
-        <h1 className={styles.pageHeaderTitle}>QRコード作成</h1>
+        <h1 className={styles.pageHeaderTitle}>{translate({ id: 'qr.header.title', message: 'QRコード作成' })}</h1>
         <p className={common.pageHeaderDesc}>
-          URLや様々な情報からQRコードを生成します。ロゴの埋め込みにも対応しています。
+          {translate({ id: 'qr.header.desc', message: 'URLや様々な情報からQRコードを生成します。ロゴの埋め込みにも対応しています。' })}
         </p>
       </div>
     </div>
@@ -53,8 +54,6 @@ function PageHeader() {
 // ============================================================
 
 export default function QR(): React.JSX.Element {
-  const title = 'QRコード作成';
-  const description = 'URLや様々な情報からQRコードを生成します。ロゴの埋め込みにも対応しています。';
   const { siteConfig } = useDocusaurusContext();
 
   const [mode, setMode] = useState<Mode>('text');
@@ -177,7 +176,7 @@ export default function QR(): React.JSX.Element {
     canvas.toBlob((blob) => {
       if (blob) {
         const item = new ClipboardItem({ 'image/png': blob });
-        navigator.clipboard.write([item]).then(() => setSnackbar({ open: true, message: '画像をコピーしました！' }));
+        navigator.clipboard.write([item]).then(() => setSnackbar({ open: true, message: translate({ id: 'qr.copied.image', message: '画像をコピーしました！' }) }));
       }
     });
   };
@@ -213,7 +212,7 @@ export default function QR(): React.JSX.Element {
           try {
             const item = new ClipboardItem({ 'image/png': blob });
             await navigator.clipboard.write([item]);
-            setSnackbar({ open: true, message: 'QRをクリップボードにコピーしました！' });
+            setSnackbar({ open: true, message: translate({ id: 'qr.copied.clipboard', message: 'QRをクリップボードにコピーしました！' }) });
           } catch (err) {
             console.error('Clipboard copy failed:', err);
           }
@@ -229,7 +228,7 @@ export default function QR(): React.JSX.Element {
   const activeLogo = usePresetLogo ? PRESET_LOGOS[mode] : logoImage;
 
   return (
-    <Layout title={`${title} | ${siteConfig.title}`} description={description}>
+    <Layout title={`${translate({ id: 'qr.header.title', message: 'QRコード作成' })} | ${siteConfig.title}`} description={translate({ id: 'qr.header.desc', message: 'URLや様々な情報からQRコードを生成します。ロゴの埋め込みにも対応しています。' })}>
       <MuiTheme>
         <PageHeader />
         <div className={common.body}>
@@ -240,73 +239,73 @@ export default function QR(): React.JSX.Element {
               <div className={common.card}>
                 <h2 className={common.cardTitle}>
                   <span className={common.cardTitleIcon}>✏️</span>
-                  QRコードの内容を入力
+                  {translate({ id: 'qr.input.title', message: 'QRコードの内容を入力' })}
                 </h2>
                 <Stack spacing={2.5}>
                   <FormControl fullWidth>
-                    <InputLabel id="mode-select-label">種類</InputLabel>
+                    <InputLabel id="mode-select-label">{translate({ id: 'qr.input.type', message: '種類' })}</InputLabel>
                     <Select
                       labelId="mode-select-label"
                       value={mode}
-                      label="種類"
+                      label={translate({ id: 'qr.input.type', message: '種類' })}
                       onChange={(e) => setMode(e.target.value as Mode)}
                     >
-                      <MenuItem value="text">テキスト / URL</MenuItem>
+                      <MenuItem value="text">{translate({ id: 'qr.mode.text', message: 'テキスト / URL' })}</MenuItem>
                       <MenuItem value="wifi">Wi-Fi</MenuItem>
-                      <MenuItem value="contact">連絡先</MenuItem>
-                      <MenuItem value="event">予定 (カレンダー)</MenuItem>
-                      <MenuItem value="email">メール作成</MenuItem>
+                      <MenuItem value="contact">{translate({ id: 'qr.mode.contact', message: '連絡先' })}</MenuItem>
+                      <MenuItem value="event">{translate({ id: 'qr.mode.event', message: '予定 (カレンダー)' })}</MenuItem>
+                      <MenuItem value="email">{translate({ id: 'qr.mode.email', message: 'メール作成' })}</MenuItem>
                     </Select>
                   </FormControl>
 
                   {mode === 'text' && (
-                    <TextField fullWidth label="URL または テキスト" variant="outlined" value={textInput}
-                      onChange={(e) => setTextInput(e.target.value)} placeholder="ここにURLやテキストを入力してください" multiline minRows={6} />
+                    <TextField fullWidth label={translate({ id: 'qr.text.label', message: 'URL または テキスト' })} variant="outlined" value={textInput}
+                      onChange={(e) => setTextInput(e.target.value)} placeholder={translate({ id: 'qr.text.placeholder', message: 'ここにURLやテキストを入力してください' })} multiline minRows={6} />
                   )}
 
                   {mode === 'wifi' && (
                     <>
                       <FormControl fullWidth>
-                        <InputLabel id="wifi-enc-label">暗号化方式</InputLabel>
-                        <Select labelId="wifi-enc-label" value={wifiEncryption} label="暗号化方式" onChange={(e) => setWifiEncryption(e.target.value)}>
+                        <InputLabel id="wifi-enc-label">{translate({ id: 'qr.wifi.encryption', message: '暗号化方式' })}</InputLabel>
+                        <Select labelId="wifi-enc-label" value={wifiEncryption} label={translate({ id: 'qr.wifi.encryption', message: '暗号化方式' })} onChange={(e) => setWifiEncryption(e.target.value)}>
                           <MenuItem value="WPA">WPA/WPA2/WPA3</MenuItem>
                           <MenuItem value="WEP">WEP</MenuItem>
-                          <MenuItem value="nopass">なし</MenuItem>
+                          <MenuItem value="nopass">{translate({ id: 'qr.wifi.none', message: 'なし' })}</MenuItem>
                         </Select>
                       </FormControl>
                       <TextField fullWidth label="SSID" value={wifiSsid} onChange={(e) => setWifiSsid(e.target.value)} />
-                      <TextField fullWidth label="パスワード" type="password" value={wifiPassword} onChange={(e) => setWifiPassword(e.target.value)} />
+                      <TextField fullWidth label={translate({ id: 'qr.wifi.password', message: 'パスワード' })} type="password" value={wifiPassword} onChange={(e) => setWifiPassword(e.target.value)} />
                     </>
                   )}
 
                   {mode === 'contact' && (
                     <>
-                      <TextField fullWidth label="名前" value={contactName} onChange={(e) => setContactName(e.target.value)} />
-                      <TextField fullWidth label="電話番号" type="tel" value={contactTel} onChange={(e) => setContactTel(e.target.value)} />
-                      <TextField fullWidth label="メールアドレス" type="email" value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} />
+                      <TextField fullWidth label={translate({ id: 'qr.contact.name', message: '名前' })} value={contactName} onChange={(e) => setContactName(e.target.value)} />
+                      <TextField fullWidth label={translate({ id: 'qr.contact.phone', message: '電話番号' })} type="tel" value={contactTel} onChange={(e) => setContactTel(e.target.value)} />
+                      <TextField fullWidth label={translate({ id: 'qr.contact.email', message: 'メールアドレス' })} type="email" value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} />
                     </>
                   )}
 
                   {mode === 'event' && (
                     <>
-                      <TextField fullWidth label="予定名" value={eventName} onChange={(e) => setEventName(e.target.value)} />
-                      <TextField fullWidth label="開始日時" type="datetime-local" InputLabelProps={{ shrink: true }} value={eventStart} onChange={(e) => setEventStart(e.target.value)} />
-                      <TextField fullWidth label="終了日時" type="datetime-local" InputLabelProps={{ shrink: true }} value={eventEnd} onChange={(e) => setEventEnd(e.target.value)} />
+                      <TextField fullWidth label={translate({ id: 'qr.event.name', message: '予定名' })} value={eventName} onChange={(e) => setEventName(e.target.value)} />
+                      <TextField fullWidth label={translate({ id: 'qr.event.start', message: '開始日時' })} type="datetime-local" InputLabelProps={{ shrink: true }} value={eventStart} onChange={(e) => setEventStart(e.target.value)} />
+                      <TextField fullWidth label={translate({ id: 'qr.event.end', message: '終了日時' })} type="datetime-local" InputLabelProps={{ shrink: true }} value={eventEnd} onChange={(e) => setEventEnd(e.target.value)} />
                     </>
                   )}
 
                   {mode === 'email' && (
                     <>
-                      <TextField fullWidth label="送信先メールアドレス" type="email" value={emailTo} onChange={(e) => setEmailTo(e.target.value)} />
-                      <TextField fullWidth label="タイトル" value={emailSub} onChange={(e) => setEmailSub(e.target.value)} />
-                      <TextField fullWidth label="本文" multiline minRows={4} value={emailBody} onChange={(e) => setEmailBody(e.target.value)} />
+                      <TextField fullWidth label={translate({ id: 'qr.email.to', message: '送信先メールアドレス' })} type="email" value={emailTo} onChange={(e) => setEmailTo(e.target.value)} />
+                      <TextField fullWidth label={translate({ id: 'qr.email.subject', message: 'タイトル' })} value={emailSub} onChange={(e) => setEmailSub(e.target.value)} />
+                      <TextField fullWidth label={translate({ id: 'qr.email.body', message: '本文' })} multiline minRows={4} value={emailBody} onChange={(e) => setEmailBody(e.target.value)} />
                     </>
                   )}
 
                   {mode !== 'text' && (
                     <TextField
                       fullWidth
-                      label="生成される文字列"
+                      label={translate({ id: 'qr.input.generated', message: '生成される文字列' })}
                       variant="outlined"
                       value={generatedText}
                       multiline
@@ -318,7 +317,7 @@ export default function QR(): React.JSX.Element {
                   {/* ロゴアップロードセクション */}
                   <Box sx={{ border: '1px dashed #ccc', borderRadius: 2, p: 2, textAlign: 'center' }}>
                     <Typography variant="subtitle2" sx={{ mb: 1, color: 'text.secondary', fontWeight: 600 }}>
-                      中心にロゴを埋め込む (オプション)
+                      {translate({ id: 'qr.logo.title', message: '中心にロゴを埋め込む (オプション)' })}
                     </Typography>
 
                     <FormControlLabel
@@ -329,7 +328,7 @@ export default function QR(): React.JSX.Element {
                           size="small"
                         />
                       }
-                      label={<Typography variant="body2">プリセットロゴを使用する</Typography>}
+                      label={<Typography variant="body2">{translate({ id: 'qr.logo.usePreset', message: 'プリセットロゴを使用する' })}</Typography>}
                       sx={{ mb: 1 }}
                     />
 
@@ -351,7 +350,7 @@ export default function QR(): React.JSX.Element {
                           sx={{ textTransform: 'none' }}
                           disabled={usePresetLogo}
                         >
-                          ロゴ画像を選択
+                          {translate({ id: 'qr.logo.select', message: 'ロゴ画像を選択' })}
                         </Button>
                       </label>
                     ) : (
@@ -381,7 +380,7 @@ export default function QR(): React.JSX.Element {
               <div className={common.card}>
                 <h2 className={common.cardTitle}>
                   <span className={common.cardTitleIcon}>🔲</span>
-                  プレビュー
+                  {translate({ id: 'qr.preview.title', message: 'プレビュー' })}
                 </h2>
                 <div className={styles.qrWrap}>
                   {generatedText ? (
@@ -413,9 +412,9 @@ export default function QR(): React.JSX.Element {
                           className={styles.actionBtn}
                           sx={{ flex: 1 }}
                         >
-                          QRを保存
+                          {translate({ id: 'qr.preview.save', message: 'QRを保存' })}
                         </Button>
-                        <Tooltip title="クリップボードに画像としてコピー">
+                        <Tooltip title={translate({ id: 'qr.tooltip.copyImage', message: 'クリップボードに画像としてコピー' })}>
                           <Button
                             variant="outlined"
                             startIcon={<ContentCopyIcon />}
@@ -424,7 +423,7 @@ export default function QR(): React.JSX.Element {
                             className={styles.actionBtn}
                             sx={{ flex: 1 }}
                           >
-                            QRをコピー
+                            {translate({ id: 'qr.preview.copy', message: 'QRをコピー' })}
                           </Button>
                         </Tooltip>
                         {canShareFiles && (
@@ -437,7 +436,7 @@ export default function QR(): React.JSX.Element {
                             className={styles.actionBtn}
                             sx={{ flex: 1 }}
                           >
-                            共有
+                            {translate({ id: 'qr.preview.share', message: '共有' })}
                           </Button>
                         )}
                       </Stack>
@@ -445,7 +444,7 @@ export default function QR(): React.JSX.Element {
                   ) : (
                     <div className={styles.qrEmpty}>
                       <span className={styles.qrEmptyIcon}>🔲</span>
-                      <p className={styles.qrEmptyText}>QRコードがここに表示されます</p>
+                      <p className={styles.qrEmptyText}>{translate({ id: 'qr.preview.empty', message: 'QRコードがここに表示されます' })}</p>
                     </div>
                   )}
                 </div>

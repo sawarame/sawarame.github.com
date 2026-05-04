@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Layout from '@theme/Layout';
 import MuiTheme from '@site/src/components/MuiTheme';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { translate } from '@docusaurus/Translate';
 import {
   TextField,
   Button,
@@ -90,9 +91,11 @@ function PageHeader() {
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text'
-        }}>日付比較ツール</h1>
+        }}>
+          {translate({ id: 'date.header.title', message: '日付比較ツール' })}
+        </h1>
         <p className={common.pageHeaderDesc}>
-          二つの日付の差分を計算します。様々なフォーマットの日付入力に対応しています。
+          {translate({ id: 'date.header.desc', message: '二つの日付の差分を計算します。様々なフォーマットの日付入力に対応しています。' })}
         </p>
       </div>
     </div>
@@ -124,35 +127,42 @@ function DiffResultCard({ date1Str, date2Str }: { date1Str: string, date2Str: st
 
     const seconds = Math.floor(diffMs / 1000);
 
+    const unitDays = translate({ id: 'date.unit.days', message: '日' });
+    const unitHours = translate({ id: 'date.unit.hours', message: '時間' });
+    const unitMinutes = translate({ id: 'date.unit.minutes', message: '分' });
+    const unitSeconds = translate({ id: 'date.unit.seconds', message: '秒' });
+
     const parts = [];
-    if (days > 0) parts.push(`${days}日`);
-    if (hours > 0) parts.push(`${hours}時間`);
-    if (minutes > 0) parts.push(`${minutes}分`);
-    if (seconds > 0 || parts.length === 0) parts.push(`${seconds}秒`); // Always show seconds if 0 diff
+    if (days > 0) parts.push(`${days}${unitDays}`);
+    if (hours > 0) parts.push(`${hours}${unitHours}`);
+    if (minutes > 0) parts.push(`${minutes}${unitMinutes}`);
+    if (seconds > 0 || parts.length === 0) parts.push(`${seconds}${unitSeconds}`);
 
     diffStr = parts.join(' ');
-    totalSecStr = `${totalSec}秒`;
+    totalSecStr = `${totalSec}${translate({ id: 'date.unit.sec', message: '秒' })}`;
   }
 
   const handleCopy = (text: string) => {
     if (!text || text === '—') return;
     navigator.clipboard.writeText(text);
-    setSnackbar({ open: true, message: 'コピーしました！' });
+    setSnackbar({ open: true, message: translate({ id: 'common.copied', message: 'コピーしました！' }) });
   };
 
   return (
     <div className={common.card}>
       <h2 className={common.cardTitle}>
         <span className={common.cardTitleIcon}>⏱️</span>
-        差分結果
+        {translate({ id: 'date.result.title', message: '差分結果' })}
       </h2>
       <Stack spacing={2} style={{ marginTop: '1rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px', background: 'var(--ifm-background-color)', borderRadius: '8px', border: '1px solid var(--ifm-color-emphasis-200)' }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ fontSize: '0.85rem', color: 'var(--ifm-color-emphasis-600)', marginBottom: '4px' }}>日時分秒</span>
+            <span style={{ fontSize: '0.85rem', color: 'var(--ifm-color-emphasis-600)', marginBottom: '4px' }}>
+              {translate({ id: 'date.result.dayLabel', message: '日時分秒' })}
+            </span>
             <code style={{ fontSize: '1.25rem', fontWeight: 'bold', background: 'transparent', padding: 0, border: 'none', color: 'var(--ifm-color-primary)' }}>{diffStr}</code>
           </div>
-          <Tooltip title="コピー">
+          <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
             <IconButton size="small" onClick={() => handleCopy(diffStr)} disabled={!isValid}>
               <ContentCopyIcon fontSize="small" />
             </IconButton>
@@ -161,10 +171,12 @@ function DiffResultCard({ date1Str, date2Str }: { date1Str: string, date2Str: st
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px', background: 'var(--ifm-background-color)', borderRadius: '8px', border: '1px solid var(--ifm-color-emphasis-200)' }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ fontSize: '0.85rem', color: 'var(--ifm-color-emphasis-600)', marginBottom: '4px' }}>総秒数</span>
+            <span style={{ fontSize: '0.85rem', color: 'var(--ifm-color-emphasis-600)', marginBottom: '4px' }}>
+              {translate({ id: 'date.result.totalSec', message: '総秒数' })}
+            </span>
             <code style={{ fontSize: '1.25rem', fontWeight: 'bold', background: 'transparent', padding: 0, border: 'none', color: 'var(--ifm-color-primary)' }}>{totalSecStr}</code>
           </div>
-          <Tooltip title="コピー">
+          <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
             <IconButton size="small" onClick={() => handleCopy(totalSecStr)} disabled={!isValid}>
               <ContentCopyIcon fontSize="small" />
             </IconButton>
@@ -182,8 +194,6 @@ function DiffResultCard({ date1Str, date2Str }: { date1Str: string, date2Str: st
 // --- Main Page ---
 
 export default function DateComparison(): JSX.Element {
-  const title = '日付比較ツール';
-  const description = '二つの日付の差分を計算します。様々なフォーマットの日付入力に対応しています。';
   const { siteConfig } = useDocusaurusContext();
 
   const [date1, setDate1] = useState('');
@@ -215,7 +225,10 @@ export default function DateComparison(): JSX.Element {
   }, [alwaysCurrent]);
 
   return (
-    <Layout title={`${title} | ${siteConfig.title}`} description={description}>
+    <Layout
+      title={`${translate({ id: 'date.header.title', message: '日付比較ツール' })} | ${siteConfig.title}`}
+      description={translate({ id: 'date.header.desc', message: '二つの日付の差分を計算します。様々なフォーマットの日付入力に対応しています。' })}
+    >
       <MuiTheme>
         <PageHeader />
         <div className={common.body}>
@@ -224,7 +237,7 @@ export default function DateComparison(): JSX.Element {
             <div className={common.card}>
               <h2 className={common.cardTitle}>
                 <span className={common.cardTitleIcon}>📅</span>
-                比較する日付
+                {translate({ id: 'date.input.title', message: '比較する日付' })}
               </h2>
               <Stack spacing={3} style={{ marginTop: '1rem' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -236,7 +249,7 @@ export default function DateComparison(): JSX.Element {
                         size="small"
                       />
                     }
-                    label={<span style={{ fontSize: '0.85rem' }}>常に現在時刻と比較</span>}
+                    label={<span style={{ fontSize: '0.85rem' }}>{translate({ id: 'date.input.alwaysCurrent', message: '常に現在時刻と比較' })}</span>}
                   />
                   <TextField
                     label="Date 1"

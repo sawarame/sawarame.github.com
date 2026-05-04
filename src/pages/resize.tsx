@@ -2,6 +2,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import Layout from '@theme/Layout';
 import MuiTheme from '@site/src/components/MuiTheme';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { translate } from '@docusaurus/Translate';
 import {
   Button,
   Stack,
@@ -196,18 +197,18 @@ async function resizeToExact(blob: Blob, width: number, height: number, format: 
   });
 }
 const ASPECT_RATIOS = [
-  { label: '自由', value: undefined },
-  { label: '1:1 (正方形)', value: 1 },
-  { label: '8:5 (1.6:1)', value: 1.6 },
-  { label: '1.91:1 (OGP)', value: 1.91 },
-  { label: '3:1 (X ヘッダー)', value: 3 },
-  { label: '4:5 (Instagram)', value: 4 / 5 },
-  { label: '16:9', value: 16 / 9 },
-  { label: '4:3', value: 4 / 3 },
+  { label: () => translate({ id: 'resize.crop.aspectFree', message: '自由' }), value: undefined },
+  { label: () => '1:1 (Square)', value: 1 },
+  { label: () => '8:5 (1.6:1)', value: 1.6 },
+  { label: () => '1.91:1 (OGP)', value: 1.91 },
+  { label: () => '3:1 (X Header)', value: 3 },
+  { label: () => '4:5 (Instagram)', value: 4 / 5 },
+  { label: () => '16:9', value: 16 / 9 },
+  { label: () => '4:3', value: 4 / 3 },
 ];
 
 const SNS_PRESETS = [
-  { label: '制限なし', width: undefined },
+  { label: translate({ id: 'resize.noLimit', message: '制限なし' }), width: undefined },
   { label: '1920px (Full HD)', width: 1920 },
   { label: '1280px (HD)', width: 1280 },
   { label: '1200px (OGP)', width: 1200 },
@@ -234,9 +235,9 @@ function PageHeader() {
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text'
-        }}>画像軽量化・クロップツール</h1>
+        }}>{translate({ id: 'resize.header.title', message: '画像軽量化・クロップツール' })}</h1>
         <p className={common.pageHeaderDesc}>
-          ブラウザ上で画像をクロップ（切り抜き）し、WebPなどに変換して軽量化します。画像はサーバーに送信されず、すべてブラウザ内で完結するため安全です。
+          {translate({ id: 'resize.header.desc', message: 'ブラウザ上で画像をクロップ（切り抜き）し、WebPなどに変換して軽量化します。画像はサーバーに送信されず、すべてブラウザ内で完結するため安全です。' })}
         </p>
       </div>
     </div>
@@ -307,7 +308,7 @@ function BeforeAfterSlider({ beforeUrl, afterUrl }: { beforeUrl: string; afterUr
   return (
     <Box>
       <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
-        <Typography variant="body2">ズーム: {zoom.toFixed(1)}x</Typography>
+        <Typography variant="body2">{translate({ id: 'resize.compare.zoom', message: 'ズーム:' })} {zoom.toFixed(1)}x</Typography>
         <Slider
           value={zoom}
           min={1}
@@ -316,7 +317,7 @@ function BeforeAfterSlider({ beforeUrl, afterUrl }: { beforeUrl: string; afterUr
           onChange={(_, v) => setZoom(v as number)}
           sx={{ maxWidth: '200px' }}
         />
-        <Button size="small" onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }}>リセット</Button>
+        <Button size="small" onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }}>{translate({ id: 'resize.compare.reset', message: 'リセット' })}</Button>
       </Stack>
 
       <Box
@@ -376,10 +377,10 @@ function BeforeAfterSlider({ beforeUrl, afterUrl }: { beforeUrl: string; afterUr
         </Box>
 
         <Box sx={{ position: 'absolute', top: '10px', left: '10px', backgroundColor: 'rgba(0,0,0,0.6)', color: 'white', padding: '2px 8px', borderRadius: '4px', fontSize: '0.75rem', zIndex: 3, pointerEvents: 'none' }}>
-          圧縮後
+          {translate({ id: 'resize.compare.after', message: '圧縮後' })}
         </Box>
         <Box sx={{ position: 'absolute', top: '10px', right: '10px', backgroundColor: 'rgba(0,0,0,0.6)', color: 'white', padding: '2px 8px', borderRadius: '4px', fontSize: '0.75rem', zIndex: 3, pointerEvents: 'none' }}>
-          オリジナル
+          {translate({ id: 'resize.compare.before', message: 'オリジナル' })}
         </Box>
 
         <Box sx={{ position: 'absolute', top: 0, bottom: 0, left: `${sliderPos}%`, width: '2px', backgroundColor: 'white', zIndex: 4, boxShadow: '0 0 8px rgba(0,0,0,0.5)', pointerEvents: 'none' }} />
@@ -499,7 +500,7 @@ export default function ImageOptimizer(): JSX.Element {
         const sourceFile = updatedImages[i].croppedBlob || updatedImages[i].file;
         
         if (settings.format === 'webp' && !webpSupported) {
-          throw new Error('お使いのブラウザはWebP変換に対応していません。JPEG形式を選択してください。');
+          throw new Error(translate({ id: 'resize.error.webpUnsupported', message: 'お使いのブラウザはWebP変換に対応していません。JPEG形式を選択してください。' }));
         }
 
         // Dynamic target size based on quality to force compression
@@ -561,8 +562,8 @@ export default function ImageOptimizer(): JSX.Element {
       } catch (error) {
         console.error('Compression error:', error);
         updatedImages[i].status = 'error';
-        updatedImages[i].error = error instanceof Error ? error.message : '処理失敗';
-        setSnackbar({ open: true, message: `エラー: ${updatedImages[i].file.name} の処理に失敗しました。`, severity: 'error' });
+        updatedImages[i].error = error instanceof Error ? error.message : translate({ id: 'resize.error.processing', message: '処理失敗' });
+        setSnackbar({ open: true, message: `${translate({ id: 'resize.error.prefix', message: 'エラー:' })} ${updatedImages[i].file.name} ${translate({ id: 'resize.error.failed', message: 'の処理に失敗しました。' })}`, severity: 'error' });
       }
       setImages([...updatedImages]);
     }
@@ -635,7 +636,7 @@ export default function ImageOptimizer(): JSX.Element {
   };
 
   return (
-    <Layout title={`画像軽量化・クロップツール | ${siteConfig.title}`}>
+    <Layout title={`${translate({ id: 'resize.header.title', message: '画像軽量化・クロップツール' })} | ${siteConfig.title}`}>
       <MuiTheme>
         <PageHeader />
         <div className={common.body}>
@@ -646,7 +647,7 @@ export default function ImageOptimizer(): JSX.Element {
               <div className={common.card}>
                 <h2 className={common.cardTitle}>
                   <span className={common.cardTitleIcon}>📁</span>
-                  画像を選択
+                  {translate({ id: 'resize.upload.title', message: '画像を選択' })}
                 </h2>
                 <Box
                   onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
@@ -679,10 +680,10 @@ export default function ImageOptimizer(): JSX.Element {
                 >
                   <AddPhotoAlternateIcon sx={{ fontSize: 48, color: 'var(--ifm-color-emphasis-500)', marginBottom: '1rem' }} />
                   <p style={{ margin: 0, fontWeight: 600, color: 'var(--ifm-color-emphasis-800)' }}>
-                    クリック・ドラッグ＆ドロップ、または貼り付けで選択
+                    {translate({ id: 'resize.upload.dropLabel', message: 'クリック・ドラッグ＆ドロップ、または貼り付けで選択' })}
                   </p>
                   <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.85rem', color: 'var(--ifm-color-emphasis-600)' }}>
-                    対応フォーマット: JPEG, PNG, WebPなど（Command/Ctrl+Vでの貼り付けも可能）
+                    {translate({ id: 'resize.upload.formats', message: '対応フォーマット: JPEG, PNG, WebPなど（Command/Ctrl+Vでの貼り付けも可能）' })}
                   </p>
                   <input
                     type="file"
@@ -736,11 +737,11 @@ export default function ImageOptimizer(): JSX.Element {
                           </Box>
 
                           <Stack direction="row" spacing={1} sx={{ display: { xs: 'none', sm: 'flex' } }}>
-                            <Tooltip title="クロップ">
+                            <Tooltip title={translate({ id: 'resize.action.crop', message: 'クロップ' })}>
                               <IconButton onClick={() => onCropClick(img)} color="primary"><CropIcon /></IconButton>
                             </Tooltip>
                             {img.status === 'completed' && (
-                              <Tooltip title="Before/After 比較">
+                              <Tooltip title={translate({ id: 'resize.compare.label', message: 'Before/After 比較' })}>
                                 <IconButton onClick={() => setCompareImages({ before: img.displayUrl, after: img.compressedUrl! })} color="info"><CompareIcon /></IconButton>
                               </Tooltip>
                             )}
@@ -754,26 +755,26 @@ export default function ImageOptimizer(): JSX.Element {
                   {/* 3. Settings Section */}
                   <Card sx={{ borderRadius: '16px', border: '1px solid var(--ifm-color-emphasis-200)', bgcolor: 'rgba(0,0,0,0.01)' }} elevation={0}>
                     <CardContent sx={{ p: 3 }}>
-                      <Typography variant="h6" gutterBottom sx={{ fontWeight: 800 }}>⚙️ 最適化設定</Typography>
+                      <Typography variant="h6" gutterBottom sx={{ fontWeight: 800 }}>⚙️ {translate({ id: 'resize.settings.title', message: '最適化設定' })}</Typography>
                       <Grid2 container spacing={4} sx={{ mt: 1 }}>
                         <Grid2 size={{ xs: 12, sm: 6 }}>
                           <FormControl fullWidth size="small">
-                            <InputLabel>出力フォーマット</InputLabel>
+                            <InputLabel>{translate({ id: 'resize.settings.format', message: '出力フォーマット' })}</InputLabel>
                             <Select 
                               value={settings.format} 
-                              label="出力フォーマット" 
+                              label={translate({ id: 'resize.settings.format', message: '出力フォーマット' })} 
                               onChange={(e) => setSettings({ ...settings, format: e.target.value as ImageFormat })}
                             >
-                              <MenuItem value="original">オリジナル</MenuItem>
+                              <MenuItem value="original">{translate({ id: 'resize.format.original', message: 'オリジナル' })}</MenuItem>
                               <MenuItem value="webp" disabled={!webpSupported}>
-                                WebP {webpSupported ? '(推奨)' : '(非対応のブラウザです)'}
+                                WebP {webpSupported ? translate({ id: 'resize.format.recommended', message: '(推奨)' }) : translate({ id: 'resize.format.webpUnsupported', message: '(非対応のブラウザです)' })}
                               </MenuItem>
                               <MenuItem value="jpeg">JPEG</MenuItem>
                               <MenuItem value="png">PNG</MenuItem>
                             </Select>
                             {!webpSupported && (
                               <Typography variant="caption" color="error" sx={{ mt: 0.5, display: 'block' }}>
-                                ※お使いのブラウザはWebP変換に未対応のため、JPEGを推奨します。
+                                {translate({ id: 'resize.format.webpWarning', message: '※お使いのブラウザはWebP変換に未対応のため、JPEGを推奨します。' })}
                               </Typography>
                             )}
                           </FormControl>                        </Grid2>
@@ -786,9 +787,10 @@ export default function ImageOptimizer(): JSX.Element {
                               if (typeof option === 'string') return option;
                               return option.label;
                             }}
-                            value={SNS_PRESETS.find(p => p.width === settings.maxWidth && p.width !== undefined) || (settings.maxWidth ? settings.maxWidth.toString() : '制限なし')}
+                            value={SNS_PRESETS.find(p => p.width === settings.maxWidth && p.width !== undefined) || (settings.maxWidth ? settings.maxWidth.toString() : translate({ id: 'resize.noLimit', message: '制限なし' }))}
                             onInputChange={(event, newValue) => {
-                              if (newValue === '制限なし' || newValue === '') {
+                              const noLimit = translate({ id: 'resize.noLimit', message: '制限なし' });
+                              if (newValue === noLimit || newValue === '') {
                                 setSettings({ ...settings, maxWidth: undefined });
                               } else {
                                 const num = parseInt(newValue.replace(/[^0-9]/g, ''), 10);
@@ -798,19 +800,20 @@ export default function ImageOptimizer(): JSX.Element {
                               }
                             }}
                             onChange={(event, newValue) => {
+                              const noLimit = translate({ id: 'resize.noLimit', message: '制限なし' });
                               if (newValue && typeof newValue === 'object') {
                                 setSettings({ ...settings, maxWidth: newValue.width });
-                              } else if (newValue === '制限なし' || !newValue) {
+                              } else if (newValue === noLimit || !newValue) {
                                 setSettings({ ...settings, maxWidth: undefined });
                               }
                             }}
                             renderInput={(params) => (
-                              <TextField {...params} label="最大幅 (px)" placeholder="数値(px)を入力" />
+                              <TextField {...params} label={translate({ id: 'resize.settings.maxWidth', message: '最大幅 (px)' })} placeholder={translate({ id: 'resize.settings.maxWidthPlaceholder', message: '数値(px)を入力' })} />
                             )}
                           />
                         </Grid2>                        <Grid2 size={12}>
                           <Box sx={{ px: 1 }}>
-                            <Typography variant="body2" color="text.secondary" gutterBottom>画質: {Math.round(settings.quality * 100)}%</Typography>
+                            <Typography variant="body2" color="text.secondary" gutterBottom>{translate({ id: 'resize.settings.quality', message: '画質:' })} {Math.round(settings.quality * 100)}%</Typography>
                             <Slider value={settings.quality} min={0.1} max={1.0} step={0.05} onChange={(_, v) => setSettings({ ...settings, quality: v as number })} />
                           </Box>
                         </Grid2>
@@ -848,7 +851,7 @@ export default function ImageOptimizer(): JSX.Element {
                       disabled={images.length === 0 || isProcessing} 
                       sx={{ borderRadius: '12px', py: 2, fontWeight: 800, fontSize: '1.1rem', boxShadow: '0 4px 14px 0 rgba(0,118,255,0.39)' }}
                     >
-                      {isProcessing ? <CircularProgress size={28} color="inherit" /> : '最適化を開始'}
+                      {isProcessing ? <CircularProgress size={28} color="inherit" /> : translate({ id: 'resize.action.start', message: '最適化を開始' })}
                     </Button>
                     {images.some(img => img.status === 'completed') && (
                       <Button 
@@ -859,7 +862,7 @@ export default function ImageOptimizer(): JSX.Element {
                         onClick={downloadAll} 
                         sx={{ borderRadius: '12px', py: 2, fontWeight: 800, fontSize: '1.1rem' }}
                       >
-                        ダウンロード
+                        {translate({ id: 'common.download', message: 'ダウンロード' })}
                       </Button>
                     )}
                   </Stack>
@@ -873,10 +876,10 @@ export default function ImageOptimizer(): JSX.Element {
 
         {/* Dialogs */}
         <Dialog open={!!cropTarget} onClose={() => setCropTarget(null)} maxWidth="md" fullWidth PaperProps={{ sx: { borderRadius: '20px' } }}>
-          <DialogTitle sx={{ fontWeight: 800 }}>画像をクロップ</DialogTitle>
+          <DialogTitle sx={{ fontWeight: 800 }}>{translate({ id: 'resize.crop.title', message: '画像をクロップ' })}</DialogTitle>
           <DialogContent>
             <Box sx={{ mb: 3 }}>
-              <Typography variant="subtitle2" gutterBottom>比率を選択:</Typography>
+              <Typography variant="subtitle2" gutterBottom>{translate({ id: 'resize.crop.aspect', message: '比率を選択:' })}</Typography>
               <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
                 {ASPECT_RATIOS.map(r => (
                   <Button key={r.label} size="small" variant={aspect === r.value ? 'contained' : 'outlined'} sx={{ borderRadius: '20px', mb: 1 }} onClick={() => {
@@ -885,7 +888,7 @@ export default function ImageOptimizer(): JSX.Element {
                       setCrop(centerAspectCrop(imgRef.current.width, imgRef.current.height, r.value));
                     }
                   }}>
-                    {r.label}
+                    {typeof r.label === 'function' ? r.label() : r.label}
                   </Button>
                 ))}
               </Stack>
@@ -901,14 +904,14 @@ export default function ImageOptimizer(): JSX.Element {
             </Box>
           </DialogContent>
           <DialogActions sx={{ p: 3 }}>
-            <Button onClick={() => setCropTarget(null)}>キャンセル</Button>
-            <Button onClick={onCropComplete} variant="contained" sx={{ borderRadius: '10px', px: 4 }}>決定</Button>
+            <Button onClick={() => setCropTarget(null)}>{translate({ id: 'common.cancel', message: 'キャンセル' })}</Button>
+            <Button onClick={onCropComplete} variant="contained" sx={{ borderRadius: '10px', px: 4 }}>{translate({ id: 'resize.crop.apply', message: '決定' })}</Button>
           </DialogActions>
         </Dialog>
 
         <Dialog open={!!compareImages} onClose={() => setCompareImages(null)} maxWidth="md" fullWidth PaperProps={{ sx: { borderRadius: '20px' } }}>
           <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 800 }}>
-            比較プレビュー
+            {translate({ id: 'resize.compare.dialogTitle', message: '比較プレビュー' })}
             <IconButton onClick={() => setCompareImages(null)}><CloseIcon /></IconButton>
           </DialogTitle>
           <DialogContent sx={{ pb: 4 }}>

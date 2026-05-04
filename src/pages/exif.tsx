@@ -2,6 +2,7 @@ import React, { useState, useRef, DragEvent, ChangeEvent } from 'react';
 import Layout from '@theme/Layout';
 import MuiTheme from '@site/src/components/MuiTheme';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { translate } from '@docusaurus/Translate';
 import {
   Button,
   Stack,
@@ -68,9 +69,11 @@ function PageHeader() {
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text'
-        }}>写真Exif情報チェッカー</h1>
+        }}>
+          {translate({ id: 'exif.header.title', message: '写真Exif情報チェッカー' })}
+        </h1>
         <p className={common.pageHeaderDesc}>
-          アップロードした写真（JPEG形式）からカメラ情報、撮影日時、GPSなどのメタデータを読み取ります。写真はサーバーに送信されず、すべてブラウザ内で処理されるため安全です。
+          {translate({ id: 'exif.header.desc', message: 'アップロードした写真（JPEG形式）からカメラ情報、撮影日時、GPSなどのメタデータを読み取ります。写真はサーバーに送信されず、すべてブラウザ内で処理されるため安全です。' })}
         </p>
       </div>
     </div>
@@ -114,7 +117,7 @@ function UploadArea({ onFileSelect }: { onFileSelect: (file: File) => void }) {
     <div className={common.card}>
       <h2 className={common.cardTitle}>
         <span className={common.cardTitleIcon}>📁</span>
-        写真を選択
+        {translate({ id: 'exif.upload.title', message: '写真を選択' })}
       </h2>
       <Box
         onDragOver={handleDragOver}
@@ -142,10 +145,10 @@ function UploadArea({ onFileSelect }: { onFileSelect: (file: File) => void }) {
       >
         <AddPhotoAlternateIcon sx={{ fontSize: 48, color: 'var(--ifm-color-emphasis-500)', marginBottom: '1rem' }} />
         <p style={{ margin: 0, fontWeight: 600, color: 'var(--ifm-color-emphasis-800)' }}>
-          クリックまたはドラッグ＆ドロップでファイルを選択
+          {translate({ id: 'exif.upload.dropLabel', message: 'クリックまたはドラッグ＆ドロップでファイルを選択' })}
         </p>
         <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.85rem', color: 'var(--ifm-color-emphasis-600)' }}>
-          対応フォーマット: JPEG (EXIF情報の読み取りは主にJPEGに対応しています)
+          {translate({ id: 'exif.upload.formats', message: '対応フォーマット: JPEG (EXIF情報の読み取りは主にJPEGに対応しています)' })}
         </p>
         <input
           type="file"
@@ -167,12 +170,12 @@ function ExifResultCard({ exifData, onClear, fileName, imageUrl }: { exifData: E
   const handleCopy = (text: string) => {
     if (!text || text === '—') return;
     navigator.clipboard.writeText(text);
-    setSnackbar({ open: true, message: 'コピーしました！' });
+    setSnackbar({ open: true, message: translate({ id: 'common.copied', message: 'コピーしました！' }) });
   };
 
   const renderRow = (label: string, value: string | undefined) => {
     const displayValue = value || '—';
-    const isGps = label === 'GPS位置情報' && value;
+    const isGps = label === translate({ id: 'exif.result.gps', message: 'GPS位置情報' }) && value;
 
     return (
       <TableRow>
@@ -188,7 +191,7 @@ function ExifResultCard({ exifData, onClear, fileName, imageUrl }: { exifData: E
             ) : (
               <span>{displayValue}</span>
             )}
-            <Tooltip title="コピー">
+            <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
               <IconButton size="small" onClick={() => handleCopy(displayValue)} disabled={!value}>
                 <ContentCopyIcon fontSize="small" sx={{ fontSize: '1rem' }} />
               </IconButton>
@@ -204,9 +207,9 @@ function ExifResultCard({ exifData, onClear, fileName, imageUrl }: { exifData: E
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
         <h2 className={common.cardTitle} style={{ margin: 0 }}>
           <span className={common.cardTitleIcon}>📊</span>
-          EXIF情報
+          {translate({ id: 'exif.result.title', message: 'EXIF情報' })}
         </h2>
-        <Tooltip title="クリア">
+        <Tooltip title={translate({ id: 'common.clear', message: 'クリア' })}>
           <IconButton onClick={onClear} color="error" size="small">
             <DeleteIcon />
           </IconButton>
@@ -214,7 +217,7 @@ function ExifResultCard({ exifData, onClear, fileName, imageUrl }: { exifData: E
       </div>
 
       <div style={{ marginBottom: '1rem', padding: '8px 12px', background: 'var(--ifm-color-emphasis-100)', borderRadius: '6px', fontSize: '0.9rem', color: 'var(--ifm-color-emphasis-800)' }}>
-        ファイル: <strong>{fileName}</strong>
+        {translate({ id: 'common.file', message: 'ファイル:' })} <strong>{fileName}</strong>
       </div>
 
       {imageUrl && (
@@ -236,14 +239,14 @@ function ExifResultCard({ exifData, onClear, fileName, imageUrl }: { exifData: E
           }
         }}>
           <TableBody>
-            {renderRow('撮影日時', exifData.dateTime)}
-            {renderRow('カメラメーカー', exifData.make)}
-            {renderRow('モデル名', exifData.model)}
-            {renderRow('絞り（F値）', exifData.fNumber ? `f/${exifData.fNumber}` : undefined)}
-            {renderRow('シャッタースピード', exifData.exposureTime ? `${exifData.exposureTime} 秒` : undefined)}
-            {renderRow('ISO感度', exifData.iso)}
-            {renderRow('GPS位置情報', exifData.gps)}
-            {renderRow('解像度', exifData.resolution)}
+            {renderRow(translate({ id: 'exif.result.dateTime', message: '撮影日時' }), exifData.dateTime)}
+            {renderRow(translate({ id: 'exif.result.make', message: 'カメラメーカー' }), exifData.make)}
+            {renderRow(translate({ id: 'exif.result.model', message: 'モデル名' }), exifData.model)}
+            {renderRow(translate({ id: 'exif.result.fNumber', message: '絞り（F値）' }), exifData.fNumber ? `f/${exifData.fNumber}` : undefined)}
+            {renderRow(translate({ id: 'exif.result.exposureTime', message: 'シャッタースピード' }), exifData.exposureTime ? `${exifData.exposureTime} ${translate({ id: 'exif.result.sec', message: '秒' })}` : undefined)}
+            {renderRow(translate({ id: 'exif.result.iso', message: 'ISO感度' }), exifData.iso)}
+            {renderRow(translate({ id: 'exif.result.gps', message: 'GPS位置情報' }), exifData.gps)}
+            {renderRow(translate({ id: 'exif.result.resolution', message: '解像度' }), exifData.resolution)}
           </TableBody>
         </Table>
       </TableContainer>
@@ -258,8 +261,6 @@ function ExifResultCard({ exifData, onClear, fileName, imageUrl }: { exifData: E
 // --- Main Page ---
 
 export default function ExifViewer(): JSX.Element {
-  const title = '写真Exif情報チェッカー';
-  const description = 'アップロードした写真からカメラ情報、撮影日時、GPSなどのメタデータを読み取ります。';
   const { siteConfig } = useDocusaurusContext();
 
   const [exifData, setExifData] = useState<ExifData | null>(null);
@@ -277,7 +278,7 @@ export default function ExifViewer(): JSX.Element {
     }
 
     if (!file.type.startsWith('image/')) {
-      setErrorMsg('画像ファイルを選択してください。');
+      setErrorMsg(translate({ id: 'exif.error.notImage', message: '画像ファイルを選択してください。' }));
       return;
     }
 
@@ -286,14 +287,14 @@ export default function ExifViewer(): JSX.Element {
       const parsed = await exifr.parse(file, true);
 
       if (!parsed) {
-        setErrorMsg('EXIF情報が見つかりませんでした。');
+        setErrorMsg(translate({ id: 'exif.error.noExif', message: 'EXIF情報が見つかりませんでした。' }));
         setFileName(file.name);
         return;
       }
 
       const data: ExifData = {
-        dateTime: parsed.DateTimeOriginal ? new Date(parsed.DateTimeOriginal).toLocaleString('ja-JP') :
-          (parsed.DateTime ? new Date(parsed.DateTime).toLocaleString('ja-JP') : undefined),
+        dateTime: parsed.DateTimeOriginal ? new Date(parsed.DateTimeOriginal).toLocaleString() :
+          (parsed.DateTime ? new Date(parsed.DateTime).toLocaleString() : undefined),
         make: parsed.Make,
         model: parsed.Model,
         fNumber: parsed.FNumber?.toString(),
@@ -310,7 +311,7 @@ export default function ExifViewer(): JSX.Element {
 
     } catch (err) {
       console.error(err);
-      setErrorMsg('ファイルの読み込みまたはEXIF解析に失敗しました。');
+      setErrorMsg(translate({ id: 'exif.error.parse', message: 'ファイルの読み込みまたはEXIF解析に失敗しました。' }));
     }
   };
 
@@ -325,7 +326,10 @@ export default function ExifViewer(): JSX.Element {
   };
 
   return (
-    <Layout title={`${title} | ${siteConfig.title}`} description={description}>
+    <Layout
+      title={`${translate({ id: 'exif.header.title', message: '写真Exif情報チェッカー' })} | ${siteConfig.title}`}
+      description={translate({ id: 'exif.header.desc', message: 'アップロードした写真からカメラ情報、撮影日時、GPSなどのメタデータを読み取ります。' })}
+    >
       <MuiTheme>
         <PageHeader />
         <div className={common.body}>

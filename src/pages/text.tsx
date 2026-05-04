@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Layout from '@theme/Layout';
 import MuiTheme from '@site/src/components/MuiTheme';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { translate } from '@docusaurus/Translate';
 import {
   TextField,
   Button,
@@ -51,9 +52,11 @@ function PageHeader() {
       </div>
       <div className={common.pageHeaderContent}>
         <span className={styles.pageHeaderIcon}>📝</span>
-        <h1 className={styles.pageHeaderTitle}>テキスト保存場所</h1>
+        <h1 className={styles.pageHeaderTitle}>
+          {translate({ id: 'text.header.title', message: 'テキスト保存場所' })}
+        </h1>
         <p className={common.pageHeaderDesc}>
-          テキストを一時的に保存するための場所です。保存したテキストはブラウザのローカルストレージに保存されます。
+          {translate({ id: 'text.header.desc', message: 'テキストを一時的に保存するための場所です。保存したテキストはブラウザのローカルストレージに保存されます。' })}
         </p>
       </div>
     </div>
@@ -69,9 +72,21 @@ function SavedTextCard({ savedText, onCopy, onDelete, onTogglePin }: { savedText
           {formatDate(savedText.date)}
         </span>
         <div className={styles.savedItemActions}>
-          <Tooltip title={savedText.pinned ? "ピン留めを解除" : "ピン留め"}><IconButton size="small" onClick={onTogglePin} aria-label="ピン留め" color={savedText.pinned ? "primary" : "default"}>{savedText.pinned ? <PushPinIcon fontSize="small" /> : <PushPinOutlinedIcon fontSize="small" />}</IconButton></Tooltip>
-          <Tooltip title="コピー"><IconButton size="small" onClick={() => onCopy(savedText.text)} aria-label="コピー"><ContentCopyIcon fontSize="small" /></IconButton></Tooltip>
-          <Tooltip title="削除"><IconButton size="small" onClick={onDelete} aria-label="削除" color="error"><DeleteForeverIcon fontSize="small" /></IconButton></Tooltip>
+          <Tooltip title={savedText.pinned ? translate({ id: 'text.pin.unpin', message: 'ピン留めを解除' }) : translate({ id: 'text.pin.pin', message: 'ピン留め' })}>
+            <IconButton size="small" onClick={onTogglePin} aria-label={translate({ id: 'text.pin.pin', message: 'ピン留め' })} color={savedText.pinned ? "primary" : "default"}>
+              {savedText.pinned ? <PushPinIcon fontSize="small" /> : <PushPinOutlinedIcon fontSize="small" />}
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
+            <IconButton size="small" onClick={() => onCopy(savedText.text)} aria-label={translate({ id: 'common.copy', message: 'コピー' })}>
+              <ContentCopyIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={translate({ id: 'common.delete', message: '削除' })}>
+            <IconButton size="small" onClick={onDelete} aria-label={translate({ id: 'common.delete', message: '削除' })} color="error">
+              <DeleteForeverIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
         </div>
       </div>
       <p className={styles.savedItemText}>{savedText.text}</p>
@@ -84,8 +99,6 @@ function SavedTextCard({ savedText, onCopy, onDelete, onTogglePin }: { savedText
 // ============================================================
 
 export default function Text(): JSX.Element {
-  const title = 'テキスト保存場所';
-  const description = 'テキストを一時的に保存するための場所です。保存したテキストはブラウザのローカルストレージに保存されます。';
   const { siteConfig } = useDocusaurusContext();
 
   const [state, setState] = useState<{ workText: string; savedTexts: SavedText[] }>({ workText: '', savedTexts: [] });
@@ -110,8 +123,14 @@ export default function Text(): JSX.Element {
     if (state.workText.trim() === '') return;
     setState((s) => ({ ...s, workText: '', savedTexts: [{ date: new Date(), text: state.workText.trim(), pinned: false }, ...s.savedTexts] }));
   };
-  const handleCopy = (text: string) => { navigator.clipboard.writeText(text); setSnackbar({ open: true, message: 'コピーしました！' }); };
-  const handleCopyAll = () => { navigator.clipboard.writeText(createSavedText(displayTexts)); setSnackbar({ open: true, message: '全テキストをコピーしました！' }); };
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setSnackbar({ open: true, message: translate({ id: 'common.copied', message: 'コピーしました！' }) });
+  };
+  const handleCopyAll = () => {
+    navigator.clipboard.writeText(createSavedText(displayTexts));
+    setSnackbar({ open: true, message: translate({ id: 'text.copiedAll', message: '全テキストをコピーしました！' }) });
+  };
   const handleDelete = (id: string) => setState((s) => ({ ...s, savedTexts: s.savedTexts.filter((t) => t.date.toISOString() !== id) }));
   const handleDeleteAll = () => setState((s) => ({ ...s, savedTexts: [] }));
   const handleDownload = () => downloadText(createSavedText(displayTexts));
@@ -132,7 +151,10 @@ export default function Text(): JSX.Element {
   });
 
   return (
-    <Layout title={`${title} | ${siteConfig.title}`} description={description}>
+    <Layout
+      title={`${translate({ id: 'text.header.title', message: 'テキスト保存場所' })} | ${siteConfig.title}`}
+      description={translate({ id: 'text.header.desc', message: 'テキストを一時的に保存するための場所です。保存したテキストはブラウザのローカルストレージに保存されます。' })}
+    >
       <MuiTheme>
         <PageHeader />
         <div className={common.body}>
@@ -144,10 +166,10 @@ export default function Text(): JSX.Element {
                 <div className={common.card}>
                   <h2 className={common.cardTitle}>
                     <span className={common.cardTitleIcon}>✏️</span>
-                    テキストを入力
+                    {translate({ id: 'text.input.title', message: 'テキストを入力' })}
                   </h2>
                   <Stack spacing={2}>
-                    <TextField multiline fullWidth placeholder="ここにテキストを入力..." value={state.workText} minRows={10}
+                    <TextField multiline fullWidth placeholder={translate({ id: 'text.input.placeholder', message: 'ここにテキストを入力...' })} value={state.workText} minRows={10}
                       onChange={(e) => setState((s) => ({ ...s, workText: e.target.value }))}
                       onKeyDown={(e) => {
                         if (e.nativeEvent.isComposing) return;
@@ -156,9 +178,11 @@ export default function Text(): JSX.Element {
                         if ((saveOnEnter && isEnterOnly) || (!saveOnEnter && isModEnter)) { e.preventDefault(); handleSave(); }
                       }} />
                     <Stack direction="row" alignItems="center" spacing={1.5}>
-                      <Button variant="contained" onClick={handleSave} disabled={state.workText.trim() === ''} className={styles.saveBtn}>保存</Button>
+                      <Button variant="contained" onClick={handleSave} disabled={state.workText.trim() === ''} className={styles.saveBtn}>
+                        {translate({ id: 'common.save', message: '保存' })}
+                      </Button>
                       <FormControlLabel control={<Checkbox checked={saveOnEnter} onChange={(e) => setSaveOnEnter(e.target.checked)} size="small" />}
-                        label={<span className={styles.checkboxLabel}>エンターで保存</span>} />
+                        label={<span className={styles.checkboxLabel}>{translate({ id: 'text.input.saveOnEnter', message: 'エンターで保存' })}</span>} />
                     </Stack>
                   </Stack>
                 </div>
@@ -170,14 +194,26 @@ export default function Text(): JSX.Element {
                   <div className={styles.savedCardHeader}>
                     <h2 className={common.cardTitleNoMargin}>
                       <span className={common.cardTitleIcon}>📋</span>
-                      保存済みテキスト
+                      {translate({ id: 'text.saved.title', message: '保存済みテキスト' })}
                       {state.savedTexts.length > 0 && <span className={styles.savedCount}>{state.savedTexts.length}</span>}
                     </h2>
                     {state.savedTexts.length > 0 && (
                       <Stack direction="row" spacing={0.5}>
-                        <Tooltip title="全コピー"><IconButton size="small" onClick={handleCopyAll} aria-label="全コピー"><ContentCopyIcon fontSize="small" /></IconButton></Tooltip>
-                        <Tooltip title="ダウンロード"><IconButton size="small" onClick={handleDownload} aria-label="ダウンロード"><DownloadIcon fontSize="small" /></IconButton></Tooltip>
-                        <Tooltip title="全削除"><IconButton size="small" onClick={handleDeleteAll} color="error" aria-label="全削除"><DeleteForeverIcon fontSize="small" /></IconButton></Tooltip>
+                        <Tooltip title={translate({ id: 'common.copyAll', message: '全コピー' })}>
+                          <IconButton size="small" onClick={handleCopyAll} aria-label={translate({ id: 'common.copyAll', message: '全コピー' })}>
+                            <ContentCopyIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title={translate({ id: 'common.download', message: 'ダウンロード' })}>
+                          <IconButton size="small" onClick={handleDownload} aria-label={translate({ id: 'common.download', message: 'ダウンロード' })}>
+                            <DownloadIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title={translate({ id: 'common.deleteAll', message: '全削除' })}>
+                          <IconButton size="small" onClick={handleDeleteAll} color="error" aria-label={translate({ id: 'common.deleteAll', message: '全削除' })}>
+                            <DeleteForeverIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
                       </Stack>
                     )}
                   </div>
@@ -199,7 +235,7 @@ export default function Text(): JSX.Element {
                   ) : (
                     <div className={styles.emptyState}>
                       <span className={styles.emptyIcon}>🗒️</span>
-                      <p className={styles.emptyText}>保存されたテキストはありません</p>
+                      <p className={styles.emptyText}>{translate({ id: 'text.saved.empty', message: '保存されたテキストはありません' })}</p>
                     </div>
                   )}
                 </div>

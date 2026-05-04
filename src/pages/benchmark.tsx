@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { translate } from '@docusaurus/Translate';
 import { Button, CircularProgress, Dialog, DialogTitle, DialogContent, DialogActions, IconButton, Tooltip } from '@mui/material';
 import MuiTheme from '@site/src/components/MuiTheme';
 import SpeedIcon from '@mui/icons-material/Speed';
@@ -85,7 +86,7 @@ async function runSingleCoreBenchmark(passes: number, onProgress?: (msg: string)
   const avgTime = await runWorkerTask(passes, () => {
     completedPasses++;
     if (onProgress) {
-      onProgress(`シングルコア測定中... (${completedPasses}/${passes} 回目)`);
+      onProgress(`${translate({ id: 'benchmark.progress.single', message: 'シングルコア測定中...' })} (${completedPasses}/${passes} ${translate({ id: 'benchmark.progress.pass', message: '回目' })})`);
     }
   });
   if (avgTime === 0) return 9999;
@@ -102,7 +103,7 @@ async function runMultiCoreBenchmark(cores: number, passes: number, onProgress?:
     workers.push(runWorkerTask(passes, () => {
       completedPasses++;
       if (onProgress) {
-        onProgress(`マルチコア測定中... (${Math.floor((completedPasses / totalPasses) * 100)}%)`);
+        onProgress(`${translate({ id: 'benchmark.progress.multi', message: 'マルチコア測定中...' })} (${Math.floor((completedPasses / totalPasses) * 100)}%)`);
       }
     }));
   }
@@ -117,24 +118,25 @@ async function runMultiCoreBenchmark(cores: number, passes: number, onProgress?:
 }
 
 function getSingleCoreRankInfo(score: number) {
-  if (score >= 4000) return { rank: 'S', label: 'Rank S', desc: '比類なき速さ。最新のハイエンド端末の中でも最高峰の処理能力です', className: styles.rankS };
-  if (score >= 2000) return { rank: 'A', label: 'Rank A', desc: '快適。大抵のWebアプリがストレスなく動作します', className: styles.rankA };
-  if (score >= 1000) return { rank: 'B', label: 'Rank B', desc: '実用的。一般的なブラウジングには十分な性能です', className: styles.rankB };
-  if (score >= 250) return { rank: 'C', label: 'Rank C', desc: '標準的。一般的なページを閲覧するのに十分な性能です', className: styles.rankC };
-  if (score >= 100) return { rank: 'D', label: 'Rank D', desc: '基本性能。複雑なページでは少し時間がかかるかもしれません', className: styles.rankD };
-  if (score >= 50) return { rank: 'E', label: 'Rank E', desc: '低速。古い端末や省電力モードの影響が考えられます', className: styles.rankE };
-  return { rank: 'F', label: 'Rank F', desc: '動作困難。現代のWebサービスを利用するには大幅な性能不足です', className: styles.rankF };
+  if (score >= 4000) return { rank: 'S', label: 'Rank S', desc: translate({ id: 'benchmark.single.rank.s', message: '比類なき速さ。最新のハイエンド端末の中でも最高峰の処理能力です' }), className: styles.rankS };
+  if (score >= 2000) return { rank: 'A', label: 'Rank A', desc: translate({ id: 'benchmark.single.rank.a', message: '快適。大抵のWebアプリがストレスなく動作します' }), className: styles.rankA };
+  if (score >= 1000) return { rank: 'B', label: 'Rank B', desc: translate({ id: 'benchmark.single.rank.b', message: '実用的。一般的なブラウジングには十分な性能です' }), className: styles.rankB };
+  if (score >= 250) return { rank: 'C', label: 'Rank C', desc: translate({ id: 'benchmark.single.rank.c', message: '標準的。一般的なページを閲覧するのに十分な性能です' }), className: styles.rankC };
+  if (score >= 100) return { rank: 'D', label: 'Rank D', desc: translate({ id: 'benchmark.single.rank.d', message: '基本性能。複雑なページでは少し時間がかかるかもしれません' }), className: styles.rankD };
+  if (score >= 50) return { rank: 'E', label: 'Rank E', desc: translate({ id: 'benchmark.single.rank.e', message: '低速。古い端末や省電力モードの影響が考えられます' }), className: styles.rankE };
+  return { rank: 'F', label: 'Rank F', desc: translate({ id: 'benchmark.single.rank.f', message: '動作困難。現代のWebサービスを利用するには大幅な性能不足です' }), className: styles.rankF };
 }
 
 function getMultiCoreRankInfo(score: number) {
-  if (score >= 30000) return { rank: 'S', label: 'Rank S', desc: '最上級。圧倒的な並列処理能力で、あらゆる重い作業を軽快にこなします', className: styles.rankS };
-  if (score >= 10000) return { rank: 'A', label: 'Rank A', desc: '強力。複数のタスクを同時に開いても安定します', className: styles.rankA };
-  if (score >= 4000) return { rank: 'B', label: 'Rank B', desc: '快適。複数のタスクを並行しても余裕のある性能です', className: styles.rankB };
-  if (score >= 500) return { rank: 'C', label: 'Rank C', desc: '標準的。マルチタスクも問題なく行える性能です', className: styles.rankC };
-  if (score >= 200) return { rank: 'D', label: 'Rank D', desc: '最小限。並列処理が増えると動作が鈍くなることがあります', className: styles.rankD };
-  if (score >= 100) return { rank: 'E', label: 'Rank E', desc: '性能不足。並列処理には向かず、動作が制限されます', className: styles.rankE };
-  return { rank: 'F', label: 'Rank F', desc: '著しく性能不足。並列処理の恩恵をほとんど受けられません', className: styles.rankF };
+  if (score >= 30000) return { rank: 'S', label: 'Rank S', desc: translate({ id: 'benchmark.multi.rank.s', message: '最上級。圧倒的な並列処理能力で、あらゆる重い作業を軽快にこなします' }), className: styles.rankS };
+  if (score >= 10000) return { rank: 'A', label: 'Rank A', desc: translate({ id: 'benchmark.multi.rank.a', message: '強力。複数のタスクを同時に開いても安定します' }), className: styles.rankA };
+  if (score >= 4000) return { rank: 'B', label: 'Rank B', desc: translate({ id: 'benchmark.multi.rank.b', message: '快適。複数のタスクを並行しても余裕のある性能です' }), className: styles.rankB };
+  if (score >= 500) return { rank: 'C', label: 'Rank C', desc: translate({ id: 'benchmark.multi.rank.c', message: '標準的。マルチタスクも問題なく行える性能です' }), className: styles.rankC };
+  if (score >= 200) return { rank: 'D', label: 'Rank D', desc: translate({ id: 'benchmark.multi.rank.d', message: '最小限。並列処理が増えると動作が鈍くなることがあります' }), className: styles.rankD };
+  if (score >= 100) return { rank: 'E', label: 'Rank E', desc: translate({ id: 'benchmark.multi.rank.e', message: '性能不足。並列処理には向かず、動作が制限されます' }), className: styles.rankE };
+  return { rank: 'F', label: 'Rank F', desc: translate({ id: 'benchmark.multi.rank.f', message: '著しく性能不足。並列処理の恩恵をほとんど受けられません' }), className: styles.rankF };
 }
+
 
 // ============================================================
 // Feature Check Logic
@@ -401,9 +403,9 @@ function PageHeader() {
       </div>
       <div className={common.pageHeaderContent}>
         <span className={styles.pageHeaderIcon}>🚀</span>
-        <h1 className={styles.pageHeaderTitle}>Web快適度測定</h1>
+        <h1 className={styles.pageHeaderTitle}>{translate({ id: 'benchmark.header.title', message: 'Web快適度測定' })}</h1>
         <p className={common.pageHeaderDesc}>
-          お使いのブラウザ・デバイスの演算性能を測定し、スコアとランクで評価します。
+          {translate({ id: 'benchmark.header.desc', message: 'お使いのブラウザ・デバイスの演算性能を測定し、スコアとランクで評価します。' })}
         </p>
       </div>
     </div>
@@ -425,9 +427,9 @@ const rankReferenceData = [
 // ============================================================
 
 export default function Benchmark(): JSX.Element {
-  const title = 'Web快適度測定';
-  const description = 'お使いのブラウザ・デバイスの演算性能を測定し、スコアとランクで評価します。';
   const { siteConfig } = useDocusaurusContext();
+  const title = translate({ id: 'benchmark.header.title', message: 'Web快適度測定' });
+  const description = translate({ id: 'benchmark.header.desc', message: 'お使いのブラウザ・デバイスの演算性能を測定し、スコアとランクで評価します。' });
 
   const [cores, setCores] = React.useState<number>(4);
   const [isMeasuring, setIsMeasuring] = useState(false);
@@ -510,7 +512,7 @@ export default function Benchmark(): JSX.Element {
     ctx.font = 'bold 32px sans-serif';
     ctx.fillText('sawara.me', 60, 70);
     ctx.font = 'bold 56px sans-serif';
-    ctx.fillText('Web快適度測定結果', 60, 140);
+    ctx.fillText(translate({ id: 'benchmark.canvas.title', message: 'Web快適度測定結果' }), 60, 140);
 
     // Browser Info
     ctx.fillStyle = 'rgba(255,255,255,0.5)';
@@ -696,17 +698,17 @@ export default function Benchmark(): JSX.Element {
     setSingleScore(null);
     setMultiScore(null);
     setFeatureResults({}); // 状態をリセット
-    setProgressMsg('準備中...');
+    setProgressMsg(translate({ id: 'benchmark.progress.preparing', message: '準備中...' }));
 
     await sleep(100);
 
     // 1. シングルコア測定
-    setProgressMsg('シングルコア測定準備中...');
+    setProgressMsg(translate({ id: 'benchmark.progress.singlePreparing', message: 'シングルコア測定準備中...' }));
     const sScore = await runSingleCoreBenchmark(5, setProgressMsg);
     setSingleScore(sScore);
 
     // 測定の間に少し間を置く
-    setProgressMsg('マルチコア測定準備中...');
+    setProgressMsg(translate({ id: 'benchmark.progress.multiPreparing', message: 'マルチコア測定準備中...' }));
     await sleep(800);
 
     // 2. マルチコア測定
@@ -714,7 +716,7 @@ export default function Benchmark(): JSX.Element {
     setMultiScore(mScore);
 
     // 3. ブラウザ機能チェック (最後に実行)
-    setProgressMsg('機能サポート状況を判定中...');
+    setProgressMsg(translate({ id: 'benchmark.progress.feature', message: '機能サポート状況を判定中...' }));
     for (const cat of benchmarkData) {
       for (const item of cat.items) {
         const result = await item.check();
@@ -735,14 +737,14 @@ export default function Benchmark(): JSX.Element {
           <div className={styles.container}>
 
             <div className={styles.benchCard}>
-              <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>ブラウザの演算性能をテスト</h2>
+              <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{translate({ id: 'benchmark.ui.testTitle', message: 'ブラウザの演算性能をテスト' })}</h2>
               <p style={{ color: 'var(--ifm-color-emphasis-700)' }}>
-                「測定開始」ボタンをクリックすると、ブラウザ上で負荷の高い演算処理を実行し、その処理速度からスコアを算出します。
+                {translate({ id: 'benchmark.ui.testDesc', message: '「測定開始」ボタンをクリックすると、ブラウザ上で負荷の高い演算処理を実行し、その処理速度からスコアを算出します。' })}
               </p>
 
               <div style={{ marginTop: '1.5rem', textAlign: 'left', background: 'var(--ifm-color-warning-contrast-background)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--ifm-color-warning-dark)' }}>
                 <p style={{ color: 'var(--ifm-color-warning-dark)', fontSize: '0.85rem', margin: 0, lineHeight: 1.5 }}>
-                  ⚠️ <strong>注意:</strong> このベンチマークテストは負荷の高い計算を行うため、スマートフォンやモバイル端末では一時的にバッテリーを大きく消耗する場合があります。
+                  ⚠️ <strong>{translate({ id: 'benchmark.ui.warning.bold', message: '注意:' })}</strong> {translate({ id: 'benchmark.ui.warning', message: 'このベンチマークテストは負荷の高い計算を行うため、スマートフォンやモバイル端末では一時的にバッテリーを大きく消耗する場合があります。' })}
                 </p>
               </div>
 
@@ -756,7 +758,7 @@ export default function Benchmark(): JSX.Element {
                   className={styles.benchButton}
                   startIcon={isMeasuring ? <CircularProgress size={24} color="inherit" /> : <SpeedIcon />}
                 >
-                  {isMeasuring ? '測定中...' : '測定開始'}
+                  {isMeasuring ? translate({ id: 'benchmark.ui.measuring', message: '測定中...' }) : translate({ id: 'benchmark.ui.start', message: '測定開始' })}
                 </Button>
               </div>
 
@@ -764,13 +766,13 @@ export default function Benchmark(): JSX.Element {
                   {/* Measurement Environment info */}
                   <div style={{ gridColumn: '1 / -1', textAlign: 'left', marginBottom: '0.5rem' }}>
                     <div style={{ fontSize: '0.85rem', color: 'var(--ifm-color-emphasis-600)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <span>測定環境:</span>
+                      <span>{translate({ id: 'benchmark.ui.env', message: '測定環境:' })}</span>
                       <strong style={{ color: 'var(--ifm-color-emphasis-800)' }}>{getBrowserInfo()}</strong>
                     </div>
                   </div>
 
                   <div className={styles.resultCard}>
-                    <div className={styles.scoreLabel}>シングルコア (1 Worker)</div>
+                    <div className={styles.scoreLabel}>{translate({ id: 'benchmark.ui.singleCore', message: 'シングルコア (1 Worker)' })}</div>
                     {singleScore !== null ? (
                       <>
                         <div className={styles.scoreValue}>{singleScore.toLocaleString()}</div>
@@ -778,7 +780,7 @@ export default function Benchmark(): JSX.Element {
                           {getSingleCoreRankInfo(singleScore).label}
                         </div>
                         <div className={styles.deviceImage}>
-                          目安: <strong>{getSingleCoreRankInfo(singleScore).desc}</strong>
+                          {translate({ id: 'benchmark.ui.estimate', message: '目安:' })} <strong>{getSingleCoreRankInfo(singleScore).desc}</strong>
                         </div>
                       </>
                     ) : (isMeasuring && progressMsg.includes('シングルコア')) ? (
@@ -791,13 +793,13 @@ export default function Benchmark(): JSX.Element {
                     ) : (
                       <div style={{ padding: '2.4rem 0' }}>
                         <div className={styles.scoreValue} style={{ opacity: 0.2 }}>-</div>
-                        <div style={{ marginTop: '1rem', color: 'var(--ifm-color-emphasis-500)' }}>未実施</div>
+                        <div style={{ marginTop: '1rem', color: 'var(--ifm-color-emphasis-500)' }}>{translate({ id: 'benchmark.ui.notStarted', message: '未実施' })}</div>
                       </div>
                     )}
                   </div>
 
                   <div className={styles.resultCard}>
-                    <div className={styles.scoreLabel}>マルチコア ({cores} Workers)</div>
+                    <div className={styles.scoreLabel}>{translate({ id: 'benchmark.ui.multiCore', message: 'マルチコア' })} ({cores} Workers)</div>
                     {multiScore !== null ? (
                       <>
                         <div className={styles.scoreValue}>{multiScore.toLocaleString()}</div>
@@ -805,7 +807,7 @@ export default function Benchmark(): JSX.Element {
                           {getMultiCoreRankInfo(multiScore).label}
                         </div>
                         <div className={styles.deviceImage}>
-                          目安: <strong>{getMultiCoreRankInfo(multiScore).desc}</strong>
+                          {translate({ id: 'benchmark.ui.estimate', message: '目安:' })} <strong>{getMultiCoreRankInfo(multiScore).desc}</strong>
                         </div>
                       </>
                     ) : (isMeasuring && progressMsg.includes('マルチコア')) ? (
@@ -818,7 +820,7 @@ export default function Benchmark(): JSX.Element {
                     ) : (
                       <div style={{ padding: '2.4rem 0' }}>
                         <div className={styles.scoreValue} style={{ opacity: 0.2 }}>-</div>
-                        <div style={{ marginTop: '1rem', color: 'var(--ifm-color-emphasis-500)' }}>未実施</div>
+                        <div style={{ marginTop: '1rem', color: 'var(--ifm-color-emphasis-500)' }}>{translate({ id: 'benchmark.ui.notStarted', message: '未実施' })}</div>
                       </div>
                     )}
                   </div>
@@ -830,7 +832,7 @@ export default function Benchmark(): JSX.Element {
                     onClick={() => setIsModalOpen(true)}
                     className={styles.modalLink}
                   >
-                    スコアの目安について
+                    {translate({ id: 'benchmark.ui.modalBtn', message: 'スコアの目安について' })}
                   </Button>
                   <Button
                     variant="outlined"
@@ -840,13 +842,13 @@ export default function Benchmark(): JSX.Element {
                     disabled={isSharing || isMeasuring || (singleScore === null && multiScore === null)}
                     style={{ borderRadius: '20px', fontWeight: 'bold', textTransform: 'none' }}
                   >
-                    結果を共有
+                    {translate({ id: 'benchmark.ui.share', message: '結果を共有' })}
                   </Button>
                 </div>
             </div>
 
             <div className={styles.featureSection}>
-              <h2 className={styles.sectionTitle}>ブラウザ機能サポート状況</h2>
+              <h2 className={styles.sectionTitle}>{translate({ id: 'benchmark.ui.featureTitle', message: 'ブラウザ機能サポート状況' })}</h2>
               <div className={styles.categoryGrid}>
                 {benchmarkData.map((cat, idx) => {
                   const items = cat.items;
@@ -899,7 +901,7 @@ export default function Benchmark(): JSX.Element {
                               <div className={styles.featureNameWrap}>
                                 <span className={styles.featureName}>
                                   {item.name}
-                                  {item.must && <span className={styles.mustTag}>必須</span>}
+                                  {item.must && <span className={styles.mustTag}>{translate({ id: 'benchmark.ui.must', message: '必須' })}</span>}
                                 </span>
                                 {item.url && <span className={styles.externalIcon}>↗</span>}
                               </div>
@@ -925,7 +927,7 @@ export default function Benchmark(): JSX.Element {
             >
               <DialogTitle>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <strong>スコアの判定基準</strong>
+                  <strong>{translate({ id: 'benchmark.modal.title', message: 'スコアの判定基準' })}</strong>
                   <IconButton onClick={() => setIsModalOpen(false)} size="small">
                     <CloseIcon />
                   </IconButton>
@@ -941,10 +943,10 @@ export default function Benchmark(): JSX.Element {
                         </span>
                         <div className={styles.rankReferenceScores}>
                           <div className={styles.rankScoreDetail}>
-                            <span>シングル:</span> <strong>{item.single}</strong>
+                            <span>{translate({ id: 'benchmark.modal.single', message: 'シングル:' })}</span> <strong>{item.single}</strong>
                           </div>
                           <div className={styles.rankScoreDetail}>
-                            <span>マルチ:</span> <strong>{item.multi}</strong>
+                            <span>{translate({ id: 'benchmark.modal.multi', message: 'マルチ:' })}</span> <strong>{item.multi}</strong>
                           </div>
                         </div>
                       </div>
@@ -955,7 +957,7 @@ export default function Benchmark(): JSX.Element {
               </DialogContent>
               <DialogActions>
                 <Button onClick={() => setIsModalOpen(false)} color="primary">
-                  閉じる
+                  {translate({ id: 'common.close', message: '閉じる' })}
                 </Button>
               </DialogActions>
             </Dialog>

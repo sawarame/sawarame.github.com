@@ -3,6 +3,7 @@ import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { IconButton, Snackbar, Alert, Tooltip } from '@mui/material';
 import MuiTheme from '@site/src/components/MuiTheme';
+import { translate } from '@docusaurus/Translate';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import common from '@site/src/css/common.module.css';
 import styles from '@site/src/css/device.module.css';
@@ -20,9 +21,11 @@ function PageHeader() {
       </div>
       <div className={common.pageHeaderContent}>
         <span className={styles.pageHeaderIcon}>📱</span>
-        <h1 className={styles.pageHeaderTitle}>デバイス情報チェッカー</h1>
+        <h1 className={styles.pageHeaderTitle}>
+          {translate({ id: 'device.header.title', message: 'デバイス情報チェッカー' })}
+        </h1>
         <p className={common.pageHeaderDesc}>
-          現在利用しているデバイスの画面サイズやユーザーエージェント情報を表示します。
+          {translate({ id: 'device.header.desc', message: '現在利用しているデバイスの画面サイズやユーザーエージェント情報を表示します。' })}
         </p>
       </div>
     </div>
@@ -38,8 +41,8 @@ function InfoRow({ label, value, note, onCopy, mono = false }: {
         <span className={styles.infoLabel}>{label}</span>
         {note && <span className={styles.infoNote}>{note}</span>}
         {onCopy && (
-          <Tooltip title="コピー">
-            <IconButton size="small" onClick={() => onCopy(value)} className={styles.copyBtn} aria-label={`${label}をコピー`}>
+          <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
+            <IconButton size="small" onClick={() => onCopy(value)} className={styles.copyBtn} aria-label={`${label} copy`}>
               <ContentCopyIcon fontSize="small" />
             </IconButton>
           </Tooltip>
@@ -67,15 +70,13 @@ function SectionCard({ icon, title, children, full = false }: { icon: string; ti
 // ============================================================
 
 export default function Device(): JSX.Element {
-  const title = 'デバイス情報チェッカー';
-  const description = '現在利用しているデバイスの画面サイズやユーザーエージェント情報を表示します。';
   const { siteConfig } = useDocusaurusContext();
 
   const [state, setState] = useState({
     userAgent: '',
     physicalSize: '',
     logicalSize: '',
-    ipAddress: '読み込み中...',
+    ipAddress: translate({ id: 'device.loading', message: '読み込み中...' }),
     hardwareConcurrency: '',
     deviceMemory: ''
   });
@@ -84,7 +85,7 @@ export default function Device(): JSX.Element {
   useEffect(() => {
     const isBot = /bot|crawler|spider|crawling/i.test(navigator.userAgent);
     if (isBot) {
-      setState((s) => ({ ...s, ipAddress: 'ボット/クローラーからのアクセスと判定されたため、IPアドレスは表示されません。' }));
+      setState((s) => ({ ...s, ipAddress: translate({ id: 'device.ip.bot', message: 'ボット/クローラーからのアクセスと判定されたため、IPアドレスは表示されません。' }) }));
     } else {
       (async () => {
         try {
@@ -94,14 +95,18 @@ export default function Device(): JSX.Element {
           setState((s) => ({ ...s, ipAddress: data.ip }));
         } catch (err) {
           console.error('IPアドレスの取得に失敗しました。', err);
-          setState((s) => ({ ...s, ipAddress: '取得に失敗しました。' }));
+          setState((s) => ({ ...s, ipAddress: translate({ id: 'device.ip.error', message: '取得に失敗しました。' }) }));
         }
       })();
     }
     const update = () => {
       // メモリ容量 (navigator.deviceMemory) はブラウザによって未実装の場合がある
-      const memory = (navigator as any).deviceMemory ? `${(navigator as any).deviceMemory} GB` : '不明（未対応のブラウザです）';
-      const cores = navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} コア` : '不明';
+      const memory = (navigator as any).deviceMemory
+        ? `${(navigator as any).deviceMemory} GB`
+        : translate({ id: 'device.memory.unknown', message: '不明（未対応のブラウザです）' });
+      const cores = navigator.hardwareConcurrency
+        ? `${navigator.hardwareConcurrency}${translate({ id: 'device.cores.unit', message: ' コア' })}`
+        : translate({ id: 'device.cores.unknown', message: '不明' });
 
       setState((s) => ({
         ...s,
@@ -119,31 +124,34 @@ export default function Device(): JSX.Element {
 
   const handleCopy = (value: string) => {
     navigator.clipboard.writeText(value);
-    setSnackbar({ open: true, message: 'コピーしました！' });
+    setSnackbar({ open: true, message: translate({ id: 'common.copied', message: 'コピーしました！' }) });
   };
 
   return (
-    <Layout title={`${title} | ${siteConfig.title}`} description={description}>
+    <Layout
+      title={`${translate({ id: 'device.header.title', message: 'デバイス情報チェッカー' })} | ${siteConfig.title}`}
+      description={translate({ id: 'device.header.desc', message: '現在利用しているデバイスの画面サイズやユーザーエージェント情報を表示します。' })}
+    >
       <MuiTheme>
         <PageHeader />
         <div className={common.body}>
           <div className={styles.container}>
             <div className={styles.grid}>
-              <SectionCard icon="🌐" title="ネットワーク">
-                <InfoRow label="IPアドレス" value={state.ipAddress} onCopy={handleCopy} mono />
+              <SectionCard icon="🌐" title={translate({ id: 'device.section.network', message: 'ネットワーク' })}>
+                <InfoRow label={translate({ id: 'device.info.ip', message: 'IPアドレス' })} value={state.ipAddress} onCopy={handleCopy} mono />
               </SectionCard>
-              <SectionCard icon="🖥️" title="画面サイズ">
-                <InfoRow label="物理解像度" value={state.physicalSize} note="window.screen" onCopy={handleCopy} mono />
-                <InfoRow label="ウィンドウサイズ" value={state.logicalSize} note="window.inner" onCopy={handleCopy} mono />
+              <SectionCard icon="🖥️" title={translate({ id: 'device.section.screen', message: '画面サイズ' })}>
+                <InfoRow label={translate({ id: 'device.info.physicalSize', message: '物理解像度' })} value={state.physicalSize} note="window.screen" onCopy={handleCopy} mono />
+                <InfoRow label={translate({ id: 'device.info.logicalSize', message: 'ウィンドウサイズ' })} value={state.logicalSize} note="window.inner" onCopy={handleCopy} mono />
               </SectionCard>
-              <SectionCard icon="⚙️" title="ハードウェア">
-                <InfoRow label="論理コア数" value={state.hardwareConcurrency} note="hardwareConcurrency" onCopy={handleCopy} mono />
-                <InfoRow label="メモリ容量" value={state.deviceMemory} note="deviceMemory" onCopy={handleCopy} mono />
+              <SectionCard icon="⚙️" title={translate({ id: 'device.section.hardware', message: 'ハードウェア' })}>
+                <InfoRow label={translate({ id: 'device.info.cores', message: '論理コア数' })} value={state.hardwareConcurrency} note="hardwareConcurrency" onCopy={handleCopy} mono />
+                <InfoRow label={translate({ id: 'device.info.memory', message: 'メモリ容量' })} value={state.deviceMemory} note="deviceMemory" onCopy={handleCopy} mono />
                 <p className={styles.disclaimer}>
-                  ※プライバシー保護のため、正確な容量が制限されたり、丸められた値が表示される場合があります。
+                  {translate({ id: 'device.disclaimer', message: '※プライバシー保護のため、正確な容量が制限されたり、丸められた値が表示される場合があります。' })}
                 </p>
               </SectionCard>
-              <SectionCard icon="🔍" title="ユーザーエージェント">
+              <SectionCard icon="🔍" title={translate({ id: 'device.section.ua', message: 'ユーザーエージェント' })}>
                 <InfoRow label="User-Agent" value={state.userAgent} onCopy={handleCopy} mono />
               </SectionCard>
             </div>
