@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, DragEvent, ChangeEvent } from 'react';
+import React, { useState, useRef, useCallback, useEffect, DragEvent, ChangeEvent } from 'react';
 import Layout from '@theme/Layout';
 import MuiTheme from '@site/src/components/MuiTheme';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -15,7 +15,8 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
-import jsQR from 'jsqr';
+import { BrowserMultiFormatReader } from '@zxing/browser';
+import { BarcodeFormat, DecodeHintType } from '@zxing/library';
 import common from '@site/src/css/common.module.css';
 import styles from '@site/src/css/qr-reader.module.css';
 
@@ -36,21 +37,6 @@ function isUrl(text: string): boolean {
   } catch {
     return false;
   }
-}
-
-function decodeQR(imageElement: HTMLImageElement): string | null {
-  const canvas = document.createElement('canvas');
-  canvas.width = imageElement.naturalWidth;
-  canvas.height = imageElement.naturalHeight;
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return null;
-
-  ctx.drawImage(imageElement, 0, 0);
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  const code = jsQR(imageData.data, imageData.width, imageData.height, {
-    inversionAttempts: 'dontInvert',
-  });
-  return code ? code.data : null;
 }
 
 // ============================================================
@@ -130,7 +116,7 @@ function UploadCard({ onFileSelect }: UploadCardProps) {
         aria-label={translate({ id: 'qrReader.upload.ariaLabel', message: 'QRコード画像を選択またはドロップ' })}
       >
         <span className={styles.dropIcon}>📷</span>
-        <p className={styles.dropLabel}>{translate({ id: 'qrReader.upload.dropLabel', message: 'クリックまたはドラッグ＆ドロップで画像を選択' })}</p>
+        <p className={styles.dropLabel}>{translate({ id: 'qrReader.upload.dropLabel', message: 'クリック・ドラッグ＆ドロップ、または貼り付けで選択' })}</p>
         <p className={styles.dropSub}>{translate({ id: 'qrReader.upload.formats', message: '対応フォーマット: PNG / JPEG / WebP / GIF / BMP' })}</p>
         <input
           type="file"
@@ -305,30 +291,84 @@ export default function QrReader(): React.JSX.Element {
     setImageUrl(url);
     setScanState('scanning');
 
-    // Use HTMLImageElement to load and decode
-    const img = new Image();
-    img.onload = () => {
+    // Decode using ZXing with multi-pass strategy
+    const decode = async () => {
       try {
-        const decoded = decodeQR(img);
-        if (decoded !== null) {
-          setResult(decoded);
+        const hints = new Map();
+        hints.set(DecodeHintType.POSSIBLE_FORMATS, [BarcodeFormat.QR_CODE]);
+        hints.set(DecodeHintType.TRY_HARDER, true);
+        const codeReader = new BrowserMultiFormatReader(hints);
+        
+        // Pass 1: Original image
+        try {
+          const result = await codeReader.decodeFromImageUrl(url);
+          setResult(result.getText());
           setScanState('success');
-        } else {
-          setErrorMsg(translate({ id: 'qrReader.error.notQR', message: 'QRコードが見つかりませんでした。画像が鮮明か確認してください。' }));
-          setScanState('error');
+          return;
+        } catch (e) {
+          console.warn('Pass 1 (Original) failed:', e);
         }
-      } catch (err) {
-        console.error(err);
-        setErrorMsg(translate({ id: 'qrReader.error.parse', message: '解析中にエラーが発生しました。' }));
+
+        // Pass 2 & 3: Downscaled image (helps with large photos where QR is small or noisy)
+        const img = new Image();
+        await new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = reject;
+          img.src = url;
+        });
+
+        const scalePasses = [1000, 500]; // Max dimensions to test
+        for (const maxDim of scalePasses) {
+          if (img.naturalWidth > maxDim || img.naturalHeight > maxDim) {
+            const scale = maxDim / Math.max(img.naturalWidth, img.naturalHeight);
+            const canvas = document.createElement('canvas');
+            canvas.width = img.naturalWidth * scale;
+            canvas.height = img.naturalHeight * scale;
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+              // Draw scaled image
+              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+              try {
+                const result = await codeReader.decodeFromCanvas(canvas);
+                setResult(result.getText());
+                setScanState('success');
+                return;
+              } catch (e2) {
+                console.warn(`Pass 2 (Scale ${maxDim}) failed:`, e2);
+              }
+            }
+          }
+        }
+
+        throw new Error('QR code not found in any pass');
+      } catch (err: any) {
+        console.error('ZXing decode completely failed:', err);
+        setErrorMsg(translate({ id: 'qrReader.error.notQR', message: 'QRコードが見つかりませんでした。画像が鮮明か確認してください。' }));
         setScanState('error');
       }
     };
-    img.onerror = () => {
-      setErrorMsg(translate({ id: 'qrReader.error.loadImage', message: '画像の読み込みに失敗しました。' }));
-      setScanState('error');
-    };
-    img.src = url;
+    decode();
   }, [imageUrl]);
+
+  useEffect(() => {
+    const handlePaste = (e: ClipboardEvent) => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image') !== -1) {
+          const file = items[i].getAsFile();
+          if (file) {
+            handleFileSelect(file);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('paste', handlePaste);
+    return () => window.removeEventListener('paste', handlePaste);
+  }, [handleFileSelect]);
 
   const handleClear = useCallback(() => {
     if (imageUrl) URL.revokeObjectURL(imageUrl);

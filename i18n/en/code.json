@@ -861,7 +861,7 @@
     "message": "Select or drop a QR code image"
   },
   "qrReader.upload.dropLabel": {
-    "message": "Click or drag & drop to select an image"
+    "message": "Click, drag & drop, or paste to select an image"
   },
   "qrReader.upload.formats": {
     "message": "Supported formats: PNG / JPEG / WebP / GIF / BMP"
