@@ -12,6 +12,8 @@ import ShareIcon from '@mui/icons-material/Share';
 import common from '@site/src/css/common.module.css';
 import styles from '@site/src/css/benchmark.module.css';
 
+const BENCHMARK_VERSION = '1.0.0';
+
 // ============================================================
 // Worker Logic (Blob URL approach)
 // ============================================================
@@ -403,7 +405,10 @@ function PageHeader() {
       </div>
       <div className={common.pageHeaderContent}>
         <span className={styles.pageHeaderIcon}>🚀</span>
-        <h1 className={styles.pageHeaderTitle}>{translate({ id: 'benchmark.header.title', message: 'Web快適度測定' })}</h1>
+        <h1 className={styles.pageHeaderTitle}>
+          {translate({ id: 'benchmark.header.title', message: 'Web快適度測定' })}
+          <span style={{ fontSize: '0.5em', marginLeft: '10px', color: 'var(--ifm-color-emphasis-500)', verticalAlign: 'middle', fontWeight: 'normal' }}>v{BENCHMARK_VERSION}</span>
+        </h1>
         <p className={common.pageHeaderDesc}>
           {translate({ id: 'benchmark.header.desc', message: 'お使いのブラウザ・デバイスの演算性能を測定し、スコアとランクで評価します。' })}
         </p>
@@ -512,7 +517,13 @@ export default function Benchmark(): JSX.Element {
     ctx.font = 'bold 32px sans-serif';
     ctx.fillText('sawara.me', 60, 70);
     ctx.font = 'bold 56px sans-serif';
-    ctx.fillText(translate({ id: 'benchmark.canvas.title', message: 'Web快適度測定結果' }), 60, 140);
+    const titleText = translate({ id: 'benchmark.canvas.title', message: 'Web快適度測定結果' });
+    ctx.fillText(titleText, 60, 140);
+
+    // Version Info
+    ctx.fillStyle = '#aaa';
+    ctx.font = 'bold 24px sans-serif';
+    ctx.fillText(`v${BENCHMARK_VERSION}`, 60, 180);
 
     // Browser Info
     ctx.fillStyle = 'rgba(255,255,255,0.5)';
