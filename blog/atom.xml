@@ -65,7 +65,7 @@
 <p>数分待つと、上部に表示されているURLから公開されたサイトにアクセスできるようになります。</p>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="おわりに">おわりに<a href="https://sawara.me/blog/docusaurus-github-pages#%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB" class="hash-link" aria-label="おわりに への直接リンク" title="おわりに への直接リンク" translate="no">​</a></h3>
-<p>DocusaurusとGitHub Pagesを組み合わせることで、非常に手軽に、かつ高機能なドキュメントサイトやブログを公開することができました。</p>
+<p>DocusaurusとGitHub Pagesを組み合わせることで、非常に手軽に、かつ高機能なドキュメントサイトやブログを公開することができます。</p>
 <p>Markdownを書くだけでどんどんコンテンツを増やしていけるので、技術的な備忘録やプロジェクトの紹介にぜひ活用してみてください。</p>]]></content>
         <category label="GitHub" term="GitHub"/>
         <category label="Docusaurus" term="Docusaurus"/>
