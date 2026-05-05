@@ -23,11 +23,15 @@ import {
   Checkbox,
   Divider,
   CardActionArea,
+  Dialog,
+  IconButton,
 } from '@mui/material';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ZoomInIcon from '@mui/icons-material/ZoomIn';
+import CloseIcon from '@mui/icons-material/Close';
 import common from '@site/src/css/common.module.css';
 import JSZip from 'jszip';
 import * as pdfjs from 'pdfjs-dist';
@@ -97,6 +101,7 @@ export default function PdfToImg(): JSX.Element {
     maxWidth: undefined as number | undefined,
   });
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' });
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const generateThumbnails = async (pdfDoc: pdfjs.PDFDocumentProxy) => {
@@ -106,7 +111,7 @@ export default function PdfToImg(): JSX.Element {
     try {
       for (let i = 1; i <= pdfDoc.numPages; i++) {
         const page = await pdfDoc.getPage(i);
-        const viewport = page.getViewport({ scale: 0.3 }); // Small scale for thumbnails
+        const viewport = page.getViewport({ scale: 1.0 }); // Scale 1.0 for better quality in modal
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         if (ctx) {
@@ -317,6 +322,8 @@ export default function PdfToImg(): JSX.Element {
                 </Card>
               )}
 
+
+
               {/* 2. Settings & Page Selection */}
               {file && (
                 <>
@@ -420,6 +427,25 @@ export default function PdfToImg(): JSX.Element {
                                     }}>
                                       {page}P
                                     </Box>
+                                    <IconButton
+                                      size="small"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        setPreviewImage(thumbnails[idx]);
+                                      }}
+                                      sx={{
+                                        position: 'absolute',
+                                        bottom: 4,
+                                        right: 4,
+                                        bgcolor: 'rgba(255,255,255,0.8)',
+                                        color: 'primary.main',
+                                        zIndex: 2,
+                                        '&:hover': { bgcolor: 'white' },
+                                        boxShadow: 1
+                                      }}
+                                    >
+                                      <ZoomInIcon fontSize="small" />
+                                    </IconButton>
                                     {isSelected && (
                                       <Box sx={{ position: 'absolute', top: 4, right: 4, color: 'primary.main', zIndex: 1, bgcolor: 'white', borderRadius: '50%', display: 'flex' }}>
                                         <CheckCircleIcon fontSize="small" />
@@ -449,6 +475,33 @@ export default function PdfToImg(): JSX.Element {
                   </Button>
                 </>
               )}
+
+              {/* 使い方の説明 */}
+              <div className={common.card}>
+                <h2 className={common.cardTitle}>
+                  <span className={common.cardTitleIcon}>
+                    <PictureAsPdfIcon sx={{ fontSize: '1.1rem', verticalAlign: 'middle' }} />
+                  </span>
+                  {translate({ id: 'pdf2img.guide.title', message: '使い方' })}
+                </h2>
+                <ol style={{ margin: 0, paddingLeft: '1.25rem', lineHeight: 2, color: 'var(--ifm-color-emphasis-700)', fontSize: '0.92rem' }}>
+                  <li>{translate({ id: 'pdf2img.guide.step1', message: '変換したいPDFファイルを選択またはドラッグ＆ドロップでアップロードします。' })}</li>
+                  <li>{translate({ id: 'pdf2img.guide.step2', message: '出力フォーマット（PNG / JPEG / WebP）と最大横幅を設定します。' })}</li>
+                  <li>{translate({ id: 'pdf2img.guide.step3', message: '画像として保存したいページを選択します（複数選択可能）。' })}</li>
+                  <li>{translate({ id: 'pdf2img.guide.step4', message: '「画像をダウンロード」ボタンを押すと、画像ファイル（複数の場合はZIP形式）がダウンロードされます。' })}</li>
+                </ol>
+                <div style={{
+                  marginTop: '1.25rem',
+                  padding: '0.75rem 1rem',
+                  borderRadius: '8px',
+                  background: 'rgba(255, 126, 179, 0.08)',
+                  border: '1px solid rgba(255, 126, 179, 0.2)',
+                  fontSize: '0.85rem',
+                  color: 'var(--ifm-color-emphasis-700)',
+                }}>
+                  {translate({ id: 'pdf2img.guide.security', message: '🔒 アップロードしたPDFファイルはサーバーに送信されません。すべての処理はブラウザ内で完結するため、機密情報を含む文書でも安全にご利用いただけます。' })}
+                </div>
+              </div>
             </Stack>
           </div>
         </div>
@@ -456,6 +509,26 @@ export default function PdfToImg(): JSX.Element {
         <Snackbar open={snackbar.open} autoHideDuration={4000} onClose={() => setSnackbar({ ...snackbar, open: false })} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
           <Alert severity={snackbar.severity} variant="filled" sx={{ borderRadius: '8px' }}>{snackbar.message}</Alert>
         </Snackbar>
+
+        <Dialog 
+          open={!!previewImage} 
+          onClose={() => setPreviewImage(null)} 
+          maxWidth="xl" 
+          fullWidth
+          PaperProps={{ sx: { m: { xs: 1, sm: 2 }, height: 'calc(100% - 32px)', maxHeight: 'none', borderRadius: '12px', overflow: 'hidden' } }}
+        >
+          <Box sx={{ position: 'relative', bgcolor: '#f5f5f5', textAlign: 'center', p: 0, height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <IconButton 
+              onClick={() => setPreviewImage(null)} 
+              sx={{ position: 'absolute', top: 16, right: 16, color: 'text.secondary', bgcolor: 'rgba(255,255,255,0.8)', '&:hover': { bgcolor: 'white' }, zIndex: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
+            >
+              <CloseIcon />
+            </IconButton>
+            {previewImage && (
+              <img src={previewImage} alt="Preview" style={{ maxWidth: '100%', maxHeight: '100%', width: '100%', height: '100%', objectFit: 'contain', display: 'block', margin: '0 auto' }} />
+            )}
+          </Box>
+        </Dialog>
       </MuiTheme>
     </Layout>
   );

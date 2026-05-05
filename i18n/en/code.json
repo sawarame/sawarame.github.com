@@ -1088,6 +1088,24 @@
   "pdf2img.success": {
     "message": "Conversion complete."
   },
+  "pdf2img.guide.title": {
+    "message": "How to Use"
+  },
+  "pdf2img.guide.step1": {
+    "message": "Select or drag & drop the PDF file you want to convert."
+  },
+  "pdf2img.guide.step2": {
+    "message": "Set the output format (PNG / JPEG / WebP) and maximum width."
+  },
+  "pdf2img.guide.step3": {
+    "message": "Select the pages you want to save as images (multiple selections allowed)."
+  },
+  "pdf2img.guide.step4": {
+    "message": "Click the 'Download Images' button to download the images (as a ZIP file if multiple)."
+  },
+  "pdf2img.guide.security": {
+    "message": "🔒 Uploaded PDF files are not sent to any server. All processing is completed within your browser, making it safe even for documents containing sensitive information."
+  },
   "benchmark.header.title": {
     "message": "Web Performance Test"
   },
