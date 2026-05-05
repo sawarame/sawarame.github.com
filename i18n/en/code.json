@@ -1067,6 +1067,9 @@
   "pdf2img.pages.selectAll": {
     "message": "Select All"
   },
+  "pdf2img.pages.select": {
+    "message": "Select this page"
+  },
   "pdf2img.pages.deselectAll": {
     "message": "Deselect All"
   },

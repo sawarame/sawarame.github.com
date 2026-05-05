@@ -25,6 +25,7 @@ import {
   CardActionArea,
   Dialog,
   IconButton,
+  FormControlLabel,
 } from '@mui/material';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -32,6 +33,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import CloseIcon from '@mui/icons-material/Close';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import common from '@site/src/css/common.module.css';
 import JSZip from 'jszip';
 import * as pdfjs from 'pdfjs-dist';
@@ -101,7 +104,7 @@ export default function PdfToImg(): JSX.Element {
     maxWidth: undefined as number | undefined,
   });
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' });
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [previewIndex, setPreviewIndex] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const generateThumbnails = async (pdfDoc: pdfjs.PDFDocumentProxy) => {
@@ -431,7 +434,7 @@ export default function PdfToImg(): JSX.Element {
                                       size="small"
                                       onClick={(e) => {
                                         e.stopPropagation();
-                                        setPreviewImage(thumbnails[idx]);
+                                        setPreviewIndex(idx);
                                       }}
                                       sx={{
                                         position: 'absolute',
@@ -511,21 +514,56 @@ export default function PdfToImg(): JSX.Element {
         </Snackbar>
 
         <Dialog 
-          open={!!previewImage} 
-          onClose={() => setPreviewImage(null)} 
+          open={previewIndex !== null} 
+          onClose={() => setPreviewIndex(null)} 
           maxWidth="xl" 
           fullWidth
           PaperProps={{ sx: { m: { xs: 1, sm: 2 }, height: 'calc(100% - 32px)', maxHeight: 'none', borderRadius: '12px', overflow: 'hidden' } }}
         >
           <Box sx={{ position: 'relative', bgcolor: '#f5f5f5', textAlign: 'center', p: 0, height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <IconButton 
-              onClick={() => setPreviewImage(null)} 
+              onClick={() => setPreviewIndex(null)} 
               sx={{ position: 'absolute', top: 16, right: 16, color: 'text.secondary', bgcolor: 'rgba(255,255,255,0.8)', '&:hover': { bgcolor: 'white' }, zIndex: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
             >
               <CloseIcon />
             </IconButton>
-            {previewImage && (
-              <img src={previewImage} alt="Preview" style={{ maxWidth: '100%', maxHeight: '100%', width: '100%', height: '100%', objectFit: 'contain', display: 'block', margin: '0 auto' }} />
+            
+            {previewIndex !== null && thumbnails[previewIndex] && (
+              <>
+                <Box sx={{ position: 'absolute', top: 16, left: 16, zIndex: 10, bgcolor: 'rgba(255,255,255,0.9)', borderRadius: '8px', px: 2, py: 0.5, boxShadow: '0 2px 8px rgba(0,0,0,0.1)', display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>{previewIndex + 1} / {totalPages}</Typography>
+                  <FormControlLabel
+                    control={
+                      <Checkbox 
+                        checked={selectedPages.includes(previewIndex + 1)}
+                        onChange={() => handlePageToggle(previewIndex + 1)}
+                        color="primary"
+                        size="small"
+                      />
+                    }
+                    label={<Typography variant="body2" sx={{ fontWeight: 600 }}>{translate({ id: 'pdf2img.pages.select', message: '選択する' })}</Typography>}
+                    sx={{ m: 0, ml: 1 }}
+                  />
+                </Box>
+
+                <IconButton
+                  onClick={() => setPreviewIndex(prev => prev !== null && prev > 0 ? prev - 1 : prev)}
+                  disabled={previewIndex === 0}
+                  sx={{ position: 'absolute', left: 16, color: 'text.primary', bgcolor: 'rgba(255,255,255,0.8)', '&:hover': { bgcolor: 'white' }, zIndex: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.1)', '&.Mui-disabled': { bgcolor: 'rgba(255,255,255,0.4)' } }}
+                >
+                  <ArrowBackIosNewIcon />
+                </IconButton>
+
+                <img src={thumbnails[previewIndex]} alt={`Preview Page ${previewIndex + 1}`} style={{ maxWidth: '100%', maxHeight: '100%', width: '100%', height: '100%', objectFit: 'contain', display: 'block', margin: '0 auto' }} />
+
+                <IconButton
+                  onClick={() => setPreviewIndex(prev => prev !== null && prev < totalPages - 1 ? prev + 1 : prev)}
+                  disabled={previewIndex === totalPages - 1}
+                  sx={{ position: 'absolute', right: 16, color: 'text.primary', bgcolor: 'rgba(255,255,255,0.8)', '&:hover': { bgcolor: 'white' }, zIndex: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.1)', '&.Mui-disabled': { bgcolor: 'rgba(255,255,255,0.4)' } }}
+                >
+                  <ArrowForwardIosIcon />
+                </IconButton>
+              </>
             )}
           </Box>
         </Dialog>
