@@ -88,9 +88,9 @@
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="web快適度測定の基本仕様">Web快適度測定の基本仕様<a href="https://sawara.me/en/blog/benchmark/20260501#web%E5%BF%AB%E9%81%A9%E5%BA%A6%E6%B8%AC%E5%AE%9A%E3%81%AE%E5%9F%BA%E6%9C%AC%E4%BB%95%E6%A7%98" class="hash-link" aria-label="Direct link to Web快適度測定の基本仕様" title="Direct link to Web快適度測定の基本仕様" translate="no">​</a></h3>
 <p>このツールは、大きく分けて2つの測定を行います。</p>
 <ol>
-<li class=""><strong>演算性能の測定（スコア化）</strong>:<br>
+<li class=""><strong>演算性能の測定（スコア化）</strong><br>
 <!-- -->端末のCPUパワーを測定し、シングルコア・マルチコアそれぞれのスコアとランク（S〜F）を出します。</li>
-<li class=""><strong>ブラウザ機能サポート状況</strong>:<br>
+<li class=""><strong>ブラウザ機能サポート状況</strong><br>
 <!-- -->最新のWeb API（WebGPU, Passkeys, WebP等）がそのブラウザで使えるかをチェックします。</li>
 </ol>
 <p>スコアとサポート状況は計測後、画面に表示されます。</p>
