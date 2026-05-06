@@ -260,6 +260,7 @@ function UsageGuide() {
         <li>{translate({ id: 'password.guide.step1', message: 'パスワードの長さや使用する文字の種類（記号、大文字、小文字など）を指定します。' })}</li>
         <li>{translate({ id: 'password.guide.step2', message: '設定を変更すると、自動的に新しいパスワードが生成されます。' })}</li>
         <li>{translate({ id: 'password.guide.step3', message: '「コピー」ボタンで個別にコピーするか、「保存」ボタンで生成されたリストをテキストファイルとしてダウンロードできます。' })}</li>
+        <li>{translate({ id: 'password.guide.step4', message: '現在の設定はURLに即座に反映されますので、ブックマークしておくことで次回以降も同じ条件でパスワードを素早く生成できます。' })}</li>
       </ol>
       <div className={common.securityBox}>
         {translate({ id: 'password.guide.security', message: '🔒 生成処理はすべてご利用のブラウザ内で行われます。パスワードや設定内容がサーバーに送信されることはありません。' })}
