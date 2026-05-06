@@ -1495,5 +1495,47 @@
   },
   "benchmark.share.alert": {
     "message": "Result image copied to clipboard!\nPlease paste and post it on X (Twitter) or other apps."
+  },
+  "home.tools.roulette.title": {
+    "message": "Roulette Maker"
+  },
+  "home.tools.roulette.desc": {
+    "message": "Easily draw from an entered list. Features include removing drawn items and saving history."
+  },
+  "roulette.header.title": {
+    "message": "Roulette Maker"
+  },
+  "roulette.header.desc": {
+    "message": "A browser-based roulette maker for easily drawing items from a list."
+  },
+  "roulette.display.ready": {
+    "message": "Ready"
+  },
+  "roulette.action.start": {
+    "message": "Start Draw"
+  },
+  "roulette.input.title": {
+    "message": "Item List"
+  },
+  "roulette.action.import": {
+    "message": "Import"
+  },
+  "roulette.action.export": {
+    "message": "Export"
+  },
+  "roulette.input.placeholder": {
+    "message": "Enter items separated by newlines"
+  },
+  "roulette.settings.remove": {
+    "message": "Remove drawn items from list"
+  },
+  "roulette.history.title": {
+    "message": "Draw History"
+  },
+  "roulette.action.clearHistory": {
+    "message": "Clear History"
+  },
+  "roulette.history.empty": {
+    "message": "No history yet"
   }
 }

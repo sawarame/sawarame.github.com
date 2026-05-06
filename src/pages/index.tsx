@@ -100,6 +100,15 @@ const tools = [
     gradient: 'linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%)',
   },
   {
+    icon: '🎯',
+    titleId: 'home.tools.roulette.title',
+    title: 'ルーレットメーカー',
+    descriptionId: 'home.tools.roulette.desc',
+    description: '入力したリストからサクッと抽選ができます。一度出た項目を除外する機能や、履歴の保存機能も備えています。',
+    link: '/roulette',
+    gradient: 'linear-gradient(135deg, #ff0844 0%, #ffb199 100%)',
+  },
+  {
     icon: <BenchmarkSvg role="img" aria-label="Web快適度測定" style={{ width: '36px', height: '36px' }} />,
     titleId: 'home.tools.benchmark.title',
     title: 'Web快適度測定',
