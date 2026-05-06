@@ -199,7 +199,7 @@ export default function Roulette(): JSX.Element {
         <PageHeader />
         <div className={common.body}>
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-            <Paper elevation={3} sx={{ p: 4, mb: 4, textAlign: 'center', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: isDrawing ? '#f5f5f5' : '#fff', borderRadius: '16px', border: '1px solid var(--ifm-color-emphasis-200)' }}>
+            <Paper elevation={3} sx={{ p: 4, mb: 4, textAlign: 'center', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: isDrawing ? 'action.hover' : 'background.paper', borderRadius: '16px', border: '1px solid var(--ifm-color-emphasis-200)' }}>
               {currentDraw ? (
                 <Typography variant="h2" component="div" fontWeight="bold" color={isDrawing ? 'text.secondary' : 'primary'} sx={{ wordBreak: 'break-word' }}>
                   {currentDraw}
