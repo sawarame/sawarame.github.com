@@ -11,6 +11,7 @@ import XIcon from '@mui/icons-material/X';
 import ShareIcon from '@mui/icons-material/Share';
 import common from '@site/src/css/common.module.css';
 import styles from '@site/src/css/benchmark.module.css';
+import BenchmarkSvg from '@site/src/icons/benchmark.svg';
 
 const BENCHMARK_VERSION = '1.0.0';
 
@@ -404,7 +405,7 @@ function PageHeader() {
         <div className={styles.pageHeaderOrb2} />
       </div>
       <div className={common.pageHeaderContent}>
-        <img src="/icons/benchmark.svg" alt="Web快適度測定" className={styles.pageHeaderIcon} style={{ width: '48px', height: '48px', verticalAlign: 'middle' }} />
+        <BenchmarkSvg role="img" aria-label="Web快適度測定" className={styles.pageHeaderIcon} style={{ width: '48px', height: '48px', verticalAlign: 'middle' }} />
         <h1 className={styles.pageHeaderTitle}>
           {translate({ id: 'benchmark.header.title', message: 'Web快適度測定' })}
           <span style={{ fontSize: '0.5em', marginLeft: '10px', color: 'var(--ifm-color-emphasis-500)', verticalAlign: 'middle', fontWeight: 'normal' }}>v{BENCHMARK_VERSION}</span>

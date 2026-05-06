@@ -8,6 +8,7 @@ import styles from '../css/index.module.css';
 import EnvIconPng from '@site/src/icons/EnvIcon.png';
 import GeminiSparkPng from '@site/src/icons/gemini-spark.png';
 import MdPickerPng from '@site/src/icons/MdPicker.png';
+import BenchmarkSvg from '@site/src/icons/benchmark.svg';
 
 // ============================================================
 // Data
@@ -99,7 +100,7 @@ const tools = [
     gradient: 'linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%)',
   },
   {
-    icon: <img src="/icons/benchmark.svg" alt="Web快適度測定" style={{ width: '36px', height: '36px' }} />,
+    icon: <BenchmarkSvg role="img" aria-label="Web快適度測定" style={{ width: '36px', height: '36px' }} />,
     titleId: 'home.tools.benchmark.title',
     title: 'Web快適度測定',
     descriptionId: 'home.tools.benchmark.desc',
