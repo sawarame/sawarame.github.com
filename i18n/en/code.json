@@ -1041,7 +1041,7 @@
     "message": "Select PDF"
   },
   "pdf2img.upload.dropLabel": {
-    "message": "Click or drag & drop to select a PDF"
+    "message": "Click, drag & drop, or paste (ctrl+v) to select a PDF"
   },
   "pdf2img.action.change": {
     "message": "Change"
@@ -1095,7 +1095,7 @@
     "message": "How to Use"
   },
   "pdf2img.guide.step1": {
-    "message": "Select or drag & drop the PDF file you want to convert."
+    "message": "Select, drag & drop, or paste from clipboard to add the PDF file you want to convert."
   },
   "pdf2img.guide.step2": {
     "message": "Set the output format (PNG / JPEG / WebP) and maximum width."

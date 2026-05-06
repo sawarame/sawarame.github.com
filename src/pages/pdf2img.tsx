@@ -144,7 +144,7 @@ export default function PdfToImg(): JSX.Element {
     }
   };
 
-  const handleFileSelect = async (files: FileList | null) => {
+  const handleFileSelect = async (files: File[] | FileList | null) => {
     if (!files || files.length === 0) return;
     
     const newPdfs: SelectedPdf[] = [];
@@ -188,6 +188,30 @@ export default function PdfToImg(): JSX.Element {
       setActiveFileId(newPdfs[0].id);
     }
   };
+
+  useEffect(() => {
+    const handlePaste = (event: ClipboardEvent) => {
+      const items = event.clipboardData?.items;
+      if (!items) return;
+
+      const pdfFiles: File[] = [];
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].kind === 'file') {
+          const file = items[i].getAsFile();
+          if (file && file.type === 'application/pdf') {
+            pdfFiles.push(file);
+          }
+        }
+      }
+
+      if (pdfFiles.length > 0) {
+        handleFileSelect(pdfFiles);
+      }
+    };
+
+    window.addEventListener('paste', handlePaste);
+    return () => window.removeEventListener('paste', handlePaste);
+  }, []);
 
   const handlePageToggle = (fileId: string, page: number) => {
     setPdfFiles(prev => prev.map(f => {
@@ -340,7 +364,7 @@ export default function PdfToImg(): JSX.Element {
                 >
                   <PictureAsPdfIcon sx={{ fontSize: 48, color: 'var(--ifm-color-emphasis-500)', marginBottom: '1rem' }} />
                   <p style={{ margin: 0, fontWeight: 600, color: 'var(--ifm-color-emphasis-800)' }}>
-                    {translate({ id: 'pdf2img.upload.dropLabel', message: 'クリックまたはドラッグ＆ドロップでPDFを追加' })}
+                    {translate({ id: 'pdf2img.upload.dropLabel', message: 'クリック、ドラッグ＆ドロップ、または貼り付け(ctrl+v)でPDFを追加' })}
                   </p>
                   <input
                     type="file"
@@ -567,7 +591,7 @@ export default function PdfToImg(): JSX.Element {
                   {translate({ id: 'pdf2img.guide.title', message: '使い方' })}
                 </h2>
                 <ol className={common.guideList}>
-                  <li>{translate({ id: 'pdf2img.guide.step1', message: '変換したいPDFファイルを選択またはドラッグ＆ドロップで追加します。複数追加可能です。' })}</li>
+                  <li>{translate({ id: 'pdf2img.guide.step1', message: '変換したいPDFファイルを選択、ドラッグ＆ドロップ、またはクリップボードから貼り付けて追加します。複数追加可能です。' })}</li>
                   <li>{translate({ id: 'pdf2img.guide.step2', message: '出力フォーマットと最大横幅を設定します（すべてのファイルに適用されます）。' })}</li>
                   <li>{translate({ id: 'pdf2img.guide.step3', message: 'リストからファイルを選択し、画像化したいページを選びます。デフォルトでは全ページが選択されています。' })}</li>
                   <li>{translate({ id: 'pdf2img.guide.step4', message: '「変換してダウンロード」ボタンを押すと、すべての選択済みページが画像化され、ZIP形式でまとめて保存されます。' })}</li>
