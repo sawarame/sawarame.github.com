@@ -227,10 +227,22 @@ export default function Roulette(): JSX.Element {
 
             <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 4 }}>
               <Paper elevation={0} sx={{ p: 3, borderRadius: '12px', border: '1px solid var(--ifm-color-emphasis-200)', bgcolor: 'rgba(0,0,0,0.01)' }}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     <Translate id="roulette.input.title">項目リスト</Translate> ({items.length})
                   </Typography>
+                </Box>
+                <Box sx={{ mb: 1 }}>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={removeAfterDraw}
+                        onChange={(e) => setRemoveAfterDraw(e.target.checked)}
+                        disabled={isDrawing}
+                      />
+                    }
+                    label={<Typography variant="body2" sx={{ fontWeight: 600 }}>{translate({ id: 'roulette.settings.remove', message: '一度出た項目をリストから除外する' })}</Typography>}
+                  />
                 </Box>
                 <TextField
                   multiline
@@ -243,7 +255,7 @@ export default function Roulette(): JSX.Element {
                   disabled={isDrawing}
                   sx={{ bgcolor: 'var(--ifm-background-color)', mb: 2 }}
                 />
-                <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+                <Box sx={{ display: 'flex', gap: 2 }}>
                   <input
                     accept=".txt"
                     style={{ display: 'none' }}
@@ -259,18 +271,6 @@ export default function Roulette(): JSX.Element {
                   <Button variant="outlined" fullWidth sx={{ flex: 1 }} onClick={handleExport} disabled={items.length === 0} startIcon={<FileDownloadIcon />}>
                     <Translate id="roulette.action.export">エクスポート</Translate>
                   </Button>
-                </Box>
-                <Box sx={{ mt: 2 }}>
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={removeAfterDraw}
-                        onChange={(e) => setRemoveAfterDraw(e.target.checked)}
-                        disabled={isDrawing}
-                      />
-                    }
-                    label={<Typography variant="body2" sx={{ fontWeight: 600 }}>{translate({ id: 'roulette.settings.remove', message: '一度出た項目をリストから除外する' })}</Typography>}
-                  />
                 </Box>
               </Paper>
 
