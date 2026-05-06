@@ -550,7 +550,7 @@ export default function PdfToImg(): JSX.Element {
                                     elevation={isSelected ? 4 : 1}
                                   >
                                     <CardActionArea onClick={() => handlePageToggle(activePdf.id, page)}>
-                                      <Box sx={{ position: 'relative', pt: '141%', bgcolor: '#f5f5f5' }}>
+                                      <Box sx={{ position: 'relative', pt: '141%', bgcolor: 'action.hover' }}>
                                         {activePdf.thumbnails[idx] ? (
                                           <img 
                                             src={activePdf.thumbnails[idx]} 
@@ -585,17 +585,18 @@ export default function PdfToImg(): JSX.Element {
                                             position: 'absolute',
                                             bottom: 4,
                                             right: 4,
-                                            bgcolor: 'rgba(255,255,255,0.8)',
+                                            bgcolor: 'background.paper',
                                             color: 'primary.main',
                                             zIndex: 2,
-                                            '&:hover': { bgcolor: 'white' },
-                                            boxShadow: 1
+                                            '&:hover': { bgcolor: 'action.selected' },
+                                            boxShadow: 1,
+                                            opacity: 0.9
                                           }}
                                         >
                                           <ZoomInIcon fontSize="small" />
                                         </IconButton>
                                         {isSelected && (
-                                          <Box sx={{ position: 'absolute', top: 4, right: 4, color: 'primary.main', zIndex: 1, bgcolor: 'white', borderRadius: '50%', display: 'flex' }}>
+                                          <Box sx={{ position: 'absolute', top: 4, right: 4, color: 'primary.main', zIndex: 1, bgcolor: 'background.paper', borderRadius: '50%', display: 'flex' }}>
                                             <CheckCircleIcon fontSize="small" />
                                           </Box>
                                         )}
@@ -672,10 +673,10 @@ export default function PdfToImg(): JSX.Element {
           fullWidth
           PaperProps={{ sx: { m: { xs: 1, sm: 2 }, height: 'calc(100% - 32px)', maxHeight: 'none', borderRadius: '12px', overflow: 'hidden' } }}
         >
-          <Box sx={{ position: 'relative', bgcolor: '#f5f5f5', textAlign: 'center', p: 0, height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Box sx={{ position: 'relative', bgcolor: 'background.default', textAlign: 'center', p: 0, height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <IconButton 
               onClick={() => setPreviewIndex(null)} 
-              sx={{ position: 'absolute', top: 16, right: 16, color: 'text.secondary', bgcolor: 'rgba(255,255,255,0.8)', '&:hover': { bgcolor: 'white' }, zIndex: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
+              sx={{ position: 'absolute', top: 16, right: 16, color: 'text.secondary', bgcolor: 'background.paper', '&:hover': { bgcolor: 'action.hover' }, zIndex: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.1)', opacity: 0.9 }}
             >
               <CloseIcon />
             </IconButton>
@@ -687,7 +688,7 @@ export default function PdfToImg(): JSX.Element {
                 const pageNum = previewIndex.pageIdx + 1;
                 return (
                   <>
-                    <Box sx={{ position: 'absolute', top: 16, left: 16, zIndex: 10, bgcolor: 'rgba(255,255,255,0.9)', borderRadius: '8px', px: 2, py: 0.5, boxShadow: '0 2px 8px rgba(0,0,0,0.1)', display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Box sx={{ position: 'absolute', top: 16, left: 16, zIndex: 10, bgcolor: 'background.paper', borderRadius: '8px', px: 2, py: 0.5, boxShadow: '0 2px 8px rgba(0,0,0,0.1)', display: 'flex', alignItems: 'center', gap: 1, opacity: 0.9 }}>
                       <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>{pageNum} / {targetFile.totalPages}</Typography>
                       <FormControlLabel
                         control={
@@ -706,7 +707,7 @@ export default function PdfToImg(): JSX.Element {
                     <IconButton
                       onClick={() => setPreviewIndex({ ...previewIndex, pageIdx: previewIndex.pageIdx - 1 })}
                       disabled={previewIndex.pageIdx === 0}
-                      sx={{ position: 'absolute', left: 16, color: 'text.primary', bgcolor: 'rgba(255,255,255,0.8)', '&:hover': { bgcolor: 'white' }, zIndex: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.1)', '&.Mui-disabled': { bgcolor: 'rgba(255,255,255,0.4)' } }}
+                      sx={{ position: 'absolute', left: 16, color: 'text.primary', bgcolor: 'background.paper', '&:hover': { bgcolor: 'action.hover' }, zIndex: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.1)', '&.Mui-disabled': { bgcolor: 'action.disabledBackground' }, opacity: 0.9 }}
                     >
                       <ArrowBackIosNewIcon />
                     </IconButton>
@@ -716,7 +717,7 @@ export default function PdfToImg(): JSX.Element {
                     <IconButton
                       onClick={() => setPreviewIndex({ ...previewIndex, pageIdx: previewIndex.pageIdx + 1 })}
                       disabled={previewIndex.pageIdx === targetFile.totalPages - 1}
-                      sx={{ position: 'absolute', right: 16, color: 'text.primary', bgcolor: 'rgba(255,255,255,0.8)', '&:hover': { bgcolor: 'white' }, zIndex: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.1)', '&.Mui-disabled': { bgcolor: 'rgba(255,255,255,0.4)' } }}
+                      sx={{ position: 'absolute', right: 16, color: 'text.primary', bgcolor: 'background.paper', '&:hover': { bgcolor: 'action.hover' }, zIndex: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.1)', '&.Mui-disabled': { bgcolor: 'action.disabledBackground' }, opacity: 0.9 }}
                     >
                       <ArrowForwardIosIcon />
                     </IconButton>
