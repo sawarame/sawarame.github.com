@@ -39,8 +39,10 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import common from '@site/src/css/common.module.css';
 import JSZip from 'jszip';
 import * as pdfjs from 'pdfjs-dist';
+import { PDFDocument } from 'pdf-lib';
 
 // pdfjs worker setup
+
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 // --- Utils ---
@@ -52,7 +54,7 @@ const FORMATS = [
 ];
 
 const WIDTH_PRESETS = [
-  { label: translate({ id: 'pdf2img.pages.noLimit', message: '制限なし' }), value: undefined },
+  { label: translate({ id: 'pdfEditor.pages.noLimit', message: '制限なし' }), value: undefined },
   { label: '2560px (2K)', value: 2560 },
   { label: '1920px (Full HD)', value: 1920 },
   { label: '1280px (HD)', value: 1280 },
@@ -89,9 +91,9 @@ function PageHeader() {
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text'
-        }}>{translate({ id: 'pdf2img.header.title', message: 'PDF画像変換ツール' })}</h1>
+        }}>{translate({ id: 'pdfEditor.header.title', message: 'PDF変換・編集ツール' })}</h1>
         <p className={common.pageHeaderDesc}>
-          {translate({ id: 'pdf2img.header.desc', message: 'PDFファイルを1ページずつ画像（PNG, JPEG, WebP）に変換します。ブラウザ内ですべての処理を行うため、ファイルがサーバーに送信されることはありません。' })}
+          {translate({ id: 'pdfEditor.header.desc', message: 'PDFファイルを画像（PNG, JPEG, WebP）に変換したり、必要なページだけを抽出・結合して新しいPDFを作成できます。ブラウザ内ですべての処理を行うため、ファイルがサーバーに送信されることはありません。' })}
         </p>
       </div>
     </div>
@@ -152,7 +154,7 @@ export default function PdfToImg(): JSX.Element {
     for (let i = 0; i < files.length; i++) {
       const selectedFile = files[i];
       if (selectedFile.type !== 'application/pdf') {
-        setSnackbar({ open: true, message: `${selectedFile.name}: ${translate({ id: 'pdf2img.error.notPdf', message: 'PDFファイルを選択してください。' })}`, severity: 'error' });
+        setSnackbar({ open: true, message: `${selectedFile.name}: ${translate({ id: 'pdfEditor.error.notPdf', message: 'PDFファイルを選択してください。' })}`, severity: 'error' });
         continue;
       }
 
@@ -179,7 +181,7 @@ export default function PdfToImg(): JSX.Element {
         generateThumbnails(id, loadedPdf);
       } catch (error) {
         console.error('Error loading PDF:', error);
-        setSnackbar({ open: true, message: translate({ id: 'pdf2img.error.load', message: 'PDFの読み込みに失敗しました。' }), severity: 'error' });
+        setSnackbar({ open: true, message: translate({ id: 'pdfEditor.error.load', message: 'PDFの読み込みに失敗しました。' }), severity: 'error' });
       }
     }
 
@@ -310,17 +312,59 @@ export default function PdfToImg(): JSX.Element {
         URL.revokeObjectURL(url);
       }
 
-      setSnackbar({ open: true, message: translate({ id: 'pdf2img.success', message: '変換が完了しました。' }), severity: 'success' });
+      setSnackbar({ open: true, message: translate({ id: 'pdfEditor.success', message: '変換が完了しました。' }), severity: 'success' });
     } catch (error) {
       console.error('Conversion error:', error);
-      setSnackbar({ open: true, message: translate({ id: 'pdf2img.error.convert', message: '変換中にエラーが発生しました。' }), severity: 'error' });
+      setSnackbar({ open: true, message: translate({ id: 'pdfEditor.error.convert', message: '変換中にエラーが発生しました。' }), severity: 'error' });
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const exportAsPdf = async () => {
+    if (pdfFiles.length === 0) return;
+    const totalSelected = pdfFiles.reduce((acc, f) => acc + f.selectedPages.length, 0);
+    if (totalSelected === 0) return;
+
+    setIsProcessing(true);
+
+    try {
+      const mergedPdf = await PDFDocument.create();
+
+      for (const pdfFile of pdfFiles) {
+        const { file, selectedPages } = pdfFile;
+        const arrayBuffer = await file.arrayBuffer();
+        const doc = await PDFDocument.load(arrayBuffer);
+        
+        // PDFDocument uses 0-based indexing for pages
+        const indicesToExtract = selectedPages.map(p => p - 1);
+        const copiedPages = await mergedPdf.copyPages(doc, indicesToExtract);
+        
+        for (const copiedPage of copiedPages) {
+          mergedPdf.addPage(copiedPage);
+        }
+      }
+
+      const pdfBytes = await mergedPdf.save();
+      const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = pdfFiles.length === 1 ? `${pdfFiles[0].file.name.replace(/\.pdf$/i, '')}_extracted.pdf` : 'merged_extracted.pdf';
+      link.click();
+      URL.revokeObjectURL(url);
+
+      setSnackbar({ open: true, message: translate({ id: 'pdfEditor.successPdf', message: 'PDFの作成が完了しました。' }), severity: 'success' });
+    } catch (error) {
+      console.error('PDF generation error:', error);
+      setSnackbar({ open: true, message: translate({ id: 'pdfEditor.error.pdf', message: 'PDFの作成中にエラーが発生しました。' }), severity: 'error' });
     } finally {
       setIsProcessing(false);
     }
   };
 
   return (
-    <Layout title={`${translate({ id: 'pdf2img.header.title', message: 'PDF画像変換' })} | ${siteConfig.title}`}>
+    <Layout title={`${translate({ id: 'pdfEditor.header.title', message: 'PDF変換・編集' })} | ${siteConfig.title}`}>
       <MuiTheme>
         <PageHeader />
         <div className={common.body}>
@@ -331,7 +375,7 @@ export default function PdfToImg(): JSX.Element {
               <div className={common.card}>
                 <h2 className={common.cardTitle}>
                   <span className={common.cardTitleIcon}>📁</span>
-                  {translate({ id: 'pdf2img.upload.title', message: 'PDFを選択' })}
+                  {translate({ id: 'pdfEditor.upload.title', message: 'PDFを選択' })}
                 </h2>
                 <Box
                   onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
@@ -364,7 +408,7 @@ export default function PdfToImg(): JSX.Element {
                 >
                   <PictureAsPdfIcon sx={{ fontSize: 48, color: 'var(--ifm-color-emphasis-500)', marginBottom: '1rem' }} />
                   <p style={{ margin: 0, fontWeight: 600, color: 'var(--ifm-color-emphasis-800)' }}>
-                    {translate({ id: 'pdf2img.upload.dropLabel', message: 'クリック、ドラッグ＆ドロップ、または貼り付け(ctrl+v)でPDFを追加' })}
+                    {translate({ id: 'pdfEditor.upload.dropLabel', message: 'クリック、ドラッグ＆ドロップ、または貼り付け(ctrl+v)でPDFを追加' })}
                   </p>
                   <input
                     type="file"
@@ -381,7 +425,7 @@ export default function PdfToImg(): JSX.Element {
               {pdfFiles.length > 0 && (
                 <Stack spacing={1}>
                   <Typography variant="subtitle2" sx={{ fontWeight: 800, color: 'text.secondary', px: 1 }}>
-                    {translate({ id: 'pdf2img.list.title', message: '選択中のファイル' })} ({pdfFiles.length})
+                    {translate({ id: 'pdfEditor.list.title', message: '選択中のファイル' })} ({pdfFiles.length})
                   </Typography>
                   {pdfFiles.map((pdfFile) => (
                     <Card 
@@ -403,11 +447,11 @@ export default function PdfToImg(): JSX.Element {
                           <Box sx={{ flexGrow: 1, minWidth: 0 }}>
                             <Typography variant="subtitle2" fontWeight={700} noWrap sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{pdfFile.file.name}</Typography>
                             <Typography variant="caption" color="text.secondary">
-                              {(pdfFile.file.size / 1024 / 1024).toFixed(2)} MB / {pdfFile.totalPages} {translate({ id: 'pdf2img.list.pages', message: 'ページ' })}
-                              {pdfFile.selectedPages.length !== pdfFile.totalPages && ` (${translate({ id: 'pdf2img.list.selected', message: '選択中' })}: ${pdfFile.selectedPages.length})`}
+                              {(pdfFile.file.size / 1024 / 1024).toFixed(2)} MB / {pdfFile.totalPages} {translate({ id: 'pdfEditor.list.pages', message: 'ページ' })}
+                              {pdfFile.selectedPages.length !== pdfFile.totalPages && ` (${translate({ id: 'pdfEditor.list.selected', message: '選択中' })}: ${pdfFile.selectedPages.length})`}
                             </Typography>
                           </Box>
-                          <Tooltip title={translate({ id: 'pdf2img.action.remove', message: '削除' })}>
+                          <Tooltip title={translate({ id: 'pdfEditor.action.remove', message: '削除' })}>
                             <IconButton 
                               size="small" 
                               color="error" 
@@ -428,14 +472,14 @@ export default function PdfToImg(): JSX.Element {
                 <>
                   <Card sx={{ borderRadius: '16px', border: '1px solid var(--ifm-color-emphasis-200)', bgcolor: 'rgba(0,0,0,0.01)' }} elevation={0}>
                     <CardContent sx={{ p: 3 }}>
-                      <Typography variant="h6" gutterBottom sx={{ fontWeight: 800 }}>⚙️ {translate({ id: 'pdf2img.settings.title', message: '変換設定' })}</Typography>
+                      <Typography variant="h6" gutterBottom sx={{ fontWeight: 800 }}>⚙️ {translate({ id: 'pdfEditor.settings.title', message: '変換設定' })}</Typography>
                       <Grid2 container spacing={3} sx={{ mt: 1 }}>
                         <Grid2 size={{ xs: 12, sm: 6 }}>
                           <FormControl fullWidth size="small">
-                            <InputLabel>{translate({ id: 'pdf2img.settings.format', message: '出力フォーマット' })}</InputLabel>
+                            <InputLabel>{translate({ id: 'pdfEditor.settings.format', message: '出力フォーマット' })}</InputLabel>
                             <Select 
                               value={settings.format} 
-                              label={translate({ id: 'pdf2img.settings.format', message: '出力フォーマット' })} 
+                              label={translate({ id: 'pdfEditor.settings.format', message: '出力フォーマット' })} 
                               onChange={(e) => setSettings({ ...settings, format: e.target.value })}
                             >
                               {FORMATS.map(f => (
@@ -463,7 +507,7 @@ export default function PdfToImg(): JSX.Element {
                               }
                             }}
                             renderInput={(params) => (
-                              <TextField {...params} label={translate({ id: 'pdf2img.settings.maxWidth', message: '最大横幅 (px)' })} placeholder={translate({ id: 'pdf2img.settings.maxWidthPlaceholder', message: '数値(px)を入力' })} />
+                              <TextField {...params} label={translate({ id: 'pdfEditor.settings.maxWidth', message: '最大横幅 (px)' })} placeholder={translate({ id: 'pdfEditor.settings.maxWidthPlaceholder', message: '数値(px)を入力' })} />
                             )}
                           />
                         </Grid2>
@@ -475,18 +519,18 @@ export default function PdfToImg(): JSX.Element {
                         <>
                           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                             <Box>
-                              <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>📄 {translate({ id: 'pdf2img.pages.title', message: 'ページ選択' })}: {activePdf.file.name}</Typography>
-                              <Typography variant="caption" color="text.secondary">({activePdf.selectedPages.length} / {activePdf.totalPages} {translate({ id: 'pdf2img.pages.unit', message: '枚を選択中' })})</Typography>
+                              <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>📄 {translate({ id: 'pdfEditor.pages.title', message: 'ページ選択' })}: {activePdf.file.name}</Typography>
+                              <Typography variant="caption" color="text.secondary">({activePdf.selectedPages.length} / {activePdf.totalPages} {translate({ id: 'pdfEditor.pages.unit', message: '枚を選択中' })})</Typography>
                             </Box>
                             <Button size="small" onClick={() => handleSelectAll(activePdf.id)}>
-                              {activePdf.selectedPages.length === activePdf.totalPages ? translate({ id: 'pdf2img.pages.deselectAll', message: '全解除' }) : translate({ id: 'pdf2img.pages.selectAll', message: '全選択' })}
+                              {activePdf.selectedPages.length === activePdf.totalPages ? translate({ id: 'pdfEditor.pages.deselectAll', message: '全解除' }) : translate({ id: 'pdfEditor.pages.selectAll', message: '全選択' })}
                             </Button>
                           </Box>
 
                           {activePdf.isGeneratingThumbnails && activePdf.thumbnails.length < activePdf.totalPages && (
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
                               <CircularProgress size={20} />
-                              <Typography variant="caption">{translate({ id: 'pdf2img.pages.generating', message: 'プレビューを生成中...' })} ({activePdf.thumbnails.length}/{activePdf.totalPages})</Typography>
+                              <Typography variant="caption">{translate({ id: 'pdfEditor.pages.generating', message: 'プレビューを生成中...' })} ({activePdf.thumbnails.length}/{activePdf.totalPages})</Typography>
                             </Box>
                           )}
 
@@ -568,17 +612,30 @@ export default function PdfToImg(): JSX.Element {
                   </Card>
 
                   {/* 3. Action Buttons */}
-                  <Button 
-                    variant="contained" 
-                    fullWidth 
-                    size="large" 
-                    onClick={convertAndDownload} 
-                    disabled={pdfFiles.every(f => f.selectedPages.length === 0) || isProcessing} 
-                    startIcon={!isProcessing && <DownloadIcon />}
-                    sx={{ borderRadius: '12px', py: 2, fontWeight: 800, fontSize: '1.1rem', boxShadow: '0 4px 14px 0 rgba(255,126,179,0.39)' }}
-                  >
-                    {isProcessing ? <CircularProgress size={28} color="inherit" /> : translate({ id: 'pdf2img.action.download', message: '選択したページをすべて変換してダウンロード' })}
-                  </Button>
+                  <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mt: 2 }}>
+                    <Button 
+                      variant="outlined" 
+                      fullWidth 
+                      size="large" 
+                      onClick={convertAndDownload} 
+                      disabled={pdfFiles.every(f => f.selectedPages.length === 0) || isProcessing} 
+                      startIcon={!isProcessing && <DownloadIcon />}
+                      sx={{ borderRadius: '12px', py: 2, fontWeight: 800, fontSize: '1.1rem' }}
+                    >
+                      {isProcessing ? <CircularProgress size={28} color="inherit" /> : translate({ id: 'pdfEditor.action.downloadImg', message: '画像としてダウンロード' })}
+                    </Button>
+                    <Button 
+                      variant="contained" 
+                      fullWidth 
+                      size="large" 
+                      onClick={exportAsPdf} 
+                      disabled={pdfFiles.every(f => f.selectedPages.length === 0) || isProcessing} 
+                      startIcon={!isProcessing && <PictureAsPdfIcon />}
+                      sx={{ borderRadius: '12px', py: 2, fontWeight: 800, fontSize: '1.1rem', boxShadow: '0 4px 14px 0 rgba(255,126,179,0.39)' }}
+                    >
+                      {isProcessing ? <CircularProgress size={28} color="inherit" /> : translate({ id: 'pdfEditor.action.downloadPdf', message: '新しいPDFとして保存' })}
+                    </Button>
+                  </Stack>
                 </>
               )}
 
@@ -588,16 +645,16 @@ export default function PdfToImg(): JSX.Element {
                   <span className={common.cardTitleIcon}>
                     <PictureAsPdfIcon sx={{ fontSize: '1.1rem', verticalAlign: 'middle' }} />
                   </span>
-                  {translate({ id: 'pdf2img.guide.title', message: '使い方' })}
+                  {translate({ id: 'pdfEditor.guide.title', message: '使い方' })}
                 </h2>
                 <ol className={common.guideList}>
-                  <li>{translate({ id: 'pdf2img.guide.step1', message: '変換したいPDFファイルを選択、ドラッグ＆ドロップ、またはクリップボードから貼り付けて追加します。複数追加可能です。' })}</li>
-                  <li>{translate({ id: 'pdf2img.guide.step2', message: '出力フォーマットと最大横幅を設定します（すべてのファイルに適用されます）。' })}</li>
-                  <li>{translate({ id: 'pdf2img.guide.step3', message: 'リストからファイルを選択し、画像化したいページを選びます。デフォルトでは全ページが選択されています。' })}</li>
-                  <li>{translate({ id: 'pdf2img.guide.step4', message: '「変換してダウンロード」ボタンを押すと、すべての選択済みページが画像化され、ZIP形式でまとめて保存されます。' })}</li>
+                  <li>{translate({ id: 'pdfEditor.guide.step1', message: '編集したいPDFファイルを選択、ドラッグ＆ドロップ、またはクリップボードから貼り付けて追加します。複数追加可能です。' })}</li>
+                  <li>{translate({ id: 'pdfEditor.guide.step2', message: '画像として書き出す場合は、出力フォーマットと最大横幅を設定します。' })}</li>
+                  <li>{translate({ id: 'pdfEditor.guide.step3', message: 'リストからファイルを選択し、抽出・画像化したいページを選びます。デフォルトでは全ページが選択されています。' })}</li>
+                  <li>{translate({ id: 'pdfEditor.guide.step4', message: '選択したページを画像として一括ダウンロードするか、新しいPDFとして書き出すことができます。' })}</li>
                 </ol>
                 <div className={common.securityBox}>
-                  {translate({ id: 'pdf2img.guide.security', message: '🔒 アップロードしたPDFファイルはサーバーに送信されません。すべての処理はブラウザ内で完結するため、機密情報を含む文書でも安全にご利用いただけます。' })}
+                  {translate({ id: 'pdfEditor.guide.security', message: '🔒 アップロードしたPDFファイルはサーバーに送信されません。すべての処理はブラウザ内で完結するため、機密情報を含む文書でも安全にご利用いただけます。' })}
                 </div>
               </div>
             </Stack>
@@ -641,7 +698,7 @@ export default function PdfToImg(): JSX.Element {
                             size="small"
                           />
                         }
-                        label={<Typography variant="body2" sx={{ fontWeight: 600 }}>{translate({ id: 'pdf2img.pages.select', message: '選択する' })}</Typography>}
+                        label={<Typography variant="body2" sx={{ fontWeight: 600 }}>{translate({ id: 'pdfEditor.pages.select', message: '選択する' })}</Typography>}
                         sx={{ m: 0, ml: 1 }}
                       />
                     </Box>

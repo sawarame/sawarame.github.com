@@ -116,11 +116,11 @@
   "home.tools.resize.desc": {
     "message": "Lighten and convert images to WebP format in the browser. Supports batch processing and EXIF removal."
   },
-  "home.tools.pdf2img.title": {
-    "message": "PDF to Image Converter"
+  "home.tools.pdfEditor.title": {
+    "message": "PDF Editor (Image & PDF Export)"
   },
-  "home.tools.pdf2img.desc": {
-    "message": "Convert PDF pages to images. Select specific pages with previews. Runs safely in the browser."
+  "home.tools.pdfEditor.desc": {
+    "message": "Extract, merge, or convert PDF pages to images. Select specific pages with previews. Runs safely in the browser."
   },
   "home.tools.benchmark.title": {
     "message": "Web Performance Test"
@@ -1031,82 +1031,91 @@
   "resize.guide.security": {
     "message": "🔒 Image optimization and cropping are performed entirely on your device (in-browser). Your data is never sent to any external server."
   },
-  "pdf2img.header.title": {
-    "message": "PDF to Image Converter"
+  "pdfEditor.header.title": {
+    "message": "PDF Editor (Image & PDF Export)"
   },
-  "pdf2img.header.desc": {
-    "message": "Convert PDF files page by page to images (PNG, JPEG, WebP). All processing is done in the browser — files are never sent to a server."
+  "pdfEditor.header.desc": {
+    "message": "Convert PDF pages to images, or extract and merge pages into a new PDF. All processing is done in the browser — files are never sent to a server."
   },
-  "pdf2img.upload.title": {
+  "pdfEditor.upload.title": {
     "message": "Select PDF"
   },
-  "pdf2img.upload.dropLabel": {
+  "pdfEditor.upload.dropLabel": {
     "message": "Click, drag & drop, or paste (ctrl+v) to select a PDF"
   },
-  "pdf2img.action.change": {
+  "pdfEditor.action.change": {
     "message": "Change"
   },
-  "pdf2img.action.download": {
-    "message": "Download Images"
+  "pdfEditor.action.downloadImg": {
+    "message": "Download as Images"
   },
-  "pdf2img.settings.title": {
+  "pdfEditor.action.downloadPdf": {
+    "message": "Save as new PDF"
+  },
+  "pdfEditor.settings.title": {
     "message": "Conversion Settings"
   },
-  "pdf2img.settings.format": {
+  "pdfEditor.settings.format": {
     "message": "Output Format"
   },
-  "pdf2img.settings.maxWidth": {
+  "pdfEditor.settings.maxWidth": {
     "message": "Max Width (px)"
   },
-  "pdf2img.settings.maxWidthPlaceholder": {
+  "pdfEditor.settings.maxWidthPlaceholder": {
     "message": "Enter a value in px"
   },
-  "pdf2img.pages.title": {
+  "pdfEditor.pages.title": {
     "message": "Page Selection"
   },
-  "pdf2img.pages.selectAll": {
+  "pdfEditor.pages.selectAll": {
     "message": "Select All"
   },
-  "pdf2img.pages.select": {
+  "pdfEditor.pages.select": {
     "message": "Select this page"
   },
-  "pdf2img.pages.deselectAll": {
+  "pdfEditor.pages.deselectAll": {
     "message": "Deselect All"
   },
-  "pdf2img.pages.noLimit": {
+  "pdfEditor.pages.noLimit": {
     "message": "No limit"
   },
-  "pdf2img.pages.generating": {
+  "pdfEditor.pages.generating": {
     "message": "Generating previews..."
   },
-  "pdf2img.error.notPdf": {
+  "pdfEditor.error.notPdf": {
     "message": "Please select a PDF file."
   },
-  "pdf2img.error.load": {
+  "pdfEditor.error.load": {
     "message": "Failed to load the PDF."
   },
-  "pdf2img.error.convert": {
+  "pdfEditor.error.convert": {
     "message": "An error occurred during conversion."
   },
-  "pdf2img.success": {
+  "pdfEditor.success": {
     "message": "Conversion complete."
   },
-  "pdf2img.guide.title": {
+  "pdfEditor.successPdf": {
+    "message": "PDF creation complete."
+  },
+  "pdfEditor.error.pdf": {
+    "message": "An error occurred while creating the PDF."
+  },
+  "pdfEditor.guide.title": {
     "message": "How to Use"
   },
-  "pdf2img.guide.step1": {
-    "message": "Select, drag & drop, or paste from clipboard to add the PDF file you want to convert."
+  "pdfEditor.guide.step1": {
+    "message": "Select, drag & drop, or paste from clipboard to add the PDF files you want to edit."
   },
-  "pdf2img.guide.step2": {
-    "message": "Set the output format (PNG / JPEG / WebP) and maximum width."
+  "pdfEditor.guide.step2": {
+    "message": "If exporting as images, set the output format (PNG / JPEG / WebP) and maximum width."
   },
-  "pdf2img.guide.step3": {
-    "message": "Select the pages you want to save as images (multiple selections allowed)."
+  "pdfEditor.guide.step3": {
+    "message": "Select the pages you want to extract or convert to images (multiple selections allowed)."
   },
-  "pdf2img.guide.step4": {
-    "message": "Click the 'Download Images' button to download the images (as a ZIP file if multiple)."
+  "pdfEditor.guide.step4": {
+    "message": "You can export the selected pages as either Images (downloaded as a ZIP) or as a new PDF document."
   },
-  "pdf2img.guide.security": {
+  "pdfEditor.guide.security": {
     "message": "🔒 Uploaded PDF files are not sent to any server. All processing is completed within your browser, making it safe even for documents containing sensitive information."
   },
   "benchmark.header.title": {

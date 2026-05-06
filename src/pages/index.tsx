@@ -92,11 +92,11 @@ const tools = [
   },
   {
     icon: '📄',
-    titleId: 'home.tools.pdf2img.title',
-    title: 'PDF画像変換',
-    descriptionId: 'home.tools.pdf2img.desc',
-    description: 'PDFを1ページずつ画像に変換します。プレビューを見ながら必要なページだけを選択可能。ブラウザ上で完結するため安全です。',
-    link: '/pdf2img',
+    titleId: 'home.tools.pdfEditor.title',
+    title: 'PDF変換・編集',
+    descriptionId: 'home.tools.pdfEditor.desc',
+    description: 'PDFを画像に変換したり、必要なページだけを抽出・結合して新しいPDFを作成できます。プレビューを見ながら選択可能。ブラウザ上で完結するため安全です。',
+    link: '/pdf-editor',
     gradient: 'linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%)',
   },
   {
