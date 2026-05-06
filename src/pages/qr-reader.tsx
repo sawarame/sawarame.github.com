@@ -405,27 +405,19 @@ export default function QrReader(): React.JSX.Element {
 
             {/* Usage guide */}
             {!showResult && (
-              <div className={common.card}>
+              <div className={common.guideCard}>
                 <h2 className={common.cardTitle}>
                   <span className={common.cardTitleIcon}>
                     <QrCodeScannerIcon sx={{ fontSize: '1.1rem', verticalAlign: 'middle' }} />
                   </span>
                   {translate({ id: 'qrReader.guide.title', message: '使い方' })}
                 </h2>
-                <ol style={{ margin: 0, paddingLeft: '1.25rem', lineHeight: 2, color: 'var(--ifm-color-emphasis-700)', fontSize: '0.92rem' }}>
+                <ol className={common.guideList}>
                   <li>{translate({ id: 'qrReader.guide.step1', message: 'QRコードが写った画像ファイルを選択またはドラッグ＆ドロップしてください。' })}</li>
                   <li>{translate({ id: 'qrReader.guide.step2', message: '自動的にQRコードが解析され、埋め込まれたテキストが表示されます。' })}</li>
                   <li>{translate({ id: 'qrReader.guide.step3', message: '結果はコピーボタンでクリップボードにコピーできます。URLの場合は直接開くことも可能です。' })}</li>
                 </ol>
-                <div style={{
-                  marginTop: '1.25rem',
-                  padding: '0.75rem 1rem',
-                  borderRadius: '8px',
-                  background: 'rgba(129, 140, 248, 0.08)',
-                  border: '1px solid rgba(129, 140, 248, 0.2)',
-                  fontSize: '0.85rem',
-                  color: 'var(--ifm-color-emphasis-700)',
-                }}>
+                <div className={common.securityBox}>
                   {translate({ id: 'qrReader.guide.security', message: '🔒 アップロードした画像はサーバーに送信されません。すべての処理はブラウザ内で完結します。' })}
                 </div>
               </div>

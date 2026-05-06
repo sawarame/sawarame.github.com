@@ -559,28 +559,20 @@ export default function PdfToImg(): JSX.Element {
               )}
 
               {/* 使い方の説明 */}
-              <div className={common.card}>
+              <div className={common.guideCard}>
                 <h2 className={common.cardTitle}>
                   <span className={common.cardTitleIcon}>
                     <PictureAsPdfIcon sx={{ fontSize: '1.1rem', verticalAlign: 'middle' }} />
                   </span>
                   {translate({ id: 'pdf2img.guide.title', message: '使い方' })}
                 </h2>
-                <ol style={{ margin: 0, paddingLeft: '1.25rem', lineHeight: 2, color: 'var(--ifm-color-emphasis-700)', fontSize: '0.92rem' }}>
+                <ol className={common.guideList}>
                   <li>{translate({ id: 'pdf2img.guide.step1', message: '変換したいPDFファイルを選択またはドラッグ＆ドロップで追加します。複数追加可能です。' })}</li>
                   <li>{translate({ id: 'pdf2img.guide.step2', message: '出力フォーマットと最大横幅を設定します（すべてのファイルに適用されます）。' })}</li>
                   <li>{translate({ id: 'pdf2img.guide.step3', message: 'リストからファイルを選択し、画像化したいページを選びます。デフォルトでは全ページが選択されています。' })}</li>
                   <li>{translate({ id: 'pdf2img.guide.step4', message: '「変換してダウンロード」ボタンを押すと、すべての選択済みページが画像化され、ZIP形式でまとめて保存されます。' })}</li>
                 </ol>
-                <div style={{
-                  marginTop: '1.25rem',
-                  padding: '0.75rem 1rem',
-                  borderRadius: '8px',
-                  background: 'rgba(255, 126, 179, 0.08)',
-                  border: '1px solid rgba(255, 126, 179, 0.2)',
-                  fontSize: '0.85rem',
-                  color: 'var(--ifm-color-emphasis-700)',
-                }}>
+                <div className={common.securityBox}>
                   {translate({ id: 'pdf2img.guide.security', message: '🔒 アップロードしたPDFファイルはサーバーに送信されません。すべての処理はブラウザ内で完結するため、機密情報を含む文書でも安全にご利用いただけます。' })}
                 </div>
               </div>

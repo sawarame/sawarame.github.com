@@ -88,3 +88,28 @@
 .cardTitleIcon {
   font-size: 1.1rem;
 }
+
+/* ---- Guide Section ---- */
+
+.guideCard {
+  composes: card;
+  margin-top: 1.5rem;
+}
+
+.guideList {
+  margin: 0;
+  padding-left: 1.25rem;
+  line-height: 2;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.92rem;
+}
+
+.securityBox {
+  margin-top: 1.25rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: rgba(129, 140, 248, 0.08);
+  border: 1px solid rgba(129, 140, 248, 0.2);
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-700);
+}

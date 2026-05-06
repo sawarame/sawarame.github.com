@@ -453,27 +453,19 @@ export default function QR(): React.JSX.Element {
             </div>
 
             {/* 使い方の説明 */}
-            <div className={common.card} style={{ marginTop: '1.5rem' }}>
+            <div className={common.guideCard}>
               <h2 className={common.cardTitle}>
                 <span className={common.cardTitleIcon}>📖</span>
                 {translate({ id: 'qr.guide.title', message: '使い方' })}
               </h2>
-              <ol style={{ margin: 0, paddingLeft: '1.25rem', lineHeight: 2, color: 'var(--ifm-color-emphasis-700)', fontSize: '0.92rem' }}>
+              <ol className={common.guideList}>
                 <li>{translate({ id: 'qr.guide.step1', message: 'ドロップダウンから作成したいQRコードの種類を選択します。' })}</li>
                 <li>{translate({ id: 'qr.guide.step2', message: '必要な情報（URLやWi-Fi情報など）を入力すると、リアルタイムでQRコードが生成されます。' })}</li>
                 <li>{translate({ id: 'qr.guide.step3', message: 'オプションで、QRコードの中心にロゴ画像を配置することも可能です（プリセットロゴまたは任意の画像）。' })}</li>
                 <li>{translate({ id: 'qr.guide.step4', message: '完成したQRコードは、「保存」でダウンロードするか、「コピー」で直接クリップボードにコピーしてご利用ください。' })}</li>
               </ol>
-              <div style={{
-                marginTop: '1.25rem',
-                padding: '0.75rem 1rem',
-                borderRadius: '8px',
-                background: 'rgba(129, 140, 248, 0.08)',
-                border: '1px solid rgba(129, 140, 248, 0.2)',
-                fontSize: '0.85rem',
-                color: 'var(--ifm-color-emphasis-700)',
-              }}>
-                {translate({ id: 'qr.guide.security', message: '🔒 入力した情報やロゴ画像はすべてお使いの端末（ブラウザ内）で処理され、サーバーに送信されることは一切ありません。' })}
+              <div className={common.securityBox}>
+                {translate({ id: 'qr.guide.security', message: '🔒 入力した情報やロゴ画像はすべてお使いの端末（ブラウザ内）で処理され、 サーバーに送信されることは一切ありません。' })}
               </div>
             </div>
 

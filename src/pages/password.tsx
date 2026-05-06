@@ -21,6 +21,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import common from '@site/src/css/common.module.css';
 import styles from '@site/src/css/password.module.css';
 
@@ -246,6 +247,27 @@ function ResultCard({ passwords, onRefresh, onSave, onCopy }: ResultCardProps) {
   );
 }
 
+function UsageGuide() {
+  return (
+    <div className={common.guideCard}>
+      <h2 className={common.cardTitle}>
+        <span className={common.cardTitleIcon}>
+          <HelpOutlineIcon sx={{ fontSize: '1.1rem', verticalAlign: 'middle' }} />
+        </span>
+        {translate({ id: 'password.guide.title', message: '使い方' })}
+      </h2>
+      <ol className={common.guideList}>
+        <li>{translate({ id: 'password.guide.step1', message: 'パスワードの長さや使用する文字の種類（記号、大文字、小文字など）を指定します。' })}</li>
+        <li>{translate({ id: 'password.guide.step2', message: '設定を変更すると、自動的に新しいパスワードが生成されます。' })}</li>
+        <li>{translate({ id: 'password.guide.step3', message: '「コピー」ボタンで個別にコピーするか、「保存」ボタンで生成されたリストをテキストファイルとしてダウンロードできます。' })}</li>
+      </ol>
+      <div className={common.securityBox}>
+        {translate({ id: 'password.guide.security', message: '🔒 生成処理はすべてご利用のブラウザ内で行われます。パスワードや設定内容がサーバーに送信されることはありません。' })}
+      </div>
+    </div>
+  );
+}
+
 // ============================================================
 // Page
 // ============================================================
@@ -347,6 +369,7 @@ export default function Password(): JSX.Element {
               <div><SettingsCard state={state} setState={setState} /></div>
               <div><ResultCard passwords={passwords} onRefresh={handleRefresh} onCopy={handleCopy} onSave={handleSave} /></div>
             </div>
+            <UsageGuide />
           </div>
         </div>
         <Snackbar open={snackbar.open} autoHideDuration={2000} onClose={() => setSnackbar({ ...snackbar, open: false })} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
