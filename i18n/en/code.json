@@ -1537,5 +1537,23 @@
   },
   "roulette.history.empty": {
     "message": "No history yet"
+  },
+  "roulette.guide.title": {
+    "message": "How to Use"
+  },
+  "roulette.guide.step1": {
+    "message": "Enter items you want to draw into the 'Items List' one per line. You can also import from a text file."
+  },
+  "roulette.guide.step2": {
+    "message": "If you turn on 'Remove after draw', the won item will be automatically removed from the list."
+  },
+  "roulette.guide.step3": {
+    "message": "Press the 'Start Draw' button to spin the roulette and pick one item randomly."
+  },
+  "roulette.guide.step4": {
+    "message": "The 'History' section shows previous results."
+  },
+  "roulette.guide.security": {
+    "message": "🔒 Your data and history are only saved in your browser's local storage and are never sent to any server. You can safely use it even for sensitive information."
   }
 }

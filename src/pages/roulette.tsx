@@ -284,20 +284,39 @@ export default function Roulette(): JSX.Element {
                   </Button>
                 </Box>
                 <Divider sx={{ mb: 2 }} />
-                <List sx={{ maxHeight: '300px', overflow: 'auto', bgcolor: 'var(--ifm-background-color)', borderRadius: '8px', border: '1px solid var(--ifm-color-emphasis-200)', p: 1 }}>
+                <List sx={{ height: '300px', overflow: 'auto', bgcolor: 'var(--ifm-background-color)', borderRadius: '8px', border: '1px solid var(--ifm-color-emphasis-200)', p: 1, display: 'flex', flexDirection: 'column' }}>
                   {drawnItems.map((item, index) => (
                     <ListItem key={index} divider={index !== drawnItems.length - 1} sx={{ py: 0.5 }}>
                       <ListItemText primary={`${drawnItems.length - index}. ${item}`} primaryTypographyProps={{ fontWeight: 600 }} />
                     </ListItem>
                   ))}
                   {drawnItems.length === 0 && (
-                    <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', mt: 4 }}>
-                      <Translate id="roulette.history.empty">履歴はありません</Translate>
-                    </Typography>
+                    <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 600 }}>
+                        <Translate id="roulette.history.empty">履歴はありません</Translate>
+                      </Typography>
+                    </Box>
                   )}
                 </List>
               </Paper>
             </Box>
+
+            {/* 使い方の説明 */}
+            <div className={common.guideCard}>
+              <h2 className={common.cardTitle}>
+                <span className={common.cardTitleIcon}>🎯</span>
+                <Translate id="roulette.guide.title">使い方</Translate>
+              </h2>
+              <ol className={common.guideList}>
+                <li><Translate id="roulette.guide.step1">「項目リスト」に抽選したい項目を1行ずつ入力します。テキストファイルからのインポートも可能です。</Translate></li>
+                <li><Translate id="roulette.guide.step2">「一度出た項目をリストから除外する」をオンにすると、当選した項目が自動的にリストから削除されます。</Translate></li>
+                <li><Translate id="roulette.guide.step3">「抽選開始」ボタンを押すとルーレットが回り、ランダムに1つが選ばれます。</Translate></li>
+                <li><Translate id="roulette.guide.step4">「抽選履歴」には過去の当選結果が表示されます。</Translate></li>
+              </ol>
+              <div className={common.securityBox}>
+                <Translate id="roulette.guide.security">🔒 入力したデータや履歴はブラウザのローカルストレージにのみ保存され、サーバーへ送信されることはありません。機密性の高い内容でも安心してご利用いただけます。</Translate>
+              </div>
+            </div>
           </div>
         </div>
       </MuiTheme>
