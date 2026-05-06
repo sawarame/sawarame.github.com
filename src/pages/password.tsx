@@ -56,7 +56,16 @@ const generatePassword = (availableSymbols: string, filterStr: string, length: n
   return a.join("").substring(0, length);
 };
 
-const generateAll = (state) => {
+interface PasswordState {
+  availableSymbols: string;
+  filterStr: string;
+  length: number;
+  createTimes: number;
+  useSameChar: boolean;
+  useSymbols: boolean;
+}
+
+const generateAll = (state: PasswordState) => {
   const result = [];
   for (let cnt = 0; cnt < state.createTimes; cnt++) {
     result.push(generatePassword(state.availableSymbols, state.filterStr, state.length, state.useSameChar, state.useSymbols));
@@ -88,7 +97,12 @@ function PageHeader() {
   );
 }
 
-function SettingsCard({ state, setState }) {
+interface SettingsCardProps {
+  state: PasswordState;
+  setState: React.Dispatch<React.SetStateAction<PasswordState>>;
+}
+
+function SettingsCard({ state, setState }: SettingsCardProps) {
   const excludePresets = [
     { label: translate({ id: 'password.settings.exclude.upperCase', message: '大文字を除外' }), value: upperCase },
     { label: translate({ id: 'password.settings.exclude.lowerCase', message: '小文字を除外' }), value: lowerCase },
@@ -158,10 +172,10 @@ function SettingsCard({ state, setState }) {
               setState({ ...state, filterStr: preset ? preset.value : newValue });
             }}
             onChange={(event, newValue) => {
-              if (newValue && typeof newValue === 'object') {
+              if (typeof newValue === 'object' && newValue !== null) {
                 setState({ ...state, filterStr: newValue.value });
               } else {
-                setState({ ...state, filterStr: newValue || '' });
+                setState({ ...state, filterStr: (newValue as string) || '' });
               }
             }}
             renderInput={(params) => (
@@ -188,7 +202,7 @@ function SettingsCard({ state, setState }) {
   );
 }
 
-function PasswordRow({ password, onCopy }) {
+function PasswordRow({ password, onCopy }: { password: string; onCopy: (pw: string) => void }) {
   return (
     <div className={styles.passwordRow}>
       <code className={styles.passwordText}>{password || '—'}</code>
@@ -201,7 +215,14 @@ function PasswordRow({ password, onCopy }) {
   );
 }
 
-function ResultCard({ passwords, onRefresh, onSave, onCopy }) {
+interface ResultCardProps {
+  passwords: string[];
+  onRefresh: () => void;
+  onSave: () => void;
+  onCopy: (pw: string) => void;
+}
+
+function ResultCard({ passwords, onRefresh, onSave, onCopy }: ResultCardProps) {
   return (
     <div className={common.card}>
       <div className={styles.resultCardHeader}>
@@ -262,8 +283,8 @@ export default function Password(): JSX.Element {
     const newState = {
       availableSymbols: searchParams.get('symbols') ?? defaultState.availableSymbols,
       filterStr,
-      length: parseInt(searchParams.get('len')) || defaultState.length,
-      createTimes: parseInt(searchParams.get('count')) || defaultState.createTimes,
+      length: parseInt(searchParams.get('len') || '') || defaultState.length,
+      createTimes: parseInt(searchParams.get('count') || '') || defaultState.createTimes,
       useSameChar: searchParams.get('same') === 'false' ? false : 
                    searchParams.get('same') === 'true' ? true : defaultState.useSameChar,
       useSymbols: searchParams.get('use_sym') === 'false' ? false : 
