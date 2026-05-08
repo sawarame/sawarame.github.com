@@ -9,6 +9,7 @@ import EnvIconPng from '@site/src/icons/EnvIcon.png';
 import GeminiSparkPng from '@site/src/icons/gemini-spark.png';
 import MdPickerPng from '@site/src/icons/MdPicker.png';
 import BenchmarkSvg from '@site/src/icons/benchmark.svg';
+import KetchupTimerPng from '@site/src/icons/KetchupTimer.png';
 
 // ============================================================
 // Data
@@ -130,21 +131,30 @@ const extensions = [
     badge: 'Chrome Web Store',
   },
   {
-    iconSrc: GeminiSparkPng,
-    title: 'Gemini Spark',
-    descriptionId: 'home.extensions.geminispark.desc',
-    description:
-      'Google Gemini のウェブインターフェースを強化するためのブラウザ拡張機能です。エンターキーで改行し、Command+Enter (Ctrl+Enter) で送信できるようになります。',
-    link: 'https://chromewebstore.google.com/detail/gemini-spark/iolhhcbgkkmlfndhmpclkabebjlinkic',
-    badge: 'Chrome Web Store',
-  },
-  {
     iconSrc: MdPickerPng,
     title: 'MdPicker',
     descriptionId: 'home.extensions.mdpicker.desc',
     description:
       'ウェブページのリンクをMarkdown形式で簡単にコピーできるブラウザ拡張機能です。',
     link: 'https://chromewebstore.google.com/detail/mdpicker/aihoeldnpdpcbjbcgamhhkgnpmihooep',
+    badge: 'Chrome Web Store',
+  },
+  {
+    iconSrc: KetchupTimerPng,
+    title: 'Ketchup Timer',
+    descriptionId: 'home.extensions.ketchuptimer.desc',
+    description:
+      'ケチャップボトルの視覚的な演出が楽しいポモドーロ・タイマーです。集中するとケチャップが減り、休憩時間になると自動で補充される遊び心のあるデザインで、日々のタスク管理をサポートします。',
+    link: 'https://chromewebstore.google.com/detail/ketchup-timer/kbgefliaonfokdibgopnlakhidlpibcb',
+    badge: 'Chrome Web Store',
+  },
+  {
+    iconSrc: GeminiSparkPng,
+    title: 'Gemini Spark',
+    descriptionId: 'home.extensions.geminispark.desc',
+    description:
+      'Google Gemini のウェブインターフェースを強化するためのブラウザ拡張機能です。エンターキーで改行し、Command+Enter (Ctrl+Enter) で送信できるようになります。',
+    link: 'https://chromewebstore.google.com/detail/gemini-spark/iolhhcbgkkmlfndhmpclkabebjlinkic',
     badge: 'Chrome Web Store',
   },
 ];

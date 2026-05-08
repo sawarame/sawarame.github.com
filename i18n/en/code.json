@@ -146,6 +146,9 @@
   "home.extensions.mdpicker.desc": {
     "message": "Easily copy web page links in Markdown format with this browser extension."
   },
+  "home.extensions.ketchuptimer.desc": {
+    "message": "A Pomodoro timer with a fun ketchup bottle concept. The ketchup level represents your remaining focus time, making productivity more visual and engaging."
+  },
   "home.extensions.linkText": {
     "message": "View on Chrome Web Store →"
   },
