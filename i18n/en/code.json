@@ -1514,6 +1514,9 @@
   "roulette.display.ready": {
     "message": "Ready"
   },
+  "roulette.display.empty": {
+    "message": "Please enter items"
+  },
   "roulette.action.start": {
     "message": "Start Draw"
   },
@@ -1558,5 +1561,14 @@
   },
   "roulette.guide.security": {
     "message": "🔒 Your data and history are only saved in your browser's local storage and are never sent to any server. You can safely use it even for sensitive information."
+  },
+  "roulette.preset.title": {
+    "message": "Presets:"
+  },
+  "roulette.preset.bingo": {
+    "message": "Bingo (1-75)"
+  },
+  "roulette.preset.confirm": {
+    "message": "Current list will be overwritten. Are you sure?"
   }
 }
