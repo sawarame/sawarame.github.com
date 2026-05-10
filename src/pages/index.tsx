@@ -10,6 +10,7 @@ import GeminiSparkPng from '@site/src/icons/gemini-spark.png';
 import MdPickerPng from '@site/src/icons/MdPicker.png';
 import BenchmarkSvg from '@site/src/icons/benchmark.svg';
 import KetchupTimerPng from '@site/src/icons/KetchupTimer.png';
+import NickmarkPng from '@site/src/icons/Nickmark.png';
 
 // ============================================================
 // Data
@@ -128,6 +129,15 @@ const extensions = [
     description:
       '本番・検証・開発環境でfaviconを書き換えることができる、開発者向けのブラウザ拡張機能です。',
     link: 'https://chromewebstore.google.com/detail/envicon/fkapincooiacacfebhkmjoekabbffako',
+    badge: 'Chrome Web Store',
+  },
+  {
+    iconSrc: NickmarkPng,
+    title: 'Nickmark',
+    descriptionId: 'home.extensions.nickmark.desc',
+    description:
+      'ニックネームを使ってアドレスバーからブックマークへ瞬時にアクセスするための、キーボード操作特化型拡張機能。',
+    link: 'https://chromewebstore.google.com/detail/nickmark/bicojpjoabhecikokcohbjgaiojggpno',
     badge: 'Chrome Web Store',
   },
   {
