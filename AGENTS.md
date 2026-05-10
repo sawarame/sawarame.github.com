@@ -43,7 +43,7 @@
 * **手法**: Docusaurus 標準の `Translate` コンポーネントおよび `translate()` 関数を使用。
 * **翻訳データ**: `i18n/en/` 配下の JSON ファイルを適切に更新する。
 
-多言語対応の詳細については `.agents/skills/i18n/SKILL.md` を参照してください。
+多言語対応の詳細については [SKILL.md](.agents/skills/i18n/SKILL.md) を参照してください。
 
 ## 4. コーディング規約
 * **React**: Functional Components + Hooks を使用。
@@ -81,4 +81,9 @@
 9. [Web快適度測定ツール](.context/specs/benchmark.md)
 10. [QRコード読み取り](.context/specs/qr-reader.md)
 11. [ルーレットメーカー](.context/specs/roulette.md)
+
+##　8. ブログ執筆について
+
+ブログ執筆をする際は [SKILL.md](.agents/skills/blog/SKILL.md) を参照し、そのルールに従って作成してください。
+
 
