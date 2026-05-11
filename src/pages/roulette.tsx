@@ -128,6 +128,17 @@ export default function Roulette(): JSX.Element {
     e.target.value = '';
   };
 
+  const applyPreset = (presetItems: string[]) => {
+    if (items.length > 0) {
+      if (!window.confirm(translate({ id: 'roulette.preset.confirm', message: '現在のリストが上書きされます。よろしいですか？' }))) {
+        return;
+      }
+    }
+    setItems(presetItems);
+    setInputText(presetItems.join('\n'));
+    setRemovedItems([]);
+  };
+
   const startDraw = () => {
     if (items.length === 0 || isDrawing) return;
 
@@ -204,9 +215,13 @@ export default function Roulette(): JSX.Element {
                 <Typography variant="h2" component="div" fontWeight="bold" color={isDrawing ? 'text.secondary' : 'primary'} sx={{ wordBreak: 'break-word' }}>
                   {currentDraw}
                 </Typography>
-              ) : (
+              ) : items.length > 0 ? (
                 <Typography variant="h5" color="text.disabled" sx={{ fontWeight: 'bold' }}>
                   <Translate id="roulette.display.ready">準備完了</Translate>
+                </Typography>
+              ) : (
+                <Typography variant="h5" color="text.disabled" sx={{ fontWeight: 'bold', fontStyle: 'italic' }}>
+                  <Translate id="roulette.display.empty">項目を入力してください</Translate>
                 </Typography>
               )}
             </Paper>
@@ -255,7 +270,7 @@ export default function Roulette(): JSX.Element {
                   disabled={isDrawing}
                   sx={{ bgcolor: 'var(--ifm-background-color)', mb: 2 }}
                 />
-                <Box sx={{ display: 'flex', gap: 2 }}>
+                <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
                   <input
                     accept=".txt"
                     style={{ display: 'none' }}
@@ -272,6 +287,19 @@ export default function Roulette(): JSX.Element {
                     <Translate id="roulette.action.export">エクスポート</Translate>
                   </Button>
                 </Box>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 1 }}>
+                  <Typography variant="caption" sx={{ fontWeight: 700, color: 'text.secondary' }}>
+                    <Translate id="roulette.preset.title">プリセット:</Translate>
+                  </Typography>
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    onClick={() => applyPreset(Array.from({ length: 75 }, (_, i) => (i + 1).toString()))}
+                    sx={{ py: 0, px: 1.5, minHeight: '24px', borderRadius: '20px', textTransform: 'none', fontWeight: 600, fontSize: '0.75rem' }}
+                  >
+                    <Translate id="roulette.preset.bingo">ビンゴ (1-75)</Translate>
+                  </Button>
+                </Box>
               </Paper>
 
               <Paper elevation={0} sx={{ p: 3, borderRadius: '12px', border: '1px solid var(--ifm-color-emphasis-200)', bgcolor: 'rgba(0,0,0,0.01)' }}>
@@ -286,8 +314,28 @@ export default function Roulette(): JSX.Element {
                 <Divider sx={{ mb: 2 }} />
                 <List sx={{ height: '300px', overflow: 'auto', bgcolor: 'var(--ifm-background-color)', borderRadius: '8px', border: '1px solid var(--ifm-color-emphasis-200)', p: 1, display: 'flex', flexDirection: 'column' }}>
                   {drawnItems.map((item, index) => (
-                    <ListItem key={index} divider={index !== drawnItems.length - 1} sx={{ py: 0.5 }}>
-                      <ListItemText primary={`${drawnItems.length - index}. ${item}`} primaryTypographyProps={{ fontWeight: 600 }} />
+                    <ListItem key={index} divider={index !== drawnItems.length - 1} sx={{ py: 0.5, px: 2 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                        <Box sx={{ 
+                          minWidth: '28px', 
+                          height: '20px', 
+                          bgcolor: 'action.selected', 
+                          borderRadius: '10px', 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          justifyContent: 'center',
+                          mr: 2,
+                          border: '1px solid var(--ifm-color-emphasis-300)'
+                        }}>
+                          <Typography variant="caption" sx={{ fontWeight: 800, color: 'text.secondary', fontSize: '0.65rem' }}>
+                            {drawnItems.length - index}
+                          </Typography>
+                        </Box>
+                        <ListItemText 
+                          primary={item} 
+                          primaryTypographyProps={{ fontWeight: 700, fontSize: '1.1rem' }} 
+                        />
+                      </Box>
                     </ListItem>
                   ))}
                   {drawnItems.length === 0 && (
