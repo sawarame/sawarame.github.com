@@ -722,6 +722,27 @@
   "exif.result.resolution": {
     "message": "Resolution"
   },
+  "exif.guide.title": {
+    "message": "Usage Guide"
+  },
+  "exif.guide.step1": {
+    "message": "Select or drag & drop the photo file (primarily JPEG) you want to check."
+  },
+  "exif.guide.step2": {
+    "message": "After selection, the analysis starts automatically, and metadata such as shooting date, camera model, settings, and GPS will be displayed."
+  },
+  "exif.guide.step3": {
+    "message": "Click the copy button next to each item to copy the value to your clipboard."
+  },
+  "exif.guide.step4": {
+    "message": "If GPS information is available, you can click the link to view the shooting location on Google Maps."
+  },
+  "exif.guide.step5": {
+    "message": "Click the clear button (trash can icon) to reset the displayed information."
+  },
+  "exif.guide.security": {
+    "message": "🔒 Photo analysis is performed entirely on your device (in-browser), and no data is ever sent to an external server. Your privacy is fully protected."
+  },
   "exif.error.notImage": {
     "message": "Please select an image file."
   },

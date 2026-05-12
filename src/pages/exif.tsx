@@ -1,7 +1,9 @@
 import React, { useState, useRef, DragEvent, ChangeEvent } from 'react';
 import Layout from '@theme/Layout';
+import Link from '@docusaurus/Link';
 import MuiTheme from '@site/src/components/MuiTheme';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { useHistory } from '@docusaurus/router';
 import { translate } from '@docusaurus/Translate';
 import {
   Button,
@@ -162,10 +164,11 @@ function UploadArea({ onFileSelect }: { onFileSelect: (file: File) => void }) {
   );
 }
 
-function ExifResultCard({ exifData, onClear, fileName, imageUrl }: { exifData: ExifData | null, onClear: () => void, fileName: string, imageUrl: string }) {
+function ExifResultCard({ exifData, onClear, fileName, imageUrl, originalFile }: { exifData: ExifData | null, onClear: () => void, fileName: string, imageUrl: string, originalFile: File | null }) {
   const [snackbar, setSnackbar] = useState({ open: false, message: '' });
+  const history = useHistory();
 
-  if (!exifData) return null;
+  if (!originalFile) return null;
 
   const handleCopy = (text: string) => {
     if (!text || text === '—') return;
@@ -216,8 +219,22 @@ function ExifResultCard({ exifData, onClear, fileName, imageUrl }: { exifData: E
         </Tooltip>
       </div>
 
-      <div style={{ marginBottom: '1rem', padding: '8px 12px', background: 'var(--ifm-color-emphasis-100)', borderRadius: '6px', fontSize: '0.9rem', color: 'var(--ifm-color-emphasis-800)' }}>
-        {translate({ id: 'common.file', message: 'ファイル:' })} <strong>{fileName}</strong>
+      <div style={{ marginBottom: '1rem', padding: '8px 12px', background: 'var(--ifm-color-emphasis-100)', borderRadius: '6px', fontSize: '0.9rem', color: 'var(--ifm-color-emphasis-800)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+        <span>{translate({ id: 'common.file', message: 'ファイル:' })} <strong>{fileName}</strong></span>
+        {originalFile && (
+          <a
+            href="/resize"
+            onClick={(e) => {
+              e.preventDefault();
+              history.push('/resize', { file: originalFile });
+            }}
+            style={{ fontSize: '0.8rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer', color: 'var(--ifm-color-primary)', textDecoration: 'none' }}
+          >
+            ✨ {exifData 
+                 ? translate({ id: 'exif.result.removeExifLink', message: 'Exif情報を消すことができます' })
+                 : translate({ id: 'exif.result.changeFormatLink', message: '画像のフォーマットを変更することができます' })}
+          </a>
+        )}
       </div>
 
       {imageUrl && (
@@ -226,30 +243,36 @@ function ExifResultCard({ exifData, onClear, fileName, imageUrl }: { exifData: E
         </div>
       )}
 
-      <TableContainer component={Paper} elevation={0} sx={{ background: 'var(--ifm-background-color)', border: '1px solid var(--ifm-color-emphasis-200)', borderRadius: '8px', overflow: 'hidden' }}>
-        <Table size="small" aria-label="exif data table" sx={{
-          margin: 0,
-          display: 'table',
-          '& th, & td': {
-            border: 'none',
-            borderBottom: '1px solid var(--ifm-color-emphasis-200)'
-          },
-          '& tr:last-child th, & tr:last-child td': {
-            borderBottom: 'none'
-          }
-        }}>
-          <TableBody>
-            {renderRow(translate({ id: 'exif.result.dateTime', message: '撮影日時' }), exifData.dateTime)}
-            {renderRow(translate({ id: 'exif.result.make', message: 'カメラメーカー' }), exifData.make)}
-            {renderRow(translate({ id: 'exif.result.model', message: 'モデル名' }), exifData.model)}
-            {renderRow(translate({ id: 'exif.result.fNumber', message: '絞り（F値）' }), exifData.fNumber ? `f/${exifData.fNumber}` : undefined)}
-            {renderRow(translate({ id: 'exif.result.exposureTime', message: 'シャッタースピード' }), exifData.exposureTime ? `${exifData.exposureTime} ${translate({ id: 'exif.result.sec', message: '秒' })}` : undefined)}
-            {renderRow(translate({ id: 'exif.result.iso', message: 'ISO感度' }), exifData.iso)}
-            {renderRow(translate({ id: 'exif.result.gps', message: 'GPS位置情報' }), exifData.gps)}
-            {renderRow(translate({ id: 'exif.result.resolution', message: '解像度' }), exifData.resolution)}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      {exifData ? (
+        <TableContainer component={Paper} elevation={0} sx={{ background: 'var(--ifm-background-color)', border: '1px solid var(--ifm-color-emphasis-200)', borderRadius: '8px', overflow: 'hidden' }}>
+          <Table size="small" aria-label="exif data table" sx={{
+            margin: 0,
+            display: 'table',
+            '& th, & td': {
+              border: 'none',
+              borderBottom: '1px solid var(--ifm-color-emphasis-200)'
+            },
+            '& tr:last-child th, & tr:last-child td': {
+              borderBottom: 'none'
+            }
+          }}>
+            <TableBody>
+              {renderRow(translate({ id: 'exif.result.dateTime', message: '撮影日時' }), exifData.dateTime)}
+              {renderRow(translate({ id: 'exif.result.make', message: 'カメラメーカー' }), exifData.make)}
+              {renderRow(translate({ id: 'exif.result.model', message: 'モデル名' }), exifData.model)}
+              {renderRow(translate({ id: 'exif.result.fNumber', message: '絞り（F値）' }), exifData.fNumber ? `f/${exifData.fNumber}` : undefined)}
+              {renderRow(translate({ id: 'exif.result.exposureTime', message: 'シャッタースピード' }), exifData.exposureTime ? `${exifData.exposureTime} ${translate({ id: 'exif.result.sec', message: '秒' })}` : undefined)}
+              {renderRow(translate({ id: 'exif.result.iso', message: 'ISO感度' }), exifData.iso)}
+              {renderRow(translate({ id: 'exif.result.gps', message: 'GPS位置情報' }), exifData.gps)}
+              {renderRow(translate({ id: 'exif.result.resolution', message: '解像度' }), exifData.resolution)}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ) : (
+        <div style={{ padding: '1.5rem', textAlign: 'center', color: 'var(--ifm-color-emphasis-600)', background: 'var(--ifm-color-emphasis-100)', borderRadius: '8px', fontWeight: 600 }}>
+          {translate({ id: 'exif.result.noExifData', message: 'この画像にはEXIF情報が含まれていません。' })}
+        </div>
+      )}
 
       <Snackbar open={snackbar.open} autoHideDuration={2000} onClose={() => setSnackbar({ ...snackbar, open: false })} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
         <Alert severity="success" variant="filled" sx={{ borderRadius: 2 }}>{snackbar.message}</Alert>
@@ -267,11 +290,13 @@ export default function ExifViewer(): JSX.Element {
   const [fileName, setFileName] = useState<string>('');
   const [imageUrl, setImageUrl] = useState<string>('');
   const [errorMsg, setErrorMsg] = useState<string>('');
+  const [originalFile, setOriginalFile] = useState<File | null>(null);
 
   const handleFileSelect = async (file: File) => {
     setErrorMsg('');
     setExifData(null);
     setFileName('');
+    setOriginalFile(null);
     if (imageUrl) {
       URL.revokeObjectURL(imageUrl);
       setImageUrl('');
@@ -287,8 +312,9 @@ export default function ExifViewer(): JSX.Element {
       const parsed = await exifr.parse(file, true);
 
       if (!parsed) {
-        setErrorMsg(translate({ id: 'exif.error.noExif', message: 'EXIF情報が見つかりませんでした。' }));
         setFileName(file.name);
+        setOriginalFile(file);
+        setImageUrl(URL.createObjectURL(file));
         return;
       }
 
@@ -305,8 +331,18 @@ export default function ExifViewer(): JSX.Element {
           `${parsed.ExifImageWidth} x ${parsed.ExifImageHeight}` : undefined
       };
 
+      const hasAnyValue = Object.values(data).some(v => v !== undefined && v !== '');
+
+      if (!hasAnyValue) {
+        setFileName(file.name);
+        setOriginalFile(file);
+        setImageUrl(URL.createObjectURL(file));
+        return;
+      }
+
       setExifData(data);
       setFileName(file.name);
+      setOriginalFile(file);
       setImageUrl(URL.createObjectURL(file));
 
     } catch (err) {
@@ -319,6 +355,7 @@ export default function ExifViewer(): JSX.Element {
     setExifData(null);
     setFileName('');
     setErrorMsg('');
+    setOriginalFile(null);
     if (imageUrl) {
       URL.revokeObjectURL(imageUrl);
       setImageUrl('');
@@ -337,9 +374,27 @@ export default function ExifViewer(): JSX.Element {
 
             <UploadArea onFileSelect={handleFileSelect} />
 
-            {exifData && (
-              <ExifResultCard exifData={exifData} onClear={handleClear} fileName={fileName} imageUrl={imageUrl} />
+            {originalFile && (
+              <ExifResultCard exifData={exifData} onClear={handleClear} fileName={fileName} imageUrl={imageUrl} originalFile={originalFile} />
             )}
+
+            {/* 使い方の説明 */}
+            <div className={common.guideCard}>
+              <h2 className={common.cardTitle}>
+                <span className={common.cardTitleIcon}>📖</span>
+                {translate({ id: 'exif.guide.title', message: '使い方' })}
+              </h2>
+              <ol className={common.guideList}>
+                <li>{translate({ id: 'exif.guide.step1', message: 'EXIF情報を確認したい写真ファイルをドラッグ＆ドロップ、またはクリックして選択します。' })}</li>
+                <li>{translate({ id: 'exif.guide.step2', message: '選択後、自動的に解析が始まり、撮影日時、カメラモデル、設定、位置情報などが表示されます。' })}</li>
+                <li>{translate({ id: 'exif.guide.step3', message: '各項目の横にあるコピーボタンをクリックすると、その値をクリップボードにコピーできます。' })}</li>
+                <li>{translate({ id: 'exif.guide.step4', message: 'GPS情報がある場合は、リンクをクリックしてGoogleマップで撮影場所を確認できます。' })}</li>
+                <li>{translate({ id: 'exif.guide.step5', message: '「クリア」ボタン（ゴミ箱アイコン）を押すと、表示されている情報をリセットできます。' })}</li>
+              </ol>
+              <div className={common.securityBox}>
+                {translate({ id: 'exif.guide.security', message: '🔒 写真の解析はすべてお使いの端末（ブラウザ内）で実行され、外部サーバーにデータが送信されることは一切ありません。プライバシーは完全に守られます。' })}
+              </div>
+            </div>
 
             <Snackbar open={!!errorMsg} autoHideDuration={5000} onClose={() => setErrorMsg('')} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
               <Alert severity="error" variant="filled" onClose={() => setErrorMsg('')} sx={{ borderRadius: 2 }}>{errorMsg}</Alert>
