@@ -2,6 +2,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import Layout from '@theme/Layout';
 import MuiTheme from '@site/src/components/MuiTheme';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { useLocation } from '@docusaurus/router';
 import { translate } from '@docusaurus/Translate';
 import {
   Button,
@@ -396,6 +397,7 @@ function BeforeAfterSlider({ beforeUrl, afterUrl }: { beforeUrl: string; afterUr
 
 export default function ImageOptimizer(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
+  const location = useLocation();
   const [images, setImages] = useState<ImageFile[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
   const [webpSupported, setWebpSupported] = useState(true);
@@ -450,6 +452,29 @@ export default function ImageOptimizer(): JSX.Element {
     }
     if (fileInputRef.current) fileInputRef.current.value = '';
   }, []);
+
+  useEffect(() => {
+    if (location.state && (location.state as any).file) {
+      const file = (location.state as any).file;
+      handleFileSelect([file]);
+      // Remove file from state to prevent reloading on refresh
+      window.history.replaceState({}, document.title);
+      
+      // Scroll to the image list section after rendering (accounting for fixed header)
+      setTimeout(() => {
+        const element = document.getElementById('image-list');
+        if (element) {
+          const headerOffset = 80; // Docusaurus sticky navbar offset
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
+    }
+  }, [location.state, handleFileSelect]);
 
   useEffect(() => {
     const handlePaste = (e: ClipboardEvent) => {
@@ -699,7 +724,7 @@ export default function ImageOptimizer(): JSX.Element {
               {/* 2. Image List & Settings (Only visible after upload) */}
               {images.length > 0 && (
                 <>
-                  <Stack spacing={2}>
+                  <Stack spacing={2} id="image-list">
                     {images.map((img) => (
                       <Card key={img.id} sx={{ borderRadius: '12px', border: '1px solid var(--ifm-color-emphasis-200)' }} elevation={0}>
                         <Stack 
