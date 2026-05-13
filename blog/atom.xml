@@ -20,9 +20,9 @@
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="他の機能との違い">他の機能との違い<a href="https://sawara.me/blog/gemini-cli-skills#%E4%BB%96%EF%BF%BD%EF%BF%BD%E3%81%AE%E6%A9%9F%E8%83%BD%E3%81%A8%E3%81%AE%E9%81%95%E3%81%84" class="hash-link" aria-label="他の機能との違い への直接リンク" title="他の機能との違い への直接リンク" translate="no">​</a></h4>
 <p>Gemini CLIには、AIの振る舞いを制御する機能がいくつかあります。これらは「誰が、いつ、どのような知識を持って動くか」という役割が異なります。</p>
 <ul>
-<li class=""><strong>Instructions (<code>GEMINI.md</code>)</strong>: 常に読み込まれる**「基本方針」**です。プロジェクト全体の共通ルールやディレクトリ構造など、AIが常に意識しておくべき前提知識を伝えます。</li>
-<li class=""><strong>Subagents</strong>: 特定の専門タスクを肩代わりしてくれる**「分身（専門チーム）」**です。広範囲な調査や大量のファイル修正など、手順が多くコンテキストを消費しそうな作業をサブエージェントに依頼（デリゲート）することで、メインの会話をクリーンに保ちます。</li>
-<li class=""><strong>Skills</strong>: 特定のタスクが発生した時にだけ装備する**「専門知識パック」**です。特定の指示書（<code>SKILL.md</code>）や補助スクリプトが含まれます。</li>
+<li class=""><strong>Instructions (<code>GEMINI.md</code>)</strong>: 常に読み込まれる「基本方針」です。プロジェクト全体の共通ルールやディレクトリ構造など、AIが常に意識しておくべき前提知識を伝えます。</li>
+<li class=""><strong>Subagents</strong>: 特定の専門タスクを肩代わりしてくれる「分身（専門チーム）」です。広範囲な調査や大量のファイル修正など、手順が多くコンテキストを消費しそうな作業をサブエージェントに依頼（デリゲート）することで、メインの会話をクリーンに保ちます。</li>
+<li class=""><strong>Skills</strong>: 特定のタスクが発生した時にだけ装備する「専門知識パック」です。特定の指示書（<code>SKILL.md</code>）や補助スクリプトが含まれます。</li>
 </ul>
 <p><strong>具体的な使い分けの例：</strong></p>
 <ul>

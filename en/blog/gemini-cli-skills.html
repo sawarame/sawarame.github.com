@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TS0FPY690N"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-TS0FPY690N",{anonymize_ip:!0})</script><link rel="stylesheet" href="/en/assets/css/styles.26a84217.css">
-<script src="/en/assets/js/runtime~main.07c9c2ec.js" defer="defer"></script>
+<script src="/en/assets/js/runtime~main.34af0923.js" defer="defer"></script>
 <script src="/en/assets/js/main.5fc32bbe.js" defer="defer"></script>
 </head>
 <body>
@@ -24,9 +24,9 @@
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="他の機能との違い">他の機能との違い<a href="#他の機能との違い" class="hash-link" aria-label="Direct link to 他の機能との違い" title="Direct link to 他の機能との違い" translate="no">​</a></h4>
 <p>Gemini CLIには、AIの振る舞いを制御する機能がいくつかあります。これらは「誰が、いつ、どのような知識を持って動くか」という役割が異なります。</p>
 <ul>
-<li class=""><strong>Instructions (<code>GEMINI.md</code>)</strong>: 常に読み込まれる**「基本方針」**です。プロジェクト全体の共通ルールやディレクトリ構造など、AIが常に意識しておくべき前提知識を伝えます。</li>
-<li class=""><strong>Subagents</strong>: 特定の専門タスクを肩代わりしてくれる**「分身（専門チーム）」**です。広範囲な調査や大量のファイル修正など、手順が多くコンテキストを消費しそうな作業をサブエージェントに依頼（デリゲート）することで、メインの会話をクリーンに保ちます。</li>
-<li class=""><strong>Skills</strong>: 特定のタスクが発生した時にだけ装備する**「専門知識パック」**です。特定の指示書（<code>SKILL.md</code>）や補助スクリプトが含まれます。</li>
+<li class=""><strong>Instructions (<code>GEMINI.md</code>)</strong>: 常に読み込まれる「基本方針」です。プロジェクト全体の共通ルールやディレクトリ構造など、AIが常に意識しておくべき前提知識を伝えます。</li>
+<li class=""><strong>Subagents</strong>: 特定の専門タスクを肩代わりしてくれる「分身（専門チーム）」です。広範囲な調査や大量のファイル修正など、手順が多くコンテキストを消費しそうな作業をサブエージェントに依頼（デリゲート）することで、メインの会話をクリーンに保ちます。</li>
+<li class=""><strong>Skills</strong>: 特定のタスクが発生した時にだけ装備する「専門知識パック」です。特定の指示書（<code>SKILL.md</code>）や補助スクリプトが含まれます。</li>
 </ul>
 <p><strong>具体的な使い分けの例：</strong></p>
 <ul>
@@ -44,7 +44,7 @@
 <li class=""><strong>プロジェクト固有のスキル</strong>: <code>.agents/skills/&lt;スキル名&gt;/</code> （または <code>.gemini/skills/</code>）</li>
 <li class=""><strong>ユーザー全体のスキル</strong>: <code>~/.agents/skills/&lt;スキル名&gt;/</code> （または <code>~/.gemini/skills/</code>）</li>
 </ul>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-skillmd-の作成">2. SKILL.md の作成<a href="#2-skillmd-の作成" class="hash-link" aria-label="Direct link to 2. SKILL.md の作成" title="Direct link to 2. SKILL.md の作成" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-skillmd-の作成">2. SKILL.md の作成<a href="#2-skillmd-の作成" class="hash-link" aria-label="Direct link to 2. SKILL.md   の作成" title="Direct link to 2. SKILL.md の作成" translate="no">​</a></h4>
 <p>スキルのディレクトリ内には、必ず <code>SKILL.md</code> というファイルを配置します。このファイルは <strong>YAML Frontmatter</strong> でメタデータを記述し、本文にMarkdownで指示を書く形式になります。</p>
 <div class="language-markdown codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-markdown codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token front-matter-block punctuation" style="color:#393A34">---</span><span class="token front-matter-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token front-matter-block"></span><span class="token front-matter-block front-matter yaml language-yaml key atrule" style="color:#00a4db">name</span><span class="token front-matter-block front-matter yaml language-yaml punctuation" style="color:#393A34">:</span><span class="token front-matter-block front-matter yaml language-yaml"> スキル名</span><br></div><div class="token-line" style="color:#393A34"><span class="token front-matter-block front-matter yaml language-yaml"></span><span class="token front-matter-block front-matter yaml language-yaml key atrule" style="color:#00a4db">description</span><span class="token front-matter-block front-matter yaml language-yaml punctuation" style="color:#393A34">:</span><span class="token front-matter-block front-matter yaml language-yaml"> このスキルの概要を記述します。Gemini CLIが「このスキルを使うべきか」を判断するために非常に重要なセクションです。「〜をする時にこのスキルを使用して下さい」といったトリガーを具体的に書きます。</span><span class="token front-matter-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token front-matter-block"></span><span class="token front-matter-block punctuation" style="color:#393A34">---</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token title important punctuation" style="color:#393A34">#</span><span class="token title important"> スキル名</span><span class="token plain"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">スキルが有効化された後に、AIが従うべき具体的な手順やルールを記述します。</span><br></div></code></pre></div></div>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-関連リソースオプション">3. 関連リソース（オプション）<a href="#3-関連リソースオプション" class="hash-link" aria-label="Direct link to 3. 関連リソース（オプション）" title="Direct link to 3. 関連リソース（オプション）" translate="no">​</a></h4>
@@ -57,7 +57,7 @@
 <p><strong>関連リソースの使い方・指示の書き方</strong>
 これらのリソースを追加した場合は、AIがそれらを適切に利用できるよう、<code>SKILL.md</code> の本文中で「どのファイルをどう使ってほしいか」を明記することが重要です。</p>
 <ul>
-<li class=""><strong>スクリプトを実行させたい場合</strong>
+<li class=""><strong>スク リプトを実行させたい場合</strong>
 <div class="language-markdown codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-markdown codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token list punctuation" style="color:#393A34">1.</span><span class="token plain"> 最初に </span><span class="token code-snippet code keyword" style="color:#00009f">`scripts/setup-boilerplate.sh`</span><span class="token plain"> を実行して雛形を作成してください。</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">2.</span><span class="token plain"> 生成されたファイルに対して...</span><br></div></code></pre></div></div>
 </li>
 <li class=""><strong>参考資料を読ませたい場合</strong>
@@ -65,7 +65,7 @@
 </li>
 </ul>
 <hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="skillmd-の例">SKILL.md の例<a href="#skillmd-の例" class="hash-link" aria-label="Direct link to SKILL.md の例" title="Direct link to SKILL.md の例" translate="no">​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="skillmd-の例">SKILL.md の例<a href="#skillmd- の例" class="hash-link" aria-label="Direct link to SKILL.md の例" title="Direct link to SKILL.md の例" translate="no">​</a></h3>
 <p>スキルは目的に応じて様々な形で定義できます。ここでは具体的な2つの例を紹介します。</p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="例1コンポーネントの自動生成">例1：コンポーネントの自動生成<a href="#例1コンポーネントの自動生成" class="hash-link" aria-label="Direct link to 例1：コンポーネントの自動生成" title="Direct link to 例1：コンポーネントの自動生成" translate="no">​</a></h4>
 <p>プロジェクト固有のReactコンポーネントを自動生成するための <code>react-component-generator</code> スキルの構成例です。</p>
@@ -93,7 +93,7 @@
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="効率的なスキル作成のベストプラクティス">効率的なスキル作成のベストプラクティス<a href="#効率的なスキル作成のベストプラクティス" class="hash-link" aria-label="Direct link to 効率的なスキル作成のベストプラクティス" title="Direct link to 効率的なスキル作成のベストプラクティス" translate="no">​</a></h3>
 <ol>
 <li class=""><strong>説明文（Description）を具体的に</strong>: AIが「いつ使うべきか」を迷わないよう、具体的なキーワード（「コンポーネント作成」「デプロイ」「テスト作成」など）を含めてください。</li>
-<li class=""><strong>情報の階層化</strong>: <code>SKILL.md</code> 本体には核心となる手順だけを書き、膨大なドキュメントは <code>references/</code> フォルダに分けることで、コンテ キストの使用量を最小限に抑えられます。</li>
+<li class=""><strong>情報の階層化</strong>: <code>SKILL.md</code> 本体には核心となる手順だけを書き、膨大なドキュメントは <code>references/</code> フォルダに分けることで、コンテキストの使用量を最小限に抑えられます。</li>
 <li class=""><strong>LLMフレンドリーな出力</strong>: <code>scripts/</code> に含めるスクリプトは、人間向けの詳細なログよりも、AIが理解しやすい簡潔な結果を標準出力に返すように設計してください。</li>
 </ol>
 <hr>
@@ -108,7 +108,7 @@
 <li class=""><strong>チームの知見を反映</strong>
 ある日、アクセシビリティ（a11y）の対応漏れによるバグが発生しました。二度と同じミスを起こさないよう、「コンポーネントには適切な <code>aria-</code> 属性を必ず付与すること」というルールを追記します。</li>
 </ol>
-<p>このように、<strong>「 手作業が発生した時」や「ミスが起きた時」がスキルをアップデートする最大のチャンス</strong>です。<code>/skills reload</code> コマンドを使えば変更は即座に反映されるため、まるで頼れる後輩エンジニアを少しずつ育成していくような感覚で活用できます。</p>
+<p>このように、<strong>「手作業 が発生した時」や「ミスが起きた時」がスキルをアップデートする最大のチャンス</strong>です。<code>/skills reload</code> コマンドを使えば変更は即座に反映されるため、まるで頼れる後輩エンジニアを少しずつ育成していくような感覚で活用できます。</p>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="まとめ">まとめ<a href="#まとめ" class="hash-link" aria-label="Direct link to まとめ" title="Direct link to まとめ" translate="no">​</a></h3>
 <p>Skills機能は、Gemini CLIをただの汎用AIから「プロジェクトのルールを熟知した専門家」へと進化させるための鍵です。</p>

@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TS0FPY690N"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-TS0FPY690N",{anonymize_ip:!0})</script><link rel="stylesheet" href="/assets/css/styles.26a84217.css">
-<script src="/assets/js/runtime~main.5d20ee1e.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.3b64031a.js" defer="defer"></script>
 <script src="/assets/js/main.f58e14ee.js" defer="defer"></script>
 </head>
 <body>
@@ -24,9 +24,9 @@
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="他の機能との違い">他の機能との違い<a href="#他  の機能との違い" class="hash-link" aria-label="他の機能との違い への直接リンク" title="他の機能との違い への直接リンク" translate="no">​</a></h4>
 <p>Gemini CLIには、AIの振る舞いを制御する機能がいくつかあります。これらは「誰が、いつ、どのような知識を持って動くか」という役割が異なります。</p>
 <ul>
-<li class=""><strong>Instructions (<code>GEMINI.md</code>)</strong>: 常に読み込まれる**「基本方針」**です。プロジェクト全体の共通ルールやディレクトリ構造など、AIが常に意識しておくべき前提知識を伝えます。</li>
-<li class=""><strong>Subagents</strong>: 特定の専門タスクを肩代わりしてくれる**「分身（専門チーム）」**です。広範囲な調査や大量のファイル修正など、手順が多くコンテキストを消費しそうな作業をサブエージェントに依頼（デリゲート）することで、メインの会話をクリーンに保ちます。</li>
-<li class=""><strong>Skills</strong>: 特定のタスクが発生した時にだけ装備する**「専門知識パック」**です。特定の指示書（<code>SKILL.md</code>）や補助スクリプトが含まれます。</li>
+<li class=""><strong>Instructions (<code>GEMINI.md</code>)</strong>: 常に読み込まれる「基本方針」です。プロジェクト全体の共通ルールやディレクトリ構造など、AIが常に意識しておくべき前提知識を伝えます。</li>
+<li class=""><strong>Subagents</strong>: 特定の専門タスクを肩代わりしてくれる「分身（専門チーム）」です。広範囲な調査や大量のファイル修正など、手順が多くコンテキストを消費しそうな作業をサブエージェントに依頼（デリゲート）することで、メインの会話をクリーンに保ちます。</li>
+<li class=""><strong>Skills</strong>: 特定のタスクが発生した時にだけ装備する「専門知識パック」です。特定の指示書（<code>SKILL.md</code>）や補助スクリプトが含まれます。</li>
 </ul>
 <p><strong>具体的な使い分けの例：</strong></p>
 <ul>
@@ -55,7 +55,7 @@
 <li class=""><code>assets/</code>: テンプレートやボイラープレート。</li>
 </ul>
 <p><strong>関連リソースの使い方・指示の書き方</strong>
-これらのリソースを追加した場合は、AIがそれらを適切に利用できるよう、<code>SKILL.md</code> の本文中で「どのファイ  ルをどう使ってほしいか」を明記することが重要です。</p>
+これらのリソースを追加した場合は、AIがそれらを適切に利用できるよう、<code>SKILL.md</code> の本文中で「どのファイルをどう  使ってほしいか」を明記することが重要です。</p>
 <ul>
 <li class=""><strong>スクリプトを実行させたい場合</strong>
 <div class="language-markdown codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-markdown codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token list punctuation" style="color:#393A34">1.</span><span class="token plain"> 最初に </span><span class="token code-snippet code keyword" style="color:#00009f">`scripts/setup-boilerplate.sh`</span><span class="token plain"> を実行して雛形を作成してください。</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">2.</span><span class="token plain"> 生成されたファイルに対して...</span><br></div></code></pre></div></div>
@@ -80,7 +80,7 @@
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="有効化activation">有効化（Activation）<a href="#有効化activation" class="hash-link" aria-label="有効化（Activation） への直接リンク" title="有効化（Activation） への直接リンク" translate="no">​</a></h4>
 <p>ユーザーの依頼内容がスキルの説明と一致すると、AIは内部的に <code>activate_skill</code> ツールを呼び出します。</p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="ユーザーの同意">ユーザーの同意<a href="#ユーザーの同意" class="hash-link" aria-label="ユーザーの同意 への直接リンク" title="ユーザーの同意 への直接リンク" translate="no">​</a></h4>
-<p>スキルが呼び出されると、以下のような確  認が表示されます。</p>
+<p>スキルが呼び出されると、以下のような確認が表示  されます。</p>
 <div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">? Activate skill: react-component-generator? › (y/N)</span><br></div></code></pre></div></div>
 <p>「y」を押すことで初めて <code>SKILL.md</code> の全文がコンテキストに注入され、専門的な指示に従った動作が開始されます。</p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="管理コマンド">管理コマンド<a href="#管理コマンド" class="hash-link" aria-label="管理コマンド への直接リンク" title="管理コマンド への直接リンク" translate="no">​</a></h4>
@@ -106,7 +106,7 @@
 <li class=""><strong>課題の発見とアップデート</strong>
 しばらく使っていると「Storybookのファイルも毎回手作業で作っているな」と気づきます。そこで <code>SKILL.md</code> に「必ず <code>[name].stories.tsx</code> も生成すること」という一文を書き足します。</li>
 <li class=""><strong>チームの知見を反映</strong>
-ある日、アクセシビリティ（a11y）の対応漏れによるバグが発 生しました。二度と同じミスを起こさないよう、「コンポーネントには適切な <code>aria-</code> 属性を必ず付与すること」というルールを追記します。</li>
+ある日、アクセシビリティ（a11y）の対応漏れによるバグが発生しまし た。二度と同じミスを起こさないよう、「コンポーネントには適切な <code>aria-</code> 属性を必ず付与すること」というルールを追記します。</li>
 </ol>
 <p>このように、<strong>「手作業が発生した時」や「ミスが起きた時」がスキルをアップデートする最大のチャンス</strong>です。<code>/skills reload</code> コマンドを使えば変更は即座に反映されるため、まるで頼れる後輩エンジニアを少しずつ育成していくような感覚で活用できます。</p>
 <hr>
