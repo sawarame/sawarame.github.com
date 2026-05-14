@@ -3,7 +3,7 @@ import Layout from '@theme/Layout';
 import MuiTheme from '@site/src/components/MuiTheme';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { translate } from '@docusaurus/Translate';
-import { TextField, Button, Stack, Snackbar, Alert, Tooltip, FormControl, InputLabel, Select, MenuItem, Box, IconButton, Typography, FormControlLabel, Checkbox } from '@mui/material';
+import { TextField, Button, Stack, Snackbar, Alert, Tooltip, FormControl, InputLabel, Select, MenuItem, Box, IconButton, Typography, FormControlLabel, Checkbox, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
@@ -18,6 +18,7 @@ import styles from '@site/src/css/qr.module.css';
 // ============================================================
 
 type Mode = 'text' | 'wifi' | 'contact' | 'event' | 'email';
+type Resolution = 240 | 480;
 
 const PRESET_LOGOS: Record<Mode, string> = {
   text: 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>'),
@@ -57,6 +58,7 @@ export default function QR(): React.JSX.Element {
   const { siteConfig } = useDocusaurusContext();
 
   const [mode, setMode] = useState<Mode>('text');
+  const [resolution, setResolution] = useState<Resolution>(480);
 
   // Form states
   const [textInput, setTextInput] = useState('https://sawara.me');
@@ -142,8 +144,26 @@ export default function QR(): React.JSX.Element {
     }
   };
 
+  // Helper function to get canvas with exact requested resolution
+  const getProcessedCanvas = (): HTMLCanvasElement | null => {
+    const originalCanvas = qrRef.current;
+    if (!originalCanvas) return null;
+
+    // Create temporary canvas with exact pixel size
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = resolution;
+    tempCanvas.height = resolution;
+    const ctx = tempCanvas.getContext('2d');
+    if (!ctx) return null;
+
+    // Draw the original canvas content into the temp canvas at the target size.
+    // This effectively downsamples back to the specified resolution if the original was scaled by devicePixelRatio.
+    ctx.drawImage(originalCanvas, 0, 0, resolution, resolution);
+    return tempCanvas;
+  };
+
   const downloadQRCode = () => {
-    const canvas = qrRef.current;
+    const canvas = getProcessedCanvas();
     if (!canvas) return;
     const pngUrl = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
 
@@ -171,7 +191,7 @@ export default function QR(): React.JSX.Element {
   };
 
   const copyToClipboard = () => {
-    const canvas = qrRef.current;
+    const canvas = getProcessedCanvas();
     if (!canvas) return;
     canvas.toBlob((blob) => {
       if (blob) {
@@ -183,7 +203,7 @@ export default function QR(): React.JSX.Element {
 
   const handleShare = async () => {
     if (isSharing) return;
-    const canvas = qrRef.current;
+    const canvas = getProcessedCanvas();
     if (!canvas) return;
 
     setIsSharing(true);
@@ -226,6 +246,8 @@ export default function QR(): React.JSX.Element {
   };
 
   const activeLogo = usePresetLogo ? PRESET_LOGOS[mode] : logoImage;
+  // Use a fixed 25% ratio for both resolutions as requested
+  const logoSize = resolution * 0.25;
 
   return (
     <Layout title={`${translate({ id: 'qr.header.title', message: 'QRコード作成' })} | ${siteConfig.title}`} description={translate({ id: 'qr.header.desc', message: 'URLや様々な情報からQRコードを生成します。ロゴの埋め込みにも対応しています。' })}>
@@ -385,19 +407,35 @@ export default function QR(): React.JSX.Element {
                 <div className={styles.qrWrap}>
                   {generatedText ? (
                     <Stack spacing={3} alignItems="center" sx={{ width: '100%' }}>
+                      <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 1 }}>
+                        <Typography variant="caption" sx={{ fontWeight: 600, color: 'text.secondary' }}>
+                          {translate({ id: 'qr.input.resolution', message: '解像度' })}
+                        </Typography>
+                        <ToggleButtonGroup
+                          value={resolution}
+                          exclusive
+                          onChange={(_, val) => val && setResolution(val)}
+                          size="small"
+                        >
+                          <ToggleButton value={240}>240x240</ToggleButton>
+                          <ToggleButton value={480}>480x480</ToggleButton>
+                        </ToggleButtonGroup>
+                      </Stack>
+
                       <div className={styles.qrInner}>
                         <QRCodeCanvas
                           value={generatedText}
-                          size={240}
+                          size={resolution}
                           level="H"
                           includeMargin
                           ref={qrRef}
+                          style={{ width: '100%', height: 'auto', maxWidth: '320px', display: 'block', margin: '0 auto' }}
                           imageSettings={activeLogo ? {
                             src: activeLogo,
                             x: undefined,
                             y: undefined,
-                            height: 48,
-                            width: 48,
+                            height: logoSize,
+                            width: logoSize,
                             excavate: true,
                           } : undefined}
                         />
