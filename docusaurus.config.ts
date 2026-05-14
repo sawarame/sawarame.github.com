@@ -93,7 +93,7 @@ const config: Config = {
       },
       items: [
         // MDX版でツールを公開すする場合は下記のコメントアウトを外す
-        // 視界各ツールのURLが変わるため、旧ツールから301リダイレクトを設定する必要がある
+        // 各ツールのURLが変わるため、旧ツールから301リダイレクトを設定する必要がある（or URLを書き換える）
         // {
         //   type: 'docSidebar',
         //   sidebarId: 'toolsSidebar',
