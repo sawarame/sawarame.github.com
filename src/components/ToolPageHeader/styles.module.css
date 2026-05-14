@@ -1,0 +1,39 @@
+/* ツールの共通ヘッダースタイル */
+
+.pageHeaderOrb1 {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.2;
+  top: -100px;
+  left: -80px;
+}
+
+.pageHeaderOrb2 {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.2;
+  bottom: -80px;
+  right: -60px;
+}
+
+.pageHeaderIcon {
+  display: inline-block;
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.pageHeaderTitle {
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 0.75rem;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

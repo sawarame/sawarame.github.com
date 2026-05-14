@@ -4,6 +4,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { translate } from '@docusaurus/Translate';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import PasswordGenerator from '@site/src/components/PasswordGenerator';
+import ToolPageHeader from '@site/src/components/ToolPageHeader';
 import common from '@site/src/css/common.module.css';
 import styles from '@site/src/css/password.module.css';
 
@@ -33,26 +34,6 @@ function UsageGuide() {
   );
 }
 
-function PageHeader() {
-  return (
-    <div className={common.pageHeader}>
-      <div className={common.pageHeaderBg}>
-        <div className={styles.pageHeaderOrb1} />
-        <div className={styles.pageHeaderOrb2} />
-      </div>
-      <div className={common.pageHeaderContent}>
-        <span className={styles.pageHeaderIcon}>🔐</span>
-        <h1 className={styles.pageHeaderTitle}>
-          {translate({ id: 'password.header.title', message: 'パスワードジェネレーター' })}
-        </h1>
-        <p className={common.pageHeaderDesc}>
-          {translate({ id: 'password.header.desc', message: '条件を指定してパスワードを作成できます。設定内容はURLに含まれるため、URLを共有することで同じ条件のパスワードを再度生成することも可能です。ブラウザ上で動作するため、作成したパスワードは安全に利用できます。' })}
-        </p>
-      </div>
-    </div>
-  );
-}
-
 // ============================================================
 // Page
 // ============================================================
@@ -65,7 +46,11 @@ export default function Password(): JSX.Element {
       title={`${translate({ id: 'password.header.title', message: 'パスワードジェネレーター' })} | ${siteConfig.title}`}
       description={translate({ id: 'password.header.desc', message: '条件を指定してパスワードを作成できます。ブラウザ上で動作するため、作成したパスワードは安全に利用できます。' })}
     >
-      <PageHeader />
+      <ToolPageHeader
+        title={translate({ id: 'password.header.title', message: 'パスワードジェネレーター' })}
+        desc={translate({ id: 'password.header.desc', message: '条件を指定してパスワードを作成できます。設定内容はURLに含まれるため、URLを共有することで同じ条件のパスワードを再度生成することも可能です。ブラウザ上で動作するため、作成したパスワードは安全に利用できます。' })}
+        icon="🔐"
+      />
       <div className={common.body}>
         <PasswordGenerator />
         <div className={styles.container}>
