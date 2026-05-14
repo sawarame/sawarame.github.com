@@ -100,6 +100,12 @@ const config: Config = {
           position: 'left',
           label: 'Tools',
         },
+        {
+          type: 'docSidebar',
+          sidebarId: 'extensionsSidebar',
+          position: 'left',
+          label: 'Extensions',
+        },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
           type: 'localeDropdown',
