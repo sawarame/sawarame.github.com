@@ -76,7 +76,7 @@ export const tools = [
     descriptionId: 'home.tools.password.desc',
     description:
       '条件を指定してパスワードを作成できます。設定はURLに含まれるため、URLの共有により同じ条件で生成可能です。ブラウザ上で動作するため安全に利用できます。',
-    link: '/tools/password',
+    link: '/password',
     gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
   },
   {
@@ -86,7 +86,7 @@ export const tools = [
     descriptionId: 'home.tools.text.desc',
     description:
       'テキストを一時的に保存するための場所です。保存したテキストはブラウザのローカルストレージに保存されます。',
-    link: '/tools/text',
+    link: '/text',
     gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
   },
   {
