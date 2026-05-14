@@ -92,6 +92,14 @@ const config: Config = {
         src: 'img/sawara_logo.svg',
       },
       items: [
+        // MDX版でツールを公開すする場合は下記のコメントアウトを外す
+        // 視界各ツールのURLが変わるため、旧ツールから301リダイレクトを設定する必要がある
+        // {
+        //   type: 'docSidebar',
+        //   sidebarId: 'toolsSidebar',
+        //   position: 'left',
+        //   label: 'Tools',
+        // },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
           type: 'localeDropdown',
