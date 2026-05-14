@@ -21,7 +21,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import MuiTheme from '@site/src/components/MuiTheme';
 import common from '@site/src/css/common.module.css';
-import styles from '@site/src/css/password.module.css';
+import styles from './styles.module.css';
 
 /** 使用する文字列. */
 const lowerCase = 'abcdefghijklmnopqrstuvwxyz'

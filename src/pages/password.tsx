@@ -6,7 +6,7 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import PasswordGenerator from '@site/src/components/PasswordGenerator';
 import ToolPageHeader from '@site/src/components/ToolPageHeader';
 import common from '@site/src/css/common.module.css';
-import styles from '@site/src/css/password.module.css';
+import styles from '@site/src/components/PasswordGenerator/styles.module.css';
 
 // ============================================================
 // Sub Components

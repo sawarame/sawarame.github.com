@@ -1,0 +1,31 @@
+---
+title: Text Scratchpad
+slug: /tools/text
+sidebar_position: 3
+hide_title: true
+---
+
+import TextScratchpad from "@site/src/components/TextScratchpad";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+
+<ToolPageHeader
+  title="Text Scratchpad"
+  desc="A place to temporarily save text. Saved text is stored in your browser's local storage."
+  icon="📝"
+  color1="#f093fb"
+  color2="#f5576c"
+  titleGradient="linear-gradient(135deg, #fff 0%, #f9a8d4 60%, #f472b6 100%)"
+/>
+
+<TextScratchpad />
+
+## How to use
+
+1. Enter text in the input area on the left and click the "Save" button or press Enter (depending on your settings) to save it.
+2. Saved text will be added to the list on the right and stored in your browser's local storage.
+3. You can pin frequently used text to the top using the pin icon.
+4. Utilize saved texts using the copy or bulk download features.
+
+:::info Security
+🔒 All data is stored within your browser. It is never sent to any server.
+:::

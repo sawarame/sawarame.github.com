@@ -1,0 +1,179 @@
+/* ============================================================
+   Cards Grid
+   ============================================================ */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ============================================================
+   Tool Card
+   ============================================================ */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 16px;
+  padding: 1.6rem;
+  text-decoration: none !important;
+  color: var(--ifm-font-color-base) !important;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: linear-gradient(135deg, var(--ifm-color-primary-lightest), transparent);
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  border-color: var(--ifm-color-primary-light);
+}
+
+.card:hover::before {
+  opacity: 0.06;
+}
+
+.cardIconWrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+  flex-shrink: 0;
+}
+
+.cardIcon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.cardBody {
+  flex: 1;
+}
+
+.cardTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: var(--ifm-font-color-base);
+}
+
+.cardDescription {
+  font-size: 0.875rem;
+  color: var(--ifm-color-secondary-darkest);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.cardArrow {
+  margin-top: 1.2rem;
+  font-size: 1rem;
+  color: var(--ifm-color-primary);
+  font-weight: 700;
+  transition: transform 0.2s;
+}
+
+.card:hover .cardArrow {
+  transform: translateX(4px);
+}
+
+/* ============================================================
+   Extension Card
+   ============================================================ */
+
+.extensionCard {
+  display: flex;
+  flex-direction: column;
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 16px;
+  padding: 1.6rem;
+  text-decoration: none !important;
+  color: var(--ifm-font-color-base) !important;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.extensionCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  border-color: var(--ifm-color-primary-light);
+}
+
+.extensionCardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+
+.extensionBadge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.6rem;
+  border-radius: 100px;
+  background: var(--ifm-color-primary-lightest);
+  color: var(--ifm-color-primary-darkest);
+  white-space: nowrap;
+}
+
+[data-theme='dark'] .extensionBadge {
+  background: rgba(79, 157, 255, 0.15);
+  color: var(--ifm-color-primary-light);
+}
+
+.extensionLink {
+  margin-top: 1.2rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  transition: transform 0.2s;
+  display: inline-block;
+}
+
+.extensionCard:hover .extensionLink {
+  transform: translateX(4px);
+}
+
+.extensionIconWrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--ifm-color-emphasis-100);
+}
+
+.extensionIcon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+@media screen and (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

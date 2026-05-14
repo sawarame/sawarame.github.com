@@ -1,49 +1,5 @@
 /* テキスト保存場所固有スタイル */
 
-/* ---- Header orbs & colors ---- */
-
-.pageHeaderOrb1 {
-  position: absolute;
-  width: 350px;
-  height: 350px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #f093fb, transparent);
-  filter: blur(70px);
-  opacity: 0.2;
-  top: -100px;
-  left: -80px;
-}
-
-.pageHeaderOrb2 {
-  position: absolute;
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #f5576c, transparent);
-  filter: blur(70px);
-  opacity: 0.2;
-  bottom: -80px;
-  right: -60px;
-}
-
-.pageHeaderIcon {
-  display: inline-block;
-  font-size: 2.5rem;
-  margin-bottom: 0.75rem;
-  filter: drop-shadow(0 4px 12px rgba(240, 147, 251, 0.4));
-}
-
-.pageHeaderTitle {
-  font-size: clamp(1.6rem, 4vw, 2.6rem);
-  font-weight: 800;
-  color: #fff;
-  margin: 0 0 0.75rem;
-  background: linear-gradient(135deg, #fff 0%, #f9a8d4 60%, #f472b6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
 /* ---- Layout ---- */
 
 .container {
@@ -63,7 +19,7 @@
   min-width: 0;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1280px) {
   .layout {
     grid-template-columns: 1fr;
   }

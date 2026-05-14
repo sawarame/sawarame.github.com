@@ -1,0 +1,20 @@
+---
+title: ツール集
+slug: /tools
+sidebar_position: 1
+hide_title: true
+---
+
+import { ToolGrid } from "@site/src/components/FeatureList";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+
+<ToolPageHeader
+  title="ツール集"
+  desc="ブラウザ上で完結する、日常的に使えるシンプルなツール群です。"
+  icon="🛠"
+  color1="#4facfe"
+  color2="#00f2fe"
+  titleGradient="linear-gradient(135deg, #1e3c72 0%, #4facfe 100%)"
+/>
+
+<ToolGrid />
