@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 interface ToolPageHeaderProps {
   title: string;
   desc: string;
-  icon: string;
+  icon: React.ReactNode;
   color1?: string;
   color2?: string;
   titleGradient?: string;
@@ -26,12 +26,12 @@ export default function ToolPageHeader({
         <div className={styles.pageHeaderOrb2} style={{ background: `radial-gradient(circle, ${color2}, transparent)` }} />
       </div>
       <div className={common.pageHeaderContent}>
-        <span 
+        <div 
           className={styles.pageHeaderIcon} 
           style={{ filter: `drop-shadow(0 4px 12px ${color1}80)` }}
         >
           {icon}
-        </span>
+        </div>
         <h1 className={styles.pageHeaderTitle} style={{ backgroundImage: titleGradient }}>
           {title}
         </h1>
