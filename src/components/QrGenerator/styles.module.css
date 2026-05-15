@@ -99,6 +99,10 @@
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
 }
 
+:global([data-theme='dark']) .qrInner {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
 .qrEmpty {
   display: flex;
   flex-direction: column;
@@ -114,6 +118,6 @@
 
 .qrEmptyText {
   font-size: 0.875rem;
-  color: var(--ifm-color-secondary-darkest);
+  color: var(--ifm-color-emphasis-700);
   margin: 0;
 }

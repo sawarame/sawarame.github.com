@@ -34,6 +34,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import CompareIcon from '@mui/icons-material/Compare';
 import CropIcon from '@mui/icons-material/Crop';
 import CloseIcon from '@mui/icons-material/Close';
+import MuiTheme from '@site/src/components/MuiTheme';
 import common from '@site/src/css/common.module.css';
 import imageCompression from 'browser-image-compression';
 import JSZip from 'jszip';
@@ -625,7 +626,8 @@ export default function ImageOptimizer(): JSX.Element {
   };
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <MuiTheme>
+      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
       <Stack spacing={4}>
         {/* 1. Upload Section */}
         <div className={common.card}>
@@ -737,7 +739,7 @@ export default function ImageOptimizer(): JSX.Element {
             </Stack>
 
             {/* 3. Settings Section */}
-            <Card sx={{ borderRadius: '16px', border: '1px solid var(--ifm-color-emphasis-200)', bgcolor: 'rgba(0,0,0,0.01)' }} elevation={0}>
+            <Card sx={{ borderRadius: '16px', border: '1px solid var(--ifm-color-emphasis-200)', bgcolor: 'action.hover' }} elevation={0}>
               <CardContent sx={{ p: 3 }}>
                 <Typography variant="h6" gutterBottom sx={{ fontWeight: 800 }}>⚙️ {translate({ id: 'resize.settings.title', message: '最適化設定' })}</Typography>
                 <Grid2 container spacing={4} sx={{ mt: 1 }}>
@@ -906,5 +908,6 @@ export default function ImageOptimizer(): JSX.Element {
         <Alert severity={snackbar.severity} variant="filled" sx={{ borderRadius: '8px' }}>{snackbar.message}</Alert>
       </Snackbar>
     </div>
+    </MuiTheme>
   );
 }

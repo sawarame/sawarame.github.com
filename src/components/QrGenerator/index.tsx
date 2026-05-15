@@ -7,6 +7,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShareIcon from '@mui/icons-material/Share';
 import { QRCodeCanvas } from 'qrcode.react';
+import MuiTheme from '@site/src/components/MuiTheme';
 import common from '@site/src/css/common.module.css';
 import styles from './styles.module.css';
 
@@ -204,7 +205,8 @@ export default function QrGenerator(): React.JSX.Element {
   const logoSize = resolution * 0.25;
 
   return (
-    <div className={styles.container}>
+    <MuiTheme>
+      <div className={styles.container}>
       <div className={styles.layout}>
         <div className={common.card}>
           <h2 className={common.cardTitle}>
@@ -284,7 +286,7 @@ export default function QrGenerator(): React.JSX.Element {
               />
             )}
 
-            <Box sx={{ border: '1px dashed #ccc', borderRadius: 2, p: 2, textAlign: 'center' }}>
+            <Box sx={{ border: '1px dashed var(--ifm-color-emphasis-300)', borderRadius: 2, p: 2, textAlign: 'center' }}>
               <Typography variant="subtitle2" sx={{ mb: 1, color: 'text.secondary', fontWeight: 600 }}>
                 {translate({ id: 'qr.logo.title', message: '中心にロゴを埋め込む (オプション)' })}
               </Typography>
@@ -332,7 +334,7 @@ export default function QrGenerator(): React.JSX.Element {
                       height: 40,
                       objectFit: 'contain',
                       borderRadius: 1,
-                      border: '1px solid #eee',
+                      border: '1px solid var(--ifm-color-emphasis-200)',
                       opacity: usePresetLogo ? 0.3 : 1
                     }}
                   />
@@ -438,5 +440,6 @@ export default function QrGenerator(): React.JSX.Element {
         <Alert severity="success" variant="filled" sx={{ borderRadius: 2 }}>{snackbar.message}</Alert>
       </Snackbar>
     </div>
+    </MuiTheme>
   );
 }

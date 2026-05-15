@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { IconButton, Snackbar, Alert, Tooltip } from '@mui/material';
 import { translate } from '@docusaurus/Translate';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import MuiTheme from '@site/src/components/MuiTheme';
 import common from '@site/src/css/common.module.css';
 import styles from './styles.module.css';
 
@@ -104,7 +105,8 @@ export default function DeviceInfo(): JSX.Element {
   };
 
   return (
-    <div className={styles.container}>
+    <MuiTheme>
+      <div className={styles.container}>
       <div className={styles.grid}>
         <SectionCard icon="🌐" title={translate({ id: 'device.section.network', message: 'ネットワーク' })}>
           <InfoRow label={translate({ id: 'device.info.ip', message: 'IPアドレス' })} value={state.ipAddress} onCopy={handleCopy} mono />
@@ -128,5 +130,6 @@ export default function DeviceInfo(): JSX.Element {
         <Alert severity="success" variant="filled" sx={{ borderRadius: 2 }}>{snackbar.message}</Alert>
       </Snackbar>
     </div>
+    </MuiTheme>
   );
 }

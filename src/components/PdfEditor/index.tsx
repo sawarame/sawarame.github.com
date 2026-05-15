@@ -33,6 +33,7 @@ import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import MuiTheme from '@site/src/components/MuiTheme';
 import common from '@site/src/css/common.module.css';
 import JSZip from 'jszip';
 import * as pdfjs from 'pdfjs-dist';
@@ -330,7 +331,8 @@ export default function PdfEditor(): JSX.Element {
   };
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <MuiTheme>
+      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
       <Stack spacing={4}>
         <div className={common.card}>
           <h2 className={common.cardTitle}>
@@ -665,5 +667,6 @@ export default function PdfEditor(): JSX.Element {
         </Box>
       </Dialog>
     </div>
+    </MuiTheme>
   );
 }

@@ -14,6 +14,7 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { BrowserMultiFormatReader } from '@zxing/browser';
 import { BarcodeFormat, DecodeHintType } from '@zxing/library';
 import common from '@site/src/css/common.module.css';
+import MuiTheme from '@site/src/components/MuiTheme';
 import styles from './styles.module.css';
 
 type ScanState = 'idle' | 'scanning' | 'success' | 'error';
@@ -309,7 +310,8 @@ export default function QrReader(): React.JSX.Element {
   }, [imageUrl]);
 
   return (
-    <div className={styles.container}>
+    <MuiTheme>
+      <div className={styles.container}>
       <UploadCard onFileSelect={handleFileSelect} />
 
       {scanState !== 'idle' && (
@@ -334,5 +336,6 @@ export default function QrReader(): React.JSX.Element {
         </Alert>
       </Snackbar>
     </div>
+    </MuiTheme>
   );
 }

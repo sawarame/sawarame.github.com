@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import MuiTheme from '@site/src/components/MuiTheme';
 import common from '@site/src/css/common.module.css';
 
 // --- Date Utils ---
@@ -179,7 +180,8 @@ export default function DateComparison(): JSX.Element {
   }, [alwaysCurrent]);
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', gap: '24px', display: 'flex', flexDirection: 'column' }}>
+    <MuiTheme>
+      <div style={{ maxWidth: '800px', margin: '0 auto', gap: '24px', display: 'flex', flexDirection: 'column' }}>
       <div className={common.card}>
         <h2 className={common.cardTitle}>
           <span className={common.cardTitleIcon}>📅</span>
@@ -266,5 +268,6 @@ export default function DateComparison(): JSX.Element {
 
       <DiffResultCard date1Str={date1} date2Str={date2} />
     </div>
+    </MuiTheme>
   );
 }

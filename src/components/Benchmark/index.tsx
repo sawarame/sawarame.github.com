@@ -5,6 +5,7 @@ import SpeedIcon from '@mui/icons-material/Speed';
 import CloseIcon from '@mui/icons-material/Close';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ShareIcon from '@mui/icons-material/Share';
+import MuiTheme from '@site/src/components/MuiTheme';
 import styles from './styles.module.css';
 
 const BENCHMARK_VERSION = '1.0.0';
@@ -708,7 +709,8 @@ export default function Benchmark(): JSX.Element {
   };
 
   return (
-    <div className={styles.container}>
+    <MuiTheme>
+      <div className={styles.container}>
       <div className={styles.benchCard}>
         <div className={styles.buttonWrap}>
           <Button
@@ -802,7 +804,7 @@ export default function Benchmark(): JSX.Element {
             startIcon={isSharing ? <CircularProgress size={20} /> : <ShareIcon />}
             onClick={handleShareX}
             disabled={isSharing || isMeasuring || (singleScore === null && multiScore === null)}
-            style={{ borderRadius: '20px', fontWeight: 'bold', textTransform: 'none' }}
+            className={styles.shareButton}
           >
             {translate({ id: 'benchmark.ui.share', message: '結果を共有' })}
           </Button>
@@ -924,5 +926,6 @@ export default function Benchmark(): JSX.Element {
         </DialogActions>
       </Dialog>
     </div>
+    </MuiTheme>
   );
 }

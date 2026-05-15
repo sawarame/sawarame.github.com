@@ -18,6 +18,7 @@ import {
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import DeleteIcon from '@mui/icons-material/Delete';
+import MuiTheme from '@site/src/components/MuiTheme';
 import common from '@site/src/css/common.module.css';
 import exifr from 'exifr';
 
@@ -326,7 +327,8 @@ export default function ExifViewer(): JSX.Element {
   };
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', gap: '24px', display: 'flex', flexDirection: 'column' }}>
+    <MuiTheme>
+      <div style={{ maxWidth: '800px', margin: '0 auto', gap: '24px', display: 'flex', flexDirection: 'column' }}>
       <UploadArea onFileSelect={handleFileSelect} />
 
       {originalFile && (
@@ -337,5 +339,6 @@ export default function ExifViewer(): JSX.Element {
         <Alert severity="error" variant="filled" onClose={() => setErrorMsg('')} sx={{ borderRadius: 2 }}>{errorMsg}</Alert>
       </Snackbar>
     </div>
+    </MuiTheme>
   );
 }

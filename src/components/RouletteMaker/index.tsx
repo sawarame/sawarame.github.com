@@ -18,6 +18,7 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import MuiTheme from '@site/src/components/MuiTheme';
 import common from '@site/src/css/common.module.css';
 
 const STORAGE_KEY = 'sawara_roulette_state';
@@ -169,7 +170,8 @@ export default function RouletteMaker(): JSX.Element {
   };
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <MuiTheme>
+      <div style={{ maxWidth: '900px', margin: '0 auto' }}>
       <Paper elevation={3} sx={{ p: 4, mb: 4, textAlign: 'center', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: isDrawing ? 'action.hover' : 'background.paper', borderRadius: '16px', border: '1px solid var(--ifm-color-emphasis-200)' }}>
         {currentDraw ? (
           <Typography variant="h2" component="div" fontWeight="bold" color={isDrawing ? 'text.secondary' : 'primary'} sx={{ wordBreak: 'break-word' }}>
@@ -201,7 +203,7 @@ export default function RouletteMaker(): JSX.Element {
       </Box>
 
       <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 4 }}>
-        <Paper elevation={0} sx={{ p: 3, borderRadius: '12px', border: '1px solid var(--ifm-color-emphasis-200)', bgcolor: 'rgba(0,0,0,0.01)' }}>
+        <Paper elevation={0} sx={{ p: 3, borderRadius: '12px', border: '1px solid var(--ifm-color-emphasis-200)', bgcolor: 'action.hover' }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
             <Typography variant="h6" sx={{ fontWeight: 800 }}>
               <Translate id="roulette.input.title">項目リスト</Translate> ({items.length})
@@ -262,7 +264,7 @@ export default function RouletteMaker(): JSX.Element {
           </Box>
         </Paper>
 
-        <Paper elevation={0} sx={{ p: 3, borderRadius: '12px', border: '1px solid var(--ifm-color-emphasis-200)', bgcolor: 'rgba(0,0,0,0.01)' }}>
+        <Paper elevation={0} sx={{ p: 3, borderRadius: '12px', border: '1px solid var(--ifm-color-emphasis-200)', bgcolor: 'action.hover' }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
             <Typography variant="h6" sx={{ fontWeight: 800 }}>
               <Translate id="roulette.history.title">抽選履歴</Translate> ({drawnItems.length})
@@ -309,5 +311,6 @@ export default function RouletteMaker(): JSX.Element {
         </Paper>
       </Box>
     </div>
+    </MuiTheme>
   );
 }
