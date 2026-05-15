@@ -1,0 +1,33 @@
+---
+title: 写真Exif情報チェッカー
+slug: /exif
+sidebar_position: 6
+hide_title: true
+---
+
+import ExifViewer from "@site/src/components/ExifViewer";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+
+<ToolPageHeader
+  title="写真Exif情報チェッカー"
+  desc="アップロードした写真（JPEG形式）からカメラ情報、撮影日時、GPSなどのメタデータを読み取ります。写真はサーバーに送信されず、すべてブラウザ内で処理されるため安全です。"
+  icon="📸"
+  color1="#a18cd1"
+  color2="#fbc2eb"
+  titleGradient="linear-gradient(135deg, #ffffff 0%, #a18cd1 60%, #fbc2eb 100%)"
+/>
+
+<ExifViewer />
+
+## 使い方
+
+1. EXIF情報を確認したい写真ファイルをドラッグ＆ドロップ、またはクリックして選択します。
+2. 選択後、自動的に解析が始まり、撮影日時、カメラモデル、設定、位置情報などが表示されます。
+3. 各項目の横にあるコピーボタンをクリックすると、その値をクリップボードにコピーできます。
+4. GPS情報がある場合は、リンクをクリックしてGoogleマップで撮影場所を確認できます。
+5. 「クリア」ボタン（ゴミ箱アイコン）を押すと、表示されている情報をリセットできます。
+6. 解析結果のカード内にあるリンクから、その画像をそのまま[画像軽量化・クロップツール](/resize)に渡して、Exif情報の削除やサイズ変更を行うことも可能です。
+
+:::info セキュリティについて
+🔒 写真の解析はすべてお使いの端末（ブラウザ内）で実行され、外部サーバーにデータが送信されることは一切ありません。プライバシーは完全に守られます。
+:::

@@ -1,0 +1,33 @@
+---
+title: Photo Exif Viewer
+slug: /exif
+sidebar_position: 6
+hide_title: true
+---
+
+import ExifViewer from "@site/src/components/ExifViewer";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+
+<ToolPageHeader
+  title="Photo Exif Viewer"
+  desc="Read camera info, shooting date, GPS, and other metadata from uploaded photos (JPEG). Photos are processed locally for safety."
+  icon="📸"
+  color1="#a18cd1"
+  color2="#fbc2eb"
+  titleGradient="linear-gradient(135deg, #ffffff 0%, #a18cd1 60%, #fbc2eb 100%)"
+/>
+
+<ExifViewer />
+
+## How to use
+
+1. Select or drag & drop the photo file (primarily JPEG) you want to check.
+2. After selection, the analysis starts automatically, and metadata such as shooting date, camera model, settings, and GPS will be displayed.
+3. Click the copy button next to each item to copy the value to your clipboard.
+4. If GPS information is available, you can click the link to view the shooting location on Google Maps.
+5. Click the clear button (trash can icon) to reset the displayed information.
+6. From the link in the analysis result card, you can pass the image directly to the [Image Resizer & Cropper](/resize) to remove EXIF information or resize it.
+
+:::info Privacy
+🔒 Photo analysis is performed entirely on your device (in-browser), and no data is ever sent to an external server. Your privacy is fully protected.
+:::

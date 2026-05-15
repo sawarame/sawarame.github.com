@@ -1,13 +1,8 @@
 import React, { useState, useRef, DragEvent, ChangeEvent } from 'react';
-import Layout from '@theme/Layout';
-import Link from '@docusaurus/Link';
-import MuiTheme from '@site/src/components/MuiTheme';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { useHistory } from '@docusaurus/router';
 import { translate } from '@docusaurus/Translate';
 import {
   Button,
-  Stack,
   IconButton,
   Tooltip,
   Snackbar,
@@ -53,34 +48,6 @@ function formatGps(lat: number | undefined, lng: number | undefined): string {
 }
 
 // --- Sub Components ---
-
-function PageHeader() {
-  return (
-    <div className={common.pageHeader}>
-      <div className={common.pageHeaderBg}>
-        <div style={{ position: 'absolute', top: '-50px', left: '-50px', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(161, 140, 209, 0.2) 0%, transparent 70%)', borderRadius: '50%' }} />
-        <div style={{ position: 'absolute', bottom: '-50px', right: '-50px', width: '250px', height: '250px', background: 'radial-gradient(circle, rgba(251, 194, 235, 0.2) 0%, transparent 70%)', borderRadius: '50%' }} />
-      </div>
-      <div className={common.pageHeaderContent}>
-        <span style={{ fontSize: '3rem', marginBottom: '1rem', display: 'block' }}>📸</span>
-        <h1 style={{
-          fontSize: 'clamp(1.6rem, 4vw, 2.6rem)',
-          fontWeight: 800,
-          margin: '0 0 1rem',
-          background: 'linear-gradient(135deg, #ffffff 0%, #a18cd1 60%, #fbc2eb 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text'
-        }}>
-          {translate({ id: 'exif.header.title', message: '写真Exif情報チェッカー' })}
-        </h1>
-        <p className={common.pageHeaderDesc}>
-          {translate({ id: 'exif.header.desc', message: 'アップロードした写真（JPEG形式）からカメラ情報、撮影日時、GPSなどのメタデータを読み取ります。写真はサーバーに送信されず、すべてブラウザ内で処理されるため安全です。' })}
-        </p>
-      </div>
-    </div>
-  );
-}
 
 function UploadArea({ onFileSelect }: { onFileSelect: (file: File) => void }) {
   const [isDragOver, setIsDragOver] = useState(false);
@@ -281,11 +248,7 @@ function ExifResultCard({ exifData, onClear, fileName, imageUrl, originalFile }:
   );
 }
 
-// --- Main Page ---
-
 export default function ExifViewer(): JSX.Element {
-  const { siteConfig } = useDocusaurusContext();
-
   const [exifData, setExifData] = useState<ExifData | null>(null);
   const [fileName, setFileName] = useState<string>('');
   const [imageUrl, setImageUrl] = useState<string>('');
@@ -363,46 +326,16 @@ export default function ExifViewer(): JSX.Element {
   };
 
   return (
-    <Layout
-      title={`${translate({ id: 'exif.header.title', message: '写真Exif情報チェッカー' })} | ${siteConfig.title}`}
-      description={translate({ id: 'exif.header.desc', message: 'アップロードした写真からカメラ情報、撮影日時、GPSなどのメタデータを読み取ります。' })}
-    >
-      <MuiTheme>
-        <PageHeader />
-        <div className={common.body}>
-          <div style={{ maxWidth: '800px', margin: '0 auto', gap: '24px', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ maxWidth: '800px', margin: '0 auto', gap: '24px', display: 'flex', flexDirection: 'column' }}>
+      <UploadArea onFileSelect={handleFileSelect} />
 
-            <UploadArea onFileSelect={handleFileSelect} />
+      {originalFile && (
+        <ExifResultCard exifData={exifData} onClear={handleClear} fileName={fileName} imageUrl={imageUrl} originalFile={originalFile} />
+      )}
 
-            {originalFile && (
-              <ExifResultCard exifData={exifData} onClear={handleClear} fileName={fileName} imageUrl={imageUrl} originalFile={originalFile} />
-            )}
-
-            {/* 使い方の説明 */}
-            <div className={common.guideCard}>
-              <h2 className={common.cardTitle}>
-                <span className={common.cardTitleIcon}>📖</span>
-                {translate({ id: 'exif.guide.title', message: '使い方' })}
-              </h2>
-              <ol className={common.guideList}>
-                <li>{translate({ id: 'exif.guide.step1', message: 'EXIF情報を確認したい写真ファイルをドラッグ＆ドロップ、またはクリックして選択します。' })}</li>
-                <li>{translate({ id: 'exif.guide.step2', message: '選択後、自動的に解析が始まり、撮影日時、カメラモデル、設定、位置情報などが表示されます。' })}</li>
-                <li>{translate({ id: 'exif.guide.step3', message: '各項目の横にあるコピーボタンをクリックすると、その値をクリップボードにコピーできます。' })}</li>
-                <li>{translate({ id: 'exif.guide.step4', message: 'GPS情報がある場合は、リンクをクリックしてGoogleマップで撮影場所を確認できます。' })}</li>
-                <li>{translate({ id: 'exif.guide.step5', message: '「クリア」ボタン（ゴミ箱アイコン）を押すと、表示されている情報をリセットできます。' })}</li>
-              </ol>
-              <div className={common.securityBox}>
-                {translate({ id: 'exif.guide.security', message: '🔒 写真の解析はすべてお使いの端末（ブラウザ内）で実行され、外部サーバーにデータが送信されることは一切ありません。プライバシーは完全に守られます。' })}
-              </div>
-            </div>
-
-            <Snackbar open={!!errorMsg} autoHideDuration={5000} onClose={() => setErrorMsg('')} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-              <Alert severity="error" variant="filled" onClose={() => setErrorMsg('')} sx={{ borderRadius: 2 }}>{errorMsg}</Alert>
-            </Snackbar>
-
-          </div>
-        </div>
-      </MuiTheme>
-    </Layout>
+      <Snackbar open={!!errorMsg} autoHideDuration={5000} onClose={() => setErrorMsg('')} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+        <Alert severity="error" variant="filled" onClose={() => setErrorMsg('')} sx={{ borderRadius: 2 }}>{errorMsg}</Alert>
+      </Snackbar>
+    </div>
   );
 }
