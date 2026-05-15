@@ -1,0 +1,32 @@
+---
+title: QRコード作成
+slug: /qr
+sidebar_position: 4
+hide_title: true
+---
+
+import QrGenerator from "@site/src/components/QrGenerator";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+
+<ToolPageHeader
+  title="QRコード作成"
+  desc="URLやWi-Fi、連絡先などの情報からQRコードを生成します。ロゴの埋め込みにも対応。"
+  icon="📷"
+  color1="#43e97b"
+  color2="#38f9d7"
+  titleGradient="linear-gradient(135deg, #ffffff 0%, #43e97b 60%, #38f9d7 100%)"
+/>
+
+<QrGenerator />
+
+## 使い方
+
+1. 作成したい情報の種類（URL、Wi-Fi、連絡先など）を選択します。
+2. 必要な情報を入力すると、リアルタイムでプレビューが更新されます。
+3. オプションで、QRコードの中央にロゴ画像を配置できます。プリセットアイコンのほか、ご自身の画像をアップロードすることも可能です。
+4. 解像度（240px / 480px）を選択し、「QRを保存」で画像をダウンロードできます。
+5. 「共有」ボタンから、他のアプリに送信したりクリップボードにコピーしたりすることも可能です。
+
+:::info プライバシーについて
+🔒 入力したテキストやロゴ画像データはすべてブラウザ内で処理され、サーバーに送信されることはありません。
+:::

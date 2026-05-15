@@ -1,7 +1,4 @@
 import React, { useState, useRef, useCallback, useEffect, DragEvent, ChangeEvent } from 'react';
-import Layout from '@theme/Layout';
-import MuiTheme from '@site/src/components/MuiTheme';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { translate } from '@docusaurus/Translate';
 import {
   Button,
@@ -14,21 +11,12 @@ import {
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import { BrowserMultiFormatReader } from '@zxing/browser';
 import { BarcodeFormat, DecodeHintType } from '@zxing/library';
 import common from '@site/src/css/common.module.css';
-import styles from '@site/src/css/qr-reader.module.css';
-
-// ============================================================
-// Types
-// ============================================================
+import styles from './styles.module.css';
 
 type ScanState = 'idle' | 'scanning' | 'success' | 'error';
-
-// ============================================================
-// Utils
-// ============================================================
 
 function isUrl(text: string): boolean {
   try {
@@ -39,35 +27,7 @@ function isUrl(text: string): boolean {
   }
 }
 
-// ============================================================
-// Sub Components
-// ============================================================
-
-function PageHeader() {
-  return (
-    <div className={common.pageHeader}>
-      <div className={common.pageHeaderBg}>
-        <div className={styles.pageHeaderOrb1} />
-        <div className={styles.pageHeaderOrb2} />
-      </div>
-      <div className={common.pageHeaderContent}>
-        <span className={styles.pageHeaderIcon}>🔍</span>
-        <h1 className={styles.pageHeaderTitle}>{translate({ id: 'qrReader.header.title', message: 'QRコード読み取り' })}</h1>
-        <p className={common.pageHeaderDesc}>
-          {translate({ id: 'qrReader.header.desc', message: 'QRコードの画像をアップロードすると、埋め込まれた文字列を解析します。すべてブラウザ内で処理されるため、画像はサーバーに送信されません。' })}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-// ---- Upload Card ----
-
-interface UploadCardProps {
-  onFileSelect: (file: File) => void;
-}
-
-function UploadCard({ onFileSelect }: UploadCardProps) {
+function UploadCard({ onFileSelect }: { onFileSelect: (file: File) => void }) {
   const [isDragOver, setIsDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -94,7 +54,6 @@ function UploadCard({ onFileSelect }: UploadCardProps) {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) onFileSelect(file);
-    // reset so the same file can be selected again
     e.target.value = '';
   };
 
@@ -113,7 +72,6 @@ function UploadCard({ onFileSelect }: UploadCardProps) {
         role="button"
         tabIndex={0}
         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleClick(); }}
-        aria-label={translate({ id: 'qrReader.upload.ariaLabel', message: 'QRコード画像を選択またはドロップ' })}
       >
         <span className={styles.dropIcon}>📷</span>
         <p className={styles.dropLabel}>{translate({ id: 'qrReader.upload.dropLabel', message: 'クリック・ドラッグ＆ドロップ、または貼り付けで選択' })}</p>
@@ -124,25 +82,13 @@ function UploadCard({ onFileSelect }: UploadCardProps) {
           ref={fileInputRef}
           onChange={handleFileChange}
           style={{ display: 'none' }}
-          id="qr-reader-file-input"
         />
       </div>
     </div>
   );
 }
 
-// ---- Result Card ----
-
-interface ResultCardProps {
-  imageUrl: string;
-  fileName: string;
-  result: string | null;
-  scanState: ScanState;
-  errorMsg: string;
-  onClear: () => void;
-}
-
-function ResultCard({ imageUrl, fileName, result, scanState, errorMsg, onClear }: ResultCardProps) {
+function ResultCard({ imageUrl, fileName, result, scanState, errorMsg, onClear }: { imageUrl: string; fileName: string; result: string | null; scanState: ScanState; errorMsg: string; onClear: () => void; }) {
   const [snackbar, setSnackbar] = useState({ open: false, message: '' });
 
   const handleCopy = useCallback(() => {
@@ -156,20 +102,18 @@ function ResultCard({ imageUrl, fileName, result, scanState, errorMsg, onClear }
 
   return (
     <div className={common.card}>
-      {/* Card Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
         <h2 className={common.cardTitle} style={{ margin: 0 }}>
           <span className={common.cardTitleIcon}>📊</span>
           {translate({ id: 'qrReader.result.title', message: '解析結果' })}
         </h2>
         <Tooltip title={translate({ id: 'common.clear', message: 'クリア' })}>
-          <IconButton onClick={onClear} color="error" size="small" aria-label={translate({ id: 'common.clear', message: 'クリア' })}>
+          <IconButton onClick={onClear} color="error" size="small">
             <DeleteIcon />
           </IconButton>
         </Tooltip>
       </div>
 
-      {/* File name */}
       <div style={{
         marginBottom: '1rem',
         padding: '8px 12px',
@@ -181,14 +125,12 @@ function ResultCard({ imageUrl, fileName, result, scanState, errorMsg, onClear }
         {translate({ id: 'common.file', message: 'ファイル:' })} <strong>{fileName}</strong>
       </div>
 
-      {/* Preview */}
       {imageUrl && (
         <div className={styles.previewWrap}>
-          <img src={imageUrl} alt={translate({ id: 'qrReader.upload.ariaLabel', message: 'QRコード画像を選択またはドロップ' })} className={styles.previewImg} />
+          <img src={imageUrl} alt="Preview" className={styles.previewImg} />
         </div>
       )}
 
-      {/* Scanning state */}
       {scanState === 'scanning' && (
         <div className={styles.scanningWrap}>
           <CircularProgress size={32} sx={{ color: '#818cf8' }} />
@@ -197,7 +139,6 @@ function ResultCard({ imageUrl, fileName, result, scanState, errorMsg, onClear }
         </div>
       )}
 
-      {/* Error */}
       {scanState === 'error' && (
         <div style={{
           padding: '1rem',
@@ -211,7 +152,6 @@ function ResultCard({ imageUrl, fileName, result, scanState, errorMsg, onClear }
         </div>
       )}
 
-      {/* Success */}
       {scanState === 'success' && result !== null && (
         <>
           {resultIsUrl && (
@@ -260,13 +200,7 @@ function ResultCard({ imageUrl, fileName, result, scanState, errorMsg, onClear }
   );
 }
 
-// ============================================================
-// Page
-// ============================================================
-
 export default function QrReader(): React.JSX.Element {
-  const { siteConfig } = useDocusaurusContext();
-
   const [imageUrl, setImageUrl] = useState<string>('');
   const [fileName, setFileName] = useState<string>('');
   const [result, setResult] = useState<string | null>(null);
@@ -275,7 +209,6 @@ export default function QrReader(): React.JSX.Element {
   const [globalSnackbar, setGlobalSnackbar] = useState({ open: false, message: '', severity: 'error' as 'error' | 'warning' });
 
   const handleFileSelect = useCallback((file: File) => {
-    // Reset state
     setResult(null);
     setErrorMsg('');
     setScanState('idle');
@@ -291,7 +224,6 @@ export default function QrReader(): React.JSX.Element {
     setImageUrl(url);
     setScanState('scanning');
 
-    // Decode using ZXing with multi-pass strategy
     const decode = async () => {
       try {
         const hints = new Map();
@@ -299,7 +231,6 @@ export default function QrReader(): React.JSX.Element {
         hints.set(DecodeHintType.TRY_HARDER, true);
         const codeReader = new BrowserMultiFormatReader(hints);
         
-        // Pass 1: Original image
         try {
           const result = await codeReader.decodeFromImageUrl(url);
           setResult(result.getText());
@@ -309,7 +240,6 @@ export default function QrReader(): React.JSX.Element {
           console.warn('Pass 1 (Original) failed:', e);
         }
 
-        // Pass 2 & 3: Downscaled image (helps with large photos where QR is small or noisy)
         const img = new Image();
         await new Promise((resolve, reject) => {
           img.onload = resolve;
@@ -317,7 +247,7 @@ export default function QrReader(): React.JSX.Element {
           img.src = url;
         });
 
-        const scalePasses = [1000, 500]; // Max dimensions to test
+        const scalePasses = [1000, 500]; 
         for (const maxDim of scalePasses) {
           if (img.naturalWidth > maxDim || img.naturalHeight > maxDim) {
             const scale = maxDim / Math.max(img.naturalWidth, img.naturalHeight);
@@ -326,7 +256,6 @@ export default function QrReader(): React.JSX.Element {
             canvas.height = img.naturalHeight * scale;
             const ctx = canvas.getContext('2d');
             if (ctx) {
-              // Draw scaled image
               ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
               try {
                 const result = await codeReader.decodeFromCanvas(canvas);
@@ -379,65 +308,31 @@ export default function QrReader(): React.JSX.Element {
     setErrorMsg('');
   }, [imageUrl]);
 
-  const showResult = scanState !== 'idle';
-
   return (
-    <Layout title={`${translate({ id: 'qrReader.header.title', message: 'QRコード読み取り' })} | ${siteConfig.title}`} description={translate({ id: 'qrReader.header.desc', message: 'QRコードの画像をアップロードして、埋め込まれた文字列を解析します。ブラウザ内で完結するため安全です。' })}>
-      <MuiTheme>
-        <PageHeader />
-        <div className={common.body}>
-          <div className={styles.container}>
+    <div className={styles.container}>
+      <UploadCard onFileSelect={handleFileSelect} />
 
-            {/* Upload area */}
-            <UploadCard onFileSelect={handleFileSelect} />
+      {scanState !== 'idle' && (
+        <ResultCard
+          imageUrl={imageUrl}
+          fileName={fileName}
+          result={result}
+          scanState={scanState}
+          errorMsg={errorMsg}
+          onClear={handleClear}
+        />
+      )}
 
-            {/* Result — visible once a file is selected */}
-            {showResult && (
-              <ResultCard
-                imageUrl={imageUrl}
-                fileName={fileName}
-                result={result}
-                scanState={scanState}
-                errorMsg={errorMsg}
-                onClear={handleClear}
-              />
-            )}
-
-            {/* Usage guide */}
-            {!showResult && (
-              <div className={common.guideCard}>
-                <h2 className={common.cardTitle}>
-                  <span className={common.cardTitleIcon}>
-                    <QrCodeScannerIcon sx={{ fontSize: '1.1rem', verticalAlign: 'middle' }} />
-                  </span>
-                  {translate({ id: 'qrReader.guide.title', message: '使い方' })}
-                </h2>
-                <ol className={common.guideList}>
-                  <li>{translate({ id: 'qrReader.guide.step1', message: 'QRコードが写った画像ファイルを選択またはドラッグ＆ドロップしてください。' })}</li>
-                  <li>{translate({ id: 'qrReader.guide.step2', message: '自動的にQRコードが解析され、埋め込まれたテキストが表示されます。' })}</li>
-                  <li>{translate({ id: 'qrReader.guide.step3', message: '結果はコピーボタンでクリップボードにコピーできます。URLの場合は直接開くことも可能です。' })}</li>
-                </ol>
-                <div className={common.securityBox}>
-                  {translate({ id: 'qrReader.guide.security', message: '🔒 アップロードした画像はサーバーに送信されません。すべての処理はブラウザ内で完結します。' })}
-                </div>
-              </div>
-            )}
-
-          </div>
-        </div>
-
-        {/* Global snackbar for non-file errors */}
-        <Snackbar
-          open={globalSnackbar.open}
-          autoHideDuration={4000}
-          onClose={() => setGlobalSnackbar((s) => ({ ...s, open: false }))}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        >
-          <Alert severity={globalSnackbar.severity} variant="filled" sx={{ borderRadius: 2 }}>
-            {globalSnackbar.message}
-          </Alert>
-        </Snackbar>
-      </MuiTheme>
-    </Layout>
+      <Snackbar
+        open={globalSnackbar.open}
+        autoHideDuration={4000}
+        onClose={() => setGlobalSnackbar((s) => ({ ...s, open: false }))}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert severity={globalSnackbar.severity} variant="filled" sx={{ borderRadius: 2 }}>
+          {globalSnackbar.message}
+        </Alert>
+      </Snackbar>
+    </div>
   );
 }

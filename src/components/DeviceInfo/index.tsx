@@ -1,36 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import Layout from '@theme/Layout';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { IconButton, Snackbar, Alert, Tooltip } from '@mui/material';
-import MuiTheme from '@site/src/components/MuiTheme';
 import { translate } from '@docusaurus/Translate';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import common from '@site/src/css/common.module.css';
-import styles from '@site/src/css/device.module.css';
+import styles from './styles.module.css';
 
 // ============================================================
 // Sub Components
 // ============================================================
-
-function PageHeader() {
-  return (
-    <div className={common.pageHeader}>
-      <div className={common.pageHeaderBg}>
-        <div className={styles.pageHeaderOrb1} />
-        <div className={styles.pageHeaderOrb2} />
-      </div>
-      <div className={common.pageHeaderContent}>
-        <span className={styles.pageHeaderIcon}>📱</span>
-        <h1 className={styles.pageHeaderTitle}>
-          {translate({ id: 'device.header.title', message: 'デバイス情報チェッカー' })}
-        </h1>
-        <p className={common.pageHeaderDesc}>
-          {translate({ id: 'device.header.desc', message: '現在利用しているデバイスの画面サイズやユーザーエージェント情報を表示します。' })}
-        </p>
-      </div>
-    </div>
-  );
-}
 
 function InfoRow({ label, value, note, onCopy, mono = false }: {
   label: string; value: string; note?: string; onCopy?: (value: string) => void; mono?: boolean;
@@ -66,12 +43,10 @@ function SectionCard({ icon, title, children, full = false }: { icon: string; ti
 }
 
 // ============================================================
-// Page
+// Main Component
 // ============================================================
 
-export default function Device(): JSX.Element {
-  const { siteConfig } = useDocusaurusContext();
-
+export default function DeviceInfo(): JSX.Element {
   const [state, setState] = useState({
     userAgent: '',
     physicalSize: '',
@@ -83,6 +58,8 @@ export default function Device(): JSX.Element {
   const [snackbar, setSnackbar] = useState({ open: false, message: '' });
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const isBot = /bot|crawler|spider|crawling/i.test(navigator.userAgent);
     if (isBot) {
       setState((s) => ({ ...s, ipAddress: translate({ id: 'device.ip.bot', message: 'ボット/クローラーからのアクセスと判定されたため、IPアドレスは表示されません。' }) }));
@@ -100,7 +77,6 @@ export default function Device(): JSX.Element {
       })();
     }
     const update = () => {
-      // メモリ容量 (navigator.deviceMemory) はブラウザによって未実装の場合がある
       const memory = (navigator as any).deviceMemory
         ? `${(navigator as any).deviceMemory} GB`
         : translate({ id: 'device.memory.unknown', message: '不明（未対応のブラウザです）' });
@@ -128,39 +104,29 @@ export default function Device(): JSX.Element {
   };
 
   return (
-    <Layout
-      title={`${translate({ id: 'device.header.title', message: 'デバイス情報チェッカー' })} | ${siteConfig.title}`}
-      description={translate({ id: 'device.header.desc', message: '現在利用しているデバイスの画面サイズやユーザーエージェント情報を表示します。' })}
-    >
-      <MuiTheme>
-        <PageHeader />
-        <div className={common.body}>
-          <div className={styles.container}>
-            <div className={styles.grid}>
-              <SectionCard icon="🌐" title={translate({ id: 'device.section.network', message: 'ネットワーク' })}>
-                <InfoRow label={translate({ id: 'device.info.ip', message: 'IPアドレス' })} value={state.ipAddress} onCopy={handleCopy} mono />
-              </SectionCard>
-              <SectionCard icon="🖥️" title={translate({ id: 'device.section.screen', message: '画面サイズ' })}>
-                <InfoRow label={translate({ id: 'device.info.physicalSize', message: '物理解像度' })} value={state.physicalSize} note="window.screen" onCopy={handleCopy} mono />
-                <InfoRow label={translate({ id: 'device.info.logicalSize', message: 'ウィンドウサイズ' })} value={state.logicalSize} note="window.inner" onCopy={handleCopy} mono />
-              </SectionCard>
-              <SectionCard icon="⚙️" title={translate({ id: 'device.section.hardware', message: 'ハードウェア' })}>
-                <InfoRow label={translate({ id: 'device.info.cores', message: '論理コア数' })} value={state.hardwareConcurrency} note="hardwareConcurrency" onCopy={handleCopy} mono />
-                <InfoRow label={translate({ id: 'device.info.memory', message: 'メモリ容量' })} value={state.deviceMemory} note="deviceMemory" onCopy={handleCopy} mono />
-                <p className={styles.disclaimer}>
-                  {translate({ id: 'device.disclaimer', message: '※プライバシー保護のため、正確な容量が制限されたり、丸められた値が表示される場合があります。' })}
-                </p>
-              </SectionCard>
-              <SectionCard icon="🔍" title={translate({ id: 'device.section.ua', message: 'ユーザーエージェント' })}>
-                <InfoRow label="User-Agent" value={state.userAgent} onCopy={handleCopy} mono />
-              </SectionCard>
-            </div>
-          </div>
-        </div>
-        <Snackbar open={snackbar.open} autoHideDuration={2000} onClose={() => setSnackbar((s) => ({ ...s, open: false }))} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-          <Alert severity="success" variant="filled" sx={{ borderRadius: 2 }}>{snackbar.message}</Alert>
-        </Snackbar>
-      </MuiTheme>
-    </Layout>
+    <div className={styles.container}>
+      <div className={styles.grid}>
+        <SectionCard icon="🌐" title={translate({ id: 'device.section.network', message: 'ネットワーク' })}>
+          <InfoRow label={translate({ id: 'device.info.ip', message: 'IPアドレス' })} value={state.ipAddress} onCopy={handleCopy} mono />
+        </SectionCard>
+        <SectionCard icon="🖥️" title={translate({ id: 'device.section.screen', message: '画面サイズ' })}>
+          <InfoRow label={translate({ id: 'device.info.physicalSize', message: '物理解像度' })} value={state.physicalSize} note="window.screen" onCopy={handleCopy} mono />
+          <InfoRow label={translate({ id: 'device.info.logicalSize', message: 'ウィンドウサイズ' })} value={state.logicalSize} note="window.inner" onCopy={handleCopy} mono />
+        </SectionCard>
+        <SectionCard icon="⚙️" title={translate({ id: 'device.section.hardware', message: 'ハードウェア' })}>
+          <InfoRow label={translate({ id: 'device.info.cores', message: '論理コア数' })} value={state.hardwareConcurrency} note="hardwareConcurrency" onCopy={handleCopy} mono />
+          <InfoRow label={translate({ id: 'device.info.memory', message: 'メモリ容量' })} value={state.deviceMemory} note="deviceMemory" onCopy={handleCopy} mono />
+          <p className={styles.disclaimer}>
+            {translate({ id: 'device.disclaimer', message: '※プライバシー保護のため、正確な容量が制限されたり、丸められた値が表示される場合があります。' })}
+          </p>
+        </SectionCard>
+        <SectionCard icon="🔍" title={translate({ id: 'device.section.ua', message: 'ユーザーエージェント' })}>
+          <InfoRow label="User-Agent" value={state.userAgent} onCopy={handleCopy} mono />
+        </SectionCard>
+      </div>
+      <Snackbar open={snackbar.open} autoHideDuration={2000} onClose={() => setSnackbar((s) => ({ ...s, open: false }))} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+        <Alert severity="success" variant="filled" sx={{ borderRadius: 2 }}>{snackbar.message}</Alert>
+      </Snackbar>
+    </div>
   );
 }

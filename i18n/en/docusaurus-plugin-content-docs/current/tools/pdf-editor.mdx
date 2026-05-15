@@ -1,0 +1,33 @@
+---
+title: PDF Converter & Editor
+slug: /pdf-editor
+sidebar_position: 6
+hide_title: true
+---
+
+import PdfEditor from "@site/src/components/PdfEditor";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+
+<ToolPageHeader
+  title="PDF Converter & Editor"
+  desc="Convert PDF files to images (PNG, JPEG, WebP) or extract and merge specific pages into a new PDF."
+  icon="📄"
+  color1="#ff7e5f"
+  color2="#feb47b"
+  titleGradient="linear-gradient(135deg, #ffffff 0%, #ff7e5f 60%, #feb47b 100%)"
+/>
+
+<PdfEditor />
+
+## How to use
+
+1. Select, drag & drop, or paste (Ctrl+V) the PDF files you want to edit. You can add multiple PDFs at once.
+2. If exporting as images, use the settings panel to choose the format (PNG/JPEG/WebP) and an optional maximum width.
+3. Select a PDF from the file list to see a preview of all its pages.
+4. Click on pages to select or deselect them for extraction or conversion (all are selected by default).
+5. Click "Download as Images" to save the selected pages as a zip of image files.
+6. Click "Save as New PDF" to create and download a new PDF containing only the selected pages.
+
+:::info Security
+🔒 All PDF processing happens locally in your browser. Files are never uploaded to any server, making it safe for confidential documents.
+:::

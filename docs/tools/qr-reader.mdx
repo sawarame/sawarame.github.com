@@ -1,0 +1,31 @@
+---
+title: QRコード読み取り
+slug: /qr-reader
+sidebar_position: 5
+hide_title: true
+---
+
+import QrReader from "@site/src/components/QrReader";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+
+<ToolPageHeader
+  title="QRコード読み取り"
+  desc="QRコードの画像を解析し、埋め込まれたテキストやURLを抽出します。"
+  icon="🔍"
+  color1="#818cf8"
+  color2="#c084fc"
+  titleGradient="linear-gradient(135deg, #ffffff 0%, #c7d2fe 60%, #a5b4fc 100%)"
+/>
+
+<QrReader />
+
+## 使い方
+
+1. QRコードが写った画像ファイルを選択、またはドラッグ＆ドロップしてください。
+2. 解析が成功すると、埋め込まれたテキスト内容が表示されます。
+3. 内容がURLの場合は、ボタンから直接ページを開くことが可能です。
+4. 抽出されたテキストはコピーボタンで簡単にクリップボードに保存できます。
+
+:::info セキュリティについて
+🔒 アップロードした画像はサーバーに送信されません。すべての解析処理はブラウザ内で完結するため、プライバシーが守られます。
+:::

@@ -1,0 +1,33 @@
+---
+title: PDF変換・編集ツール
+slug: /pdf-editor
+sidebar_position: 6
+hide_title: true
+---
+
+import PdfEditor from "@site/src/components/PdfEditor";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+
+<ToolPageHeader
+  title="PDF変換・編集ツール"
+  desc="PDFファイルを画像（PNG, JPEG, WebP）に変換したり、必要なページだけを抽出・結合して新しいPDFを作成できます。"
+  icon="📄"
+  color1="#ff7e5f"
+  color2="#feb47b"
+  titleGradient="linear-gradient(135deg, #ffffff 0%, #ff7e5f 60%, #feb47b 100%)"
+/>
+
+<PdfEditor />
+
+## 使い方
+
+1. 編集したいPDFファイルを選択、ドラッグ＆ドロップ、またはクリップボードから貼り付けて追加します。複数のPDFを一度に追加することも可能です。
+2. 画像として書き出す場合は、右上の設定パネルから出力フォーマット（PNG/JPEG/WebP）と、必要に応じて最大横幅を指定します。
+3. ファイルリストからプレビューしたいPDFを選択すると、下部に全ページのプレビューが表示されます。
+4. 抽出または画像化したいページをクリックして選択します（デフォルトでは全選択されています）。
+5. 「画像としてダウンロード」をクリックすると、選択したページが画像ファイルとして一括ダウンロードされます。
+6. 「新しいPDFとして保存」をクリックすると、選択したページのみを抽出し、結合した新しいPDFファイルが作成されます。
+
+:::info セキュリティについて
+🔒 アップロードしたPDFファイルはすべてブラウザ内で処理されます。サーバーへ送信されることは一切ないため、機密情報を含む文書でも安全にご利用いただけます。
+:::

@@ -1,0 +1,32 @@
+---
+title: ルーレットメーカー
+slug: /roulette
+sidebar_position: 12
+hide_title: true
+---
+
+import RouletteMaker from "@site/src/components/RouletteMaker";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+
+<ToolPageHeader
+  title="ルーレットメーカー"
+  desc="入力したリストからランダムに項目を選出する抽選ツールです。ビンゴの抽選や順番決めなどに活用できます。"
+  icon="🎯"
+  color1="#ff0844"
+  color2="#ffb199"
+  titleGradient="linear-gradient(135deg, #ffffff 0%, #ffecd2 60%, #fcb69f 100%)"
+/>
+
+<RouletteMaker />
+
+## 使い方
+
+1. **項目を入力**: 「項目リスト」に抽選したい内容を1行ずつ入力します。
+2. **設定**: 「一度出た項目をリストから除外する」をオンにすると、当選した項目が自動的にリストから削除され、重複しない抽選が可能です。
+3. **インポート / エクスポート**: テキストファイルを読み込んで一括入力したり、作成したリストを保存したりできます。
+4. **抽選開始**: ボタンを押すとルーレットが回り、ランダムに1つの項目が選ばれます。
+5. **履歴管理**: 過去の当選結果は「抽選履歴」で確認でき、必要に応じてクリアできます。
+
+:::info プライバシーについて
+🔒 入力したデータや抽選履歴はすべてブラウザのローカルストレージに保存され、サーバーへ送信されることはありません。
+:::

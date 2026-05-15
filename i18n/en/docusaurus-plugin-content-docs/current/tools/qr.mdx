@@ -1,0 +1,32 @@
+---
+title: QR Code Generator
+slug: /qr
+sidebar_position: 4
+hide_title: true
+---
+
+import QrGenerator from "@site/src/components/QrGenerator";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+
+<ToolPageHeader
+  title="QR Code Generator"
+  desc="Generate QR codes from URLs, Wi-Fi details, contacts, and more. Supports custom logo embedding."
+  icon="📷"
+  color1="#43e97b"
+  color2="#38f9d7"
+  titleGradient="linear-gradient(135deg, #ffffff 0%, #43e97b 60%, #38f9d7 100%)"
+/>
+
+<QrGenerator />
+
+## How to use
+
+1. Select the type of information you want to encode (URL, Wi-Fi, Contact, etc.).
+2. Enter the required details; the preview will update in real-time.
+3. Optionally, add a logo to the center of your QR code using presets or by uploading your own image.
+4. Choose your preferred resolution (240px / 480px) and click "Save QR" to download.
+5. Use the "Share" button to send the QR code to other apps or copy it to your clipboard.
+
+:::info Privacy
+🔒 All text inputs and logo images are processed entirely within your browser and are never sent to any server.
+:::

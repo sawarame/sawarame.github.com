@@ -1,0 +1,32 @@
+---
+title: 日付比較ツール
+slug: /date
+sidebar_position: 11
+hide_title: true
+---
+
+import DateComparison from "@site/src/components/DateComparison";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+
+<ToolPageHeader
+  title="日付比較ツール"
+  desc="二つの日付の差分を計算します。様々なフォーマットの日付入力に対応しています。"
+  icon="🗓️"
+  color1="#f6d365"
+  color2="#fda085"
+  titleGradient="linear-gradient(135deg, #ffffff 0%, #ffecd2 60%, #fcb69f 100%)"
+/>
+
+<DateComparison />
+
+## 使い方
+
+1. 比較したい二つの日付を入力します。
+2. 日付フォーマットは、スラッシュ区切り（2026/01/01）や日本語（2026年1月1日）、Unixタイムスタンプなど幅広く対応しています。
+3. カレンダーアイコンをクリックすると、日付ピッカーから選択することも可能です。
+4. 「常に現在時刻と比較」にチェックを入れると、1つ目の日付が自動的に現在の時刻に固定され、リアルタイムで差分が更新されます。
+5. 差分結果は「日時分秒」形式と「総秒数」の両方で表示され、コピーボタンでクリップボードに保存できます。
+
+:::info プライバシーについて
+🔒 入力した日付データはすべてブラウザ内で処理され、サーバーに送信されることはありません。
+:::

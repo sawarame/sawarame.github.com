@@ -1,0 +1,31 @@
+---
+title: QR Code Reader
+slug: /qr-reader
+sidebar_position: 5
+hide_title: true
+---
+
+import QrReader from "@site/src/components/QrReader";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+
+<ToolPageHeader
+  title="QR Code Reader"
+  desc="Analyze QR code images and extract the embedded text or URL."
+  icon="🔍"
+  color1="#818cf8"
+  color2="#c084fc"
+  titleGradient="linear-gradient(135deg, #ffffff 0%, #c7d2fe 60%, #a5b4fc 100%)"
+/>
+
+<QrReader />
+
+## How to use
+
+1. Select or drag & drop an image file containing a QR code.
+2. If analysis is successful, the embedded text content will be displayed.
+3. If the content is a URL, you can open the page directly with the button.
+4. Extracted text can be easily saved to your clipboard using the copy button.
+
+:::info Security
+🔒 Uploaded images are never sent to any server. All analysis is done locally within your browser to ensure privacy.
+:::

@@ -1,0 +1,32 @@
+---
+title: Date Comparison Tool
+slug: /date
+sidebar_position: 11
+hide_title: true
+---
+
+import DateComparison from "@site/src/components/DateComparison";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+
+<ToolPageHeader
+  title="Date Comparison Tool"
+  desc="Calculate the difference between two dates. Supports various input formats including Unix timestamps."
+  icon="🗓️"
+  color1="#f6d365"
+  color2="#fda085"
+  titleGradient="linear-gradient(135deg, #ffffff 0%, #ffecd2 60%, #fcb69f 100%)"
+/>
+
+<DateComparison />
+
+## How to use
+
+1. Enter two dates you want to compare.
+2. The tool supports various formats like slash-separated (2026/01/01), natural language (January 1st, 2026), and Unix timestamps.
+3. You can click the calendar icon to pick a date from the native picker.
+4. Check "Always compare with current time" to fix the first date to the current moment and see real-time updates.
+5. Results are shown in "Days/Hours/Minutes/Seconds" and "Total Seconds" formats, both copyable to your clipboard.
+
+:::info Privacy
+🔒 All date data is processed entirely within your browser and is never sent to any server.
+:::

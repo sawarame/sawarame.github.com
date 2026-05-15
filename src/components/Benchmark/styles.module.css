@@ -42,7 +42,7 @@
 }
 
 /* Adjusted for MDX sidebar/TOC */
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
   .resultsGrid {
     grid-template-columns: 1fr;
   }

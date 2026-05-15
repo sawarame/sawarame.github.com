@@ -1,4 +1,4 @@
-# 8. PDF変換・編集 (`src/pages/pdf-editor.tsx`) 仕様書
+# 8. PDF変換・編集 (`docs/tools/pdf-editor.mdx`) 仕様書
 
 PDFファイルを画像（PNG, JPEG, WebP）に変換したり、複数のPDFから必要なページだけを抽出・結合して新しいPDFを作成できるツールです。
 

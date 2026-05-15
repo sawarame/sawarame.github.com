@@ -1,0 +1,32 @@
+---
+title: Roulette Maker
+slug: /roulette
+sidebar_position: 12
+hide_title: true
+---
+
+import RouletteMaker from "@site/src/components/RouletteMaker";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+
+<ToolPageHeader
+  title="Roulette Maker"
+  desc="A simple tool to randomly pick an item from your custom list. Perfect for bingo or decision making."
+  icon="🎯"
+  color1="#ff0844"
+  color2="#ffb199"
+  titleGradient="linear-gradient(135deg, #ffffff 0%, #ffecd2 60%, #fcb69f 100%)"
+/>
+
+<RouletteMaker />
+
+## How to use
+
+1. **Enter Items**: Type your list items into the text area, one per line.
+2. **Settings**: Enable "Remove after draw" to automatically delete the winner from the list for unique picks.
+3. **Import / Export**: Load items from a text file or save your current list for later use.
+4. **Start Draw**: Click the button to spin the roulette and pick a random item.
+5. **History**: View past results in the "History" section and clear them if needed.
+
+:::info Privacy
+🔒 All data and history are stored only in your browser's local storage and are never sent to any server.
+:::

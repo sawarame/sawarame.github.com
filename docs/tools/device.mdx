@@ -1,0 +1,35 @@
+---
+title: デバイス情報チェッカー
+slug: /device
+sidebar_position: 10
+hide_title: true
+---
+
+import DeviceInfo from "@site/src/components/DeviceInfo";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+
+<ToolPageHeader
+  title="デバイス情報チェッカー"
+  desc="現在利用しているデバイスの画面サイズ、ユーザーエージェント、IPアドレスなどの情報を表示します。"
+  icon="📱"
+  color1="#4facfe"
+  color2="#00f2fe"
+  titleGradient="linear-gradient(135deg, #ffffff 0%, #c7d2fe 60%, #a5b4fc 100%)"
+/>
+
+<DeviceInfo />
+
+## 表示される情報
+
+- **ネットワーク**: 現在のグローバルIPアドレスを表示します。
+- **画面サイズ**:
+  - **物理解像度**: `window.screen` から取得した画面全体のピクセル数です。
+  - **ウィンドウサイズ**: ブラウザの表示領域（`window.innerWidth/Height`）のサイズです。
+- **ハードウェア**:
+  - **論理コア数**: デバイスの CPU コア数を表示します。
+  - **メモリ容量**: およその RAM 容量を表示します（ブラウザのプライバシー保護により制限される場合があります）。
+- **ユーザーエージェント**: ブラウザから送信される識別文字列を表示します。
+
+:::info プライバシーについて
+🔒 IPアドレスの取得を除き、すべての情報はブラウザ内で直接取得されます。取得したデバイス情報がサーバーに保存されたり、個人が特定されることはありません。
+:::
