@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
-import Layout from '@theme/Layout';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { translate } from '@docusaurus/Translate';
-import { Button, CircularProgress, Dialog, DialogTitle, DialogContent, DialogActions, IconButton, Tooltip } from '@mui/material';
-import MuiTheme from '@site/src/components/MuiTheme';
+import { Button, CircularProgress, Dialog, DialogTitle, DialogContent, DialogActions, IconButton } from '@mui/material';
 import SpeedIcon from '@mui/icons-material/Speed';
 import CloseIcon from '@mui/icons-material/Close';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import XIcon from '@mui/icons-material/X';
 import ShareIcon from '@mui/icons-material/Share';
-import common from '@site/src/css/common.module.css';
-import styles from '@site/src/css/benchmark.module.css';
-import BenchmarkSvg from '@site/src/icons/benchmark.svg';
+import styles from './styles.module.css';
 
 const BENCHMARK_VERSION = '1.0.0';
 
@@ -140,12 +134,7 @@ function getMultiCoreRankInfo(score: number) {
   return { rank: 'F', label: 'Rank F', desc: translate({ id: 'benchmark.multi.rank.f', message: '著しく性能不足。並列処理の恩恵をほとんど受けられません' }), className: styles.rankF };
 }
 
-
-// ============================================================
-// Feature Check Logic
-// ============================================================
-
-const benchmarkData = [
+const getBenchmarkData = () => [
   {
     category: translate({ id: "benchmark.cat.sns.category", message: "SNS・メディア閲覧" }),
     summary: translate({ id: "benchmark.cat.sns.summary", message: "動画や画像がサクサク、綺麗に見えるか" }),
@@ -393,32 +382,7 @@ const benchmarkData = [
   }
 ];
 
-// ============================================================
-// Sub Components
-// ============================================================
-
-function PageHeader() {
-  return (
-    <div className={common.pageHeader}>
-      <div className={common.pageHeaderBg}>
-        <div className={styles.pageHeaderOrb1} />
-        <div className={styles.pageHeaderOrb2} />
-      </div>
-      <div className={common.pageHeaderContent}>
-        <BenchmarkSvg role="img" aria-label="Web快適度測定" className={styles.pageHeaderIcon} style={{ width: '48px', height: '48px', verticalAlign: 'middle' }} />
-        <h1 className={styles.pageHeaderTitle}>
-          {translate({ id: 'benchmark.header.title', message: 'Web快適度測定' })}
-          <span style={{ fontSize: '0.5em', marginLeft: '10px', color: 'var(--ifm-color-emphasis-500)', verticalAlign: 'middle', fontWeight: 'normal' }}>v{BENCHMARK_VERSION}</span>
-        </h1>
-        <p className={common.pageHeaderDesc}>
-          {translate({ id: 'benchmark.header.desc', message: 'お使いのブラウザ・デバイスの演算性能を測定し、スコアとランクで評価します。' })}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-const rankReferenceData = [
+const getRankReferenceData = () => [
   { rank: 'Rank S', single: translate({ id: 'benchmark.ref.rank.s.single', message: '4000以上' }), multi: translate({ id: 'benchmark.ref.rank.s.multi', message: '30000以上' }), desc: translate({ id: 'benchmark.ref.rank.s.desc', message: '比類なき速さ。ハイエンドを凌駕する最高峰の性能' }), className: styles.rankS },
   { rank: 'Rank A', single: translate({ id: 'benchmark.ref.rank.a.single', message: '2000〜3999' }), multi: translate({ id: 'benchmark.ref.rank.a.multi', message: '10000〜29999' }), desc: translate({ id: 'benchmark.ref.rank.a.desc', message: '非常に快適。大抵のアプリが極めてスムーズに動作' }), className: styles.rankA },
   { rank: 'Rank B', single: translate({ id: 'benchmark.ref.rank.b.single', message: '1000〜1999' }), multi: translate({ id: 'benchmark.ref.rank.b.multi', message: '4000〜9999' }), desc: translate({ id: 'benchmark.ref.rank.b.desc', message: '快適。複数のタスクを並行しても余裕のある性能' }), className: styles.rankB },
@@ -428,15 +392,7 @@ const rankReferenceData = [
   { rank: 'Rank F', single: translate({ id: 'benchmark.ref.rank.f.single', message: '50未満' }), multi: translate({ id: 'benchmark.ref.rank.f.multi', message: '100未満' }), desc: translate({ id: 'benchmark.ref.rank.f.desc', message: '動作困難。現代のWeb標準に対し大幅な性能不足' }), className: styles.rankF },
 ];
 
-// ============================================================
-// Page
-// ============================================================
-
 export default function Benchmark(): JSX.Element {
-  const { siteConfig } = useDocusaurusContext();
-  const title = translate({ id: 'benchmark.header.title', message: 'Web快適度測定' });
-  const description = translate({ id: 'benchmark.header.desc', message: 'お使いのブラウザ・デバイスの演算性能を測定し、スコアとランクで評価します。' });
-
   const [cores, setCores] = React.useState<number>(4);
   const [isMeasuring, setIsMeasuring] = useState(false);
   const [progressMsg, setProgressMsg] = useState('');
@@ -450,11 +406,17 @@ export default function Benchmark(): JSX.Element {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSharing, setIsSharing] = useState(false);
 
+  const benchmarkData = getBenchmarkData();
+  const rankReferenceData = getRankReferenceData();
+
   React.useEffect(() => {
-    setCores(navigator.hardwareConcurrency || 4);
+    if (typeof navigator !== 'undefined') {
+      setCores(navigator.hardwareConcurrency || 4);
+    }
   }, []);
 
   const getBrowserInfo = () => {
+    if (typeof navigator === 'undefined') return '';
     const ua = navigator.userAgent;
     let browser = "Unknown Browser";
     
@@ -473,7 +435,6 @@ export default function Benchmark(): JSX.Element {
     let os = "Unknown OS";
     if (ua.indexOf("Win") > -1) os = "Windows";
     else if (ua.indexOf("Mac") > -1) {
-      // iPadOS sometimes reports as Mac (desktop mode), checking touch support
       if (navigator.maxTouchPoints > 0) os = "iOS";
       else os = "macOS";
     }
@@ -485,9 +446,10 @@ export default function Benchmark(): JSX.Element {
   };
 
   const generateBenchmarkImage = async (): Promise<Blob | null> => {
+    if (typeof document === 'undefined') return null;
     const canvas = document.createElement('canvas');
     canvas.width = 1200;
-    canvas.height = 960; // コンテンツ増加に合わせて高さを調整
+    canvas.height = 960; 
     const ctx = canvas.getContext('2d');
     if (!ctx) return null;
 
@@ -713,7 +675,7 @@ export default function Benchmark(): JSX.Element {
     setIsMeasuring(true);
     setSingleScore(null);
     setMultiScore(null);
-    setFeatureResults({}); // 状態をリセット
+    setFeatureResults({}); 
     setProgressMsg(translate({ id: 'benchmark.progress.preparing', message: '準備中...' }));
 
     await sleep(100);
@@ -746,241 +708,221 @@ export default function Benchmark(): JSX.Element {
   };
 
   return (
-    <Layout title={`${title} | ${siteConfig.title}`} description={description}>
-      <MuiTheme>
-        <PageHeader />
-        <div className={common.body}>
-          <div className={styles.container}>
+    <div className={styles.container}>
+      <div className={styles.benchCard}>
+        <div className={styles.buttonWrap}>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={handleStart}
+            disabled={isMeasuring}
+            className={styles.benchButton}
+            startIcon={isMeasuring ? <CircularProgress size={24} color="inherit" /> : <SpeedIcon />}
+          >
+            {isMeasuring ? translate({ id: 'benchmark.ui.measuring', message: '測定中...' }) : translate({ id: 'benchmark.ui.start', message: '測定開始' })}
+          </Button>
+        </div>
 
-            <div className={styles.benchCard}>
-              <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{translate({ id: 'benchmark.ui.testTitle', message: 'ブラウザの演算性能をテスト' })}</h2>
-              <p style={{ color: 'var(--ifm-color-emphasis-700)' }}>
-                {translate({ id: 'benchmark.ui.testDesc', message: '「測定開始」ボタンをクリックすると、ブラウザ上で負荷の高い演算処理を実行し、その処理速度からスコアを算出します。' })}
-              </p>
-
-              <div style={{ marginTop: '1.5rem', textAlign: 'left', background: 'var(--ifm-color-warning-contrast-background)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--ifm-color-warning-dark)' }}>
-                <p style={{ color: 'var(--ifm-color-warning-dark)', fontSize: '0.85rem', margin: 0, lineHeight: 1.5 }}>
-                  ⚠️ <strong>{translate({ id: 'benchmark.ui.warning.bold', message: '注意:' })}</strong> {translate({ id: 'benchmark.ui.warning', message: 'このベンチマークテストは負荷の高い計算を行うため、スマートフォンやモバイル端末では一時的にバッテリーを大きく消耗する場合があります。' })}
-                </p>
-              </div>
-
-              <div className={styles.buttonWrap}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  onClick={handleStart}
-                  disabled={isMeasuring}
-                  className={styles.benchButton}
-                  startIcon={isMeasuring ? <CircularProgress size={24} color="inherit" /> : <SpeedIcon />}
-                >
-                  {isMeasuring ? translate({ id: 'benchmark.ui.measuring', message: '測定中...' }) : translate({ id: 'benchmark.ui.start', message: '測定開始' })}
-                </Button>
-              </div>
-
-                <div className={styles.resultsGrid}>
-                  {/* Measurement Environment info */}
-                  <div style={{ gridColumn: '1 / -1', textAlign: 'left', marginBottom: '0.5rem' }}>
-                    <div style={{ fontSize: '0.85rem', color: 'var(--ifm-color-emphasis-600)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <span>{translate({ id: 'benchmark.ui.env', message: '測定環境:' })}</span>
-                      <strong style={{ color: 'var(--ifm-color-emphasis-800)' }}>{getBrowserInfo()}</strong>
-                    </div>
-                  </div>
-
-                  <div className={styles.resultCard}>
-                    <div className={styles.scoreLabel}>{translate({ id: 'benchmark.ui.singleCore', message: 'シングルコア (1 Worker)' })}</div>
-                    {singleScore !== null ? (
-                      <>
-                        <div className={styles.scoreValue}>{singleScore.toLocaleString()}</div>
-                        <div className={`${styles.rankBadge} ${getSingleCoreRankInfo(singleScore).className}`}>
-                          {getSingleCoreRankInfo(singleScore).label}
-                        </div>
-                        <div className={styles.deviceImage}>
-                          {translate({ id: 'benchmark.ui.estimate', message: '目安:' })} <strong>{getSingleCoreRankInfo(singleScore).desc}</strong>
-                        </div>
-                      </>
-                    ) : (isMeasuring && progressMsg.includes('シングルコア')) ? (
-                      <div style={{ padding: '2rem 0' }}>
-                        <CircularProgress />
-                        <div style={{ marginTop: '1rem', color: 'var(--ifm-color-primary)', fontWeight: 'bold' }}>
-                          {progressMsg.replace('シングルコア測定中...', '') || '測定中...'}
-                        </div>
-                      </div>
-                    ) : (
-                      <div style={{ padding: '2.4rem 0' }}>
-                        <div className={styles.scoreValue} style={{ opacity: 0.2 }}>-</div>
-                        <div style={{ marginTop: '1rem', color: 'var(--ifm-color-emphasis-500)' }}>{translate({ id: 'benchmark.ui.notStarted', message: '未実施' })}</div>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className={styles.resultCard}>
-                    <div className={styles.scoreLabel}>{translate({ id: 'benchmark.ui.multiCore', message: 'マルチコア' })} ({cores} Workers)</div>
-                    {multiScore !== null ? (
-                      <>
-                        <div className={styles.scoreValue}>{multiScore.toLocaleString()}</div>
-                        <div className={`${styles.rankBadge} ${getMultiCoreRankInfo(multiScore).className}`}>
-                          {getMultiCoreRankInfo(multiScore).label}
-                        </div>
-                        <div className={styles.deviceImage}>
-                          {translate({ id: 'benchmark.ui.estimate', message: '目安:' })} <strong>{getMultiCoreRankInfo(multiScore).desc}</strong>
-                        </div>
-                      </>
-                    ) : (isMeasuring && progressMsg.includes('マルチコア')) ? (
-                      <div style={{ padding: '2rem 0' }}>
-                        <CircularProgress />
-                        <div style={{ marginTop: '1rem', color: 'var(--ifm-color-primary)', fontWeight: 'bold' }}>
-                          {progressMsg.replace('マルチコア測定中...', '') || '測定中...'}
-                        </div>
-                      </div>
-                    ) : (
-                      <div style={{ padding: '2.4rem 0' }}>
-                        <div className={styles.scoreValue} style={{ opacity: 0.2 }}>-</div>
-                        <div style={{ marginTop: '1rem', color: 'var(--ifm-color-emphasis-500)' }}>{translate({ id: 'benchmark.ui.notStarted', message: '未実施' })}</div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div className={styles.modalLinkWrap} style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-                  <Button
-                    startIcon={<InfoOutlinedIcon />}
-                    onClick={() => setIsModalOpen(true)}
-                    className={styles.modalLink}
-                  >
-                    {translate({ id: 'benchmark.ui.modalBtn', message: 'スコアの目安について' })}
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    startIcon={isSharing ? <CircularProgress size={20} /> : <ShareIcon />}
-                    onClick={handleShareX}
-                    disabled={isSharing || isMeasuring || (singleScore === null && multiScore === null)}
-                    style={{ borderRadius: '20px', fontWeight: 'bold', textTransform: 'none' }}
-                  >
-                    {translate({ id: 'benchmark.ui.share', message: '結果を共有' })}
-                  </Button>
-                </div>
+        <div className={styles.resultsGrid}>
+          {/* Measurement Environment info */}
+          <div style={{ gridColumn: '1 / -1', textAlign: 'left', marginBottom: '0.5rem' }}>
+            <div style={{ fontSize: '0.85rem', color: 'var(--ifm-color-emphasis-600)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span>{translate({ id: 'benchmark.ui.env', message: '測定環境:' })}</span>
+              <strong style={{ color: 'var(--ifm-color-emphasis-800)' }}>{getBrowserInfo()}</strong>
             </div>
+          </div>
 
-            <div className={styles.featureSection}>
-              <h2 className={styles.sectionTitle}>{translate({ id: 'benchmark.ui.featureTitle', message: 'ブラウザ機能サポート状況' })}</h2>
-              <div className={styles.categoryGrid}>
-                {benchmarkData.map((cat, idx) => {
-                  const items = cat.items;
-                  const passedItems = items.filter(item => featureResults[item.id] === true);
-                  const mustItems = items.filter(item => item.must);
-                  const passedMustItems = mustItems.filter(item => featureResults[item.id] === true);
-                  
-                  const isComplete = passedItems.length === items.length;
-                  const isOK = !isComplete && passedMustItems.length === mustItems.length;
-                  
-                  const isOpen = openCategory === idx;
-                  const passCount = passedItems.length;
-                  const totalCount = items.length;
+          <div className={styles.resultCard}>
+            <div className={styles.scoreLabel}>{translate({ id: 'benchmark.ui.singleCore', message: 'シングルコア (1 Worker)' })}</div>
+            {singleScore !== null ? (
+              <>
+                <div className={styles.scoreValue}>{singleScore.toLocaleString()}</div>
+                <div className={`${styles.rankBadge} ${getSingleCoreRankInfo(singleScore).className}`}>
+                  {getSingleCoreRankInfo(singleScore).label}
+                </div>
+                <div className={styles.deviceImage}>
+                  {translate({ id: 'benchmark.ui.estimate', message: '目安:' })} <strong>{getSingleCoreRankInfo(singleScore).desc}</strong>
+                </div>
+              </>
+            ) : (isMeasuring && progressMsg.includes('シングルコア')) ? (
+              <div style={{ padding: '2rem 0' }}>
+                <CircularProgress />
+                <div style={{ marginTop: '1rem', color: 'var(--ifm-color-primary)', fontWeight: 'bold' }}>
+                  {progressMsg.replace('シングルコア測定中...', '') || '測定中...'}
+                </div>
+              </div>
+            ) : (
+              <div style={{ padding: '2.4rem 0' }}>
+                <div className={styles.scoreValue} style={{ opacity: 0.2 }}>-</div>
+                <div style={{ marginTop: '1rem', color: 'var(--ifm-color-emphasis-500)' }}>{translate({ id: 'benchmark.ui.notStarted', message: '未実施' })}</div>
+              </div>
+            )}
+          </div>
 
-                  return (
+          <div className={styles.resultCard}>
+            <div className={styles.scoreLabel}>{translate({ id: 'benchmark.ui.multiCore', message: 'マルチコア' })} ({cores} Workers)</div>
+            {multiScore !== null ? (
+              <>
+                <div className={styles.scoreValue}>{multiScore.toLocaleString()}</div>
+                <div className={`${styles.rankBadge} ${getMultiCoreRankInfo(multiScore).className}`}>
+                  {getMultiCoreRankInfo(multiScore).label}
+                </div>
+                <div className={styles.deviceImage}>
+                  {translate({ id: 'benchmark.ui.estimate', message: '目安:' })} <strong>{getMultiCoreRankInfo(multiScore).desc}</strong>
+                </div>
+              </>
+            ) : (isMeasuring && progressMsg.includes('マルチコア')) ? (
+              <div style={{ padding: '2rem 0' }}>
+                <CircularProgress />
+                <div style={{ marginTop: '1rem', color: 'var(--ifm-color-primary)', fontWeight: 'bold' }}>
+                  {progressMsg.replace('マルチコア測定中...', '') || '測定中...'}
+                </div>
+              </div>
+            ) : (
+              <div style={{ padding: '2.4rem 0' }}>
+                <div className={styles.scoreValue} style={{ opacity: 0.2 }}>-</div>
+                <div style={{ marginTop: '1rem', color: 'var(--ifm-color-emphasis-500)' }}>{translate({ id: 'benchmark.ui.notStarted', message: '未実施' })}</div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className={styles.modalLinkWrap} style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+          <Button
+            startIcon={<InfoOutlinedIcon />}
+            onClick={() => setIsModalOpen(true)}
+            className={styles.modalLink}
+          >
+            {translate({ id: 'benchmark.ui.modalBtn', message: 'スコアの目安について' })}
+          </Button>
+          <Button
+            variant="outlined"
+            color="primary"
+            startIcon={isSharing ? <CircularProgress size={20} /> : <ShareIcon />}
+            onClick={handleShareX}
+            disabled={isSharing || isMeasuring || (singleScore === null && multiScore === null)}
+            style={{ borderRadius: '20px', fontWeight: 'bold', textTransform: 'none' }}
+          >
+            {translate({ id: 'benchmark.ui.share', message: '結果を共有' })}
+          </Button>
+        </div>
+      </div>
+
+      <div className={styles.featureSection}>
+        <h2 className={styles.sectionTitle}>{translate({ id: 'benchmark.ui.featureTitle', message: 'ブラウザ機能サポート状況' })}</h2>
+        <div className={styles.categoryGrid}>
+          {benchmarkData.map((cat, idx) => {
+            const items = cat.items;
+            const passedItems = items.filter(item => featureResults[item.id] === true);
+            const mustItems = items.filter(item => item.must);
+            const passedMustItems = mustItems.filter(item => featureResults[item.id] === true);
+            
+            const isComplete = passedItems.length === items.length;
+            const isOK = !isComplete && passedMustItems.length === mustItems.length;
+            
+            const isOpen = openCategory === idx;
+            const passCount = passedItems.length;
+            const totalCount = items.length;
+
+            return (
+              <div 
+                key={cat.category} 
+                className={`
+                  ${styles.categoryCard} 
+                  ${isComplete ? styles.completeCategory : ''} 
+                  ${isOK ? styles.okCategory : ''} 
+                  ${isOpen ? styles.categoryCardOpen : ''}
+                `}
+                onClick={() => setOpenCategory(isOpen ? null : idx)}
+              >
+                <div className={styles.categoryHeader}>
+                  <h3 className={styles.categoryTitle}>{cat.category}</h3>
+                  <div className={styles.categoryScore}>
+                    {passCount} / {totalCount}
+                  </div>
+                </div>
+                <div className={styles.categorySummary}>{cat.summary}</div>
+                
+                <div className={`${styles.featureList} ${isOpen ? styles.featureListOpen : ''}`}>
+                  {cat.items.map(item => (
                     <div 
-                      key={cat.category} 
-                      className={`
-                        ${styles.categoryCard} 
-                        ${isComplete ? styles.completeCategory : ''} 
-                        ${isOK ? styles.okCategory : ''} 
-                        ${isOpen ? styles.categoryCardOpen : ''}
-                      `}
-                      onClick={() => setOpenCategory(isOpen ? null : idx)}
+                      key={item.id} 
+                      className={`${styles.featureItem} ${item.url ? styles.featureItemClickable : ''}`}
+                      onClick={(e) => {
+                        if (item.url) {
+                          e.stopPropagation();
+                          window.open(item.url, '_blank', 'noopener,noreferrer');
+                        }
+                      }}
                     >
-                      <div className={styles.categoryHeader}>
-                        <h3 className={styles.categoryTitle}>{cat.category}</h3>
-                        <div className={styles.categoryScore}>
-                          {passCount} / {totalCount}
+                      <div className={styles.checkStatus}>
+                        {featureResults[item.id] === undefined ? '-' : featureResults[item.id] ? '✅' : '❌'}
+                      </div>
+                      <div className={styles.featureContent}>
+                        <div className={styles.featureNameWrap}>
+                          <span className={styles.featureName}>
+                            {item.name}
+                            {item.must && <span className={styles.mustTag}>{translate({ id: 'benchmark.ui.must', message: '必須' })}</span>}
+                          </span>
+                          {item.url && <span className={styles.externalIcon}>↗</span>}
                         </div>
+                        <div className={styles.featureDesc}>{item.desc}</div>
                       </div>
-                      <div className={styles.categorySummary}>{cat.summary}</div>
-                      
-                      <div className={`${styles.featureList} ${isOpen ? styles.featureListOpen : ''}`}>
-                        {cat.items.map(item => (
-                          <div 
-                            key={item.id} 
-                            className={`${styles.featureItem} ${item.url ? styles.featureItemClickable : ''}`}
-                            onClick={(e) => {
-                              if (item.url) {
-                                e.stopPropagation();
-                                window.open(item.url, '_blank', 'noopener,noreferrer');
-                              }
-                            }}
-                          >
-                            <div className={styles.checkStatus}>
-                              {featureResults[item.id] === undefined ? '-' : featureResults[item.id] ? '✅' : '❌'}
-                            </div>
-                            <div className={styles.featureContent}>
-                              <div className={styles.featureNameWrap}>
-                                <span className={styles.featureName}>
-                                  {item.name}
-                                  {item.must && <span className={styles.mustTag}>{translate({ id: 'benchmark.ui.must', message: '必須' })}</span>}
-                                </span>
-                                {item.url && <span className={styles.externalIcon}>↗</span>}
-                              </div>
-                              <div className={styles.featureDesc}>{item.desc}</div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <Dialog
-              open={isModalOpen}
-              onClose={() => setIsModalOpen(false)}
-              maxWidth="sm"
-              fullWidth
-              PaperProps={{
-                style: { borderRadius: '16px', padding: '8px' }
-              }}
-            >
-              <DialogTitle>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <strong>{translate({ id: 'benchmark.modal.title', message: 'スコアの判定基準' })}</strong>
-                  <IconButton onClick={() => setIsModalOpen(false)} size="small">
-                    <CloseIcon />
-                  </IconButton>
-                </div>
-              </DialogTitle>
-              <DialogContent dividers>
-                <div className={styles.rankReferenceList}>
-                  {rankReferenceData.map((item) => (
-                    <div key={item.rank} className={styles.rankReferenceItem}>
-                      <div className={styles.rankReferenceHeader}>
-                        <span className={`${styles.rankReferenceBadge} ${item.className}`}>
-                          {item.rank}
-                        </span>
-                        <div className={styles.rankReferenceScores}>
-                          <div className={styles.rankScoreDetail}>
-                            <span>{translate({ id: 'benchmark.modal.single', message: 'シングル:' })}</span> <strong>{item.single}</strong>
-                          </div>
-                          <div className={styles.rankScoreDetail}>
-                            <span>{translate({ id: 'benchmark.modal.multi', message: 'マルチ:' })}</span> <strong>{item.multi}</strong>
-                          </div>
-                        </div>
-                      </div>
-                      <p className={styles.rankReferenceDesc}>{item.desc}</p>
                     </div>
                   ))}
                 </div>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={() => setIsModalOpen(false)} color="primary">
-                  {translate({ id: 'common.close', message: '閉じる' })}
-                </Button>
-              </DialogActions>
-            </Dialog>
-
-          </div>
+              </div>
+            );
+          })}
         </div>
-      </MuiTheme>
-    </Layout>
+      </div>
+
+      <Dialog
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{
+          style: { borderRadius: '16px', padding: '8px' }
+        }}
+      >
+        <DialogTitle>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <strong>{translate({ id: 'benchmark.modal.title', message: 'スコアの判定基準' })}</strong>
+            <IconButton onClick={() => setIsModalOpen(false)} size="small">
+              <CloseIcon />
+            </IconButton>
+          </div>
+        </DialogTitle>
+        <DialogContent dividers>
+          <div className={styles.rankReferenceList}>
+            {rankReferenceData.map((item) => (
+              <div key={item.rank} className={styles.rankReferenceItem}>
+                <div className={styles.rankReferenceHeader}>
+                  <span className={`${styles.rankReferenceBadge} ${item.className}`}>
+                    {item.rank}
+                  </span>
+                  <div className={styles.rankReferenceScores}>
+                    <div className={styles.rankScoreDetail}>
+                      <span>{translate({ id: 'benchmark.modal.single', message: 'シングル:' })}</span> <strong>{item.single}</strong>
+                    </div>
+                    <div className={styles.rankScoreDetail}>
+                      <span>{translate({ id: 'benchmark.modal.multi', message: 'マルチ:' })}</span> <strong>{item.multi}</strong>
+                    </div>
+                  </div>
+                </div>
+                <p className={styles.rankReferenceDesc}>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setIsModalOpen(false)} color="primary">
+            {translate({ id: 'common.close', message: '閉じる' })}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
   );
 }

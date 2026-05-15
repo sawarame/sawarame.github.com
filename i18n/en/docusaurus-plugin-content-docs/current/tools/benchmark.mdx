@@ -1,0 +1,53 @@
+---
+title: Web Performance Test
+slug: /benchmark
+sidebar_position: 5
+hide_title: true
+---
+
+import Benchmark from "@site/src/components/Benchmark";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+
+<ToolPageHeader
+  title="Web Performance Test"
+  desc="Measure your browser and device's computing performance, evaluated with scores and ranks. You can also check the support for the latest Web standard features at a glance."
+  icon="🚀"
+  color1="#ff0844"
+  color2="#ffb199"
+  titleGradient="linear-gradient(135deg, #fff 0%, #ffb199 60%, #ff0844 100%)"
+/>
+
+:::warning Warning
+This benchmark runs intensive calculations, which may temporarily drain the battery on smartphones and mobile devices.
+:::
+
+## Test Browser Computing Performance
+
+Click the "Start Test" button to run intensive computations in the browser and calculate a performance score.
+
+<Benchmark />
+
+## About the Score
+
+This tool measures aggregate performance for floating-point arithmetic, integer arithmetic, and memory access using parallel processing (Web Workers) in the browser.
+
+- **Single Core**: Performance using only one Worker. This indicator is close to the processing power of the JavaScript main thread.
+- **Multi Core**: Parallel performance using all logical cores of the device. Shows the ability to handle heavy processing and multitasking.
+
+## Evaluation Ranks
+
+Evaluates from Rank S to F based on the measured score.
+
+- **Rank S**: Unrivaled speed. Latest high-end devices.
+- **Rank A**: Very comfortable. Most apps run extremely smoothly.
+- **Rank B**: Comfortable. Headroom to spare even when multitasking.
+- **Rank C**: Standard. Sufficient performance for general web browsing.
+- **Rank D-F**: Basic performance. Complex sites may experience slowdowns.
+
+## Browser Feature Support
+
+Determines how well your browser supports the latest Web technologies (WebGPU, Passkeys, AV1 decoding, etc.). These are essential elements for enjoying a more advanced and faster Web experience.
+
+:::info Privacy
+🔒 All measurement and judgment processes are done entirely within your browser. Specific device information or measurement results are never sent to any server.
+:::

@@ -1,54 +1,4 @@
-/* ---- Header orbs & colors ---- */
-
-.pageHeaderOrb1 {
-  position: absolute;
-  width: 350px;
-  height: 350px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #ff0844, transparent);
-  filter: blur(70px);
-  opacity: 0.2;
-  top: -100px;
-  left: -80px;
-}
-
-.pageHeaderOrb2 {
-  position: absolute;
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #ffb199, transparent);
-  filter: blur(70px);
-  opacity: 0.2;
-  bottom: -80px;
-  right: -60px;
-}
-
-.pageHeaderIcon {
-  display: inline-block;
-  font-size: 2.5rem;
-  margin-bottom: 0.75rem;
-  filter: drop-shadow(0 4px 12px rgba(255, 8, 68, 0.4));
-}
-
-.pageHeaderTitle {
-  font-size: clamp(1.6rem, 4vw, 2.6rem);
-  font-weight: 800;
-  color: #fff;
-  margin: 0 0 0.75rem;
-  background: linear-gradient(135deg, #fff 0%, #ffb199 60%, #ff0844 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
 /* ---- Main layout ---- */
-
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-}
 
 .benchCard {
   background: var(--ifm-background-surface-color);
@@ -57,6 +7,7 @@
   padding: 3rem 2rem;
   text-align: center;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
 }
 
 .buttonWrap {
@@ -90,7 +41,8 @@
   text-align: center;
 }
 
-@media (max-width: 640px) {
+/* Adjusted for MDX sidebar/TOC */
+@media (max-width: 1024px) {
   .resultsGrid {
     grid-template-columns: 1fr;
   }
@@ -147,7 +99,7 @@
 }
 
 .rankF {
-  background: linear-gradient(135deg, #434343 0%, #000000 100%);
+  background: linear-gradient(135deg, #868f96 0%, #596164 100%);
 }
 
 .deviceImage {
@@ -453,10 +405,6 @@
   font-size: 0.8rem;
   color: var(--ifm-color-emphasis-500);
   margin-left: 0.5rem;
-}
-
-.rankF {
-  background: linear-gradient(135deg, #868f96 0%, #596164 100%);
 }
 
 .modalLinkWrap {
