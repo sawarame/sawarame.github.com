@@ -14,7 +14,7 @@
   align-items: start;
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1200px) {
   .layout {
     grid-template-columns: 1fr;
   }

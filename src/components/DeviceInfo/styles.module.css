@@ -61,7 +61,7 @@
   grid-column: 1 / -1;
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1200px) {
   .grid {
     grid-template-columns: 1fr;
   }
