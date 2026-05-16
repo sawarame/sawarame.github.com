@@ -5,12 +5,9 @@ hide_title: true
 ---
 
 import ToolPageHeader from '@site/src/components/ToolPageHeader';
+import ExtensionDownloadSection from '@site/src/components/ExtensionDownloadSection';
 import NickmarkPng from '@site/src/icons/Nickmark.png';
-import MuiTheme from '@site/src/components/MuiTheme';
-import { Box, Typography, Stack, Link as MuiLink } from '@mui/material';
-import LaunchIcon from '@mui/icons-material/Launch';
 
-<MuiTheme>
 <ToolPageHeader
   title="Nickmark"
   desc="A keyboard-optimized Chrome extension for instantly accessing your bookmarks using nicknames (aliases) directly from the address bar (omnibox)."
@@ -19,61 +16,13 @@ import LaunchIcon from '@mui/icons-material/Launch';
   color2="#1e3a8a"
 />
 
-<Box sx={{ 
-  p: 3, 
-  mb: 4, 
-  mt: -2,
-  borderRadius: '16px', 
-  background: 'rgba(59, 130, 246, 0.05)',
-  border: '1px solid rgba(59, 130, 246, 0.1)',
-  display: 'flex',
-  flexDirection: { xs: 'column', sm: 'row' },
-  alignItems: 'center',
-  gap: 3
-}}>
-  <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 1 }}>
-    <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 0.5 }}>
-      Get Nickmark
-    </Typography>
-    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-      <MuiLink
-        href="https://chromewebstore.google.com/detail/nickmark/bicojpjoabhecikokcohbjgaiojggpno"
-        target="_blank"
-        rel="noopener noreferrer"
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 1,
-          p: '8px 16px',
-          borderRadius: '8px',
-          backgroundColor: 'var(--ifm-color-primary)',
-          color: '#fff !important',
-          fontWeight: 'bold',
-          textDecoration: 'none !important',
-          '&:hover': { opacity: 0.9 }
-        }}
-      >
-        <span>Chrome Web Store</span>
-        <LaunchIcon sx={{ fontSize: '1rem' }} />
-      </MuiLink>
-      
-      {/* Future extensions (Edge Add-ons, etc.) */}
-      {/* <Box sx={{ 
-        display: 'flex', 
-        alignItems: 'center', 
-        gap: 1, 
-        p: '8px 16px', 
-        borderRadius: '8px', 
-        border: '1px dashed rgba(0,0,0,0.2)',
-        color: 'text.disabled',
-        fontSize: '0.9rem'
-      }}>
-        Microsoft Edge (Coming Soon)
-      </Box> */}
-    </Stack>
-  </Box>
-</Box>
-</MuiTheme>
+<ExtensionDownloadSection
+  title="Get Nickmark"
+  links={[
+    { label: 'Chrome Web Store', href: 'https://chromewebstore.google.com/detail/nickmark/bicojpjoabhecikokcohbjgaiojggpno' },
+    { label: 'Microsoft Edge', isComingSoon: true }
+  ]}
+/>
 
 ---
 
