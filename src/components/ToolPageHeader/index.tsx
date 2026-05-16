@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from '@docusaurus/Head';
 import common from '@site/src/css/common.module.css';
 import styles from './styles.module.css';
 
@@ -20,25 +21,33 @@ export default function ToolPageHeader({
   titleGradient = 'linear-gradient(135deg, #fff 0%, #c7d2fe 60%, #a5b4fc 100%)',
 }: ToolPageHeaderProps) {
   return (
-    <div className={common.pageHeader} style={{ marginBottom: '3rem' }}>
-      <div className={common.pageHeaderBg}>
-        <div className={styles.pageHeaderOrb1} style={{ background: `radial-gradient(circle, ${color1}, transparent)` }} />
-        <div className={styles.pageHeaderOrb2} style={{ background: `radial-gradient(circle, ${color2}, transparent)` }} />
-      </div>
-      <div className={common.pageHeaderContent}>
-        <div 
-          className={styles.pageHeaderIcon} 
-          style={{ filter: `drop-shadow(0 4px 12px ${color1}80)` }}
-        >
-          {icon}
+    <>
+      <Head>
+        <meta name="description" content={desc} />
+        <meta property="og:description" content={desc} />
+        <meta name="twitter:description" content={desc} />
+      </Head>
+      <div className={common.pageHeader} style={{ marginBottom: '3rem' }}>
+        <div className={common.pageHeaderBg}>
+          <div className={styles.pageHeaderOrb1} style={{ background: `radial-gradient(circle, ${color1}, transparent)` }} />
+          <div className={styles.pageHeaderOrb2} style={{ background: `radial-gradient(circle, ${color2}, transparent)` }} />
         </div>
-        <h1 className={styles.pageHeaderTitle} style={{ backgroundImage: titleGradient }}>
-          {title}
-        </h1>
-        <p className={common.pageHeaderDesc}>
-          {desc}
-        </p>
+        <div className={common.pageHeaderContent}>
+          <div 
+            className={styles.pageHeaderIcon} 
+            style={{ filter: `drop-shadow(0 4px 12px ${color1}80)` }}
+          >
+            {icon}
+          </div>
+          <h1 className={styles.pageHeaderTitle} style={{ backgroundImage: titleGradient }}>
+            {title}
+          </h1>
+          <p className={common.pageHeaderDesc}>
+            {desc}
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
+
