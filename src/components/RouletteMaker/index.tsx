@@ -202,7 +202,7 @@ export default function RouletteMaker(): JSX.Element {
         </Button>
       </Box>
 
-      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 4 }}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: '1fr 1fr' }, gap: 4 }}>
         <Paper elevation={0} sx={{ p: 3, borderRadius: '12px', border: '1px solid var(--ifm-color-emphasis-200)', bgcolor: 'action.hover' }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
             <Typography variant="h6" sx={{ fontWeight: 800 }}>
