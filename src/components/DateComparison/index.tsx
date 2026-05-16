@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useHistory, useLocation } from '@docusaurus/router';
 import { translate } from '@docusaurus/Translate';
 import {
   TextField,
@@ -153,19 +154,41 @@ function DiffResultCard({ date1Str, date2Str }: { date1Str: string, date2Str: st
 }
 
 export default function DateComparison(): JSX.Element {
+  const history = useHistory();
+  const location = useLocation();
+
   const [date1, setDate1] = useState('');
   const [date2, setDate2] = useState('');
   const [alwaysCurrent, setAlwaysCurrent] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   const datePickerRef1 = useRef<HTMLInputElement>(null);
   const datePickerRef2 = useRef<HTMLInputElement>(null);
 
+  // 初回マウント: URLパラメータから復元、またはデフォルト値を設定
   useEffect(() => {
-    const now = new Date();
-    setDate1(formatDate(now));
-    setDate2('');
+    const searchParams = new URLSearchParams(location.search);
+    const urlNow = searchParams.get('now') === 'true';
+    const urlD1 = searchParams.get('d1');
+    const urlD2 = searchParams.get('d2');
+
+    if (urlNow) {
+      setAlwaysCurrent(true);
+      setDate1(formatDate(new Date()));
+    } else if (urlD1) {
+      setDate1(urlD1);
+    } else {
+      setDate1('');
+    }
+
+    if (urlD2) {
+      setDate2(urlD2);
+    }
+
+    setIsMounted(true);
   }, []);
 
+  // 常に現在時刻と比較する場合のタイマー
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (alwaysCurrent) {
@@ -178,6 +201,28 @@ export default function DateComparison(): JSX.Element {
       if (timer) clearInterval(timer);
     };
   }, [alwaysCurrent]);
+
+  // 状態変更時にURLを更新
+  useEffect(() => {
+    if (!isMounted) return;
+
+    const params = new URLSearchParams();
+    if (alwaysCurrent) {
+      params.set('now', 'true');
+    } else {
+      if (date1) params.set('d1', date1);
+    }
+    if (date2) params.set('d2', date2);
+
+    const newSearch = params.toString();
+    const currentSearch = location.search.startsWith('?') ? location.search.substring(1) : location.search;
+    
+    if (newSearch !== currentSearch) {
+      history.replace({
+        search: newSearch ? `?${newSearch}` : '',
+      });
+    }
+  }, [date1, date2, alwaysCurrent, isMounted]);
 
   return (
     <MuiTheme>
