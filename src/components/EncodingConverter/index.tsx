@@ -15,7 +15,7 @@ import {
   CircularProgress,
 } from '@mui/material';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import DescriptionIcon from '@mui/icons-material/Description';
 import Encoding from 'encoding-japanese';
 import MuiTheme from '@site/src/components/MuiTheme';
 import common from '@site/src/css/common.module.css';
@@ -185,7 +185,7 @@ export default function EncodingConverter() {
             onClick={() => fileInputRef.current?.click()}
           >
             <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} accept=".txt,.csv,.log,.md,.json,.js,.ts,.html,.css" />
-            <CloudUploadIcon className={styles.dropZoneIcon} color="primary" />
+            <DescriptionIcon className={styles.dropZoneIcon} color="primary" />
             <p className={styles.dropZoneText}>
               <Translate id="encoding.upload.main" values={{ br: <br /> }}>
                 {'ファイルをドロップするか、{br}ここをクリックして選択、またはペースト'}
@@ -197,7 +197,7 @@ export default function EncodingConverter() {
           </div>
 
           {inputData && (
-            <Stack spacing={3}>
+            <Stack spacing={3} sx={{ mt: 3 }}>
               {/* プレビュー */}
               <div className={styles.previewArea}>
                 <div className={styles.previewTitle}>
