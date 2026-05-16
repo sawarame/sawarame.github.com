@@ -1610,6 +1610,9 @@
   "encoding.error.convert": {
     "message": "Failed to convert."
   },
+  "encoding.upload.title": {
+    "message": "Select Text"
+  },
   "encoding.upload.main": {
     "message": "Drop a file here, {br} click to select, or paste"
   },

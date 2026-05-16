@@ -176,6 +176,10 @@ export default function EncodingConverter() {
     <MuiTheme>
       <div className={styles.container} onPaste={handlePaste}>
         <div className={common.card}>
+          <h2 className={common.cardTitle}>
+            <span className={common.cardTitleIcon}>📄</span>
+            {translate({ id: 'encoding.upload.title', message: 'テキストを選択' })}
+          </h2>
           {/* アップロードエリア */}
           <div
             className={`${styles.dropZone} ${isDragging ? styles.dropZoneActive : ''}`}
