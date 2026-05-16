@@ -61,6 +61,15 @@ export const tools = [
     gradient: 'linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%)',
   },
   {
+    icon: '🔤',
+    titleId: 'home.tools.encoding.title',
+    title: 'テキスト文字コード変換',
+    descriptionId: 'home.tools.encoding.desc',
+    description: 'テキストファイルの文字コードを自動判別し、指定した文字コード（UTF-8, Shift_JIS, EUC-JPなど）に変換してダウンロードできます。ペーストによる入力にも対応。',
+    link: '/tools/encoding-converter',
+    gradient: 'linear-gradient(135deg, #38bdf8 0%, #818cf8 100%)',
+  },
+  {
     icon: '📸',
     titleId: 'home.tools.exif.title',
     title: '写真Exif情報チェッカー',

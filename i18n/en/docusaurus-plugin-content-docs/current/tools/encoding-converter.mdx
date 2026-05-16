@@ -1,0 +1,32 @@
+---
+title: Text Encoding Converter
+slug: /tools/encoding-converter
+hide_title: true
+---
+
+import EncodingConverter from "@site/src/components/EncodingConverter";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+
+<ToolPageHeader
+  title="Text Encoding Converter"
+  desc="Automatically detect the character encoding of text files and convert them to your desired encoding (UTF-8, Shift_JIS, EUC-JP, etc.) for download."
+  icon="🔤"
+  color1="#38bdf8"
+  color2="#818cf8"
+/>
+
+<EncodingConverter />
+
+## How to Use
+
+1. Drag and drop a file, or click to select a file. You can also paste (Ctrl+V / Cmd+V) copied text or files directly.
+2. The character encoding will be automatically detected, and a preview of the content will be displayed. If the preview shows garbled text, try manually changing the "Current Encoding".
+3. Select the target encoding and click the "Convert and Download" button to save the file with the new encoding.
+
+### Supported Encodings
+- **Input:** UTF-8, Shift_JIS, EUC-JP, ISO-2022-JP (JIS), UTF-16, ASCII, etc.
+- **Output:** UTF-8, Shift_JIS, EUC-JP, ISO-2022-JP (JIS), UTF-16
+
+:::info Security
+🔒 All processing is done within the browser. The file content is never sent to a server.
+:::

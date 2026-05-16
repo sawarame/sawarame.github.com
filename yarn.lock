@@ -2588,6 +2588,11 @@
   dependencies:
     "@types/ms" "*"
 
+"@types/encoding-japanese@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@types/encoding-japanese/-/encoding-japanese-2.2.1.tgz#4aa2b89e6a611a7b35ac54e15abb9c388b8d280d"
+  integrity sha512-6jjepuTusvySxMLP7W6usamlbgf0F4sIDvm7EzYePjLHY7zWUv4yz2PLUnu0vuNVtXOTLu2cRdFcDg40J5Owsw==
+
 "@types/eslint-scope@^3.7.7":
   version "3.7.7"
   resolved "https://registry.yarnpkg.com/@types/eslint-scope/-/eslint-scope-3.7.7.tgz#3108bd5f18b0cdb277c867b3dd449c9ed7079ac5"
@@ -4392,6 +4397,11 @@ encodeurl@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/encodeurl/-/encodeurl-2.0.0.tgz#7b8ea898077d7e409d3ac45474ea38eaf0857a58"
   integrity sha512-Q0n9HRi4m6JuGIV1eFlmvJB7ZEVxu93IrMyiMsGC0lrMJMWzRgx6WGquyfQgZVb31vhGgXnfmPNNXmxnOkRBrg==
+
+encoding-japanese@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/encoding-japanese/-/encoding-japanese-2.2.0.tgz#0ef2d2351250547f432a2dd155453555c16deb59"
+  integrity sha512-EuJWwlHPZ1LbADuKTClvHtwbaFn4rOD+dRAbWysqEOXRc2Uui0hJInNJrsdH0c+OhJA4nrCBdSkW4DD5YxAo6A==
 
 enhanced-resolve@^5.17.2:
   version "5.18.2"

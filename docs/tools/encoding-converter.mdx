@@ -1,0 +1,33 @@
+---
+title: テキスト文字コード変換
+slug: /tools/encoding-converter
+sidebar_position: 12
+hide_title: true
+---
+
+import EncodingConverter from "@site/src/components/EncodingConverter";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+
+<ToolPageHeader
+  title="テキスト文字コード変換"
+  desc="テキストファイルの文字コードを自動判別し、指定した文字コード（UTF-8, Shift_JIS, EUC-JPなど）に変換してダウンロードできます。"
+  icon="🔤"
+  color1="#38bdf8"
+  color2="#818cf8"
+/>
+
+<EncodingConverter />
+
+## 使い方
+
+1. ファイルをドラッグ＆ドロップするか、クリックしてファイルを選択してください。コピーしたテキストやファイルを直接ペースト（Ctrl+V / Cmd+V）することも可能です。
+2. 自動的に文字コードが判別され、内容のプレビューが表示されます。もしプレビューが文字化けしている場合は、「現在の文字コード」を手動で変更してみてください。
+3. 変換後の文字コードを選択し、「変換してダウンロード」ボタンを押すと、新しい文字コードで保存されます。
+
+### 対応文字コード
+- **入力:** UTF-8, Shift_JIS, EUC-JP, ISO-2022-JP (JIS), UTF-16, ASCII など
+- **出力:** UTF-8, Shift_JIS, EUC-JP, ISO-2022-JP (JIS), UTF-16
+
+:::info セキュリティについて
+🔒 処理はすべてブラウザ内で行われます。ファイルの内容がサーバーに送信されることはありません。
+:::

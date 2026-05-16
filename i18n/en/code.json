@@ -128,6 +128,12 @@
   "home.tools.benchmark.desc": {
     "message": "Measure your device's computing performance in the browser and evaluate with scores and ranks."
   },
+  "home.tools.encoding.title": {
+    "message": "Text Encoding Converter"
+  },
+  "home.tools.encoding.desc": {
+    "message": "Automatically detect and convert character encodings (UTF-8, Shift_JIS, etc.) of text files. Supports pasting text."
+  },
   "home.extensions.label": {
     "message": "🧩 Extensions"
   },
@@ -1591,5 +1597,38 @@
   },
   "roulette.preset.confirm": {
     "message": "Current list will be overwritten. Are you sure?"
+  },
+  "encoding.error.read": {
+    "message": "Failed to read the file."
+  },
+  "encoding.error.preview": {
+    "message": "Failed to generate preview. Please check the character encoding settings."
+  },
+  "encoding.success.download": {
+    "message": "Converted and saved successfully."
+  },
+  "encoding.error.convert": {
+    "message": "Failed to convert."
+  },
+  "encoding.upload.main": {
+    "message": "Drop a file here, {br} click to select, or paste"
+  },
+  "encoding.upload.sub": {
+    "message": "Supports text files and pasted text"
+  },
+  "encoding.label.current": {
+    "message": "Current Encoding (Auto-detected)"
+  },
+  "encoding.label.target": {
+    "message": "Target Encoding"
+  },
+  "encoding.detected": {
+    "message": "Detected:"
+  },
+  "encoding.preview.title": {
+    "message": "Preview"
+  },
+  "encoding.button.download": {
+    "message": "Convert and Download"
   }
 }
