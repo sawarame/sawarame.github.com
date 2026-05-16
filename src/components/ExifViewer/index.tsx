@@ -328,7 +328,7 @@ export default function ExifViewer(): JSX.Element {
 
   return (
     <MuiTheme>
-      <div style={{ maxWidth: '800px', margin: '0 auto', gap: '24px', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ width: '100%', margin: '0 auto', gap: '24px', display: 'flex', flexDirection: 'column' }}>
       <UploadArea onFileSelect={handleFileSelect} />
 
       {originalFile && (

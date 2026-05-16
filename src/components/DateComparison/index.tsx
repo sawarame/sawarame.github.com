@@ -226,7 +226,7 @@ export default function DateComparison(): JSX.Element {
 
   return (
     <MuiTheme>
-      <div style={{ maxWidth: '800px', margin: '0 auto', gap: '24px', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ width: '100%', margin: '0 auto', gap: '24px', display: 'flex', flexDirection: 'column' }}>
       <div className={common.card}>
         <h2 className={common.cardTitle}>
           <span className={common.cardTitleIcon}>📅</span>

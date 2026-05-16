@@ -627,7 +627,7 @@ export default function ImageOptimizer(): JSX.Element {
 
   return (
     <MuiTheme>
-      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+      <div style={{ width: '100%', margin: '0 auto' }}>
       <Stack spacing={4}>
         {/* 1. Upload Section */}
         <div className={common.card}>

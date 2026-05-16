@@ -171,7 +171,7 @@ export default function RouletteMaker(): JSX.Element {
 
   return (
     <MuiTheme>
-      <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+      <div style={{ width: '100%', margin: '0 auto' }}>
       <Paper elevation={3} sx={{ p: 4, mb: 4, textAlign: 'center', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: isDrawing ? 'action.hover' : 'background.paper', borderRadius: '16px', border: '1px solid var(--ifm-color-emphasis-200)' }}>
         {currentDraw ? (
           <Typography variant="h2" component="div" fontWeight="bold" color={isDrawing ? 'text.secondary' : 'primary'} sx={{ wordBreak: 'break-word' }}>
