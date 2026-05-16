@@ -17,7 +17,7 @@
 <p>今回は、Skills機能の概要から実装手順、Gemini CLI上での確認方法までを詳しく解説します。</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="gemini-cliのskillsとは">Gemini CLIの「Skills」とは？<a href="https://sawara.me/blog/gemini-cli-skills#gemini-cli%E3%81%AEskills%E3%81%A8%E3%81%AF" class="hash-link" aria-label="Gemini CLIの「Skills」とは？ への直接リンク" title="Gemini CLIの「Skills」とは？ への直接リンク" translate="no">​</a></h3>
 <p>Skillsは、特定のワークフローやリソースをカプセル化した<strong>オンデマンドの専門知識モジュール</strong>です。<a href="https://agentskills.io/" target="_blank" rel="noopener noreferrer" class="">Agent Skills</a> という標準規格に基づいており、必要な時だけ呼び出すことで、AIの限られた「コンテキスト（記憶量）」を節約しつつ、高度なタスクを遂行させることが可能です。</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="他の機能との違い">他の機能との違い<a href="https://sawara.me/blog/gemini-cli-skills#%E4%BB%96%EF%BF%BD%EF%BF%BD%E3%81%AE%E6%A9%9F%E8%83%BD%E3%81%A8%E3%81%AE%E9%81%95%E3%81%84" class="hash-link" aria-label="他の機能との違い への直接リンク" title="他の機能との違い への直接リンク" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="他の機能との違い">他の機能との違い<a href="https://sawara.me/blog/gemini-cli-skills#%E4%BB%96%EF%BF%BD%E3%81%AE%E6%A9%9F%E8%83%BD%E3%81%A8%E3%81%AE%E9%81%95%E3%81%84" class="hash-link" aria-label="他の機能との違い への直接リンク" title="他の機能との違い への直接リンク" translate="no">​</a></h4>
 <p>Gemini CLIには、AIの振る舞いを制御する機能がいくつかあります。これらは「誰が、いつ、どのような知識を持って動くか」という役割が異なります。</p>
 <ul>
 <li class=""><strong>Instructions (<code>GEMINI.md</code>)</strong>: 常に読み込まれる「基本方針」です。プロジェクト全体の共通ルールやディレクトリ構造など、AIが常に意識しておくべき前提知識を伝えます。</li>
@@ -29,7 +29,7 @@
 <li class="">「新しいブログ記事を書く」→ メインのAIが <strong>blog-writerスキル</strong> を装備して自分で執筆します。</li>
 <li class="">「過去100件の記事のタグを一括修正する」→ メインのAIが <strong>generalistサブエージェント</strong> に作業を任せます。</li>
 </ul>
-<p>簡単に言えば、**「自分自身が身につける専門知識（Skills）」<strong>か、</strong>「自分以外の専門家に任せる仕組み（Subagents）」**か、という違いです。</p>
+<p>簡単に言えば、「自分自身が身につける専門知識（Skills）」か、「自分以外の専門家に任せる仕組み（Subagents）」か、という違いです。</p>
 <div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>ヒント</div><div class="admonitionContent_BuS1"><p>Skillsは「必要な時だけロードされる」ため、大量の知識を持たせても普段のチャットの邪魔をせず、トークン消費も抑えられるというメリットがあります。</p></div></div>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="スキルの実装手順">スキルの実装手順<a href="https://sawara.me/blog/gemini-cli-skills#%E3%82%B9%E3%82%AD%E3%83%AB%E3%81%AE%E5%AE%9F%E8%A3%85%E6%89%8B%E9%A0%86" class="hash-link" aria-label="スキルの実装手順 への直接リンク" title="スキルの実装手順 への直接リンク" translate="no">​</a></h3>
@@ -92,6 +92,28 @@
 <li class=""><strong>情報の階層化</strong>: <code>SKILL.md</code> 本体には核心となる手順だけを書き、膨大なドキュメントは <code>references/</code> フォルダに分けることで、コンテキストの使用量を最小限に抑えられます。</li>
 <li class=""><strong>LLMフレンドリーな出力</strong>: <code>scripts/</code> に含めるスクリプトは、人間向けの詳細なログよりも、AIが理解しやすい簡潔な結果を標準出力に返すように設計してください。</li>
 </ol>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="最強の助っ人skill-creatorでスキルを自動作成する">最強の助っ人「skill-creator」でスキルを自動作成する<a href="https://sawara.me/blog/gemini-cli-skills#%E6%9C%80%E5%BC%B7%E3%81%AE%E5%8A%A9%E3%81%A3%E4%BA%BAskill-creator%E3%81%A7%E3%82%B9%E3%82%AD%E3%83%AB%E3%82%92%E8%87%AA%E5%8B%95%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B" class="hash-link" aria-label="最強の助っ人「skill-creator」でスキルを自動作成する への直接リンク" title="最強の助っ人「skill-creator」でスキルを自動作成する への直接リンク" translate="no">​</a></h3>
+<p>手動でディレクトリやファイルを作成するのも良いですが、Gemini CLI にはスキルの作成を強力にサポートしてくれる <strong><code>skill-creator</code></strong> という組み込みスキルが存在します。これを使うことで、ベストプラクティスに基づいたスキルの雛形を対話形式で自動作成できます。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-skill-creator-の有効化呼び出し方法">1. skill-creator の有効化（呼び出し）方法<a href="https://sawara.me/blog/gemini-cli-skills#1-skill-creator-%E3%81%AE%E6%9C%89%E5%8A%B9%E5%8C%96%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97%E6%96%B9%E6%B3%95" class="hash-link" aria-label="1. skill-creator の有効化（呼び出し）方法 への直接リンク" title="1. skill-creator の有効化（呼び出し）方法 への直接リンク" translate="no">​</a></h4>
+<p>特別な設定は不要です。Gemini CLI とのチャットの中で、以下のように指示を出すだけで <code>skill-creator</code> が起動します。</p>
+<ul>
+<li class="">「新しいスキルを作成したい」</li>
+<li class="">「〜のためのスキルを作って」</li>
+<li class="">「現在の作業内容をスキルとして切り出して」</li>
+</ul>
+<p>AIが「スキル作成の専門家」モードに切り替わり、必要な情報をヒアリングしてくれます。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-具体的な作成フロー">2. 具体的な作成フロー<a href="https://sawara.me/blog/gemini-cli-skills#2-%E5%85%B7%E4%BD%93%E7%9A%84%E3%81%AA%E4%BD%9C%E6%88%90%E3%83%95%E3%83%AD%E3%83%BC" class="hash-link" aria-label="2. 具体的な作成フロー への直接リンク" title="2. 具体的な作成フロー への直接リンク" translate="no">​</a></h4>
+<p><code>skill-creator</code> を使うと、以下のステップでスムーズにスキルを構築できます。</p>
+<ol>
+<li class=""><strong>具体例の検討</strong>: ユーザーがそのスキルをどのように使うか、AIと一緒に具体的なシナリオを考えます。</li>
+<li class=""><strong>リソースの計画</strong>: 必要なスクリプト（<code>scripts/</code>）、参考資料（<code>references/</code>）、テンプレート（<code>assets/</code>）を洗い出します。</li>
+<li class=""><strong>初期化 (Initialization)</strong>: AIが内部で <code>init_skill.cjs</code> を実行し、<code>SKILL.md</code> のテンプレートやフォルダ構造を自動生成します。</li>
+<li class=""><strong>実装と編集</strong>: 生成された雛形をもとに、AIが具体的な指示内容やスクリプトを記述していきます。</li>
+<li class=""><strong>パッケージング</strong>: <code>package_skill.cjs</code> を使用して、配布可能な <code>.skill</code> ファイル（zip形式）にまとめます。</li>
+<li class=""><strong>インストールとリロード</strong>: <code>gemini skills install</code> コマンドで環境にインストールし、最後に <code>/skills reload</code> で即座に有効化します。</li>
+</ol>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>備考</div><div class="admonitionContent_BuS1"><p><code>skill-creator</code> は、単にファイルを作るだけでなく「AIが理解しやすい指示の書き方」や「コンテキストを節約するための情報の階層化」といったノウハウを自動的に適用してくれるため、初心者でもクオリティの高いスキルを作成できます。</p></div></div>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="スキルは使いながら育てていくもの">スキルは使いながら「育てて」いくもの<a href="https://sawara.me/blog/gemini-cli-skills#%E3%82%B9%E3%82%AD%E3%83%AB%E3%81%AF%E4%BD%BF%E3%81%84%E3%81%AA%E3%81%8C%E3%82%89%E8%82%B2%E3%81%A6%E3%81%A6%E3%81%84%E3%81%8F%E3%82%82%E3%81%AE" class="hash-link" aria-label="スキルは使いながら「育てて」いくもの への直接リンク" title="スキルは使いながら「育てて」いくもの への直接リンク" translate="no">​</a></h3>
 <p>スキルは一度完璧なものを作って終わりではありません。日々の開発で使いながら、足りない指示を追加したり、不要な手順を削ったりして<strong>継続的に成長させていく</strong>ことがこの機能の醍醐味です。</p>
