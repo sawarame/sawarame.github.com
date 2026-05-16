@@ -339,7 +339,8 @@ export default function PdfEditor(): JSX.Element {
             <span className={common.cardTitleIcon}>📁</span>
             {translate({ id: 'pdfEditor.upload.title', message: 'PDFを選択' })}
           </h2>
-          <Box
+          <div
+            className={`${common.dropZone} ${isDragOver ? common.dropZoneActive : ''}`}
             onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
             onDragLeave={() => setIsDragOver(false)}
             onDrop={(e) => {
@@ -348,28 +349,9 @@ export default function PdfEditor(): JSX.Element {
               handleFileSelect(e.dataTransfer.files);
             }}
             onClick={() => fileInputRef.current?.click()}
-            sx={{
-              marginTop: '1rem',
-              padding: '3rem 1rem',
-              border: '2px dashed',
-              borderColor: isDragOver ? 'primary.main' : 'var(--ifm-color-emphasis-300)',
-              borderRadius: '12px',
-              backgroundColor: isDragOver ? 'action.hover' : 'var(--ifm-background-color)',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease-in-out',
-              textAlign: 'center',
-              '&:hover': {
-                backgroundColor: 'action.hover',
-                borderColor: 'primary.main',
-              }
-            }}
           >
-            <PictureAsPdfIcon sx={{ fontSize: 48, color: 'var(--ifm-color-emphasis-500)', marginBottom: '1rem' }} />
-            <p style={{ margin: 0, fontWeight: 600, color: 'var(--ifm-color-emphasis-800)' }}>
+            <PictureAsPdfIcon className={common.dropZoneIcon} color="primary" sx={{ fontSize: '3rem !important' }} />
+            <p className={common.dropZoneText}>
               {translate({ id: 'pdfEditor.upload.dropLabel', message: 'クリック、ドラッグ＆ドロップ、または貼り付け(ctrl+v)でPDFを追加' })}
             </p>
             <input
@@ -380,7 +362,7 @@ export default function PdfEditor(): JSX.Element {
               ref={fileInputRef}
               onChange={(e) => handleFileSelect(e.target.files)}
             />
-          </Box>
+          </div>
         </div>
 
         {pdfFiles.length > 0 && (

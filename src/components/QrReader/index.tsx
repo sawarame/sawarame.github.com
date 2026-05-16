@@ -65,7 +65,7 @@ function UploadCard({ onFileSelect }: { onFileSelect: (file: File) => void }) {
         {translate({ id: 'qrReader.upload.title', message: 'QRコード画像を選択' })}
       </h2>
       <div
-        className={`${styles.dropArea} ${isDragOver ? styles.dropAreaActive : ''}`}
+        className={`${common.dropZone} ${isDragOver ? common.dropZoneActive : ''}`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
@@ -74,9 +74,9 @@ function UploadCard({ onFileSelect }: { onFileSelect: (file: File) => void }) {
         tabIndex={0}
         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleClick(); }}
       >
-        <span className={styles.dropIcon}>📷</span>
-        <p className={styles.dropLabel}>{translate({ id: 'qrReader.upload.dropLabel', message: 'クリック・ドラッグ＆ドロップ、または貼り付けで選択' })}</p>
-        <p className={styles.dropSub}>{translate({ id: 'qrReader.upload.formats', message: '対応フォーマット: PNG / JPEG / WebP / GIF / BMP' })}</p>
+        <span className={common.dropZoneIcon}>📷</span>
+        <p className={common.dropZoneText}>{translate({ id: 'qrReader.upload.dropLabel', message: 'クリック・ドラッグ＆ドロップ、または貼り付けで選択' })}</p>
+        <p className={common.dropZoneSubText}>{translate({ id: 'qrReader.upload.formats', message: '対応フォーマット: PNG / JPEG / WebP / GIF / BMP' })}</p>
         <input
           type="file"
           accept="image/*"
@@ -115,22 +115,18 @@ function ResultCard({ imageUrl, fileName, result, scanState, errorMsg, onClear }
         </Tooltip>
       </div>
 
-      <div style={{
-        marginBottom: '1rem',
-        padding: '8px 12px',
-        background: 'var(--ifm-color-emphasis-100)',
-        borderRadius: '6px',
-        fontSize: '0.9rem',
-        color: 'var(--ifm-color-emphasis-800)',
-      }}>
-        {translate({ id: 'common.file', message: 'ファイル:' })} <strong>{fileName}</strong>
-      </div>
-
-      {imageUrl && (
-        <div className={styles.previewWrap}>
-          <img src={imageUrl} alt="Preview" className={styles.previewImg} />
+      <div className={common.previewArea}>
+        <div className={common.previewTitle}>
+          <span className={common.previewMeta}>
+            {translate({ id: 'common.file', message: 'ファイル:' })} <strong>{fileName}</strong>
+          </span>
         </div>
-      )}
+        {imageUrl && (
+          <div className={common.previewContent}>
+            <img src={imageUrl} alt="Preview" className={common.previewImage} />
+          </div>
+        )}
+      </div>
 
       {scanState === 'scanning' && (
         <div className={styles.scanningWrap}>
@@ -148,6 +144,7 @@ function ResultCard({ imageUrl, fileName, result, scanState, errorMsg, onClear }
           border: '1px solid rgba(239, 68, 68, 0.25)',
           color: 'var(--ifm-color-danger)',
           fontSize: '0.9rem',
+          marginBottom: '1rem',
         }}>
           ⚠️ {errorMsg}
         </div>
@@ -158,7 +155,7 @@ function ResultCard({ imageUrl, fileName, result, scanState, errorMsg, onClear }
           {resultIsUrl && (
             <span className={styles.urlChip}>{translate({ id: 'qrReader.result.urlDetected', message: '🔗 URL が検出されました' })}</span>
           )}
-          <div className={styles.resultText} style={{ marginTop: resultIsUrl ? '0.75rem' : 0 }}>
+          <div className={common.resultText} style={{ marginTop: resultIsUrl ? '0.75rem' : 0, marginBottom: '1rem' }}>
             {result}
           </div>
           <div className={styles.resultActions}>

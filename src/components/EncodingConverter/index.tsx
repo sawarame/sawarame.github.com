@@ -182,20 +182,20 @@ export default function EncodingConverter() {
           </h2>
           {/* アップロードエリア */}
           <div
-            className={`${styles.dropZone} ${isDragging ? styles.dropZoneActive : ''}`}
+            className={`${common.dropZone} ${isDragging ? common.dropZoneActive : ''}`}
             onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
             onDragLeave={() => setIsDragging(false)}
             onDrop={handleDrop}
             onClick={() => fileInputRef.current?.click()}
           >
             <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} accept=".txt,.csv,.log,.md,.json,.js,.ts,.html,.css" />
-            <DescriptionIcon className={styles.dropZoneIcon} color="primary" />
-            <p className={styles.dropZoneText}>
+            <DescriptionIcon className={common.dropZoneIcon} color="primary" />
+            <p className={common.dropZoneText}>
               <Translate id="encoding.upload.main" values={{ br: <br /> }}>
                 {'ファイルをドロップするか、{br}ここをクリックして選択、またはペースト'}
               </Translate>
             </p>
-            <p className={styles.dropZoneSubText}>
+            <p className={common.dropZoneSubText}>
               <Translate id="encoding.upload.sub">テキストファイルやコピーしたテキストに対応しています</Translate>
             </p>
           </div>
@@ -203,19 +203,21 @@ export default function EncodingConverter() {
           {inputData && (
             <Stack spacing={3} sx={{ mt: 3 }}>
               {/* プレビュー */}
-              <div className={styles.previewArea}>
-                <div className={styles.previewTitle}>
+              <div className={common.previewArea}>
+                <div className={common.previewTitle}>
                   <Typography variant="subtitle2" fontWeight="bold">
                     <Translate id="encoding.preview.title">プレビュー</Translate>
                   </Typography>
-                  <span className={styles.previewMeta}>
+                  <span className={common.previewMeta}>
                     {inputData.fileName} ({Math.round(inputData.bytes.length / 1024 * 10) / 10} KB)
                   </span>
                 </div>
-                <div className={styles.previewContent}>
-                  {loading ? (
-                    <Box display="flex" justifyContent="center" p={2}><CircularProgress size={24} /></Box>
-                  ) : previewText}
+                <div className={common.previewContent}>
+                  <div className={common.previewText}>
+                    {loading ? (
+                      <Box display="flex" justifyContent="center" p={2}><CircularProgress size={24} /></Box>
+                    ) : previewText}
+                  </div>
                 </div>
               </div>
 

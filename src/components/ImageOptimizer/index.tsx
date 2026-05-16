@@ -635,7 +635,8 @@ export default function ImageOptimizer(): JSX.Element {
             <span className={common.cardTitleIcon}>📁</span>
             {translate({ id: 'resize.upload.title', message: '画像を選択' })}
           </h2>
-          <Box
+          <div
+            className={`${common.dropZone} ${isDragOver ? common.dropZoneActive : ''}`}
             onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
             onDragLeave={() => setIsDragOver(false)}
             onDrop={(e) => {
@@ -644,31 +645,12 @@ export default function ImageOptimizer(): JSX.Element {
               handleFileSelect(e.dataTransfer.files);
             }}
             onClick={() => fileInputRef.current?.click()}
-            sx={{
-              marginTop: '1rem',
-              padding: '3rem 1rem',
-              border: '2px dashed',
-              borderColor: isDragOver ? 'primary.main' : 'var(--ifm-color-emphasis-300)',
-              borderRadius: '12px',
-              backgroundColor: isDragOver ? 'action.hover' : 'var(--ifm-background-color)',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease-in-out',
-              textAlign: 'center',
-              '&:hover': {
-                backgroundColor: 'action.hover',
-                borderColor: 'primary.main',
-              }
-            }}
           >
-            <AddPhotoAlternateIcon sx={{ fontSize: 48, color: 'var(--ifm-color-emphasis-500)', marginBottom: '1rem' }} />
-            <p style={{ margin: 0, fontWeight: 600, color: 'var(--ifm-color-emphasis-800)' }}>
+            <AddPhotoAlternateIcon className={common.dropZoneIcon} color="primary" sx={{ fontSize: '3rem !important' }} />
+            <p className={common.dropZoneText}>
               {translate({ id: 'resize.upload.dropLabel', message: 'クリック・ドラッグ＆ドロップ、または貼り付けで選択' })}
             </p>
-            <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.85rem', color: 'var(--ifm-color-emphasis-600)' }}>
+            <p className={common.dropZoneSubText}>
               {translate({ id: 'resize.upload.formats', message: '対応フォーマット: JPEG, PNG, WebPなど（Command/Ctrl+Vでの貼り付けも可能）' })}
             </p>
             <input
@@ -679,7 +661,7 @@ export default function ImageOptimizer(): JSX.Element {
               ref={fileInputRef}
               onChange={(e) => handleFileSelect(e.target.files)}
             />
-          </Box>
+          </div>
         </div>
 
         {/* 2. Image List & Settings (Only visible after upload) */}

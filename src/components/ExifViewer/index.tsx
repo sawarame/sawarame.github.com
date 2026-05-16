@@ -89,35 +89,18 @@ function UploadArea({ onFileSelect }: { onFileSelect: (file: File) => void }) {
         <span className={common.cardTitleIcon}>📁</span>
         {translate({ id: 'exif.upload.title', message: '写真を選択' })}
       </h2>
-      <Box
+      <div
+        className={`${common.dropZone} ${isDragOver ? common.dropZoneActive : ''}`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         onClick={handleClick}
-        sx={{
-          marginTop: '1rem',
-          padding: '3rem 1rem',
-          border: '2px dashed',
-          borderColor: isDragOver ? 'primary.main' : 'var(--ifm-color-emphasis-300)',
-          borderRadius: '12px',
-          backgroundColor: isDragOver ? 'action.hover' : 'var(--ifm-background-color)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          transition: 'all 0.2s ease-in-out',
-          '&:hover': {
-            backgroundColor: 'action.hover',
-            borderColor: 'primary.main',
-          }
-        }}
       >
-        <AddPhotoAlternateIcon sx={{ fontSize: 48, color: 'var(--ifm-color-emphasis-500)', marginBottom: '1rem' }} />
-        <p style={{ margin: 0, fontWeight: 600, color: 'var(--ifm-color-emphasis-800)' }}>
+        <AddPhotoAlternateIcon className={common.dropZoneIcon} color="primary" sx={{ fontSize: '3rem !important' }} />
+        <p className={common.dropZoneText}>
           {translate({ id: 'exif.upload.dropLabel', message: 'クリックまたはドラッグ＆ドロップでファイルを選択' })}
         </p>
-        <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.85rem', color: 'var(--ifm-color-emphasis-600)' }}>
+        <p className={common.dropZoneSubText}>
           {translate({ id: 'exif.upload.formats', message: '対応フォーマット: JPEG (EXIF情報の読み取りは主にJPEGに対応しています)' })}
         </p>
         <input
@@ -127,7 +110,7 @@ function UploadArea({ onFileSelect }: { onFileSelect: (file: File) => void }) {
           onChange={handleFileChange}
           style={{ display: 'none' }}
         />
-      </Box>
+      </div>
     </div>
   );
 }
@@ -187,29 +170,32 @@ function ExifResultCard({ exifData, onClear, fileName, imageUrl, originalFile }:
         </Tooltip>
       </div>
 
-      <div style={{ marginBottom: '1rem', padding: '8px 12px', background: 'var(--ifm-color-emphasis-100)', borderRadius: '6px', fontSize: '0.9rem', color: 'var(--ifm-color-emphasis-800)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
-        <span>{translate({ id: 'common.file', message: 'ファイル:' })} <strong>{fileName}</strong></span>
-        {originalFile && (
-          <a
-            href="/resize"
-            onClick={(e) => {
-              e.preventDefault();
-              history.push('/resize', { file: originalFile });
-            }}
-            style={{ fontSize: '0.8rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer', color: 'var(--ifm-color-primary)', textDecoration: 'none' }}
-          >
-            ✨ {exifData 
-                 ? translate({ id: 'exif.result.removeExifLink', message: 'Exif情報を消すことができます' })
-                 : translate({ id: 'exif.result.changeFormatLink', message: '画像のフォーマットを変更することができます' })}
-          </a>
+      <div className={common.previewArea}>
+        <div className={common.previewTitle}>
+          <span className={common.previewMeta} style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+            <span>{translate({ id: 'common.file', message: 'ファイル:' })} <strong>{fileName}</strong></span>
+            {originalFile && (
+              <a
+                href="/resize"
+                onClick={(e) => {
+                  e.preventDefault();
+                  history.push('/resize', { file: originalFile });
+                }}
+                style={{ fontSize: '0.8rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer', color: 'var(--ifm-color-primary)', textDecoration: 'none' }}
+              >
+                ✨ {exifData 
+                     ? translate({ id: 'exif.result.removeExifLink', message: 'Exif情報を消すことができます' })
+                     : translate({ id: 'exif.result.changeFormatLink', message: '画像のフォーマットを変更することができます' })}
+              </a>
+            )}
+          </span>
+        </div>
+        {imageUrl && (
+          <div className={common.previewContent}>
+            <img src={imageUrl} alt="Thumbnail" className={common.previewImage} />
+          </div>
         )}
       </div>
-
-      {imageUrl && (
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem', background: 'var(--ifm-color-emphasis-100)', padding: '1rem', borderRadius: '8px' }}>
-          <img src={imageUrl} alt="Thumbnail" style={{ maxHeight: '300px', maxWidth: '100%', objectFit: 'contain', borderRadius: '4px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} />
-        </div>
-      )}
 
       {exifData ? (
         <TableContainer component={Paper} elevation={0} sx={{ background: 'var(--ifm-background-color)', border: '1px solid var(--ifm-color-emphasis-200)', borderRadius: '8px', overflow: 'hidden' }}>
