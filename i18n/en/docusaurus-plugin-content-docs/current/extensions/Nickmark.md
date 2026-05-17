@@ -109,9 +109,9 @@ Registers the current tab.
 - **title**: Optional. If omitted, the web page's title is used.
 - **Example**: `:add note Meeting Minutes`
 
-### `:addall [nickname]`
+### `:addall [nickname]` (alias `:aa`)
 Registers all open tabs at once.
-- **Example**: `:addall workspace`
+- **Example**: `:aa workspace`
 
 ### `:ls`
 Opens the bookmark list.
