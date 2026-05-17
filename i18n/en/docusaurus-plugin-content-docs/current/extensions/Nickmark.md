@@ -52,7 +52,7 @@ To access the registered "dev":
 
 You will be redirected to the page registered with the nickname "dev".
 
-:::tip
+:::info
 After activating Nickmark, bookmarks are suggested while you type the nickname. You can access the bookmarked page by selecting from the suggestions without typing the entire nickname.
 :::
 
