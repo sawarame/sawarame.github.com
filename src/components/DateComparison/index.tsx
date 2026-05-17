@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from '@docusaurus/router';
 import { translate } from '@docusaurus/Translate';
 import {
@@ -162,26 +162,6 @@ export default function DateComparison(): JSX.Element {
   const [alwaysCurrent, setAlwaysCurrent] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
-  const datePickerRef1 = useRef<HTMLInputElement>(null);
-  const datePickerRef2 = useRef<HTMLInputElement>(null);
-
-  const handleOpenPicker = (ref: React.RefObject<HTMLInputElement | null>) => {
-    const input = ref.current;
-    if (!input) return;
-
-    if ('showPicker' in input && typeof (input as any).showPicker === 'function') {
-      try {
-        (input as any).showPicker();
-      } catch (error) {
-        // showPicker が失敗した場合は click を試みる
-        input.click();
-      }
-    } else {
-      // showPicker 未対応ブラウザ（iOS 15以前など）向けのフォールバック
-      input.click();
-    }
-  };
-
   // 初回マウント: URLパラメータから復元、またはデフォルト値を設定
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -273,34 +253,37 @@ export default function DateComparison(): JSX.Element {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton 
-                      onClick={() => handleOpenPicker(datePickerRef1)} 
-                      edge="end"
-                      disabled={alwaysCurrent}
-                    >
-                      <CalendarMonthIcon />
-                    </IconButton>
-                    <input 
-                      type="datetime-local" 
-                      step="1"
-                      ref={datePickerRef1} 
-                      onChange={(e) => {
-                        if (e.target.value) {
-                          setDate1(formatDate(new Date(e.target.value)));
-                        }
-                      }} 
-                      style={{ 
-                        width: '1px', 
-                        height: '1px', 
-                        border: 0, 
-                        padding: 0, 
-                        opacity: 0, 
-                        position: 'absolute', 
-                        pointerEvents: 'none',
-                        right: 0,
-                        bottom: 0
-                      }} 
-                    />
+                    <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                      <IconButton 
+                        edge="end"
+                        disabled={alwaysCurrent}
+                        tabIndex={-1}
+                      >
+                        <CalendarMonthIcon />
+                      </IconButton>
+                      {!alwaysCurrent && (
+                        <input 
+                          type="datetime-local" 
+                          step="1"
+                          onChange={(e) => {
+                            if (e.target.value) {
+                              setDate1(formatDate(new Date(e.target.value)));
+                            }
+                          }} 
+                          style={{ 
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            opacity: 0,
+                            cursor: 'pointer',
+                            padding: 0,
+                            border: 'none'
+                          }} 
+                        />
+                      )}
+                    </div>
                   </InputAdornment>
                 )
               }}
@@ -315,37 +298,37 @@ export default function DateComparison(): JSX.Element {
             helperText={parseCustomDate(date2) ? formatDate(parseCustomDate(date2)!) : ' '}
             placeholder="2026/1/1 12:00:00, UNIXTIME, etc."
             InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={() => handleOpenPicker(datePickerRef2)} edge="end">
+            endAdornment: (
+              <InputAdornment position="end">
+                <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                  <IconButton edge="end" tabIndex={-1}>
                     <CalendarMonthIcon />
                   </IconButton>
                   <input 
                     type="datetime-local" 
                     step="1"
-                    ref={datePickerRef2} 
                     onChange={(e) => {
                       if (e.target.value) {
                         setDate2(formatDate(new Date(e.target.value)));
                       }
                     }} 
                     style={{ 
-                      width: '1px', 
-                      height: '1px', 
-                      border: 0, 
-                      padding: 0, 
-                      opacity: 0, 
-                      position: 'absolute', 
-                      pointerEvents: 'none',
-                      right: 0,
-                      bottom: 0
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      opacity: 0,
+                      cursor: 'pointer',
+                      padding: 0,
+                      border: 'none'
                     }} 
                   />
-                </InputAdornment>
-              )
+                </div>
+              </InputAdornment>
+            )
             }}
-          />
-        </Stack>
+            />        </Stack>
       </div>
 
       <DiffResultCard date1Str={date1} date2Str={date2} />
