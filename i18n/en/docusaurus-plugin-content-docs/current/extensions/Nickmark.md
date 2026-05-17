@@ -109,6 +109,10 @@ Registers the current tab.
 - **title**: Optional. If omitted, the web page's title is used.
 - **Example**: `:add note Meeting Minutes`
 
+### `:addall [nickname]`
+Registers all open tabs at once.
+- **Example**: `:addall workspace`
+
 ### `:ls`
 Opens the bookmark list.
 - You can view, edit, and delete all registered nicknames and URLs.
@@ -121,6 +125,13 @@ Opens bookmarks in new tabs.
 ### `:rm [nickname]`
 Deletes the specified nickname.
 - **Example**: `:rm old-site`
+
+### `:prefs`
+Opens the preferences screen.
+- You can customize settings such as language.
+
+### `:help`
+Displays the help (this documentation).
 
 ---
 
