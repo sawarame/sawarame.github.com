@@ -165,13 +165,13 @@ export default function DateComparison(): JSX.Element {
   const datePickerRef1 = useRef<HTMLInputElement>(null);
   const datePickerRef2 = useRef<HTMLInputElement>(null);
 
-  const handleOpenPicker = (ref: React.RefObject<HTMLInputElement>) => {
+  const handleOpenPicker = (ref: React.RefObject<HTMLInputElement | null>) => {
     const input = ref.current;
     if (!input) return;
 
-    if ('showPicker' in input && typeof input.showPicker === 'function') {
+    if ('showPicker' in input && typeof (input as any).showPicker === 'function') {
       try {
-        input.showPicker();
+        (input as any).showPicker();
       } catch (error) {
         // showPicker が失敗した場合は click を試みる
         input.click();
