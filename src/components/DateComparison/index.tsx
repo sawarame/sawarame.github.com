@@ -165,6 +165,23 @@ export default function DateComparison(): JSX.Element {
   const datePickerRef1 = useRef<HTMLInputElement>(null);
   const datePickerRef2 = useRef<HTMLInputElement>(null);
 
+  const handleOpenPicker = (ref: React.RefObject<HTMLInputElement>) => {
+    const input = ref.current;
+    if (!input) return;
+
+    if ('showPicker' in input && typeof input.showPicker === 'function') {
+      try {
+        input.showPicker();
+      } catch (error) {
+        // showPicker が失敗した場合は click を試みる
+        input.click();
+      }
+    } else {
+      // showPicker 未対応ブラウザ（iOS 15以前など）向けのフォールバック
+      input.click();
+    }
+  };
+
   // 初回マウント: URLパラメータから復元、またはデフォルト値を設定
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -257,7 +274,7 @@ export default function DateComparison(): JSX.Element {
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton 
-                      onClick={() => datePickerRef1.current?.showPicker()} 
+                      onClick={() => handleOpenPicker(datePickerRef1)} 
                       edge="end"
                       disabled={alwaysCurrent}
                     >
@@ -272,7 +289,17 @@ export default function DateComparison(): JSX.Element {
                           setDate1(formatDate(new Date(e.target.value)));
                         }
                       }} 
-                      style={{ width: 0, height: 0, border: 0, padding: 0, visibility: 'hidden', position: 'absolute' }} 
+                      style={{ 
+                        width: '1px', 
+                        height: '1px', 
+                        border: 0, 
+                        padding: 0, 
+                        opacity: 0, 
+                        position: 'absolute', 
+                        pointerEvents: 'none',
+                        right: 0,
+                        bottom: 0
+                      }} 
                     />
                   </InputAdornment>
                 )
@@ -290,7 +317,7 @@ export default function DateComparison(): JSX.Element {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton onClick={() => datePickerRef2.current?.showPicker()} edge="end">
+                  <IconButton onClick={() => handleOpenPicker(datePickerRef2)} edge="end">
                     <CalendarMonthIcon />
                   </IconButton>
                   <input 
@@ -302,7 +329,17 @@ export default function DateComparison(): JSX.Element {
                         setDate2(formatDate(new Date(e.target.value)));
                       }
                     }} 
-                    style={{ width: 0, height: 0, border: 0, padding: 0, visibility: 'hidden', position: 'absolute' }} 
+                    style={{ 
+                      width: '1px', 
+                      height: '1px', 
+                      border: 0, 
+                      padding: 0, 
+                      opacity: 0, 
+                      position: 'absolute', 
+                      pointerEvents: 'none',
+                      right: 0,
+                      bottom: 0
+                    }} 
                   />
                 </InputAdornment>
               )
