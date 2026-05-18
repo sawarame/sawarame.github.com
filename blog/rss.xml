@@ -42,7 +42,6 @@
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="正しく読み込まれているか確認する">正しく読み込まれているか確認する<a href="https://sawara.me/blog/design-md-with-ai-agent#%E6%AD%A3%E3%81%97%E3%81%8F%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%81%8B%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B" class="hash-link" aria-label="正しく読み込まれているか確認する への直接リンク" title="正しく読み込まれているか確認する への直接リンク" translate="no">​</a></h3>
 <p>設定した <code>DESIGN.md</code> が正しくコンテキストに含まれているか不安な場合は、Gemini CLI の対話インターフェース内で以下のコマンドを実行して確認できます。</p>
 <ul>
-<li class=""><strong><code>/memory list</code></strong>: ロードされているコンテキストファイルのパス一覧を表示します。</li>
 <li class=""><strong><code>/memory show</code></strong>: 実際にモデルに送信されている、インポートが展開された後のコンテキスト全文を表示します。</li>
 </ul>
 <p><code>/memory show</code> を実行して <code>DESIGN.md</code> の中身が表示されれば、AIエージェントはその内容をすべて把握した状態であなたの指示を待っています。</p>
