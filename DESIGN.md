@@ -1,3 +1,39 @@
+---
+version: 1.0.0
+tokens:
+  color:
+    brand:
+      primary:
+        light: "#3366cc"
+        dark: "#4f9dff"
+    surface:
+      background:
+        light: "#ffffff"
+        dark: "#1b1b1d"
+      card: "var(--ifm-card-background-color)"
+    gradient:
+      hero:
+        light: "linear-gradient(135deg, #1a237e 0%, #283593 50%, #1565c0 100%)"
+        dark: "linear-gradient(135deg, #0f0c29 0%, #1a1a3e 50%, #0d1b4b 100%)"
+      button: "linear-gradient(135deg, #667eea, #764ba2)"
+  typography:
+    font_family:
+      sans: 'system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+      mono: 'SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
+    line_height:
+      body: 1.7
+    letter_spacing:
+      default: "0.03em"
+  spacing:
+    base: 8
+    container_max_width: 1100
+  border:
+    radius:
+      card: 16
+      button: 12
+      icon_wrap: 14
+---
+
 # sawara.me Design Guidelines (DESIGN.md)
 
 本ドキュメントは、sawara.me プロジェクトの視覚的アイデンティティ、UI/UX 原則、および実装規約を定義します。AIエージェントおよび開発者は、新しいコンポーネントや機能を追加する際、本ガイドラインに従って一貫性のあるデザインを維持してください。
@@ -11,36 +47,35 @@
 ## 2. Color Palette & Roles
 
 ### Brand Colors
-*   **Primary (Light)**: `#3366cc` (信頼感のあるブルー)
-*   **Primary (Dark)**: `#4f9dff` (視認性の高い明るいブルー)
+*   **Primary (Light)**: `tokens.color.brand.primary.light`
+*   **Primary (Dark)**: `tokens.color.brand.primary.dark`
 
 ### Gradient Sets
-*   **Hero Background (Light)**: `linear-gradient(135deg, #1a237e 0%, #283593 50%, #1565c0 100%)`
-*   **Hero Background (Dark)**: `linear-gradient(135deg, #0f0c29 0%, #1a1a3e 50%, #0d1b4b 100%)`
-*   **Primary Button**: `linear-gradient(135deg, #667eea, #764ba2)`
+*   **Hero Background**: `tokens.color.gradient.hero`
+*   **Primary Button**: `tokens.color.gradient.button`
 
 ### Surface Colors
-*   **Background**: Docusaurus 標準の背景色 (`#ffffff` / `#1b1b1d`)
-*   **Card Background**: `var(--ifm-card-background-color)`
+*   **Background**: `tokens.color.surface.background`
+*   **Card Background**: `tokens.color.surface.card`
 *   **Highlighted Code**: `rgba(0, 0, 0, 0.1)` (Light) / `rgba(0, 0, 0, 0.3)` (Dark)
 
 ## 3. Typography Rules
 
 ### Font Stacks
-*   **本文/見出し**: `system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"`
-*   **コード**: `SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`
+*   **本文/見出し**: `tokens.typography.font_family.sans`
+*   **コード**: `tokens.typography.font_family.mono`
 
 ### Typographic Scales
-*   **Line Height**: 日本語の読みやすさを考慮し、本文は `1.6` 〜 `1.8` を推奨。
-*   **Letter Spacing**: 日本語は詰めすぎず、`0.02em` 〜 `0.05em` を確保。
+*   **Line Height**: 日本語の読みやすさを考慮し、本文は `tokens.typography.line_height.body` を推奨。
+*   **Letter Spacing**: 日本語は詰めすぎず、`tokens.typography.letter_spacing.default` を確保。
 *   **Hero Title**: `clamp(2.5rem, 6vw, 4.5rem)`, Font weight 800.
 *   **Section Title**: `clamp(1.6rem, 3.5vw, 2.4rem)`, Font weight 800.
 
 ## 4. Spacing & Layout
 
 ### Grid & Containers
-*   **Base Unit**: 8px を基本単位 (`8, 16, 24, 32...`) とする。
-*   **Container Max-width**: `1100px`
+*   **Base Unit**: `tokens.spacing.base` px を基本単位 (`8, 16, 24, 32...`) とする。
+*   **Container Max-width**: `tokens.spacing.container_max_width` px
 *   **Grid Gap**: `1.5rem` (24px)
 *   **Card Min-width**: `260px`
 
@@ -64,15 +99,15 @@
 ### MUI (Material UI) v6
 *   **Theme Integration**: `src/components/MuiTheme/` で Docusaurus のカラーモードと完全同期。
 *   **Button**:
-    *   Primary: 角丸 12px, グラデーション, ホバー時に浮き上がり。
+    *   Primary: 角丸 `tokens.border.radius.button` px, グラデーション, ホバー時に浮き上がり。
     *   Secondary: 透過背景, `backdrop-filter` 適用。
 *   **Input**: アウトライン形式を推奨。フォーカス時の視認性を重視。
 
 ### Custom Components
 *   **Tool Card**:
-    *   `border-radius: 16px`
+    *   `border-radius`: `tokens.border.radius.card` px
     *   `border: 1px solid var(--ifm-color-emphasis-200)`
-    *   `icon-wrap`: 52x52px, `border-radius: 14px`
+    *   `icon-wrap`: 52x52px, `border-radius`: `tokens.border.radius.icon_wrap` px
 *   **Hero Badge**: 100px 角丸, 透過ボーダー, 緑色のパルスドット付き。
 
 ## 7. Icons & Images
@@ -103,6 +138,7 @@
 ## 10. Agent Prompt Guide
 AIがUIコンポーネントを生成する際の推奨事項：
 1.  **MUI v6 + CSS Modules**: 基本は MUI コンポーネントを使用し、複雑なスタイルは CSS Modules で定義してください。
-2.  **Color Sync**: 色を指定する際は直接的な Hex ではなく、CSS 変数 (`var(--ifm-color-primary)`) を優先してください。
-3.  **i18n First**: 文字列の出力には `Translate` コンポーネントを使用してください。
-4.  **Local First**: 外部 API やサーバーサイド処理を提案せず、Web Worker や Canvas API 等のブラウザ機能を活用した実装を提案してください。
+2.  **Token First**: 色やサイズを指定する際は、`DESIGN.md` の `tokens` を参照してください。
+3.  **Color Sync**: 色を指定する際は直接的な Hex ではなく、CSS 変数 (`var(--ifm-color-primary)`) を優先してください。
+4.  **i18n First**: 文字列の出力には `Translate` コンポーネントを使用してください。
+5.  **Local First**: 外部 API やサーバーサイド処理を提案せず、Web Worker や Canvas API 等のブラウザ機能を活用した実装を提案してください。
