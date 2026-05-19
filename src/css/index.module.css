@@ -169,7 +169,7 @@
    Responsive
    ============================================================ */
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
   .hero {
     padding: 1.5rem 1rem;
     min-height: auto;

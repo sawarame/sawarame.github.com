@@ -172,7 +172,7 @@
   object-fit: contain;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 900px) {
   .grid {
     grid-template-columns: 1fr;
   }
