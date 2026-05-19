@@ -167,7 +167,7 @@ export const extensions = [
   },
   {
     iconSrc: GeminiSparkPng,
-    title: 'Gemini Spark',
+    title: 'Shiftless Enter for Gemini',
     descriptionId: 'home.extensions.geminispark.desc',
     description:
       'Google Gemini のウェブインターフェースを強化するためのブラウザ拡張機能です。エンターキーで改行し、Command+Enter (Ctrl+Enter) で送信できるようになります。',
