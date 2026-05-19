@@ -1625,6 +1625,12 @@
   "encoding.label.target": {
     "message": "Target Encoding"
   },
+  "encoding.label.currentLineBreak": {
+    "message": "Current Line Break (Auto-detected)"
+  },
+  "encoding.label.targetLineBreak": {
+    "message": "Target Line Break"
+  },
   "encoding.detected": {
     "message": "Detected:"
   },
@@ -1633,5 +1639,11 @@
   },
   "encoding.button.download": {
     "message": "Convert and Download"
+  },
+  "encoding.correct.title": {
+    "message": "Correct Detection Result"
+  },
+  "encoding.button.correct": {
+    "message": "Correct"
   }
 }
