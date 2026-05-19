@@ -352,7 +352,10 @@ export default function PdfEditor(): JSX.Element {
           >
             <PictureAsPdfIcon className={common.dropZoneIcon} color="primary" sx={{ fontSize: '3rem !important' }} />
             <p className={common.dropZoneText}>
-              {translate({ id: 'pdfEditor.upload.dropLabel', message: 'クリック、ドラッグ＆ドロップ、または貼り付け(ctrl+v)でPDFを追加' })}
+              {translate({ id: 'pdfEditor.upload.dropLabel', message: 'クリック・ドラッグ＆ドロップ、または貼り付けで選択' })}
+            </p>
+            <p className={common.dropZoneSubText}>
+              {translate({ id: 'pdfEditor.upload.formats', message: '対応フォーマット: PDF' })}
             </p>
             <input
               type="file"

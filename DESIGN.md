@@ -68,7 +68,7 @@ tokens:
 ### Typographic Scales
 *   **Line Height**: 日本語の読みやすさを考慮し、本文は `tokens.typography.line_height.body` を推奨。
 *   **Letter Spacing**: 日本語は詰めすぎず、`tokens.typography.letter_spacing.default` を確保。
-*   **Hero Title**: `clamp(2.5rem, 6vw, 4.5rem)`, Font weight 800.
+*   **Hero Title**: 魚を模したSVGタイポグラフィ（`SawaraFishLogo`）を使用。
 *   **Section Title**: `clamp(1.6rem, 3.5vw, 2.4rem)`, Font weight 800.
 
 ## 4. Spacing & Layout
@@ -81,6 +81,7 @@ tokens:
 
 ### Padding
 *   **Section Padding**: 5rem (80px) / Mobile: 3.5rem (56px)
+*   **Hero Padding**: 1.5rem (24px) / 極限まで高さを抑え、コンテンツへの到達を早める。
 *   **Card Padding**: 1.6rem (25.6px)
 
 ## 5. Depth & Elevation
@@ -108,7 +109,11 @@ tokens:
     *   `border-radius`: `tokens.border.radius.card` px
     *   `border: 1px solid var(--ifm-color-emphasis-200)`
     *   `icon-wrap`: 52x52px, `border-radius`: `tokens.border.radius.icon_wrap` px
-*   **Hero Badge**: 100px 角丸, 透過ボーダー, 緑色のパルスドット付き。
+*   **File Selection Area (DropZone)**:
+    *   **Icon**: MUI SVG アイコンを使用。サイズは `3rem` (`48px`) に統一。
+    *   **Main Text**: 「クリック・ドラッグ＆ドロップ、または貼り付けで選択」に統一。
+    *   **Sub Text**: 「対応フォーマット: [拡張子]」を必ず明記。
+    *   **Function**: ドラッグ＆ドロップに加え、クリップボードからの貼り付け（Paste）によるファイル入力に必ず対応させる。
 
 ## 7. Icons & Images
 *   **Logo**: `img/sawara_logo.svg`
@@ -129,10 +134,10 @@ tokens:
 *   **i18n を忘れない**: 文字列をハードコードせず、必ず翻訳対応させる。
 
 ## 9. Responsive Behavior
-*   **Breakpoint**: `768px` (Mobile/Tablet 境界)
+*   **Breakpoint**: `900px` (Homepage/Grid 境界) / `768px` (General Mobile)
 *   **Mobile Adaptations**:
-    *   ヒーローセクションのアクションボタンを縦並びに。
-    *   グリッドを 1 カラムに調整。
+    *   グリッドを 1 カラムに調整（900px 以下）。
+    *   ヒーローセクションのパディングを維持しつつ、フォントサイズを微調整。
     *   テーマ切り替えボタンをナビゲーションバーに常時表示。
 
 ## 10. Agent Prompt Guide

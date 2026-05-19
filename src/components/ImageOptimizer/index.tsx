@@ -651,7 +651,7 @@ export default function ImageOptimizer(): JSX.Element {
               {translate({ id: 'resize.upload.dropLabel', message: 'クリック・ドラッグ＆ドロップ、または貼り付けで選択' })}
             </p>
             <p className={common.dropZoneSubText}>
-              {translate({ id: 'resize.upload.formats', message: '対応フォーマット: JPEG, PNG, WebPなど（Command/Ctrl+Vでの貼り付けも可能）' })}
+              {translate({ id: 'resize.upload.formats', message: '対応フォーマット: JPEG, PNG, WebP, GIF, BMP, etc.' })}
             </p>
             <input
               type="file"

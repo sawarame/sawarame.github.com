@@ -189,14 +189,12 @@ export default function EncodingConverter() {
             onClick={() => fileInputRef.current?.click()}
           >
             <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} accept=".txt,.csv,.log,.md,.json,.js,.ts,.html,.css" />
-            <DescriptionIcon className={common.dropZoneIcon} color="primary" />
+            <DescriptionIcon className={common.dropZoneIcon} color="primary" sx={{ fontSize: '3rem !important' }} />
             <p className={common.dropZoneText}>
-              <Translate id="encoding.upload.main" values={{ br: <br /> }}>
-                {'ファイルをドロップするか、{br}ここをクリックして選択、またはペースト'}
-              </Translate>
+              {translate({ id: 'encoding.upload.dropLabel', message: 'クリック・ドラッグ＆ドロップ、または貼り付けで選択' })}
             </p>
             <p className={common.dropZoneSubText}>
-              <Translate id="encoding.upload.sub">テキストファイルやコピーしたテキストに対応しています</Translate>
+              {translate({ id: 'encoding.upload.formats', message: '対応フォーマット: .txt, .csv, .log, .md, .json, etc.' })}
             </p>
           </div>
 

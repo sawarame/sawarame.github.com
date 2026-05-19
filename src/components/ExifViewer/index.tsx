@@ -1,4 +1,4 @@
-import React, { useState, useRef, DragEvent, ChangeEvent } from 'react';
+import React, { useState, useRef, DragEvent, ChangeEvent, useEffect, useCallback } from 'react';
 import { useHistory } from '@docusaurus/router';
 import { translate } from '@docusaurus/Translate';
 import {
@@ -98,10 +98,10 @@ function UploadArea({ onFileSelect }: { onFileSelect: (file: File) => void }) {
       >
         <AddPhotoAlternateIcon className={common.dropZoneIcon} color="primary" sx={{ fontSize: '3rem !important' }} />
         <p className={common.dropZoneText}>
-          {translate({ id: 'exif.upload.dropLabel', message: 'クリックまたはドラッグ＆ドロップでファイルを選択' })}
+          {translate({ id: 'exif.upload.dropLabel', message: 'クリック・ドラッグ＆ドロップ、または貼り付けで選択' })}
         </p>
         <p className={common.dropZoneSubText}>
-          {translate({ id: 'exif.upload.formats', message: '対応フォーマット: JPEG (EXIF情報の読み取りは主にJPEGに対応しています)' })}
+          {translate({ id: 'exif.upload.formats', message: '対応フォーマット: JPEG, PNG, WebP, etc.' })}
         </p>
         <input
           type="file"
@@ -242,7 +242,7 @@ export default function ExifViewer(): JSX.Element {
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [originalFile, setOriginalFile] = useState<File | null>(null);
 
-  const handleFileSelect = async (file: File) => {
+  const handleFileSelect = useCallback(async (file: File) => {
     setErrorMsg('');
     setExifData(null);
     setFileName('');
@@ -299,7 +299,27 @@ export default function ExifViewer(): JSX.Element {
       console.error(err);
       setErrorMsg(translate({ id: 'exif.error.parse', message: 'ファイルの読み込みまたはEXIF解析に失敗しました。' }));
     }
-  };
+  }, [imageUrl]);
+
+  useEffect(() => {
+    const handlePaste = (e: ClipboardEvent) => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image') !== -1) {
+          const file = items[i].getAsFile();
+          if (file) {
+            handleFileSelect(file);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('paste', handlePaste);
+    return () => window.removeEventListener('paste', handlePaste);
+  }, [handleFileSelect]);
 
   const handleClear = () => {
     setExifData(null);

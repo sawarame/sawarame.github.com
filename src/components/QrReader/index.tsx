@@ -11,6 +11,7 @@ import {
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import { BrowserMultiFormatReader } from '@zxing/browser';
 import { BarcodeFormat, DecodeHintType } from '@zxing/library';
 import common from '@site/src/css/common.module.css';
@@ -74,9 +75,9 @@ function UploadCard({ onFileSelect }: { onFileSelect: (file: File) => void }) {
         tabIndex={0}
         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleClick(); }}
       >
-        <span className={common.dropZoneIcon}>📷</span>
+        <QrCodeScannerIcon className={common.dropZoneIcon} color="primary" sx={{ fontSize: '3rem !important' }} />
         <p className={common.dropZoneText}>{translate({ id: 'qrReader.upload.dropLabel', message: 'クリック・ドラッグ＆ドロップ、または貼り付けで選択' })}</p>
-        <p className={common.dropZoneSubText}>{translate({ id: 'qrReader.upload.formats', message: '対応フォーマット: PNG / JPEG / WebP / GIF / BMP' })}</p>
+        <p className={common.dropZoneSubText}>{translate({ id: 'qrReader.upload.formats', message: '対応フォーマット: PNG, JPEG, WebP, GIF, BMP' })}</p>
         <input
           type="file"
           accept="image/*"
