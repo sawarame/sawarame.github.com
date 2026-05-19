@@ -1,0 +1,63 @@
+.fishContainer {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: drop-shadow(0 0 15px rgba(165, 180, 252, 0.3));
+}
+
+.fishSvg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.fishGroup {
+  animation: swim 6s ease-in-out infinite;
+}
+
+.fishText {
+  font-family: 'SFMono-Regular', Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.05em;
+  font-size: 42px;
+  filter: url(#wave);
+}
+
+.fishHead {
+  font-size: 1.1em;
+}
+
+.fishTail {
+  font-size: 0.9em;
+}
+
+.fishEye {
+  animation: blink 4s step-end infinite;
+}
+
+@keyframes swim {
+  0%, 100% {
+    transform: translateX(0) translateY(0) rotate(0);
+  }
+  25% {
+    transform: translateX(5px) translateY(-3px) rotate(0.5deg);
+  }
+  75% {
+    transform: translateX(-5px) translateY(3px) rotate(-0.5deg);
+  }
+}
+
+@keyframes blink {
+  0%, 90%, 100% { opacity: 1; }
+  95% { opacity: 0; }
+}
+
+@media screen and (max-width: 768px) {
+  .fishText {
+    font-size: 48px;
+  }
+}

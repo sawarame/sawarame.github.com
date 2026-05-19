@@ -4,6 +4,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Translate, { translate } from '@docusaurus/Translate';
 import { ToolGrid, ExtensionGrid } from '@site/src/components/FeatureList';
+import SawaraFishLogo from '@site/src/components/SawaraFishLogo';
 import styles from '../css/index.module.css';
 
 // ============================================================
@@ -20,24 +21,14 @@ function HeroSection() {
         <div className={styles.heroOrb3} />
       </div>
       <div className={styles.heroContent}>
-        <div className={styles.heroBadge}>
-          <span className={styles.heroBadgeDot} />
-          <Translate id="home.hero.badge">便利ツール & ブラウザ拡張機能</Translate>
+        <div className={styles.heroLogoWrapper}>
+          <SawaraFishLogo />
         </div>
-        <h1 className={styles.heroTitle}>{siteConfig.title}</h1>
         <p className={styles.heroSubtitle}>
           {translate({ id: 'home.hero.subtitle', message: siteConfig.tagline })}
         </p>
-        <div className={styles.heroActions}>
-          <a href="#tools" className={styles.heroPrimaryBtn}>
-            <Translate id="home.hero.actions.tools">ツールを見る</Translate>
-          </a>
-          <a href="#extensions" className={styles.heroSecondaryBtn}>
-            <Translate id="home.hero.actions.extensions">拡張機能を見る</Translate>
-          </a>
-        </div>
-        <div style={{ marginTop: '1.5rem', opacity: 0.8 }}>
-          <Link to="/about" style={{ color: '#fff', fontSize: '0.9rem', textDecoration: 'underline' }}>
+        <div className={styles.heroAbout}>
+          <Link to="/about" className={styles.heroAboutLink}>
             <Translate id="home.hero.aboutLink">このサイトについて</Translate>
           </Link>
         </div>
