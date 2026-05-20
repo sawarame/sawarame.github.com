@@ -20,10 +20,9 @@
     * MUI System / Emotion
 * **パッケージマネージャー**: Yarn
 * **主要ライブラリ**:
-    * 画像/PDF操作: `browser-image-compression`, `react-image-crop`, `pdfjs-dist`, `pdf-lib`, `jszip`
-    * QRコード: `qrcode.react`, `@zxing/library`, `jsQR`
-    * メタデータ: `exifr`
-
+* 画像/PDF操作: `browser-image-compression`, `react-image-crop`, `pdfjs-dist`, `pdf-lib`, `jszip`
+* QRコード: `qr-code-styling`, `@zxing/library`, `jsQR`
+* メタデータ: `exifr`
 ## 3. 設計原則 (コア・マンデート)
 開発時、特に新しいツールを追加する際は以下の原則を厳守してください。
 
