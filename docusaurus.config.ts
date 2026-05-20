@@ -86,7 +86,6 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/sawara-ogp.png',
     navbar: {
-      title: 'sawara.me',
       logo: {
         alt: 'sawara.meのロゴ',
         src: 'img/sawara_logo_light.svg',
