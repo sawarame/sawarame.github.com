@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+  <defs>
+    <linearGradient id="logoGradientDark" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4f9dff" />
+      <stop offset="100%" stop-color="#a5b4fc" />
+    </linearGradient>
+  </defs>
+  <path
+    d="M 20,50 Q 50,20 150,30 T 350,50 Q 380,50 390,40 M 390,60 Q 380,50 350,50 T 150,70 Q 50,80 20,50"
+    fill="none"
+    stroke="url(#logoGradientDark)"
+    stroke-width="1.5"
+    opacity="0.4"
+  />
+  <text
+    x="50%"
+    y="62"
+    text-anchor="middle"
+    font-family="SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
+    font-weight="900"
+    font-style="italic"
+    font-size="42"
+    letter-spacing="-0.05em"
+    fill="url(#logoGradientDark)"
+  >sawara.me</text>
+  <circle cx="45" cy="48" r="2" fill="#fff" />
+</svg>

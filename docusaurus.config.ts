@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'sawara.me',
   tagline: 'Ship small things.',
-  favicon: 'img/sawara.ico',
+  favicon: 'img/sawara_favicon.svg',
 
   // Set the production url of your site here
   url: 'https://sawara.me',
@@ -89,7 +89,8 @@ const config: Config = {
       title: 'sawara.me',
       logo: {
         alt: 'sawara.meのロゴ',
-        src: 'img/sawara_logo.svg',
+        src: 'img/sawara_logo_light.svg',
+        srcDark: 'img/sawara_logo_dark.svg',
       },
       items: [
         // MDX版でツールを公開すする場合は下記のコメントアウトを外す

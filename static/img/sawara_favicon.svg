@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="favGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3366cc" />
+      <stop offset="100%" stop-color="#4f9dff" />
+    </linearGradient>
+  </defs>
+  <path
+    d="M 10,50 Q 25,20 50,30 T 90,50 Q 95,50 98,45 M 98,55 Q 95,50 90,50 T 50,70 Q 25,80 10,50"
+    fill="none"
+    stroke="url(#favGradient)"
+    stroke-width="4"
+  />
+  <text
+    x="45"
+    y="65"
+    text-anchor="middle"
+    font-family="SFMono-Regular, Menlo, Monaco, Consolas, monospace"
+    font-weight="900"
+    font-style="italic"
+    font-size="50"
+    fill="url(#favGradient)"
+  >s</text>
+  <circle cx="25" cy="48" r="3" fill="url(#favGradient)" />
+</svg>

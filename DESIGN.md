@@ -116,7 +116,7 @@ tokens:
     *   **Function**: ドラッグ＆ドロップに加え、クリップボードからの貼り付け（Paste）によるファイル入力に必ず対応させる。
 
 ## 7. Icons & Images
-*   **Logo**: `img/sawara_logo.svg`
+*   **Logo**: `img/sawara_logo_light.svg` / `img/sawara_logo_dark.svg`
 *   **Tool Icons**: `src/icons/` 配下の SVG/PNG を使用。一貫したサイズ感で配置。
 *   **Placeholders**: 画像がない場合は Primary カラーのグラデーションや幾何学模様を使用。
 
