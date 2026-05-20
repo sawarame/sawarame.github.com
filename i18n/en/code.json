@@ -824,8 +824,38 @@
   "qr.email.body": {
     "message": "Body"
   },
-  "qr.input.generated": {
-    "message": "Generated String"
+  "qr.input.resolution": {
+    "message": "Resolution"
+  },
+  "qr.style.title": {
+    "message": "Design Settings"
+  },
+  "qr.style.dots": {
+    "message": "Dots Shape"
+  },
+  "qr.style.corner": {
+    "message": "Corner Shape"
+  },
+  "qr.style.shape.square": {
+    "message": "Square"
+  },
+  "qr.style.shape.dots": {
+    "message": "Dots"
+  },
+  "qr.style.shape.rounded": {
+    "message": "Rounded"
+  },
+  "qr.style.shape.extraRounded": {
+    "message": "Extra Rounded"
+  },
+  "qr.style.shape.classy": {
+    "message": "Classy"
+  },
+  "qr.style.shape.classyRounded": {
+    "message": "Classy Rounded"
+  },
+  "qr.style.shape.dot": {
+    "message": "Dot"
   },
   "qr.logo.title": {
     "message": "Embed Logo in Center (Optional)"

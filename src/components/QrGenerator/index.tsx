@@ -1,12 +1,13 @@
 import React, { useState, useRef, useMemo, useEffect } from 'react';
 import { translate } from '@docusaurus/Translate';
-import { TextField, Button, Stack, Snackbar, Alert, Tooltip, FormControl, InputLabel, Select, MenuItem, Box, IconButton, Typography, FormControlLabel, Checkbox, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { TextField, Button, Stack, Snackbar, Alert, Tooltip, FormControl, InputLabel, Select, MenuItem, Box, IconButton, Typography, FormControlLabel, Checkbox, ToggleButton, ToggleButtonGroup, Grid2 as Grid } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShareIcon from '@mui/icons-material/Share';
-import { QRCodeCanvas } from 'qrcode.react';
+import type QRCodeStyling from 'qr-code-styling';
+import type { DotType, CornerSquareType, CornerDotType, Options } from 'qr-code-styling';
 import MuiTheme from '@site/src/components/MuiTheme';
 import common from '@site/src/css/common.module.css';
 import styles from './styles.module.css';
@@ -25,6 +26,10 @@ const PRESET_LOGOS: Record<Mode, string> = {
 export default function QrGenerator(): React.JSX.Element {
   const [mode, setMode] = useState<Mode>('text');
   const [resolution, setResolution] = useState<Resolution>(480);
+
+  // Styles
+  const [dotsType, setDotsType] = useState<DotType>('square');
+  const [cornerType, setCornerType] = useState<CornerSquareType>('square');
 
   const [textInput, setTextInput] = useState('https://sawara.me');
 
@@ -49,7 +54,9 @@ export default function QrGenerator(): React.JSX.Element {
   const [snackbar, setSnackbar] = useState({ open: false, message: '' });
   const [isSharing, setIsSharing] = useState(false);
   const [canShareFiles, setCanShareFiles] = useState(false);
-  const qrRef = useRef<HTMLCanvasElement>(null);
+  
+  const qrContainerRef = useRef<HTMLDivElement>(null);
+  const qrCodeRef = useRef<QRCodeStyling | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -87,6 +94,52 @@ export default function QrGenerator(): React.JSX.Element {
     }
   }, [mode, textInput, wifiEncryption, wifiSsid, wifiPassword, contactName, contactTel, contactEmail, eventName, eventStart, eventEnd, emailTo, emailSub, emailBody]);
 
+  const activeLogo = usePresetLogo ? PRESET_LOGOS[mode] : logoImage;
+
+  const qrOptions = useMemo<Options>(() => ({
+    width: resolution,
+    height: resolution,
+    data: generatedText || ' ',
+    image: activeLogo || undefined,
+    dotsOptions: {
+      type: dotsType,
+      color: '#000000',
+    },
+    backgroundOptions: {
+      color: '#ffffff',
+    },
+    imageOptions: {
+      crossOrigin: 'anonymous',
+      margin: 10,
+      imageSize: 0.25,
+      hideBackgroundDots: true,
+    },
+    cornersSquareOptions: {
+      type: cornerType,
+      color: '#000000',
+    },
+    cornersDotOptions: {
+      type: cornerType as CornerDotType,
+      color: '#000000',
+    },
+    qrOptions: {
+      errorCorrectionLevel: 'H',
+    }
+  }), [generatedText, resolution, activeLogo, dotsType, cornerType]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && qrContainerRef.current) {
+      // Dynamic import to avoid SSR issues
+      const QRCodeStyling = require('qr-code-styling');
+      if (!qrCodeRef.current) {
+        qrCodeRef.current = new QRCodeStyling(qrOptions);
+        qrCodeRef.current.append(qrContainerRef.current);
+      } else {
+        qrCodeRef.current.update(qrOptions);
+      }
+    }
+  }, [qrOptions]);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -106,31 +159,13 @@ export default function QrGenerator(): React.JSX.Element {
     }
   };
 
-  const getProcessedCanvas = (): HTMLCanvasElement | null => {
-    const originalCanvas = qrRef.current;
-    if (!originalCanvas) return null;
-
-    const tempCanvas = document.createElement('canvas');
-    tempCanvas.width = resolution;
-    tempCanvas.height = resolution;
-    const ctx = tempCanvas.getContext('2d');
-    if (!ctx) return null;
-
-    ctx.drawImage(originalCanvas, 0, 0, resolution, resolution);
-    return tempCanvas;
+  const getCurrentDateTimeStr = () => {
+    const d = new Date();
+    const pad = (n: number) => n.toString().padStart(2, '0');
+    return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
   };
 
-  const downloadQRCode = () => {
-    const canvas = getProcessedCanvas();
-    if (!canvas) return;
-    const pngUrl = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
-
-    const getCurrentDateTimeStr = () => {
-      const d = new Date();
-      const pad = (n: number) => n.toString().padStart(2, '0');
-      return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
-    };
-
+  const getFileName = () => {
     let baseFileName = '';
     if (mode === 'wifi') baseFileName = wifiSsid;
     else if (mode === 'contact') baseFileName = contactName;
@@ -138,71 +173,59 @@ export default function QrGenerator(): React.JSX.Element {
     else if (mode === 'email') baseFileName = emailSub;
 
     const sanitized = baseFileName.replace(/[<>:"/\\|?*]/g, '_').trim();
-    const fileName = sanitized ? `${sanitized}.png` : `${getCurrentDateTimeStr()}.png`;
-
-    const a = document.createElement('a');
-    a.href = pngUrl;
-    a.download = fileName;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    return sanitized ? `${sanitized}.png` : `${getCurrentDateTimeStr()}.png`;
   };
 
-  const copyToClipboard = () => {
-    const canvas = getProcessedCanvas();
-    if (!canvas) return;
-    canvas.toBlob((blob) => {
+  const downloadQRCode = () => {
+    if (!qrCodeRef.current) return;
+    qrCodeRef.current.download({ name: getFileName().replace('.png', ''), extension: 'png' });
+  };
+
+  const copyToClipboard = async () => {
+    if (!qrCodeRef.current) return;
+    try {
+      const blob = await qrCodeRef.current.getRawData('png');
       if (blob) {
         const item = new ClipboardItem({ 'image/png': blob });
-        navigator.clipboard.write([item]).then(() => setSnackbar({ open: true, message: translate({ id: 'qr.copied.image', message: '画像をコピーしました！' }) }));
+        await navigator.clipboard.write([item]);
+        setSnackbar({ open: true, message: translate({ id: 'qr.copied.image', message: '画像をコピーしました！' }) });
       }
-    });
-  };
-
-  const handleShare = async () => {
-    if (isSharing) return;
-    const canvas = getProcessedCanvas();
-    if (!canvas) return;
-
-    setIsSharing(true);
-    try {
-      canvas.toBlob(async (blob) => {
-        if (!blob) {
-          setIsSharing(false);
-          return;
-        }
-
-        const file = new File([blob], 'qr_code.png', { type: 'image/png' });
-        
-        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-          try {
-            await navigator.share({
-              files: [file],
-            });
-          } catch (e) {
-            if (e instanceof Error && e.name !== 'AbortError') {
-              console.error('Share failed:', e);
-            }
-          }
-        } else {
-          try {
-            const item = new ClipboardItem({ 'image/png': blob });
-            await navigator.clipboard.write([item]);
-            setSnackbar({ open: true, message: translate({ id: 'qr.copied.clipboard', message: 'QRをクリップボードにコピーしました！' }) });
-          } catch (err) {
-            console.error('Clipboard copy failed:', err);
-          }
-        }
-        setIsSharing(false);
-      }, 'image/png');
-    } catch (e) {
-      console.error(e);
-      setIsSharing(false);
+    } catch (err) {
+      console.error('Clipboard copy failed:', err);
     }
   };
 
-  const activeLogo = usePresetLogo ? PRESET_LOGOS[mode] : logoImage;
-  const logoSize = resolution * 0.25;
+  const handleShare = async () => {
+    if (isSharing || !qrCodeRef.current) return;
+    setIsSharing(true);
+    try {
+      const blob = await qrCodeRef.current.getRawData('png');
+      if (!blob) {
+        setIsSharing(false);
+        return;
+      }
+
+      const file = new File([blob], 'qr_code.png', { type: 'image/png' });
+      
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({
+            files: [file],
+          });
+        } catch (e) {
+          if (e instanceof Error && e.name !== 'AbortError') {
+            console.error('Share failed:', e);
+          }
+        }
+      } else {
+        await copyToClipboard();
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsSharing(false);
+    }
+  };
 
   return (
     <MuiTheme>
@@ -355,38 +378,66 @@ export default function QrGenerator(): React.JSX.Element {
           <div className={styles.qrWrap}>
             {generatedText ? (
               <Stack spacing={3} alignItems="center" sx={{ width: '100%' }}>
-                <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 1 }}>
-                  <Typography variant="caption" sx={{ fontWeight: 600, color: 'text.secondary' }}>
-                    {translate({ id: 'qr.input.resolution', message: '解像度' })}
+                <Box sx={{ width: '100%' }}>
+                  <Typography variant="caption" sx={{ fontWeight: 600, color: 'text.secondary', mb: 1, display: 'block' }}>
+                    {translate({ id: 'qr.style.title', message: 'デザイン設定' })}
                   </Typography>
-                  <ToggleButtonGroup
-                    value={resolution}
-                    exclusive
-                    onChange={(_, val) => val && setResolution(val)}
-                    size="small"
-                  >
-                    <ToggleButton value={240}>240x240</ToggleButton>
-                    <ToggleButton value={480}>480x480</ToggleButton>
-                  </ToggleButtonGroup>
-                </Stack>
+                  <Grid container spacing={1.5}>
+                    <Grid size={{ xs: 12, sm: 6 }}>
+                      <FormControl fullWidth size="small">
+                        <InputLabel id="dots-type-label">{translate({ id: 'qr.style.dots', message: 'ドットの形状' })}</InputLabel>
+                        <Select
+                          labelId="dots-type-label"
+                          value={dotsType}
+                          label={translate({ id: 'qr.style.dots', message: 'ドットの形状' })}
+                          onChange={(e) => setDotsType(e.target.value as DotType)}
+                        >
+                          <MenuItem value="square">{translate({ id: 'qr.style.shape.square', message: '四角' })}</MenuItem>
+                          <MenuItem value="dots">{translate({ id: 'qr.style.shape.dots', message: 'ドット' })}</MenuItem>
+                          <MenuItem value="rounded">{translate({ id: 'qr.style.shape.rounded', message: '角丸' })}</MenuItem>
+                          <MenuItem value="extra-rounded">{translate({ id: 'qr.style.shape.extraRounded', message: '強角丸' })}</MenuItem>
+                          <MenuItem value="classy">{translate({ id: 'qr.style.shape.classy', message: 'クラシック' })}</MenuItem>
+                          <MenuItem value="classy-rounded">{translate({ id: 'qr.style.shape.classyRounded', message: 'クラシック角丸' })}</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                    <Grid size={{ xs: 12, sm: 6 }}>
+                      <FormControl fullWidth size="small">
+                        <InputLabel id="corner-type-label">{translate({ id: 'qr.style.corner', message: '角の形状' })}</InputLabel>
+                        <Select
+                          labelId="corner-type-label"
+                          value={cornerType}
+                          label={translate({ id: 'qr.style.corner', message: '角の形状' })}
+                          onChange={(e) => setCornerType(e.target.value as CornerSquareType)}
+                        >
+                          <MenuItem value="square">{translate({ id: 'qr.style.shape.square', message: '四角' })}</MenuItem>
+                          <MenuItem value="dot">{translate({ id: 'qr.style.shape.dot', message: 'ドット' })}</MenuItem>
+                          <MenuItem value="extra-rounded">{translate({ id: 'qr.style.shape.extraRounded', message: '角丸' })}</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                    <Grid size={{ xs: 12, sm: 6 }}>
+                      <Stack direction="row" alignItems="center" spacing={1} sx={{ height: '100%' }}>
+                        <Typography variant="caption" sx={{ fontWeight: 600, color: 'text.secondary', whiteSpace: 'nowrap' }}>
+                          {translate({ id: 'qr.input.resolution', message: '解像度' })}
+                        </Typography>
+                        <ToggleButtonGroup
+                          value={resolution}
+                          exclusive
+                          onChange={(_, val) => val && setResolution(val)}
+                          size="small"
+                          sx={{ flex: 1 }}
+                        >
+                          <ToggleButton value={240} sx={{ flex: 1 }}>240</ToggleButton>
+                          <ToggleButton value={480} sx={{ flex: 1 }}>480</ToggleButton>
+                        </ToggleButtonGroup>
+                      </Stack>
+                    </Grid>
+                  </Grid>
+                </Box>
 
                 <div className={styles.qrInner}>
-                  <QRCodeCanvas
-                    value={generatedText}
-                    size={resolution}
-                    level="H"
-                    includeMargin
-                    ref={qrRef}
-                    style={{ width: '100%', height: 'auto', maxWidth: '320px', display: 'block', margin: '0 auto' }}
-                    imageSettings={activeLogo ? {
-                      src: activeLogo,
-                      x: undefined,
-                      y: undefined,
-                      height: logoSize,
-                      width: logoSize,
-                      excavate: true,
-                    } : undefined}
-                  />
+                  <div ref={qrContainerRef} style={{ width: '100%', maxWidth: '320px', margin: '0 auto' }} />
                 </div>
 
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} sx={{ width: '100%' }}>
