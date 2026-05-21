@@ -133,12 +133,16 @@ export default function EncodingConverter() {
   }, [detectLineBreak]);
 
   const processText = useCallback((text: string) => {
-    const bytes = Encoding.stringToCode(text);
-    const uint8 = new Uint8Array(bytes);
-    const lb = detectLineBreak(uint8, 'UNICODE');
+    // 文字列を一度 UTF-8 のバイト配列に変換して保持する
+    const utf8Codes = Encoding.convert(Encoding.stringToCode(text), {
+      to: 'UTF8',
+      from: 'UNICODE',
+    });
+    const uint8 = new Uint8Array(utf8Codes);
+    const lb = detectLineBreak(uint8, 'UTF8');
     
     setInputData({ bytes: uint8, fileName: 'pasted_text.txt' });
-    setCurrentEncoding('UNICODE'); // JavaScript strings are UTF-16
+    setCurrentEncoding('UTF8');
     setCurrentLineBreak(lb);
     setTargetLineBreak(lb);
   }, [detectLineBreak]);
@@ -155,20 +159,40 @@ export default function EncodingConverter() {
     if (file) processFile(file);
   };
 
-  const handlePaste = (e: React.ClipboardEvent) => {
-    const items = e.clipboardData.items;
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].kind === 'file') {
-        const file = items[i].getAsFile();
-        if (file) {
-          processFile(file);
-          return;
+  useEffect(() => {
+    const handleGlobalPaste = (e: ClipboardEvent) => {
+      // フォーム入力中の場合は無視する
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.isContentEditable
+      ) {
+        return;
+      }
+
+      const items = e.clipboardData?.items;
+      if (!items) return;
+
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].kind === 'file') {
+          const file = items[i].getAsFile();
+          if (file) {
+            processFile(file);
+            return;
+          }
         }
       }
-    }
-    const text = e.clipboardData.getData('text');
-    if (text) processText(text);
-  };
+
+      const text = e.clipboardData.getData('text');
+      if (text) {
+        processText(text);
+      }
+    };
+
+    window.addEventListener('paste', handleGlobalPaste);
+    return () => window.removeEventListener('paste', handleGlobalPaste);
+  }, [processFile, processText]);
 
   useEffect(() => {
     if (!inputData) {
@@ -239,7 +263,7 @@ export default function EncodingConverter() {
 
   return (
     <MuiTheme>
-      <div className={styles.container} onPaste={handlePaste}>
+      <div className={styles.container}>
         <div className={common.card}>
           <h2 className={common.cardTitle}>
             <span className={common.cardTitleIcon}>📄</span>
