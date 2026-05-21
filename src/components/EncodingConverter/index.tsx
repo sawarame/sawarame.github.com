@@ -61,7 +61,6 @@ export default function EncodingConverter() {
   const [fullText, setFullText] = useState<string>('');
   const [stats, setStats] = useState<{
     characters: number;
-    words: number;
     lines: number;
     currentBytes: number;
     targetBytes: number;
@@ -204,12 +203,10 @@ export default function EncodingConverter() {
 
       // 統計情報計算
       const charCount = text.length;
-      const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
       const lineCount = text ? text.split(/\r\n|\r|\n/).length : 0;
       
       setStats({
         characters: charCount,
-        words: wordCount,
         lines: lineCount,
         currentBytes: inputData.bytes.length,
         targetBytes: 0,
@@ -447,10 +444,6 @@ export default function EncodingConverter() {
                     <div className={styles.statItem}>
                       <div className={styles.statLabel}><Translate id="encoding.stats.chars">文字数</Translate></div>
                       <div className={styles.statValue}>{stats.characters.toLocaleString()}</div>
-                    </div>
-                    <div className={styles.statItem}>
-                      <div className={styles.statLabel}><Translate id="encoding.stats.words">単語数</Translate></div>
-                      <div className={styles.statValue}>{stats.words.toLocaleString()}</div>
                     </div>
                     <div className={styles.statItem}>
                       <div className={styles.statLabel}><Translate id="encoding.stats.lines">行数</Translate></div>

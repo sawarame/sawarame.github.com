@@ -1682,9 +1682,6 @@
   "encoding.stats.chars": {
     "message": "Characters"
   },
-  "encoding.stats.words": {
-    "message": "Words"
-  },
   "encoding.stats.lines": {
     "message": "Lines"
   },
