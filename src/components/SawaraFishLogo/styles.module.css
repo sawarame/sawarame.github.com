@@ -23,7 +23,7 @@
   font-weight: 900;
   font-style: italic;
   letter-spacing: -0.05em;
-  font-size: 42px;
+  font-size: 52px;
   filter: url(#wave);
 }
 
@@ -58,6 +58,6 @@
 
 @media screen and (max-width: 768px) {
   .fishText {
-    font-size: 48px;
+    font-size: 46px;
   }
 }

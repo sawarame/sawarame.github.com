@@ -50,7 +50,7 @@ export default function SawaraFishLogo() {
           {/* ここではSVGテキストを使いつつ、配置で魚のシルエットを表現 */}
           <text
             x="50%"
-            y="55"
+            y="65"
             textAnchor="middle"
             className={styles.fishText}
             fill="url(#fishGradient)"
