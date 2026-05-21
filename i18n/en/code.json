@@ -1675,5 +1675,23 @@
   },
   "encoding.button.correct": {
     "message": "Correct"
+  },
+  "encoding.stats.title": {
+    "message": "Text Information"
+  },
+  "encoding.stats.chars": {
+    "message": "Characters"
+  },
+  "encoding.stats.words": {
+    "message": "Words"
+  },
+  "encoding.stats.lines": {
+    "message": "Lines"
+  },
+  "encoding.stats.currentSize": {
+    "message": "Current Size"
+  },
+  "encoding.stats.targetSize": {
+    "message": "Target Size (Simulated)"
   }
 }

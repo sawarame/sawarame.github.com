@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { useHistory, useLocation } from '@docusaurus/router';
 import Translate, { translate } from '@docusaurus/Translate';
 import {
   Button,
@@ -28,7 +27,7 @@ const ENCODINGS = [
   { value: 'SJIS', label: 'Shift_JIS' },
   { value: 'EUCJP', label: 'EUC-JP' },
   { value: 'JIS', label: 'ISO-2022-JP (JIS)' },
-  { value: 'UNICODE', label: 'UTF-16' },
+  { value: 'UTF16', label: 'UTF-16' },
 ];
 
 const LINE_BREAKS = [
@@ -42,14 +41,15 @@ const DETECTABLE_ENCODINGS: Record<string, string> = {
   'SJIS': 'Shift_JIS',
   'EUCJP': 'EUC-JP',
   'JIS': 'ISO-2022-JP (JIS)',
-  'UNICODE': 'UTF-16',
+  'UTF16': 'UTF-16',
+  'UTF16BE': 'UTF-16BE',
+  'UTF16LE': 'UTF-16LE',
+  'UNICODE': 'UTF-16 (Internal)',
   'ASCII': 'ASCII',
   'BINARY': 'Binary',
 };
 
 export default function EncodingConverter() {
-  const history = useHistory();
-  const location = useLocation();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [inputData, setInputData] = useState<{ bytes: Uint8Array; fileName: string } | null>(null);
@@ -58,10 +58,27 @@ export default function EncodingConverter() {
   const [currentLineBreak, setCurrentLineBreak] = useState<string>('LF');
   const [targetLineBreak, setTargetLineBreak] = useState<string>('LF');
   const [previewText, setPreviewText] = useState<string>('');
+  const [fullText, setFullText] = useState<string>('');
+  const [stats, setStats] = useState<{
+    characters: number;
+    words: number;
+    lines: number;
+    currentBytes: number;
+    targetBytes: number;
+  } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [loading, setLoading] = useState(false);
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' });
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
+  // バイト数フォーマット
+  const formatBytes = (bytes: number) => {
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
 
   // 改行コード判別
   const detectLineBreak = useCallback((bytes: Uint8Array, encoding: string): string => {
@@ -80,35 +97,6 @@ export default function EncodingConverter() {
     }
     return 'LF';
   }, []);
-
-  // URL同期
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const to = params.get('to');
-    if (to && ENCODINGS.some(e => e.value === to)) {
-      setTargetEncoding(to);
-    }
-    const lb = params.get('lb');
-    if (lb && LINE_BREAKS.some(l => l.value === lb)) {
-      setTargetLineBreak(lb);
-    }
-  }, []);
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    if (targetEncoding === 'UTF8') {
-      params.delete('to');
-    } else {
-      params.set('to', targetEncoding);
-    }
-    if (targetLineBreak === 'LF') {
-      params.delete('lb');
-    } else {
-      params.set('lb', targetLineBreak);
-    }
-    const search = params.toString();
-    history.replace({ search: search ? `?${search}` : '' });
-  }, [targetEncoding, targetLineBreak]);
 
   const processFile = useCallback((file: File) => {
     setLoading(true);
@@ -197,21 +185,61 @@ export default function EncodingConverter() {
   useEffect(() => {
     if (!inputData) {
       setPreviewText('');
+      setFullText('');
+      setStats(null);
       return;
     }
 
     try {
-      // プレビュー用に変換（最大10KB）
-      const previewBytes = inputData.bytes.slice(0, 10000);
-      const unicodeArray = Encoding.convert(previewBytes, {
+      // 全文デコード
+      const unicodeArray = Encoding.convert(inputData.bytes, {
         to: 'UNICODE',
         from: currentEncoding as any,
       });
-      setPreviewText(Encoding.codeToString(unicodeArray));
+      const text = Encoding.codeToString(unicodeArray);
+      setFullText(text);
+
+      // プレビュー用に最大10KB分をセット
+      setPreviewText(text.slice(0, 10000));
+
+      // 統計情報計算
+      const charCount = text.length;
+      const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
+      const lineCount = text ? text.split(/\r\n|\r|\n/).length : 0;
+      
+      setStats({
+        characters: charCount,
+        words: wordCount,
+        lines: lineCount,
+        currentBytes: inputData.bytes.length,
+        targetBytes: 0,
+      });
     } catch (err) {
+      console.error('Decoding failed', err);
       setPreviewText(translate({ id: 'encoding.error.preview', message: 'プレビューの生成に失敗しました。文字コード設定を確認してください。' }));
+      setFullText('');
+      setStats(null);
     }
   }, [inputData, currentEncoding]);
+
+  useEffect(() => {
+    if (!fullText || !stats) return;
+
+    try {
+      // 推定バイト数計算
+      const targetLBChar = LINE_BREAKS.find(l => l.value === targetLineBreak)?.char || '\n';
+      const adjustedText = fullText.replace(/\r\n|\r|\n/g, targetLBChar);
+
+      const converted = Encoding.convert(Encoding.stringToCode(adjustedText), {
+        to: targetEncoding as any,
+        from: 'UNICODE',
+      });
+      
+      setStats(prev => prev ? { ...prev, targetBytes: converted.length } : null);
+    } catch (err) {
+      console.error('Byte simulation failed', err);
+    }
+  }, [fullText, targetEncoding, targetLineBreak]);
 
   const handleDownload = () => {
     if (!inputData) return;
@@ -408,6 +436,39 @@ export default function EncodingConverter() {
                   </div>
                 </div>
               </div>
+
+              {/* 統計情報 */}
+              {stats && (
+                <div className={styles.statsSection}>
+                  <Typography variant="subtitle2" sx={{ mb: 1.5, fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Translate id="encoding.stats.title">テキスト情報</Translate>
+                  </Typography>
+                  <div className={styles.statsGrid}>
+                    <div className={styles.statItem}>
+                      <div className={styles.statLabel}><Translate id="encoding.stats.chars">文字数</Translate></div>
+                      <div className={styles.statValue}>{stats.characters.toLocaleString()}</div>
+                    </div>
+                    <div className={styles.statItem}>
+                      <div className={styles.statLabel}><Translate id="encoding.stats.words">単語数</Translate></div>
+                      <div className={styles.statValue}>{stats.words.toLocaleString()}</div>
+                    </div>
+                    <div className={styles.statItem}>
+                      <div className={styles.statLabel}><Translate id="encoding.stats.lines">行数</Translate></div>
+                      <div className={styles.statValue}>{stats.lines.toLocaleString()}</div>
+                    </div>
+                    <div className={styles.statItem}>
+                      <div className={styles.statLabel}><Translate id="encoding.stats.currentSize">現在のサイズ</Translate></div>
+                      <div className={styles.statValue}>{formatBytes(stats.currentBytes)}</div>
+                    </div>
+                    <div className={styles.statItem}>
+                      <div className={styles.statLabel}><Translate id="encoding.stats.targetSize">変換後のサイズ (推定)</Translate></div>
+                      <div className={`${styles.statValue} ${stats.targetBytes !== stats.currentBytes ? styles.statValueHighlighted : ''}`}>
+                        {formatBytes(stats.targetBytes)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               <div className={styles.configGrid}>
                 {/* 変換先文字コード設定 */}
