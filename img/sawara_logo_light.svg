@@ -14,12 +14,12 @@
   />
   <text
     x="50%"
-    y="62"
+    y="68"
     text-anchor="middle"
     font-family="SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
     font-weight="900"
     font-style="italic"
-    font-size="42"
+    font-size="60"
     letter-spacing="-0.05em"
     fill="url(#logoGradientLight)"
   >sawara.me</text>
