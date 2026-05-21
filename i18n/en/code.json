@@ -132,7 +132,7 @@
     "message": "Text Encoding Converter"
   },
   "home.tools.encoding.desc": {
-    "message": "Automatically detect and convert character encodings (UTF-8, Shift_JIS, etc.) of text files. Supports pasting text."
+    "message": "Automatically detect and convert character encodings (UTF-8, Shift_JIS, etc.) while simulating the target file size. Supports pasting text."
   },
   "home.extensions.label": {
     "message": "🧩 Extensions"

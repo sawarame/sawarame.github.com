@@ -65,7 +65,7 @@ export const tools = [
     titleId: 'home.tools.encoding.title',
     title: 'テキスト文字コード変換',
     descriptionId: 'home.tools.encoding.desc',
-    description: 'テキストファイルの文字コードを自動判別し、指定した文字コード（UTF-8, Shift_JIS, EUC-JPなど）に変換してダウンロードできます。ペーストによる入力にも対応。',
+    description: 'テキストファイルの文字コードを自動判別し、変換後の推定サイズを確認しながら指定した形式に変換できます。ペーストによる入力にも対応。',
     link: '/tools/encoding-converter',
     gradient: 'linear-gradient(135deg, #38bdf8 0%, #818cf8 100%)',
   },
