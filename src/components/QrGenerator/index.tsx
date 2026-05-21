@@ -132,8 +132,9 @@ export default function QrGenerator(): React.JSX.Element {
       // Dynamic import to avoid SSR issues
       const QRCodeStyling = require('qr-code-styling');
       if (!qrCodeRef.current) {
-        qrCodeRef.current = new QRCodeStyling(qrOptions);
-        qrCodeRef.current.append(qrContainerRef.current);
+        const qrCode = new QRCodeStyling(qrOptions);
+        qrCode.append(qrContainerRef.current);
+        qrCodeRef.current = qrCode;
       } else {
         qrCodeRef.current.update(qrOptions);
       }
@@ -185,7 +186,7 @@ export default function QrGenerator(): React.JSX.Element {
     if (!qrCodeRef.current) return;
     try {
       const blob = await qrCodeRef.current.getRawData('png');
-      if (blob) {
+      if (blob instanceof Blob) {
         const item = new ClipboardItem({ 'image/png': blob });
         await navigator.clipboard.write([item]);
         setSnackbar({ open: true, message: translate({ id: 'qr.copied.image', message: '画像をコピーしました！' }) });
@@ -200,7 +201,7 @@ export default function QrGenerator(): React.JSX.Element {
     setIsSharing(true);
     try {
       const blob = await qrCodeRef.current.getRawData('png');
-      if (!blob) {
+      if (!(blob instanceof Blob)) {
         setIsSharing(false);
         return;
       }
