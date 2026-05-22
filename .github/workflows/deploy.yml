@@ -7,6 +7,10 @@ on:
   # 手動実行も可能にする
   workflow_dispatch:
 
+# Node.js 20 の非推奨に対応するための設定
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 # GitHub Pages へのデプロイに必要な権限を設定
 permissions:
   contents: read
@@ -31,7 +35,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
           cache: 'yarn'
 
       - name: Install dependencies
