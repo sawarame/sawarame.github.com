@@ -7,6 +7,10 @@ on:
   # 手動実行も可能にする
   workflow_dispatch:
 
+# Node.js 20 の非推奨警告を一時的に抑制する
+env:
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+
 # GitHub Pages へのデプロイに必要な権限を設定
 permissions:
   contents: read
