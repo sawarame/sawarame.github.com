@@ -107,11 +107,11 @@ const config: Config = {
           label: 'Extensions',
         },
         {to: '/blog', label: 'Blog', position: 'left'},
+        {to: '/about', label: 'About', position: 'left'},
         {
           type: 'localeDropdown',
           position: 'right',
         },
-        // {to: '/about', label: 'About', position: 'left'},
         // {
         //   href: 'https://github.com/sawarame/sawara.me',
         //   label: 'GitHub',

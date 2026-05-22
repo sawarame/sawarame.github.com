@@ -28,11 +28,6 @@ function HeroSection() {
         <p className={styles.heroSubtitle}>
           {translate({ id: 'home.hero.subtitle', message: siteConfig.tagline })}
         </p>
-        <div className={styles.heroAbout}>
-          <Link to="/about" className={styles.heroAboutLink}>
-            <Translate id="home.hero.aboutLink">このサイトについて</Translate>
-          </Link>
-        </div>
       </div>
     </section>
   );

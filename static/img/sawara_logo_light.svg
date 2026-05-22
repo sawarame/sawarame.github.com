@@ -7,10 +7,11 @@
   </defs>
   <path
     d="M 20,50 Q 50,20 150,30 T 350,50 Q 380,50 390,40 M 390,60 Q 380,50 350,50 T 150,70 Q 50,80 20,50"
-    fill="none"
+    fill="url(#logoGradientLight)"
+    fill-opacity="0.1"
     stroke="url(#logoGradientLight)"
-    stroke-width="1.5"
-    opacity="0.4"
+    stroke-width="2.5"
+    opacity="0.8"
   />
   <text
     x="50%"
@@ -23,5 +24,5 @@
     letter-spacing="-0.05em"
     fill="url(#logoGradientLight)"
   >sawara.me</text>
-  <circle cx="45" cy="48" r="2" fill="#3366cc" />
+  <circle cx="45" cy="48" r="3" fill="#3366cc" />
 </svg>
