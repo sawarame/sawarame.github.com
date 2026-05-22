@@ -1,12 +1,26 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
 import Translate, { translate } from '@docusaurus/Translate';
+import { 
+  Image, 
+  QrCode, 
+  ScanQrCode, 
+  FileText, 
+  Languages, 
+  Camera, 
+  Lock, 
+  StickyNote, 
+  Smartphone, 
+  FileDiff, 
+  Calendar, 
+  Target,
+  Gauge
+} from 'lucide-react';
 import styles from './styles.module.css';
 
 import EnvIconPng from '@site/src/icons/EnvIcon.png';
 import GeminiSparkPng from '@site/src/icons/gemini-spark.png';
 import MdPickerPng from '@site/src/icons/MdPicker.png';
-import BenchmarkSvg from '@site/src/icons/benchmark.svg';
 import KetchupTimerPng from '@site/src/icons/KetchupTimer.png';
 import NickmarkPng from '@site/src/icons/Nickmark.png';
 
@@ -14,9 +28,11 @@ import NickmarkPng from '@site/src/icons/Nickmark.png';
 // Data
 // ============================================================
 
+const ICON_SIZE = 32;
+
 export const tools = [
   {
-    icon: <BenchmarkSvg role="img" aria-label="Web快適度測定" style={{ width: '36px', height: '36px' }} />,
+    icon: <Gauge size={ICON_SIZE} />,
     titleId: 'home.tools.benchmark.title',
     title: 'Web快適度測定',
     descriptionId: 'home.tools.benchmark.desc',
@@ -25,7 +41,7 @@ export const tools = [
     gradient: 'linear-gradient(135deg, #1e3c72 0%, #4facfe 100%)',
   },
   {
-    icon: '🖼️',
+    icon: <Image size={ICON_SIZE} />,
     titleId: 'home.tools.resize.title',
     title: '画像軽量化・クロップツール',
     descriptionId: 'home.tools.resize.desc',
@@ -34,7 +50,7 @@ export const tools = [
     gradient: 'linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%)',
   },
   {
-    icon: '📷',
+    icon: <QrCode size={ICON_SIZE} />,
     titleId: 'home.tools.qr.title',
     title: 'QRコード作成',
     descriptionId: 'home.tools.qr.desc',
@@ -43,7 +59,7 @@ export const tools = [
     gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
   },
   {
-    icon: '🔍',
+    icon: <ScanQrCode size={ICON_SIZE} />,
     titleId: 'home.tools.qr-reader.title',
     title: 'QRコード読み取り',
     descriptionId: 'home.tools.qr-reader.desc',
@@ -52,7 +68,7 @@ export const tools = [
     gradient: 'linear-gradient(135deg, #818cf8 0%, #c084fc 100%)',
   },
   {
-    icon: '📄',
+    icon: <FileText size={ICON_SIZE} />,
     titleId: 'home.tools.pdfEditor.title',
     title: 'PDF変換・編集',
     descriptionId: 'home.tools.pdfEditor.desc',
@@ -61,7 +77,7 @@ export const tools = [
     gradient: 'linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%)',
   },
   {
-    icon: '🔤',
+    icon: <Languages size={ICON_SIZE} />,
     titleId: 'home.tools.encoding.title',
     title: 'テキスト文字コード変換',
     descriptionId: 'home.tools.encoding.desc',
@@ -70,7 +86,7 @@ export const tools = [
     gradient: 'linear-gradient(135deg, #38bdf8 0%, #818cf8 100%)',
   },
   {
-    icon: '📸',
+    icon: <Camera size={ICON_SIZE} />,
     titleId: 'home.tools.exif.title',
     title: '写真Exif情報チェッカー',
     descriptionId: 'home.tools.exif.desc',
@@ -79,7 +95,7 @@ export const tools = [
     gradient: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)',
   },
   {
-    icon: '🔐',
+    icon: <Lock size={ICON_SIZE} />,
     titleId: 'home.tools.password.title',
     title: 'パスワードジェネレーター',
     descriptionId: 'home.tools.password.desc',
@@ -89,7 +105,7 @@ export const tools = [
     gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
   },
   {
-    icon: '📝',
+    icon: <StickyNote size={ICON_SIZE} />,
     titleId: 'home.tools.text.title',
     title: 'テキスト保存場所',
     descriptionId: 'home.tools.text.desc',
@@ -99,7 +115,7 @@ export const tools = [
     gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
   },
   {
-    icon: '📱',
+    icon: <Smartphone size={ICON_SIZE} />,
     titleId: 'home.tools.device.title',
     title: 'デバイス情報チェッカー',
     descriptionId: 'home.tools.device.desc',
@@ -109,7 +125,7 @@ export const tools = [
     gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
   },
   {
-    icon: '⚖️',
+    icon: <FileDiff size={ICON_SIZE} />,
     titleId: 'home.tools.diff.title',
     title: 'テキスト差分（Diff）比較',
     descriptionId: 'home.tools.diff.desc',
@@ -118,7 +134,7 @@ export const tools = [
     gradient: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)',
   },
   {
-    icon: '🗓️',
+    icon: <Calendar size={ICON_SIZE} />,
     titleId: 'home.tools.date.title',
     title: '日付比較ツール',
     descriptionId: 'home.tools.date.desc',
@@ -127,7 +143,7 @@ export const tools = [
     gradient: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)',
   },
   {
-    icon: '🎯',
+    icon: <Target size={ICON_SIZE} />,
     titleId: 'home.tools.roulette.title',
     title: 'ルーレットメーカー',
     descriptionId: 'home.tools.roulette.desc',
@@ -198,10 +214,19 @@ export function ToolCard({
   link,
   gradient,
 }: (typeof tools)[number]) {
+  const renderIcon = () => {
+    if (React.isValidElement(icon)) {
+      // LucideアイコンなどのReact要素の場合は色を白に設定
+      // 型エラー回避のため any でキャスト
+      return React.cloneElement(icon as React.ReactElement<any>, { color: '#ffffff' });
+    }
+    return icon;
+  };
+
   return (
     <Link to={link} className={styles.card}>
       <div className={styles.cardIconWrap} style={{ background: gradient }}>
-        <span className={styles.cardIcon}>{icon}</span>
+        <span className={styles.cardIcon}>{renderIcon()}</span>
       </div>
       <div className={styles.cardBody}>
         <h3 className={styles.cardTitle}>

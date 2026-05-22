@@ -8,13 +8,14 @@ emoji: 🦖
 ---
 
 import LinkCard from '@site/src/components/LinkCard';
+import { Package } from 'lucide-react';
 
 [前回の記事](./2026-05-05.md)では、Docusaurus で作成したサイトを GitHub Pages に手動でデプロイする方法を紹介しました。
 <LinkCard
   title="DocusaurusをGitHub Pagesで動かす"
   description="Docusaurusで作成したサイトをGitHub Pagesで公開する手順を詳しく解説。基本的な設定からデプロイコマンドの実行までをカバーしています。"
   url="/blog/docusaurus-github-pages"
-  emoji="📦"
+  emoji={<Package size={32} />}
 />
 今回は、さらに一歩進んで **GitHub Actions を使い、コードを GitHub にプッシュするだけで自動的にデプロイされる仕組み** を構築します。
 

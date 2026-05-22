@@ -7,11 +7,12 @@ hide_title: true
 
 import ExifViewer from "@site/src/components/ExifViewer";
 import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Camera } from "lucide-react";
 
 <ToolPageHeader
   title="写真Exif情報チェッカー"
   desc="アップロードした写真（JPEG形式）からカメラ情報、撮影日時、GPSなどのメタデータを読み取ります。写真はサーバーに送信されず、すべてブラウザ内で処理されるため安全です。"
-  icon="📸"
+  icon={<Camera size={48} color="#fff" />}
   color1="#a18cd1"
   color2="#fbc2eb"
   titleGradient="linear-gradient(135deg, #ffffff 0%, #a18cd1 60%, #fbc2eb 100%)"

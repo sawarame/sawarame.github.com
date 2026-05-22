@@ -7,11 +7,12 @@ hide_title: true
 
 import EncodingConverter from "@site/src/components/EncodingConverter";
 import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Languages } from "lucide-react";
 
 <ToolPageHeader
   title="テキスト文字コード変換"
   desc="テキストファイルの文字コードを自動判別し、変換後の推定サイズを確認しながら指定した文字コード（UTF-8, Shift_JIS, UTF-16など）に変換・ダウンロードできます。"
-  icon="🔤"
+  icon={<Languages size={48} color="#fff" />}
   color1="#38bdf8"
   color2="#818cf8"
 />

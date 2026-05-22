@@ -7,11 +7,12 @@ hide_title: true
 
 import TextDiff from "@site/src/components/TextDiff";
 import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { FileDiff } from "lucide-react";
 
 <ToolPageHeader
   title="テキスト差分（Diff）比較"
   desc="2つのテキストやファイルを比較し、追加・削除された箇所の差分を視覚的に表示します。複数のファイルをアップロードして、任意の組み合わせで比較することが可能です。"
-  icon="⚖️"
+  icon={<FileDiff size={48} color="#fff" />}
   color1="#6366f1"
   color2="#a855f7"
 />

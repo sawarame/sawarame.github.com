@@ -7,11 +7,12 @@ hide_title: true
 
 import TextScratchpad from "@site/src/components/TextScratchpad";
 import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { StickyNote } from "lucide-react";
 
 <ToolPageHeader
   title="テキスト保存場所"
   desc="テキストを一時的に保存するための場所です。保存したテキストはブラウザのローカルストレージに保存されます。"
-  icon="📝"
+  icon={<StickyNote size={48} color="#fff" />}
   color1="#f093fb"
   color2="#f5576c"
   titleGradient="linear-gradient(135deg, #fff 0%, #f9a8d4 60%, #f472b6 100%)"

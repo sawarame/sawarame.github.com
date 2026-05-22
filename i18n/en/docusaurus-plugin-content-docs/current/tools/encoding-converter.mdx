@@ -7,11 +7,12 @@ hide_title: true
 
 import EncodingConverter from "@site/src/components/EncodingConverter";
 import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Languages } from "lucide-react";
 
 <ToolPageHeader
   title="Text Encoding Converter"
   desc="Automatically detect the character encoding of text files and convert them to your desired encoding (UTF-8, Shift_JIS, UTF-16, etc.) while checking the estimated file size."
-  icon="🔤"
+  icon={<Languages size={48} color="#fff" />}
   color1="#38bdf8"
   color2="#818cf8"
 />

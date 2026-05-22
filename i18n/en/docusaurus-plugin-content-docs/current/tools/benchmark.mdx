@@ -7,12 +7,12 @@ hide_title: true
 
 import Benchmark from "@site/src/components/Benchmark";
 import ToolPageHeader from "@site/src/components/ToolPageHeader";
-import BenchmarkSvg from "@site/src/icons/benchmark.svg";
+import { Gauge } from "lucide-react";
 
 <ToolPageHeader
   title="Web Performance Test"
   desc="Measure your browser and device's computing performance, evaluated with scores and ranks. You can also check the support for the latest Web standard features at a glance."
-  icon={<BenchmarkSvg style={{ width: '48px', height: '48px', color: '#fff' }} />}
+  icon={<Gauge size={48} color="#fff" />}
   color1="#ff0844"
   color2="#ffb199"
   titleGradient="linear-gradient(135deg, #fff 0%, #ffb199 60%, #ff0844 100%)"

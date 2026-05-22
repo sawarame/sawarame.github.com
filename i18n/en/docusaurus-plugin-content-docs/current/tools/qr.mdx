@@ -7,11 +7,12 @@ hide_title: true
 
 import QrGenerator from "@site/src/components/QrGenerator";
 import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { QrCode } from "lucide-react";
 
 <ToolPageHeader
   title="QR Code Generator"
   desc="Generate QR codes from URLs, Wi-Fi details, contacts, and more. Supports custom logo embedding."
-  icon="📷"
+  icon={<QrCode size={48} color="#fff" />}
   color1="#43e97b"
   color2="#38f9d7"
   titleGradient="linear-gradient(135deg, #ffffff 0%, #43e97b 60%, #38f9d7 100%)"
