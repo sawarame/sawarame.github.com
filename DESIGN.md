@@ -114,6 +114,11 @@ tokens:
     *   **Main Text**: 「クリック・ドラッグ＆ドロップ、または貼り付けで選択」に統一。
     *   **Sub Text**: 「対応フォーマット: [拡張子]」を必ず明記。
     *   **Function**: ドラッグ＆ドロップに加え、クリップボードからの貼り付け（Paste）によるファイル入力に必ず対応させる。
+*   **Data List / Custom Table**:
+    *   **Structure**: 標準の `table` タグではなく、`display: flex` を使用したリスト形式を推奨する。
+    *   **Reason**: `table` タグはブラウザやフレームワーク（Docusaurus等）のデフォルトスタイルが干渉しやすく、境界線（Border）やマージンの精密な制御が困難なため。
+    *   **Border**: 行間の境界線には `var(--ifm-color-emphasis-200)` を使用し、最終行の `border-bottom` は必ず `none` にして外枠のボーダーと重ならないようにする。
+    *   **Hover**: ユーザー体験向上のため、行ホバー時に微細な背景色変更（例: `rgba(var(--ifm-color-primary-rgb), 0.02)`）を適用する。
 
 ## 7. Icons & Images
 *   **Logo**: `img/sawara_logo_light.svg` / `img/sawara_logo_dark.svg`

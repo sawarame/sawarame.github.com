@@ -1690,5 +1690,53 @@
   },
   "encoding.stats.targetSize": {
     "message": "Target Size (Simulated)"
+  },
+  "home.tools.diff.title": {
+    "message": "Text Diff Checker"
+  },
+  "home.tools.diff.desc": {
+    "message": "Compare two texts or files and visually highlight differences. Supports multiple file uploads and various comparison modes."
+  },
+  "diff.error.read": {
+    "message": "Failed to read the file."
+  },
+  "diff.upload.title": {
+    "message": "Upload Files"
+  },
+  "diff.upload.dropLabel": {
+    "message": "Click, drag & drop, or paste to add"
+  },
+  "diff.upload.formats": {
+    "message": "Supported formats: .txt, .csv, .log, .md, .json, etc."
+  },
+  "diff.list.title": {
+    "message": "Select Files to Compare"
+  },
+  "diff.list.count": {
+    "message": "files"
+  },
+  "diff.table.left": {
+    "message": "Left (Original)"
+  },
+  "diff.table.right": {
+    "message": "Right (Modified)"
+  },
+  "diff.table.name": {
+    "message": "File Name"
+  },
+  "diff.table.size": {
+    "message": "Size"
+  },
+  "diff.viewer.title": {
+    "message": "Comparison"
+  },
+  "diff.options.ignoreWhitespace": {
+    "message": "Ignore Whitespace"
+  },
+  "diff.tooltip.split": {
+    "message": "Split View"
+  },
+  "diff.tooltip.unified": {
+    "message": "Unified View"
   }
 }

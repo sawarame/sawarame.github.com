@@ -109,6 +109,15 @@ export const tools = [
     gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
   },
   {
+    icon: '⚖️',
+    titleId: 'home.tools.diff.title',
+    title: 'テキスト差分（Diff）比較',
+    descriptionId: 'home.tools.diff.desc',
+    description: '2つのテキストやファイルを比較し、追加・削除された箇所の差分を視覚的に表示します。複数のファイルをアップロードして、任意の組み合わせで比較することが可能です。',
+    link: '/tools/text-diff',
+    gradient: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)',
+  },
+  {
     icon: '🗓️',
     titleId: 'home.tools.date.title',
     title: '日付比較ツール',

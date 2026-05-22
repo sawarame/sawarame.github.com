@@ -1,0 +1,119 @@
+.container {
+  max-width: var(--ifm-container-width);
+  margin: 0 auto;
+}
+
+.fileList {
+  background: var(--ifm-background-surface-color);
+  border-radius: 8px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  overflow: hidden;
+  width: 100%;
+}
+
+.listHeader {
+  display: flex;
+  background: var(--ifm-color-emphasis-100);
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  transition: background-color 0.2s;
+}
+
+.listItem:last-child {
+  border-bottom: none;
+}
+
+.listItem:hover {
+  background-color: rgba(var(--ifm-color-primary-rgb), 0.02);
+}
+
+.rowSelected {
+  background-color: rgba(var(--ifm-color-primary-rgb), 0.05);
+}
+
+/* 列の幅指定 */
+.colRadio {
+  width: 60px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.colName {
+  flex: 1;
+  min-width: 0; /* 省略記号を効かせるために必要 */
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fileName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+.colSize {
+  width: 100px;
+  flex-shrink: 0;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.8rem;
+  text-align: right;
+  padding-right: 12px;
+}
+
+.colAction {
+  width: 50px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.rowSelected {
+  background-color: rgba(var(--ifm-color-primary-rgb), 0.05);
+}
+
+.diffWrapper {
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  overflow-x: auto; /* 横スクロールを有効化 */
+  font-family: var(--ifm-font-family-monospace);
+  width: 100%;
+}
+
+/* react-diff-viewer のカスタマイズ */
+.diffWrapper :global(table) {
+  width: 100% !important;
+  min-width: 800px; /* スクロールを発生させるための最小幅（任意） */
+  border-collapse: collapse !important;
+  margin-bottom: 0 !important;
+  table-layout: auto !important; /* コンテンツに合わせて広がるようにする */
+}
+
+.diffWrapper :global(td) {
+  border: none !important;
+  padding: 0 !important;
+}
+
+.diffWrapper :global(pre) {
+  font-family: inherit !important;
+  line-height: 1.4 !important;
+  padding: 2px 8px !important;
+  white-space: pre !important; /* 折り返さずそのまま表示 */
+}
