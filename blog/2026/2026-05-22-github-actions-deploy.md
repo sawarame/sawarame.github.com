@@ -2,7 +2,7 @@
 slug: github-actions-deploy-automation
 title: DocusaurusのGitHub PagesデプロイをGitHub Actionsで自動化する
 date: 2026-05-22
-draft: true
+draft: false
 tags: [Docusaurus, GitHub Actions, CI/CD, Node.js]
 emoji: 🦖
 ---
