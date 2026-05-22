@@ -141,13 +141,20 @@
 }
 
 .sectionLabel {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--ifm-color-primary);
   margin-bottom: 0.75rem;
+}
+
+.sectionLabelIcon {
+  display: flex;
+  align-items: center;
 }
 
 .sectionTitle {

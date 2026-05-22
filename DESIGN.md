@@ -108,7 +108,12 @@ tokens:
 *   **Tool Card**:
     *   `border-radius`: `tokens.border.radius.card` px
     *   `border: 1px solid var(--ifm-color-emphasis-200)`
-    *   `icon-wrap`: 52x52px, `border-radius`: `tokens.border.radius.icon_wrap` px
+    *   `icon-wrap`: 52x52px, `border-radius`: `tokens.border.radius.icon_wrap` px, `background`: Primary gradient
+    *   `icon`: Lucideアイコン（白 `#ffffff`）を中央配置。
+*   **Tool Page Header**:
+    *   **Style**: 装飾的なオーブや背景グラデーションを排除した「クリーン・フラット」デザイン。
+    *   **Background**: `var(--ifm-color-emphasis-100)` のベタ塗りに、下部境界線 `1px solid var(--ifm-color-emphasis-200)`。
+    *   **Icon**: ブランドカラーの 64x64px 正方形ボックス内に Lucide アイコン（白）を配置。
 *   **File Selection Area (DropZone)**:
     *   **Icon**: MUI SVG アイコンを使用。サイズは `3rem` (`48px`) に統一。
     *   **Main Text**: 「クリック・ドラッグ＆ドロップ、または貼り付けで選択」に統一。
@@ -122,7 +127,10 @@ tokens:
 
 ## 7. Icons & Images
 *   **Logo**: `img/sawara_logo_light.svg` / `img/sawara_logo_dark.svg`
-*   **Tool Icons**: `src/icons/` 配下の SVG/PNG を使用。一貫したサイズ感で配置。
+*   **Core Icons**: `lucide-react` を基本とする。
+    *   **Style**: 線幅 (stroke-width) 2px、サイズは用途に応じ 16/24/32/48px を使い分ける。
+    *   **Consistency**: ページヘッダーやカードなどの構造的要素に絵文字を使用せず、Lucideアイコンで統一する。
+*   **Extension Icons**: `src/icons/` 配下の PNG を使用。
 *   **Placeholders**: 画像がない場合は Primary カラーのグラデーションや幾何学模様を使用。
 
 ## 8. Do's and Don'ts

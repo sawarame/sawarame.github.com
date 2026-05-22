@@ -16,9 +16,6 @@ export default function ToolPageHeader({
   title,
   desc,
   icon,
-  color1 = '#667eea',
-  color2 = '#764ba2',
-  titleGradient = 'linear-gradient(135deg, #fff 0%, #c7d2fe 60%, #a5b4fc 100%)',
 }: ToolPageHeaderProps) {
   return (
     <>
@@ -27,22 +24,15 @@ export default function ToolPageHeader({
         <meta property="og:description" content={desc} />
         <meta name="twitter:description" content={desc} />
       </Head>
-      <div className={common.pageHeader} style={{ marginBottom: '3rem' }}>
-        <div className={common.pageHeaderBg}>
-          <div className={styles.pageHeaderOrb1} style={{ background: `radial-gradient(circle, ${color1}, transparent)` }} />
-          <div className={styles.pageHeaderOrb2} style={{ background: `radial-gradient(circle, ${color2}, transparent)` }} />
-        </div>
-        <div className={common.pageHeaderContent}>
-          <div 
-            className={styles.pageHeaderIcon} 
-            style={{ filter: `drop-shadow(0 4px 12px ${color1}80)` }}
-          >
+      <div className={styles.pageHeader}>
+        <div className={styles.pageHeaderContent}>
+          <div className={styles.pageHeaderIcon}>
             {icon}
           </div>
-          <h1 className={styles.pageHeaderTitle} style={{ backgroundImage: titleGradient }}>
+          <h1 className={styles.pageHeaderTitle}>
             {title}
           </h1>
-          <p className={common.pageHeaderDesc}>
+          <p className={styles.pageHeaderDesc}>
             {desc}
           </p>
         </div>

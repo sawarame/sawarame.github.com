@@ -3,6 +3,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Translate, { translate } from '@docusaurus/Translate';
+import { Wrench, Puzzle } from 'lucide-react';
 import { ToolGrid, ExtensionGrid } from '@site/src/components/FeatureList';
 import SawaraFishLogo from '@site/src/components/SawaraFishLogo';
 import styles from '../css/index.module.css';
@@ -44,6 +45,7 @@ function SectionHeader({
   title,
   subtitleId,
   subtitle,
+  icon,
 }: {
   labelId: string;
   label: string;
@@ -51,10 +53,12 @@ function SectionHeader({
   title: string;
   subtitleId: string;
   subtitle: string;
+  icon?: React.ReactNode;
 }) {
   return (
     <div className={styles.sectionHeader}>
       <span className={styles.sectionLabel}>
+        {icon && <span className={styles.sectionLabelIcon}>{icon}</span>}
         {translate({ id: labelId, message: label })}
       </span>
       <h2 className={styles.sectionTitle}>
@@ -88,11 +92,12 @@ export default function Home(): JSX.Element {
         <div className={styles.container}>
           <SectionHeader
             labelId="home.tools.label"
-            label="🛠 ツール集"
+            label="ツール集"
             titleId="home.tools.title"
             title="ブラウザで使えるツール"
             subtitleId="home.tools.subtitle"
             subtitle="ブラウザ上で完結する、日常的に使えるシンプルなツール群です。"
+            icon={<Wrench size={16} />}
           />
           <ToolGrid />
         </div>
@@ -103,11 +108,12 @@ export default function Home(): JSX.Element {
         <div className={styles.container}>
           <SectionHeader
             labelId="home.extensions.label"
-            label="🧩 ブラウザ拡張機能"
+            label="ブラウザ拡張機能"
             titleId="home.extensions.title"
             title="Chrome 拡張機能"
             subtitleId="home.extensions.subtitle"
             subtitle="Chrome Web Store で公開している拡張機能です。日々の開発・閲覧をより快適にします。"
+            icon={<Puzzle size={16} />}
           />
           <ExtensionGrid />
         </div>

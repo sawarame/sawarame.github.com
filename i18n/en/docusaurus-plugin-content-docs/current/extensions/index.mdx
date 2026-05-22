@@ -7,14 +7,12 @@ hide_title: true
 
 import { ExtensionGrid } from "@site/src/components/FeatureList";
 import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Puzzle } from "lucide-react";
 
 <ToolPageHeader
   title="Chrome Extensions"
   desc="Extensions published on the Chrome Web Store to make daily development and browsing more comfortable."
-  icon="🧩"
-  color1="#818cf8"
-  color2="#c084fc"
-  titleGradient="linear-gradient(135deg, #818cf8 0%, #c084fc 100%)"
+  icon={<Puzzle size={48} color="#fff" />}
 />
 
 <ExtensionGrid />
