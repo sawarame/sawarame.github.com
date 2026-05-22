@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - master
   # 手動実行も可能にする
   workflow_dispatch:
 
