@@ -4,10 +4,20 @@ title: DocusaurusのGitHub PagesデプロイをGitHub Actionsで自動化する
 date: 2026-05-22
 draft: true
 tags: [Docusaurus, GitHub Actions, CI/CD, Node.js]
-emoji: 🚀
+emoji: 🦖
 ---
 
-前回の記事では、Docusaurus で作成したサイトを GitHub Pages に手動でデプロイする方法を紹介しました。今回は、さらに一歩進んで **GitHub Actions を使い、コードを GitHub にプッシュするだけで自動的にデプロイされる仕組み** を構築します。
+import LinkCard from '@site/src/components/LinkCard';
+
+[前回の記事](./2026-05-05.md)では、Docusaurus で作成したサイトを GitHub Pages に手動でデプロイする方法を紹介しました。
+<LinkCard
+  title="DocusaurusをGitHub Pagesで動かす"
+  description="Docusaurusで作成したサイトをGitHub Pagesで公開する手順を詳しく解説。基本的な設定からデプロイコマンドの実行までをカバーしています。"
+  url="/blog/docusaurus-github-pages"
+  emoji="📦"
+/>
+今回は、さらに一歩進んで **GitHub Actions を使い、コードを GitHub にプッシュするだけで自動的にデプロイされる仕組み** を構築します。
+
 
 <!-- truncate -->
 
@@ -29,7 +39,6 @@ emoji: 🚀
 2. 左サイドメニューの **Pages** を選択します。
 3. **Build and deployment** セクションにある **Source** を、デフォルトの `Deploy from a branch` から **GitHub Actions** に変更します。
 
-
 ![GitHub Pages設定](./images/github-actions-deploy-automation_001.webp)
 
 これで、GitHub Actions 経由でサイトを更新する準備が整いました。
@@ -44,7 +53,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - master # 一般的には main ですが、本プロジェクトでは master を使用しています
+      - main
   workflow_dispatch:
 
 permissions:
@@ -102,19 +111,19 @@ jobs:
 
 ### ワークフローの役割
 
-- **Build ジョブ**: GitHub のサーバー上で Node.js 環境を構築し、`yarn build` を実行して公開用の静的ファイルを生成します。生成されたファイルは「アーティファクト」として一時保存されます。
+- **Build ジョブ**: GitHub のサーバー上で Node.js環境を構築し、`yarn build` を実行して公開用の静的ファイルを生成します。生成されたファイルは「アーティファクト」として一時保存されます。
 - **Deploy ジョブ**: 保存されたアーティファクトを受け取り、GitHub Pages のサーバーへ直接デプロイします。
 
 ## 3. git push して動作を確認する
 
-最後に、作成したワークフローファイルをリポジトリにプッシュして、動作を確認しましょう。
+最後に、作成したワークフローファイルをリポジトリのmainブランチにプッシュして、動作を確認することができます。
 
-1. ターミナルで `git add .`、`git commit`、`git push` を行います。
+1. `.github/workflows/deploy.yml`　ファイルをmainブランチにプッシュします。
 2. GitHub リポジトリの **Actions** タブを開きます。
 3. `Deploy to GitHub Pages` というワークフローが開始されていることを確認します。
 4. 全てのジョブが緑色のチェックマーク（成功）になったら完了です。
 
-![GitHub Actions](./images/github-actions-deploy-automation_002.webp)
+![GitHub Actions実行画面](./images/github-actions-deploy-automation_002.webp)
 
 実際に公開されているサイト（`https://<ユーザー名>.github.io/<リポジトリ名>/`）にアクセスし、変更が反映されていることを確認してください。
 
