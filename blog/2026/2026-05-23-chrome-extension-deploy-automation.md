@@ -85,10 +85,10 @@ jobs:
 このワークフローは、main ブランチへのコミット時に manifest.json のバージョンを確認し、新しいバージョンであれば自動的にタグを作成します。すでに同じバージョンのタグが存在する場合は、重複作成を避けるため処理をスキップします。
 
 実際にバージョンを上げてコミットすると、以下のようにワークフローが実行され、
-![GitHub Actionsのタグ作成ワークフロー実行結果](./images/chrome-extension-deploy-automation_001.png)
+![GitHub Actionsのタグ作成ワークフロー実行結果](./images/chrome-extension-deploy-automation_001.webp)
 
 新しいタグが作成されます。
-![GitHub上で作成された新しいリリースタグ](./images/chrome-extension-deploy-automation_002.png)
+![GitHub上で作成された新しいリリースタグ](./images/chrome-extension-deploy-automation_002.webp)
 
 最終的に、このタグを元に「リリース」を作成したタイミングで、Chrome Web Storeへ自動アップロードされるように設定していきます。
 
@@ -99,27 +99,27 @@ jobs:
 ### 1. Google Cloud プロジェクトの作成
 - [Google Cloud Console](https://console.cloud.google.com/) にアクセスします。
 - 画面左上の「プロジェクトを選択」をクリックし、**「新しいプロジェクト」** を選択します。
-![Google Cloud Consoleのプロジェクト選択画面](./images/chrome-extension-deploy-automation_003.png)
+![Google Cloud Consoleのプロジェクト選択画面](./images/chrome-extension-deploy-automation_003.webp)
 - 任意のプロジェクト名（例：「My-Chrome-Extensions」）を入力して作成します。
-![プロジェクト名入力画面](./images/chrome-extension-deploy-automation_004.png)
+![プロジェクト名入力画面](./images/chrome-extension-deploy-automation_004.webp)
 - 作成完了後、再び左上のプロジェクト選択から、作成したプロジェクトを選択状態にします。
-![作成したプロジェクトの選択画面](./images/chrome-extension-deploy-automation_005.png)
+![作成したプロジェクトの選択画面](./images/chrome-extension-deploy-automation_005.webp)
 
 ### 2. Chrome Web Store API の有効化
 - 画面上部の検索バーに「Chrome Web Store API」と入力し、検索結果から選択します。
-![APIライブラリでのChrome Web Store API検索](./images/chrome-extension-deploy-automation_006.png)
-- **「有効化」** ボタンをクリックします。
-![Chrome Web Store APIの有効化ボタン](./images/chrome-extension-deploy-automation_007.png)
+![APIライブラリでのChrome Web Store API検索](./images/chrome-extension-deploy-automation_006.webp)
+- **「有効にする」** ボタンをクリックします。
+![Chrome Web Store APIの有効化ボタン](./images/chrome-extension-deploy-automation_007.webp)
 
 ### 3. OAuth クライアントの作成
 - 左側のメニューから「APIとサービス」 > **「OAuth 同意画面」** を選択します。User Type を「外部」に設定し、公開ステータスを **「本番環境」** に変更します。
-![OAuth同意画面の公開ステータス設定](./images/chrome-extension-deploy-automation_008.png)
+![OAuth同意画面の公開ステータス設定](./images/chrome-extension-deploy-automation_008.webp)
 - 左側のメニューから **「認証情報」** を選択し、画面上部の **「認証情報を作成」 > 「OAuth クライアント ID」** をクリックします。
-![認証情報の作成メニュー](./images/chrome-extension-deploy-automation_009.png)
+![認証情報の作成メニュー](./images/chrome-extension-deploy-automation_009.webp)
 - アプリケーションの種類として **「デスクトップ アプリ」** を選択し、名前を入力（例：「For GitHub Actions」）して作成します。
-![OAuthクライアントIDの作成画面](./images/chrome-extension-deploy-automation_010.png)
-- 作成後に表示される **クライアント ID** と **クライアント シークレット** を大切に保管しておきます。
-![クライアントIDとクライアントシークレットの表示画面](./images/chrome-extension-deploy-automation_011.png)
+![OAuthクライアントIDの作成画面](./images/chrome-extension-deploy-automation_010.webp)
+- 作成後に表示される **クライアント ID** と **クライアント シークレット** をコピーしておきます。 **「JSONをダウンロード」** でJson形式で **クライアント ID** と **クライアント シークレット** がダウンロードできます。  
+![クライアントIDとクライアントシークレットの表示画面](./images/chrome-extension-deploy-automation_011.webp)
 
 ## 3. Refresh Token の取得
 
@@ -132,11 +132,11 @@ https://accounts.google.com/o/oauth2/auth?response_type=code&scope=https://www.g
 ```
 
 - Google アカウントの選択画面が表示されるので、対象のアカウントを選択します。
-![Googleアカウント選択画面](./images/chrome-extension-deploy-automation_012.png)
+![Googleアカウント選択画面](./images/chrome-extension-deploy-automation_012.webp)
 - 「このアプリは Google で確認されていません」と表示された場合は、左下の「詳細」をクリックし、**「（プロジェクト名）に移動（安全ではない）」** を選択します。
-![セキュリティ警告画面での詳細表示](./images/chrome-extension-deploy-automation_013.png)
+![セキュリティ警告画面での詳細表示](./images/chrome-extension-deploy-automation_013.webp)
 - 権限のリクエスト画面で **「続行」** をクリックします。
-![アクセスのリクエスト確認画面](./images/chrome-extension-deploy-automation_014.png)
+![アクセスのリクエスト確認画面](./images/chrome-extension-deploy-automation_014.webp)
 
 アクセス許可後、ブラウザの URL が `http://127.0.0.1` で始まるものに切り替わります。この URL 内にある `code=` の直後から `&scope` の直前までが **認証コード** です。
 
@@ -181,10 +181,10 @@ curl "https://accounts.google.com/o/oauth2/token" \
 各 ID は、Chrome Web Store デベロッパーダッシュボードから確認できます。
 
 - **拡張機能の ID**: 各拡張機能の個別ページで確認。
-![デベロッパーダッシュボードでの拡張機能ID確認](./images/chrome-extension-deploy-automation_016.png)
+![デベロッパーダッシュボードでの拡張機能ID確認](./images/chrome-extension-deploy-automation_016.webp)
 
 - **パブリッシャー ID**: デベロッパーダッシュボードの設定画面から確認。
-![デベロッパーダッシュボードの設定画面でのパブリッシャーID確認](./images/chrome-extension-deploy-automation_017.png)
+![デベロッパーダッシュボードの設定画面でのパブリッシャーID確認](./images/chrome-extension-deploy-automation_017.webp)
 
 ## 5. GitHub Actions のワークフローを作成する
 
@@ -234,16 +234,16 @@ Nickmark の場合は `npm run build` でパッケージ（Nickmark.zip）が生
 設定がすべて完了したので、実際にタグからリリースを作成して動作確認してみます。
 
 GitHub のタグ一覧から、作成されたタグの **「Create release from tag」** をクリックします。
-![GitHubのタグ一覧からのリリース作成ボタン](./images/chrome-extension-deploy-automation_018.png)
+![GitHubのタグ一覧からのリリース作成ボタン](./images/chrome-extension-deploy-automation_018.webp)
 
 リリースノートを入力して **「Publish release」** をクリックすると、GitHub Actions のワークフローが開始されます。
-![リリース公開ボタンのクリック](./images/chrome-extension-deploy-automation_019.png)
+![リリース公開ボタンのクリック](./images/chrome-extension-deploy-automation_019.webp)
 
 ワークフロー完了後、デベロッパーダッシュボードを確認すると、ステータスが「審査待ち」に更新されているはずです。
-![デベロッパーダッシュボードでの審査待ちステータス](./images/chrome-extension-deploy-automation_020.png)
+![デベロッパーダッシュボードでの審査待ちステータス](./images/chrome-extension-deploy-automation_020.webp)
 
 バージョンも正しく更新されており、自動化に成功しました。
-![ストアにアップロードされた新しいバージョン情報の確認](./images/chrome-extension-deploy-automation_021.png)
+![ストアにアップロードされた新しいバージョン情報の確認](./images/chrome-extension-deploy-automation_021.webp)
 
 ## 注意点
 
