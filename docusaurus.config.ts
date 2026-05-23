@@ -57,6 +57,7 @@ const config: Config = {
           //   'https://github.com/sawarame/sawarame.github.com/tree/master/',
         },
         blog: {
+          blogSidebarCount: 10,
           showReadingTime: true,
           feedOptions: {
             type: ['rss', 'atom'],
@@ -80,6 +81,10 @@ const config: Config = {
         },
       } satisfies Preset.Options,
     ],
+  ],
+
+  plugins: [
+    'docusaurus-plugin-image-zoom',
   ],
 
   themeConfig: {
@@ -188,6 +193,16 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+    },
+    zoom: {
+      selector: '.markdown img',
+      background: {
+        light: 'rgb(255, 255, 255)',
+        dark: 'rgb(50, 50, 50)'
+      },
+      config: {
+        // options you can specify via https://github.com/francoischalifour/medium-zoom#usage
+      }
     },
     metadata: [
       { name: 'keywords', content: 'Webツール, 便利ツール, ミニツール, 開発者向けツール, ブラウザ拡張機能, sawara.me' },
