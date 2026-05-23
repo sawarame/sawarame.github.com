@@ -60,7 +60,7 @@
     "message": "About this site"
   },
   "home.tools.label": {
-    "message": "🛠 Tools"
+    "message": "Tools"
   },
   "home.tools.title": {
     "message": "Browser Tools"
@@ -135,7 +135,7 @@
     "message": "Automatically detect and convert character encodings (UTF-8, Shift_JIS, etc.) while simulating the target file size. Supports pasting text."
   },
   "home.extensions.label": {
-    "message": "🧩 Extensions"
+    "message": "Extensions"
   },
   "home.extensions.title": {
     "message": "Chrome Extensions"
