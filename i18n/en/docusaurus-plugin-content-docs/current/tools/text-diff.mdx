@@ -1,0 +1,31 @@
+---
+title: Text Diff Checker
+slug: /tools/text-diff
+sidebar_position: 12
+hide_title: true
+---
+
+import TextDiff from "@site/src/components/TextDiff";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { FileDiff } from "lucide-react";
+
+<ToolPageHeader
+  title="Text Diff Checker"
+  desc="Compare two texts or files and visually highlight differences. Supports multiple file uploads and various comparison modes."
+  icon={<FileDiff size={48} color="#fff" />}
+/>
+
+<TextDiff />
+
+## How to use
+
+1. Drag and drop files or click to select them. You can also paste copied text or files directly (Ctrl+V / Cmd+V).
+2. The uploaded files will be listed.
+3. Select the **"Left (Original)"** and **"Right (Modified)"** radio buttons to specify the two files you want to compare.
+4. Differences will be displayed at the bottom of the screen.
+5. Switch between **"Split View"** and **"Unified View"** to check in your preferred format.
+6. Enable the **"Ignore Whitespace"** option to exclude differences in indentation or spaces from the comparison.
+
+:::info Security
+🔒 Processing is done entirely within your browser. File contents are never sent to any server.
+:::

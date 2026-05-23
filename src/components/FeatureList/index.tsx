@@ -127,7 +127,7 @@ export const tools = [
   {
     icon: <FileDiff size={ICON_SIZE} />,
     titleId: 'home.tools.diff.title',
-    title: 'テキスト差分（Diff）比較',
+    title: 'テキスト差分比較',
     descriptionId: 'home.tools.diff.desc',
     description: '2つのテキストやファイルを比較し、追加・削除された箇所の差分を視覚的に表示します。複数のファイルをアップロードして、任意の組み合わせで比較することが可能です。',
     link: '/tools/text-diff',
