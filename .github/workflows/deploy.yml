@@ -2,8 +2,8 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - 'v*'
   # 手動実行も可能にする
   workflow_dispatch:
 

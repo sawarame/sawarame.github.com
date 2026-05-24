@@ -83,8 +83,16 @@
 10. [QRコード読み取り](.context/specs/qr-reader.md)
 11. [ルーレットメーカー](.context/specs/roulette.md)
 
-##　8. ブログ執筆について
+## 8. ブログ執筆について
 
 ブログ執筆をする際は [SKILL.md](.agents/skills/blog/SKILL.md) を参照し、そのルールに従って作成してください。
+
+## 9. リリースフロー
+
+本プロジェクトでは、バージョン管理とデプロイを自動化しています。
+
+1.  **バージョン更新**: リリース準備が整ったら、`package.json` の `"version"` を手動で更新（例: `0.1.0` -> `0.2.0`）し、master ブランチへマージします。
+2.  **自動タグ付け**: master ブランチへプッシュされると GitHub Actions (`release-tag.yml`) が起動し、`package.json` のバージョンに基づいた Git タグ（例: `v0.2.0`）を自動で作成・プッシュします。
+3.  **自動デプロイ**: 新しい `v*` タグがプッシュされると、GitHub Actions (`deploy.yml`) が起動し、本番環境（GitHub Pages）へのビルドとデプロイが行われます。
 
 
