@@ -172,10 +172,10 @@ curl "https://accounts.google.com/o/oauth2/token" \
 
 | 名前 | 内容 |
 | :--- | :--- |
-| `CHROME_CLIENT_ID` | OAuth クライアントのクライアント ID |
-| `CHROME_CLIENT_SECRET` | OAuth クライアントのクライアント シークレット |
-| `CHROME_REFRESH_TOKEN` | 取得したリフレッシュトークン |
-| `CHROME_EXTENSION_ID` | 拡張機能の ID |
+| `CLIENT_ID` | OAuth クライアントのクライアント ID |
+| `CLIENT_SECRET` | OAuth クライアントのクライアント シークレット |
+| `REFRESH_TOKEN` | 取得したリフレッシュトークン |
+| `EXTENSION_ID` | 拡張機能の ID |
 | `PUBLISHER_ID` | パブリッシャー ID |
 
 各 ID は、Chrome Web Store デベロッパーダッシュボードから確認できます。
