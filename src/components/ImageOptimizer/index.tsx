@@ -394,22 +394,32 @@ export default function ImageOptimizer(): JSX.Element {
 
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' });
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const pastedCountRef = useRef(0);
 
-  const handleFileSelect = useCallback(async (files: FileList | File[] | null) => {
+  const handleFileSelect = useCallback(async (files: FileList | File[] | null, isPasted = false) => {
     if (!files) return;
     const filesArray = Array.from(files);
     const newImagesPromises = filesArray
       .filter(file => file.type.startsWith('image/'))
       .map(async file => {
-        const url = URL.createObjectURL(file);
-        const dimensions = await getImageDimensions(file);
+        let finalFile = file;
+        if (isPasted) {
+          pastedCountRef.current += 1;
+          const extension = file.type.split('/')[1]?.split('+')[0] || 'png';
+          const sequentialNumber = pastedCountRef.current.toString().padStart(3, '0');
+          const fileName = `img_${sequentialNumber}.${extension}`;
+          finalFile = new File([file], fileName, { type: file.type });
+        }
+
+        const url = URL.createObjectURL(finalFile);
+        const dimensions = await getImageDimensions(finalFile);
         return {
           id: Math.random().toString(36).substr(2, 9),
-          file: file as File,
+          file: finalFile as File,
           previewUrl: url,
           displayUrl: url,
           status: 'pending' as const,
-          originalSize: file.size,
+          originalSize: finalFile.size,
           originalDimensions: dimensions,
         };
       });
@@ -458,7 +468,7 @@ export default function ImageOptimizer(): JSX.Element {
       }
 
       if (files.length > 0) {
-        handleFileSelect(files);
+        handleFileSelect(files, true);
       }
     };
 
