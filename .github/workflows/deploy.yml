@@ -1,9 +1,9 @@
 name: Deploy to GitHub Pages
 
+# Releaseが作成・公開されたときに発火
 on:
-  push:
-    tags:
-      - 'v*'
+  release:
+    types: [published]
   # 手動実行も可能にする
   workflow_dispatch:
 
