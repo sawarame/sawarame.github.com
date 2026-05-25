@@ -92,7 +92,7 @@ const config: Config = {
     image: 'img/sawara-ogp.png',
     navbar: {
       logo: {
-        alt: 'sawara.meのロゴ',
+        alt: 'sawara.me',
         src: 'img/sawara_logo_light.svg',
         srcDark: 'img/sawara_logo_dark.svg',
       },

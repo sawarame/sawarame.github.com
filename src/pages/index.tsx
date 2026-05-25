@@ -12,6 +12,10 @@ import styles from '../css/index.module.css';
 // Components
 // ============================================================
 
+/**
+ * ホームページの最上部に表示されるメインビジュアル（ヒーローセクション）です。
+ * サイトのロゴ、キャッチコピー、および多言語対応のサイト概要テキストを表示します。
+ */
 function HeroSection() {
   const { siteConfig } = useDocusaurusContext();
   return (
@@ -27,6 +31,12 @@ function HeroSection() {
         </div>
         <p className={styles.heroSubtitle}>
           {translate({ id: 'home.hero.subtitle', message: siteConfig.tagline })}
+        </p>
+        <p className={styles.heroDescription}>
+          {translate({
+            id: 'home.hero.description',
+            message: '日常のちょっとした不便を解決する、ブラウザ完結型で安全な便利ツール＆拡張機能集。'
+          })}
         </p>
       </div>
     </section>
@@ -70,11 +80,16 @@ function SectionHeader({
 // Page
 // ============================================================
 
+/**
+ * sawara.me のトップページコンポーネントです。
+ * ブラウザツール一覧、ブラウザ拡張機能一覧をグリッド状に美しくレイアウトして表示します。
+ * SEO対策のため、メタ情報（description）の明示と、不要なタイトルの重複を回避する設定を行っています。
+ */
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
-      title={siteConfig.title}
+      title=""
       description={translate({
         id: 'home.description',
         message: 'sawara.me — 日常のちょっとした不便を解決する、小さな便利ツールやアプリケーションを公開しているサイトです。'
