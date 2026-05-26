@@ -1,0 +1,38 @@
+---
+title: SEO情報（メタデータ）抽出ツール
+slug: /tools/seo-extractor
+sidebar_position: 15
+hide_title: true
+---
+
+import SeoExtractor from "@site/src/components/SeoExtractor";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Globe } from "lucide-react";
+
+<ToolPageHeader
+  title="SEO情報（メタデータ）抽出ツール"
+  desc="貼り付けたHTMLソースコードから、タイトル、メタ説明文、favicon、OGP画像などのSEO関連メタデータを瞬時に抽出し、プレビューや検証を行います。"
+  icon={<Globe size={48} color="#fff" />}
+/>
+
+<SeoExtractor />
+
+## 使い方
+
+1. **HTMLソースをコピー**: 解析したいWebサイトの「ページのソースを表示」機能などを使い、HTMLソースコード全体をコピーします。
+2. **貼り付けて解析**: テキストエリアにコピーしたHTMLコードを貼り付け、「解析する」ボタンを押します。
+3. **結果の確認**: 「プレビュー」「基本メタ情報」「OGP・SNS情報」「JSONデータ」に整理された結果を閲覧・確認します。各項目のコピーや、全データのJSONダウンロードも可能です。
+
+---
+
+## 💡 SEO検証機能
+
+*   **文字数メーター**: タイトルの長さ（推奨: 25〜35文字）、メタ説明文の長さ（推奨: 80〜120文字）がSEO的に最適な範囲にあるかを自動判定し、視覚的なインジケーターで示します。
+*   **検索結果＆SNSプレビュー**: 
+    *   **Google検索プレビュー**: 検索エンジンでどのように表示されるかを再現。
+    *   **SNSシェアプレビュー**: FacebookやSlack、Twitter等でシェアされた際のカード型表示（OGP画像付き）を再現。
+
+:::info 🔒 100% 完全ローカル処理で安全
+貼り付けられたHTMLソースコードのパース（解析）処理は、**完全にあなたのブラウザの内部（クライアントサイド）でのみ実行されます**。
+外部のサーバーへソースコードやURLデータが送信されることは一切ありません。社内専用システムや、個人情報・開発中の機密データを含むHTMLコードであっても、情報漏洩の心配なく100%安全にご利用いただけます。
+:::

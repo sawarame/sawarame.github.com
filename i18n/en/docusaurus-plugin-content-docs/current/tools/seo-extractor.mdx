@@ -1,0 +1,38 @@
+---
+title: SEO Metadata Extractor
+slug: /tools/seo-extractor
+sidebar_position: 15
+hide_title: true
+---
+
+import SeoExtractor from "@site/src/components/SeoExtractor";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Globe } from "lucide-react";
+
+<ToolPageHeader
+  title="SEO Metadata Extractor"
+  desc="Extract, preview, and validate SEO-related metadata (title, meta description, favicon, OGP images, etc.) safely and instantly by pasting HTML source code."
+  icon={<Globe size={48} color="#fff" />}
+/>
+
+<SeoExtractor />
+
+## How to Use
+
+1. **Copy HTML Source**: Use your browser's \"View Page Source\" feature to copy the entire HTML code of the page you want to inspect.
+2. **Paste and Extract**: Paste the HTML into the text field and click \"Analyze\".
+3. **Check Results**: Browse the extracted information organized into \"Preview\", \"Basic Meta\", \"OGP & SNS\", and \"JSON Data\" tabs. You can easily copy individual values or export the full data as a JSON file.
+
+---
+
+## 💡 Key Validation Features
+
+*   **Character Count Indicators**: Automatically evaluates whether your Title (recommended: 50–60 characters) and Meta Description (recommended: 80–120 characters) are optimized for search engines with a visual progress bar.
+*   **Search Engine & Social Media Preview**:
+    *   **Google Search Preview**: Mimics how your page will look on Google search results pages.
+    *   **Social Share Preview**: Replicates the card style (with the OGP image) when shared on Facebook, Slack, Twitter, etc.
+
+:::info 🔒 100% Safe Local Processing
+All HTML source code parsing is executed **strictly inside your browser (client-side)**.
+None of your source code or page data is sent to external servers. It is 100% safe to use even for highly confidential internal staging pages, development mockups, or pages containing private data.
+:::

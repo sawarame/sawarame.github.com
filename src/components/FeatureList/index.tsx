@@ -14,7 +14,8 @@ import {
   FileDiff, 
   Calendar, 
   Target,
-  Gauge
+  Gauge,
+  Globe
 } from 'lucide-react';
 import styles from './styles.module.css';
 
@@ -150,6 +151,15 @@ export const tools = [
     description: '入力したリストからサクッと抽選ができます。一度出た項目を除外する機能や、履歴の保存機能も備えています。',
     link: '/roulette',
     gradient: 'linear-gradient(135deg, #ff0844 0%, #ffb199 100%)',
+  },
+  {
+    icon: <Globe size={ICON_SIZE} />,
+    titleId: 'home.tools.seo.title',
+    title: 'SEO情報（メタデータ）抽出ツール',
+    descriptionId: 'home.tools.seo.desc',
+    description: '入力したURLやHTMLソースコードから、faviconやOGP画像、タイトル、説明文、キーワードなどのSEO関連のメタ情報を抜き出します。ブラウザ内で安全に動作します。',
+    link: '/tools/seo-extractor',
+    gradient: 'linear-gradient(135deg, #0f172a 0%, #38bdf8 100%)',
   },
 ];
 
