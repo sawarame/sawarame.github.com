@@ -50,6 +50,9 @@
   "home.hero.subtitle": {
     "message": "Ship small things."
   },
+  "home.hero.description": {
+    "message": "A collection of browser-based tools and extensions to solve daily inconveniences."
+  },
   "home.hero.actions.tools": {
     "message": "View Tools"
   },
