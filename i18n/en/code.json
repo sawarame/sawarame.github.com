@@ -146,6 +146,9 @@
   "home.extensions.subtitle": {
     "message": "Extensions available on the Chrome Web Store to make your development and browsing more comfortable."
   },
+  "home.extensions.taborigami.desc": {
+    "message": "Automatically organize too many open tabs with AI. Let Gemini declutter your browser instantly."
+  },
   "home.extensions.envicon.desc": {
     "message": "A browser extension for developers that changes the favicon based on production, staging, and development environments."
   },

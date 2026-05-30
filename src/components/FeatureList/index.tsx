@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import styles from './styles.module.css';
 
+import TabOrigamiPng from '@site/src/icons/TabOrigami.png';
 import EnvIconPng from '@site/src/icons/EnvIcon.png';
 import GeminiSparkPng from '@site/src/icons/gemini-spark.png';
 import MdPickerPng from '@site/src/icons/MdPicker.png';
@@ -154,6 +155,15 @@ export const tools = [
 ];
 
 export const extensions = [
+  {
+    iconSrc: TabOrigamiPng,
+    title: 'TabOrigami',
+    descriptionId: 'home.extensions.taborigami.desc',
+    description:
+      '開きすぎたタブをAIが自動分類。Geminiの力で散らかったブラウザをスッキリ整理します。',
+    link: 'https://chromewebstore.google.com/detail/taborigami/fdlipkbmeeompfjhhapjlgcccpgfndpe',
+    badge: 'Chrome Web Store',
+  },
   {
     iconSrc: EnvIconPng,
     title: 'EnvIcon',
