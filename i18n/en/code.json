@@ -161,6 +161,9 @@
   "home.extensions.ketchuptimer.desc": {
     "message": "A Pomodoro timer with a fun ketchup bottle concept. The ketchup level represents your remaining focus time, making productivity more visual and engaging."
   },
+  "home.extensions.foursight.desc": {
+    "message": "An extension to track and visualize GitHub Four Keys (DORA metrics), helping to improve your development team's performance."
+  },
   "home.extensions.linkText": {
     "message": "View on Chrome Web Store →"
   },
