@@ -24,6 +24,7 @@ import GemiKit from '@site/src/icons/GemiKit.png';
 import MdPickerPng from '@site/src/icons/MdPicker.png';
 import KetchupTimerPng from '@site/src/icons/KetchupTimer.png';
 import NickmarkPng from '@site/src/icons/Nickmark.png';
+import FourSightPng from '@site/src/icons/FourSight.png';
 
 // ============================================================
 // Data
@@ -207,6 +208,15 @@ export const extensions = [
     description:
       'Google Gemini のウェブインターフェースを強化するためのブラウザ拡張機能です。エンターキーで改行し、Command+Enter (Ctrl+Enter) で送信できるようになります。',
     link: 'https://chromewebstore.google.com/detail/gemini-spark/iolhhcbgkkmlfndhmpclkabebjlinkic',
+    badge: 'Chrome Web Store',
+  },
+  {
+    iconSrc: FourSightPng,
+    title: 'FourSight',
+    descriptionId: 'home.extensions.foursight.desc',
+    description:
+      'GitHubのFour Keys（DORAメトリクス）を計測・可視化し、開発チームのパフォーマンス改善をサポートする拡張機能です。',
+    link: 'https://chromewebstore.google.com/detail/foursight-dora-tracker-fo/ealiipikbpepgdeojlkjjibgfpdnmgam',
     badge: 'Chrome Web Store',
   },
 ];
