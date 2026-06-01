@@ -152,7 +152,7 @@
   "home.extensions.envicon.desc": {
     "message": "A browser extension for developers that changes the favicon based on production, staging, and development environments."
   },
-  "home.extensions.geminispark.desc": {
+  "home.extensions.geminikit.desc": {
     "message": "An extension to enhance the Google Gemini web interface. Use Enter for new lines and Cmd/Ctrl+Enter to send."
   },
   "home.extensions.mdpicker.desc": {
