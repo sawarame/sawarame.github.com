@@ -20,7 +20,7 @@ import styles from './styles.module.css';
 
 import TabOrigamiPng from '@site/src/icons/TabOrigami.png';
 import EnvIconPng from '@site/src/icons/EnvIcon.png';
-import GeminiSparkPng from '@site/src/icons/gemini-spark.png';
+import GemiKit from '@site/src/icons/GemiKit.png';
 import MdPickerPng from '@site/src/icons/MdPicker.png';
 import KetchupTimerPng from '@site/src/icons/KetchupTimer.png';
 import NickmarkPng from '@site/src/icons/Nickmark.png';
@@ -201,9 +201,9 @@ export const extensions = [
     badge: 'Chrome Web Store',
   },
   {
-    iconSrc: GeminiSparkPng,
-    title: 'Shiftless Enter for Gemini',
-    descriptionId: 'home.extensions.geminispark.desc',
+    iconSrc: GemiKit,
+    title: 'GemiKit',
+    descriptionId: 'home.extensions.gemikit.desc',
     description:
       'Google Gemini のウェブインターフェースを強化するためのブラウザ拡張機能です。エンターキーで改行し、Command+Enter (Ctrl+Enter) で送信できるようになります。',
     link: 'https://chromewebstore.google.com/detail/gemini-spark/iolhhcbgkkmlfndhmpclkabebjlinkic',
