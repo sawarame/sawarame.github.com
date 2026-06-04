@@ -137,6 +137,12 @@
   "home.tools.encoding.desc": {
     "message": "Automatically detect and convert character encodings (UTF-8, Shift_JIS, etc.) while simulating the target file size. Supports pasting text."
   },
+  "home.tools.markdownPdf.title": {
+    "message": "Markdown to PDF"
+  },
+  "home.tools.markdownPdf.desc": {
+    "message": "Convert uploaded Markdown files or directly entered text into text-selectable and searchable PDFs right in your browser."
+  },
   "home.extensions.label": {
     "message": "Extensions"
   },
@@ -1747,5 +1753,89 @@
   },
   "diff.tooltip.unified": {
     "message": "Unified View"
+  },
+  "markdownPdf.editor.title": {
+    "message": "Markdown Input"
+  },
+  "markdownPdf.editor.sample": {
+    "message": "Insert Sample"
+  },
+  "markdownPdf.editor.clear": {
+    "message": "Clear"
+  },
+  "markdownPdf.upload.button": {
+    "message": "Select Markdown File (.md)"
+  },
+  "markdownPdf.upload.dropText": {
+    "message": "or drag & drop files here, or paste"
+  },
+  "markdownPdf.editor.placeholder": {
+    "message": "# Type your markdown here..."
+  },
+  "markdownPdf.options.title": {
+    "message": "PDF Layout Settings"
+  },
+  "markdownPdf.options.fontSize": {
+    "message": "Font Size"
+  },
+  "markdownPdf.options.fontSize.small": {
+    "message": "Small (10pt)"
+  },
+  "markdownPdf.options.fontSize.medium": {
+    "message": "Medium (12pt)"
+  },
+  "markdownPdf.options.fontSize.large": {
+    "message": "Large (14pt)"
+  },
+  "markdownPdf.options.margin": {
+    "message": "Margin"
+  },
+  "markdownPdf.options.margin.narrow": {
+    "message": "Narrow (10mm)"
+  },
+  "markdownPdf.options.margin.normal": {
+    "message": "Normal (20mm)"
+  },
+  "markdownPdf.options.margin.wide": {
+    "message": "Wide (30mm)"
+  },
+  "markdownPdf.options.format": {
+    "message": "Page Format"
+  },
+  "markdownPdf.options.orientation": {
+    "message": "Orientation"
+  },
+  "markdownPdf.options.orientation.portrait": {
+    "message": "Portrait"
+  },
+  "markdownPdf.options.orientation.landscape": {
+    "message": "Landscape"
+  },
+  "markdownPdf.options.pageNumbers": {
+    "message": "Show page numbers in footer"
+  },
+  "markdownPdf.btn.loadingFont": {
+    "message": "Loading Font..."
+  },
+  "markdownPdf.btn.preview": {
+    "message": "Generate PDF Preview"
+  },
+  "markdownPdf.btn.download": {
+    "message": "Download PDF"
+  },
+  "markdownPdf.tab.previewHtml": {
+    "message": "HTML Preview"
+  },
+  "markdownPdf.tab.previewPdf": {
+    "message": "PDF Preview"
+  },
+  "markdownPdf.preview.empty": {
+    "message": "Type markdown to preview rendering here."
+  },
+  "markdownPdf.error.generate": {
+    "message": "An error occurred during PDF generation."
+  },
+  "markdownPdf.confirm.clear": {
+    "message": "Are you sure you want to clear the text?"
   }
 }
