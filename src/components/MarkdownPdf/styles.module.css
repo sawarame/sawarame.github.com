@@ -1,0 +1,126 @@
+.container {
+  padding: 8px 0;
+}
+
+.card {
+  border-radius: 16px !important;
+  border: 1px solid var(--ifm-color-emphasis-200) !important;
+  background-color: var(--ifm-card-background-color) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+  overflow: hidden;
+}
+
+.textarea {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  background-color: var(--ifm-color-emphasis-100) !important;
+}
+
+.previewContainer {
+  padding: 16px !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.htmlPreview {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  min-height: 400px;
+  max-height: 600px;
+  background-color: var(--ifm-card-background-color);
+  border-radius: 12px !important;
+  border-color: var(--ifm-color-emphasis-200) !important;
+  line-height: 1.7;
+}
+
+/* GitHub風のMarkdownプレビュースタイル */
+.htmlPreview h1,
+.htmlPreview h2,
+.htmlPreview h3 {
+  font-weight: 700;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  color: var(--ifm-heading-color);
+}
+
+.htmlPreview h1 {
+  font-size: 1.8rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  padding-bottom: 6px;
+}
+
+.htmlPreview h2 {
+  font-size: 1.4rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  padding-bottom: 4px;
+}
+
+.htmlPreview h3 {
+  font-size: 1.2rem;
+}
+
+.htmlPreview p {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.htmlPreview blockquote {
+  margin: 0 0 16px 0;
+  padding: 0 16px;
+  color: var(--ifm-color-emphasis-600);
+  border-left: 4px solid var(--ifm-color-emphasis-300);
+}
+
+.htmlPreview code {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 85%;
+  background-color: var(--ifm-color-emphasis-200);
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.htmlPreview pre {
+  background-color: var(--ifm-color-emphasis-100);
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+
+.htmlPreview pre code {
+  background-color: transparent;
+  padding: 0;
+  font-size: 100%;
+}
+
+.htmlPreview table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.htmlPreview th,
+.htmlPreview td {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.htmlPreview th {
+  background-color: var(--ifm-color-emphasis-100);
+  font-weight: bold;
+}
+
+.pdfPreviewWrap {
+  width: 100%;
+  height: 600px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.pdfIframe {
+  border: none;
+}

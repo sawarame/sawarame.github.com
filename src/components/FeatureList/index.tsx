@@ -14,7 +14,8 @@ import {
   FileDiff, 
   Calendar, 
   Target,
-  Gauge
+  Gauge,
+  FileDown
 } from 'lucide-react';
 import styles from './styles.module.css';
 
@@ -152,6 +153,15 @@ export const tools = [
     description: '入力したリストからサクッと抽選ができます。一度出た項目を除外する機能や、履歴の保存機能も備えています。',
     link: '/roulette',
     gradient: 'linear-gradient(135deg, #ff0844 0%, #ffb199 100%)',
+  },
+  {
+    icon: <FileDown size={ICON_SIZE} />,
+    titleId: 'home.tools.markdownPdf.title',
+    title: 'マークダウンPDF変換',
+    descriptionId: 'home.tools.markdownPdf.desc',
+    description: 'アップロードしたマークダウンファイルや直接入力したテキストを、文字の選択や検索が可能なPDFに変換してダウンロードします。',
+    link: '/markdown-pdf',
+    gradient: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)',
   },
 ];
 
