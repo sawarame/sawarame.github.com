@@ -282,7 +282,13 @@ function MarkdownPdfContent() {
       };
 
       // 1行の中で太字、インラインコード、さらにはカラー絵文字を混在して描画するインラインワードラップエンジン
-      const drawInlineText = (inlineTokens: any[], size: number, indent: number = 0, isQuote: boolean = false) => {
+      const drawInlineText = (
+        inlineTokens: any[], 
+        size: number, 
+        indent: number = 0, 
+        isQuote: boolean = false,
+        disableAutoPageBreak: boolean = false
+      ) => {
         doc.setFontSize(size);
         const lineHeight = (size * 0.3528) * 1.5;
         
@@ -292,9 +298,9 @@ function MarkdownPdfContent() {
 
         let hasLineForCurrentRow = false;
 
-        // 最初の行の引用符縦線を描画
+        // 最初の行 of 引用符縦線を描画
         if (isQuote && !hasLineForCurrentRow) {
-          ensureSpace(lineHeight);
+          if (!disableAutoPageBreak) ensureSpace(lineHeight);
           doc.setFillColor(220, 220, 220);
           doc.rect(margin, currentY, 1.5, lineHeight, 'F');
           hasLineForCurrentRow = true;
@@ -312,14 +318,14 @@ function MarkdownPdfContent() {
             const char = charStr as string;
             
             if (!hasLineForCurrentRow && isQuote) {
-              ensureSpace(lineHeight);
+              if (!disableAutoPageBreak) ensureSpace(lineHeight);
               doc.setFillColor(220, 220, 220);
               doc.rect(margin, currentY, 1.5, lineHeight, 'F');
               hasLineForCurrentRow = true;
             }
 
             if (char === '\n') {
-              ensureSpace(lineHeight);
+              if (!disableAutoPageBreak) ensureSpace(lineHeight);
               curX = startX;
               currentY += lineHeight;
               hasLineForCurrentRow = false;
@@ -336,13 +342,13 @@ function MarkdownPdfContent() {
             
             // 右端を超える場合は自動折り返し
             if (curX + charWidth > endX) {
-              ensureSpace(lineHeight);
+              if (!disableAutoPageBreak) ensureSpace(lineHeight);
               curX = startX;
               currentY += lineHeight;
               hasLineForCurrentRow = false;
             } else {
               // ページ下端チェック
-              const pageChanged = ensureSpace(lineHeight);
+              const pageChanged = !disableAutoPageBreak ? ensureSpace(lineHeight) : false;
               if (pageChanged) {
                 curX = startX;
                 hasLineForCurrentRow = false;
@@ -395,10 +401,16 @@ function MarkdownPdfContent() {
       };
 
       // プレーンテキストの描画 (改行・ワードラップ対応、見出し等のブロック用)
-      const drawParagraph = (text: string, size: number, indent: number = 0, isBold: boolean = false) => {
+      const drawParagraph = (
+        text: string, 
+        size: number, 
+        indent: number = 0, 
+        isBold: boolean = false,
+        disableAutoPageBreak: boolean = false
+      ) => {
         // 絵文字対応のため、ダミートークンとして drawInlineText に流し込む
         const dummyToken = [{ type: isBold ? 'strong' : 'text', text }];
-        drawInlineText(dummyToken, size, indent);
+        drawInlineText(dummyToken, size, indent, false, disableAutoPageBreak);
       };
 
       // リストを再帰的にインデントを下げて描画する関数 (ネスト対応)
@@ -461,16 +473,18 @@ function MarkdownPdfContent() {
         
         doc.setFontSize(sizes.body);
         doc.setFont('SawarabiGothic', 'normal');
+        
+        const baseOffsetY = currentY + (sizes.body * 0.3528) / 2; // 補正用のベースY座標 (上下中央揃え)
+        
         headers.forEach((header: string, i: number) => {
-          // ヘッダー内の絵文字対応のため、drawParagraphの簡易的なインライン化を適用
-          const colX = margin + (i * colWidth) + 2;
           const dummy = [{ type: 'text', text: header }];
           
-          // 一時的にグローバルなcurrentYをコントロールしてセル内に描画
+          // 各セルの描画時は、常に一定の baseOffsetY を基準にする
           const savedY = currentY;
-          currentY = currentY - (sizes.body * 0.3528) + 1; // 補正
-          drawInlineText(dummy, sizes.body, (i * colWidth) + 2);
-          currentY = savedY + headerHeight; // 復元
+          currentY = baseOffsetY;
+          // ヘッダー描画時は自動改ページを無効化
+          drawInlineText(dummy, sizes.body, (i * colWidth) + 2, false, true);
+          currentY = savedY; // 元の Y 座標に戻す
         });
         currentY += headerHeight;
       };
@@ -566,8 +580,8 @@ function MarkdownPdfContent() {
             doc.setFillColor(245, 245, 245);
             doc.rect(margin, currentY, writableWidth, lineHeight, 'F');
             
-            // コードブロック行の描画 (コード内絵文字対応のため drawParagraph に変更)
-            drawParagraph(line, sizes.code, 3);
+            // コードブロック行の描画 (コード内絵文字対応のため drawParagraph に変更、自動改ページ無効化)
+            drawParagraph(line, sizes.code, 3, false, true);
           });
 
           ensureSpace(2);
@@ -597,7 +611,6 @@ function MarkdownPdfContent() {
             const pageChanged = ensureSpace(calculatedRowHeight);
             if (pageChanged) {
               drawTableHeader(headers, colWidth);
-              ensureSpace(calculatedRowHeight);
             }
 
             doc.setDrawColor(220, 220, 220);
@@ -610,10 +623,11 @@ function MarkdownPdfContent() {
               const lines = cellLines[i];
               lines.forEach((line: string, lineIdx: number) => {
                 const savedY = currentY;
-                // 各行の位置を算出して一時的に currentY を動かし描画する
-                currentY = currentY + linePadding + (lineIdx * singleLineHeight) - (sizes.body * 0.3528);
+                // 各行の位置を算出して一時的に currentY を動かし描画する (上端基準で計算)
+                currentY = currentY + linePadding + (lineIdx * singleLineHeight);
                 const dummy = [{ type: 'text', text: line }];
-                drawInlineText(dummy, sizes.body, (i * colWidth) + 2);
+                // セル内テキスト描画時は自動改ページを無効化
+                drawInlineText(dummy, sizes.body, (i * colWidth) + 2, false, true);
                 currentY = savedY;
               });
             });
