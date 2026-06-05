@@ -120,6 +120,65 @@ function getImageDimensions(file: Blob): Promise<string> {
   });
 }
 
+/**
+ * SVGファイルの寸法が指定されていない場合、viewBoxからwidthとheightを計算してSVGファイルに明示的に書き込みます。
+ * これにより、canvasへの描画時や画像圧縮時にブラウザのデフォルトサイズ(150x150など)に縮小されるのを防ぎます。
+ * 
+ * @param file 処理対象の画像ファイル
+ * @returns 寸法が書き込まれた新しいSVGファイル、または元のファイル
+ */
+async function fixSvgDimensions(file: File): Promise<File> {
+  if (file.type !== 'image/svg+xml') return file;
+  
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const text = e.target?.result as string;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, 'image/svg+xml');
+        const svg = doc.querySelector('svg');
+        if (svg) {
+          const w = svg.getAttribute('width');
+          const h = svg.getAttribute('height');
+          const viewBox = svg.getAttribute('viewBox');
+
+          const parseDim = (val: string | null) => {
+            if (!val) return null;
+            const parsed = parseFloat(val);
+            return isNaN(parsed) ? null : parsed;
+          };
+
+          let widthNum = parseDim(w);
+          let heightNum = parseDim(h);
+
+          if ((!widthNum || !heightNum) && viewBox) {
+            const parts = viewBox.trim().split(/[\s,]+/);
+            if (parts.length >= 4) {
+              if (!widthNum) widthNum = parseFloat(parts[2]);
+              if (!heightNum) heightNum = parseFloat(parts[3]);
+            }
+          }
+
+          if (widthNum && heightNum && (!w || !h || w.includes('%') || h.includes('%'))) {
+            svg.setAttribute('width', widthNum.toString());
+            svg.setAttribute('height', heightNum.toString());
+            const serializer = new XMLSerializer();
+            const newSvgString = serializer.serializeToString(doc);
+            resolve(new File([newSvgString], file.name, { type: file.type }));
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn('SVG fix parse error', err);
+      }
+      resolve(file);
+    };
+    reader.onerror = () => resolve(file);
+    reader.readAsText(file);
+  });
+}
+
 function readFileAsDataURL(file: Blob): Promise<string> {
   return new Promise((resolve) => {
     const reader = new FileReader();
@@ -466,6 +525,8 @@ export default function ImageOptimizer(): JSX.Element {
           const fileName = `img_${sequentialNumber}.${extension}`;
           finalFile = new File([file], fileName, { type: file.type });
         }
+
+        finalFile = await fixSvgDimensions(finalFile);
 
         const url = URL.createObjectURL(finalFile);
         const dimensions = await getImageDimensions(finalFile);
