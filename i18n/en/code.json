@@ -1748,9 +1748,6 @@
   "diff.options.ignoreWhitespace": {
     "message": "Ignore Whitespace"
   },
-  "diff.tooltip.split": {
-    "message": "Split View"
-  },
   "diff.tooltip.unified": {
     "message": "Unified View"
   },
@@ -1849,5 +1846,122 @@
   },
   "markdownPdf.preview.noPdf": {
     "message": "PDF preview could not be displayed."
+  },
+  "home.tools.seo.title": {
+    "message": "SEO Metadata Extractor"
+  },
+  "home.tools.seo.desc": {
+    "message": "Extract and preview SEO metadata (favicon, OGP, title, description, keywords, etc.) by entering a URL or pasting HTML. Safe local processing."
+  },
+  "seo.tab.urlMode": {
+    "message": "Analyze by URL"
+  },
+  "seo.tab.htmlMode": {
+    "message": "Analyze by HTML"
+  },
+  "seo.input.urlLabel": {
+    "message": "Website URL to analyze"
+  },
+  "seo.input.htmlLabel": {
+    "message": "HTML Source Code"
+  },
+  "seo.security.title": {
+    "message": "About Privacy"
+  },
+  "seo.security.desc": {
+    "message": "When analyzing URLs automatically, it temporarily goes through an external free CORS proxy to fetch the HTML. If you want to analyze private URLs like internal system pages or those containing personal information, please use the 'Analyze by HTML' mode (processed entirely within your browser)."
+  },
+  "seo.action.parsing": {
+    "message": "Parsing..."
+  },
+  "seo.action.parse": {
+    "message": "Analyze"
+  },
+  "seo.action.download": {
+    "message": "Download"
+  },
+  "seo.state.loading": {
+    "message": "Fetching and parsing HTML..."
+  },
+  "seo.error.title": {
+    "message": "An Error Occurred"
+  },
+  "seo.error.invalidUrl": {
+    "message": "Please enter a valid URL."
+  },
+  "seo.error.fetchFailed": {
+    "message": "Failed to load the URL. This might be due to security restrictions (CORS) or network issues on the target site. Try pasting the HTML directly in 'Analyze by HTML' mode."
+  },
+  "seo.error.parseFailed": {
+    "message": "Failed to parse HTML. Please check the source code."
+  },
+  "seo.resultTab.preview": {
+    "message": "Preview"
+  },
+  "seo.resultTab.basic": {
+    "message": "Basic Meta"
+  },
+  "seo.resultTab.ogp": {
+    "message": "OGP & SNS"
+  },
+  "seo.resultTab.json": {
+    "message": "JSON Data"
+  },
+  "seo.preview.title": {
+    "message": "Search Results & SNS Share Preview"
+  },
+  "seo.preview.noTitle": {
+    "message": "No title is set"
+  },
+  "seo.preview.noDesc": {
+    "message": "No description is set. Search engines might automatically generate it from the page content."
+  },
+  "seo.preview.noImage": {
+    "message": "No OGP Image"
+  },
+  "seo.eval.title": {
+    "message": "Character Length Check"
+  },
+  "seo.meta.title": {
+    "message": "Title"
+  },
+  "seo.meta.desc": {
+    "message": "Description"
+  },
+  "seo.recommend": {
+    "message": "Recommended"
+  },
+  "seo.status.missing": {
+    "message": "Missing"
+  },
+  "seo.status.good": {
+    "message": "Optimal"
+  },
+  "seo.status.short": {
+    "message": "Too Short"
+  },
+  "seo.status.long": {
+    "message": "Too Long"
+  },
+  "seo.item.title": {
+    "message": "Title"
+  },
+  "seo.item.desc": {
+    "message": "Description"
+  },
+  "seo.item.keywords": {
+    "message": "Keywords"
+  },
+  "seo.item.robots": {
+    "message": "Search Exclusion (Robots)"
+  },
+  "seo.empty": {
+    "message": "Not set"
+  },
+  "seo.empty.none": {
+    "message": "Not set (Indexing Allowed)"
+  },
+  "seo.export.success": {
+    "message": "JSON file successfully exported"
   }
 }

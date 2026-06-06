@@ -15,7 +15,8 @@ import {
   Calendar, 
   Target,
   Gauge,
-  FileDown
+  FileDown,
+  Globe
 } from 'lucide-react';
 import styles from './styles.module.css';
 
@@ -162,6 +163,15 @@ export const tools = [
     description: 'アップロードしたマークダウンファイルや直接入力したテキストを、文字の選択や検索が可能なPDFに変換してダウンロードします。',
     link: '/markdown-pdf',
     gradient: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)',
+  },
+  {
+    icon: <Globe size={ICON_SIZE} />,
+    titleId: 'home.tools.seo.title',
+    title: 'SEO情報（メタデータ）抽出ツール',
+    descriptionId: 'home.tools.seo.desc',
+    description: '入力したURLやHTMLソースコードから、faviconやOGP画像、タイトル、説明文、キーワードなどのSEO関連のメタ情報を抜き出します。ブラウザ内で安全に動作します。',
+    link: '/tools/seo-extractor',
+    gradient: 'linear-gradient(135deg, #0f172a 0%, #38bdf8 100%)',
   },
 ];
 
