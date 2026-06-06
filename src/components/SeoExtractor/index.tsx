@@ -269,7 +269,7 @@ export default function SeoExtractor(): JSX.Element {
       setResultTab(0); // プレビュータブを初期表示
     } catch (err) {
       console.error(err);
-      setError(translate({ id: 'seo.error.fetchFailed', message: 'メタデータの取得に失敗しました。URLが正しいか、または対象サイトがアクセスをブロックしている可能性があります。' }));
+      setError(translate({ id: 'seo.error.fetchFailed', message: 'メタデータの取得に失敗しました。URLが間違っているか、または対象サイトがアクセスをブロックしている可能性があります。' }));
     } finally {
       setLoading(false);
     }
