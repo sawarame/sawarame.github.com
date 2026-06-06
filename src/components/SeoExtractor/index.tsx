@@ -180,6 +180,8 @@ const getTimestamp = (): string => {
 
 export default function SeoExtractor(): JSX.Element {
   // 入力状態
+  const [inputMode, setInputMode] = useState<'url' | 'html'>('url');
+  const [inputUrl, setInputUrl] = useState('');
   const [inputHtml, setInputHtml] = useState('');
 
   // 解析データ・処理状態
@@ -227,6 +229,50 @@ export default function SeoExtractor(): JSX.Element {
       open: true,
       message: translate({ id: 'seo.export.success', message: 'JSONファイルをエクスポートしました' }),
     });
+  };
+
+  /**
+   * 指定されたURLからメタデータを取得します。
+   */
+  const handleFetchMetadata = async () => {
+    if (!inputUrl.trim()) return;
+
+    let targetUrl = inputUrl.trim();
+    if (!/^https?:\/\//i.test(targetUrl)) {
+      targetUrl = 'https://' + targetUrl;
+    }
+
+    setLoading(true);
+    setError(null);
+    setExtractedData(null);
+    
+    try {
+      const baseUrl = process.env.NODE_ENV === 'development' 
+        ? 'http://127.0.0.1:3001/v1/website/metadata' 
+        : 'https://api.sawara.me/v1/website/metadata';
+      
+      const url = new URL(baseUrl);
+      url.searchParams.append('url', targetUrl);
+
+      const response = await fetch(url.toString(), {
+        method: 'GET',
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data: SeoData = await response.json();
+      
+      setSourceUrl(targetUrl);
+      setExtractedData(data);
+      setResultTab(0); // プレビュータブを初期表示
+    } catch (err) {
+      console.error(err);
+      setError(translate({ id: 'seo.error.fetchFailed', message: 'メタデータの取得に失敗しました。URLが正しいか、または対象サイトがアクセスをブロックしている可能性があります。' }));
+    } finally {
+      setLoading(false);
+    }
   };
 
   /**
@@ -279,6 +325,7 @@ export default function SeoExtractor(): JSX.Element {
    * 入力データと解析結果を完全にクリアします。
    */
   const handleReset = () => {
+    setInputUrl('');
     setInputHtml('');
     setExtractedData(null);
     setError(null);
@@ -360,54 +407,123 @@ export default function SeoExtractor(): JSX.Element {
         
         {/* 入力エリア */}
         <div className={common.card}>
-          <Stack spacing={2}>
-            <TextField
-              label={translate({ id: 'seo.input.htmlLabel', message: 'HTMLソースコード' })}
-              variant="outlined"
-              multiline
-              rows={8}
-              fullWidth
-              value={inputHtml}
-              onChange={(e) => setInputHtml(e.target.value)}
-              placeholder="<!DOCTYPE html><html><head><title>サンプル...</title></head><body>...</body></html>"
-            />
-            <div className={styles.warningBox} style={{ borderLeftColor: 'var(--ifm-color-success)' }}>
-              🔒 <strong>{translate({ id: 'seo.security.title.secure', message: '100% 安全なローカル処理 (CORS制限なし)' })}</strong>
-              <p style={{ margin: '4px 0 0 0', fontSize: '0.8rem', lineHeight: '1.4', color: 'var(--ifm-color-emphasis-700)' }}>
-                {translate({
-                  id: 'seo.security.desc.secure',
-                  message:
-                    '貼り付けられたHTMLソースコードは、完全にあなたのブラウザの内部（ローカル）でのみ解析処理されます。外部のサーバーへURLやHTMLデータが送信されることは一切ありません。オフライン環境や、社内向けの非公開サイトのソースコードであっても、完全に安全にご利用いただけます。',
-                })}
-              </p>
-            </div>
-            <Stack direction="row" spacing={2} justifyContent="flex-end">
-              <Button
+          <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 2 }}>
+            <Tabs
+              value={inputMode}
+              onChange={(_, val) => {
+                setInputMode(val);
+                handleReset();
+              }}
+              textColor="primary"
+              indicatorColor="primary"
+            >
+              <Tab label={translate({ id: 'seo.tab.url', message: 'URLから取得' })} value="url" />
+              <Tab label={translate({ id: 'seo.tab.html', message: 'HTMLを貼り付け' })} value="html" />
+            </Tabs>
+          </Box>
+
+          {inputMode === 'url' ? (
+            <Stack spacing={2}>
+              <TextField
+                label={translate({ id: 'seo.input.urlLabel', message: '対象のURL' })}
                 variant="outlined"
-                color="inherit"
-                onClick={handleReset}
-                disabled={loading || (!inputHtml && !extractedData)}
-                startIcon={<RefreshIcon />}
-              >
-                {translate({ id: 'common.reset', message: 'クリア' })}
-              </Button>
-              <Button
-                variant="contained"
-                onClick={handleParseFromHtml}
-                disabled={loading || !inputHtml}
-                style={{
-                  background: 'linear-gradient(135deg, #667eea, #764ba2)',
-                  color: '#ffffff',
-                  fontWeight: 'bold',
+                fullWidth
+                value={inputUrl}
+                onChange={(e) => setInputUrl(e.target.value)}
+                placeholder="https://example.com"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !loading && inputUrl) {
+                    handleFetchMetadata();
+                  }
                 }}
-                startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <SearchIcon />}
-              >
-                {loading
-                  ? translate({ id: 'seo.action.parsing', message: '解析中...' })
-                  : translate({ id: 'seo.action.parse', message: '解析する' })}
-              </Button>
+              />
+              <div className={styles.warningBox} style={{ borderLeftColor: 'var(--ifm-color-info)' }}>
+                ℹ️ <strong>{translate({ id: 'seo.info.title', message: 'URLから自動取得' })}</strong>
+                <p style={{ margin: '4px 0 0 0', fontSize: '0.8rem', lineHeight: '1.4', color: 'var(--ifm-color-emphasis-700)' }}>
+                  {translate({
+                    id: 'seo.info.desc',
+                    message:
+                      '指定されたURLへサーバーからアクセスし、メタデータを取得します。※認証が必要なページや内部ネットワークのページは取得できない場合があります。',
+                  })}
+                </p>
+              </div>
+              <Stack direction="row" spacing={2} justifyContent="flex-end">
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  onClick={handleReset}
+                  disabled={loading || (!inputUrl && !extractedData)}
+                  startIcon={<RefreshIcon />}
+                >
+                  {translate({ id: 'common.reset', message: 'クリア' })}
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={handleFetchMetadata}
+                  disabled={loading || !inputUrl}
+                  style={{
+                    background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                    color: '#ffffff',
+                    fontWeight: 'bold',
+                  }}
+                  startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <SearchIcon />}
+                >
+                  {loading
+                    ? translate({ id: 'seo.action.fetching', message: '取得中...' })
+                    : translate({ id: 'seo.action.fetch', message: '取得する' })}
+                </Button>
+              </Stack>
             </Stack>
-          </Stack>
+          ) : (
+            <Stack spacing={2}>
+              <TextField
+                label={translate({ id: 'seo.input.htmlLabel', message: 'HTMLソースコード' })}
+                variant="outlined"
+                multiline
+                rows={8}
+                fullWidth
+                value={inputHtml}
+                onChange={(e) => setInputHtml(e.target.value)}
+                placeholder="<!DOCTYPE html><html><head><title>サンプル...</title></head><body>...</body></html>"
+              />
+              <div className={styles.warningBox} style={{ borderLeftColor: 'var(--ifm-color-success)' }}>
+                🔒 <strong>{translate({ id: 'seo.security.title.secure', message: '100% 安全なローカル処理 (CORS制限なし)' })}</strong>
+                <p style={{ margin: '4px 0 0 0', fontSize: '0.8rem', lineHeight: '1.4', color: 'var(--ifm-color-emphasis-700)' }}>
+                  {translate({
+                    id: 'seo.security.desc.secure',
+                    message:
+                      '貼り付けられたHTMLソースコードは、完全にあなたのブラウザの内部（ローカル）でのみ解析処理されます。外部のサーバーへURLやHTMLデータが送信されることは一切ありません。オフライン環境や、社内向けの非公開サイトのソースコードであっても、完全に安全にご利用いただけます。',
+                  })}
+                </p>
+              </div>
+              <Stack direction="row" spacing={2} justifyContent="flex-end">
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  onClick={handleReset}
+                  disabled={loading || (!inputHtml && !extractedData)}
+                  startIcon={<RefreshIcon />}
+                >
+                  {translate({ id: 'common.reset', message: 'クリア' })}
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={handleParseFromHtml}
+                  disabled={loading || !inputHtml}
+                  style={{
+                    background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                    color: '#ffffff',
+                    fontWeight: 'bold',
+                  }}
+                  startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <SearchIcon />}
+                >
+                  {loading
+                    ? translate({ id: 'seo.action.parsing', message: '解析中...' })
+                    : translate({ id: 'seo.action.parse', message: '解析する' })}
+                </Button>
+              </Stack>
+            </Stack>
+          )}
         </div>
 
         {/* エラー表示 */}
