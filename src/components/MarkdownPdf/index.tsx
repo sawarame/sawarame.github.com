@@ -113,6 +113,7 @@ function MarkdownPdfContent() {
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
   
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const lastGeneratedTextRef = useRef<string>('');
 
   // URLパラメータと localStorage から初期値を復元
   useEffect(() => {
@@ -673,6 +674,7 @@ function MarkdownPdfContent() {
         }
         const newUrl = URL.createObjectURL(blob);
         setPdfBlobUrl(newUrl);
+        lastGeneratedTextRef.current = markdownText;
         setActiveTab(1);
       }
     } catch (error) {
@@ -727,6 +729,121 @@ function MarkdownPdfContent() {
       }
     };
   }, [pdfBlobUrl]);
+
+  /**
+   * マークダウンからHTMLを生成し、スタイルを埋め込んでダウンロードします。
+   */
+  const handleDownloadHtml = () => {
+    if (!markdownText.trim()) return;
+
+    try {
+      const htmlContent = marked.parse(markdownText) as string;
+      const htmlDocument = `<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Markdown Export</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.7;
+      color: #333333;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background-color: #ffffff;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      color: #111111;
+      border-bottom: 1px solid #eaecef;
+      padding-bottom: 0.3em;
+      margin-top: 24px;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.5em; }
+    h3 { font-size: 1.25em; }
+    a { color: #0366d6; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      padding: 0.2em 0.4em;
+      margin: 0;
+      font-size: 85%;
+      background-color: rgba(27, 31, 35, 0.05);
+      border-radius: 3px;
+      font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    pre {
+      padding: 16px;
+      overflow: auto;
+      font-size: 85%;
+      line-height: 1.45;
+      background-color: #f6f8fa;
+      border-radius: 6px;
+    }
+    pre code {
+      background-color: transparent;
+      padding: 0;
+      font-size: 100%;
+    }
+    blockquote {
+      padding: 0 1em;
+      color: #6a737d;
+      border-left: 0.25em solid #dfe2e5;
+      margin: 0 0 16px 0;
+    }
+    table {
+      border-spacing: 0;
+      border-collapse: collapse;
+      margin-top: 0;
+      margin-bottom: 16px;
+      width: 100%;
+    }
+    table th, table td {
+      padding: 6px 13px;
+      border: 1px solid #dfe2e5;
+    }
+    table tr {
+      background-color: #ffffff;
+      border-top: 1px solid #c6cbd1;
+    }
+    table tr:nth-child(even) {
+      background-color: #f6f8fa;
+    }
+    img { max-width: 100%; }
+  </style>
+</head>
+<body>
+  ${htmlContent}
+</body>
+</html>`;
+
+      const blob = new Blob([htmlDocument], { type: 'text/html;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+
+      // タイムスタンプ生成
+      const date = new Date();
+      const timestamp = date.getFullYear().toString() +
+        (date.getMonth() + 1).toString().padStart(2, '0') +
+        date.getDate().toString().padStart(2, '0') +
+        date.getHours().toString().padStart(2, '0') +
+        date.getMinutes().toString().padStart(2, '0') +
+        date.getSeconds().toString().padStart(2, '0');
+
+      link.setAttribute('download', `markdown_${timestamp}.html`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error(error);
+      alert(translate({ id: 'markdownPdf.error.htmlGenerate', message: 'HTMLの生成中にエラーが発生しました。' }));
+    }
+  };
 
   return (
     <MuiTheme>
@@ -900,14 +1017,11 @@ function MarkdownPdfContent() {
                   variant="contained"
                   color="primary"
                   fullWidth
-                  onClick={() => generatePdfInstance(false)}
-                  disabled={isGeneratingPdf || isFontLoading || !markdownText.trim()}
-                  startIcon={isGeneratingPdf ? <CircularProgress size={20} color="inherit" /> : null}
+                  onClick={handleDownloadHtml}
+                  disabled={!markdownText.trim()}
+                  startIcon={<DownloadIcon />}
                 >
-                  {isFontLoading 
-                    ? translate({ id: 'markdownPdf.btn.loadingFont', message: 'フォント準備中...' }) 
-                    : translate({ id: 'markdownPdf.btn.preview', message: 'PDF プレビュー生成' })
-                  }
+                  {translate({ id: 'markdownPdf.btn.downloadHtml', message: 'HTML ダウンロード' })}
                 </Button>
                 <Button
                   variant="contained"
@@ -926,9 +1040,20 @@ function MarkdownPdfContent() {
           {/* 4. プレビューエリア */}
           <Card variant="outlined" className={styles.card}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <Tabs value={activeTab} onChange={(_, val) => setActiveTab(val)} variant="fullWidth">
+              <Tabs 
+                value={activeTab} 
+                onChange={(_, val) => {
+                  setActiveTab(val);
+                  if (val === 1) {
+                    if (!pdfBlobUrl || lastGeneratedTextRef.current !== markdownText) {
+                      generatePdfInstance(false);
+                    }
+                  }
+                }} 
+                variant="fullWidth"
+              >
                 <Tab label={translate({ id: 'markdownPdf.tab.previewHtml', message: 'HTML プレビュー' })} />
-                <Tab label={translate({ id: 'markdownPdf.tab.previewPdf', message: 'PDF プレビュー' })} disabled={!pdfBlobUrl} />
+                <Tab label={translate({ id: 'markdownPdf.tab.previewPdf', message: 'PDF プレビュー' })} disabled={!markdownText.trim()} />
               </Tabs>
             </Box>
             <CardContent className={styles.previewContainer}>
@@ -950,15 +1075,31 @@ function MarkdownPdfContent() {
                 </Paper>
               )}
 
-              {activeTab === 1 && pdfBlobUrl && (
-                <Box className={styles.pdfPreviewWrap}>
-                  <iframe
-                    src={`${pdfBlobUrl}#toolbar=0`}
-                    width="100%"
-                    height="100%"
-                    className={styles.pdfIframe}
-                    title="PDF Preview"
-                  />
+              {activeTab === 1 && (
+                <Box className={styles.pdfPreviewWrap} display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+                  {isGeneratingPdf || isFontLoading ? (
+                    <Stack spacing={2} alignItems="center" justifyContent="center">
+                      <CircularProgress />
+                      <Typography color="text.secondary">
+                        {isFontLoading 
+                          ? translate({ id: 'markdownPdf.preview.loadingFont', message: 'フォントを読み込み中...' })
+                          : translate({ id: 'markdownPdf.preview.generating', message: 'PDFを生成中...' })
+                        }
+                      </Typography>
+                    </Stack>
+                  ) : pdfBlobUrl ? (
+                    <iframe
+                      src={`${pdfBlobUrl}#toolbar=0`}
+                      width="100%"
+                      height="100%"
+                      className={styles.pdfIframe}
+                      title="PDF Preview"
+                    />
+                  ) : (
+                    <Typography color="text.secondary">
+                      {translate({ id: 'markdownPdf.preview.noPdf', message: 'PDFプレビューを表示できません。' })}
+                    </Typography>
+                  )}
                 </Box>
               )}
             </CardContent>

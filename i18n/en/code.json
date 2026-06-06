@@ -1817,8 +1817,8 @@
   "markdownPdf.btn.loadingFont": {
     "message": "Loading Font..."
   },
-  "markdownPdf.btn.preview": {
-    "message": "Generate PDF Preview"
+  "markdownPdf.btn.downloadHtml": {
+    "message": "Download HTML"
   },
   "markdownPdf.btn.download": {
     "message": "Download PDF"
@@ -1837,5 +1837,17 @@
   },
   "markdownPdf.confirm.clear": {
     "message": "Are you sure you want to clear the text?"
+  },
+  "markdownPdf.error.htmlGenerate": {
+    "message": "An error occurred while generating HTML."
+  },
+  "markdownPdf.preview.loadingFont": {
+    "message": "Loading font..."
+  },
+  "markdownPdf.preview.generating": {
+    "message": "Generating PDF..."
+  },
+  "markdownPdf.preview.noPdf": {
+    "message": "PDF preview could not be displayed."
   }
 }
