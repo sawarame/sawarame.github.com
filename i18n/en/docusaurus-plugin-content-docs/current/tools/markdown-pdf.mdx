@@ -1,0 +1,36 @@
+---
+title: Markdown to PDF Converter
+slug: /markdown-pdf
+sidebar_position: 15
+hide_title: true
+---
+
+import MarkdownPdf from "@site/src/components/MarkdownPdf";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { FileDown } from "lucide-react";
+
+<ToolPageHeader
+  title="Markdown to PDF Converter"
+  desc="Convert uploaded Markdown files (.md) or directly entered text into text-selectable and searchable PDFs right in your browser."
+  icon={<FileDown size={48} color="#fff" />}
+/>
+
+<MarkdownPdf />
+
+## How to Use
+
+1. **Input Markdown**:
+   * **Load File**: Click "Select Markdown File" to select a `.md` file, or simply drag and drop it.
+   * **Paste Text**: Paste or type your Markdown text directly into the editor text area.
+2. **Configure Options**:
+   * Adjust the font size, margin, page format (A4/Letter), page orientation (Portrait/Landscape), and page number display in the settings panel.
+3. **Verify Preview**:
+   * **HTML Preview**: View the rendered Markdown HTML in real-time.
+   * **PDF Preview**: Select the "PDF Preview" tab to automatically generate and view the PDF layout below.
+4. **Download Files**:
+   * **Download HTML**: Click "Download HTML" to export the Markdown as a styled HTML file.
+   * **Download PDF**: Click "Download PDF" to immediately generate and download the PDF file.
+
+:::info About Security
+🔒 All processing is done strictly within your web browser. Your files and text are never sent to any server, making it safe to use even for documents with sensitive information.
+:::

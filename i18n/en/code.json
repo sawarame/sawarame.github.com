@@ -50,6 +50,9 @@
   "home.hero.subtitle": {
     "message": "Ship small things."
   },
+  "home.hero.description": {
+    "message": "A collection of browser-based tools and extensions to solve daily inconveniences."
+  },
   "home.hero.actions.tools": {
     "message": "View Tools"
   },
@@ -134,6 +137,12 @@
   "home.tools.encoding.desc": {
     "message": "Automatically detect and convert character encodings (UTF-8, Shift_JIS, etc.) while simulating the target file size. Supports pasting text."
   },
+  "home.tools.markdownPdf.title": {
+    "message": "Markdown to PDF"
+  },
+  "home.tools.markdownPdf.desc": {
+    "message": "Convert uploaded Markdown files or directly entered text into text-selectable and searchable PDFs right in your browser."
+  },
   "home.extensions.label": {
     "message": "Extensions"
   },
@@ -143,10 +152,13 @@
   "home.extensions.subtitle": {
     "message": "Extensions available on the Chrome Web Store to make your development and browsing more comfortable."
   },
+  "home.extensions.taborigami.desc": {
+    "message": "Automatically organize too many open tabs with AI. Let Gemini declutter your browser instantly."
+  },
   "home.extensions.envicon.desc": {
     "message": "A browser extension for developers that changes the favicon based on production, staging, and development environments."
   },
-  "home.extensions.geminispark.desc": {
+  "home.extensions.geminikit.desc": {
     "message": "An extension to enhance the Google Gemini web interface. Use Enter for new lines and Cmd/Ctrl+Enter to send."
   },
   "home.extensions.mdpicker.desc": {
@@ -154,6 +166,9 @@
   },
   "home.extensions.ketchuptimer.desc": {
     "message": "A Pomodoro timer with a fun ketchup bottle concept. The ketchup level represents your remaining focus time, making productivity more visual and engaging."
+  },
+  "home.extensions.foursight.desc": {
+    "message": "An extension to track and visualize GitHub Four Keys (DORA metrics), helping to improve your development team's performance."
   },
   "home.extensions.linkText": {
     "message": "View on Chrome Web Store →"
@@ -1735,6 +1750,102 @@
   },
   "diff.tooltip.unified": {
     "message": "Unified View"
+  },
+  "markdownPdf.editor.title": {
+    "message": "Markdown Input"
+  },
+  "markdownPdf.editor.sample": {
+    "message": "Insert Sample"
+  },
+  "markdownPdf.editor.clear": {
+    "message": "Clear"
+  },
+  "markdownPdf.upload.button": {
+    "message": "Select Markdown File (.md)"
+  },
+  "markdownPdf.upload.dropText": {
+    "message": "or drag & drop files here, or paste"
+  },
+  "markdownPdf.editor.placeholder": {
+    "message": "# Type your markdown here..."
+  },
+  "markdownPdf.options.title": {
+    "message": "PDF Layout Settings"
+  },
+  "markdownPdf.options.fontSize": {
+    "message": "Font Size"
+  },
+  "markdownPdf.options.fontSize.small": {
+    "message": "Small (10pt)"
+  },
+  "markdownPdf.options.fontSize.medium": {
+    "message": "Medium (12pt)"
+  },
+  "markdownPdf.options.fontSize.large": {
+    "message": "Large (14pt)"
+  },
+  "markdownPdf.options.margin": {
+    "message": "Margin"
+  },
+  "markdownPdf.options.margin.narrow": {
+    "message": "Narrow (10mm)"
+  },
+  "markdownPdf.options.margin.normal": {
+    "message": "Normal (20mm)"
+  },
+  "markdownPdf.options.margin.wide": {
+    "message": "Wide (30mm)"
+  },
+  "markdownPdf.options.format": {
+    "message": "Page Format"
+  },
+  "markdownPdf.options.orientation": {
+    "message": "Orientation"
+  },
+  "markdownPdf.options.orientation.portrait": {
+    "message": "Portrait"
+  },
+  "markdownPdf.options.orientation.landscape": {
+    "message": "Landscape"
+  },
+  "markdownPdf.options.pageNumbers": {
+    "message": "Show page numbers in footer"
+  },
+  "markdownPdf.btn.loadingFont": {
+    "message": "Loading Font..."
+  },
+  "markdownPdf.btn.downloadHtml": {
+    "message": "Download HTML"
+  },
+  "markdownPdf.btn.download": {
+    "message": "Download PDF"
+  },
+  "markdownPdf.tab.previewHtml": {
+    "message": "HTML Preview"
+  },
+  "markdownPdf.tab.previewPdf": {
+    "message": "PDF Preview"
+  },
+  "markdownPdf.preview.empty": {
+    "message": "Type markdown to preview rendering here."
+  },
+  "markdownPdf.error.generate": {
+    "message": "An error occurred during PDF generation."
+  },
+  "markdownPdf.confirm.clear": {
+    "message": "Are you sure you want to clear the text?"
+  },
+  "markdownPdf.error.htmlGenerate": {
+    "message": "An error occurred while generating HTML."
+  },
+  "markdownPdf.preview.loadingFont": {
+    "message": "Loading font..."
+  },
+  "markdownPdf.preview.generating": {
+    "message": "Generating PDF..."
+  },
+  "markdownPdf.preview.noPdf": {
+    "message": "PDF preview could not be displayed."
   },
   "home.tools.seo.title": {
     "message": "SEO Metadata Extractor"

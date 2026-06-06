@@ -105,6 +105,16 @@
   line-height: 1.5;
 }
 
+.heroDescription {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 600px;
+  margin: 0.5rem auto 1.5rem;
+  line-height: 1.6;
+  font-weight: 500;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
 .heroAbout {
   opacity: 0.8;
   transition: opacity 0.2s;

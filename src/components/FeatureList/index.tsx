@@ -15,15 +15,18 @@ import {
   Calendar, 
   Target,
   Gauge,
+  FileDown,
   Globe
 } from 'lucide-react';
 import styles from './styles.module.css';
 
+import TabOrigamiPng from '@site/src/icons/TabOrigami.png';
 import EnvIconPng from '@site/src/icons/EnvIcon.png';
-import GeminiSparkPng from '@site/src/icons/gemini-spark.png';
+import GemiKit from '@site/src/icons/GemiKit.png';
 import MdPickerPng from '@site/src/icons/MdPicker.png';
 import KetchupTimerPng from '@site/src/icons/KetchupTimer.png';
 import NickmarkPng from '@site/src/icons/Nickmark.png';
+import FourSightPng from '@site/src/icons/FourSight.png';
 
 // ============================================================
 // Data
@@ -153,6 +156,15 @@ export const tools = [
     gradient: 'linear-gradient(135deg, #ff0844 0%, #ffb199 100%)',
   },
   {
+    icon: <FileDown size={ICON_SIZE} />,
+    titleId: 'home.tools.markdownPdf.title',
+    title: 'マークダウンPDF変換',
+    descriptionId: 'home.tools.markdownPdf.desc',
+    description: 'アップロードしたマークダウンファイルや直接入力したテキストを、文字の選択や検索が可能なPDFに変換してダウンロードします。',
+    link: '/markdown-pdf',
+    gradient: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)',
+  },
+  {
     icon: <Globe size={ICON_SIZE} />,
     titleId: 'home.tools.seo.title',
     title: 'SEO情報（メタデータ）抽出ツール',
@@ -164,6 +176,15 @@ export const tools = [
 ];
 
 export const extensions = [
+  {
+    iconSrc: TabOrigamiPng,
+    title: 'TabOrigami',
+    descriptionId: 'home.extensions.taborigami.desc',
+    description:
+      '開きすぎたタブをAIが自動分類。Geminiの力で散らかったブラウザをスッキリ整理します。',
+    link: 'https://chromewebstore.google.com/detail/taborigami/fdlipkbmeeompfjhhapjlgcccpgfndpe',
+    badge: 'Chrome Web Store',
+  },
   {
     iconSrc: EnvIconPng,
     title: 'EnvIcon',
@@ -201,12 +222,21 @@ export const extensions = [
     badge: 'Chrome Web Store',
   },
   {
-    iconSrc: GeminiSparkPng,
-    title: 'Shiftless Enter for Gemini',
-    descriptionId: 'home.extensions.geminispark.desc',
+    iconSrc: GemiKit,
+    title: 'GemiKit',
+    descriptionId: 'home.extensions.gemikit.desc',
     description:
       'Google Gemini のウェブインターフェースを強化するためのブラウザ拡張機能です。エンターキーで改行し、Command+Enter (Ctrl+Enter) で送信できるようになります。',
     link: 'https://chromewebstore.google.com/detail/gemini-spark/iolhhcbgkkmlfndhmpclkabebjlinkic',
+    badge: 'Chrome Web Store',
+  },
+  {
+    iconSrc: FourSightPng,
+    title: 'FourSight',
+    descriptionId: 'home.extensions.foursight.desc',
+    description:
+      'GitHubのFour Keys（DORAメトリクス）を計測・可視化し、開発チームのパフォーマンス改善をサポートする拡張機能です。',
+    link: 'https://chromewebstore.google.com/detail/foursight-dora-tracker-fo/ealiipikbpepgdeojlkjjibgfpdnmgam',
     badge: 'Chrome Web Store',
   },
 ];
