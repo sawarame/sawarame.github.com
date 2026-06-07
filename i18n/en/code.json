@@ -830,6 +830,9 @@
   "qr.event.end": {
     "message": "End Date & Time"
   },
+  "qr.event.error.date": {
+    "message": "End Date & Time must be after Start Date & Time"
+  },
   "qr.email.to": {
     "message": "Recipient Email"
   },
