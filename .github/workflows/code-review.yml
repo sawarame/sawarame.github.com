@@ -36,10 +36,20 @@ jobs:
           AGY_API_KEY: ${{ secrets.AGY_API_KEY }}
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # 1. --quiet フラグを追加して、余計なシステムログが JSON に混ざるのを防ぎます
-          agy run --review --target=./src --target=./blog --target=./docs --target=./i18n --target=./static --format=rdjson --quiet > agy_result.json
+          # 1. 一度すべての出力をファイルに保存
+          agy run --review --target=./src --target=./blog --target=./docs --target=./i18n --target=./static --format=rdjson > agy_raw_result.json
+
+          # 出力1
+          cat agy_raw_result.json
           
-          # 2. 結果ファイルが存在し、中身がある場合のみ reviewdog でコメントを投稿
-          if [ -s agy_result.json ]; then
-            cat agy_result.json | reviewdog -f=rdjson -reporter=github-pr-review -level=warning
+          # 2. 最初に出現する「{」からファイルの末尾までを抽出し、綺麗な JSON ファイルを作る
+          # (これにより先頭に混ざる 'CLI setup...' などの不要なログを完全に消し去ります)
+          sed -n '/{/,$p' agy_raw_result.json > agy_clean_result.json
+
+          # 出力2
+          cat agy_clean_result.json
+          
+          # 3. 中身がある場合のみ reviewdog に流し込む
+          if [ -s agy_clean_result.json ]; then
+            cat agy_clean_result.json | reviewdog -f=rdjson -reporter=github-pr-review -level=warning
           fi
