@@ -15,16 +15,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         
-      - name: Setup Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: 'stable'
-
       - name: Install Antigravity CLI
         run: |
-          # Goを使って公式リポジトリからCLIをインストール
-          go install github.com/google/antigravity/cmd/agy@latest
-          echo "$HOME/go/bin" >> $GITHUB_PATH
+          # 公式の高速インストールスクリプトを実行（Linux環境用）
+          curl -fsSL https://antigravity.google/cli/install.sh | bash
+          
+          # インストールされたバイナリのパスを GitHub Actions の環境に通す
+          # ※通常 /usr/local/bin や $HOME/.local/bin 等に展開されますが、確実にするため以下を指定
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          echo "/usr/local/bin" >> $GITHUB_PATH
 
       # reviewdog をセットアップ
       - name: Setup reviewdog
