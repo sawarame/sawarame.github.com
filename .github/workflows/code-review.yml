@@ -14,11 +14,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 'stable'
 
       - name: Install Antigravity CLI
         run: |
-          curl -sSf https://install.antigravity.sh | sh
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          # Goを使って公式リポジトリからCLIをインストール
+          go install github.com/google/antigravity/cmd/agy@latest
+          echo "$HOME/go/bin" >> $GITHUB_PATH
 
       # reviewdog をセットアップ
       - name: Setup reviewdog
