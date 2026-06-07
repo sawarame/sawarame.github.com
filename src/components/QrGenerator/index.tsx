@@ -75,6 +75,7 @@ export default function QrGenerator(): React.JSX.Element {
       case 'contact':
         return `MECARD:N:${contactName};TEL:${contactTel};EMAIL:${contactEmail};;`;
       case 'event': {
+        if (eventStart && eventEnd && new Date(eventStart) >= new Date(eventEnd)) return '';
         const formatDT = (dt: string) => {
           if (!dt) return '';
           return dt.replace(/[-:]/g, '') + '00';
@@ -96,10 +97,19 @@ export default function QrGenerator(): React.JSX.Element {
 
   const activeLogo = usePresetLogo ? PRESET_LOGOS[mode] : logoImage;
 
+  const utf8Data = useMemo(() => {
+    const data = generatedText || ' ';
+    try {
+      return unescape(encodeURIComponent(data));
+    } catch {
+      return data;
+    }
+  }, [generatedText]);
+
   const qrOptions = useMemo<Options>(() => ({
     width: resolution,
     height: resolution,
-    data: generatedText || ' ',
+    data: utf8Data,
     image: activeLogo || undefined,
     dotsOptions: {
       type: dotsType,
@@ -137,6 +147,9 @@ export default function QrGenerator(): React.JSX.Element {
         qrCodeRef.current = qrCode;
       } else {
         qrCodeRef.current.update(qrOptions);
+        if (!qrContainerRef.current.firstChild) {
+          qrCodeRef.current.append(qrContainerRef.current);
+        }
       }
     }
   }, [qrOptions]);
@@ -286,7 +299,16 @@ export default function QrGenerator(): React.JSX.Element {
               <>
                 <TextField fullWidth label={translate({ id: 'qr.event.name', message: '予定名' })} value={eventName} onChange={(e) => setEventName(e.target.value)} />
                 <TextField fullWidth label={translate({ id: 'qr.event.start', message: '開始日時' })} type="datetime-local" InputLabelProps={{ shrink: true }} value={eventStart} onChange={(e) => setEventStart(e.target.value)} />
-                <TextField fullWidth label={translate({ id: 'qr.event.end', message: '終了日時' })} type="datetime-local" InputLabelProps={{ shrink: true }} value={eventEnd} onChange={(e) => setEventEnd(e.target.value)} />
+                <TextField 
+                  fullWidth 
+                  label={translate({ id: 'qr.event.end', message: '終了日時' })} 
+                  type="datetime-local" 
+                  InputLabelProps={{ shrink: true }} 
+                  value={eventEnd} 
+                  onChange={(e) => setEventEnd(e.target.value)} 
+                  error={Boolean(eventStart && eventEnd && new Date(eventStart) >= new Date(eventEnd))}
+                  helperText={Boolean(eventStart && eventEnd && new Date(eventStart) >= new Date(eventEnd)) ? translate({ id: 'qr.event.error.date', message: '終了日時は開始日時より後に設定してください' }) : ''}
+                />
               </>
             )}
 
