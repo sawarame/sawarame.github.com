@@ -2,7 +2,7 @@
 slug: antigravity-cli-planning-and-artifact
 title: Antigravity CLI の /planning と /artifact を活用した、計画から実装までの開発フロー実践
 date: 2026-06-08
-draft: true
+draft: false
 tags:
   - Antigravity CLI
   - Development
@@ -54,10 +54,9 @@ emoji: 🛠️
 
 まず、Antigravity CLI の対話画面で以下のように指示し、 **`/planning`** コマンドを実行してプランニングモードに移行します。
 
-<div className="text--center" style={{ margin: '2rem 0' }}>
-![alt text](images/antigravity-cli-planning-and-artifact_001.webp)
-<small style={{ display: 'block', marginTop: '-1rem', color: 'var(--ifm-color-emphasis-600)' }}>/planningコマンドで、プランニングモードに移行する</small>
-</div>
+<BlogImageWrapper caption="/planningコマンドで、プランニングモードに移行する">
+  ![プランニングモードへの移行コマンドの入力画面](images/antigravity-cli-planning-and-artifact_001.webp)
+</BlogImageWrapper>
 
 プランニングモードに移行後、実装したい内容のプロンプトを入力します。
 
@@ -69,31 +68,27 @@ emoji: 🛠️
 
 指示を入力すると、プロジェクトの `package.json` や既存のコードが解析され、 `implementation_plan.md` が Artifact として新規作成されます。
 
-<div className="text--center" style={{ margin: '2rem 0' }}>
-![alt text](images/antigravity-cli-planning-and-artifact_002.webp)
-<small style={{ display: 'block', marginTop: '-1rem', color: 'var(--ifm-color-emphasis-600)' }}>implementation_plan.mdというArtifactが作成された</small>
-</div>
+<BlogImageWrapper caption="implementation_plan.mdというArtifactが作成された">
+  ![実装計画書 (implementation_plan.md) の作成結果](images/antigravity-cli-planning-and-artifact_002.webp)
+</BlogImageWrapper>
 
 内容を確認するために `/artifact` コマンドを実行し、`implementation_plan.md` の `open` を選択して中身を確認します。
 
-<div className="text--center" style={{ margin: '2rem 0' }}>
-![alt text](images/antigravity-cli-planning-and-artifact_003.webp)
-<small style={{ display: 'block', marginTop: '-1rem', color: 'var(--ifm-color-emphasis-600)' }}>/artifactコマンドの結果からopenを選択</small>
-</div>
+<BlogImageWrapper caption="/artifactコマンドの結果からopenを選択">
+  ![/artifactコマンドによるファイル選択メニュー](images/antigravity-cli-planning-and-artifact_003.webp)
+</BlogImageWrapper>
 
 確認すると、テスト対象が3つのコンポーネントのみに限定されていたため、一度 `reject` して指示を出し直すことにしました。
 
-<div className="text--center" style={{ margin: '2rem 0' }}>
-![alt text](images/antigravity-cli-planning-and-artifact_004.webp)
-<small style={{ display: 'block', marginTop: '-1rem', color: 'var(--ifm-color-emphasis-600)' }}>implementation_plan.mdの中身</small>
-</div>
+<BlogImageWrapper caption="implementation_plan.mdの中身">
+  ![初期に提示された実装計画書の内容](images/antigravity-cli-planning-and-artifact_004.webp)
+</BlogImageWrapper>
 
 `reject` を選択すると理由を入力するよう求められるため、「5. Write-in...」を選択し、以下の具体的な要望を入力します。
 
-<div className="text--center" style={{ margin: '2rem 0' }}>
-![alt text](images/antigravity-cli-planning-and-artifact_005.webp)
-<small style={{ display: 'block', marginTop: '-1rem', color: 'var(--ifm-color-emphasis-600)' }}>reject理由選択</small>
-</div>
+<BlogImageWrapper caption="reject理由選択">
+  ![却下理由の選択オプション](images/antigravity-cli-planning-and-artifact_005.webp)
+</BlogImageWrapper>
 
 ```text
 ツール集で定義されているすべての機能に対して単体テストを実装してください。
@@ -101,54 +96,47 @@ emoji: 🛠️
 
 指示を再入力すると、再度 `implementation_plan.md` が作成されます。
 
-<div className="text--center" style={{ margin: '2rem 0' }}>
-![alt text](images/antigravity-cli-planning-and-artifact_006.webp)
-<small style={{ display: 'block', marginTop: '-1rem', color: 'var(--ifm-color-emphasis-600)' }}>reject内容から再度implementation_plan.mdが作成された</small>
-</div>
+<BlogImageWrapper caption="reject内容から再度implementation_plan.mdが作成された">
+  ![指示の再入力後に再生成された実装計画書](images/antigravity-cli-planning-and-artifact_006.webp)
+</BlogImageWrapper>
 
 再び `/artifact` コマンドを実行し、中身を確認します。
 
-<div className="text--center" style={{ margin: '2rem 0' }}>
-![alt text](images/antigravity-cli-planning-and-artifact_007.webp)
-<small style={{ display: 'block', marginTop: '-1rem', color: 'var(--ifm-color-emphasis-600)' }}>再作成されたimplementation_plan.mdの中身</small>
-</div>
+<BlogImageWrapper caption="再作成されたimplementation_plan.mdの中身">
+  ![更新された実装計画書の内容](images/antigravity-cli-planning-and-artifact_007.webp)
+</BlogImageWrapper>
 
 再作成された計画書では、すべてのツールが単体テストの作成対象に含まれていることが確認できました。テスト内容についてもさらに細かく調整することは可能ですが、今回はこの内容で進めることにします。
 
 改めて `approve` を選択します。
 
-<div className="text--center" style={{ margin: '2rem 0' }}>
-![alt text](images/antigravity-cli-planning-and-artifact_008.webp)
-<small style={{ display: 'block', marginTop: '-1rem', color: 'var(--ifm-color-emphasis-600)' }}>今度はapproveを選択</small>
-</div>
+<BlogImageWrapper caption="今度はapproveを選択">
+  ![実装計画書の承認ダイアログ](images/antigravity-cli-planning-and-artifact_008.webp)
+</BlogImageWrapper>
 
-承認後、 `task.md` が作成されます。バックグラウンドで処理が実行されている間も、 `/artifact` コマンドを使用して進捗を確認できます。
+承認後、 `task.md` が作成されます。バックグラウンドで処理が実行されている間も、 `/artifact` コマンドで進捗を確認できます。
 
-<div className="text--center" style={{ margin: '2rem 0' }}>
-![alt text](images/antigravity-cli-planning-and-artifact_009.webp)
-<small style={{ display: 'block', marginTop: '-1rem', color: 'var(--ifm-color-emphasis-600)' }}>バックグラウンド処理の実行中でもコマンドの入力が可能</small>
-</div>
+<BlogImageWrapper caption="バックグラウンド処理の実行中でもコマンドの入力が可能">
+  ![バックグラウンド処理の実行ステータス](images/antigravity-cli-planning-and-artifact_009.webp)
+</BlogImageWrapper>
 
 `task.md` の中身はチェックリストになっており、作業が完了したタスクには自動でチェックが入っていきます。
 
-<div className="text--center" style={{ margin: '2rem 0' }}>
-![alt text](images/antigravity-cli-planning-and-artifact_010.webp)
-<small style={{ display: 'block', marginTop: '-1rem', color: 'var(--ifm-color-emphasis-600)' }}>task.mdの中身</small>
-</div>
+<BlogImageWrapper caption="task.mdの中身">
+  ![タスクリスト (task.md) の進捗状況](images/antigravity-cli-planning-and-artifact_010.webp)
+</BlogImageWrapper>
 
 ※チェックリストを表示したままにしておいても自動で更新されないため、一度閉じてから再度開き直す必要があります。
 
 必要なパッケージ（ `vitest` など）のインストールやテストコードの実装、 `package.json` へのテストスクリプトの追加など、すべての作業が完了すると、 `walkthrough.md` という最終的な変更内容と検証結果を要約した Artifact が作成されます。
 
-<div className="text--center" style={{ margin: '2rem 0' }}>
-![alt text](images/antigravity-cli-planning-and-artifact_011.webp)
-<small style={{ display: 'block', marginTop: '-1rem', color: 'var(--ifm-color-emphasis-600)' }}>作業完了後walkthrough.mdが作成される</small>
-</div>
+<BlogImageWrapper caption="作業完了後walkthrough.mdが作成される">
+  ![実装完了レポート (walkthrough.md) の作成結果](images/antigravity-cli-planning-and-artifact_011.webp)
+</BlogImageWrapper>
 
-<div className="text--center" style={{ margin: '2rem 0' }}>
-![alt text](images/antigravity-cli-planning-and-artifact_012.webp)
-<small style={{ display: 'block', marginTop: '-1rem', color: 'var(--ifm-color-emphasis-600)' }}>walkthrough.mdの中身</small>
-</div>
+<BlogImageWrapper caption="walkthrough.mdの中身">
+  ![実装完了レポートの詳細内容](images/antigravity-cli-planning-and-artifact_012.webp)
+</BlogImageWrapper>
 
 ---
 
