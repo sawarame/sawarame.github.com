@@ -20,13 +20,22 @@ import MuiTheme from '@site/src/components/MuiTheme';
 import common from '@site/src/css/common.module.css';
 import styles from './styles.module.css';
 
-type SavedText = { date: Date; text: string; pinned?: boolean };
+export type SavedText = { date: Date; text: string; pinned?: boolean };
 
 const pad = (n: number) => n.toString().padStart(2, '0');
-const formatDate = (date: Date) =>
+export const formatDate = (date: Date) =>
   `${date.getFullYear()}/${pad(date.getMonth() + 1)}/${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
-const createSavedText = (texts: SavedText[]) =>
+export const createSavedText = (texts: SavedText[]) =>
   texts.map((v) => `[${formatDate(v.date)}]${v.pinned ? ' [PIN]' : ''}\n${v.text}`).join('\n\n');
+
+export function sortTexts(texts: SavedText[]): SavedText[] {
+  return [...texts].sort((a, b) => {
+    if (a.pinned && !b.pinned) return -1;
+    if (!a.pinned && b.pinned) return 1;
+    return b.date.getTime() - a.date.getTime();
+  });
+}
+
 const downloadText = (text: string) => {
   const now = new Date();
   const filename = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}.txt`;
@@ -112,11 +121,7 @@ export default function TextScratchpad() {
   };
 
   // 表示用のリストを作成：ピン留めを優先し、それ以外は日付降順
-  const displayTexts = [...state.savedTexts].sort((a, b) => {
-    if (a.pinned && !b.pinned) return -1;
-    if (!a.pinned && b.pinned) return 1;
-    return b.date.getTime() - a.date.getTime();
-  });
+  const displayTexts = sortTexts(state.savedTexts);
 
   return (
     <MuiTheme>

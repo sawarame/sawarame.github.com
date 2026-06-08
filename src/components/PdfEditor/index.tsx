@@ -46,13 +46,13 @@ if (typeof window !== 'undefined') {
 
 // --- Utils ---
 
-const FORMATS = [
+export const FORMATS = [
   { label: 'PNG', value: 'image/png', ext: 'png' },
   { label: 'JPEG', value: 'image/jpeg', ext: 'jpg' },
   { label: 'WebP', value: 'image/webp', ext: 'webp' },
 ];
 
-const WIDTH_PRESETS = () => [
+export const WIDTH_PRESETS = () => [
   { label: translate({ id: 'pdfEditor.pages.noLimit', message: '制限なし' }), value: undefined },
   { label: '2560px (2K)', value: 2560 },
   { label: '1920px (Full HD)', value: 1920 },

@@ -23,16 +23,34 @@ import common from '@site/src/css/common.module.css';
 
 const STORAGE_KEY = 'sawara_roulette_state';
 
-interface RemovedItem {
+export interface RemovedItem {
   text: string;
   index: number;
 }
 
-interface RouletteState {
+export interface RouletteState {
   items: string[];
   drawnItems: string[];
   removeAfterDraw: boolean;
   removedItems?: Array<string | RemovedItem>;
+}
+
+export function parseItems(text: string): string[] {
+  return text.split('\n').map(s => s.trim()).filter(s => s !== '');
+}
+
+export function restoreRemovedItems(items: string[], removedItems: Array<string | RemovedItem>): string[] {
+  const restoredItems = [...items];
+  for (let i = removedItems.length - 1; i >= 0; i--) {
+    const removed = removedItems[i];
+    if (typeof removed === 'string') {
+      restoredItems.push(removed);
+    } else {
+      const insertIndex = Math.min(removed.index, restoredItems.length);
+      restoredItems.splice(insertIndex, 0, removed.text);
+    }
+  }
+  return restoredItems;
 }
 
 export default function RouletteMaker(): JSX.Element {
@@ -68,7 +86,7 @@ export default function RouletteMaker(): JSX.Element {
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const text = e.target.value;
     setInputText(text);
-    setItems(text.split('\n').map(s => s.trim()).filter(s => s !== ''));
+    setItems(parseItems(text));
     setRemovedItems([]); 
   };
 
@@ -150,18 +168,7 @@ export default function RouletteMaker(): JSX.Element {
 
   const clearHistory = () => {
     if (removedItems.length > 0) {
-      let restoredItems = [...items];
-      
-      for (let i = removedItems.length - 1; i >= 0; i--) {
-        const removed = removedItems[i];
-        if (typeof removed === 'string') {
-          restoredItems.push(removed);
-        } else {
-          const insertIndex = Math.min(removed.index, restoredItems.length);
-          restoredItems.splice(insertIndex, 0, removed.text);
-        }
-      }
-      
+      const restoredItems = restoreRemovedItems(items, removedItems);
       setItems(restoredItems);
       setInputText(restoredItems.join('\n'));
       setRemovedItems([]);

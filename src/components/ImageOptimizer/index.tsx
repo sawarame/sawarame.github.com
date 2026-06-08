@@ -127,7 +127,7 @@ function getImageDimensions(file: Blob): Promise<string> {
  * @param file 処理対象の画像ファイル
  * @returns 寸法が書き込まれた新しいSVGファイル、または元のファイル
  */
-async function fixSvgDimensions(file: File): Promise<File> {
+export async function fixSvgDimensions(file: File): Promise<File> {
   if (file.type !== 'image/svg+xml') return file;
   
   return new Promise((resolve) => {
