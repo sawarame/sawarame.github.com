@@ -111,8 +111,8 @@ const config: Config = {
           position: 'left',
           label: 'Extensions',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
         {to: '/about', label: 'About', position: 'left'},
+        {to: '/blog', label: 'Blog', position: 'right'},
         {
           type: 'localeDropdown',
           position: 'right',

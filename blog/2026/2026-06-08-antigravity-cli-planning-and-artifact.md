@@ -84,6 +84,10 @@ emoji: 🛠️
   ![初期に提示された実装計画書の内容](images/antigravity-cli-planning-and-artifact_004.webp)
 </BlogImageWrapper>
 
+<BlogImageWrapper caption="rejectを選択">
+  ![rejectを選択](images/antigravity-cli-planning-and-artifact_004_2.webp)
+</BlogImageWrapper>
+
 `reject` を選択すると理由を入力するよう求められるため、「5. Write-in...」を選択し、以下の具体的な要望を入力します。
 
 <BlogImageWrapper caption="reject理由選択">
@@ -114,7 +118,7 @@ emoji: 🛠️
   ![実装計画書の承認ダイアログ](images/antigravity-cli-planning-and-artifact_008.webp)
 </BlogImageWrapper>
 
-承認後、 `task.md` が作成されます。バックグラウンドで処理が実行されている間も、 `/artifact` コマンドで進捗を確認できます。
+承認後、 `task.md` が作成されます。AIが処理を行なっている間も、 `/artifact` コマンドで進捗を確認できます。
 
 <BlogImageWrapper caption="バックグラウンド処理の実行中でもコマンドの入力が可能">
   ![バックグラウンド処理の実行ステータス](images/antigravity-cli-planning-and-artifact_009.webp)
