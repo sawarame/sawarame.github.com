@@ -19,7 +19,7 @@ import common from '@site/src/css/common.module.css';
 
 // --- Date Utils ---
 
-function parseCustomDate(input: string): Date | null {
+export function parseCustomDate(input: string): Date | null {
   if (!input) return null;
   const str = input.trim();
 
@@ -55,7 +55,7 @@ function parseCustomDate(input: string): Date | null {
   return null;
 }
 
-function formatDate(date: Date): string {
+export function formatDate(date: Date): string {
   const pad = (n: number) => n.toString().padStart(2, '0');
   return `${date.getFullYear()}/${pad(date.getMonth() + 1)}/${pad(
     date.getDate()

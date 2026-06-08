@@ -24,12 +24,12 @@ import common from '@site/src/css/common.module.css';
 import styles from './styles.module.css';
 
 /** 使用する文字列. */
-const lowerCase = 'abcdefghijklmnopqrstuvwxyz'
-const upperCase = lowerCase.toLocaleUpperCase()
-const numbers = '0123456789'
-const symbols = '`~!@#$%^&*()-_[{]}=+;:\'",<.>/?\\|'
+export const lowerCase = 'abcdefghijklmnopqrstuvwxyz'
+export const upperCase = lowerCase.toLocaleUpperCase()
+export const numbers = '0123456789'
+export const symbols = '`~!@#$%^&*()-_[{]}=+;:\'",<.>/?\\|'
 
-const generatePassword = (availableSymbols: string, filterStr: string, length: number, useSameChar: boolean, useSymbols: boolean) => {
+export const generatePassword = (availableSymbols: string, filterStr: string, length: number, useSameChar: boolean, useSymbols: boolean) => {
   if (length < 1) return '';
   let symbolChars = '';
   if (useSymbols) {
@@ -53,7 +53,7 @@ const generatePassword = (availableSymbols: string, filterStr: string, length: n
   return a.join("").substring(0, length);
 };
 
-interface PasswordState {
+export interface PasswordState {
   availableSymbols: string;
   filterStr: string;
   length: number;
@@ -62,7 +62,7 @@ interface PasswordState {
   useSymbols: boolean;
 }
 
-const generateAll = (state: PasswordState) => {
+export const generateAll = (state: PasswordState) => {
   const result = [];
   for (let cnt = 0; cnt < state.createTimes; cnt++) {
     result.push(generatePassword(state.availableSymbols, state.filterStr, state.length, state.useSameChar, state.useSymbols));

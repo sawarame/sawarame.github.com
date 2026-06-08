@@ -12,7 +12,7 @@ import MuiTheme from '@site/src/components/MuiTheme';
 import common from '@site/src/css/common.module.css';
 import styles from './styles.module.css';
 
-type Mode = 'text' | 'wifi' | 'contact' | 'event' | 'email';
+export type Mode = 'text' | 'wifi' | 'contact' | 'event' | 'email';
 type Resolution = 240 | 480;
 
 const PRESET_LOGOS: Record<Mode, string> = {
@@ -22,6 +22,62 @@ const PRESET_LOGOS: Record<Mode, string> = {
   event: 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>'),
   email: 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>'),
 };
+
+export interface QrDataOptions {
+  textInput: string;
+  wifiEncryption: string;
+  wifiSsid: string;
+  wifiPassword: string;
+  contactName: string;
+  contactTel: string;
+  contactEmail: string;
+  eventName: string;
+  eventStart: string;
+  eventEnd: string;
+  emailTo: string;
+  emailSub: string;
+  emailBody: string;
+}
+
+export function buildQrData(mode: Mode, opts: QrDataOptions): string {
+  switch (mode) {
+    case 'text':
+      return opts.textInput;
+    case 'wifi':
+      return `WIFI:T:${opts.wifiEncryption};S:${opts.wifiSsid};P:${opts.wifiPassword};;`;
+    case 'contact':
+      return `MECARD:N:${opts.contactName};TEL:${opts.contactTel};EMAIL:${opts.contactEmail};;`;
+    case 'event': {
+      if (opts.eventStart && opts.eventEnd && new Date(opts.eventStart) >= new Date(opts.eventEnd)) return '';
+      const formatDT = (dt: string) => {
+        if (!dt) return '';
+        return dt.replace(/[-:]/g, '') + '00';
+      };
+      const start = formatDT(opts.eventStart);
+      const end = formatDT(opts.eventEnd);
+      return `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:${opts.eventName}\nDTSTART:${start}\nDTEND:${end}\nEND:VEVENT\nEND:VCALENDAR\n`;
+    }
+    case 'email': {
+      const sub = opts.emailSub ? `subject=${encodeURIComponent(opts.emailSub)}` : '';
+      const body = opts.emailBody ? `body=${encodeURIComponent(opts.emailBody.replace(/\r?\n/g, '\r\n'))}` : '';
+      const query = [sub, body].filter(Boolean).join('&');
+      return `mailto:${opts.emailTo}${query ? '?' + query : ''}`;
+    }
+    default:
+      return '';
+  }
+}
+
+export function sanitizeFileName(mode: Mode, opts: { wifiSsid: string; contactName: string; eventName: string; emailSub: string }, timestamp: string): string {
+  let baseFileName = '';
+  if (mode === 'wifi') baseFileName = opts.wifiSsid;
+  else if (mode === 'contact') baseFileName = opts.contactName;
+  else if (mode === 'event') baseFileName = opts.eventName;
+  else if (mode === 'email') baseFileName = opts.emailSub;
+
+  const sanitized = baseFileName.replace(/[<>:"/\\|?*]/g, '_').trim();
+  return sanitized ? `${sanitized}.png` : `${timestamp}.png`;
+}
 
 export default function QrGenerator(): React.JSX.Element {
   const [mode, setMode] = useState<Mode>('text');
@@ -67,32 +123,21 @@ export default function QrGenerator(): React.JSX.Element {
   }, []);
 
   const generatedText = useMemo(() => {
-    switch (mode) {
-      case 'text':
-        return textInput;
-      case 'wifi':
-        return `WIFI:T:${wifiEncryption};S:${wifiSsid};P:${wifiPassword};;`;
-      case 'contact':
-        return `MECARD:N:${contactName};TEL:${contactTel};EMAIL:${contactEmail};;`;
-      case 'event': {
-        if (eventStart && eventEnd && new Date(eventStart) >= new Date(eventEnd)) return '';
-        const formatDT = (dt: string) => {
-          if (!dt) return '';
-          return dt.replace(/[-:]/g, '') + '00';
-        };
-        const start = formatDT(eventStart);
-        const end = formatDT(eventEnd);
-        return `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:${eventName}\nDTSTART:${start}\nDTEND:${end}\nEND:VEVENT\nEND:VCALENDAR\n`;
-      }
-      case 'email': {
-        const sub = emailSub ? `subject=${encodeURIComponent(emailSub)}` : '';
-        const body = emailBody ? `body=${encodeURIComponent(emailBody.replace(/\r?\n/g, '\r\n'))}` : '';
-        const query = [sub, body].filter(Boolean).join('&');
-        return `mailto:${emailTo}${query ? '?' + query : ''}`;
-      }
-      default:
-        return '';
-    }
+    return buildQrData(mode, {
+      textInput,
+      wifiEncryption,
+      wifiSsid,
+      wifiPassword,
+      contactName,
+      contactTel,
+      contactEmail,
+      eventName,
+      eventStart,
+      eventEnd,
+      emailTo,
+      emailSub,
+      emailBody,
+    });
   }, [mode, textInput, wifiEncryption, wifiSsid, wifiPassword, contactName, contactTel, contactEmail, eventName, eventStart, eventEnd, emailTo, emailSub, emailBody]);
 
   const activeLogo = usePresetLogo ? PRESET_LOGOS[mode] : logoImage;
@@ -180,14 +225,12 @@ export default function QrGenerator(): React.JSX.Element {
   };
 
   const getFileName = () => {
-    let baseFileName = '';
-    if (mode === 'wifi') baseFileName = wifiSsid;
-    else if (mode === 'contact') baseFileName = contactName;
-    else if (mode === 'event') baseFileName = eventName;
-    else if (mode === 'email') baseFileName = emailSub;
-
-    const sanitized = baseFileName.replace(/[<>:"/\\|?*]/g, '_').trim();
-    return sanitized ? `${sanitized}.png` : `${getCurrentDateTimeStr()}.png`;
+    return sanitizeFileName(mode, {
+      wifiSsid,
+      contactName,
+      eventName,
+      emailSub,
+    }, getCurrentDateTimeStr());
   };
 
   const downloadQRCode = () => {

@@ -43,6 +43,10 @@ function SectionCard({ icon, title, children, full = false }: { icon: string; ti
   );
 }
 
+export function checkIsBot(userAgent: string): boolean {
+  return /bot|crawler|spider|crawling/i.test(userAgent);
+}
+
 // ============================================================
 // Main Component
 // ============================================================
@@ -61,7 +65,7 @@ export default function DeviceInfo(): JSX.Element {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const isBot = /bot|crawler|spider|crawling/i.test(navigator.userAgent);
+    const isBot = checkIsBot(navigator.userAgent);
     if (isBot) {
       setState((s) => ({ ...s, ipAddress: translate({ id: 'device.ip.bot', message: 'ボット/クローラーからのアクセスと判定されたため、IPアドレスは表示されません。' }) }));
     } else {

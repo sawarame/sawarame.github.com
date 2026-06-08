@@ -37,13 +37,13 @@ interface ExifData {
 
 // --- Utils ---
 
-function formatExposureTime(time: number | undefined): string {
+export function formatExposureTime(time: number | undefined): string {
   if (!time) return '';
   if (time >= 1) return time.toString();
   return `1/${Math.round(1 / time)}`;
 }
 
-function formatGps(lat: number | undefined, lng: number | undefined): string {
+export function formatGps(lat: number | undefined, lng: number | undefined): string {
   if (lat === undefined || lng === undefined) return '';
   return `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
 }

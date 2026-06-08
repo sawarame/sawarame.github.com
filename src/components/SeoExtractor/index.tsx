@@ -32,7 +32,7 @@ import styles from './styles.module.css';
 /**
  * 抽出されたSEOメタデータの型定義
  */
-interface SeoData {
+export interface SeoData {
   title: string;
   description: string;
   keywords: string;
@@ -62,7 +62,7 @@ interface SeoData {
  * @param baseUrl 基準となるURL
  * @returns 解決された絶対URL
  */
-const resolveUrl = (url: string | null, baseUrl: string): string => {
+export const resolveUrl = (url: string | null, baseUrl: string): string => {
   if (!url) return '';
   const trimmed = url.trim();
   if (/^data:/i.test(trimmed)) return trimmed; // Base64データはそのまま
@@ -80,7 +80,7 @@ const resolveUrl = (url: string | null, baseUrl: string): string => {
  * @param baseUrl 基準URL（相対URL解決用）
  * @returns 抽出されたSEOメタデータ
  */
-const parseHtml = (htmlContent: string, baseUrl: string): SeoData => {
+export const parseHtml = (htmlContent: string, baseUrl: string): SeoData => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(htmlContent, 'text/html');
 
@@ -154,7 +154,7 @@ const parseHtml = (htmlContent: string, baseUrl: string): SeoData => {
  * @param urlStr URL文字列
  * @returns ドメイン名
  */
-const getDomainName = (urlStr: string): string => {
+export const getDomainName = (urlStr: string): string => {
   try {
     const urlObj = new URL(urlStr);
     return urlObj.hostname;
@@ -166,7 +166,7 @@ const getDomainName = (urlStr: string): string => {
 /**
  * ファイル名として安全なタイムスタンプ文字列 (YYYYMMDDHHMMSS) を生成します。
  */
-const getTimestamp = (): string => {
+export const getTimestamp = (): string => {
   const now = new Date();
   const pad = (n: number) => n.toString().padStart(2, '0');
   return `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}${pad(

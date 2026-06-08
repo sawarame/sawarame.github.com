@@ -49,6 +49,31 @@ const DETECTABLE_ENCODINGS: Record<string, string> = {
   'BINARY': 'Binary',
 };
 
+export function formatBytes(bytes: number): string {
+  if (bytes === 0) return '0 B';
+  const k = 1024;
+  const sizes = ['B', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+export function detectLineBreak(bytes: Uint8Array, encoding: string): string {
+  try {
+    const sampleBytes = bytes.slice(0, 10000);
+    const unicodeArray = Encoding.convert(sampleBytes, {
+      to: 'UNICODE',
+      from: encoding === 'AUTO' ? (Encoding.detect(sampleBytes) as any) : encoding as any,
+    });
+    const text = Encoding.codeToString(unicodeArray);
+    if (text.includes('\r\n')) return 'CRLF';
+    if (text.includes('\n')) return 'LF';
+    if (text.includes('\r')) return 'CR';
+  } catch (e) {
+    console.error('Line break detection failed', e);
+  }
+  return 'LF';
+}
+
 export default function EncodingConverter() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -70,32 +95,7 @@ export default function EncodingConverter() {
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' });
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
-  // バイト数フォーマット
-  const formatBytes = (bytes: number) => {
-    if (bytes === 0) return '0 B';
-    const k = 1024;
-    const sizes = ['B', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-  };
 
-  // 改行コード判別
-  const detectLineBreak = useCallback((bytes: Uint8Array, encoding: string): string => {
-    try {
-      const sampleBytes = bytes.slice(0, 10000);
-      const unicodeArray = Encoding.convert(sampleBytes, {
-        to: 'UNICODE',
-        from: encoding === 'AUTO' ? (Encoding.detect(sampleBytes) as any) : encoding as any,
-      });
-      const text = Encoding.codeToString(unicodeArray);
-      if (text.includes('\r\n')) return 'CRLF';
-      if (text.includes('\n')) return 'LF';
-      if (text.includes('\r')) return 'CR';
-    } catch (e) {
-      console.error('Line break detection failed', e);
-    }
-    return 'LF';
-  }, []);
 
   const processFile = useCallback((file: File) => {
     setLoading(true);

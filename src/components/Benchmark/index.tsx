@@ -115,7 +115,7 @@ async function runMultiCoreBenchmark(cores: number, passes: number, onProgress?:
   return multiScore;
 }
 
-function getSingleCoreRankInfo(score: number) {
+export function getSingleCoreRankInfo(score: number) {
   if (score >= 4000) return { rank: 'S', label: 'Rank S', desc: translate({ id: 'benchmark.single.rank.s', message: '比類なき速さ。最新のハイエンド端末の中でも最高峰の処理能力です' }), className: styles.rankS };
   if (score >= 2000) return { rank: 'A', label: 'Rank A', desc: translate({ id: 'benchmark.single.rank.a', message: '快適。大抵のWebアプリがストレスなく動作します' }), className: styles.rankA };
   if (score >= 1000) return { rank: 'B', label: 'Rank B', desc: translate({ id: 'benchmark.single.rank.b', message: '実用的。一般的なブラウジングには十分な性能です' }), className: styles.rankB };
@@ -125,7 +125,7 @@ function getSingleCoreRankInfo(score: number) {
   return { rank: 'F', label: 'Rank F', desc: translate({ id: 'benchmark.single.rank.f', message: '動作困難。現代のWebサービスを利用するには大幅な性能不足です' }), className: styles.rankF };
 }
 
-function getMultiCoreRankInfo(score: number) {
+export function getMultiCoreRankInfo(score: number) {
   if (score >= 30000) return { rank: 'S', label: 'Rank S', desc: translate({ id: 'benchmark.multi.rank.s', message: '最上級。圧倒的な並列処理能力で、あらゆる重い作業を軽快にこなします' }), className: styles.rankS };
   if (score >= 10000) return { rank: 'A', label: 'Rank A', desc: translate({ id: 'benchmark.multi.rank.a', message: '強力。複数のタスクを同時に開いても安定します' }), className: styles.rankA };
   if (score >= 4000) return { rank: 'B', label: 'Rank B', desc: translate({ id: 'benchmark.multi.rank.b', message: '快適。複数のタスクを並行しても余裕のある性能です' }), className: styles.rankB };
@@ -135,7 +135,7 @@ function getMultiCoreRankInfo(score: number) {
   return { rank: 'F', label: 'Rank F', desc: translate({ id: 'benchmark.multi.rank.f', message: '著しく性能不足。並列処理の恩恵をほとんど受けられません' }), className: styles.rankF };
 }
 
-const getBenchmarkData = () => [
+export const getBenchmarkData = () => [
   {
     category: translate({ id: "benchmark.cat.sns.category", message: "SNS・メディア閲覧" }),
     summary: translate({ id: "benchmark.cat.sns.summary", message: "動画や画像がサクサク、綺麗に見えるか" }),
