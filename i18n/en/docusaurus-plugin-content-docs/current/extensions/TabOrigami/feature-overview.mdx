@@ -2,12 +2,11 @@
 title: Feature Overview
 sidebar_position: 3
 slug: /tab-origami/feature-overview
-draft: true
 ---
 
 # Feature Overview
 
-Explore the various organization and customization features available in TabOrigami.
+Explore the organization and customization features available in TabOrigami.
 
 ## Flexible Organization Styles
 
@@ -16,23 +15,33 @@ Choose the best categorization style to match your current workflow:
 - **Auto**: Let the AI automatically determine the best categories.
 - **Task Focus**: Group tabs by ongoing tasks or projects.
 - **Work-Life**: Clearly separate business-related tabs from personal ones.
-- **Triage**: Easily organize unnecessary tabs to keep your browser clutter-free.
-- **Custom (Prompt)**: Provide custom text instructions to the AI for personalized grouping.
+- **Triage**: Delete unnecessary tabs.
 
-## Rename and Recolor Groups
+## Custom Prompt Feature
 
-You can freely modify the group names and colors suggested by the AI before executing.
+You can enter custom prompts to provide free-text instructions to the AI. This allows you to achieve your preferred tab grouping.
 
-- On the preview screen, click a suggested group name to edit it directly.
-- Use the custom color picker to choose the color for the tab group as it will appear in Chrome.
-- The names and colors you set will be directly applied to the actual Chrome tab groups once executed.
+1. Click "Add Custom Prompt" in the popup.
+2. Enter your instructions for the AI in the text field, and click the "Save" button.
+3. Go back to the main screen, choose any organization style, and run it. The suggested groupings will now reflect your custom prompt instructions.
+
+:::tip
+You can also provide multiple instructions at the same time in the custom prompt. For example:
+```
+- If there are pages with the same URL, keep only one and delete the rest.
+- Set the tab group names as emojis.
+```
+:::
+
+## Undo Organization (History Feature)
+
+If you are not satisfied with the organization results or want to revert to a previous state, you can restore them using the following steps:
+
+1. Click "Undo Organization" in the popup.
+2. A list of up to 10 previous pre-execution states will be displayed. Select the point in history you wish to revert to.
+3. Your tabs will be restored to that state.
 
 ## Exclude Pinned Tabs
 
 This feature protects important tabs you always keep open (pinned tabs).
-By enabling this setting, pinned tabs will be excluded from the organization process and remain in their original positions.
-
-## Smart Cleanup
-
-When organizing tabs, TabOrigami automatically detects and closes redundant "New Tab" pages.
-Additionally, tabs from the same domain are recognized as highly related and are grouped together efficiently.
+Please turn on "Exclude pinned tabs from organization" in the options screen. This ensures that pinned tabs will always be excluded from the organization.
