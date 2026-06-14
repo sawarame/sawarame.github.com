@@ -332,6 +332,15 @@ export default function ExifViewer(): JSX.Element {
     }
   };
 
+  useEffect(() => {
+    return () => {
+      setImageUrl(prevUrl => {
+        if (prevUrl) URL.revokeObjectURL(prevUrl);
+        return '';
+      });
+    };
+  }, []);
+
   return (
     <MuiTheme>
       <div style={{ width: '100%', margin: '0 auto', gap: '24px', display: 'flex', flexDirection: 'column' }}>

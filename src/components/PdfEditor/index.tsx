@@ -205,6 +205,10 @@ export default function PdfEditor(): JSX.Element {
 
   const removeFile = (id: string) => {
     setPdfFiles(prev => {
+      const fileToRemove = prev.find(f => f.id === id);
+      if (fileToRemove) {
+        try { fileToRemove.pdf.destroy(); } catch (e) {}
+      }
       const filtered = prev.filter(f => f.id !== id);
       if (activeFileId === id) {
         setActiveFileId(filtered.length > 0 ? filtered[0].id : null);
@@ -212,6 +216,18 @@ export default function PdfEditor(): JSX.Element {
       return filtered;
     });
   };
+
+  useEffect(() => {
+    return () => {
+      // Clean up PDFs on unmount
+      setPdfFiles(prev => {
+        prev.forEach(f => {
+          try { f.pdf.destroy(); } catch (e) {}
+        });
+        return [];
+      });
+    };
+  }, []);
 
   const convertAndDownload = async () => {
     if (pdfFiles.length === 0) return;
