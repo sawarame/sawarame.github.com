@@ -76,7 +76,7 @@
 
 .cardDescription {
   font-size: 0.875rem;
-  color: var(--ifm-color-secondary-darkest);
+  color: var(--ifm-color-emphasis-700);
   line-height: 1.65;
   margin: 0;
 }
@@ -131,7 +131,7 @@
   letter-spacing: 0.06em;
   padding: 0.25rem 0.6rem;
   border-radius: 100px;
-  background: var(--ifm-color-primary-lightest);
+  background: rgba(51, 102, 204, 0.1);
   color: var(--ifm-color-primary-darkest);
   white-space: nowrap;
 }

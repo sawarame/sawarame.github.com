@@ -97,7 +97,8 @@ export default function Home(): JSX.Element {
     >
       <HeroSection />
 
-      {/* Tools Section */}
+      <main>
+        {/* Tools Section */}
       <section id="tools" className={styles.section}>
         <div className={styles.container}>
           <SectionHeader
@@ -128,6 +129,7 @@ export default function Home(): JSX.Element {
           <ExtensionGrid />
         </div>
       </section>
+      </main>
     </Layout>
   );
 }

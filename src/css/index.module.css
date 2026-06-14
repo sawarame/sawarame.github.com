@@ -176,7 +176,7 @@
 
 .sectionSubtitle {
   font-size: 1rem;
-  color: var(--ifm-color-secondary-darkest);
+  color: var(--ifm-color-emphasis-700);
   max-width: 720px;
   margin: 0 auto;
   line-height: 1.7;
