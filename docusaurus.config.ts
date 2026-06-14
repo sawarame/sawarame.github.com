@@ -31,6 +31,7 @@ const config: Config = {
 
   markdown: {
     format: 'mdx',
+    mermaid: true,
     hooks: {
       onBrokenMarkdownLinks: 'warn',
     },
@@ -86,6 +87,8 @@ const config: Config = {
   plugins: [
     'docusaurus-plugin-image-zoom',
   ],
+
+  themes: ['@docusaurus/theme-mermaid'],
 
   themeConfig: {
     // Replace with your project's social card
