@@ -307,6 +307,15 @@ export default function QrReader(): React.JSX.Element {
     setErrorMsg('');
   }, [imageUrl]);
 
+  useEffect(() => {
+    return () => {
+      setImageUrl(prevUrl => {
+        if (prevUrl) URL.revokeObjectURL(prevUrl);
+        return '';
+      });
+    };
+  }, []);
+
   return (
     <MuiTheme>
       <div className={styles.container}>

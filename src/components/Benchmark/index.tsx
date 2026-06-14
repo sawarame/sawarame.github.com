@@ -65,13 +65,15 @@ const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 function runWorkerTask(passes: number, onProgress?: (p: number) => void): Promise<number> {
   return new Promise((resolve) => {
     const blob = new Blob([workerScript], { type: 'application/javascript' });
-    const worker = new Worker(URL.createObjectURL(blob));
+    const url = URL.createObjectURL(blob);
+    const worker = new Worker(url);
 
     worker.onmessage = (e) => {
       if (e.data.type === 'progress' && onProgress) {
         onProgress(e.data.pass);
       } else if (e.data.type === 'done') {
         worker.terminate();
+        URL.revokeObjectURL(url);
         resolve(e.data.avgTime);
       }
     };

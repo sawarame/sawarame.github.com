@@ -605,6 +605,19 @@ export default function ImageOptimizer(): JSX.Element {
     });
   };
 
+  useEffect(() => {
+    return () => {
+      setImages(prev => {
+        prev.forEach(target => {
+          URL.revokeObjectURL(target.previewUrl);
+          if (target.displayUrl !== target.previewUrl) URL.revokeObjectURL(target.displayUrl);
+          if (target.compressedUrl) URL.revokeObjectURL(target.compressedUrl);
+        });
+        return [];
+      });
+    };
+  }, []);
+
   const processImages = async () => {
     setIsProcessing(true);
     const updatedImages = [...images];
