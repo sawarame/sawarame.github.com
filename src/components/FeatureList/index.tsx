@@ -298,7 +298,7 @@ export function ExtensionCard({
     >
       <div className={styles.extensionCardHeader}>
         <div className={styles.extensionIconWrap}>
-          <img src={iconSrc} alt={title} className={styles.extensionIcon} />
+          <img src={iconSrc} alt={title} className={styles.extensionIcon} loading="lazy" decoding="async" />
         </div>
         <span className={styles.extensionBadge}>{badge}</span>
       </div>
