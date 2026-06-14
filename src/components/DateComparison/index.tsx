@@ -125,7 +125,7 @@ function DiffResultCard({ date1Str, date2Str }: { date1Str: string, date2Str: st
             <code style={{ fontSize: '1.25rem', fontWeight: 'bold', background: 'transparent', padding: 0, border: 'none', color: 'var(--ifm-color-primary)' }}>{diffStr}</code>
           </div>
           <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
-            <IconButton size="small" onClick={() => handleCopy(diffStr)} disabled={!isValid}>
+            <IconButton size="small" onClick={() => handleCopy(diffStr)} disabled={!isValid} aria-label={translate({ id: 'common.copy', message: 'コピー' })}>
               <ContentCopyIcon fontSize="small" />
             </IconButton>
           </Tooltip>
@@ -139,7 +139,7 @@ function DiffResultCard({ date1Str, date2Str }: { date1Str: string, date2Str: st
             <code style={{ fontSize: '1.25rem', fontWeight: 'bold', background: 'transparent', padding: 0, border: 'none', color: 'var(--ifm-color-primary)' }}>{totalSecStr}</code>
           </div>
           <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
-            <IconButton size="small" onClick={() => handleCopy(totalSecStr)} disabled={!isValid}>
+            <IconButton size="small" onClick={() => handleCopy(totalSecStr)} disabled={!isValid} aria-label={translate({ id: 'common.copy', message: 'コピー' })}>
               <ContentCopyIcon fontSize="small" />
             </IconButton>
           </Tooltip>
@@ -258,6 +258,7 @@ export default function DateComparison(): JSX.Element {
                         edge="end"
                         disabled={alwaysCurrent}
                         tabIndex={-1}
+                        aria-label={translate({ id: 'date.input.calendar', message: 'カレンダーを開く' })}
                       >
                         <CalendarMonthIcon />
                       </IconButton>
@@ -301,7 +302,7 @@ export default function DateComparison(): JSX.Element {
             endAdornment: (
               <InputAdornment position="end">
                 <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                  <IconButton edge="end" tabIndex={-1}>
+                  <IconButton edge="end" tabIndex={-1} aria-label={translate({ id: 'date.input.calendar', message: 'カレンダーを開く' })}>
                     <CalendarMonthIcon />
                   </IconButton>
                   <input 

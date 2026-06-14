@@ -137,6 +137,7 @@ export default function TextScratchpad() {
               </h2>
               <Stack spacing={2}>
                 <TextField multiline fullWidth placeholder={translate({ id: 'text.input.placeholder', message: 'ここにテキストを入力...' })} value={state.workText} minRows={10}
+                  inputProps={{ 'aria-label': translate({ id: 'text.input.ariaLabel', message: 'テキスト入力エリア' }) }}
                   onChange={(e) => setState((s) => ({ ...s, workText: e.target.value }))}
                   onKeyDown={(e) => {
                     if (e.nativeEvent.isComposing) return;

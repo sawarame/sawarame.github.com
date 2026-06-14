@@ -110,7 +110,7 @@ function ResultCard({ imageUrl, fileName, result, scanState, errorMsg, onClear }
           {translate({ id: 'qrReader.result.title', message: '解析結果' })}
         </h2>
         <Tooltip title={translate({ id: 'common.clear', message: 'クリア' })}>
-          <IconButton onClick={onClear} color="error" size="small">
+          <IconButton onClick={onClear} color="error" size="small" aria-label={translate({ id: 'common.clear', message: 'クリア' })}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>

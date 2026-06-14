@@ -269,7 +269,7 @@ export default function TextDiff() {
                         {(file.size / 1024).toFixed(1)} KB
                       </div>
                       <div className={styles.colAction}>
-                        <IconButton size="small" onClick={() => removeFile(file.id)} color="error">
+                        <IconButton size="small" onClick={() => removeFile(file.id)} color="error" aria-label={translate({ id: 'common.delete', message: '削除' })}>
                           <DeleteIcon sx={{ fontSize: '1.2rem' }} />
                         </IconButton>
                       </div>

@@ -659,7 +659,7 @@ export default function SeoExtractor(): JSX.Element {
                         )}
                       </p>
                       <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
-                        <IconButton
+                        <IconButton aria-label={translate({ id: 'common.copy', message: 'コピー' })}
                           className={styles.dataCopyBtn}
                           onClick={() => handleCopy(extractedData.title)}
                           disabled={!extractedData.title}
@@ -686,7 +686,7 @@ export default function SeoExtractor(): JSX.Element {
                         )}
                       </p>
                       <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
-                        <IconButton
+                        <IconButton aria-label={translate({ id: 'common.copy', message: 'コピー' })}
                           className={styles.dataCopyBtn}
                           onClick={() => handleCopy(extractedData.description)}
                           disabled={!extractedData.description}
@@ -713,7 +713,7 @@ export default function SeoExtractor(): JSX.Element {
                         )}
                       </p>
                       <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
-                        <IconButton
+                        <IconButton aria-label={translate({ id: 'common.copy', message: 'コピー' })}
                           className={styles.dataCopyBtn}
                           onClick={() => handleCopy(extractedData.keywords)}
                           disabled={!extractedData.keywords}
@@ -750,7 +750,7 @@ export default function SeoExtractor(): JSX.Element {
                         )}
                       </div>
                       <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
-                        <IconButton
+                        <IconButton aria-label={translate({ id: 'common.copy', message: 'コピー' })}
                           className={styles.dataCopyBtn}
                           onClick={() => handleCopy(extractedData.favicon)}
                           disabled={!extractedData.favicon}
@@ -777,7 +777,7 @@ export default function SeoExtractor(): JSX.Element {
                         )}
                       </p>
                       <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
-                        <IconButton
+                        <IconButton aria-label={translate({ id: 'common.copy', message: 'コピー' })}
                           className={styles.dataCopyBtn}
                           onClick={() => handleCopy(extractedData.canonical)}
                           disabled={!extractedData.canonical}
@@ -804,7 +804,7 @@ export default function SeoExtractor(): JSX.Element {
                         )}
                       </p>
                       <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
-                        <IconButton
+                        <IconButton aria-label={translate({ id: 'common.copy', message: 'コピー' })}
                           className={styles.dataCopyBtn}
                           onClick={() => handleCopy(extractedData.robots)}
                           disabled={!extractedData.robots}
@@ -837,7 +837,7 @@ export default function SeoExtractor(): JSX.Element {
                       )}
                     </p>
                     <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
-                      <IconButton
+                      <IconButton aria-label={translate({ id: 'common.copy', message: 'コピー' })}
                         className={styles.dataCopyBtn}
                         onClick={() => handleCopy(extractedData.ogTitle)}
                         disabled={!extractedData.ogTitle}
@@ -864,7 +864,7 @@ export default function SeoExtractor(): JSX.Element {
                       )}
                     </p>
                     <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
-                      <IconButton
+                      <IconButton aria-label={translate({ id: 'common.copy', message: 'コピー' })}
                         className={styles.dataCopyBtn}
                         onClick={() => handleCopy(extractedData.ogDescription)}
                         disabled={!extractedData.ogDescription}
@@ -891,7 +891,7 @@ export default function SeoExtractor(): JSX.Element {
                       )}
                     </p>
                     <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
-                      <IconButton
+                      <IconButton aria-label={translate({ id: 'common.copy', message: 'コピー' })}
                         className={styles.dataCopyBtn}
                         onClick={() => handleCopy(extractedData.ogImage)}
                         disabled={!extractedData.ogImage}
@@ -918,7 +918,7 @@ export default function SeoExtractor(): JSX.Element {
                       )}
                     </p>
                     <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
-                      <IconButton
+                      <IconButton aria-label={translate({ id: 'common.copy', message: 'コピー' })}
                         className={styles.dataCopyBtn}
                         onClick={() => handleCopy(extractedData.ogUrl)}
                         disabled={!extractedData.ogUrl}
@@ -945,7 +945,7 @@ export default function SeoExtractor(): JSX.Element {
                       )}
                     </p>
                     <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
-                      <IconButton
+                      <IconButton aria-label={translate({ id: 'common.copy', message: 'コピー' })}
                         className={styles.dataCopyBtn}
                         onClick={() => handleCopy(extractedData.ogSiteName)}
                         disabled={!extractedData.ogSiteName}
@@ -972,7 +972,7 @@ export default function SeoExtractor(): JSX.Element {
                       )}
                     </p>
                     <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
-                      <IconButton
+                      <IconButton aria-label={translate({ id: 'common.copy', message: 'コピー' })}
                         className={styles.dataCopyBtn}
                         onClick={() => handleCopy(extractedData.ogType)}
                         disabled={!extractedData.ogType}
@@ -999,7 +999,7 @@ export default function SeoExtractor(): JSX.Element {
                       )}
                     </p>
                     <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
-                      <IconButton
+                      <IconButton aria-label={translate({ id: 'common.copy', message: 'コピー' })}
                         className={styles.dataCopyBtn}
                         onClick={() => handleCopy(extractedData.twitterCard)}
                         disabled={!extractedData.twitterCard}

@@ -146,7 +146,7 @@ function ExifResultCard({ exifData, onClear, fileName, imageUrl, originalFile }:
               <span>{displayValue}</span>
             )}
             <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
-              <IconButton size="small" onClick={() => handleCopy(displayValue)} disabled={!value}>
+              <IconButton size="small" onClick={() => handleCopy(displayValue)} disabled={!value} aria-label={translate({ id: 'common.copy', message: 'コピー' })}>
                 <ContentCopyIcon fontSize="small" sx={{ fontSize: '1rem' }} />
               </IconButton>
             </Tooltip>
@@ -164,7 +164,7 @@ function ExifResultCard({ exifData, onClear, fileName, imageUrl, originalFile }:
           {translate({ id: 'exif.result.title', message: 'EXIF情報' })}
         </h2>
         <Tooltip title={translate({ id: 'common.clear', message: 'クリア' })}>
-          <IconButton onClick={onClear} color="error" size="small">
+          <IconButton onClick={onClear} color="error" size="small" aria-label={translate({ id: 'common.clear', message: 'クリア' })}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>

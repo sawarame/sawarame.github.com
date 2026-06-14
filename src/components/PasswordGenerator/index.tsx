@@ -89,14 +89,14 @@ function SettingsCard({ state, setState }: { state: PasswordState; setState: Rea
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <IconButton size="small" edge="start" onClick={() => setState({ ...state, length: Math.max(1, state.length - 1) })}>
+                  <IconButton size="small" edge="start" onClick={() => setState({ ...state, length: Math.max(1, state.length - 1) })} aria-label={translate({ id: 'common.decrease', message: '減らす' })}>
                     <RemoveIcon fontSize="small" />
                   </IconButton>
                 </InputAdornment>
               ),
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton size="small" edge="end" onClick={() => setState({ ...state, length: Math.min(128, state.length + 1) })}>
+                  <IconButton size="small" edge="end" onClick={() => setState({ ...state, length: Math.min(128, state.length + 1) })} aria-label={translate({ id: 'common.increase', message: '増やす' })}>
                     <AddIcon fontSize="small" />
                   </IconButton>
                 </InputAdornment>
@@ -110,14 +110,14 @@ function SettingsCard({ state, setState }: { state: PasswordState; setState: Rea
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <IconButton size="small" edge="start" onClick={() => setState({ ...state, createTimes: Math.max(1, state.createTimes - 1) })}>
+                  <IconButton size="small" edge="start" onClick={() => setState({ ...state, createTimes: Math.max(1, state.createTimes - 1) })} aria-label={translate({ id: 'common.decrease', message: '減らす' })}>
                     <RemoveIcon fontSize="small" />
                   </IconButton>
                 </InputAdornment>
               ),
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton size="small" edge="end" onClick={() => setState({ ...state, createTimes: Math.min(20, state.createTimes + 1) })}>
+                  <IconButton size="small" edge="end" onClick={() => setState({ ...state, createTimes: Math.min(20, state.createTimes + 1) })} aria-label={translate({ id: 'common.increase', message: '増やす' })}>
                     <AddIcon fontSize="small" />
                   </IconButton>
                 </InputAdornment>

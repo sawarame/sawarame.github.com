@@ -841,19 +841,19 @@ export default function ImageOptimizer(): JSX.Element {
                       {img.status === 'completed' && (
                         <Button size="small" startIcon={<CompareIcon />} color="info" onClick={() => setCompareImages({ before: img.displayUrl, after: img.compressedUrl! })}>比較</Button>
                       )}
-                      <IconButton size="small" color="error" onClick={() => removeImage(img.id)}><DeleteIcon fontSize="small" /></IconButton>
+                      <IconButton size="small" color="error" onClick={() => removeImage(img.id)} aria-label={translate({ id: 'common.delete', message: '削除' })}><DeleteIcon fontSize="small" /></IconButton>
                     </Box>
 
                     <Stack direction="row" spacing={1} sx={{ display: { xs: 'none', sm: 'flex' } }}>
                       <Tooltip title={translate({ id: 'resize.action.crop', message: 'クロップ' })}>
-                        <IconButton onClick={() => onCropClick(img)} color="primary"><CropIcon /></IconButton>
+                        <IconButton onClick={() => onCropClick(img)} color="primary" aria-label={translate({ id: 'resize.action.crop', message: 'クロップ' })}><CropIcon /></IconButton>
                       </Tooltip>
                       {img.status === 'completed' && (
                         <Tooltip title={translate({ id: 'resize.compare.label', message: 'Before/After 比較' })}>
-                          <IconButton onClick={() => setCompareImages({ before: img.displayUrl, after: img.compressedUrl! })} color="info"><CompareIcon /></IconButton>
+                          <IconButton onClick={() => setCompareImages({ before: img.displayUrl, after: img.compressedUrl! })} color="info" aria-label={translate({ id: 'resize.compare.label', message: 'Before/After 比較' })}><CompareIcon /></IconButton>
                         </Tooltip>
                       )}
-                      <IconButton color="error" onClick={() => removeImage(img.id)}><DeleteIcon /></IconButton>
+                      <IconButton color="error" onClick={() => removeImage(img.id)} aria-label={translate({ id: 'common.delete', message: '削除' })}><DeleteIcon /></IconButton>
                     </Stack>
                   </Stack>
                 </Card>
@@ -1019,7 +1019,7 @@ export default function ImageOptimizer(): JSX.Element {
       <Dialog open={!!compareImages} onClose={() => setCompareImages(null)} maxWidth="md" fullWidth PaperProps={{ sx: { borderRadius: '20px' } }}>
         <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 800 }}>
           {translate({ id: 'resize.compare.dialogTitle', message: '比較プレビュー' })}
-          <IconButton onClick={() => setCompareImages(null)}><CloseIcon /></IconButton>
+          <IconButton onClick={() => setCompareImages(null)} aria-label={translate({ id: 'common.close', message: '閉じる' })}><CloseIcon /></IconButton>
         </DialogTitle>
         <DialogContent sx={{ pb: 4 }}>
           {compareImages && <BeforeAfterSlider beforeUrl={compareImages.before} afterUrl={compareImages.after} />}

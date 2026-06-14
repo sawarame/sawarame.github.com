@@ -427,7 +427,7 @@ export default function QrGenerator(): React.JSX.Element {
                       opacity: usePresetLogo ? 0.3 : 1
                     }}
                   />
-                  <IconButton size="small" color="error" onClick={removeLogo}>
+                  <IconButton size="small" color="error" onClick={removeLogo} aria-label={translate({ id: 'common.delete', message: '削除' })}>
                     <DeleteIcon fontSize="small" />
                   </IconButton>
                 </Stack>

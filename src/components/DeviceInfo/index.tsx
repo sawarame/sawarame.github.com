@@ -20,7 +20,7 @@ function InfoRow({ label, value, note, onCopy, mono = false }: {
         {note && <span className={styles.infoNote}>{note}</span>}
         {onCopy && (
           <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
-            <IconButton size="small" onClick={() => onCopy(value)} className={styles.copyBtn} aria-label={`${label} copy`}>
+            <IconButton size="small" onClick={() => onCopy(value)} className={styles.copyBtn} aria-label={translate({ id: 'common.copyLabel', message: '{label}をコピー' }, { label })}>
               <ContentCopyIcon fontSize="small" />
             </IconButton>
           </Tooltip>

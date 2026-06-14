@@ -418,6 +418,7 @@ export default function PdfEditor(): JSX.Element {
                         size="small" 
                         color="error" 
                         onClick={(e) => { e.stopPropagation(); removeFile(pdfFile.id); }}
+                        aria-label={translate({ id: 'common.delete', message: '削除' })}
                       >
                         <DeleteIcon fontSize="small" />
                       </IconButton>
@@ -543,6 +544,7 @@ export default function PdfEditor(): JSX.Element {
                                       e.stopPropagation();
                                       setPreviewIndex({ fileId: activePdf.id, pageIdx: idx });
                                     }}
+                                    aria-label={translate({ id: 'pdfEditor.action.zoom', message: 'プレビュー拡大' })}
                                     sx={{
                                       position: 'absolute',
                                       bottom: 4,
@@ -616,6 +618,7 @@ export default function PdfEditor(): JSX.Element {
         <Box sx={{ position: 'relative', bgcolor: 'background.default', textAlign: 'center', p: 0, height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <IconButton 
             onClick={() => setPreviewIndex(null)} 
+            aria-label={translate({ id: 'common.close', message: '閉じる' })}
             sx={{ position: 'absolute', top: 16, right: 16, color: 'text.secondary', bgcolor: 'background.paper', '&:hover': { bgcolor: 'action.hover' }, zIndex: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.1)', opacity: 0.9 }}
           >
             <CloseIcon />
@@ -647,6 +650,7 @@ export default function PdfEditor(): JSX.Element {
                   <IconButton
                     onClick={() => setPreviewIndex({ ...previewIndex, pageIdx: previewIndex.pageIdx - 1 })}
                     disabled={previewIndex.pageIdx === 0}
+                    aria-label={translate({ id: 'pdfEditor.preview.prev', message: '前のページ' })}
                     sx={{ position: 'absolute', left: 16, color: 'text.primary', bgcolor: 'background.paper', '&:hover': { bgcolor: 'action.hover' }, zIndex: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.1)', '&.Mui-disabled': { bgcolor: 'action.disabledBackground' }, opacity: 0.9 }}
                   >
                     <ArrowBackIosNewIcon />
@@ -657,6 +661,7 @@ export default function PdfEditor(): JSX.Element {
                   <IconButton
                     onClick={() => setPreviewIndex({ ...previewIndex, pageIdx: previewIndex.pageIdx + 1 })}
                     disabled={previewIndex.pageIdx === targetFile.totalPages - 1}
+                    aria-label={translate({ id: 'pdfEditor.preview.next', message: '次のページ' })}
                     sx={{ position: 'absolute', right: 16, color: 'text.primary', bgcolor: 'background.paper', '&:hover': { bgcolor: 'action.hover' }, zIndex: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.1)', '&.Mui-disabled': { bgcolor: 'action.disabledBackground' }, opacity: 0.9 }}
                   >
                     <ArrowForwardIosIcon />
