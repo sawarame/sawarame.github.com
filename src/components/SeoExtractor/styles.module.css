@@ -70,7 +70,7 @@ html[data-theme='dark'] .googleUrlContainer {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0;
+  margin: 0 !important;
   flex-shrink: 0;
 }
 
@@ -428,6 +428,7 @@ html[data-theme='dark'] .jsonContainer {
   border-radius: 4px;
   background-color: #f1f3f4;
   padding: 2px;
+  margin: 0 !important;
 }
 
 html[data-theme='dark'] .faviconPreview {
