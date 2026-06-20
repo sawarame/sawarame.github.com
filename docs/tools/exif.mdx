@@ -8,6 +8,7 @@ hide_title: true
 import ExifViewer from "@site/src/components/ExifViewer";
 import ToolPageHeader from "@site/src/components/ToolPageHeader";
 import { Camera } from "lucide-react";
+import EmbedCodeSection from "@site/src/components/EmbedCodeSection";
 
 <ToolPageHeader
   title="写真Exif情報チェッカー"
@@ -29,3 +30,5 @@ import { Camera } from "lucide-react";
 :::info セキュリティについて
 🔒 写真の解析はすべてお使いの端末（ブラウザ内）で実行され、外部サーバーにデータが送信されることは一切ありません。プライバシーは完全に守られます。
 :::
+
+<EmbedCodeSection path="/embedded/exif" />
