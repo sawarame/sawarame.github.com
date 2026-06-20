@@ -32,17 +32,17 @@ export default function EmbedCodeSection({ path }: EmbedCodeSectionProps): JSX.E
         <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1, color: 'var(--ifm-color-emphasis-900)' }}>
           🔗 {translate({ id: 'embed.section.title', message: 'このツールをサイトに埋め込む' })}
         </Typography>
-        
+
         <Box sx={{ mb: 3 }}>
           <Typography variant="body2" sx={{ mb: 1, color: 'var(--ifm-color-emphasis-700)' }}>
             {translate({ id: 'embed.section.iframeLabel', message: 'iframe埋め込みタグ' })}
           </Typography>
           <Box sx={{ display: 'flex', gap: 1 }}>
-            <TextField 
-              fullWidth 
-              size="small" 
-              value={iframeCode} 
-              InputProps={{ readOnly: true, sx: { fontFamily: 'monospace', fontSize: '0.85rem', background: 'var(--ifm-background-color)' } }} 
+            <TextField
+              fullWidth
+              size="small"
+              value={iframeCode}
+              InputProps={{ readOnly: true, sx: { fontFamily: 'monospace', fontSize: '0.85rem', background: 'var(--ifm-background-color)' } }}
             />
             <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
               <Button variant="contained" disableElevation onClick={() => handleCopy(iframeCode)} startIcon={<ContentCopyIcon />} sx={{ whiteSpace: 'nowrap' }}>
@@ -54,17 +54,17 @@ export default function EmbedCodeSection({ path }: EmbedCodeSectionProps): JSX.E
 
         <Box>
           <Typography variant="body2" sx={{ mb: 1, color: 'var(--ifm-color-emphasis-700)' }}>
-            {translate({ id: 'embed.section.urlLabel', message: '埋め込み用URL（直接リンク）' })}
+            {translate({ id: 'embed.section.urlLabel', message: '埋め込み用URL' })}
           </Typography>
           <Box sx={{ display: 'flex', gap: 1 }}>
-            <TextField 
-              fullWidth 
-              size="small" 
-              value={embedUrl} 
-              InputProps={{ readOnly: true, sx: { fontFamily: 'monospace', fontSize: '0.85rem', background: 'var(--ifm-background-color)' } }} 
+            <TextField
+              fullWidth
+              size="small"
+              value={embedUrl}
+              InputProps={{ readOnly: true, sx: { fontFamily: 'monospace', fontSize: '0.85rem', background: 'var(--ifm-background-color)' } }}
             />
             <Tooltip title={translate({ id: 'common.copy', message: 'コピー' })}>
-              <Button variant="outlined" onClick={() => handleCopy(embedUrl)} startIcon={<ContentCopyIcon />} sx={{ whiteSpace: 'nowrap', bgcolor: 'var(--ifm-background-color)' }}>
+              <Button variant="contained" disableElevation onClick={() => handleCopy(embedUrl)} startIcon={<ContentCopyIcon />} sx={{ whiteSpace: 'nowrap' }}>
                 {translate({ id: 'common.copy', message: 'コピー' })}
               </Button>
             </Tooltip>

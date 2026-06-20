@@ -1966,5 +1966,14 @@
   },
   "seo.export.success": {
     "message": "JSON file successfully exported"
+  },
+  "embed.section.title": {
+    "message": "Embed this tool on your site"
+  },
+  "embed.section.iframeLabel": {
+    "message": "iframe Embed Code"
+  },
+  "embed.section.urlLabel": {
+    "message": "Embed URL"
   }
 }
