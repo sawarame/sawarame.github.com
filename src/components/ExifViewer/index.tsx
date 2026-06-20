@@ -241,6 +241,16 @@ export default function ExifViewer(): JSX.Element {
   const [imageUrl, setImageUrl] = useState<string>('');
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [originalFile, setOriginalFile] = useState<File | null>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  // ファイルが選択され、結果が表示されたら自動スクロールする
+  useEffect(() => {
+    if (originalFile) {
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  }, [originalFile]);
 
   const handleFileSelect = useCallback(async (file: File) => {
     setErrorMsg('');
@@ -347,7 +357,9 @@ export default function ExifViewer(): JSX.Element {
       <UploadArea onFileSelect={handleFileSelect} />
 
       {originalFile && (
-        <ExifResultCard exifData={exifData} onClear={handleClear} fileName={fileName} imageUrl={imageUrl} originalFile={originalFile} />
+        <div ref={resultRef}>
+          <ExifResultCard exifData={exifData} onClear={handleClear} fileName={fileName} imageUrl={imageUrl} originalFile={originalFile} />
+        </div>
       )}
 
       <Snackbar open={!!errorMsg} autoHideDuration={5000} onClose={() => setErrorMsg('')} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
