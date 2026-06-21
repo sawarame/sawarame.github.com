@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { useLocation } from '@docusaurus/router';
 import { translate } from '@docusaurus/Translate';
 import { Button, Tooltip, IconButton, TextField, Box, Typography, Paper } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -7,10 +8,12 @@ import MuiTheme from '@site/src/components/MuiTheme';
 
 interface EmbedCodeSectionProps {
   path: string;
+  syncParams?: boolean;
 }
 
-export default function EmbedCodeSection({ path }: EmbedCodeSectionProps): JSX.Element {
+export default function EmbedCodeSection({ path, syncParams = false }: EmbedCodeSectionProps): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
+  const location = useLocation();
   const [baseUrl, setBaseUrl] = useState('');
 
   useEffect(() => {
@@ -19,8 +22,12 @@ export default function EmbedCodeSection({ path }: EmbedCodeSectionProps): JSX.E
   }, []);
 
   // SSR時はsiteConfig.urlをフォールバックとして使用する
-  const embedUrl = `${baseUrl || siteConfig.url}${path}`;
-  const iframeCode = `<iframe src="${embedUrl}" width="100%" height="600" style="border: none; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"></iframe>`;
+  let embedUrl = `${baseUrl || siteConfig.url}${path}`;
+  if (syncParams && location.search) {
+    // URLのパラメータを引き継ぐ
+    embedUrl += location.search;
+  }
+  const iframeCode = `<iframe src="${embedUrl}" width="100%" height="600" style="border: none; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" allow="clipboard-write"></iframe>`;
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
