@@ -207,7 +207,7 @@ function ResultCard({ passwords, onRefresh, onSave, onCopy }: { passwords: strin
   );
 }
 
-export default function PasswordGenerator() {
+export default function PasswordGenerator({ embedded = false }: { embedded?: boolean }) {
   const history = useHistory();
   const location = useLocation();
 
@@ -295,8 +295,12 @@ export default function PasswordGenerator() {
     <MuiTheme>
       <div className={styles.container}>
         <div className={styles.layout}>
-          <div><SettingsCard state={state} setState={setState} /></div>
-          <div><ResultCard passwords={passwords} onRefresh={handleRefresh} onCopy={handleCopy} onSave={handleSave} /></div>
+          {!embedded && (
+            <div><SettingsCard state={state} setState={setState} /></div>
+          )}
+          <div style={embedded ? { gridColumn: '1 / -1' } : {}}>
+            <ResultCard passwords={passwords} onRefresh={handleRefresh} onCopy={handleCopy} onSave={handleSave} />
+          </div>
         </div>
       </div>
       <Snackbar open={snackbar.open} autoHideDuration={2000} onClose={() => setSnackbar({ ...snackbar, open: false })} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>

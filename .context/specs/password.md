@@ -27,3 +27,7 @@
   * 各パスワードごとのクリップボードへの単体コピー機能
   * 全ての生成結果をテキストファイル（`.txt`）として保存するダウンロード機能
   * ダウンロードファイル名のフォーマット: `[現在日時(YYYYMMDDHHMMSS)].txt`
+* **外部サイトへの埋め込み機能**:
+  * `src/pages/embed/password.tsx` により、設定パネル（SettingsCard）を非表示にし、生成されたパスワード（ResultCard）のみを表示する埋め込み専用ページ（`/embed/password`）を提供。
+  * `PasswordGenerator` に `embedded` プロパティを追加し、真の場合はレイアウトを埋め込み用に最適化。
+  * `EmbedCodeSection` コンポーネントは、URLパラメータ（パスワード設定）を動的に引き継ぎ、埋め込み用iframeコードおよびURLを生成する。
