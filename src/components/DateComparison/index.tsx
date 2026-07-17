@@ -19,6 +19,11 @@ import common from '@site/src/css/common.module.css';
 
 // --- Date Utils ---
 
+/**
+ * カスタムフォーマットやUNIXタイムスタンプなどの入力文字列をDateオブジェクトに変換する関数
+ * @param input - 入力された日付文字列またはタイムスタンプ
+ * @returns 変換後のDateオブジェクト。パースできない場合はnull
+ */
 export function parseCustomDate(input: string): Date | null {
   if (!input) return null;
   const str = input.trim();
@@ -55,6 +60,11 @@ export function parseCustomDate(input: string): Date | null {
   return null;
 }
 
+/**
+ * Dateオブジェクトを指定された文字列フォーマット (YYYY/MM/DD HH:mm:ss) に変換する関数
+ * @param date - フォーマット対象のDateオブジェクト
+ * @returns フォーマットされた日時文字列
+ */
 export function formatDate(date: Date): string {
   const pad = (n: number) => n.toString().padStart(2, '0');
   return `${date.getFullYear()}/${pad(date.getMonth() + 1)}/${pad(
@@ -64,6 +74,13 @@ export function formatDate(date: Date): string {
   )}`;
 }
 
+/**
+ * 差分結果を表示するカードコンポーネント
+ * @param props - コンポーネントのプロパティ
+ * @param props.date1Str - 比較元の1つ目の日付文字列
+ * @param props.date2Str - 比較先の2つ目の日付文字列
+ * @returns 差分結果カードのJSX要素
+ */
 function DiffResultCard({ date1Str, date2Str }: { date1Str: string, date2Str: string }) {
   const [snackbar, setSnackbar] = useState({ open: false, message: '' });
 
@@ -153,7 +170,13 @@ function DiffResultCard({ date1Str, date2Str }: { date1Str: string, date2Str: st
   );
 }
 
-export default function DateComparison(): JSX.Element {
+/**
+ * 日付比較ツールコンポーネント
+ * @param props - コンポーネントのプロパティ
+ * @param props.embedded - 埋め込みモードかどうか。trueの場合は差分結果セクションのみを表示する
+ * @returns 日付比較コンポーネントのJSX要素
+ */
+export default function DateComparison({ embedded = false }: { embedded?: boolean }): JSX.Element {
   const history = useHistory();
   const location = useLocation();
 
@@ -224,6 +247,7 @@ export default function DateComparison(): JSX.Element {
   return (
     <MuiTheme>
       <div style={{ width: '100%', margin: '0 auto', gap: '24px', display: 'flex', flexDirection: 'column' }}>
+      {!embedded && (
       <div className={common.card}>
         <h2 className={common.cardTitle}>
           <span className={common.cardTitleIcon}>📅</span>
@@ -331,6 +355,7 @@ export default function DateComparison(): JSX.Element {
             }}
             />        </Stack>
       </div>
+      )}
 
       <DiffResultCard date1Str={date1} date2Str={date2} />
     </div>

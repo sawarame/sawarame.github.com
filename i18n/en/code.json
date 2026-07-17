@@ -533,6 +533,9 @@
   "common.copyAll": {
     "message": "Copy All"
   },
+  "date.title": {
+    "message": "Date Comparison Tool"
+  },
   "date.header.title": {
     "message": "Date Comparison Tool"
   },
