@@ -741,14 +741,29 @@ export default function ImageOptimizer(): JSX.Element {
       const img = completedImages[0];
       const link = document.createElement('a');
       link.href = img.compressedUrl!;
-      link.download = `opt-${img.file.name.split('.')[0]}.${settings.format === 'original' ? img.file.name.split('.').pop() : settings.format}`;
+      const lastDot = img.file.name.lastIndexOf('.');
+      const nameWithoutExt = lastDot !== -1 ? img.file.name.substring(0, lastDot) : img.file.name;
+      const originalExt = lastDot !== -1 ? img.file.name.substring(lastDot + 1) : '';
+      link.download = `opt-${nameWithoutExt}.${settings.format === 'original' ? originalExt : settings.format}`;
       link.click();
       return;
     }
     const zip = new JSZip();
+    const usedNames = new Set<string>();
     completedImages.forEach(img => {
-      const ext = settings.format === 'original' ? img.file.name.split('.').pop() : settings.format;
-      zip.file(`${img.file.name.split('.')[0]}.${ext}`, img.compressedBlob!);
+      const lastDot = img.file.name.lastIndexOf('.');
+      const nameWithoutExt = lastDot !== -1 ? img.file.name.substring(0, lastDot) : img.file.name;
+      const originalExt = lastDot !== -1 ? img.file.name.substring(lastDot + 1) : '';
+      const ext = settings.format === 'original' ? originalExt : settings.format;
+      
+      let finalName = `${nameWithoutExt}.${ext}`;
+      let counter = 1;
+      while (usedNames.has(finalName)) {
+        finalName = `${nameWithoutExt}(${counter}).${ext}`;
+        counter++;
+      }
+      usedNames.add(finalName);
+      zip.file(finalName, img.compressedBlob!);
     });
     const content = await zip.generateAsync({ type: 'blob' });
     const link = document.createElement('a');
