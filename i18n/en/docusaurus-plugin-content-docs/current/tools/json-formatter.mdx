@@ -1,0 +1,31 @@
+---
+title: JSON Formatter & Validator
+slug: /tools/json-formatter
+sidebar_position: 17
+hide_title: true
+---
+import JsonFormatter from "@site/src/components/JsonFormatter";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { FileJson } from "lucide-react";
+
+<ToolPageHeader
+  title="JSON Formatter & Validator"
+  desc="Real-time validation, formatting, and automatic TypeScript interface generation for JSON data"
+  icon={<FileJson size={48} color="#fff" />}
+  color1="#fbc2eb"
+  color2="#a18cd1"
+/>
+
+<JsonFormatter />
+
+## How to use
+
+1. Select a file or paste your JSON into the text area.
+2. The syntax is validated in real-time. If there are any errors, a message will be displayed.
+3. Select the indent width (2 spaces, 4 spaces, or Tab) and click the "Format" button to format the JSON.
+4. You can check the structure in a collapsible tree format in the "Tree View" tab.
+5. In the "TypeScript Types" tab, you can view, copy, or download the automatically generated TypeScript interfaces.
+
+:::info Privacy First
+🔒 All processing is done locally within your browser. Your data is never sent to any server.
+:::

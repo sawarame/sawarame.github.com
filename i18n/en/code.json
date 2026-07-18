@@ -533,6 +533,48 @@
   "common.copyAll": {
     "message": "Copy All"
   },
+  "tool.common.uploadFile": {
+    "message": "Upload File"
+  },
+  "tool.common.copy": {
+    "message": "Copy"
+  },
+  "tool.common.download": {
+    "message": "Download"
+  },
+  "tool.common.copied": {
+    "message": "Copied!"
+  },
+  "home.tools.jsonFormatter.title": {
+    "message": "JSON Formatter & Validator"
+  },
+  "home.tools.jsonFormatter.desc": {
+    "message": "Real-time validation, formatting, and automatic TypeScript interface generation for JSON data. Processed securely within your browser."
+  },
+  "tool.jsonFormatter.invalidJson": {
+    "message": "Invalid JSON"
+  },
+  "tool.jsonFormatter.indent": {
+    "message": "Indent"
+  },
+  "tool.jsonFormatter.formatBtn": {
+    "message": "Format"
+  },
+  "tool.jsonFormatter.minifyBtn": {
+    "message": "Minify"
+  },
+  "tool.jsonFormatter.tabEditor": {
+    "message": "Editor"
+  },
+  "tool.jsonFormatter.tabTree": {
+    "message": "Tree View"
+  },
+  "tool.jsonFormatter.tabTypes": {
+    "message": "TypeScript Types"
+  },
+  "tool.jsonFormatter.errorPrefix": {
+    "message": "Syntax Error:"
+  },
   "date.title": {
     "message": "Date Comparison Tool"
   },

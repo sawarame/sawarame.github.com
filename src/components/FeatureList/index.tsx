@@ -16,7 +16,8 @@ import {
   Target,
   Gauge,
   FileDown,
-  Globe
+  Globe,
+  FileJson
 } from 'lucide-react';
 import styles from './styles.module.css';
 
@@ -172,6 +173,15 @@ export const tools = [
     description: '入力したURLやHTMLソースコードから、faviconやOGP画像、タイトル、説明文、キーワードなどのSEO関連のメタ情報を抜き出します。ブラウザ内で安全に動作します。',
     link: '/tools/seo-extractor',
     gradient: 'linear-gradient(135deg, #0f172a 0%, #38bdf8 100%)',
+  },
+  {
+    icon: <FileJson size={ICON_SIZE} />,
+    titleId: 'home.tools.jsonFormatter.title',
+    title: 'JSONフォーマッター / バリデーター',
+    descriptionId: 'home.tools.jsonFormatter.desc',
+    description: 'JSONデータのリアルタイム検証・整形と、TypeScript型定義（interface）の自動生成ツール。全てブラウザ内で処理されます。',
+    link: '/tools/json-formatter',
+    gradient: 'linear-gradient(135deg, #a6c0fe 0%, #f68084 100%)',
   },
 ];
 

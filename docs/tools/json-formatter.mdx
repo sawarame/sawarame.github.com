@@ -1,0 +1,31 @@
+---
+title: JSONフォーマッター / バリデーター
+slug: /tools/json-formatter
+sidebar_position: 17
+hide_title: true
+---
+import JsonFormatter from "@site/src/components/JsonFormatter";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { FileJson } from "lucide-react";
+
+<ToolPageHeader
+  title="JSONフォーマッター / バリデーター"
+  desc="JSONデータのリアルタイム検証・整形と、TypeScript型定義（interface）の自動生成ツール"
+  icon={<FileJson size={48} color="#fff" />}
+  color1="#fbc2eb"
+  color2="#a18cd1"
+/>
+
+<JsonFormatter />
+
+## 使い方
+
+1. ファイルを選択するか、テキストエリアにJSONを貼り付けます。
+2. リアルタイムで構文の検証が行われます。エラーがある場合はメッセージが表示されます。
+3. インデント幅（2スペース、4スペース、Tab）を選択して「整形」ボタンを押すと、フォーマットされます。
+4. 「ツリー表示」タブで折りたたみ可能なツリー形式で構造を確認できます。
+5. 「TypeScript 型定義」タブで自動生成された interface を確認し、コピーやダウンロードが可能です。
+
+:::info セキュリティについて
+🔒 処理はすべてブラウザ内で行われ、データがサーバーに送信されることはありません。
+:::
