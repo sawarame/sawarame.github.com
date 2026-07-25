@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   Box,
   Tabs,
@@ -23,6 +23,7 @@ import MuiTheme from '../MuiTheme';
 import Translate, { translate } from '@docusaurus/Translate';
 import { useColorMode } from '@docusaurus/theme-common';
 import styles from './styles.module.css';
+import common from '@site/src/css/common.module.css';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -47,6 +48,74 @@ function CustomTabPanel(props: TabPanelProps) {
   );
 }
 
+function UploadArea({ onFileSelect }: { onFileSelect: (file: File) => void }) {
+  const [isDragOver, setIsDragOver] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragOver(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragOver(false);
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragOver(false);
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      onFileSelect(e.dataTransfer.files[0]);
+      e.dataTransfer.clearData();
+    }
+  };
+
+  const handleClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      onFileSelect(e.target.files[0]);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
+
+  return (
+    <div className={common.card} style={{ marginBottom: '16px' }}>
+      <h2 className={common.cardTitle}>
+        <span className={common.cardTitleIcon}>📁</span>
+        <Translate id="tool.common.uploadFile">ファイルを読み込む</Translate>
+      </h2>
+      <div
+        className={`${common.dropZone} ${isDragOver ? common.dropZoneActive : ''}`}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+        onClick={handleClick}
+      >
+        <Upload size={48} color="var(--ifm-color-primary)" className={common.dropZoneIcon} />
+        <p className={common.dropZoneText}>
+          {translate({ id: 'tool.jsonFormatter.upload.dropLabel', message: 'クリック・ドラッグ＆ドロップ、または貼り付けで選択' })}
+        </p>
+        <p className={common.dropZoneSubText}>
+          {translate({ id: 'tool.jsonFormatter.upload.formats', message: '対応フォーマット: JSON, Text' })}
+        </p>
+        <input
+          type="file"
+          accept=".json,text/plain"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          style={{ display: 'none' }}
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function JsonFormatter() {
   const { colorMode } = useColorMode();
   const [tabValue, setTabValue] = useState(0);
@@ -59,8 +128,6 @@ export default function JsonFormatter() {
   const [toastOpen, setToastOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const [toastSeverity, setToastSeverity] = useState<'success' | 'error'>('success');
-
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Load from LocalStorage
   useEffect(() => {
@@ -180,42 +247,59 @@ export default function JsonFormatter() {
     URL.revokeObjectURL(url);
   };
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
+  const handleFileSelect = (file: File) => {
     const reader = new FileReader();
     reader.onload = (event) => {
       const content = event.target?.result as string;
       setJsonText(content);
       parseAndFormat(content, indent);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
     };
     reader.readAsText(file);
   };
 
+  const handleFileSelectRef = useRef(handleFileSelect);
+  handleFileSelectRef.current = handleFileSelect;
+
+  useEffect(() => {
+    const handlePaste = (e: ClipboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+        return;
+      }
+      
+      const items = e.clipboardData?.items;
+      if (!items) return;
+
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        if (item.kind === 'file') {
+          const file = item.getAsFile();
+          if (file && (file.name.endsWith('.json') || file.type === 'application/json' || file.type === 'text/plain')) {
+            handleFileSelectRef.current(file);
+            break;
+          }
+        } else if (item.kind === 'string' && item.type === 'text/plain') {
+          item.getAsString((text) => {
+             try {
+               JSON.parse(text);
+               handleFileSelectRef.current(new File([text], 'pasted.json', { type: 'application/json' }));
+             } catch(e) {
+               // ignore non-json text
+             }
+          });
+        }
+      }
+    };
+
+    window.addEventListener('paste', handlePaste);
+    return () => window.removeEventListener('paste', handlePaste);
+  }, []);
+
   return (
     <MuiTheme>
       <Box className={styles.container}>
+        <UploadArea onFileSelect={handleFileSelect} />
+        
         <Paper elevation={0} variant="outlined" sx={{ p: 2, mb: 2, display: 'flex', gap: 2, flexWrap: 'wrap', alignItems: 'center' }}>
-          <Button
-            variant="contained"
-            startIcon={<Upload size={18} />}
-            component="label"
-            color="primary"
-          >
-            <Translate id="tool.common.uploadFile">ファイルを読み込む</Translate>
-            <input
-              type="file"
-              accept=".json,text/plain"
-              hidden
-              ref={fileInputRef}
-              onChange={handleFileUpload}
-            />
-          </Button>
-
           <FormControl size="small" sx={{ minWidth: 120 }}>
             <InputLabel id="indent-select-label"><Translate id="tool.jsonFormatter.indent">インデント</Translate></InputLabel>
             <Select
