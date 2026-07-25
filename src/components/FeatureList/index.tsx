@@ -17,7 +17,8 @@ import {
   Gauge,
   FileDown,
   Globe,
-  FileJson
+  FileJson,
+  Database
 } from 'lucide-react';
 import styles from './styles.module.css';
 
@@ -182,6 +183,15 @@ export const tools = [
     description: 'JSONデータのリアルタイム検証・整形と、TypeScript型定義（interface）の自動生成ツール。全てブラウザ内で処理されます。',
     link: '/tools/json-formatter',
     gradient: 'linear-gradient(135deg, #a6c0fe 0%, #f68084 100%)',
+  },
+  {
+    icon: <Database size={ICON_SIZE} />,
+    titleId: 'home.tools.dummyData.title',
+    title: 'ダミーデータジェネレーター',
+    descriptionId: 'home.tools.dummyData.desc',
+    description: 'APIのモックやデータベースのテストデータに使えるダミー情報を、ブラウザ上で安全かつ即座に生成します。',
+    link: '/tools/dummy-data',
+    gradient: 'linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%)',
   },
 ];
 

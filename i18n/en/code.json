@@ -551,6 +551,57 @@
   "home.tools.jsonFormatter.desc": {
     "message": "Real-time validation, formatting, and automatic TypeScript interface generation for JSON data. Processed securely within your browser."
   },
+  "home.tools.dummyData.title": {
+    "message": "Dummy Data Generator"
+  },
+  "home.tools.dummyData.desc": {
+    "message": "Instantly and securely generate dummy data for API mocks and database testing right in your browser."
+  },
+  "tool.dummyData.settings": {
+    "message": "Settings"
+  },
+  "tool.dummyData.preset": {
+    "message": "Preset"
+  },
+  "tool.dummyData.preset.user": {
+    "message": "User Info"
+  },
+  "tool.dummyData.preset.company": {
+    "message": "Company Info"
+  },
+  "tool.dummyData.preset.product": {
+    "message": "Product Info"
+  },
+  "tool.dummyData.preset.custom": {
+    "message": "Custom"
+  },
+  "tool.dummyData.locale": {
+    "message": "Data Locale"
+  },
+  "tool.dummyData.fields": {
+    "message": "Field Definitions"
+  },
+  "tool.dummyData.dragToReorder": {
+    "message": "Drag to reorder (Not implemented)"
+  },
+  "tool.dummyData.addField": {
+    "message": "Add Field"
+  },
+  "tool.dummyData.count": {
+    "message": "Generate Count"
+  },
+  "tool.dummyData.format": {
+    "message": "Output Format"
+  },
+  "tool.dummyData.tableName": {
+    "message": "Table Name"
+  },
+  "tool.dummyData.generateButton": {
+    "message": "Generate Data"
+  },
+  "tool.dummyData.result": {
+    "message": "Output Preview"
+  },
   "tool.jsonFormatter.invalidJson": {
     "message": "Invalid JSON"
   },

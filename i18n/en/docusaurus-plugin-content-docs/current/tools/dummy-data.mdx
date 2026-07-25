@@ -1,0 +1,32 @@
+---
+title: Dummy Data Generator
+slug: /tools/dummy-data
+sidebar_position: 18
+hide_title: true
+---
+
+import DummyDataGenerator from "@site/src/components/DummyDataGenerator";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Database } from 'lucide-react';
+
+<ToolPageHeader
+  title="Dummy Data Generator"
+  desc="Instantly and securely generate dummy data for API mocks and database testing right in your browser."
+  icon={<Database size={48} color="#fff" />}
+  color1="#3b82f6"
+  color2="#10b981"
+/>
+
+<DummyDataGenerator />
+
+## How to use
+
+1. **Select a Preset**: Choose a preset like "User Info" or "Company Info" that fits your needs.
+2. **Customize Fields**: Add, remove, or change data types of specific fields as needed.
+3. **Set Output Format**: Specify the number of records to generate and choose the output format (JSON, CSV, SQL).
+4. **Generate Data**: Click the "Generate Data" button to view the results in the preview area.
+5. **Save**: Copy to the clipboard or download the result as a file to use it.
+
+:::info Security and Privacy
+🔒 All dummy data generation is processed locally in your browser. Your settings and generated results are never sent to any server.
+:::
