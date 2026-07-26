@@ -8,7 +8,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import MuiTheme from '@site/src/components/MuiTheme';
 import styles from './styles.module.css';
 
-const BENCHMARK_VERSION = '1.0.0';
+const BENCHMARK_VERSION = '1.1.0';
 
 // ============================================================
 // Worker Logic (Blob URL approach)
@@ -115,6 +115,68 @@ async function runMultiCoreBenchmark(cores: number, passes: number, onProgress?:
   if (totalTime === 0) return 9999;
   const multiScore = Math.floor((500_000 * cores * passes) / totalTime);
   return multiScore;
+}
+
+export async function runGraphicsBenchmark(canvas: HTMLCanvasElement, onProgress: (msg: string) => void): Promise<number> {
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return 0;
+  const width = canvas.width;
+  const height = canvas.height;
+  
+  let particleCount = 100;
+  let maxCount = 0;
+  let running = true;
+  let frameCount = 0;
+  let lastTime = performance.now();
+  const startTime = performance.now();
+  
+  return new Promise((resolve) => {
+    const tick = (now: number) => {
+      const elapsed = now - startTime;
+      if (elapsed > 4000) {
+        running = false;
+        ctx.clearRect(0, 0, width, height);
+        resolve(Math.floor(maxCount));
+        return;
+      }
+      
+      const dt = now - lastTime;
+      lastTime = now;
+      
+      if (dt < 20) {
+        particleCount += 300;
+      } else {
+        particleCount = Math.max(100, particleCount - 500);
+      }
+      maxCount = Math.max(maxCount, particleCount);
+      
+      ctx.clearRect(0, 0, width, height);
+      for(let i=0; i<particleCount; i++) {
+        const x = (Math.sin(now * 0.001 + i) * width * 0.4) + width / 2;
+        const y = (Math.cos(now * 0.0013 + i * 1.1) * height * 0.4) + height / 2;
+        ctx.fillStyle = (i % 2 === 0) ? '#ff0844' : '#4facfe';
+        ctx.fillRect(x, y, 4, 4);
+      }
+      
+      if (frameCount % 10 === 0) {
+         onProgress(`${translate({ id: 'benchmark.progress.graphics', message: '描画性能測定中...' })} (${Math.floor((elapsed / 4000) * 100)}%)`);
+      }
+      frameCount++;
+      
+      if (running) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
+}
+
+export function getGraphicsRankInfo(score: number) {
+  if (score >= 100000) return { rank: 'S', label: 'Rank S', desc: translate({ id: 'benchmark.gfx.rank.s', message: '最高峰。複雑な描画やアニメーションも極めて滑らかです' }), className: styles.rankS };
+  if (score >= 40000) return { rank: 'A', label: 'Rank A', desc: translate({ id: 'benchmark.gfx.rank.a', message: '快適。リッチな演出を持つサイトでもスムーズに動作します' }), className: styles.rankA };
+  if (score >= 20000) return { rank: 'B', label: 'Rank B', desc: translate({ id: 'benchmark.gfx.rank.b', message: '実用的。一般的なアニメーションや描画には十分な性能です' }), className: styles.rankB };
+  if (score >= 10000) return { rank: 'C', label: 'Rank C', desc: translate({ id: 'benchmark.gfx.rank.c', message: '標準的。一般的なブラウジングには問題ない描画性能です' }), className: styles.rankC };
+  if (score >= 4000) return { rank: 'D', label: 'Rank D', desc: translate({ id: 'benchmark.gfx.rank.d', message: '基本的。重い描画処理ではカクつきを感じる場合があります' }), className: styles.rankD };
+  if (score >= 2000) return { rank: 'E', label: 'Rank E', desc: translate({ id: 'benchmark.gfx.rank.e', message: '低速。描画性能が不足気味で、視覚効果が遅延する可能性があります' }), className: styles.rankE };
+  return { rank: 'F', label: 'Rank F', desc: translate({ id: 'benchmark.gfx.rank.f', message: '動作困難。アニメーションやリッチなUIの表示には適していません' }), className: styles.rankF };
 }
 
 export function getSingleCoreRankInfo(score: number) {
@@ -386,13 +448,13 @@ export const getBenchmarkData = () => [
 ];
 
 const getRankReferenceData = () => [
-  { rank: 'Rank S', single: translate({ id: 'benchmark.ref.rank.s.single', message: '4000以上' }), multi: translate({ id: 'benchmark.ref.rank.s.multi', message: '30000以上' }), desc: translate({ id: 'benchmark.ref.rank.s.desc', message: '比類なき速さ。ハイエンドを凌駕する最高峰の性能' }), className: styles.rankS },
-  { rank: 'Rank A', single: translate({ id: 'benchmark.ref.rank.a.single', message: '2000〜3999' }), multi: translate({ id: 'benchmark.ref.rank.a.multi', message: '10000〜29999' }), desc: translate({ id: 'benchmark.ref.rank.a.desc', message: '非常に快適。大抵のアプリが極めてスムーズに動作' }), className: styles.rankA },
-  { rank: 'Rank B', single: translate({ id: 'benchmark.ref.rank.b.single', message: '1000〜1999' }), multi: translate({ id: 'benchmark.ref.rank.b.multi', message: '4000〜9999' }), desc: translate({ id: 'benchmark.ref.rank.b.desc', message: '快適。複数のタスクを並行しても余裕のある性能' }), className: styles.rankB },
-  { rank: 'Rank C', single: translate({ id: 'benchmark.ref.rank.c.single', message: '250〜999' }), multi: translate({ id: 'benchmark.ref.rank.c.multi', message: '500〜3999' }), desc: translate({ id: 'benchmark.ref.rank.c.desc', message: '標準的。一般的なページ閲覧に十分な性能' }), className: styles.rankC },
-  { rank: 'Rank D', single: translate({ id: 'benchmark.ref.rank.d.single', message: '100〜249' }), multi: translate({ id: 'benchmark.ref.rank.d.multi', message: '200〜499' }), desc: translate({ id: 'benchmark.ref.rank.d.desc', message: '基本的。負荷により読み込みが遅くなる可能性' }), className: styles.rankD },
-  { rank: 'Rank E', single: translate({ id: 'benchmark.ref.rank.e.single', message: '50〜99' }), multi: translate({ id: 'benchmark.ref.rank.e.multi', message: '100〜199' }), desc: translate({ id: 'benchmark.ref.rank.e.desc', message: '低速。古い端末や省電力モードの可能性' }), className: styles.rankE },
-  { rank: 'Rank F', single: translate({ id: 'benchmark.ref.rank.f.single', message: '50未満' }), multi: translate({ id: 'benchmark.ref.rank.f.multi', message: '100未満' }), desc: translate({ id: 'benchmark.ref.rank.f.desc', message: '動作困難。現代のWeb標準に対し大幅な性能不足' }), className: styles.rankF },
+  { rank: 'Rank S', single: translate({ id: 'benchmark.ref.rank.s.single', message: '4000以上' }), multi: translate({ id: 'benchmark.ref.rank.s.multi', message: '30000以上' }), gfx: '100000+', desc: translate({ id: 'benchmark.ref.rank.s.desc', message: '比類なき速さ。ハイエンドを凌駕する最高峰の性能' }), className: styles.rankS },
+  { rank: 'Rank A', single: translate({ id: 'benchmark.ref.rank.a.single', message: '2000〜3999' }), multi: translate({ id: 'benchmark.ref.rank.a.multi', message: '10000〜29999' }), gfx: '40000+', desc: translate({ id: 'benchmark.ref.rank.a.desc', message: '非常に快適。大抵のアプリが極めてスムーズに動作' }), className: styles.rankA },
+  { rank: 'Rank B', single: translate({ id: 'benchmark.ref.rank.b.single', message: '1000〜1999' }), multi: translate({ id: 'benchmark.ref.rank.b.multi', message: '4000〜9999' }), gfx: '20000+', desc: translate({ id: 'benchmark.ref.rank.b.desc', message: '快適。複数のタスクを並行しても余裕のある性能' }), className: styles.rankB },
+  { rank: 'Rank C', single: translate({ id: 'benchmark.ref.rank.c.single', message: '250〜999' }), multi: translate({ id: 'benchmark.ref.rank.c.multi', message: '500〜3999' }), gfx: '10000+', desc: translate({ id: 'benchmark.ref.rank.c.desc', message: '標準的。一般的なページ閲覧に十分な性能' }), className: styles.rankC },
+  { rank: 'Rank D', single: translate({ id: 'benchmark.ref.rank.d.single', message: '100〜249' }), multi: translate({ id: 'benchmark.ref.rank.d.multi', message: '200〜499' }), gfx: '4000+', desc: translate({ id: 'benchmark.ref.rank.d.desc', message: '基本的。負荷により読み込みが遅くなる可能性' }), className: styles.rankD },
+  { rank: 'Rank E', single: translate({ id: 'benchmark.ref.rank.e.single', message: '50〜99' }), multi: translate({ id: 'benchmark.ref.rank.e.multi', message: '100〜199' }), gfx: '2000+', desc: translate({ id: 'benchmark.ref.rank.e.desc', message: '低速。古い端末や省電力モードの可能性' }), className: styles.rankE },
+  { rank: 'Rank F', single: translate({ id: 'benchmark.ref.rank.f.single', message: '50未満' }), multi: translate({ id: 'benchmark.ref.rank.f.multi', message: '100未満' }), gfx: '2000未満', desc: translate({ id: 'benchmark.ref.rank.f.desc', message: '動作困難。現代のWeb標準に対し大幅な性能不足' }), className: styles.rankF },
 ];
 
 export default function Benchmark(): JSX.Element {
@@ -402,6 +464,8 @@ export default function Benchmark(): JSX.Element {
 
   const [singleScore, setSingleScore] = useState<number | null>(null);
   const [multiScore, setMultiScore] = useState<number | null>(null);
+  const [graphicsScore, setGraphicsScore] = useState<number | null>(null);
+  const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
   // Feature results state
   const [featureResults, setFeatureResults] = useState<Record<string, boolean | null>>({});
@@ -518,12 +582,12 @@ export default function Benchmark(): JSX.Element {
       ctx.fillText(label, startX, 270);
       
       ctx.fillStyle = '#fff';
-      ctx.font = 'bold 90px sans-serif';
-      ctx.fillText(score.toLocaleString(), startX, 370);
+      ctx.font = 'bold 72px sans-serif';
+      ctx.fillText(score.toLocaleString(), startX, 360);
 
       // Rank Badge
-      const badgeW = 240, badgeH = 80;
-      const bx = startX, by = 420;
+      const badgeW = 180, badgeH = 70;
+      const bx = startX, by = 410;
       let badgeGrad = ctx.createLinearGradient(bx, by, bx + badgeW, by + badgeH);
       if (rankInfo.rank === 'S') { badgeGrad.addColorStop(0, '#ff0844'); badgeGrad.addColorStop(1, '#ffb199'); }
       else if (rankInfo.rank === 'A') { badgeGrad.addColorStop(0, '#f6d365'); badgeGrad.addColorStop(1, '#fda085'); }
@@ -541,18 +605,18 @@ export default function Benchmark(): JSX.Element {
       ctx.closePath(); ctx.fill();
 
       ctx.fillStyle = '#fff';
-      ctx.font = '900 44px sans-serif';
+      ctx.font = '900 36px sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(rankInfo.label, bx + badgeW / 2, by + 56);
+      ctx.fillText(rankInfo.label, bx + badgeW / 2, by + 48);
       ctx.textAlign = 'left';
 
       // Description (Score side only)
       ctx.fillStyle = '#bbb';
-      ctx.font = '22px sans-serif';
+      ctx.font = '20px sans-serif';
       const desc = rankInfo.desc;
-      const maxWidth = 460;
+      const maxWidth = 340;
       let line = '';
-      let yPos = 540;
+      let yPos = 520;
       const chars = desc.split('');
       for (let n = 0; n < chars.length; n++) {
         let testLine = line + chars[n];
@@ -560,7 +624,7 @@ export default function Benchmark(): JSX.Element {
         if (metrics.width > maxWidth && n > 0) {
           ctx.fillText(line, startX, yPos);
           line = chars[n];
-          yPos += 32;
+          yPos += 28;
         } else {
           line = testLine;
         }
@@ -568,8 +632,9 @@ export default function Benchmark(): JSX.Element {
       ctx.fillText(line, startX, yPos);
     };
 
-    if (singleScore !== null) drawResult('Single Core Score', singleScore, getSingleCoreRankInfo(singleScore), 120);
-    if (multiScore !== null) drawResult(`Multi Core Score (${cores} Cores)`, multiScore, getMultiCoreRankInfo(multiScore), 620);
+    if (singleScore !== null) drawResult('Single Core Score', singleScore, getSingleCoreRankInfo(singleScore), 60);
+    if (multiScore !== null) drawResult(`Multi Core Score`, multiScore, getMultiCoreRankInfo(multiScore), 440);
+    if (graphicsScore !== null) drawResult(`Graphics Score`, graphicsScore, getGraphicsRankInfo(graphicsScore), 820);
 
     // Feature Support Section
     const fsY = 700;
@@ -645,7 +710,8 @@ export default function Benchmark(): JSX.Element {
       const shareTitle = translate({ id: 'benchmark.share.title', message: 'Web快適度測定結果' });
       const shareSingle = translate({ id: 'benchmark.share.single', message: 'シングル:' });
       const shareMulti = translate({ id: 'benchmark.share.multi', message: 'マルチ:' });
-      const text = `${shareTitle}\n${shareSingle} ${singleScore.toLocaleString()} / ${shareMulti} ${multiScore.toLocaleString()}\nhttps://sawara.me/benchmark`;
+      const shareGfx = translate({ id: 'benchmark.share.gfx', message: 'グラフィックス:' });
+      const text = `${shareTitle}\n${shareSingle} ${singleScore.toLocaleString()} / ${shareMulti} ${multiScore.toLocaleString()} / ${shareGfx} ${graphicsScore?.toLocaleString()}\nhttps://sawara.me/benchmark`;
 
       const file = new File([blob], 'benchmark_result.png', { type: 'image/png' });
 
@@ -678,6 +744,7 @@ export default function Benchmark(): JSX.Element {
     setIsMeasuring(true);
     setSingleScore(null);
     setMultiScore(null);
+    setGraphicsScore(null);
     setFeatureResults({}); 
     setProgressMsg(translate({ id: 'benchmark.progress.preparing', message: '準備中...' }));
 
@@ -695,8 +762,18 @@ export default function Benchmark(): JSX.Element {
     // 2. マルチコア測定
     const mScore = await runMultiCoreBenchmark(cores, 5, setProgressMsg);
     setMultiScore(mScore);
+    
+    // 測定の間に少し間を置く
+    setProgressMsg(translate({ id: 'benchmark.progress.graphicsPreparing', message: '描画性能測定準備中...' }));
+    await sleep(800);
 
-    // 3. ブラウザ機能チェック (最後に実行)
+    // 3. グラフィックス測定
+    if (canvasRef.current) {
+      const gScore = await runGraphicsBenchmark(canvasRef.current, setProgressMsg);
+      setGraphicsScore(gScore);
+    }
+
+    // 4. ブラウザ機能チェック (最後に実行)
     setProgressMsg(translate({ id: 'benchmark.progress.feature', message: '機能サポート状況を判定中...' }));
     for (const cat of benchmarkData) {
       for (const item of cat.items) {
@@ -781,6 +858,34 @@ export default function Benchmark(): JSX.Element {
                 <CircularProgress />
                 <div style={{ marginTop: '1rem', color: 'var(--ifm-color-primary)', fontWeight: 'bold' }}>
                   {progressMsg.replace('マルチコア測定中...', '') || '測定中...'}
+                </div>
+              </div>
+            ) : (
+              <div style={{ padding: '2.4rem 0' }}>
+                <div className={styles.scoreValue} style={{ opacity: 0.2 }}>-</div>
+                <div style={{ marginTop: '1rem', color: 'var(--ifm-color-emphasis-500)' }}>{translate({ id: 'benchmark.ui.notStarted', message: '未実施' })}</div>
+              </div>
+            )}
+          </div>
+
+          <div className={styles.resultCard}>
+            <div className={styles.scoreLabel}>{translate({ id: 'benchmark.ui.graphics', message: '描画性能 (Canvas & DOM)' })}</div>
+            {graphicsScore !== null ? (
+              <>
+                <div className={styles.scoreValue}>{graphicsScore.toLocaleString()}</div>
+                <div className={`${styles.rankBadge} ${getGraphicsRankInfo(graphicsScore).className}`}>
+                  {getGraphicsRankInfo(graphicsScore).label}
+                </div>
+                <div className={styles.deviceImage}>
+                  {translate({ id: 'benchmark.ui.estimate', message: '目安:' })} <strong>{getGraphicsRankInfo(graphicsScore).desc}</strong>
+                </div>
+              </>
+            ) : (isMeasuring && progressMsg.includes('描画性能')) ? (
+              <div style={{ padding: '1rem 0' }}>
+                <canvas ref={canvasRef} width={600} height={300} style={{ width: '100%', height: 'auto', background: '#1a1a1a', borderRadius: '12px', boxShadow: '0 4px 15px rgba(0,0,0,0.2)', marginBottom: '1rem' }} />
+                <CircularProgress size={24} />
+                <div style={{ marginTop: '0.5rem', color: 'var(--ifm-color-primary)', fontWeight: 'bold' }}>
+                  {progressMsg.replace('描画性能測定中...', '') || '測定中...'}
                 </div>
               </div>
             ) : (
@@ -913,6 +1018,9 @@ export default function Benchmark(): JSX.Element {
                     </div>
                     <div className={styles.rankScoreDetail}>
                       <span>{translate({ id: 'benchmark.modal.multi', message: 'マルチ:' })}</span> <strong>{item.multi}</strong>
+                    </div>
+                    <div className={styles.rankScoreDetail}>
+                      <span>{translate({ id: 'benchmark.modal.gfx', message: '描画:' })}</span> <strong>{item.gfx}</strong>
                     </div>
                   </div>
                 </div>
