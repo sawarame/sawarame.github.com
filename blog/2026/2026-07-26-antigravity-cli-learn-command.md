@@ -3,7 +3,7 @@ slug: antigravity-cli-learn-command
 title: Antigravity CLI の /learn コマンドで実現する、AIアシスタントの「ルール化」の実践例
 date: 2026-07-26
 tags: [Antigravity, CLI, AI, 開発効率化]
-draft: true
+draft: false
 emoji: 🧠
 ---
 
