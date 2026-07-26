@@ -83,6 +83,7 @@ UIを構築する際は、以下のトークン値を厳格に使用し、マジ
 - **技術スタック**:
   - React 18 + TypeScript (型安全性を重視し、`any` の使用を避ける)
   - UIライブラリ: MUI (Material UI) v6。テーマ設定（`src/components/MuiTheme/`）と完全同期させること。
+    - **テーマ変数の使用**: コンポーネント（`sx` プロパティやスタイル定義など）で色や余白を指定する際は、直接ハードコード（`"#ff0000"` や `"16px"` など）することは厳禁です。必ず `theme.palette.primary.main` や `theme.spacing(2)` などのテーマ変数を使用してください。
   - スタイリングは MUI System/Emotion、および CSS Modules (`*.module.css`) を併用すること。
 - **MUI Button**:
   - `Primary`: 角丸 `12px`、グラデーション（`linear-gradient(135deg, #667eea, #764ba2)`）、ホバー時に浮き上がりを適用する。
