@@ -124,6 +124,7 @@ export default function DummyDataGenerator(): JSX.Element {
   const qFormat = query.get('format') || 'json';
   const qTableName = query.get('tableName') || 'users';
   const qLocale = query.get('locale') || 'ja';
+  const qSchema = query.get('schema');
   
   // State
   const [preset, setPreset] = useState<string>(qPreset);
@@ -131,8 +132,29 @@ export default function DummyDataGenerator(): JSX.Element {
   const [format, setFormat] = useState<string>(qFormat);
   const [tableName, setTableName] = useState<string>(qTableName);
   const [locale, setLocale] = useState<string>(qLocale);
-  const [fields, setFields] = useState<FieldDef[]>(PRESETS[preset] || PRESETS.user);
+  const [fields, setFields] = useState<FieldDef[]>(() => {
+    if (qPreset === 'custom' && qSchema) {
+      try {
+        const jsonStr = decodeURIComponent(atob(qSchema));
+        const parsed = JSON.parse(jsonStr);
+        if (Array.isArray(parsed)) {
+          return parsed.map(p => ({
+            id: crypto.randomUUID(),
+            name: String(p.n || p.name),
+            type: String(p.t || p.type) as FieldType
+          }));
+        }
+      } catch (e) {
+        console.error('Failed to parse schema', e);
+      }
+    }
+    if (PRESETS[qPreset]) {
+      return [...PRESETS[qPreset].map(f => ({ ...f, id: crypto.randomUUID() }))];
+    }
+    return [...PRESETS.user.map(f => ({ ...f, id: crypto.randomUUID() }))];
+  });
   const [generatedData, setGeneratedData] = useState<string>('');
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
 
   // Update URL
   useEffect(() => {
@@ -142,9 +164,19 @@ export default function DummyDataGenerator(): JSX.Element {
     params.set('format', format);
     params.set('tableName', tableName);
     params.set('locale', locale);
-    // Note: To keep URLs short, we don't sync the full custom schema in MVP unless it's critical.
+    
+    if (preset === 'custom') {
+      try {
+        const jsonStr = JSON.stringify(fields.map(f => ({ n: f.name, t: f.type })));
+        const b64 = btoa(encodeURIComponent(jsonStr));
+        params.set('schema', b64);
+      } catch (e) {
+        console.error('Failed to encode schema', e);
+      }
+    }
+    
     history.replace({ search: `?${params.toString()}` });
-  }, [preset, count, format, tableName, locale, history]);
+  }, [preset, count, format, tableName, locale, fields, history]);
 
   // Handle Preset Change
   const handlePresetChange = (newPreset: string) => {
@@ -242,6 +274,37 @@ export default function DummyDataGenerator(): JSX.Element {
     URL.revokeObjectURL(url);
   };
 
+  // Drag and drop handlers
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+    setDraggedIndex(index);
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', index.toString());
+  };
+
+  const handleDragEnter = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+    e.preventDefault();
+    if (draggedIndex === null || draggedIndex === index) return;
+    
+    setFields((prevFields) => {
+      const newFields = [...prevFields];
+      const draggedItem = newFields[draggedIndex];
+      newFields.splice(draggedIndex, 1);
+      newFields.splice(index, 0, draggedItem);
+      return newFields;
+    });
+    setDraggedIndex(index);
+    setPreset('custom');
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleDragEnd = () => {
+    setDraggedIndex(null);
+  };
+
   return (
     <MuiTheme>
       <div className={styles.container}>
@@ -285,8 +348,16 @@ export default function DummyDataGenerator(): JSX.Element {
                 <Translate id="tool.dummyData.fields">フィールド定義</Translate>
               </Typography>
               {fields.map((field, index) => (
-                <div key={field.id} className={styles.fieldRow}>
-                  <Tooltip title={translate({ id: 'tool.dummyData.dragToReorder', message: 'ドラッグして並び替え（未実装）' })}>
+                <div
+                  key={field.id}
+                  className={`${styles.fieldRow} ${draggedIndex === index ? styles.dragging : ''}`}
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, index)}
+                  onDragEnter={(e) => handleDragEnter(e, index)}
+                  onDragOver={handleDragOver}
+                  onDragEnd={handleDragEnd}
+                >
+                  <Tooltip title={translate({ id: 'tool.dummyData.dragToReorder', message: 'ドラッグして並び替え' })}>
                     <div className={styles.fieldDragHandle}>
                       <DragIndicatorIcon fontSize="small" />
                     </div>

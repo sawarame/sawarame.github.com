@@ -582,7 +582,7 @@
     "message": "Field Definitions"
   },
   "tool.dummyData.dragToReorder": {
-    "message": "Drag to reorder (Not implemented)"
+    "message": "Drag to reorder"
   },
   "tool.dummyData.addField": {
     "message": "Add Field"

@@ -42,6 +42,10 @@
   align-items: center;
 }
 
+.dragging {
+  opacity: 0.5;
+}
+
 .resultContainer {
   position: relative;
   flex-grow: 1;
