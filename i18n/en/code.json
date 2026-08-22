@@ -2071,5 +2071,233 @@
   },
   "embed.section.urlLabel": {
     "message": "Embed URL"
+  },
+  "home.tools.regex.title": {
+    "message": "Regex Checker"
+  },
+  "home.tools.regex.desc": {
+    "message": "Test and debug regular expressions in real-time with syntax highlighting, capture group extraction, and preset templates."
+  },
+  "regex.title": {
+    "message": "Regex Checker"
+  },
+  "regex.desc": {
+    "message": "Test and debug regular expressions in real-time with syntax highlighting, capture group extraction, and preset templates."
+  },
+  "regex.template.selectLabel": {
+    "message": "Select Preset Template"
+  },
+  "regex.template.custom": {
+    "message": "Custom (Direct Input)"
+  },
+  "regex.template.email": {
+    "message": "Email Address"
+  },
+  "regex.template.url": {
+    "message": "URL (HTTP/HTTPS)"
+  },
+  "regex.template.postal": {
+    "message": "Postal Code (Japan)"
+  },
+  "regex.template.phone": {
+    "message": "Phone Number (Japan)"
+  },
+  "regex.template.date": {
+    "message": "Date (YYYY-MM-DD / YYYY/MM/DD)"
+  },
+  "regex.template.time": {
+    "message": "Time (HH:MM:SS)"
+  },
+  "regex.template.ipv4": {
+    "message": "IPv4 Address"
+  },
+  "regex.template.alphanumeric": {
+    "message": "Alphanumeric"
+  },
+  "regex.template.html": {
+    "message": "HTML Tags"
+  },
+  "regex.template.hexColor": {
+    "message": "Hex Color Code (#RGB / #RRGGBB)"
+  },
+  "regex.actions.resetAll": {
+    "message": "Clear All"
+  },
+  "regex.actions.clear": {
+    "message": "Clear"
+  },
+  "regex.actions.copyPattern": {
+    "message": "Copy Pattern"
+  },
+  "regex.actions.copyMatches": {
+    "message": "Copy Matches"
+  },
+  "regex.actions.copied": {
+    "message": "Copied to clipboard"
+  },
+  "regex.pattern.title": {
+    "message": "Regular Expression Pattern"
+  },
+  "regex.pattern.label": {
+    "message": "Regular Expression"
+  },
+  "regex.pattern.clear": {
+    "message": "Clear pattern"
+  },
+  "regex.pattern.copy": {
+    "message": "Copy pattern"
+  },
+  "regex.pattern.copyTooltip": {
+    "message": "Copy regex pattern (/{pattern}/{flags})"
+  },
+  "regex.pattern.placeholder": {
+    "message": "e.g. [\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}"
+  },
+  "regex.error.title": {
+    "message": "Regex Error:"
+  },
+  "regex.flags.title": {
+    "message": "Flags:"
+  },
+  "regex.flags.label": {
+    "message": "Flags"
+  },
+  "regex.flags.g": {
+    "message": "Global (g)"
+  },
+  "regex.flags.i": {
+    "message": "Ignore Case (i)"
+  },
+  "regex.flags.m": {
+    "message": "Multiline (m)"
+  },
+  "regex.flags.s": {
+    "message": "Dot All (s)"
+  },
+  "regex.flags.u": {
+    "message": "Unicode (u)"
+  },
+  "regex.flags.y": {
+    "message": "Sticky (y)"
+  },
+  "regex.flag.g.title": {
+    "message": "Global Search (g)"
+  },
+  "regex.flag.g.desc": {
+    "message": "Find all matches rather than stopping after the first match"
+  },
+  "regex.flag.i.title": {
+    "message": "Ignore Case (i)"
+  },
+  "regex.flag.i.desc": {
+    "message": "Case-insensitive matching"
+  },
+  "regex.flag.m.title": {
+    "message": "Multiline (m)"
+  },
+  "regex.flag.m.desc": {
+    "message": "^ and $ match start and end of line"
+  },
+  "regex.flag.s.title": {
+    "message": "dotAll (s)"
+  },
+  "regex.flag.s.desc": {
+    "message": "Dot (.) matches any character including newline \\n"
+  },
+  "regex.flag.u.title": {
+    "message": "Unicode (u)"
+  },
+  "regex.flag.u.desc": {
+    "message": "Enable Unicode support (surrogate pairs, Unicode property escapes)"
+  },
+  "regex.flag.y.title": {
+    "message": "Sticky (y)"
+  },
+  "regex.flag.y.desc": {
+    "message": "Matches only from the index indicated by the lastIndex property"
+  },
+  "regex.text.title": {
+    "message": "Test Text"
+  },
+  "regex.text.label": {
+    "message": "Test Text"
+  },
+  "regex.text.clear": {
+    "message": "Clear text"
+  },
+  "regex.text.placeholder": {
+    "message": "Enter text here to test against the regular expression..."
+  },
+  "regex.text.meta": {
+    "message": "{chars} chars / {lines} lines"
+  },
+  "regex.text.insertSample": {
+    "message": "Insert sample text"
+  },
+  "regex.result.title": {
+    "message": "Match Results & Highlight"
+  },
+  "regex.result.errorStatus": {
+    "message": "Error"
+  },
+  "regex.result.matchCount": {
+    "message": "{count} match(es)"
+  },
+  "regex.result.noMatch": {
+    "message": "No match"
+  },
+  "regex.status.matchCount": {
+    "message": "{count} match(es) found"
+  },
+  "regex.status.noMatch": {
+    "message": "No matches found"
+  },
+  "regex.status.error": {
+    "message": "Regex Syntax Error"
+  },
+  "regex.warning.truncated": {
+    "message": "Match count reached maximum limit (1,000 matches). Subsequent matches were truncated."
+  },
+  "regex.result.copyPattern": {
+    "message": "Copy Pattern"
+  },
+  "regex.result.copyMatches": {
+    "message": "Copy Matches"
+  },
+  "regex.result.copiedPattern": {
+    "message": "Regex pattern copied to clipboard!"
+  },
+  "regex.result.copiedMatches": {
+    "message": "Match results copied to clipboard!"
+  },
+  "regex.result.copiedSingle": {
+    "message": "Match text copied to clipboard!"
+  },
+  "regex.result.noMatchesToCopy": {
+    "message": "No matches available to copy"
+  },
+  "regex.viewer.placeholder": {
+    "message": "Enter text to see match highlights here."
+  },
+  "regex.highlight.title": {
+    "message": "Match Highlighting"
+  },
+  "regex.details.title": {
+    "message": "Match Details & Capture Groups"
+  },
+  "regex.details.matchNum": {
+    "message": "Match #{index}"
+  },
+  "regex.details.range": {
+    "message": "Position: {start} - {end} (Length: {length})"
+  },
+  "regex.details.groups": {
+    "message": "Capture Groups ({count})"
+  },
+  "regex.details.noGroups": {
+    "message": "No capture groups in pattern"
+  },
+  "regex.details.charsUnit": {
+    "message": "chars"
   }
 }

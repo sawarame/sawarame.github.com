@@ -1,0 +1,66 @@
+---
+title: Regex Checker
+slug: /tools/regex-checker
+sidebar_position: 19
+hide_title: true
+---
+
+import RegexChecker from "@site/src/components/RegexChecker";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Regex } from "lucide-react";
+
+<ToolPageHeader
+  title="Regex Checker"
+  desc="Test and debug regular expressions in real-time with syntax highlighting, capture group extraction, and preset templates."
+  icon={<Regex size={48} color="#fff" />}
+  color1="#ec4899"
+  color2="#8b5cf6"
+/>
+
+<RegexChecker />
+
+## How to Use
+
+1. **Select a Preset or Enter a Pattern**:
+   Choose from common templates (Email, URL, Phone Number, Date, etc.) from the dropdown menu, or type any custom regular expression into the pattern input field.
+2. **Configure Flags**:
+   Click the flag buttons beneath the pattern input (`g`: Global, `i`: Ignore Case, `m`: Multiline, `s`: dotAll, `u`: Unicode, `y`: Sticky) to toggle them on or off.
+3. **Enter Test Text**:
+   Type or paste the target text into the "Test Text" input area.
+4. **Inspect Match Results & Highlights**:
+   Matches are evaluated in real-time. Matching segments in your text are immediately highlighted with alternating colors.
+5. **Examine Capture Groups**:
+   If your pattern includes capturing groups `(...)` or named capture groups `(?<name>...)`, detailed extraction results and exact index ranges are displayed in individual cards.
+6. **Copy and Share**:
+   Use the "Copy Pattern" or "Copy Matches" buttons to copy results to your clipboard. The tool automatically synchronizes with URL query parameters (`?p=...&f=...&t=...`) for instant sharing and bookmarking.
+
+## Key Features
+
+### 1. Built-in Preset Templates
+Quickly test common patterns with 10 pre-configured templates:
+- **Email Address**: Standard RFC-compatible email pattern
+- **URL (HTTP/HTTPS)**: Web addresses with optional query strings and hashes
+- **Postal Code (Japan)**: Japanese postal codes (`100-0001` or `1000001`)
+- **Phone Number (Japan)**: Landlines, mobile phones, and toll-free numbers
+- **Date**: `YYYY-MM-DD` or `YYYY/MM/DD` with named capture groups
+- **Time**: `HH:MM:SS` or `HH:MM`
+- **IPv4 Address**: Valid IP address format (0.0.0.0 to 255.255.255.255)
+- **Alphanumeric**: Full alphanumeric text matcher
+- **HTML Tags**: Tag names, attributes, and inner contents extractor
+- **Hex Color Code**: `#RGB`, `#RRGGBB`, and `#RRGGBBAA` color codes
+
+### 2. Full Flag Support
+Supports all standard JavaScript regex flags: `g` (Global), `i` (Ignore Case), `m` (Multiline), `s` (Dot All), `u` (Unicode), and `y` (Sticky).
+
+### 3. Numbered & Named Capture Groups
+Extracts both standard numbered groups (`$1`, `$2`, ...) and ES2018 named capture groups (`(?<name>...)`), showing values and exact start/end character positions.
+
+### 4. Real-time Syntax Highlighting & Performance Metrics
+Segments matched text dynamically with high-contrast highlight styling, tooltips showing match ranges, and sub-millisecond execution time tracking.
+
+### 5. URL Synchronization & LocalStorage Backup
+All inputs (pattern, flags, and test text) are synchronized with URL search parameters and saved in LocalStorage, preventing accidental data loss upon reload.
+
+:::info Privacy First (100% Client-Side Processing)
+🔒 All processing is done locally within your browser. Your regular expressions and test texts are never sent to any external server. You can safely test confidential logs or personal information.
+:::
