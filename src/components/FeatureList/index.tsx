@@ -18,7 +18,8 @@ import {
   FileDown,
   Globe,
   FileJson,
-  Database
+  Database,
+  Regex
 } from 'lucide-react';
 import styles from './styles.module.css';
 
@@ -192,6 +193,15 @@ export const tools = [
     description: 'APIのモックやデータベースのテストデータに使えるダミー情報を、ブラウザ上で安全かつ即座に生成します。',
     link: '/tools/dummy-data',
     gradient: 'linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%)',
+  },
+  {
+    icon: <Regex size={ICON_SIZE} />,
+    titleId: 'home.tools.regex.title',
+    title: '正規表現チェッカー',
+    descriptionId: 'home.tools.regex.desc',
+    description: '正規表現とテスト文字列を入力し、リアルタイムにマッチ判定・ハイライト・グループ抽出を行うツールです。',
+    link: '/tools/regex-checker',
+    gradient: 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%)',
   },
 ];
 

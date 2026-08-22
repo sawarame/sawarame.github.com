@@ -1,0 +1,298 @@
+/* ============================================================
+   正規表現チェッカー (RegexChecker) スタイル定義
+   ============================================================ */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 0 2rem;
+}
+
+/* ---- 上部ツールバー（テンプレート選択） ---- */
+.topBar {
+  margin-bottom: 1.5rem;
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 16px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.templateSelector {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 260px;
+}
+
+.topActions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* ---- メイングリッドレイアウト ---- */
+.layoutGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .layoutGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.leftColumn,
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ---- カード共通 ---- */
+.card {
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+[data-theme='dark'] .card {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.cardTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--ifm-font-color-base);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cardTitleIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ifm-color-primary);
+}
+
+/* ---- 正規表現入力エリア ---- */
+.patternWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.flagsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 12px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.flagsLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700);
+}
+
+/* ---- テキストエリア & メタ情報 ---- */
+.textMetaRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+/* ---- ハイライト結果表示ビューア ---- */
+.highlightViewer {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-all;
+  background-color: var(--ifm-color-emphasis-100);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+  padding: 1.25rem;
+  min-height: 160px;
+  max-height: 380px;
+  overflow-y: auto;
+  color: var(--ifm-font-color-base);
+}
+
+.emptyPlaceholder {
+  color: var(--ifm-color-emphasis-500);
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  text-align: center;
+}
+
+/* ---- マッチマーク（ハイライト）スタイル ---- */
+.matchMark {
+  display: inline;
+  padding: 2px 4px;
+  margin: 0 1px;
+  border-radius: 4px;
+  cursor: default;
+  transition: filter 0.15s ease, box-shadow 0.15s ease;
+  font-weight: 500;
+}
+
+.matchMark:hover {
+  filter: brightness(1.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* ライトモード時のハイライト色 (交互表示) */
+.matchOdd {
+  background-color: #fff176;
+  color: #1a1a1a;
+  border-bottom: 2px solid #fbc02d;
+}
+
+.matchEven {
+  background-color: #b3e5fc;
+  color: #01579b;
+  border-bottom: 2px solid #0288d1;
+}
+
+/* ダークモード時のハイライト色 */
+:global([data-theme='dark']) .matchOdd {
+  background-color: rgba(255, 238, 88, 0.35);
+  color: #fff9c4;
+  border-bottom: 2px solid #ffd54f;
+}
+
+:global([data-theme='dark']) .matchEven {
+  background-color: rgba(3, 169, 244, 0.35);
+  color: #e1f5fe;
+  border-bottom: 2px solid #4fc3f7;
+}
+
+/* ---- マッチ詳細リスト & キャプチャグループ ---- */
+.matchDetailsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 480px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.matchDetailCard {
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 10px;
+  background: var(--ifm-background-color);
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.matchDetailCard:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+.matchDetailHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: var(--ifm-color-emphasis-100);
+  font-size: 0.9rem;
+  gap: 0.5rem;
+}
+
+.matchTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.matchRangeBadge {
+  font-size: 0.8rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.matchTextPreview {
+  padding: 0.75rem 1rem;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.9rem;
+  word-break: break-all;
+  color: var(--ifm-font-color-base);
+  background: var(--ifm-card-background-color);
+}
+
+.groupsTable {
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-color-emphasis-100);
+}
+
+.groupRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 1rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.85rem;
+  gap: 0.75rem;
+}
+
+.groupRow:last-child {
+  border-bottom: none;
+}
+
+.groupKey {
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  min-width: 80px;
+}
+
+.groupVal {
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: var(--ifm-font-color-base);
+  word-break: break-all;
+  max-width: 60%;
+  text-align: right;
+}
+
+.groupUndefined {
+  color: var(--ifm-color-emphasis-500);
+  font-style: italic;
+}

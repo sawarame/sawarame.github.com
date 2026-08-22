@@ -21,3 +21,9 @@ yarn-error.log*
 
 # Antigravity CLI local state
 .antigravitycli/
+
+# Agent temporary workspaces & scratchpads (keep rules and skills)
+.agents/*
+!.agents/rules/
+!.agents/skills/
+
