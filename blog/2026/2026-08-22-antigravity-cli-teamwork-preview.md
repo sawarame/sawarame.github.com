@@ -3,7 +3,7 @@ slug: antigravity-cli-teamwork-preview
 title: Antigravity CLI の /teamwork-preview で複数の自律エージェントを連携させる実践ガイド
 date: 2026-08-22
 tags: [Antigravity, CLI, AI, チーム開発, 開発効率化]
-draft: true
+draft: false
 emoji: 👥
 ---
 
