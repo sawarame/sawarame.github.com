@@ -8,7 +8,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import MuiTheme from '@site/src/components/MuiTheme';
 import styles from './styles.module.css';
 
-const BENCHMARK_VERSION = '1.1.0';
+const BENCHMARK_VERSION = '1.2.0';
 
 // ============================================================
 // Worker Logic (Blob URL approach)
@@ -260,22 +260,6 @@ export const getBenchmarkData = () => [
         must: true,
         check: () => typeof HTMLImageElement !== 'undefined' && 'fetchPriority' in HTMLImageElement.prototype, 
         desc: translate({ id: "benchmark.cat.sns.fetchpriority.desc", message: "重要な画像を優先して読み込み、表示速度を改善します。" }) 
-      },
-      { 
-        id: "object-fit", 
-        name: translate({ id: "benchmark.cat.sns.objectfit.name", message: "Object-fit / Aspect-ratio" }), 
-        url: "https://developer.mozilla.org/ja/docs/Web/CSS/Reference/Properties/aspect-ratio",
-        must: true,
-        check: () => typeof CSS !== 'undefined' && CSS.supports('aspect-ratio', '1/1'), 
-        desc: translate({ id: "benchmark.cat.sns.objectfit.desc", message: "写真が変に伸びたり潰れたりせず、綺麗に枠に収まります。" }) 
-      },
-      { 
-        id: "css-layer", 
-        name: translate({ id: "benchmark.cat.sns.csslayer.name", message: "CSS @layer" }), 
-        url: "https://developer.mozilla.org/ja/docs/Web/CSS/Reference/At-rules/@layer",
-        must: true,
-        check: () => typeof window !== 'undefined' && 'CSSLayerBlockRule' in window, 
-        desc: translate({ id: "benchmark.cat.sns.csslayer.desc", message: "大規模サイトのスタイルが意図通りに正しく適用されます。" }) 
       }
     ]
   },
@@ -322,22 +306,6 @@ export const getBenchmarkData = () => [
         must: true,
         check: () => typeof window !== 'undefined' && 'CompressionStream' in window, 
         desc: translate({ id: "benchmark.cat.biz.compression.desc", message: "ブラウザ上でファイルを高速にZIP圧縮・解凍できます。" }) 
-      },
-      { 
-        id: "crypto", 
-        name: translate({ id: "benchmark.cat.biz.crypto.name", message: "Web Crypto API" }), 
-        url: "https://developer.mozilla.org/ja/docs/Web/API/Web_Crypto_API",
-        must: true,
-        check: () => typeof window !== 'undefined' && !!window.crypto && !!window.crypto.subtle, 
-        desc: translate({ id: "benchmark.cat.biz.crypto.desc", message: "セキュアな通信やパスワード管理・暗号化を可能にします。" }) 
-      },
-      { 
-        id: "indexeddb-v3", 
-        name: translate({ id: "benchmark.cat.biz.indexeddb.name", message: "IndexedDB (v3)" }), 
-        url: "https://developer.mozilla.org/ja/docs/Web/API/IndexedDB_API",
-        must: true,
-        check: () => typeof indexedDB !== 'undefined' && 'databases' in indexedDB, 
-        desc: translate({ id: "benchmark.cat.biz.indexeddb.desc", message: "大容量データを保存し、オフラインでも作業を継続できます。" }) 
       }
     ]
   },
@@ -457,6 +425,195 @@ const getRankReferenceData = () => [
   { rank: 'Rank F', single: translate({ id: 'benchmark.ref.rank.f.single', message: '50未満' }), multi: translate({ id: 'benchmark.ref.rank.f.multi', message: '100未満' }), gfx: '2000未満', desc: translate({ id: 'benchmark.ref.rank.f.desc', message: '動作困難。現代のWeb標準に対し大幅な性能不足' }), className: styles.rankF },
 ];
 
+/**
+ * ブラウザ名とバージョン番号から対応するECMAScript仕様バージョンを判定します。
+ * @param browser ブラウザ名（Chrome, Edge, Firefox, Safari, Opera, Samsung Browser 等）
+ * @param major メジャーバージョン
+ * @param minor マイナーバージョン
+ * @param os OS名（iOS等のエンジン判定用）
+ * @returns 対応するECMAScript仕様文字列（例: 'ES2024', 'ES2023', 'ES5' など）
+ */
+export function getEcmaScriptVersion(browser: string, major: number, minor = 0, os?: string): string | null {
+  // iOS 環境（WebKit）の場合は、iOS/WebKitのバージョン基準で判定
+  if (os === 'iOS') {
+    const ver = major + minor / 10;
+    if (ver >= 17.4) return 'ES2024';
+    if (ver >= 16.4) return 'ES2023';
+    if (ver >= 15.4) return 'ES2022';
+    if (ver >= 14.1) return 'ES2021';
+    if (ver >= 14.0) return 'ES2020';
+    if (ver >= 12.1) return 'ES2019';
+    if (ver >= 11.1) return 'ES2018';
+    if (ver >= 10.1) return 'ES2017';
+    if (ver >= 10.0) return 'ES2016';
+    if (ver >= 9.0) return 'ES2015';
+    if (ver > 0) return 'ES5';
+    return null;
+  }
+
+  if (browser === 'Chrome' || browser === 'Edge') {
+    if (major >= 124) return 'ES2024';
+    if (major >= 110) return 'ES2023';
+    if (major >= 94) return 'ES2022';
+    if (major >= 85) return 'ES2021';
+    if (major >= 80) return 'ES2020';
+    if (major >= 73) return 'ES2019';
+    if (major >= 64) return 'ES2018';
+    if (major >= 58) return 'ES2017';
+    if (major >= 51) return 'ES2016';
+    if (major >= 49) return 'ES2015';
+    if (major > 0) return 'ES5';
+    return null;
+  }
+
+  if (browser === 'Firefox') {
+    if (major >= 128) return 'ES2024';
+    if (major >= 115) return 'ES2023';
+    if (major >= 93) return 'ES2022';
+    if (major >= 85) return 'ES2021';
+    if (major >= 74) return 'ES2020';
+    if (major >= 66) return 'ES2019';
+    if (major >= 60) return 'ES2018';
+    if (major >= 52) return 'ES2017';
+    if (major >= 48) return 'ES2016';
+    if (major >= 45) return 'ES2015';
+    if (major > 0) return 'ES5';
+    return null;
+  }
+
+  if (browser === 'Safari') {
+    const ver = major + minor / 10;
+    if (ver >= 17.4) return 'ES2024';
+    if (ver >= 16.4) return 'ES2023';
+    if (ver >= 15.4) return 'ES2022';
+    if (ver >= 14.1) return 'ES2021';
+    if (ver >= 14.0) return 'ES2020';
+    if (ver >= 12.1) return 'ES2019';
+    if (ver >= 11.1) return 'ES2018';
+    if (ver >= 10.1) return 'ES2017';
+    if (ver >= 10.0) return 'ES2016';
+    if (ver >= 9.0) return 'ES2015';
+    if (ver > 0) return 'ES5';
+    return null;
+  }
+
+  if (browser === 'Opera') {
+    if (major >= 110) return 'ES2024';
+    if (major >= 96) return 'ES2023';
+    if (major >= 80) return 'ES2022';
+    if (major >= 71) return 'ES2021';
+    if (major >= 67) return 'ES2020';
+    if (major >= 60) return 'ES2019';
+    if (major >= 51) return 'ES2018';
+    if (major >= 45) return 'ES2017';
+    if (major >= 38) return 'ES2016';
+    if (major >= 36) return 'ES2015';
+    if (major > 0) return 'ES5';
+    return null;
+  }
+
+  if (browser === 'Samsung Browser') {
+    if (major >= 25) return 'ES2024';
+    if (major >= 21) return 'ES2023';
+    if (major >= 17) return 'ES2022';
+    if (major >= 14) return 'ES2021';
+    if (major >= 13) return 'ES2020';
+    if (major >= 10) return 'ES2019';
+    if (major >= 9) return 'ES2018';
+    if (major > 0) return 'ES2015';
+    return null;
+  }
+
+  if (browser === 'Internet Explorer') {
+    return 'ES5';
+  }
+
+  return null;
+}
+
+/**
+ * ユーザーエージェント文字列からブラウザ情報、OS、およびECMAScript仕様バージョンを解析して整形した文字列を返します。
+ * @param customUa テスト用等のカスタムUA文字列
+ * @returns 測定環境文字列（例: 'Chrome 128 (macOS) / ES2024'）
+ */
+export function getBrowserInfo(customUa?: string): string {
+  const ua = customUa ?? (typeof navigator !== 'undefined' ? navigator.userAgent : '');
+  if (!ua) return '';
+
+  let browser = 'Unknown Browser';
+  let versionStr = '';
+  let major = 0;
+  let minor = 0;
+
+  // ブラウザ判定（判定順序が重要: Edge/Opera等はChrome/Safariの文字列を含むため先に判定）
+  if (ua.indexOf('Firefox') > -1 || ua.indexOf('FxiOS') > -1) {
+    browser = 'Firefox';
+    const m = ua.match(/(?:firefox|fxios)[\/: ]([\d\.]+)/i);
+    if (m) versionStr = m[1];
+  } else if (ua.indexOf('SamsungBrowser') > -1) {
+    browser = 'Samsung Browser';
+    const m = ua.match(/samsungbrowser[\/: ]([\d\.]+)/i);
+    if (m) versionStr = m[1];
+  } else if (ua.indexOf('Opera') > -1 || ua.indexOf('OPR') > -1) {
+    browser = 'Opera';
+    const m = ua.match(/(?:opr|opera)[\/: ]([\d\.]+)/i);
+    if (m) versionStr = m[1];
+  } else if (ua.indexOf('Trident') > -1) {
+    browser = 'Internet Explorer';
+    const m = ua.match(/(?:rv:|msie )([\d\.]+)/i);
+    if (m) versionStr = m[1];
+  } else if (ua.indexOf('Edge') > -1 || ua.indexOf('Edg') > -1 || ua.indexOf('EdgiOS') > -1) {
+    browser = 'Edge';
+    const m = ua.match(/(?:edge|edg|edgios)[\/: ]([\d\.]+)/i);
+    if (m) versionStr = m[1];
+  } else if (ua.indexOf('Chrome') > -1 || ua.indexOf('CriOS') > -1) {
+    browser = 'Chrome';
+    const m = ua.match(/(?:chrome|crios)[\/: ]([\d\.]+)/i);
+    if (m) versionStr = m[1];
+  } else if (ua.indexOf('Safari') > -1) {
+    browser = 'Safari';
+    const m = ua.match(/version[\/: ]([\d\.]+)/i);
+    if (m) versionStr = m[1];
+  }
+
+  if (versionStr) {
+    const parts = versionStr.split('.');
+    major = parseInt(parts[0], 10) || 0;
+    minor = parseInt(parts[1], 10) || 0;
+  }
+
+  let os = 'Unknown OS';
+  if (ua.indexOf('Win') > -1) os = 'Windows';
+  else if (ua.indexOf('Android') > -1) os = 'Android';
+  else if (ua.indexOf('iPhone') > -1 || ua.indexOf('iPad') > -1) os = 'iOS';
+  else if (ua.indexOf('Mac') > -1) {
+    if (typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0) {
+      os = 'iOS';
+    } else {
+      os = 'macOS';
+    }
+  } else if (ua.indexOf('Linux') > -1) os = 'Linux';
+
+  // iOSの場合のバージョン判定補正（iOSバージョンを取得）
+  if (os === 'iOS') {
+    const iosMatch = ua.match(/OS (\d+)[_.](\d+)/i);
+    if (iosMatch) {
+      major = parseInt(iosMatch[1], 10) || major;
+      minor = parseInt(iosMatch[2], 10) || minor;
+    }
+  }
+
+  const vMajorDisplay = major ? String(major) : '';
+  const baseInfo = vMajorDisplay ? `${browser} ${vMajorDisplay} (${os})` : `${browser} (${os})`;
+
+  const esVersion = getEcmaScriptVersion(browser, major, minor, os);
+  if (esVersion) {
+    return `${baseInfo} / ${esVersion}`;
+  }
+
+  return baseInfo;
+}
+
 export default function Benchmark(): JSX.Element {
   const [cores, setCores] = React.useState<number>(4);
   const [isMeasuring, setIsMeasuring] = useState(false);
@@ -481,36 +638,6 @@ export default function Benchmark(): JSX.Element {
       setCores(navigator.hardwareConcurrency || 4);
     }
   }, []);
-
-  const getBrowserInfo = () => {
-    if (typeof navigator === 'undefined') return '';
-    const ua = navigator.userAgent;
-    let browser = "Unknown Browser";
-    
-    // Order matters (Edge/Opera often contain Chrome/Safari strings)
-    if (ua.indexOf("Firefox") > -1 || ua.indexOf("FxiOS") > -1) browser = "Firefox";
-    else if (ua.indexOf("SamsungBrowser") > -1) browser = "Samsung Browser";
-    else if (ua.indexOf("Opera") > -1 || ua.indexOf("OPR") > -1) browser = "Opera";
-    else if (ua.indexOf("Trident") > -1) browser = "Internet Explorer";
-    else if (ua.indexOf("Edge") > -1 || ua.indexOf("Edg") > -1 || ua.indexOf("EdgiOS") > -1) browser = "Edge";
-    else if (ua.indexOf("Chrome") > -1 || ua.indexOf("CriOS") > -1) browser = "Chrome";
-    else if (ua.indexOf("Safari") > -1) browser = "Safari";
-
-    const version = ua.match(/(?:firefox|fxios|sdk|version|chrome|crios|safari|opr|edge|edg|edgios)[\/: ]([\d\.]+)/i);
-    const vStr = version ? version[1].split('.')[0] : "";
-    
-    let os = "Unknown OS";
-    if (ua.indexOf("Win") > -1) os = "Windows";
-    else if (ua.indexOf("Mac") > -1) {
-      if (navigator.maxTouchPoints > 0) os = "iOS";
-      else os = "macOS";
-    }
-    else if (ua.indexOf("Android") > -1) os = "Android";
-    else if (ua.indexOf("iPhone") > -1 || ua.indexOf("iPad") > -1) os = "iOS";
-    else if (ua.indexOf("Linux") > -1) os = "Linux";
-
-    return `${browser} ${vStr} (${os})`;
-  };
 
   const generateBenchmarkImage = async (): Promise<Blob | null> => {
     if (typeof document === 'undefined') return null;

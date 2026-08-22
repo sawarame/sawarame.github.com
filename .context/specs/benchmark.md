@@ -39,19 +39,19 @@
 * **ブラウザ機能サポート状況の診断**:
   * 演算性能の測定完了後、最新のWeb技術（画像フォーマット、API、CSS機能など）への対応状況を自動的に診断します。
   * **診断カテゴリー**:
-    * **SNS・メディア閲覧**: AVIF/WebP対応、AV1デコード、Priority Hints、Object-fit、CSS @layer
-    * **ビジネス・ツール**: Anchor Positioning、Popover、Compression Streams、Web Crypto、IndexedDB v3
-    * **エンタメ・クリエイティブ**: WebGPU、View Transitions、Scroll-driven Animations、Offscreen Canvas、Spatial Audio
-    * **システム・セキュリティ**: Passkeys、Badging API、Screen Wake Lock、File System Access
+    * **SNS・メディア閲覧**: AVIF/WebP対応、AV1デコード、Web Share API、Speculation Rules、Priority Hints (fetchpriority)
+    * **ビジネス・ツール**: EyeDropper API、Navigation API、Anchor Positioning、Popover、Compression Streams
+    * **エンタメ・クリエイティブ**: WebGPU、WebXR Device API、View Transitions、Scroll-driven Animations、Offscreen Canvas、Spatial Audio
+    * **システム・セキュリティ**: Passkeys、Badging API、Screen Wake Lock、Web USB、File System Access
   * **アコーディオン形式のUI**: カテゴリーごとに折りたたみ可能なカードで結果を表示。各項目には「機能名」「判定（✅/❌）」「利点の解説」が含まれます。
 * **UI/UX**:
   * 測定開始前は結果欄をプレースホルダー状態で表示し、レイアウトのガタ付きを抑制。
   * 測定中は「シングルコア」→「マルチコア」→「グラフィックス」→「機能チェック」の順にステップを進め、進捗状況をリアルタイムにフィードバックします。
   * 演算性能の測定に影響を与えないよう、機能チェックは最後に実行されるシーケンスとなっています。
 * **結果の共有・測定環境の表示**:
-  * **測定環境の表示**: 使用しているブラウザ名、主要バージョン、およびOS（Windows, macOS, iOS, Android等）を自動判定して画面上に表示。
+  * **測定環境の表示**: 使用しているブラウザ名、主要バージョン、OS（Windows, macOS, iOS, Android等）、およびブラウザバージョンから判定される対応ECMAScript仕様（例: `ES2024`）を自動判定して画面上に表示（例: `Chrome 128 (macOS) / ES2024`）。
   * **結果画像の生成**: 共有用に特化した 1200 × 960 px の branded 画像をブラウザ内で生成。
-    * 画像には3つの指標のスコア、ランクバッジ、詳細なランク説明文、および測定時の環境情報が含まれる。
+    * 画像には3つの指標のスコア、ランクバッジ、詳細なランク説明文、および測定時の環境情報（ブラウザ・OS・ECMAScript仕様）が含まれる。
   * **結果の共有機能 (Web Share API)**:
     * 測定完了後に「結果を共有」ボタンが活性化。
     * 画像付きでOS標準の共有メニューを呼び出し。非対応環境では画像をクリップボードに自動コピーし、投稿用URLを別タブで開くフォールバック機能を搭載。
@@ -60,5 +60,5 @@
 * **バージョニングの運用**:
   * **セマンティックバージョニング (v1.0.0〜)** を採用し、測定結果の信頼性と変更履歴を管理します。UIおよび共有用の結果画像にもバージョン番号が表示されます。
   * **パッチバージョン (x.x.〇)**: UIの微調整や軽微なバグ修正など、スコアや判定結果に影響を与えない変更時にアップデートします。
-  * **マイナーバージョン (x.〇.x)**: ブラウザ機能のサポートチェック項目の追加・変更や、スコア算出ロジックの調整など、測定結果に影響を与える可能性がある変更時にアップデートします。
+  * **マイナーバージョン (x.〇.x)**: ブラウザ機能のサポートチェック項目の追加・変更や、スコア算出ロジックの調整など、測定結果に影響を与える可能性がある変更時にアップデートします（v1.2.0: ECMAScript仕様判定追加およびサポート項目の最適化）。
   * **メジャーバージョン (〇.x.x)**: 測定機能の根本的なリニューアルや、全く新しい指標の導入など、過去のスコアと互換性がなくなるような大規模な変更時にアップデートします。
