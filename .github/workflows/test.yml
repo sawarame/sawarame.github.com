@@ -1,0 +1,40 @@
+name: Unit Test and Typecheck
+
+# プルリクエストが作成・更新されたとき、および手動実行時に発火
+on:
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+# GitHub Actions の実行環境を Node.js 24 に強制する
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+# 同一PRに新しいコミットがプッシュされた場合、実行中の古いジョブをキャンセルして最新を優先する
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Run Tests and Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリのチェックアウト
+        uses: actions/checkout@v6
+
+      - name: Node.js のセットアップ
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: 'yarn'
+
+      - name: 依存関係のインストール
+        run: yarn install --frozen-lockfile
+
+      - name: 型チェック (Typecheck)
+        run: yarn typecheck
+
+      - name: 単体テスト実行 (Unit Tests)
+        run: yarn test
