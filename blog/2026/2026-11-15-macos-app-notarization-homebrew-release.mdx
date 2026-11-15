@@ -1,0 +1,311 @@
+---
+slug: macos-app-notarization-homebrew-release
+title: SwiftPM製macOSアプリをDeveloper ID署名・Apple公証してHomebrew Tapへ自動公開する
+date: 2026-11-15
+draft: false
+tags: [macOS, Swift, Homebrew, GitHub Actions, CI/CD, Wintch]
+emoji: 📦
+---
+
+import LinkCard from '@site/src/components/LinkCard';
+
+macOS 向けのネイティブアプリケーションを App Store を経由せず GitHub Releases や Homebrew で配布する場合、適切なコード署名と Apple による公証（Notarization）を行わなければ、利用者の環境で Gatekeeper による警告（「開発元を検証できないため開けません」など）が表示されてしまいます。
+
+また、手元の Mac で毎回アーカイブの作成、署名、`notarytool` による公証申請、Staple（公証チケットの埋め込み）、そして Homebrew Tap リポジトリの更新を手作業で繰り返すと、作業の負担が大きいだけでなく手順漏れなどのヒューマンエラーも起きやすくなります。
+
+今回 [Wintch](https://github.com/sawarame/Wintch) という Swift Package Manager（SwiftPM）製の macOS アプリを作成し、その中で Developer ID 署名・Apple 公証・Staple 付きのビルドから GitHub Releases 公開、自作の Homebrew Tap（`sawarame/homebrew-tap`）更新までを GitHub Actions で自動化する仕組みを実践しましたので、その手順を紹介します。
+
+<LinkCard
+  title="Wintch — macOS 向けウィンドウ単位スイッチャー＆検索ランチャー"
+  description="今回自動リリース環境を構築したアプリの紹介・インストールページです。"
+  url="/wintch"
+  emoji="🪟"
+/>
+
+<!-- truncate -->
+
+## 自動リリースパイプラインの全体像
+
+本記事で構築するリリース自動化パイプラインは、リポジトリの `VERSION` ファイル更新（または手動実行・タグ push）を起点として、テストから Homebrew Tap の更新までを一貫して実行します。
+
+1. **検証とタグ作成（`prepare` ジョブ）**: `VERSION` の SemVer 形式チェックと `swift test` を実行し、タグ（`vX.Y.Z`）を自動作成・push する
+2. **証明書復元**: ランナー内の一時キーチェーンへ Developer ID 証明書をインポートする
+3. **ビルドと署名**: `scripts/build-app.sh` で Universal Binary（`arm64` + `x86_64`）の `.app` をビルドし、Hardened Runtime 付きで署名する
+4. **公証と Staple**: `xcrun notarytool` で Apple 公証サーバーへ提出・完了待機したあと、`xcrun stapler` で公証チケットを添付し `spctl` で検証する
+5. **GitHub Releases 公開**: 公証済み ZIP と SHA256 を生成し、GitHub Releases を作成・公開する
+6. **Homebrew Tap 更新**: `homebrew-tap` リポジトリの Cask ファイル（`version` / `sha256`）を自動で書き換えて push する
+
+以降の手順では、初回のみ必要な証明書・キー・リポジトリの準備から、ワークフローの実装・日常運用まで順に見ていきます。
+
+## 前提とするプロジェクト構成
+
+実例となる [Wintch](https://github.com/sawarame/Wintch) は、Xcode のプロジェクトファイル（`.xcodeproj`）を持たず、SwiftPM（`Package.swift`）とシェルスクリプト（`scripts/build-app.sh`）で `.app` バンドルを組み立てる構成を採用しています。
+
+- **ビルド方式**: SwiftPM（`Package.swift`）および `scripts/build-app.sh`
+- **Bundle ID**: `dev.wintch.Wintch`（`Resources/Info.plist` で定義）
+- **最小対応 OS**: macOS 14.0 Sonoma 以降（`LSMinimumSystemVersion` = `14.0`）
+- **App Sandbox**: オフ（ウィンドウ操作用 API である `AXUIElement` や `CGEventTap`、`SMAppService.mainApp` を使用するため）
+- **Hardened Runtime**: リリースビルド時に `codesign --options runtime` で有効化
+
+:::info .xcodeproj を使わない構成での署名について
+`.xcodeproj` が存在しない構成では、Xcode GUI の「Signing & Capabilities」や `xcodebuild archive` ではなく、`scripts/build-app.sh` 内の `codesign` コマンドと GitHub Actions ワークフロー（`.github/workflows/release.yml`）側で署名・公証を制御します。
+:::
+
+## Developer ID Application 証明書の作成とエクスポート
+
+Apple 外（GitHub Releases や Homebrew）でアプリを配布するには、Apple Developer Program に登録した上で **Developer ID Application** 証明書を発行する必要があります。
+
+### 証明書の作成
+
+Xcode の **Settings... > Accounts** から Apple Developer Program 登録済みのアカウントを選択し、**Manage Certificates...** から **`+`** ＞ **Developer ID Application** を選んで証明書を作成します。
+
+:::tip Xcode から作成できない場合の対処法
+Xcode 上で「Communication with Apple failed / This operation can only be performed by the Account Holder.」といったエラーが出る場合は、以下の手順を確認します。
+
+1. [Apple Developer Account](https://developer.apple.com/account) にサインインし、未同意の規約（License Agreement）や更新通知があれば承認する。
+2. それでも Xcode から作成できない場合は、Web ブラウザ（Apple Developer Portal）から直接発行する。
+   - **キーチェーンアクセス** アプリのメニューから **キーチェーンアクセス ＞ 証明書アシスタント ＞ 認証局に証明書を要求...** を開く。
+   - Apple ID のメールアドレスと任意の通称を入力し、**ディスクに保存** を選んで `.certSigningRequest`（CSR）ファイルを保存する。
+   - [Apple Developer Portal の Certificates](https://developer.apple.com/account/resources/certificates/list) を開き、**`+`** ＞ **Developer ID Application**（G2 Sub-CA）を選択して CSR をアップロードし、生成された `.cer` ファイルをダウンロードする。
+   - ダウンロードした `.cer` をダブルクリックして「ログイン」キーチェーンへ追加すると、CSR 作成時の秘密鍵と自動で紐づく。
+:::
+
+### 証明書名の確認と .p12 エクスポート
+
+証明書を GitHub Actions へ渡すため、秘密鍵を含んだ `.p12` 形式で書き出します。
+
+1. macOS の **キーチェーンアクセス** を開き、左ペインで「ログイン」＞「自分の証明書」を選択します。
+2. `Developer ID Application: <Your Name> (<TEAM_ID>)` の行を探し、左の `>` を展開して配下に「秘密鍵」が紐づいていることを確認します。この証明書名の文字列は、後の Secret 設定（`MACOS_SIGN_IDENTITY`）でそのまま使用します。
+3. 秘密鍵ではなく **証明書の行を選択した状態** で右クリックし、**書き出す...** からフォーマット **個人情報交換 (.p12)** を選んで保存します。このとき設定したパスワードは `MACOS_CERT_PASSWORD` 用に控えておきます。
+
+### Base64 文字列への変換
+
+書き出した `.p12` ファイルを GitHub Secrets へ登録できるよう、以下のコマンドで Base64 文字列へ変換します（macOS の `pbcopy` でそのままクリップボードへ入ります）。
+
+```bash
+base64 -i /path/to/certificate.p12 | tr -d '\n' | pbcopy
+```
+
+コピーされた文字列は `MACOS_CERT_BASE64` 用に控えておきます。
+
+## App Store Connect API Key（公証用）の発行
+
+GitHub Actions 上から `xcrun notarytool` で公証を実行するには、Apple ID のパスワードではなく **App Store Connect API Key** を使用すると安定します。API Key 方式であれば、2 要素認証（2FA）の対話入力やアプリ用パスワードの再発行に影響されず CI を運用できます。
+
+1. [App Store Connect](https://appstoreconnect.apple.com/) にアクセスし、**ユーザーとアクセス ＞ 統合（Integrations） ＞ App Store Connect API** を開きます。
+2. **`+`** ボタンから新規キーを作成します。
+   - **名前**: 用途が分かるラベル（例：`Wintch GitHub Actions Notary`）
+   - **アクセス（ロール）**: **Developer**（公証用途であれば最小権限である Developer ロールで動作します）
+3. 一覧に表示される **Issuer ID** と **Key ID** を控えます。
+4. **API キーをダウンロード** から `.p8` ファイルを保存します（`.p8` ファイルのダウンロードは 1 回のみ可能です）。
+5. 以下のコマンドで `.p8` ファイルを Base64 文字列へ変換し、`NOTARY_KEY_BASE64` 用に控えておきます。
+
+```bash
+base64 -i /path/to/AuthKey_XXXXXXXXXX.p8 | tr -d '\n' | pbcopy
+```
+
+## homebrew-tap リポジトリの作成とトークン発行
+
+続いて、利用者が `brew install --cask sawarame/tap/wintch` のようにインストールできるようにするための専用リポジトリを用意します。
+
+### Tap 用リポジトリと初期 Cask の作成
+
+GitHub 上で自分のアカウント配下に `homebrew-tap` という名前の **新規パブリックリポジトリ** を作成します（ブランチではなく独立したリポジトリとして作成します）。リポジトリ名を `homebrew-` プレフィックスにすることで、Homebrew 側で `ユーザー名/tap` という短縮指定が使えるようになります。
+
+作成した `homebrew-tap` リポジトリの `main` ブランチに `Casks/wintch.rb` を配置し、コミットしておきます。初回リリース前の段階では `sha256 :no_check` としておき、初回リリース時に GitHub Actions から実際の値へ書き換えられるようにします。
+
+```ruby
+cask "wintch" do
+  version "0.1.0"
+  sha256 :no_check
+
+  url "https://github.com/sawarame/Wintch/releases/download/v#{version}/Wintch-v#{version}.zip"
+  name "Wintch"
+  desc "Simple and lightweight window switcher for macOS"
+  homepage "https://github.com/sawarame/Wintch"
+
+  depends_on macos: ">= :sonoma"
+
+  app "Wintch.app"
+
+  zap trash: [
+    "~/Library/Preferences/dev.wintch.Wintch.plist",
+  ]
+end
+```
+
+### 更新用 Fine-grained PAT の発行
+
+アプリ側（`sawarame/Wintch`）の GitHub Actions から別リポジトリ（`sawarame/homebrew-tap`）へ Cask の更新を push するため、スコープを絞った Fine-grained Personal Access Token を発行します。
+
+1. GitHub の **Settings > Developer settings > Personal access tokens > Fine-grained tokens** を開き、**Generate new token** をクリックします。
+2. 以下の内容を設定してトークンを発行し、`HOMEBREW_TAP_TOKEN` 用に控えておきます。
+   - **Token name**: 例 `wintch-homebrew-tap-updater`
+   - **Expiration**: 運用しやすい有効期限（例：90 days 〜 1 year）
+   - **Repository access**: **Only select repositories** を選び、`homebrew-tap` リポジトリのみを指定
+   - **Permissions > Repositories**: `+ Add permissions` から **Contents** を追加し、権限を **Read and write** に設定
+
+## GitHub Secrets の登録
+
+アプリ側リポジトリの **Settings > Secrets and variables > Actions > New repository secret** から、以下の 7 つの Secret を登録します。
+
+- **MACOS_CERT_BASE64**: Base64 化した `.p12` 証明書の文字列
+- **MACOS_CERT_PASSWORD**: `.p12` 書き出し時に設定したパスワード
+- **MACOS_SIGN_IDENTITY**: 証明書名（`Developer ID Application: <Your Name> (<TEAM_ID>)`）
+- **NOTARY_KEY_BASE64**: Base64 化した `.p8` API キーの文字列
+- **NOTARY_KEY_ID**: App Store Connect API の Key ID
+- **NOTARY_ISSUER_ID**: App Store Connect API の Issuer ID（Team API Key の場合は必須）
+- **HOMEBREW_TAP_TOKEN**: `homebrew-tap` 更新用に発行した Fine-grained PAT
+
+## ビルドスクリプトと GitHub Actions ワークフローの実装
+
+事前準備が完了したら、リポジトリ側で署名・公証・Tap 更新を行うスクリプトとワークフローを整備します。
+
+### バンドル組み立て＆署名スクリプト（scripts/build-app.sh）
+
+ローカル開発時は証明書なしで手軽にテストビルドできるようアドホック署名（`--sign -`）を行い、環境変数 `WINTCH_SIGN_IDENTITY` が渡された CI ビルド時のみ Developer ID 署名（Hardened Runtime とセキュアタイムスタンプ付き）へ切り替わる構成にしています。
+
+```bash
+# 署名識別子が指定されている場合は Developer ID 署名（Hardened Runtime）、未指定時はアドホック署名を適用する
+if [ -n "${WINTCH_SIGN_IDENTITY:-}" ]; then
+    echo "[Wintch] Developer ID 署名（Hardened Runtime）を適用しています..."
+    # 公証対応のため実行バイナリとアプリバンドルを順にタイムスタンプ付きで署名する
+    codesign --force --options runtime --timestamp \
+        --sign "${WINTCH_SIGN_IDENTITY}" \
+        "${MACOS_DIR}/${APP_NAME}"
+    codesign --force --options runtime --timestamp \
+        --sign "${WINTCH_SIGN_IDENTITY}" \
+        "${APP_BUNDLE}"
+    codesign --verify --deep --strict --verbose=2 "${APP_BUNDLE}"
+elif command -v codesign >/dev/null 2>&1; then
+    echo "[Wintch] アドホック署名を適用しています..."
+    codesign --force --deep --sign - "${APP_BUNDLE}"
+fi
+```
+
+### 自動リリースワークフロー（.github/workflows/release.yml）
+
+ワークフローは `prepare` ジョブと `release` ジョブの 2 段階に分かれており、どちらも `macos-15` ランナー上で動作します。
+
+- **prepare ジョブ**: `VERSION` ファイルがセマンティックバージョニング形式（`X.Y.Z` など）であることを検証し、`swift test` を実行した上で、タグが未作成なら注釈付きタグ（`vX.Y.Z`）を自動作成・push します。
+- **release ジョブ**: 必要な Secret の存在を確認した上で、以下の処理を実行します。
+
+1. **一時キーチェーン構築**: ランナー内の一時領域にキーチェーンを作成し、`MACOS_CERT_BASE64` を復元してインポートします（`security set-key-partition-list` で `codesign` からの参照を許可）。作成したキーチェーンはジョブ末尾の `if: always()` ステップで必ず削除します。
+2. **Universal Binary ビルド・検証**: `./scripts/build-app.sh release --universal` を実行後、`Info.plist` のバージョン一致と `lipo -archs` による `arm64` / `x86_64` 両対応を確認します。
+3. **公証・Staple・Gatekeeper 検証**:
+   - `ditto -c -k --keepParent` で一時 ZIP を作成し、`xcrun notarytool submit --wait --output-format json` で公証結果を待機します（`Accepted` 以外の場合は自動で `xcrun notarytool log` を出力して失敗させます）。
+   - `xcrun stapler staple` で公証チケットを `.app` へ埋め込みます（Apple 側の反映遅延に備え、10 秒間隔で最大 5 回リトライします）。
+   - `xcrun stapler validate` および `spctl -a -vvv -t exec` で検証したのち、配布用の最終 ZIP を生成して SHA256 を算出します。
+
+ワークフロー後半の公証・Staple 処理および `homebrew-tap` 更新の主要部分は次のとおりです。
+
+```yaml
+      - name: Notarize, staple, and package release ZIP
+        id: package
+        env:
+          NOTARY_KEY_BASE64: ${{ secrets.NOTARY_KEY_BASE64 }}
+          NOTARY_KEY_ID: ${{ secrets.NOTARY_KEY_ID }}
+          NOTARY_ISSUER_ID: ${{ secrets.NOTARY_ISSUER_ID }}
+        run: |
+          set -euo pipefail
+          TAG_NAME="${{ needs.prepare.outputs.tag_name }}"
+          NOTARIZE_ZIP="./.build/Wintch-notarize.zip"
+          FINAL_ZIP="./.build/Wintch-${TAG_NAME}.zip"
+          KEY_PATH="${RUNNER_TEMP}/AuthKey.p8"
+          trap 'rm -f "${KEY_PATH}" "${NOTARIZE_ZIP}"' EXIT
+
+          ditto -c -k --keepParent ./.build/Wintch.app "${NOTARIZE_ZIP}"
+          printf '%s' "${NOTARY_KEY_BASE64}" | tr -d '[:space:]' | base64 --decode > "${KEY_PATH}"
+          chmod 600 "${KEY_PATH}"
+
+          NOTARY_AUTH_ARGS=(
+            --key "${KEY_PATH}"
+            --key-id "${NOTARY_KEY_ID}"
+          )
+          if [ -n "${NOTARY_ISSUER_ID:-}" ]; then
+            NOTARY_AUTH_ARGS+=(--issuer "${NOTARY_ISSUER_ID}")
+          fi
+
+          set +e
+          SUBMIT_JSON="$(xcrun notarytool submit "${NOTARIZE_ZIP}" "${NOTARY_AUTH_ARGS[@]}" --wait --output-format json)"
+          SUBMIT_EXIT=$?
+          set -e
+          echo "${SUBMIT_JSON}"
+
+          PARSED_RESULT="$(SUBMIT_JSON="${SUBMIT_JSON}" python3 -c 'import json, os; d = json.loads(os.environ.get("SUBMIT_JSON") or "{}"); print(d.get("status", "")); print(d.get("id", ""))')"
+          NOTARY_STATUS="$(printf '%s\n' "${PARSED_RESULT}" | sed -n '1p')"
+          SUBMISSION_ID="$(printf '%s\n' "${PARSED_RESULT}" | sed -n '2p')"
+
+          if [ "${SUBMIT_EXIT}" -ne 0 ] || [ "${NOTARY_STATUS}" != "Accepted" ]; then
+            echo "::error::Apple 公証に失敗しました (status=${NOTARY_STATUS:-unknown}, id=${SUBMISSION_ID:-unknown})。"
+            if [ -n "${SUBMISSION_ID}" ]; then
+              xcrun notarytool log "${SUBMISSION_ID}" "${NOTARY_AUTH_ARGS[@]}" || true
+            fi
+            exit 1
+          fi
+
+          # チケット反映遅延に備えてリトライしながら Staple を実行する
+          STAPLED="false"
+          for attempt in 1 2 3 4 5; do
+            if xcrun stapler staple ./.build/Wintch.app; then
+              STAPLED="true"
+              break
+            fi
+            echo "stapler staple のリトライを待機しています (${attempt}/5)..."
+            sleep 10
+          done
+          if [ "${STAPLED}" != "true" ]; then
+            echo "::error::公証チケットの添付 (stapler staple) に失敗しました。"
+            exit 1
+          fi
+
+          xcrun stapler validate ./.build/Wintch.app
+          spctl -a -vvv -t exec ./.build/Wintch.app
+
+          # 公証チケット添付済みの最終配布 ZIP と SHA256 を生成する
+          ditto -c -k --keepParent ./.build/Wintch.app "${FINAL_ZIP}"
+          SHA256="$(shasum -a 256 "${FINAL_ZIP}" | awk '{print $1}')"
+          echo "sha256=${SHA256}" >> "${GITHUB_OUTPUT}"
+```
+
+公証済み ZIP を `gh release create`（既存時は `gh release upload --clobber`）で GitHub Releases へ公開したあと、安定版リリースの場合は `homebrew-tap` リポジトリを clone して `Casks/wintch.rb` の `version` と `sha256` を自動更新し、コミット・push します。全体像は [Wintch の release.yml](https://github.com/sawarame/Wintch/blob/main/.github/workflows/release.yml) から参照できます。
+
+## 日常のリリース運用と実機確認
+
+初回セットアップ後は、以下のいずれかの操作を行うだけでリリースから Homebrew Tap 更新までが自動で完了します。
+
+- **VERSION ファイルの更新（通常運用）**: ルートの `VERSION` ファイルを新しいバージョン（例：`0.1.0` → `0.1.1`）へ書き換えて `main` ブランチへ push する
+- **手動実行**: GitHub リポジトリの **Actions > Release > Run workflow** から実行する（同一バージョンで再リリースしたい場合などに有効）
+- **タグ直接 push**: `VERSION` と一致する `vX.Y.Z` タグを直接 push する
+
+### Homebrew からのインストールと実機確認
+
+リリースワークフロー完了後、手元に開発版のアプリがある場合は一度削除した上で、Homebrew 経由でインストールして動作を確認します。
+
+```bash
+brew install --cask sawarame/tap/wintch
+```
+
+インストール後、以下の点を確認しておくと確実です。
+
+1. ターミナル上で Gatekeeper 評価が通ること（任意確認）：
+   ```bash
+   spctl -a -vvv -t exec /Applications/Wintch.app
+   ```
+2. アプリを起動した際に Gatekeeper のブロック警告が出ず、そのまま開けること。
+3. 「システム設定 ＞ プライバシーとセキュリティ ＞ アクセシビリティ」で権限を許可したあと、基本機能やログイン時自動起動（`SMAppService.mainApp`）が正常に動作すること。
+
+## まとめ
+
+Developer ID 証明書・App Store Connect API Key・`homebrew-tap` 更新用 PAT の 3 点を初回だけ GitHub Secrets に登録しておくことで、以降は `VERSION` ファイルを書き換えて push するだけで「ビルド → 署名 → 公証 → Staple → GitHub Releases 公開 → Homebrew Cask 更新」までを人手なしで完結できました。
+
+特に SwiftPM 単体で構成されたアプリであっても、バンドル組み立てと `codesign` をシェルスクリプトへ切り出しておけば、ローカル開発時の手軽さを保ったまま CI でのリリース品質を担保しやすいと感じました。macOS アプリを Homebrew 経由で配布する際の参考になれば幸いです。
+
+なお、本記事の手順でリリースしているアプリ **Wintch** の機能詳細や導入方法については、以下の紹介ページにまとめています。
+
+<LinkCard
+  title="Wintch 紹介・インストールページ"
+  description="macOS 14.0 以降対応のウィンドウ単位スイッチャー＆検索ランチャー。機能プレビューやショートカット一覧も掲載しています。"
+  url="/wintch"
+  emoji="🪟"
+/>

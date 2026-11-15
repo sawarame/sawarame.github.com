@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import Translate, { translate } from '@docusaurus/Translate';
 import { 
   Image, 
@@ -271,6 +272,39 @@ export const extensions = [
   },
 ];
 
+/**
+ * Mac アプリカードの表示項目型定義
+ */
+export interface MacAppItem {
+  /** アプリアイコン画像のパス */
+  iconPath: string;
+  /** アプリケーション名 */
+  title: string;
+  /** アプリ説明文の翻訳 ID */
+  descriptionId: string;
+  /** アプリ説明文の既定日本語テキスト */
+  description: string;
+  /** 紹介ページへの内部パス */
+  link: string;
+  /** バッジ表示ラベル */
+  badge: string;
+}
+
+/**
+ * 公開中の Mac アプリ一覧データ
+ */
+export const macApps: MacAppItem[] = [
+  {
+    iconPath: '/img/wintch/app-icon.svg',
+    title: 'Wintch',
+    descriptionId: 'home.macApps.wintch.desc',
+    description:
+      '同じアプリの複数ウィンドウへ直感的に切り替えられる macOS 用ウィンドウ単位スイッチャー＆検索ランチャー。リスト表示とキャプチャ表示の両方に対応しています。',
+    link: '/wintch',
+    badge: 'macOS 14.0+',
+  },
+];
+
 // ============================================================
 // Components
 // ============================================================
@@ -360,6 +394,56 @@ export function ExtensionGrid() {
     <div className={styles.grid}>
       {extensions.map((ext) => (
         <ExtensionCard key={ext.title} {...ext} />
+      ))}
+    </div>
+  );
+}
+
+/**
+ * Mac アプリ一覧の各カードを表示するコンポーネント
+ * @param props - Mac アプリカードの表示項目データ
+ * @returns Mac アプリカードの JSX 要素
+ */
+export function MacAppCard({
+  iconPath,
+  title,
+  descriptionId,
+  description,
+  link,
+  badge,
+}: MacAppItem): JSX.Element {
+  const resolvedIconSrc = useBaseUrl(iconPath);
+
+  return (
+    <Link to={link} className={styles.extensionCard}>
+      <div className={styles.extensionCardHeader}>
+        <div className={styles.extensionIconWrap}>
+          <img src={resolvedIconSrc} alt={title} className={styles.extensionIcon} loading="lazy" decoding="async" />
+        </div>
+        <span className={styles.extensionBadge}>{badge}</span>
+      </div>
+      <div className={styles.cardBody}>
+        <h3 className={styles.cardTitle}>{title}</h3>
+        <p className={styles.cardDescription}>
+          {translate({ id: descriptionId, message: description })}
+        </p>
+      </div>
+      <div className={styles.extensionLink}>
+        <Translate id="home.macApps.linkText">紹介ページ・インストール方法を見る →</Translate>
+      </div>
+    </Link>
+  );
+}
+
+/**
+ * Mac アプリ一覧をグリッド状に表示するコンポーネント
+ * @returns Mac アプリグリッドの JSX 要素
+ */
+export function MacAppGrid(): JSX.Element {
+  return (
+    <div className={styles.grid}>
+      {macApps.map((app) => (
+        <MacAppCard key={app.title} {...app} />
       ))}
     </div>
   );

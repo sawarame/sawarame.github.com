@@ -13,6 +13,8 @@ import {
   ArrowUpRight,
   Lock,
   AppWindow,
+  LayoutGrid,
+  Code2,
 } from 'lucide-react';
 import styles from './WintchFeatureVisuals.module.css';
 
@@ -121,6 +123,115 @@ export function FuzzySearchVisual(): JSX.Element {
 }
 
 /**
+ * キャプチャ表示型（サムネイル付きカードグリッド）の識別イメージを表すビジュアルカードコンポーネント
+ * @returns キャプチャ表示ビジュアルカード JSX 要素
+ */
+export function CaptureGridVisual(): JSX.Element {
+  const cards = [
+    {
+      id: 'c1',
+      appName: 'Ghostty',
+      title: '~/dev/Wintch — swift test',
+      icon: <Terminal size={12} strokeWidth={2.2} />,
+      thumbVariant: styles.thumbTerminal,
+      active: false,
+      isGridPreview: false,
+    },
+    {
+      id: 'c2',
+      appName: 'Safari',
+      title: 'Wintch — GitHub Releases',
+      icon: <Compass size={12} strokeWidth={2.2} />,
+      thumbVariant: styles.thumbBrowser,
+      active: true,
+      isGridPreview: true,
+    },
+    {
+      id: 'c3',
+      appName: 'Xcode',
+      title: 'SwitcherCaptureGridView.swift',
+      icon: <Code2 size={12} strokeWidth={2.2} />,
+      thumbVariant: styles.thumbCode,
+      active: false,
+      isGridPreview: false,
+    },
+    {
+      id: 'c4',
+      appName: 'Safari',
+      title: 'Developer Documentation',
+      icon: <Compass size={12} strokeWidth={2.2} />,
+      thumbVariant: styles.thumbDoc,
+      active: false,
+      isGridPreview: true,
+    },
+  ];
+
+  return (
+    <div className={styles.visualCard}>
+      <div className={styles.closeActionHeader}>
+        <span className={styles.keyPill}>
+          <LayoutGrid size={12} strokeWidth={2.2} style={{ verticalAlign: '-1px', marginRight: '4px' }} />
+          <Translate id="wintch.visual.capture.badge">キャプチャ表示型</Translate>
+        </span>
+        <span className={styles.closeActionTitle}>
+          <Translate id="wintch.visual.capture.headline">
+            ウィンドウの内容をカードで確認
+          </Translate>
+        </span>
+      </div>
+
+      <div className={styles.captureGrid}>
+        {cards.map((card) => (
+          <div
+            key={card.id}
+            className={`${styles.captureCard} ${card.active ? styles.captureCardActive : ''}`}
+          >
+            <div className={styles.captureThumb}>
+              <div className={styles.captureThumbBar} aria-hidden="true">
+                <span className={styles.thumbDot} />
+                <span className={styles.thumbDot} />
+                <span className={styles.thumbDot} />
+              </div>
+              <div className={`${styles.captureThumbBody} ${card.thumbVariant}`} aria-hidden="true">
+                <span className={styles.thumbLineAccent} />
+                <span className={styles.thumbLineWide} />
+                {card.isGridPreview ? (
+                  <div className={styles.thumbCardBlock}>
+                    <span className={styles.thumbMiniBox} />
+                    <span className={styles.thumbMiniBox} />
+                  </div>
+                ) : (
+                  <span className={styles.thumbLineShort} />
+                )}
+              </div>
+            </div>
+
+            <div className={styles.captureCardFooter}>
+              <span className={styles.captureAppBadge} aria-hidden="true">
+                {card.icon}
+              </span>
+              <div className={styles.captureTextGroup}>
+                <div className={styles.captureAppName}>{card.appName}</div>
+                <div className={styles.captureWinTitle}>{card.title}</div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p className={styles.closeSafeNote}>
+        <ShieldCheck size={14} strokeWidth={2} aria-hidden="true" />
+        <span>
+          <Translate id="wintch.visual.capture.note">
+            画像はメモリ上の一時キャッシュのみで保持し、保存や外部送信は行いません
+          </Translate>
+        </span>
+      </p>
+    </div>
+  );
+}
+
+/**
  * 一覧から選択中のウィンドウをそのまま閉じる操作を表すビジュアルカードコンポーネント
  * @returns ウィンドウクローズビジュアルカード JSX 要素
  */
@@ -200,7 +311,7 @@ export function NativeArchitectureVisual(): JSX.Element {
       titleId: 'wintch.visual.arch.axTitle',
       title: 'アクセシビリティ権限',
       statusId: 'wintch.visual.arch.axStatus',
-      status: 'ショートカット検知とウィンドウ切り替えに使用',
+      status: 'ショートカット検知とウィンドウ切り替えに使用（画面収録はキャプチャ表示型選択時のみ任意）',
     },
   ];
 

@@ -18,6 +18,8 @@ import {
   ChevronRight,
   ChevronLeft,
   X,
+  LayoutGrid,
+  List,
 } from 'lucide-react';
 import styles from './WintchShowcase.module.css';
 import { computeHighlightedSegments, matchesFuzzyAndQuery } from './searchUtils';
@@ -26,6 +28,11 @@ import { computeHighlightedSegments, matchesFuzzyAndQuery } from './searchUtils'
  * ショーケースで切り替え表示するデモモード種別
  */
 type ShowcaseTab = 'switcher' | 'launcher' | 'settings';
+
+/**
+ * 通常スイッチャーの表示形式種別
+ */
+type SwitcherDisplayStyle = 'list' | 'capture';
 
 /**
  * デモ表示用のウィンドウ項目データ
@@ -180,6 +187,59 @@ function renderAppIcon(iconType: DemoWindowItem['iconType'] | DemoAppItem['iconT
 }
 
 /**
+ * キャプチャ表示型カード内のウィンドウプレビューモックを描画するヘルパー関数
+ * @param win - デモウィンドウ項目
+ * @returns サムネイルプレビュー JSX 要素
+ */
+function renderCapturePreview(win: DemoWindowItem): JSX.Element {
+  let bodyClass = styles.thumbStyleBrowser;
+  let isTwoCol = false;
+
+  switch (win.iconType) {
+    case 'terminal':
+      bodyClass = styles.thumbStyleTerminal;
+      break;
+    case 'code':
+      bodyClass = styles.thumbStyleCode;
+      break;
+    case 'chat':
+      bodyClass = styles.thumbStyleChat;
+      isTwoCol = true;
+      break;
+    case 'finder':
+      bodyClass = styles.thumbStyleFinder;
+      isTwoCol = true;
+      break;
+    case 'browser':
+      bodyClass = styles.thumbStyleBrowser;
+      isTwoCol = win.id === 'w2';
+      break;
+  }
+
+  return (
+    <div className={styles.captureGridThumb} aria-hidden="true">
+      <div className={styles.captureGridThumbHeader}>
+        <span className={styles.captureGridThumbDot} />
+        <span className={styles.captureGridThumbDot} />
+        <span className={styles.captureGridThumbDot} />
+      </div>
+      <div className={`${styles.captureGridThumbBody} ${bodyClass}`}>
+        <span className={styles.thumbMockBarAccent} />
+        <span className={styles.thumbMockBarWide} />
+        {isTwoCol ? (
+          <div className={styles.thumbMockMiniGrid}>
+            <span className={styles.thumbMockMiniCell} />
+            <span className={styles.thumbMockMiniCell} />
+          </div>
+        ) : (
+          <span className={styles.thumbMockBarShort} />
+        )}
+      </div>
+    </div>
+  );
+}
+
+/**
  * LinearMouse のような macOS UI プレビューを提供するインタラクティブショーケースコンポーネント
  * 通常スイッチャー・検索ランチャー・設定画面の3モードを切り替えながら操作感を体験できる
  * @returns ショーケースセクションの JSX 要素
@@ -188,6 +248,7 @@ export default function WintchShowcase(): JSX.Element {
   const menuBarIconUrl = useBaseUrl('/img/wintch/menubar-icon.svg');
 
   const [activeTab, setActiveTab] = useState<ShowcaseTab>('switcher');
+  const [displayStyle, setDisplayStyle] = useState<SwitcherDisplayStyle>('capture');
   const [windows, setWindows] = useState<DemoWindowItem[]>(INITIAL_WINDOWS);
   const [selectedIndex, setSelectedIndex] = useState<number>(1);
   const [closeFeedback, setCloseFeedback] = useState<string | null>(null);
@@ -362,7 +423,48 @@ export default function WintchShowcase(): JSX.Element {
         {/* パネル表示エリア */}
         <div className={styles.stageArea}>
           {activeTab === 'switcher' && (
-            <div className={styles.panelColumn}>
+            <div
+              className={`${styles.panelColumn} ${
+                displayStyle === 'capture' ? styles.panelColumnWide : ''
+              }`}
+            >
+              {/* 表示形式（リスト型 / キャプチャ表示型）の切り替え */}
+              <div
+                className={styles.styleToggleBar}
+                role="group"
+                aria-label={translate({
+                  id: 'wintch.showcase.styleToggleAria',
+                  message: 'スイッチャー表示形式の切り替え',
+                })}
+              >
+                <button
+                  type="button"
+                  onClick={() => setDisplayStyle('list')}
+                  aria-pressed={displayStyle === 'list'}
+                  className={`${styles.styleToggleBtn} ${
+                    displayStyle === 'list' ? styles.styleToggleBtnActive : ''
+                  }`}
+                >
+                  <List size={13} strokeWidth={2.2} aria-hidden="true" />
+                  <span>
+                    <Translate id="wintch.showcase.style.list">リスト型</Translate>
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDisplayStyle('capture')}
+                  aria-pressed={displayStyle === 'capture'}
+                  className={`${styles.styleToggleBtn} ${
+                    displayStyle === 'capture' ? styles.styleToggleBtnActive : ''
+                  }`}
+                >
+                  <LayoutGrid size={13} strokeWidth={2.2} aria-hidden="true" />
+                  <span>
+                    <Translate id="wintch.showcase.style.capture">キャプチャ表示型</Translate>
+                  </span>
+                </button>
+              </div>
+
               <div className={styles.wintchPanel}>
                 {windows.length === 0 ? (
                   <div className={styles.emptyPanel}>
@@ -379,6 +481,41 @@ export default function WintchShowcase(): JSX.Element {
                       <RotateCcw size={14} strokeWidth={2} aria-hidden="true" />
                       <Translate id="wintch.showcase.reset">デモをリセット</Translate>
                     </button>
+                  </div>
+                ) : displayStyle === 'capture' ? (
+                  <div className={styles.captureGridPadding}>
+                    {windows.map((win, idx) => {
+                      const isSelected = idx === safeSwitcherIndex;
+                      return (
+                        <button
+                          key={win.id}
+                          type="button"
+                          onClick={() => {
+                            setSelectedIndex(idx);
+                            setCloseFeedback(null);
+                          }}
+                          className={`${styles.captureGridCard} ${
+                            isSelected ? styles.captureGridCardSelected : ''
+                          }`}
+                        >
+                          {renderCapturePreview(win)}
+                          <span className={styles.captureGridCardFooter}>
+                            <span
+                              className={styles.captureCardAppIcon}
+                              style={{ background: win.iconBg }}
+                            >
+                              {renderAppIcon(win.iconType)}
+                            </span>
+                            <span className={styles.captureCardTextGroup}>
+                              <span className={styles.captureCardAppName}>{win.appName}</span>
+                              <span className={styles.captureCardWinTitle}>
+                                {win.windowTitle}
+                              </span>
+                            </span>
+                          </span>
+                        </button>
+                      );
+                    })}
                   </div>
                 ) : (
                   <div className={styles.listPadding}>
@@ -732,6 +869,41 @@ export default function WintchShowcase(): JSX.Element {
                         </span>
                         <span className={styles.settingsMuted}>⌥ + ⇧ + ⇥</span>
                       </div>
+                      <div className={styles.settingsRowDivider} />
+                      <div className={styles.settingsRow}>
+                        <span>
+                          <Translate id="wintch.showcase.settings.displayStyle">
+                            表示形式
+                          </Translate>
+                        </span>
+                        <div className={styles.inlineSegment}>
+                          <button
+                            type="button"
+                            onClick={() => setDisplayStyle('list')}
+                            className={`${styles.inlineSegmentBtn} ${
+                              displayStyle === 'list' ? styles.inlineSegmentBtnActive : ''
+                            }`}
+                          >
+                            <Translate id="wintch.showcase.style.list">リスト型</Translate>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setDisplayStyle('capture')}
+                            className={`${styles.inlineSegmentBtn} ${
+                              displayStyle === 'capture' ? styles.inlineSegmentBtnActive : ''
+                            }`}
+                          >
+                            <Translate id="wintch.showcase.style.capture">
+                              キャプチャ表示型
+                            </Translate>
+                          </button>
+                        </div>
+                      </div>
+                      <div className={styles.settingsCaption}>
+                        <Translate id="wintch.showcase.settings.displayStyleNote">
+                          初期設定はリスト型です。キャプチャ表示型を選ぶと、各ウィンドウのサムネイルをグリッド表示します。
+                        </Translate>
+                      </div>
                     </div>
                   </div>
 
@@ -792,6 +964,22 @@ export default function WintchShowcase(): JSX.Element {
                           <Translate id="wintch.showcase.settings.granted">許可済み</Translate>
                         </span>
                       </div>
+                      {displayStyle === 'capture' && (
+                        <>
+                          <div className={styles.settingsRowDivider} />
+                          <div className={styles.settingsRow}>
+                            <span>
+                              <Translate id="wintch.showcase.settings.screenRecording">
+                                画面収録権限（任意）
+                              </Translate>
+                            </span>
+                            <span className={styles.permGranted}>
+                              <CheckCircle2 size={14} strokeWidth={2.2} aria-hidden="true" />
+                              <Translate id="wintch.showcase.settings.granted">許可済み</Translate>
+                            </span>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>

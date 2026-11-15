@@ -16,6 +16,7 @@
 }
 
 .pillButton {
+  position: relative;
   height: 48px;
   padding: 0 1.25rem;
   border-radius: 9999px;
@@ -67,6 +68,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
   flex: 1;
 }
 
@@ -96,6 +98,30 @@
   color: #16a34a;
 }
 
+.copiedIconOnly {
+  color: #16a34a;
+}
+
+/* ピル型ボタン幅を固定したまま完了状態を伝えるフローティングバッジ */
+.copiedFloatingBadge {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  background: #16a34a;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px rgba(22, 163, 74, 0.28);
+  pointer-events: none;
+  z-index: 10;
+}
+
 [data-theme='dark'] .pillButton {
   background: rgba(30, 41, 59, 0.75);
   border-color: rgba(148, 163, 184, 0.28);
@@ -107,8 +133,15 @@
   border-color: rgba(148, 163, 184, 0.24);
 }
 
-[data-theme='dark'] .copiedBadge {
+[data-theme='dark'] .copiedBadge,
+[data-theme='dark'] .copiedIconOnly {
   color: #4ade80;
+}
+
+[data-theme='dark'] .copiedFloatingBadge {
+  background: #15803d;
+  color: #f0fdf4;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.42);
 }
 
 @media screen and (max-width: 600px) {

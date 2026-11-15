@@ -3,8 +3,8 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Translate, { translate } from '@docusaurus/Translate';
-import { Wrench, Puzzle } from 'lucide-react';
-import { ToolGrid, ExtensionGrid } from '@site/src/components/FeatureList';
+import { Wrench, Puzzle, Laptop } from 'lucide-react';
+import { ToolGrid, ExtensionGrid, MacAppGrid } from '@site/src/components/FeatureList';
 import SawaraFishLogo from '@site/src/components/SawaraFishLogo';
 import styles from '../css/index.module.css';
 
@@ -127,6 +127,22 @@ export default function Home(): JSX.Element {
             icon={<Puzzle size={16} />}
           />
           <ExtensionGrid />
+        </div>
+      </section>
+
+      {/* Mac Apps Section */}
+      <section id="mac-apps" className={styles.section}>
+        <div className={styles.container}>
+          <SectionHeader
+            labelId="home.macApps.label"
+            label="Mac アプリ"
+            titleId="home.macApps.title"
+            title="macOS デスクトップアプリ"
+            subtitleId="home.macApps.subtitle"
+            subtitle="Swift / SwiftUI で開発した、軽快に動作する macOS 向けネイティブアプリケーションです。"
+            icon={<Laptop size={16} />}
+          />
+          <MacAppGrid />
         </div>
       </section>
       </main>

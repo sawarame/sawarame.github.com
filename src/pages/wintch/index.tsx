@@ -8,6 +8,7 @@ import CopyCommandPill from '@site/src/components/Wintch/CopyCommandPill';
 import WintchShowcase from '@site/src/components/Wintch/WintchShowcase';
 import {
   WindowSwitcherVisual,
+  CaptureGridVisual,
   FuzzySearchVisual,
   SmartCloseVisual,
   NativeArchitectureVisual,
@@ -16,6 +17,7 @@ import {
   Download,
   ExternalLink,
   Layers,
+  LayoutGrid,
   Search,
   XCircle,
   ShieldCheck,
@@ -96,11 +98,11 @@ const SHORTCUT_ITEMS: ShortcutRowItem[] = [
     desc: 'トグル式で検索ランチャーを開く / 閉じる（再押下でキャンセル）',
   },
   {
-    keys: '↑ / ↓ · Ctrl + N / P',
+    keys: '↑ / ↓ / ← / → · Ctrl + N / P',
     scopeId: 'wintch.shortcuts.scope.both',
     scope: '共通',
     descId: 'wintch.shortcuts.desc.navigate',
-    desc: 'ウィンドウ候補およびアプリ起動候補を上下に循環移動（ランチャー中は ⌥ + Tab も可）',
+    desc: 'リストの上下およびキャプチャグリッドの上下左右を循環移動（ランチャー中は ⌥ + Tab も可）',
   },
   {
     keys: '⌥ + Q',
@@ -158,6 +160,7 @@ function WintchHeroSection(): JSX.Element {
 
   const navPills = [
     { href: '#switcher', labelId: 'wintch.nav.switcher', label: '通常スイッチャー' },
+    { href: '#capture', labelId: 'wintch.nav.capture', label: 'キャプチャ表示' },
     { href: '#launcher', labelId: 'wintch.nav.launcher', label: '検索ランチャー' },
     { href: '#close', labelId: 'wintch.nav.close', label: 'ウィンドウ終了' },
     { href: '#privacy', labelId: 'wintch.nav.privacy', label: 'ネイティブ設計' },
@@ -361,7 +364,7 @@ export default function WintchPage(): JSX.Element {
             </div>
           </section>
 
-          {/* 3. 機能紹介（LinearMouse スタイル 4 セクション） */}
+          {/* 3. 機能紹介（LinearMouse スタイル 5 セクション） */}
           <FeatureSection
             id="switcher"
             icon={<Layers size={15} strokeWidth={2.2} aria-hidden="true" />}
@@ -384,11 +387,40 @@ export default function WintchPage(): JSX.Element {
               },
               {
                 id: 'wintch.feature1.b3',
-                text: '設定画面から好みのショートカット（Option / Control / Command）へ自由に変更可能',
+                text: '設定画面から表示形式（リスト型 / キャプチャ表示型）や好みのショートカットへ自由に変更可能',
               },
             ]}
             visual={<WindowSwitcherVisual />}
             altSurface
+          />
+
+          <FeatureSection
+            id="capture"
+            icon={<LayoutGrid size={15} strokeWidth={2.2} aria-hidden="true" />}
+            eyebrowId="wintch.featureCapture.eyebrow"
+            eyebrow="キャプチャ表示型 (Capture Grid)"
+            titlePrefixId="wintch.featureCapture.titlePrefix"
+            titlePrefix="ウィンドウの見た目で、"
+            titleAccentId="wintch.featureCapture.titleAccent"
+            titleAccent="直感的に選ぶ。"
+            descriptionId="wintch.featureCapture.desc"
+            description="設定画面で通常スイッチャーの表示形式を「キャプチャ表示型」に切り替えると、Windows の Alt + Tab のように各ウィンドウの実際の見た目（キャプチャプレビュー）をカードグリッドで表示。同じアプリの複数ウィンドウも一目で判別できます。"
+            bullets={[
+              {
+                id: 'wintch.featureCapture.b1',
+                text: 'ショートカット押下で即座に表示し、バックグラウンドで最新キャプチャへ滑らかに差し替え',
+              },
+              {
+                id: 'wintch.featureCapture.b2',
+                text: '↑ / ↓ / ← / → や ⌥ + Tab でグリッド内を循環移動し、クリックや ⌥ + Q で閉じる操作にも対応',
+              },
+              {
+                id: 'wintch.featureCapture.b3',
+                text: '画面収録権限はキャプチャ表示型を選んだ場合のみ任意で使用（初期値のリスト型では不要）',
+              },
+            ]}
+            visual={<CaptureGridVisual />}
+            reverse
           />
 
           <FeatureSection
@@ -417,7 +449,7 @@ export default function WintchPage(): JSX.Element {
               },
             ]}
             visual={<FuzzySearchVisual />}
-            reverse
+            altSurface
           />
 
           <FeatureSection
@@ -446,7 +478,7 @@ export default function WintchPage(): JSX.Element {
               },
             ]}
             visual={<SmartCloseVisual />}
-            altSurface
+            reverse
           />
 
           <FeatureSection
@@ -467,7 +499,7 @@ export default function WintchPage(): JSX.Element {
               },
               {
                 id: 'wintch.feature4.b2',
-                text: '外部サーバーへの通信やトラッキングを行わない完全ローカル動作',
+                text: '外部サーバーへの通信やトラッキングを行わない完全ローカル動作（キャプチャ画像もメモリ内一時キャッシュのみ）',
               },
               {
                 id: 'wintch.feature4.b3',
@@ -475,11 +507,11 @@ export default function WintchPage(): JSX.Element {
               },
             ]}
             visual={<NativeArchitectureVisual />}
-            reverse
+            altSurface
           />
 
           {/* 4. キーボードショートカット早見表（flex リスト形式） */}
-          <section id="shortcuts" className={`${styles.shortcutsSection} ${styles.sectionAlt}`}>
+          <section id="shortcuts" className={styles.shortcutsSection}>
             <div className={styles.container}>
               <div className={styles.sectionHeader}>
                 <span className={styles.eyebrowCenter}>
@@ -517,7 +549,7 @@ export default function WintchPage(): JSX.Element {
           </section>
 
           {/* 5. インストール方法 & 動作要件 */}
-          <section id="install" className={styles.installSection}>
+          <section id="install" className={`${styles.installSection} ${styles.sectionAlt}`}>
             <div className={styles.container}>
               <div className={styles.sectionHeader}>
                 <span className={styles.eyebrowCenter}>
@@ -659,11 +691,11 @@ export default function WintchPage(): JSX.Element {
                   <ShieldCheck size={18} strokeWidth={2} className={styles.specIcon} aria-hidden="true" />
                   <div>
                     <div className={styles.specLabel}>
-                      <Translate id="wintch.specs.permLabel">必須権限</Translate>
+                      <Translate id="wintch.specs.permLabel">必要権限</Translate>
                     </div>
                     <div className={styles.specValue}>
                       <Translate id="wintch.specs.permValue">
-                        アクセシビリティ権限
+                        アクセシビリティ（画面収録はキャプチャ表示時のみ任意）
                       </Translate>
                     </div>
                   </div>
@@ -687,7 +719,7 @@ export default function WintchPage(): JSX.Element {
           </section>
 
           {/* 6. ページ下部 CTA（LinearMouse スタイル） */}
-          <section className={`${styles.bottomCtaSection} ${styles.sectionAlt}`}>
+          <section className={styles.bottomCtaSection}>
             <div className={styles.container}>
               <div className={styles.bottomCtaInner}>
                 <img
