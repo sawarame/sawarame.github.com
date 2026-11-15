@@ -2299,5 +2299,371 @@
   },
   "regex.details.charsUnit": {
     "message": "chars"
+  },
+  "wintch.page.title": {
+    "message": "Wintch | Simple Per-Window Switcher & Launcher for macOS"
+  },
+  "wintch.page.description": {
+    "message": "Introduction and installation guide for Wintch, a lightweight and simple macOS per-window switcher & search launcher that runs completely locally."
+  },
+  "wintch.nav.ariaLabel": {
+    "message": "On-page navigation"
+  },
+  "wintch.nav.switcher": {
+    "message": "Window Switcher"
+  },
+  "wintch.nav.launcher": {
+    "message": "Search Launcher"
+  },
+  "wintch.nav.close": {
+    "message": "Close Windows"
+  },
+  "wintch.nav.privacy": {
+    "message": "Native Design"
+  },
+  "wintch.nav.install": {
+    "message": "Install"
+  },
+  "wintch.hero.meta": {
+    "message": "v0.1.1 · macOS 14.0+ · MIT License"
+  },
+  "wintch.hero.titlePrefix": {
+    "message": "Switch windows,"
+  },
+  "wintch.hero.titleAccent": {
+    "message": "more intuitively."
+  },
+  "wintch.hero.subtitle": {
+    "message": "Wintch (Window + Switch) is a simple, lightweight per-window switcher and search launcher for macOS—letting you jump straight to individual windows even when an app has several open."
+  },
+  "wintch.cta.download": {
+    "message": "Download (v0.1.1)"
+  },
+  "wintch.cta.copyBrewAria": {
+    "message": "Copy Homebrew install command: brew install --cask sawarame/tap/wintch"
+  },
+  "wintch.copy.copied": {
+    "message": "Copied"
+  },
+  "wintch.copy.hint": {
+    "message": "Click to copy command"
+  },
+  "wintch.showcase.tablistLabel": {
+    "message": "Wintch preview modes"
+  },
+  "wintch.showcase.tab.switcher": {
+    "message": "Switcher"
+  },
+  "wintch.showcase.tab.launcher": {
+    "message": "Search Launcher"
+  },
+  "wintch.showcase.tab.settings": {
+    "message": "Settings & Permissions"
+  },
+  "wintch.showcase.allClosed": {
+    "message": "All demo windows have been closed"
+  },
+  "wintch.showcase.reset": {
+    "message": "Reset Demo"
+  },
+  "wintch.showcase.btn.prev": {
+    "message": "Prev"
+  },
+  "wintch.showcase.btn.next": {
+    "message": "Next"
+  },
+  "wintch.showcase.btn.close": {
+    "message": "Close"
+  },
+  "wintch.showcase.feedback.closedWindow": {
+    "message": "Closed \"{appName} — {title}\""
+  },
+  "wintch.showcase.feedback.switchWindow": {
+    "message": "Switched to \"{appName} — {title}\""
+  },
+  "wintch.showcase.feedback.launchApp": {
+    "message": "Launched \"{appName}\""
+  },
+  "wintch.showcase.searchPlaceholder": {
+    "message": "Search by app name or window title (e.g. saf, note, code)"
+  },
+  "wintch.showcase.searchAria": {
+    "message": "Interactive search launcher input"
+  },
+  "wintch.showcase.clearQuery": {
+    "message": "Clear search"
+  },
+  "wintch.showcase.noMatch": {
+    "message": "No matching windows found"
+  },
+  "wintch.showcase.launchHeaderNoWin": {
+    "message": "No matching windows—launch an app"
+  },
+  "wintch.showcase.launchHeader": {
+    "message": "Launch App"
+  },
+  "wintch.showcase.launchBadge": {
+    "message": "Launch"
+  },
+  "wintch.showcase.tryQuery": {
+    "message": "Try:"
+  },
+  "wintch.showcase.allMru": {
+    "message": "Empty (MRU)"
+  },
+  "wintch.showcase.settings.title": {
+    "message": "Wintch Settings"
+  },
+  "wintch.showcase.settings.normalSection": {
+    "message": "Window Switcher (Hold)"
+  },
+  "wintch.showcase.settings.launcherSection": {
+    "message": "Search Launcher (Toggle)"
+  },
+  "wintch.showcase.settings.shortcut": {
+    "message": "Shortcut"
+  },
+  "wintch.showcase.settings.reverse": {
+    "message": "Reverse"
+  },
+  "wintch.showcase.settings.generalAndPerm": {
+    "message": "General & Permissions"
+  },
+  "wintch.showcase.settings.launchAtLogin": {
+    "message": "Launch at Login"
+  },
+  "wintch.showcase.settings.accessibility": {
+    "message": "Accessibility Permission"
+  },
+  "wintch.showcase.settings.granted": {
+    "message": "Granted"
+  },
+  "wintch.feature1.eyebrow": {
+    "message": "Window Switcher (⌥ + Tab)"
+  },
+  "wintch.feature1.titlePrefix": {
+    "message": "Per-window switching,"
+  },
+  "wintch.feature1.titleAccent": {
+    "message": "without confusion."
+  },
+  "wintch.feature1.desc": {
+    "message": "While macOS Command + Tab switches by application, Wintch lists every open window individually—sorted by Most Recently Used (MRU) so you can reach the exact window you want even when the same app has multiple windows open."
+  },
+  "wintch.feature1.b1": {
+    "message": "Simply press and release Option + Tab to jump straight back to your previous window"
+  },
+  "wintch.feature1.b2": {
+    "message": "Hold the modifier to cycle with Tab / Shift+Tab or arrow keys, release to confirm"
+  },
+  "wintch.feature1.b3": {
+    "message": "Customize your shortcut modifier (Option / Control / Command) and trigger key in Settings"
+  },
+  "wintch.feature2.eyebrow": {
+    "message": "Search Launcher (⌥ + Space)"
+  },
+  "wintch.feature2.titlePrefix": {
+    "message": "Search & app launch,"
+  },
+  "wintch.feature2.titleAccent": {
+    "message": "in one unified panel."
+  },
+  "wintch.feature2.desc": {
+    "message": "Toggle the search launcher when you have many windows open. Narrow down by app name or window title using space-separated AND fuzzy search, or launch unopened apps directly from the section below."
+  },
+  "wintch.feature2.b1": {
+    "message": "Highlights matched characters in real time with bold typography and accent colors"
+  },
+  "wintch.feature2.b2": {
+    "message": "Supports searching apps by both localized names and English names (e.g. Notes / メモ)"
+  },
+  "wintch.feature2.b3": {
+    "message": "Navigate seamlessly with ↑ / ↓, Ctrl + N / P, or even ⌥ + Tab while searching"
+  },
+  "wintch.feature3.eyebrow": {
+    "message": "Close Windows (⌥ + Q)"
+  },
+  "wintch.feature3.titlePrefix": {
+    "message": "Tidy up windows,"
+  },
+  "wintch.feature3.titleAccent": {
+    "message": "right from the list."
+  },
+  "wintch.feature3.desc": {
+    "message": "No need to switch to a window just to close it. Select any window in the switcher or launcher and press your modifier + Q (default ⌥ + Q) to close it right on the spot."
+  },
+  "wintch.feature3.b1": {
+    "message": "Works with the same ⌥ + Q shortcut in both the Switcher and Search Launcher"
+  },
+  "wintch.feature3.b2": {
+    "message": "Keep the panel open to close multiple unwanted windows one after another"
+  },
+  "wintch.feature3.b3": {
+    "message": "Never force-quits or discards unsaved work—respects standard save confirmation dialogs"
+  },
+  "wintch.feature4.eyebrow": {
+    "message": "Native & Lightweight"
+  },
+  "wintch.feature4.titlePrefix": {
+    "message": "Built natively,"
+  },
+  "wintch.feature4.titleAccent": {
+    "message": "fast and simple."
+  },
+  "wintch.feature4.desc": {
+    "message": "Built with Swift 6.0 and SwiftUI using standard Apple frameworks with zero third-party dependencies—keeping everyday window switching fast, clean, and reliable."
+  },
+  "wintch.feature4.b1": {
+    "message": "Universal Binary supporting both Apple Silicon and Intel Macs"
+  },
+  "wintch.feature4.b2": {
+    "message": "100% local execution with zero external network requests or tracking"
+  },
+  "wintch.feature4.b3": {
+    "message": "Lives quietly in the menu bar (LSUIElement) without cluttering your Dock"
+  },
+  "wintch.visual.switcher.beforeLabel": {
+    "message": "Default Command + Tab (App-based)"
+  },
+  "wintch.visual.launchSection": {
+    "message": "Launch App"
+  },
+  "wintch.visual.notesApp": {
+    "message": "Notes"
+  },
+  "wintch.visual.close.headline": {
+    "message": "Close the selected window on the spot"
+  },
+  "wintch.visual.close.safeNote": {
+    "message": "Respects standard save confirmation dialogs when unsaved changes exist"
+  },
+  "wintch.visual.arch.swiftTitle": {
+    "message": "Swift 6.0 + SwiftUI"
+  },
+  "wintch.visual.arch.swiftStatus": {
+    "message": "Native Universal Binary (Apple Silicon / Intel)"
+  },
+  "wintch.visual.arch.localTitle": {
+    "message": "100% Local"
+  },
+  "wintch.visual.arch.localStatus": {
+    "message": "Zero external communication or tracking"
+  },
+  "wintch.visual.arch.menuBarTitle": {
+    "message": "Menu Bar Resident"
+  },
+  "wintch.visual.arch.menuBarStatus": {
+    "message": "Stays quietly in the menu bar without Dock clutter"
+  },
+  "wintch.visual.arch.axTitle": {
+    "message": "Accessibility Permission"
+  },
+  "wintch.visual.arch.axStatus": {
+    "message": "Used for shortcut detection and window switching"
+  },
+  "wintch.shortcuts.eyebrow": {
+    "message": "Keyboard Shortcuts"
+  },
+  "wintch.shortcuts.title": {
+    "message": "Default Shortcuts"
+  },
+  "wintch.shortcuts.subtitle": {
+    "message": "Default keybindings out of the box. You can customize activation shortcuts anytime in Settings (⌘ + ,)."
+  },
+  "wintch.shortcuts.scope.normal": {
+    "message": "Switcher"
+  },
+  "wintch.shortcuts.scope.launcher": {
+    "message": "Launcher"
+  },
+  "wintch.shortcuts.scope.both": {
+    "message": "Both"
+  },
+  "wintch.shortcuts.desc.normalNext": {
+    "message": "Hold to open switcher and cycle to the next window (release modifier to confirm)"
+  },
+  "wintch.shortcuts.desc.normalPrev": {
+    "message": "Move selection backward to the previous window"
+  },
+  "wintch.shortcuts.desc.launcherToggle": {
+    "message": "Toggle the search launcher open or closed"
+  },
+  "wintch.shortcuts.desc.navigate": {
+    "message": "Cycle through windows and app launch candidates (⌥ + Tab also works in Launcher)"
+  },
+  "wintch.shortcuts.desc.close": {
+    "message": "Close the selected window"
+  },
+  "wintch.shortcuts.desc.confirmCancel": {
+    "message": "Enter confirms switching or launching; Esc cancels without switching"
+  },
+  "wintch.install.eyebrow": {
+    "message": "Installation"
+  },
+  "wintch.install.title": {
+    "message": "Install & Setup"
+  },
+  "wintch.install.subtitle": {
+    "message": "Install quickly via Homebrew Cask or download the Developer ID-signed and Apple-notarized ZIP from GitHub Releases."
+  },
+  "wintch.install.brew.badge": {
+    "message": "Recommended"
+  },
+  "wintch.install.brew.title": {
+    "message": "Install with Homebrew"
+  },
+  "wintch.install.brew.desc": {
+    "message": "Run the command below in your terminal to add the tap and install Wintch in one step."
+  },
+  "wintch.install.brew.upgradeLabel": {
+    "message": "Upgrade to the latest version"
+  },
+  "wintch.install.brew.uninstallLabel": {
+    "message": "Uninstall (add --zap to remove preferences)"
+  },
+  "wintch.install.manual.title": {
+    "message": "Manual Install via GitHub Releases"
+  },
+  "wintch.install.manual.desc": {
+    "message": "Prefer not to use Homebrew? Download the signed release archive directly."
+  },
+  "wintch.install.manual.step1": {
+    "message": "Download the latest Wintch-vX.Y.Z.zip from GitHub Releases and unzip it."
+  },
+  "wintch.install.manual.step2": {
+    "message": "Move Wintch.app into your /Applications folder and launch it."
+  },
+  "wintch.install.manual.step3": {
+    "message": "Follow the first-launch prompt to grant Accessibility permission under System Settings > Privacy & Security > Accessibility."
+  },
+  "wintch.install.manual.notarized": {
+    "message": "Distributed builds are Developer ID-signed and Apple-notarized, so Gatekeeper will not block launch."
+  },
+  "wintch.install.manual.button": {
+    "message": "Open GitHub Releases"
+  },
+  "wintch.specs.osLabel": {
+    "message": "OS & Architecture"
+  },
+  "wintch.specs.osValue": {
+    "message": "macOS 14.0 (Sonoma)+ · Apple Silicon / Intel"
+  },
+  "wintch.specs.permLabel": {
+    "message": "Required Permission"
+  },
+  "wintch.specs.permValue": {
+    "message": "Accessibility permission"
+  },
+  "wintch.specs.licenseLabel": {
+    "message": "License & Stack"
+  },
+  "wintch.specs.licenseValue": {
+    "message": "MIT License · Swift 6.0 / SwiftUI"
+  },
+  "wintch.bottomCta.title": {
+    "message": "Switch windows without friction."
+  },
+  "wintch.bottomCta.desc": {
+    "message": "Free and open-source under the MIT License."
   }
 }
