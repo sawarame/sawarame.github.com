@@ -1,0 +1,123 @@
+/* コマンドコピー用ボタン（ピル型 / ブロック型共通基盤） */
+.pillButton,
+.blockButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 100%;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-card-background-color);
+  color: var(--ifm-font-color-base);
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.pillButton {
+  height: 48px;
+  padding: 0 1.25rem;
+  border-radius: 9999px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+}
+
+.blockButton {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border-radius: 12px;
+  justify-content: space-between;
+}
+
+.pillButton:hover,
+.blockButton:hover {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 8px 24px rgba(51, 102, 204, 0.14);
+  transform: translateY(-2px);
+}
+
+.pillButton:active,
+.blockButton:active {
+  transform: scale(0.98);
+}
+
+.pillButton:focus-visible,
+.blockButton:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+.terminalIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ifm-color-emphasis-600);
+  flex-shrink: 0;
+}
+
+.commandText {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ifm-font-color-base);
+  background: transparent;
+  border: none;
+  padding: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.statusWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.copyIcon {
+  transition: color 0.2s ease;
+}
+
+.pillButton:hover .copyIcon,
+.blockButton:hover .copyIcon {
+  color: var(--ifm-color-primary);
+}
+
+.copiedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #16a34a;
+}
+
+[data-theme='dark'] .pillButton {
+  background: rgba(30, 41, 59, 0.75);
+  border-color: rgba(148, 163, 184, 0.28);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.28);
+}
+
+[data-theme='dark'] .blockButton {
+  background: rgba(15, 23, 42, 0.75);
+  border-color: rgba(148, 163, 184, 0.24);
+}
+
+[data-theme='dark'] .copiedBadge {
+  color: #4ade80;
+}
+
+@media screen and (max-width: 600px) {
+  .pillButton {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .commandText {
+    font-size: 0.8rem;
+  }
+}

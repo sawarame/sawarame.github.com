@@ -1,0 +1,664 @@
+/* 全体共通コンテナ */
+.pageMain {
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+  color: var(--ifm-font-color-base);
+  background: var(--ifm-background-color);
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.sectionAlt {
+  background: var(--ifm-background-surface-color);
+}
+
+/* ============================================================
+   Hero Section（LinearMouse 風クリーン＆ミニマルなヒーロー）
+   ============================================================ */
+.hero {
+  position: relative;
+  padding: 2.5rem 0 3rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.heroGlow {
+  position: absolute;
+  top: -140px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 760px;
+  height: 420px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(56, 189, 248, 0.2) 0%,
+    rgba(51, 102, 204, 0.14) 45%,
+    transparent 75%
+  );
+  filter: blur(48px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme='dark'] .heroGlow {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(56, 189, 248, 0.24) 0%,
+    rgba(79, 157, 255, 0.18) 45%,
+    transparent 75%
+  );
+}
+
+/* クイックアンカーナビゲーション */
+.anchorNav {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+  padding: 0.35rem;
+  border-radius: 9999px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-card-background-color);
+}
+
+.anchorPill {
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700);
+  text-decoration: none !important;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.anchorPill:hover {
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-primary);
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heroAppBadge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.heroIcon {
+  border-radius: 20px;
+  filter: drop-shadow(0 16px 32px rgba(15, 23, 42, 0.2));
+  transition: transform 0.3s ease;
+}
+
+.heroIcon:hover {
+  transform: translateY(-3px) scale(1.02);
+}
+
+.metaPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  background: rgba(51, 102, 204, 0.1);
+  border: 1px solid rgba(51, 102, 204, 0.2);
+}
+
+[data-theme='dark'] .metaPill {
+  background: rgba(79, 157, 255, 0.14);
+  border-color: rgba(79, 157, 255, 0.28);
+}
+
+.heroTitle {
+  font-size: clamp(2.1rem, 5vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  margin: 0 0 1.25rem;
+  color: var(--ifm-font-color-base);
+}
+
+.heroTitleAccent {
+  background: linear-gradient(135deg, #38bdf8 0%, #3366cc 55%, #667eea 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme='dark'] .heroTitleAccent {
+  background: linear-gradient(135deg, #38bdf8 0%, #60a5fa 55%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroSubtitle {
+  font-size: clamp(0.98rem, 2vw, 1.125rem);
+  color: var(--ifm-color-emphasis-700);
+  max-width: 640px;
+  margin: 0 0 2rem;
+  line-height: 1.75;
+}
+
+/* CTA グループ */
+.ctaGroup {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.primaryDownloadBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  height: 48px;
+  padding: 0 1.65rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: #ffffff !important;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none !important;
+  box-shadow: 0 10px 26px rgba(37, 99, 235, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.primaryDownloadBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(37, 99, 235, 0.36);
+  filter: brightness(1.06);
+}
+
+.primaryDownloadBtn:active {
+  transform: scale(0.97);
+}
+
+.heroLinks {
+  margin-top: 1.25rem;
+}
+
+.githubLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700) !important;
+  text-decoration: none !important;
+  transition: color 0.18s ease;
+}
+
+.githubLink:hover {
+  color: var(--ifm-color-primary) !important;
+}
+
+/* ============================================================
+   Interactive Showcase Section
+   ============================================================ */
+.showcaseSection {
+  padding: 1rem 0 5rem;
+}
+
+/* ============================================================
+   Feature Sections（2カラム交互配置）
+   ============================================================ */
+.featureSection {
+  padding: 5rem 0;
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.featureGridReverse .featureCopy {
+  order: 2;
+}
+
+.featureGridReverse .featureVisual {
+  order: 1;
+}
+
+.eyebrow,
+.eyebrowCenter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ifm-color-primary);
+  margin-bottom: 0.75rem;
+}
+
+.featureTitle {
+  font-size: clamp(1.65rem, 3.2vw, 2.35rem);
+  font-weight: 800;
+  line-height: 1.28;
+  margin: 0 0 1rem;
+  color: var(--ifm-font-color-base);
+}
+
+.featureTitleAccent {
+  color: var(--ifm-color-primary);
+}
+
+.featureDesc {
+  font-size: 0.98rem;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0 0 1.5rem;
+  line-height: 1.8;
+}
+
+.bulletList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.bulletItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: 0.92rem;
+  color: var(--ifm-font-color-base);
+}
+
+.bulletIcon {
+  color: var(--ifm-color-primary);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+/* ============================================================
+   Shortcuts & Installation Common Section Header
+   ============================================================ */
+.shortcutsSection,
+.installSection {
+  padding: 5rem 0;
+}
+
+.sectionHeader {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 3rem;
+}
+
+.sectionTitle {
+  font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+  font-weight: 800;
+  margin: 0 0 0.75rem;
+  color: var(--ifm-font-color-base);
+}
+
+.sectionSubtitle {
+  font-size: 0.98rem;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* ============================================================
+   Keyboard Shortcuts List（DESIGN.md 準拠 display: flex リスト）
+   ============================================================ */
+.shortcutList {
+  max-width: 880px;
+  margin: 0 auto;
+  border-radius: 16px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-card-background-color);
+  overflow: hidden;
+}
+
+.shortcutRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  transition: background-color 0.15s ease;
+}
+
+.shortcutRow:last-child {
+  border-bottom: none;
+}
+
+.shortcutRow:hover {
+  background: rgba(51, 102, 204, 0.03);
+}
+
+[data-theme='dark'] .shortcutRow:hover {
+  background: rgba(79, 157, 255, 0.05);
+}
+
+.shortcutKeyCell {
+  min-width: 190px;
+  flex-shrink: 0;
+}
+
+.shortcutKbd {
+  display: inline-block;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.84rem;
+  font-weight: 700;
+  padding: 0.3rem 0.65rem;
+  border-radius: 8px;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  color: var(--ifm-font-color-base);
+  box-shadow: 0 1px 0 var(--ifm-color-emphasis-300);
+}
+
+.shortcutScopeCell {
+  min-width: 140px;
+  flex-shrink: 0;
+}
+
+.shortcutScopeBadge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  background: rgba(51, 102, 204, 0.1);
+  color: var(--ifm-color-primary);
+}
+
+.shortcutDescCell {
+  flex: 1;
+  font-size: 0.9rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+/* ============================================================
+   Installation Grid & Specs Strip
+   ============================================================ */
+.installGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.installCard {
+  display: flex;
+  flex-direction: column;
+  padding: 1.75rem;
+  border-radius: 16px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-card-background-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.installCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+}
+
+.installCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.installBadgeRecommended,
+.installBadgeManual {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+}
+
+.installBadgeRecommended {
+  background: rgba(22, 163, 74, 0.14);
+  color: #15803d;
+}
+
+[data-theme='dark'] .installBadgeRecommended {
+  background: rgba(74, 222, 128, 0.16);
+  color: #4ade80;
+}
+
+.installBadgeManual {
+  background: rgba(51, 102, 204, 0.12);
+  color: var(--ifm-color-primary);
+}
+
+.installCardTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.installCardDesc {
+  font-size: 0.9rem;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0 0 1.25rem;
+}
+
+.commandStack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.subCommandGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.subCommandLabel {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.stepList {
+  margin: 0 0 1.25rem;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  font-size: 0.9rem;
+  color: var(--ifm-font-color-base);
+}
+
+.notarizedNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  font-size: 0.82rem;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0 0 1.25rem;
+}
+
+.notarizedNote svg {
+  color: var(--ifm-color-primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.releasesLinkBtn {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  border: 1px solid var(--ifm-color-primary);
+  color: var(--ifm-color-primary) !important;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none !important;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.releasesLinkBtn:hover {
+  background: rgba(51, 102, 204, 0.08);
+  transform: translateY(-2px);
+}
+
+/* 動作要件サマリーストリップ */
+.specsStrip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 16px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-card-background-color);
+}
+
+.specItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.specIcon {
+  color: var(--ifm-color-primary);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.specLabel {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.specValue {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+}
+
+/* ============================================================
+   Bottom CTA Section
+   ============================================================ */
+.bottomCtaSection {
+  padding: 5rem 0;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.bottomCtaInner {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bottomCtaIcon {
+  border-radius: 16px;
+  margin-bottom: 1.25rem;
+  filter: drop-shadow(0 12px 24px rgba(15, 23, 42, 0.18));
+}
+
+.bottomCtaTitle {
+  font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+  font-weight: 800;
+  margin: 0 0 0.75rem;
+}
+
+.bottomCtaDesc {
+  font-size: 0.95rem;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0 0 1.75rem;
+}
+
+/* ============================================================
+   Responsive（900px / 768px ブレイクポイント）
+   ============================================================ */
+@media screen and (max-width: 900px) {
+  .featureSection,
+  .shortcutsSection,
+  .installSection,
+  .bottomCtaSection {
+    padding: 3.5rem 0;
+  }
+
+  .featureGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .featureGridReverse .featureCopy {
+    order: 1;
+  }
+
+  .featureGridReverse .featureVisual {
+    order: 2;
+  }
+
+  .installGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .specsStrip {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .anchorNav {
+    border-radius: 16px;
+  }
+
+  .shortcutRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .shortcutKeyCell,
+  .shortcutScopeCell {
+    min-width: auto;
+  }
+
+  .primaryDownloadBtn {
+    width: 100%;
+  }
+}

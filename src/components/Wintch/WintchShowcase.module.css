@@ -1,0 +1,682 @@
+/* ショーケース全体ラッパー */
+.showcaseWrap {
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+/* モード切替タブバー */
+.tabBar {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.tabButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-card-background-color);
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tabButton:hover {
+  border-color: var(--ifm-color-primary-light);
+  color: var(--ifm-font-color-base);
+}
+
+.tabButtonActive {
+  background: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(51, 102, 204, 0.25);
+}
+
+.tabButtonActive:hover {
+  color: #ffffff;
+}
+
+.tabShortcut {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.125rem 0.45rem;
+  border-radius: 6px;
+  background: rgba(15, 23, 42, 0.08);
+  border: none;
+  color: inherit;
+}
+
+.tabButtonActive .tabShortcut {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+/* macOS 風デスクトップ背景フレーム */
+.desktopFrame {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background:
+    radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.35), transparent 45%),
+    radial-gradient(circle at 85% 25%, rgba(99, 102, 241, 0.35), transparent 50%),
+    radial-gradient(circle at 50% 90%, rgba(14, 165, 233, 0.25), transparent 55%),
+    linear-gradient(145deg, #0f172a 0%, #1e293b 55%, #0f172a 100%);
+  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.22);
+}
+
+[data-theme='dark'] .desktopFrame {
+  border-color: rgba(148, 163, 184, 0.2);
+  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.55);
+}
+
+/* 模擬 macOS メニューバー */
+.macMenuBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(248, 250, 252, 0.92);
+  font-size: 0.78rem;
+}
+
+.macMenuBarLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.macAppleDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(248, 250, 252, 0.85);
+}
+
+.macMenuApp {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.macMenuHint {
+  color: rgba(203, 213, 225, 0.7);
+  font-size: 0.72rem;
+}
+
+.macMenuBarRight {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.menuBarIconBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.menuBarSvg {
+  width: 15px;
+  height: 15px;
+  filter: invert(1);
+}
+
+.macClock {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 中央ステージ領域 */
+.stageArea {
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 410px;
+}
+
+.panelColumn {
+  width: 100%;
+  max-width: 540px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Wintch 本体フローティングパネル（SwitcherListView 準拠） */
+.wintchPanel {
+  width: 100%;
+  border-radius: 14px;
+  background: rgba(248, 250, 252, 0.88);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 20px 50px rgba(2, 6, 23, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  overflow: hidden;
+  color: #0f172a;
+}
+
+[data-theme='dark'] .wintchPanel {
+  background: rgba(30, 41, 59, 0.82);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 24px 56px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  color: #f8fafc;
+}
+
+.listPadding {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* 各ウィンドウ / アプリ行 */
+.windowRow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.12s ease;
+}
+
+.windowRow:hover {
+  background: rgba(15, 23, 42, 0.06);
+}
+
+[data-theme='dark'] .windowRow:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.windowRowSelected {
+  background: #2563eb !important;
+  color: #ffffff;
+}
+
+.rowAppIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.rowTextGroup {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.rowAppName {
+  font-size: 0.84rem;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.rowWindowTitle {
+  font-size: 0.82rem;
+  opacity: 0.72;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.windowRowSelected .rowWindowTitle {
+  opacity: 0.92;
+}
+
+.spaceBadge {
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  background: rgba(15, 23, 42, 0.08);
+  color: inherit;
+  opacity: 0.75;
+  flex-shrink: 0;
+}
+
+[data-theme='dark'] .spaceBadge {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.spaceBadgeSelected {
+  background: rgba(255, 255, 255, 0.24) !important;
+  opacity: 1;
+}
+
+/* ランチャー検索ヘッダ */
+.searchHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+}
+
+.searchIcon {
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: inherit;
+  font-size: 0.92rem;
+  font-family: inherit;
+}
+
+.searchInput::placeholder {
+  color: inherit;
+  opacity: 0.48;
+}
+
+.clearQueryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(100, 116, 139, 0.2);
+  color: inherit;
+  cursor: pointer;
+}
+
+.panelDivider,
+.sectionDivider {
+  height: 1px;
+  background: rgba(100, 116, 139, 0.22);
+}
+
+.sectionDivider {
+  margin: 4px 0;
+}
+
+.launchSectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px 2px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  opacity: 0.68;
+}
+
+.launchBadge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 5px;
+  background: rgba(100, 116, 139, 0.16);
+  flex-shrink: 0;
+}
+
+.launchBadgeSelected {
+  background: rgba(255, 255, 255, 0.24);
+  color: #ffffff;
+}
+
+/* ファジー検索ハイライト */
+.matchNormal {
+  font-weight: 800;
+  color: #2563eb;
+}
+
+[data-theme='dark'] .matchNormal {
+  color: #60a5fa;
+}
+
+.matchSelected {
+  font-weight: 800;
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* 空状態 */
+.emptyPanel {
+  padding: 2rem 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.emptyText {
+  margin: 0;
+  font-size: 0.85rem;
+  opacity: 0.72;
+}
+
+.demoResetInline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid rgba(37, 99, 235, 0.4);
+  background: rgba(37, 99, 235, 0.12);
+  color: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* デモ操作ボタン行 */
+.demoControls,
+.sampleRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.demoControlBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(15, 23, 42, 0.55);
+  color: #f8fafc;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.demoControlBtn:hover:not(:disabled) {
+  background: rgba(30, 41, 59, 0.85);
+  transform: translateY(-1px);
+}
+
+.demoControlBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.demoControlBtn kbd {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.7rem;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.14);
+  border: none;
+  color: inherit;
+}
+
+.demoDangerBtn:hover:not(:disabled) {
+  border-color: rgba(248, 113, 113, 0.65);
+  background: rgba(185, 28, 28, 0.55);
+}
+
+.sampleLabel {
+  color: rgba(226, 232, 240, 0.85);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.sampleChip {
+  padding: 0.3rem 0.65rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(15, 23, 42, 0.45);
+  color: #f8fafc;
+  font-size: 0.75rem;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.sampleChipActive {
+  background: #2563eb;
+  border-color: #60a5fa;
+}
+
+.demoFeedback {
+  margin: 0;
+  padding: 0.45rem 0.9rem;
+  border-radius: 9999px;
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #e0f2fe;
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* 設定ウィンドウプレビュー */
+.settingsWindow {
+  width: 100%;
+  max-width: 460px;
+  border-radius: 14px;
+  background: rgba(241, 245, 249, 0.94);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 22px 54px rgba(2, 6, 23, 0.45);
+  overflow: hidden;
+  color: #0f172a;
+}
+
+[data-theme='dark'] .settingsWindow {
+  background: rgba(30, 41, 59, 0.92);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #f8fafc;
+}
+
+.settingsTitleBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.9rem;
+  border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.trafficLights {
+  display: inline-flex;
+  gap: 6px;
+  width: 48px;
+}
+
+.dotRed,
+.dotYellow,
+.dotGreen {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.dotRed {
+  background: #ef4444;
+}
+
+.dotYellow {
+  background: #f59e0b;
+}
+
+.dotGreen {
+  background: #22c55e;
+}
+
+.settingsWindowTitle {
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.settingsSpacer {
+  width: 48px;
+}
+
+.settingsBody {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.settingsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.settingsSectionLabel {
+  font-size: 0.72rem;
+  font-weight: 700;
+  opacity: 0.68;
+  padding-left: 0.25rem;
+}
+
+.settingsCard {
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  overflow: hidden;
+}
+
+[data-theme='dark'] .settingsCard {
+  background: rgba(15, 23, 42, 0.55);
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
+.settingsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.82rem;
+}
+
+.settingsRowDivider {
+  height: 1px;
+  background: rgba(148, 163, 184, 0.2);
+  margin: 0 0.85rem;
+}
+
+.shortcutCap {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  background: rgba(51, 102, 204, 0.12);
+  border: 1px solid rgba(51, 102, 204, 0.3);
+  color: var(--ifm-color-primary);
+}
+
+.settingsMuted {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.76rem;
+  opacity: 0.68;
+}
+
+.macSwitch {
+  position: relative;
+  width: 38px;
+  height: 22px;
+  border-radius: 9999px;
+  border: none;
+  background: rgba(100, 116, 139, 0.4);
+  cursor: pointer;
+  padding: 2px;
+  transition: background-color 0.2s ease;
+}
+
+.macSwitchOn {
+  background: #2563eb;
+}
+
+.macSwitchKnob {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease;
+}
+
+.macSwitchOn .macSwitchKnob {
+  transform: translateX(16px);
+}
+
+.permGranted {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #16a34a;
+}
+
+[data-theme='dark'] .permGranted {
+  color: #4ade80;
+}
+
+.permNotNeeded {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #0284c7;
+}
+
+[data-theme='dark'] .permNotNeeded {
+  color: #38bdf8;
+}
+
+@media screen and (max-width: 768px) {
+  .stageArea {
+    padding: 1.5rem 0.9rem;
+    min-height: 360px;
+  }
+
+  .rowTextGroup {
+    flex-direction: column;
+    gap: 2px;
+  }
+}

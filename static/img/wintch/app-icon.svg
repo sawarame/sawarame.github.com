@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <!-- タイトルバー用アクセントグラデーション -->
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#2563EB" />
+    </linearGradient>
+
+    <!-- 手前ウィンドウ本体のグラデーション -->
+    <linearGradient id="winGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+
+    <!-- 外側シャドウ -->
+    <filter id="appShadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#020617" flood-opacity="0.45" />
+    </filter>
+
+    <!-- 前景ウィンドウ用シャドウ -->
+    <filter id="fgShadow" x="-15%" y="-15%" width="130%" height="135%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#020617" flood-opacity="0.50" />
+    </filter>
+
+    <!-- 手前ウィンドウ角丸クリップ -->
+    <clipPath id="winClip">
+      <rect x="392.3" y="430.1" width="420.0" height="369.6" rx="69.3" />
+    </clipPath>
+  </defs>
+
+  <!-- macOS 標準スクワークル背景（単色ダークスレート） -->
+  <g filter="url(#appShadow)">
+    <rect x="92" y="92" width="840" height="840" rx="190" fill="#0F172A" />
+    <rect x="94" y="94" width="836" height="836" rx="188" fill="none" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="4" />
+  </g>
+
+  <!-- 2 枚構成のウィンドウ切り替えシンボル -->
+  <g filter="url(#fgShadow)">
+    <!-- 背面ウィンドウ（非アクティブ：手前ウィンドウとの均等ギャップを持つオープンパス） -->
+    <path
+      d="M 315.7 593.9 H 306.2 A 60.9 60.9 0 0 1 245.3 533.0 V 318.8 A 60.9 60.9 0 0 1 306.2 257.9 H 562.4 A 60.9 60.9 0 0 1 623.3 318.8 V 353.5"
+      fill="none"
+      stroke="#94A3B8"
+      stroke-width="65.1"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <!-- 手前ウィンドウ（アクティブ：青いヘッダ＋白ボディのみ） -->
+    <g clip-path="url(#winClip)">
+      <rect x="392.3" y="430.1" width="420.0" height="369.6" fill="url(#winGrad)" />
+      <rect x="392.3" y="430.1" width="420.0" height="112.0" fill="url(#accentGrad)" />
+    </g>
+  </g>
+</svg>
