@@ -94,10 +94,21 @@ export default function CopyCommandPill({
       <code className={styles.commandText}>{command}</code>
       <span className={styles.statusWrap} aria-live="polite">
         {copied ? (
-          <span className={styles.copiedBadge}>
-            <Check size={14} strokeWidth={2.5} aria-hidden="true" />
-            <span>{copiedLabel}</span>
-          </span>
+          variant === 'pill' ? (
+            /* ピル型はボタン幅を広げないため、アイコンのみ切り替えつつ上部にバッジを浮かせる */
+            <>
+              <Check size={15} strokeWidth={2.5} className={styles.copiedIconOnly} aria-hidden="true" />
+              <span className={styles.copiedFloatingBadge}>
+                <Check size={12} strokeWidth={2.6} aria-hidden="true" />
+                <span>{copiedLabel}</span>
+              </span>
+            </>
+          ) : (
+            <span className={styles.copiedBadge}>
+              <Check size={14} strokeWidth={2.5} aria-hidden="true" />
+              <span>{copiedLabel}</span>
+            </span>
+          )
         ) : (
           <Copy size={15} strokeWidth={2} className={styles.copyIcon} aria-hidden="true" />
         )}

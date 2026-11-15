@@ -669,6 +669,266 @@
   color: #38bdf8;
 }
 
+/* キャプチャ表示型用のワイドカラム＆切替セグメント */
+.panelColumnWide {
+  max-width: 680px;
+}
+
+.styleToggleBar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem;
+  border-radius: 9999px;
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(12px);
+}
+
+.styleToggleBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.8rem;
+  border: none;
+  border-radius: 9999px;
+  background: transparent;
+  color: rgba(248, 250, 252, 0.78);
+  font-size: 0.76rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.16s ease, color 0.16s ease;
+}
+
+.styleToggleBtn:hover {
+  color: #ffffff;
+}
+
+.styleToggleBtnActive {
+  background: rgba(255, 255, 255, 0.94);
+  color: #0f172a !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+}
+
+/* 設定タブ内ピッカーピル */
+.inlineSegment {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  border-radius: 8px;
+  background: rgba(148, 163, 184, 0.2);
+}
+
+.inlineSegmentBtn {
+  border: none;
+  border-radius: 6px;
+  padding: 0.22rem 0.55rem;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: 0.74rem;
+  font-weight: 600;
+  opacity: 0.75;
+  cursor: pointer;
+  transition: background-color 0.14s ease, opacity 0.14s ease;
+}
+
+.inlineSegmentBtnActive {
+  background: var(--ifm-background-surface-color);
+  opacity: 1;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16);
+}
+
+.settingsCaption {
+  font-size: 0.72rem;
+  line-height: 1.45;
+  padding: 0.35rem 0.85rem 0.65rem;
+  opacity: 0.72;
+}
+
+/* キャプチャ表示型カードグリッド */
+.captureGridPadding {
+  padding: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.captureGridCard {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1.5px solid transparent;
+  background: rgba(15, 23, 42, 0.05);
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.14s ease, border-color 0.14s ease, transform 0.12s ease;
+}
+
+[data-theme='dark'] .captureGridCard {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.captureGridCard:hover {
+  background: rgba(15, 23, 42, 0.09);
+}
+
+[data-theme='dark'] .captureGridCard:hover {
+  background: rgba(255, 255, 255, 0.11);
+}
+
+.captureGridCardSelected {
+  background: rgba(37, 99, 235, 0.9) !important;
+  border-color: rgba(255, 255, 255, 0.55);
+  color: #ffffff;
+}
+
+.captureGridThumb {
+  height: 82px;
+  width: 100%;
+  border-radius: 7px;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+[data-theme='dark'] .captureGridThumb {
+  background: #0f172a;
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.captureGridThumbHeader {
+  height: 14px;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(148, 163, 184, 0.16);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.captureGridThumbDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(148, 163, 184, 0.6);
+}
+
+.captureGridThumbBody {
+  flex: 1;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.thumbStyleTerminal {
+  background: #0b1120;
+}
+
+.thumbStyleBrowser {
+  background: linear-gradient(180deg, rgba(14, 165, 233, 0.12) 0%, rgba(148, 163, 184, 0.04) 100%);
+}
+
+.thumbStyleCode {
+  background: #172033;
+}
+
+.thumbStyleChat {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.12) 0%, rgba(219, 39, 119, 0.06) 100%);
+}
+
+.thumbStyleFinder {
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.1) 0%, rgba(148, 163, 184, 0.05) 100%);
+}
+
+.thumbMockBarWide {
+  height: 5px;
+  width: 78%;
+  border-radius: 3px;
+  background: rgba(148, 163, 184, 0.45);
+}
+
+.thumbMockBarAccent {
+  height: 5px;
+  width: 52%;
+  border-radius: 3px;
+  background: rgba(59, 130, 246, 0.72);
+}
+
+.thumbMockBarShort {
+  height: 4px;
+  width: 40%;
+  border-radius: 3px;
+  background: rgba(148, 163, 184, 0.28);
+}
+
+.thumbMockMiniGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+}
+
+.thumbMockMiniCell {
+  height: 16px;
+  border-radius: 4px;
+  background: rgba(148, 163, 184, 0.22);
+}
+
+.captureGridCardFooter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.captureCardAppIcon {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.captureCardTextGroup {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.captureCardAppName {
+  font-size: 0.74rem;
+  font-weight: 700;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.captureCardWinTitle {
+  font-size: 0.67rem;
+  opacity: 0.72;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.captureGridCardSelected .captureCardWinTitle {
+  opacity: 0.88;
+}
+
 @media screen and (max-width: 768px) {
   .stageArea {
     padding: 1.5rem 0.9rem;
@@ -678,5 +938,15 @@
   .rowTextGroup {
     flex-direction: column;
     gap: 2px;
+  }
+
+  .captureGridPadding {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .captureGridPadding {
+    grid-template-columns: 1fr;
   }
 }
