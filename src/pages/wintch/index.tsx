@@ -32,6 +32,11 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import styles from './styles.module.css';
 
 /**
+ * Wintch の最新リリースバージョン表記
+ */
+const WINTCH_VERSION = 'v0.2.5';
+
+/**
  * GitHub リポジトリ URL
  */
 const WINTCH_GITHUB_URL = 'https://github.com/sawarame/Wintch';
@@ -135,7 +140,9 @@ function DownloadCtaGroup(): JSX.Element {
       >
         <Download size={18} strokeWidth={2.2} aria-hidden="true" />
         <span>
-          <Translate id="wintch.cta.download">ダウンロード (v0.1.1)</Translate>
+          <Translate id="wintch.cta.download" values={{ version: WINTCH_VERSION }}>
+            {'ダウンロード ({version})'}
+          </Translate>
         </span>
       </a>
 
@@ -193,8 +200,8 @@ function WintchHeroSection(): JSX.Element {
               className={styles.heroIcon}
             />
             <span className={styles.metaPill}>
-              <Translate id="wintch.hero.meta">
-                v0.1.1 · macOS 14.0+ · MIT License
+              <Translate id="wintch.hero.meta" values={{ version: WINTCH_VERSION }}>
+                {'{version} · macOS 14.0+ · MIT License'}
               </Translate>
             </span>
           </div>
@@ -441,7 +448,7 @@ export default function WintchPage(): JSX.Element {
               },
               {
                 id: 'wintch.feature2.b2',
-                text: '「メモ / Notes」のように日本語表示名と英語名のどちらでもアプリを起動検索可能',
+                text: '開いているウィンドウが 0 件でもランチャーを起動でき、「メモ / Notes」のように日英どちらの名称でもアプリを起動検索可能',
               },
               {
                 id: 'wintch.feature2.b3',
@@ -470,7 +477,7 @@ export default function WintchPage(): JSX.Element {
               },
               {
                 id: 'wintch.feature3.b2',
-                text: 'パネルを開いたまま連続して不要なウィンドウを整理できる',
+                text: 'パネルを開いたまま連続して整理でき、最後のウィンドウを閉じた後も検索ランチャーを維持してアプリ起動へ移行可能',
               },
               {
                 id: 'wintch.feature3.b3',

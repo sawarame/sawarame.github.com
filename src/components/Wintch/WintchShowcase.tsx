@@ -640,9 +640,21 @@ export default function WintchShowcase(): JSX.Element {
                 {filteredWindows.length === 0 && filteredApps.length === 0 ? (
                   <div className={styles.emptyPanel}>
                     <p className={styles.emptyText}>
-                      <Translate id="wintch.showcase.noMatch">
-                        一致するウィンドウがありません
-                      </Translate>
+                      {windows.length === 0 ? (
+                        !searchQuery.trim() ? (
+                          <Translate id="wintch.showcase.noOpenWindows">
+                            開いているウィンドウがありません（アプリ名を入力して起動）
+                          </Translate>
+                        ) : (
+                          <Translate id="wintch.showcase.noMatchingApps">
+                            一致するアプリがありません
+                          </Translate>
+                        )
+                      ) : (
+                        <Translate id="wintch.showcase.noMatch">
+                          一致するウィンドウやアプリがありません
+                        </Translate>
+                      )}
                     </p>
                   </div>
                 ) : (

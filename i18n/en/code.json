@@ -2343,7 +2343,7 @@
     "message": "Install"
   },
   "wintch.hero.meta": {
-    "message": "v0.1.1 · macOS 14.0+ · MIT License"
+    "message": "{version} · macOS 14.0+ · MIT License"
   },
   "wintch.hero.titlePrefix": {
     "message": "Switch windows,"
@@ -2355,7 +2355,7 @@
     "message": "Wintch (Window + Switch) is a simple, lightweight per-window switcher and search launcher for macOS—letting you jump straight to individual windows even when an app has several open."
   },
   "wintch.cta.download": {
-    "message": "Download (v0.1.1)"
+    "message": "Download ({version})"
   },
   "wintch.cta.copyBrewAria": {
     "message": "Copy Homebrew install command: brew install --cask sawarame/tap/wintch"
@@ -2411,8 +2411,14 @@
   "wintch.showcase.clearQuery": {
     "message": "Clear search"
   },
+  "wintch.showcase.noOpenWindows": {
+    "message": "No open windows (type an app name to launch)"
+  },
+  "wintch.showcase.noMatchingApps": {
+    "message": "No matching apps found"
+  },
   "wintch.showcase.noMatch": {
-    "message": "No matching windows found"
+    "message": "No matching windows or apps found"
   },
   "wintch.showcase.launchHeaderNoWin": {
     "message": "No matching windows—launch an app"
@@ -2532,7 +2538,7 @@
     "message": "Highlights matched characters in real time with bold typography and accent colors"
   },
   "wintch.feature2.b2": {
-    "message": "Supports searching apps by both localized names and English names (e.g. Notes / メモ)"
+    "message": "Launches even with zero open windows and searches apps by both localized and English names (e.g. Notes / メモ)"
   },
   "wintch.feature2.b3": {
     "message": "Navigate seamlessly with ↑ / ↓, Ctrl + N / P, or even ⌥ + Tab while searching"
@@ -2553,7 +2559,7 @@
     "message": "Works with the same ⌥ + Q shortcut in both the Switcher and Search Launcher"
   },
   "wintch.feature3.b2": {
-    "message": "Keep the panel open to close multiple unwanted windows one after another"
+    "message": "Close multiple unwanted windows in a row—and even after closing the last window, keep the panel open to launch another app"
   },
   "wintch.feature3.b3": {
     "message": "Never force-quits or discards unsaved work—respects standard save confirmation dialogs"
