@@ -11,7 +11,7 @@ env:
 
 jobs:
   tag:
-    name: Create Tag
+    name: Create Tag and Release
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -52,6 +52,14 @@ jobs:
           git tag -a "v$VERSION" -m "Release v$VERSION"
           git push origin "v$VERSION"
           echo "created=true" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        if: steps.tag_check.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=${{ steps.pkg_version.outputs.version }}
+          gh release create "v$VERSION" --generate-notes --verify-tag
 
   deploy:
     name: Deploy
