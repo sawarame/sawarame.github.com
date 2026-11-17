@@ -86,12 +86,6 @@ const COMMAND_ITEMS: CommandRowItem[] = [
     desc: '現在のウィンドウで開いているすべてのタブを一括登録',
   },
   {
-    command: ':open [nickname or folder/]',
-    alias: ':o',
-    descId: 'nickmark.commands.open',
-    desc: '紐づく全 URL またはフォルダ配下をバックグラウンドタブで一括オープン',
-  },
-  {
     command: ':rm [nickname] [url]',
     alias: '—',
     descId: 'nickmark.commands.rm',
@@ -495,7 +489,7 @@ export default function NickmarkPage(): JSX.Element {
             titleAccentId="nickmark.feature3.titleAccent"
             titleAccent="作業環境を一気に展開。"
             descriptionId="nickmark.feature3.desc"
-            description="work/mail や work/docs のようにスラッシュを含めてニックネームを付けるだけで、自動的に階層フォルダとして整理。パレットで「work/」または「:open work/」と実行すれば、配下のタブをバックグラウンドでまとめて開けます。"
+            description="work/mail や work/docs のようにスラッシュを含めてニックネームを付けるだけで、自動的に階層フォルダとして整理。パレットで「work/」と入力して Enter を押せば、配下のタブをバックグラウンドでまとめて開けます。"
             bullets={[
               {
                 id: 'nickmark.feature3.b1',

@@ -138,7 +138,7 @@ export function FolderBatchVisual(): JSX.Element {
       <div className={styles.folderRootRow}>
         <span className={styles.folderRootLeft}>
           <Folder size={15} strokeWidth={2.2} aria-hidden="true" />
-          <span>:open work/</span>
+          <span>work/</span>
         </span>
         <span className={styles.folderCountPill}>
           <Translate id="nickmark.visual.folder.count">3タブを一括起動</Translate>

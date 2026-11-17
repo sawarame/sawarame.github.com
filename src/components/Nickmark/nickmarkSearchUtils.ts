@@ -145,13 +145,6 @@ const DEMO_COMMANDS: Array<{
     descEn: 'Save all open tabs in the current window',
   },
   {
-    cmd: ':open',
-    aliases: [':o'],
-    usage: ':open [nickname or folder/]',
-    descJa: 'ニックネームまたはフォルダ配下を一括オープン',
-    descEn: 'Batch-open a nickname or folder in background tabs',
-  },
-  {
     cmd: ':rm',
     aliases: [],
     usage: ':rm [nickname]',
@@ -210,29 +203,7 @@ export function buildDemoPaletteItems(
         : targets.includes(cmdToken);
       if (!matches) continue;
 
-      if ((def.cmd === ':open' || def.cmd === ':o') && spaceIdx !== -1) {
-        const folders = extractDemoFolders(bookmarks);
-        const lowerArg = argText.toLowerCase();
-        for (const [folderPath, count] of folders.entries()) {
-          if (!lowerArg || `${folderPath}/`.toLowerCase().startsWith(lowerArg)) {
-            results.push({
-              kind: 'command',
-              id: `cmd-open-folder-${folderPath}`,
-              badge: ':open',
-              title: `📁 ${folderPath}/`,
-              subtitle:
-                locale === 'en'
-                  ? `Batch-open ${count} tabs in background`
-                  : `${count}件のタブをバックグラウンドで一括オープン`,
-              typeTag: `📁 ${count}`,
-              fillText: `:open ${folderPath}/`,
-              executeValue: `:open ${folderPath}/`,
-            });
-          }
-        }
-      }
-
-      if ((def.cmd === ':add' || def.cmd === ':rm') && argText) {
+      if ((def.cmd === ':add' || def.cmd === ':addall' || def.cmd === ':rm') && argText) {
         results.push({
           kind: 'command',
           id: `cmd-exec-${def.cmd}`,

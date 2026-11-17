@@ -61,7 +61,7 @@ Since you can register multiple URLs with the same nickname, you can use it in t
 - **Use as a To-Do List**  
   Register all URLs for things to see later or messages needing a reply as `todo`. Type `nm todo` and pick from the suggestions.
 - **Open a "Development Set" Instantly**  
-  Register GitHub, local environment, and documentation all as `dev`. Type `nm :o dev` to open all bookmarks registered under `dev` at once.
+  Register GitHub, local environment, and documentation under a folder such as `dev/github`, `dev/local`, and `dev/docs`. Type `dev/` to open all bookmarks registered under `dev/` at once.
 :::
 
 ### 3. Deleting a Bookmark
@@ -117,10 +117,6 @@ Registers all open tabs at once.
 Opens the bookmark list.
 - You can view, edit, and delete all registered nicknames and URLs.
 - Editing in JSON format is also possible.
-
-### `:open [nickname]` (alias `:o`)
-Opens bookmarks in new tabs.
-- **Example**: `:o note`
 
 ### `:rm [nickname]`
 Deletes the specified nickname.

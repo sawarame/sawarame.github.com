@@ -5,8 +5,6 @@ import Translate, { translate } from '@docusaurus/Translate';
 import {
   Search,
   Terminal,
-  List,
-  Settings,
   Globe,
   Folder,
   Code2,
@@ -14,21 +12,49 @@ import {
   Lightbulb,
   X,
   CheckCircle2,
-  ArrowUpDown,
   RotateCcw,
+  Plus,
+  Star,
+  GitBranch,
+  Mail,
+  BookOpen,
+  Kanban,
+  Sparkles,
+  ArrowUp,
+  Puzzle,
+  Info,
 } from 'lucide-react';
 import styles from './NickmarkShowcase.module.css';
 import {
   buildDemoPaletteItems,
   DemoBookmarkItem,
   DemoSearchResult,
-  extractDemoFolders,
 } from './nickmarkSearchUtils';
 
 /**
- * ショーケースで表示するプレビュータブ種別
+ * デモブラウザの模擬タブ項目データ
  */
-type ShowcaseTab = 'palette' | 'dashboard' | 'preferences';
+interface DemoBrowserTab {
+  /** 一意の識別子 */
+  id: string;
+  /** タブのページタイトル */
+  title: string;
+  /** タブで表示中の URL */
+  url: string;
+  /** バックグラウンドで新規追加された未確認タブかどうか */
+  isUnreadBg?: boolean;
+}
+
+/**
+ * 初期状態のデモブラウザタブ一覧
+ */
+const INITIAL_BROWSER_TABS: DemoBrowserTab[] = [
+  {
+    id: 'tab-initial',
+    title: 'Nickmark — sawara.me',
+    url: 'https://sawara.me/nickmark',
+  },
+];
 
 /**
  * 初期状態のデモ用ブックマークデータ
@@ -36,16 +62,24 @@ type ShowcaseTab = 'palette' | 'dashboard' | 'preferences';
 const INITIAL_DEMO_BOOKMARKS: DemoBookmarkItem[] = [
   {
     id: 'b1',
-    nickname: 'gh',
-    title: 'GitHub Repository / Search',
-    url: 'https://github.com/%s',
-    defaultValue: 'sawarame/Nickmark',
+    nickname: 'gh/Nickmark',
+    title: 'sawarame/Nickmark — GitHub',
+    url: 'https://github.com/sawarame/Nickmark',
     isPinned: true,
     score: 26.4,
     lastUsedLabel: '2m',
   },
   {
     id: 'b2',
+    nickname: 'gh/Wintch',
+    title: 'sawarame/Wintch — GitHub',
+    url: 'https://github.com/sawarame/Wintch',
+    isPinned: false,
+    score: 22.8,
+    lastUsedLabel: '15m',
+  },
+  {
+    id: 'b3',
     nickname: 'work/mail',
     title: 'Team Webmail',
     url: 'https://mail.example.com/inbox',
@@ -54,7 +88,7 @@ const INITIAL_DEMO_BOOKMARKS: DemoBookmarkItem[] = [
     lastUsedLabel: '1h',
   },
   {
-    id: 'b3',
+    id: 'b4',
     nickname: 'work/docs',
     title: 'Architecture & Design Docs',
     url: 'https://docs.example.com/architecture',
@@ -63,7 +97,7 @@ const INITIAL_DEMO_BOOKMARKS: DemoBookmarkItem[] = [
     lastUsedLabel: '3h',
   },
   {
-    id: 'b4',
+    id: 'b5',
     nickname: 'work/board',
     title: 'Sprint Issue Board',
     url: 'https://issues.example.com/board',
@@ -72,16 +106,17 @@ const INITIAL_DEMO_BOOKMARKS: DemoBookmarkItem[] = [
     lastUsedLabel: '1d',
   },
   {
-    id: 'b5',
+    id: 'b6',
     nickname: 'g',
     title: 'Google Search',
     url: 'https://www.google.com/search?q=%s',
+    defaultValue: 'Nickmark',
     isPinned: false,
     score: 21.0,
     lastUsedLabel: '20m',
   },
   {
-    id: 'b6',
+    id: 'b7',
     nickname: 'js/top',
     title: 'Smooth Scroll to Top (Bookmarklet)',
     url: 'javascript:window.scrollTo({top:0,behavior:"smooth"})',
@@ -101,7 +136,7 @@ const DEMO_TIPS: Array<{ id: string; message: string }> = [
   },
   {
     id: 'nickmark.showcase.tip2',
-    message: 'フォルダ名/ または :open フォルダ名/ と入力して Enter を押すと、配下のブックマークを一括で開けます。',
+    message: 'フォルダ名/（例: work/）と入力して Enter を押すと、配下のブックマークを一括で開けます。',
   },
   {
     id: 'nickmark.showcase.tip3',
@@ -109,12 +144,281 @@ const DEMO_TIPS: Array<{ id: string; message: string }> = [
   },
   {
     id: 'nickmark.showcase.tip4',
-    message: 'Shift+Enter でパレットを閉じずにバックグラウンドタブへ連続起動、Cmd/Ctrl+Enter で新しいタブに開けます。',
+    message: 'Shift+Enter でポップアップを閉じずにバックグラウンドタブへ連続起動、Cmd/Ctrl+Enter で新しいタブに開けます。',
   },
 ];
 
 /**
- * Nickmark のコマンドパレット・管理画面・設定画面をブラウザ上で試せるインタラクティブショーケース
+ * 現在アクティブなブラウザタブの URL に応じてブラウザビューポート全体の模擬 Web ページを描画する
+ * 右上に Nickmark ポップアップが重なっても左側・下側でページ切り替えがはっきり視認できる構成にする
+ * @param tab - アクティブなデモブラウザタブ
+ * @returns 模擬 Web ページの JSX 要素
+ */
+function SimulatedWebPage({ tab }: { tab: DemoBrowserTab }): JSX.Element {
+  const url = tab.url;
+
+  // 1. GitHub リポジトリ画面
+  if (url.includes('github.com')) {
+    const repoPath = url.replace(/^https?:\/\/github\.com\//, '') || 'sawarame/Nickmark';
+    const isWintch = repoPath.toLowerCase().includes('wintch');
+    return (
+      <div className={`${styles.webPageSurface} ${styles.pageGithub}`}>
+        <div className={styles.ghHeader}>
+          <div className={styles.ghRepoTitleRow}>
+            <div className={styles.ghRepoLeft}>
+              <Code2 size={17} strokeWidth={2.2} className={styles.ghRepoIcon} />
+              <span className={styles.ghOwnerText}>{repoPath.split('/')[0] || 'sawarame'}</span>
+              <span className={styles.ghSlash}>/</span>
+              <span className={styles.ghRepoName}>{repoPath.split('/')[1] || 'Nickmark'}</span>
+              <span className={styles.ghPublicBadge}>Public</span>
+            </div>
+            <div className={styles.ghActionPills}>
+              <span className={styles.ghActionPill}>
+                <Star size={12} strokeWidth={2.2} />
+                <span>Star</span>
+                <strong>{isWintch ? '84' : '128'}</strong>
+              </span>
+              <span className={styles.ghActionPill}>
+                <GitBranch size={12} strokeWidth={2.2} />
+                <span>main</span>
+              </span>
+            </div>
+          </div>
+          <div className={styles.ghNavTabs}>
+            <span className={`${styles.ghNavTab} ${styles.ghNavTabActive}`}>&lt;&gt; Code</span>
+            <span className={styles.ghNavTab}>Issues 2</span>
+            <span className={styles.ghNavTab}>Pull requests</span>
+            <span className={styles.ghNavTab}>Actions</span>
+          </div>
+        </div>
+        <div className={styles.ghBody}>
+          <div className={styles.ghFileList}>
+            <div className={styles.ghFileRow}>
+              <Folder size={13} className={styles.ghFolderIcon} />
+              <span className={styles.ghFileName}>{isWintch ? 'Sources/WintchCore' : 'src/popup'}</span>
+              <span className={styles.ghCommitMsg}>
+                {isWintch ? 'feat: window switcher & launcher' : 'feat: keyboard command palette'}
+              </span>
+              <span className={styles.ghTime}>2h ago</span>
+            </div>
+            <div className={styles.ghFileRow}>
+              <Folder size={13} className={styles.ghFolderIcon} />
+              <span className={styles.ghFileName}>{isWintch ? 'Tests/WintchCoreTests' : 'src/background'}</span>
+              <span className={styles.ghCommitMsg}>
+                {isWintch ? 'test: add window filter specs' : 'feat: exponential decay scoring'}
+              </span>
+              <span className={styles.ghTime}>5h ago</span>
+            </div>
+            <div className={styles.ghFileRow}>
+              <Code2 size={13} className={styles.ghFileIcon} />
+              <span className={styles.ghFileName}>{isWintch ? 'Package.swift' : 'manifest.json'}</span>
+              <span className={styles.ghCommitMsg}>
+                {isWintch ? 'Swift 6.0 native package' : 'Chrome 135+ Manifest V3'}
+              </span>
+              <span className={styles.ghTime}>1d ago</span>
+            </div>
+          </div>
+
+          <div className={styles.ghReadmeCard}>
+            <div className={styles.ghReadmeHeader}>README.md</div>
+            <div className={styles.ghReadmeTitle}>
+              {isWintch
+                ? 'Wintch — Simple Per-Window Switcher & Launcher for macOS'
+                : 'Nickmark — Keyboard-First Bookmark Launcher for Chrome'}
+            </div>
+            <div className={styles.ghReadmeDesc}>
+              {isWintch
+                ? 'Switch between multiple windows of the same app with Option + Tab and fuzzy search.'
+                : 'Open bookmarks, dynamic URLs (%s), slash folders, and bookmarklets at keyboard speed.'}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // 2. Web メール画面
+  if (url.includes('mail.example.com')) {
+    return (
+      <div className={`${styles.webPageSurface} ${styles.pageMail}`}>
+        <div className={styles.mailHeader}>
+          <div className={styles.mailBrand}>
+            <Mail size={16} strokeWidth={2.2} />
+            <span>Team Webmail</span>
+            <span className={styles.mailCountBadge}>Inbox · 4</span>
+          </div>
+          <span className={styles.mailComposeBtn}>+ Compose</span>
+        </div>
+        <div className={styles.mailList}>
+          <div className={`${styles.mailRow} ${styles.mailRowUnread}`}>
+            <span className={styles.mailUnreadDot} />
+            <span className={styles.mailSender}>Release Bot</span>
+            <span className={styles.mailSubject}>[Nickmark] v2.0.4 deployed to Chrome Web Store</span>
+            <span className={styles.mailTime}>10:42</span>
+          </div>
+          <div className={`${styles.mailRow} ${styles.mailRowUnread}`}>
+            <span className={styles.mailUnreadDot} />
+            <span className={styles.mailSender}>GitHub Actions</span>
+            <span className={styles.mailSubject}>[sawarame/Wintch] Release v0.2.5 notarized &amp; published</span>
+            <span className={styles.mailTime}>09:15</span>
+          </div>
+          <div className={styles.mailRow}>
+            <span className={styles.mailReadSpacer} />
+            <span className={styles.mailSender}>Platform Team</span>
+            <span className={styles.mailSubject}>Weekly architecture review &amp; sync notes</span>
+            <span className={styles.mailTime}>Yesterday</span>
+          </div>
+          <div className={styles.mailRow}>
+            <span className={styles.mailReadSpacer} />
+            <span className={styles.mailSender}>Design System</span>
+            <span className={styles.mailSubject}>Updated component tokens for dark mode</span>
+            <span className={styles.mailTime}>2d ago</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // 3. ドキュメント画面
+  if (url.includes('docs.example.com')) {
+    return (
+      <div className={`${styles.webPageSurface} ${styles.pageDocs}`}>
+        <div className={styles.docsHeader}>
+          <div className={styles.docsBrand}>
+            <BookOpen size={16} strokeWidth={2.2} />
+            <span>Engineering Docs</span>
+          </div>
+          <div className={styles.docsBreadcrumb}>Architecture / Exponential Decay &amp; Sync</div>
+        </div>
+        <div className={styles.docsBody}>
+          <div className={styles.docsSidebar}>
+            <span className={styles.docsNavItemActive}>Overview</span>
+            <span className={styles.docsNavItem}>Storage Chunks</span>
+            <span className={styles.docsNavItem}>UserScripts API</span>
+            <span className={styles.docsNavItem}>Folder Batch Open</span>
+          </div>
+          <div className={styles.docsArticle}>
+            <div className={styles.docsArticleTitle}>Architecture &amp; Design Specification</div>
+            <p className={styles.docsParagraph}>
+              Nickmark calculates priority scores using exponential time decay combined with manual pinning.
+            </p>
+            <div className={styles.docsCodeSnippet}>
+              score = prevScore * Math.pow(0.95, elapsedDays) + 1.0
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // 4. カンバン・イシューボード画面
+  if (url.includes('issues.example.com')) {
+    return (
+      <div className={`${styles.webPageSurface} ${styles.pageBoard}`}>
+        <div className={styles.boardHeader}>
+          <div className={styles.boardBrand}>
+            <Kanban size={16} strokeWidth={2.2} />
+            <span>Sprint Issue Board</span>
+          </div>
+          <span className={styles.boardSprintTag}>Sprint #24</span>
+        </div>
+        <div className={styles.boardColumns}>
+          <div className={styles.boardCol}>
+            <div className={styles.boardColTitle}>TO DO (2)</div>
+            <div className={styles.boardCard}>#42 Folder batch rename</div>
+            <div className={styles.boardCard}>#46 Export filtered JSON</div>
+          </div>
+          <div className={styles.boardCol}>
+            <div className={styles.boardColTitle}>IN PROGRESS (1)</div>
+            <div className={`${styles.boardCard} ${styles.boardCardActive}`}>
+              #45 Command palette UX
+            </div>
+          </div>
+          <div className={styles.boardCol}>
+            <div className={styles.boardColTitle}>DONE (2)</div>
+            <div className={styles.boardCard}>#39 Chrome sync chunking</div>
+            <div className={styles.boardCard}>#40 MAIN world bookmarklets</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // 5. Google 検索画面
+  if (url.includes('google.com')) {
+    let qParam = 'Nickmark';
+    try {
+      qParam = new URL(url).searchParams.get('q') || 'Nickmark';
+    } catch {
+      qParam = 'Nickmark';
+    }
+    return (
+      <div className={`${styles.webPageSurface} ${styles.pageSearch}`}>
+        <div className={styles.searchPageHeader}>
+          <span className={styles.searchBrandLogo}>Google</span>
+          <div className={styles.searchQueryPill}>
+            <Search size={12} strokeWidth={2.2} />
+            <span>{qParam}</span>
+          </div>
+        </div>
+        <div className={styles.searchResultsBody}>
+          <div className={styles.searchResultItem}>
+            <div className={styles.searchResultUrl}>https://sawara.me › nickmark</div>
+            <div className={styles.searchResultTitle}>
+              {qParam} — Keyboard-First Bookmark Launcher for Chrome
+            </div>
+            <div className={styles.searchResultDesc}>
+              Launch bookmarks, dynamic URLs (%s), folders, and bookmarklets from the command palette.
+            </div>
+          </div>
+          <div className={styles.searchResultItem}>
+            <div className={styles.searchResultUrl}>https://github.com › sawarame › Nickmark</div>
+            <div className={styles.searchResultTitle}>
+              sawarame/Nickmark: Chrome Extension (Manifest V3)
+            </div>
+            <div className={styles.searchResultDesc}>
+              Open-source bookmark launcher built with TypeScript, Vue 3, and PrimeVue.
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // 6. デフォルト（sawara.me / Nickmark 紹介ページ）
+  return (
+    <div className={`${styles.webPageSurface} ${styles.pageSawara}`}>
+      <div className={styles.sawaraHeader}>
+        <div className={styles.sawaraBrand}>
+          <Globe size={15} strokeWidth={2.2} />
+          <span>sawara.me</span>
+          <div className={styles.sawaraNavLinks}>
+            <span>Tools</span>
+            <span className={styles.sawaraNavActive}>Extensions</span>
+            <span>About</span>
+          </div>
+        </div>
+      </div>
+      <div className={styles.sawaraHeroContent}>
+        <div className={styles.sawaraBadge}>v2.0.4 · Chrome 135+ · MIT License</div>
+        <div className={styles.sawaraHeroHeading}>{tab.title}</div>
+        <div className={styles.sawaraHeroSub}>
+          よく使うページやフォルダに短いニックネームを付けて、キーボードだけで瞬時に起動。
+        </div>
+        <div className={styles.sawaraHeroActions}>
+          <span className={styles.sawaraPrimaryPill}>
+            <Puzzle size={13} strokeWidth={2.2} />
+            <span>Chrome Web Store</span>
+          </span>
+          <span className={styles.sawaraSecondaryPill}>GitHub (sawarame/Nickmark)</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Nickmark の拡張機能ポップアップとブラウザ内ページ遷移・別タブ展開を試せるインタラクティブショーケース
  * @returns ショーケースセクションの JSX 要素
  */
 export default function NickmarkShowcase(): JSX.Element {
@@ -122,23 +426,26 @@ export default function NickmarkShowcase(): JSX.Element {
   const locale: 'ja' | 'en' = i18n.currentLocale.startsWith('en') ? 'en' : 'ja';
   const appIconUrl = useBaseUrl('/img/nickmark/app-icon.svg');
 
-  const [activeTab, setActiveTab] = useState<ShowcaseTab>('palette');
   const [bookmarks, setBookmarks] = useState<DemoBookmarkItem[]>(INITIAL_DEMO_BOOKMARKS);
-  const [query, setQuery] = useState<string>('gh sawarame/Nickmark');
+  const [query, setQuery] = useState<string>('gh/Nickmark');
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [tipIndex, setTipIndex] = useState<number>(0);
-  const [feedback, setFeedback] = useState<string | null>(null);
+  const [commandFeedback, setCommandFeedback] = useState<string | null>(null);
 
-  // 管理画面デモ状態
-  const [folderFilter, setFolderFilter] = useState<string>('all');
-  const [sortByScore, setSortByScore] = useState<boolean>(true);
-
-  // 設定画面デモ状態
-  const [syncEnabled, setSyncEnabled] = useState<boolean>(true);
-  const [historyEnabled, setHistoryEnabled] = useState<boolean>(false);
-  const [batchLimit, setBatchLimit] = useState<number>(20);
+  // 模擬ブラウザのタブとページ状態
+  const [browserTabs, setBrowserTabs] = useState<DemoBrowserTab[]>(INITIAL_BROWSER_TABS);
+  const [activeBrowserTabId, setActiveBrowserTabId] = useState<string>(INITIAL_BROWSER_TABS[0].id);
+  const [navRevision, setNavRevision] = useState<number>(0);
+  const [scriptBanner, setScriptBanner] = useState<string | null>(null);
 
   const isCommandMode = query.trimStart().startsWith(':');
+
+  /**
+   * 現在アクティブな模擬ブラウザタブ
+   */
+  const activeBrowserTab = useMemo(() => {
+    return browserTabs.find((t) => t.id === activeBrowserTabId) ?? browserTabs[0];
+  }, [browserTabs, activeBrowserTabId]);
 
   /**
    * 現在の検索クエリに基づく候補リスト
@@ -159,28 +466,100 @@ export default function NickmarkShowcase(): JSX.Element {
   const handleQueryChange = useCallback((next: string) => {
     setQuery(next);
     setSelectedIndex(0);
-    setFeedback(null);
+    setCommandFeedback(null);
+  }, []);
+
+  /**
+   * 模擬ブラウザのタブを選択してアクティブ化する
+   * @param tabId - 切り替え先のタブ ID
+   * @returns なし
+   */
+  const handleSelectBrowserTab = useCallback((tabId: string) => {
+    setActiveBrowserTabId(tabId);
+    setBrowserTabs((prev) =>
+      prev.map((t) => (t.id === tabId ? { ...t, isUnreadBg: false } : t))
+    );
+    setScriptBanner(null);
+    setNavRevision((r) => r + 1);
+  }, []);
+
+  /**
+   * 模擬ブラウザの指定タブを閉じる
+   * @param event - マウスクリックイベント
+   * @param tabId - 閉じる対象のタブ ID
+   * @returns なし
+   */
+  const handleCloseBrowserTab = useCallback(
+    (event: React.MouseEvent, tabId: string) => {
+      event.stopPropagation();
+      setBrowserTabs((prev) => {
+        if (prev.length <= 1) return prev;
+        const idx = prev.findIndex((t) => t.id === tabId);
+        const next = prev.filter((t) => t.id !== tabId);
+        if (tabId === activeBrowserTabId && next.length > 0) {
+          const fallbackIdx = Math.max(0, Math.min(idx, next.length - 1));
+          setActiveBrowserTabId(next[fallbackIdx].id);
+        }
+        return next;
+      });
+    },
+    [activeBrowserTabId]
+  );
+
+  /**
+   * 模擬ブラウザのタブとブックマークを初期状態にリセットする
+   * @returns なし
+   */
+  const handleResetDemoBrowser = useCallback(() => {
+    setBrowserTabs(INITIAL_BROWSER_TABS);
+    setActiveBrowserTabId(INITIAL_BROWSER_TABS[0].id);
+    setBookmarks(INITIAL_DEMO_BOOKMARKS);
+    setCommandFeedback(null);
+    setScriptBanner(null);
+    setNavRevision((r) => r + 1);
   }, []);
 
   /**
    * 選択中またはクリックされた候補アイテムのデモ実行を行う
+   * ページ遷移時はパレットを消さずに背後のブラウザページやタブを直接更新する
    * @param item - 実行対象の候補アイテム
    * @param disposition - タブの開き方（'current' | 'foreground' | 'background'）
    * @returns なし
    */
   const executeDemoItem = useCallback(
     (item: DemoSearchResult, disposition: 'current' | 'foreground' | 'background' = 'current') => {
+      setCommandFeedback(null);
+      setScriptBanner(null);
+
       if (item.kind === 'command') {
         const val = item.executeValue.trim();
-        if (val === ':ls') {
-          setActiveTab('dashboard');
-          setFeedback(null);
-          return;
-        }
-        if (val === ':prefs') {
-          setActiveTab('preferences');
-          setFeedback(null);
-          return;
+        if (val.startsWith(':addall ')) {
+          const newNick = val.slice(8).trim().split(/\s+/)[0];
+          if (newNick) {
+            setBookmarks((prev) => {
+              const additions: DemoBookmarkItem[] = browserTabs.map((t, i) => ({
+                id: `demo-all-${Date.now()}-${i}`,
+                nickname: browserTabs.length > 1 ? `${newNick}/${i + 1}` : newNick,
+                title: t.title,
+                url: t.url,
+                isPinned: false,
+                score: 1.0,
+                lastUsedLabel: locale === 'en' ? 'Just now' : 'たった今',
+              }));
+              return [...additions, ...prev];
+            });
+            setCommandFeedback(
+              translate(
+                {
+                  id: 'nickmark.showcase.feedback.added',
+                  message: '「{nickname}」をデモリストに登録しました',
+                },
+                { nickname: newNick }
+              )
+            );
+            setQuery('');
+            return;
+          }
         }
         if (val.startsWith(':add ')) {
           const newNick = val.slice(5).trim().split(/\s+/)[0];
@@ -193,8 +572,8 @@ export default function NickmarkShowcase(): JSX.Element {
                 {
                   id: `demo-${Date.now()}`,
                   nickname: newNick,
-                  title: 'Nickmark Official Intro',
-                  url: 'https://sawara.me/nickmark',
+                  title: activeBrowserTab.title,
+                  url: activeBrowserTab.url,
                   isPinned: false,
                   score: 1.0,
                   lastUsedLabel: locale === 'en' ? 'Just now' : 'たった今',
@@ -202,7 +581,7 @@ export default function NickmarkShowcase(): JSX.Element {
                 ...prev,
               ];
             });
-            setFeedback(
+            setCommandFeedback(
               translate(
                 {
                   id: 'nickmark.showcase.feedback.added',
@@ -219,7 +598,7 @@ export default function NickmarkShowcase(): JSX.Element {
           const targetNick = val.slice(4).trim().split(/\s+/)[0];
           if (targetNick) {
             setBookmarks((prev) => prev.filter((b) => b.nickname !== targetNick));
-            setFeedback(
+            setCommandFeedback(
               translate(
                 {
                   id: 'nickmark.showcase.feedback.removed',
@@ -232,20 +611,7 @@ export default function NickmarkShowcase(): JSX.Element {
             return;
           }
         }
-        if (val.startsWith(':open ')) {
-          const folder = val.slice(6).trim().replace(/\/+$/, '');
-          setFeedback(
-            translate(
-              {
-                id: 'nickmark.showcase.feedback.batchOpen',
-                message: 'フォルダ「{folder}/」配下のタブをバックグラウンドで一括オープンしました',
-              },
-              { folder }
-            )
-          );
-          return;
-        }
-        setFeedback(
+        setCommandFeedback(
           translate(
             {
               id: 'nickmark.showcase.feedback.command',
@@ -259,38 +625,72 @@ export default function NickmarkShowcase(): JSX.Element {
 
       if (item.kind === 'folder') {
         const folderPath = item.executeValue.replace(/^folder:/, '');
-        setFeedback(
-          translate(
-            {
-              id: 'nickmark.showcase.feedback.batchOpen',
-              message: 'フォルダ「{folder}/」配下のタブをバックグラウンドで一括オープンしました',
-            },
-            { folder: folderPath }
-          )
+        const folderEntries = bookmarks.filter(
+          (b) => b.nickname.startsWith(`${folderPath}/`) && !/^javascript:/i.test(b.url)
         );
+        if (folderEntries.length > 0) {
+          const seenUrls = new Set<string>();
+          const newTabs: DemoBrowserTab[] = [];
+          folderEntries.forEach((entry, idx) => {
+            if (!seenUrls.has(entry.url)) {
+              seenUrls.add(entry.url);
+              newTabs.push({
+                id: `tab-folder-${Date.now()}-${idx}`,
+                title: entry.title,
+                url: entry.url,
+                isUnreadBg: true,
+              });
+            }
+          });
+          setBrowserTabs((prev) => [...prev, ...newTabs]);
+        }
         return;
       }
 
       if (item.kind === 'bookmarklet') {
-        setFeedback(
+        setScriptBanner(
           translate({
             id: 'nickmark.showcase.feedback.bookmarklet',
             message: 'userScripts API（MAIN world）で現在のタブにブックマークレットを実行しました',
           })
         );
+        setNavRevision((r) => r + 1);
         return;
       }
 
-      const modeText =
-        disposition === 'background'
-          ? translate({ id: 'nickmark.showcase.mode.bg', message: 'バックグラウンドタブで開きました（パレット維持）' })
-          : disposition === 'foreground'
-            ? translate({ id: 'nickmark.showcase.mode.fg', message: '新しいタブで開きました' })
-            : translate({ id: 'nickmark.showcase.mode.cur', message: '現在のタブで開きました' });
-
-      setFeedback(`${item.subtitle} — ${modeText}`);
+      // 通常ブックマーク・動的 URL のブラウザ遷移処理（ポップアップは維持したまま背景のページまたはタブを更新）
+      if (disposition === 'current') {
+        setBrowserTabs((prev) =>
+          prev.map((t) =>
+            t.id === activeBrowserTab.id
+              ? { ...t, title: item.title, url: item.subtitle, isUnreadBg: false }
+              : t
+          )
+        );
+        setNavRevision((r) => r + 1);
+      } else if (disposition === 'foreground') {
+        const newTabId = `tab-fg-${Date.now()}`;
+        const newTab: DemoBrowserTab = {
+          id: newTabId,
+          title: item.title,
+          url: item.subtitle,
+          isUnreadBg: false,
+        };
+        setBrowserTabs((prev) => [...prev, newTab]);
+        setActiveBrowserTabId(newTabId);
+        setNavRevision((r) => r + 1);
+      } else {
+        const newTabId = `tab-bg-${Date.now()}`;
+        const newTab: DemoBrowserTab = {
+          id: newTabId,
+          title: item.title,
+          url: item.subtitle,
+          isUnreadBg: true,
+        };
+        setBrowserTabs((prev) => [...prev, newTab]);
+      }
     },
-    [locale]
+    [locale, activeBrowserTab, bookmarks, browserTabs]
   );
 
   /**
@@ -346,517 +746,317 @@ export default function NickmarkShowcase(): JSX.Element {
     }
   };
 
-  /**
-   * 管理画面テーブルのフィルタ＆ソート済み一覧
-   */
-  const dashboardRows = useMemo(() => {
-    const filtered = bookmarks.filter((item) => {
-      if (folderFilter === 'all') return true;
-      if (folderFilter === 'root') return !item.nickname.includes('/');
-      return item.nickname.startsWith(`${folderFilter}/`);
-    });
-    return [...filtered].sort((a, b) => {
-      if (sortByScore) {
-        const pinDiff = (b.isPinned ? 1 : 0) - (a.isPinned ? 1 : 0);
-        if (pinDiff !== 0) return pinDiff;
-        return b.score - a.score;
-      }
-      return a.nickname.localeCompare(b.nickname);
-    });
-  }, [bookmarks, folderFilter, sortByScore]);
-
-  const demoFolders = useMemo(() => Array.from(extractDemoFolders(bookmarks).keys()), [bookmarks]);
-
-  const togglePin = useCallback((id: string) => {
-    setBookmarks((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, isPinned: !item.isPinned } : item))
-    );
-  }, []);
-
   const presets = [
-    { label: 'gh sawarame/Nickmark', value: 'gh sawarame/Nickmark' },
+    { label: 'gh/Nickmark', value: 'gh/Nickmark' },
     { label: 'work/', value: 'work/' },
     { label: ':add dev', value: ':add dev' },
-    { label: ':open work/', value: ':open work/' },
     { label: 'js/top', value: 'js/top' },
   ];
 
   const currentTip = DEMO_TIPS[tipIndex % DEMO_TIPS.length];
+  const isBrowserModified =
+    browserTabs.length > 1 || activeBrowserTab.url !== INITIAL_BROWSER_TABS[0].url;
 
   return (
     <div className={styles.showcaseWrap}>
-      {/* モード切替タブ */}
-      <div
-        className={styles.tabBar}
-        role="tablist"
-        aria-label={translate({
-          id: 'nickmark.showcase.tablistLabel',
-          message: 'Nickmark プレビューモード',
-        })}
-      >
-        <button
-          type="button"
-          role="tab"
-          aria-selected={activeTab === 'palette'}
-          className={`${styles.tabButton} ${activeTab === 'palette' ? styles.tabButtonActive : ''}`}
-          onClick={() => setActiveTab('palette')}
-        >
-          <Search size={15} strokeWidth={2} aria-hidden="true" />
-          <span>
-            <Translate id="nickmark.showcase.tab.palette">コマンドパレット</Translate>
-          </span>
-          <kbd className={styles.tabShortcut}>⌥⇧D</kbd>
-        </button>
-
-        <button
-          type="button"
-          role="tab"
-          aria-selected={activeTab === 'dashboard'}
-          className={`${styles.tabButton} ${activeTab === 'dashboard' ? styles.tabButtonActive : ''}`}
-          onClick={() => setActiveTab('dashboard')}
-        >
-          <List size={15} strokeWidth={2} aria-hidden="true" />
-          <span>
-            <Translate id="nickmark.showcase.tab.dashboard">管理画面</Translate>
-          </span>
-          <kbd className={styles.tabShortcut}>:ls</kbd>
-        </button>
-
-        <button
-          type="button"
-          role="tab"
-          aria-selected={activeTab === 'preferences'}
-          className={`${styles.tabButton} ${activeTab === 'preferences' ? styles.tabButtonActive : ''}`}
-          onClick={() => setActiveTab('preferences')}
-        >
-          <Settings size={15} strokeWidth={2} aria-hidden="true" />
-          <span>
-            <Translate id="nickmark.showcase.tab.preferences">設定・同期</Translate>
-          </span>
-          <kbd className={styles.tabShortcut}>:prefs</kbd>
-        </button>
+      {/* ワンクリック入力プリセット（ブラウザ外上部） */}
+      <div className={styles.presetBar}>
+        <span className={styles.presetLabel}>
+          <Translate id="nickmark.showcase.presetsLabel">入力例:</Translate>
+        </span>
+        {presets.map((p) => (
+          <button
+            key={p.value}
+            type="button"
+            onClick={() => handleQueryChange(p.value)}
+            className={`${styles.presetChip} ${query === p.value ? styles.presetChipActive : ''}`}
+          >
+            {p.label}
+          </button>
+        ))}
       </div>
 
       {/* ブラウザウィンドウ枠 */}
       <div className={styles.browserFrame}>
-        <div className={styles.browserTopBar} aria-hidden="true">
-          <div className={styles.trafficLights}>
+        {/* 模擬ブラウザタブバー */}
+        <div className={styles.browserTabStrip}>
+          <div className={styles.trafficLights} aria-hidden="true">
             <span className={`${styles.trafficDot} ${styles.trafficDotRed}`} />
             <span className={`${styles.trafficDot} ${styles.trafficDotYellow}`} />
             <span className={`${styles.trafficDot} ${styles.trafficDotGreen}`} />
           </div>
 
-          <div className={styles.omniboxPill}>
-            <span className={styles.omniboxBadge}>nm</span>
-            <span className={styles.omniboxUrl}>https://sawara.me/nickmark</span>
-          </div>
-
-          <div className={styles.extensionActionBadge}>
-            <img src={appIconUrl} alt="" className={styles.extensionMiniIcon} />
-            <span>Nickmark v2.0.4</span>
-          </div>
-        </div>
-
-        <div className={styles.stageArea}>
-          {activeTab === 'palette' && (
-            <>
-              {/* ワンクリック入力プリセット */}
-              <div className={styles.presetBar}>
-                <span className={styles.presetLabel}>
-                  <Translate id="nickmark.showcase.presetsLabel">入力例:</Translate>
-                </span>
-                {presets.map((p) => (
-                  <button
-                    key={p.value}
-                    type="button"
-                    onClick={() => handleQueryChange(p.value)}
-                    className={`${styles.presetChip} ${query === p.value ? styles.presetChipActive : ''}`}
-                  >
-                    {p.label}
-                  </button>
-                ))}
-                {query && (
-                  <button
-                    type="button"
-                    onClick={() => handleQueryChange('')}
-                    className={styles.presetChip}
-                  >
-                    <Translate id="nickmark.showcase.clearPreset">空にする (Tips)</Translate>
-                  </button>
-                )}
-              </div>
-
-              {/* パレット UI 本体 */}
-              <div className={styles.palettePanel}>
-                <div className={styles.paletteSearchBar}>
-                  {isCommandMode ? (
-                    <Terminal size={17} strokeWidth={2.2} className={styles.searchLeadingIcon} aria-hidden="true" />
-                  ) : (
-                    <Search size={17} strokeWidth={2.2} className={styles.searchLeadingIcon} aria-hidden="true" />
+          <div
+            className={styles.browserTabList}
+            role="tablist"
+            aria-label={translate({
+              id: 'nickmark.showcase.browser.tabsAria',
+              message: 'デモブラウザのタブ一覧',
+            })}
+          >
+            {browserTabs.map((tab) => {
+              const isActive = tab.id === activeBrowserTab.id;
+              return (
+                <div
+                  key={tab.id}
+                  role="tab"
+                  tabIndex={0}
+                  aria-selected={isActive}
+                  onClick={() => handleSelectBrowserTab(tab.id)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleSelectBrowserTab(tab.id);
+                    }
+                  }}
+                  className={`${styles.browserTab} ${isActive ? styles.browserTabActive : ''} ${
+                    tab.isUnreadBg ? styles.browserTabUnread : ''
+                  }`}
+                >
+                  <Globe size={12} strokeWidth={2.2} className={styles.browserTabIcon} aria-hidden="true" />
+                  <span className={styles.browserTabTitle}>{tab.title}</span>
+                  {tab.isUnreadBg && (
+                    <span className={styles.browserTabNewBadge}>NEW</span>
                   )}
-                  <input
-                    type="text"
-                    value={query}
-                    onChange={(e) => handleQueryChange(e.target.value)}
-                    onKeyDown={handleInputKeyDown}
-                    placeholder={translate({
-                      id: 'nickmark.showcase.placeholder',
-                      message: 'ニックネーム検索 または :add / :open / :rm ...',
-                    })}
-                    className={styles.paletteInput}
-                    aria-label={translate({
-                      id: 'nickmark.showcase.inputAria',
-                      message: 'Nickmark コマンドパレットデモ入力欄',
-                    })}
-                  />
-                  <div className={styles.paletteHeaderActions}>
-                    {query && (
-                      <button
-                        type="button"
-                        onClick={() => handleQueryChange('')}
-                        className={styles.headerIconBtn}
-                        aria-label={translate({ id: 'nickmark.showcase.clear', message: '入力をクリア' })}
-                      >
-                        <X size={14} strokeWidth={2.2} />
-                      </button>
-                    )}
+                  {browserTabs.length > 1 && (
                     <button
                       type="button"
-                      onClick={() => setActiveTab('dashboard')}
-                      className={styles.headerIconBtn}
-                      title={translate({ id: 'nickmark.showcase.openList', message: '管理画面を開く (:ls)' })}
-                      aria-label={translate({ id: 'nickmark.showcase.openList', message: '管理画面を開く (:ls)' })}
-                    >
-                      <List size={15} strokeWidth={2} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setActiveTab('preferences')}
-                      className={styles.headerIconBtn}
-                      title={translate({ id: 'nickmark.showcase.openPrefs', message: '設定画面を開く (:prefs)' })}
-                      aria-label={translate({ id: 'nickmark.showcase.openPrefs', message: '設定画面を開く (:prefs)' })}
-                    >
-                      <Settings size={15} strokeWidth={2} />
-                    </button>
-                  </div>
-                </div>
-
-                {feedback && (
-                  <div className={styles.paletteFeedback} role="status">
-                    <CheckCircle2 size={15} strokeWidth={2.2} aria-hidden="true" />
-                    <span>{feedback}</span>
-                  </div>
-                )}
-
-                {query.trim() ? (
-                  paletteItems.length === 0 ? (
-                    <div className={styles.paletteEmpty}>
-                      <Translate id="nickmark.showcase.noMatch">
-                        一致する候補が見つかりませんでした。
-                      </Translate>
-                    </div>
-                  ) : (
-                    <div className={styles.paletteList} role="listbox">
-                      {paletteItems.map((item, idx) => {
-                        const isSelected = idx === safeSelectedIndex;
-                        return (
-                          <button
-                            key={item.id}
-                            type="button"
-                            role="option"
-                            aria-selected={isSelected}
-                            onMouseEnter={() => setSelectedIndex(idx)}
-                            onClick={(e) => {
-                              const disp = e.shiftKey
-                                ? 'background'
-                                : e.metaKey || e.ctrlKey || e.altKey
-                                  ? 'foreground'
-                                  : 'current';
-                              executeDemoItem(item, disp);
-                            }}
-                            className={`${styles.paletteItem} ${isSelected ? styles.paletteItemSelected : ''}`}
-                          >
-                            <span className={styles.itemIconWrap} aria-hidden="true">
-                              {item.kind === 'folder' ? (
-                                <Folder size={14} strokeWidth={2.2} />
-                              ) : item.kind === 'bookmarklet' ? (
-                                <Code2 size={14} strokeWidth={2.2} className={styles.itemIconCode} />
-                              ) : item.kind === 'command' ? (
-                                <Terminal size={14} strokeWidth={2.2} className={styles.itemIconCmd} />
-                              ) : (
-                                <Globe size={14} strokeWidth={2} />
-                              )}
-                            </span>
-
-                            <span className={styles.itemBody}>
-                              <span className={styles.itemTopRow}>
-                                <span className={styles.itemBadge}>{item.badge}</span>
-                                <span className={styles.itemTitle}>{item.title}</span>
-                                {item.isPinned && (
-                                  <Pin size={12} strokeWidth={2.2} className={styles.itemPinIcon} aria-hidden="true" />
-                                )}
-                                {item.typeTag && <span className={styles.itemTypeTag}>{item.typeTag}</span>}
-                              </span>
-                              <span className={styles.itemSubtitle}>{item.subtitle}</span>
-                            </span>
-                          </button>
-                        );
+                      onClick={(e) => handleCloseBrowserTab(e, tab.id)}
+                      className={styles.browserTabClose}
+                      aria-label={translate({
+                        id: 'nickmark.showcase.browser.closeTabAria',
+                        message: 'タブを閉じる',
                       })}
-                    </div>
-                  )
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => setTipIndex((prev) => prev + 1)}
-                    className={styles.paletteTips}
-                    title={translate({
-                      id: 'nickmark.showcase.nextTip',
-                      message: 'クリックで次のヒントを表示',
-                    })}
-                  >
-                    <Lightbulb size={16} strokeWidth={2.2} className={styles.tipsIcon} aria-hidden="true" />
-                    <span className={styles.tipsContent}>
-                      <span className={styles.tipsBadge}>TIP</span>
-                      <span className={styles.tipsText}>
-                        <Translate id={currentTip.id}>{currentTip.message}</Translate>
-                      </span>
-                    </span>
-                    <RotateCcw size={14} strokeWidth={2} aria-hidden="true" />
-                  </button>
-                )}
-              </div>
-
-              {/* キー操作デモボタン */}
-              <div className={styles.actionHintsRow}>
-                <button
-                  type="button"
-                  disabled={paletteItems.length === 0}
-                  onClick={() => {
-                    const target = paletteItems[safeSelectedIndex];
-                    if (target) executeDemoItem(target, 'current');
-                  }}
-                  className={styles.actionHintBtn}
-                >
-                  <kbd>Enter</kbd>
-                  <span>
-                    <Translate id="nickmark.showcase.hint.current">現在のタブで開く</Translate>
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  disabled={paletteItems.length === 0}
-                  onClick={() => {
-                    const target = paletteItems[safeSelectedIndex];
-                    if (target) executeDemoItem(target, 'foreground');
-                  }}
-                  className={styles.actionHintBtn}
-                >
-                  <kbd>⌘/Ctrl + Enter</kbd>
-                  <span>
-                    <Translate id="nickmark.showcase.hint.newTab">新しいタブで開く</Translate>
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  disabled={paletteItems.length === 0}
-                  onClick={() => {
-                    const target = paletteItems[safeSelectedIndex];
-                    if (target) executeDemoItem(target, 'background');
-                  }}
-                  className={styles.actionHintBtn}
-                >
-                  <kbd>Shift + Enter</kbd>
-                  <span>
-                    <Translate id="nickmark.showcase.hint.bgTab">バックグラウンドで連続起動</Translate>
-                  </span>
-                </button>
-              </div>
-            </>
-          )}
-
-          {activeTab === 'dashboard' && (
-            <div className={styles.dashboardPanel}>
-              <div className={styles.dashboardToolbar}>
-                <div className={styles.folderFilterGroup}>
-                  <button
-                    type="button"
-                    onClick={() => setFolderFilter('all')}
-                    className={`${styles.filterChip} ${folderFilter === 'all' ? styles.filterChipActive : ''}`}
-                  >
-                    <Translate id="nickmark.showcase.dash.all">すべて</Translate>
-                  </button>
-                  {demoFolders.map((folder) => (
-                    <button
-                      key={folder}
-                      type="button"
-                      onClick={() => setFolderFilter(folder)}
-                      className={`${styles.filterChip} ${folderFilter === folder ? styles.filterChipActive : ''}`}
                     >
-                      📁 {folder}/
+                      <X size={11} strokeWidth={2.4} />
                     </button>
-                  ))}
-                  <button
-                    type="button"
-                    onClick={() => setFolderFilter('root')}
-                    className={`${styles.filterChip} ${folderFilter === 'root' ? styles.filterChipActive : ''}`}
-                  >
-                    <Translate id="nickmark.showcase.dash.root">未分類</Translate>
-                  </button>
+                  )}
                 </div>
+              );
+            })}
+            <span className={styles.browserTabCountPill} aria-hidden="true">
+              <Plus size={11} strokeWidth={2.4} />
+              <span>{browserTabs.length}</span>
+            </span>
+          </div>
 
-                <div className={styles.dashboardMetaActions}>
-                  <button
-                    type="button"
-                    onClick={() => setSortByScore((prev) => !prev)}
-                    className={styles.sortBadgeBtn}
-                  >
-                    <ArrowUpDown size={13} strokeWidth={2} aria-hidden="true" />
-                    <span>
-                      {sortByScore ? (
-                        <Translate id="nickmark.showcase.dash.sortScore">スコア順</Translate>
-                      ) : (
-                        <Translate id="nickmark.showcase.dash.sortName">名前順</Translate>
-                      )}
-                    </span>
-                  </button>
-                </div>
-              </div>
-
-              <div className={styles.tableContainer}>
-                <div className={`${styles.tableRow} ${styles.tableHeader}`}>
-                  <span>
-                    <Translate id="nickmark.showcase.dash.colNick">ニックネーム</Translate>
-                  </span>
-                  <span>
-                    <Translate id="nickmark.showcase.dash.colTitle">タイトル</Translate>
-                  </span>
-                  <span className={styles.tableHeaderUrl}>URL</span>
-                  <span>
-                    <Translate id="nickmark.showcase.dash.colScore">スコア</Translate>
-                  </span>
-                  <span>
-                    <Translate id="nickmark.showcase.dash.colPin">固定</Translate>
-                  </span>
-                </div>
-
-                {dashboardRows.map((row) => (
-                  <div key={row.id} className={styles.tableRow}>
-                    <span className={styles.tableCellTruncate}>
-                      <span className={styles.itemBadge}>{row.nickname}</span>
-                    </span>
-                    <span className={styles.tableCellTruncate}>{row.title}</span>
-                    <span className={`${styles.tableCellTruncate} ${styles.tableUrlText} ${styles.tableCellUrl}`}>
-                      {row.url}
-                    </span>
-                    <span className={styles.scorePill}>{row.score.toFixed(1)}</span>
-                    <span>
-                      <button
-                        type="button"
-                        onClick={() => togglePin(row.id)}
-                        className={`${styles.pinToggleBtn} ${row.isPinned ? styles.pinToggleBtnActive : ''}`}
-                        aria-pressed={!!row.isPinned}
-                        aria-label={translate({
-                          id: 'nickmark.showcase.dash.togglePinAria',
-                          message: 'ピン留めを切り替え',
-                        })}
-                      >
-                        <Pin size={14} strokeWidth={2.2} />
-                      </button>
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'preferences' && (
-            <div className={styles.prefsPanel}>
-              <div className={styles.prefsCard}>
-                <div className={styles.prefsInfo}>
-                  <div className={styles.prefsTitle}>
-                    <Translate id="nickmark.showcase.prefs.syncTitle">Google アカウント同期</Translate>
-                  </div>
-                  <div className={styles.prefsDesc}>
-                    <Translate id="nickmark.showcase.prefs.syncDesc">
-                      複数デバイス間でブックマークを同期（上限 100KB・自動 8KB チャンク分割・競合解決ダイアログ付き）
-                    </Translate>
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  role="switch"
-                  aria-checked={syncEnabled}
-                  onClick={() => setSyncEnabled((prev) => !prev)}
-                  className={`${styles.switchBtn} ${syncEnabled ? styles.switchBtnOn : ''}`}
-                  aria-label={translate({
-                    id: 'nickmark.showcase.prefs.syncTitle',
-                    message: 'Google アカウント同期',
-                  })}
-                >
-                  <span className={styles.switchKnob} />
-                </button>
-              </div>
-
-              <div className={styles.prefsCard}>
-                <div className={styles.prefsInfo}>
-                  <div className={styles.prefsTitle}>
-                    <Translate id="nickmark.showcase.prefs.limitTitle">一括オープンの安全上限件数</Translate>
-                  </div>
-                  <div className={styles.prefsDesc}>
-                    <Translate id="nickmark.showcase.prefs.limitDesc">
-                      フォルダ一括オープン時に確認なしで自動展開する最大タブ数（1〜100件、既定 20件）
-                    </Translate>
-                  </div>
-                </div>
-                <div className={styles.stepperGroup}>
-                  <button
-                    type="button"
-                    onClick={() => setBatchLimit((v) => Math.max(1, v - 5))}
-                    className={styles.stepperBtn}
-                    aria-label="-5"
-                  >
-                    -
-                  </button>
-                  <span className={styles.stepperValue}>{batchLimit}</span>
-                  <button
-                    type="button"
-                    onClick={() => setBatchLimit((v) => Math.min(100, v + 5))}
-                    className={styles.stepperBtn}
-                    aria-label="+5"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-
-              <div className={styles.prefsCard}>
-                <div className={styles.prefsInfo}>
-                  <div className={styles.prefsTitle}>
-                    <Translate id="nickmark.showcase.prefs.historyTitle">ブラウザ履歴検索（オプトイン）</Translate>
-                  </div>
-                  <div className={styles.prefsDesc}>
-                    <Translate id="nickmark.showcase.prefs.historyDesc">
-                      有効化したときのみ履歴権限を要求し、パレット検索のブックマーク候補の下へ一致履歴を表示します
-                    </Translate>
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  role="switch"
-                  aria-checked={historyEnabled}
-                  onClick={() => setHistoryEnabled((prev) => !prev)}
-                  className={`${styles.switchBtn} ${historyEnabled ? styles.switchBtnOn : ''}`}
-                  aria-label={translate({
-                    id: 'nickmark.showcase.prefs.historyTitle',
-                    message: 'ブラウザ履歴検索（オプトイン）',
-                  })}
-                >
-                  <span className={styles.switchKnob} />
-                </button>
-              </div>
-            </div>
+          {isBrowserModified && (
+            <button
+              type="button"
+              onClick={handleResetDemoBrowser}
+              className={styles.resetBrowserBtn}
+            >
+              <RotateCcw size={12} strokeWidth={2.2} aria-hidden="true" />
+              <span>
+                <Translate id="nickmark.showcase.browser.reset">タブをリセット</Translate>
+              </span>
+            </button>
           )}
         </div>
+
+        {/* 模擬アドレスバー・右端の拡張機能アイコンバー（Chrome ツールバー準拠） */}
+        <div className={styles.browserTopBar}>
+          <div key={navRevision} className={`${styles.omniboxPill} ${styles.omniboxAnimated}`}>
+            <Info size={14} strokeWidth={2} className={styles.omniboxInfoIcon} aria-hidden="true" />
+            <span className={styles.omniboxUrl}>{activeBrowserTab.url}</span>
+            <div className={styles.omniboxRightIcons} aria-hidden="true">
+              <Search size={13} strokeWidth={2} />
+              <Star size={13} strokeWidth={2} />
+            </div>
+          </div>
+
+          <div className={styles.toolbarRightActions} aria-hidden="true">
+            <div className={styles.extensionIconActiveRing} title="Nickmark">
+              <img src={appIconUrl} alt="" className={styles.extensionMiniIcon} />
+            </div>
+          </div>
+        </div>
+
+        {/* ブラウザビューポート：全面に模擬 Web ページを描画し、右上（拡張機能アイコン直下）にポップアップを配置 */}
+        <div className={styles.browserViewport}>
+          {/* 背後の模擬 Web ページ本体 */}
+          <div key={navRevision} className={styles.webPageContainer}>
+            <div className={styles.pageLoadProgress} aria-hidden="true" />
+            {scriptBanner && (
+              <div className={styles.scriptExecutedToast} role="status">
+                <Sparkles size={14} strokeWidth={2.2} aria-hidden="true" />
+                <span>{scriptBanner}</span>
+                <ArrowUp size={14} strokeWidth={2.4} aria-hidden="true" />
+              </div>
+            )}
+            <SimulatedWebPage tab={activeBrowserTab} />
+          </div>
+
+          {/* アドレスバー右端（拡張機能アイコン）直下にぶら下がる Nickmark ポップアップ */}
+          <div className={styles.paletteOverlayWrap}>
+            <div className={styles.palettePanel}>
+              <div className={styles.paletteSearchBar}>
+                {isCommandMode ? (
+                  <Terminal size={16} strokeWidth={2.2} className={styles.searchLeadingIcon} aria-hidden="true" />
+                ) : (
+                  <Search size={16} strokeWidth={2.2} className={styles.searchLeadingIcon} aria-hidden="true" />
+                )}
+                <input
+                  type="text"
+                  value={query}
+                  onChange={(e) => handleQueryChange(e.target.value)}
+                  onKeyDown={handleInputKeyDown}
+                  placeholder={translate({
+                    id: 'nickmark.showcase.placeholder',
+                    message: 'ニックネーム検索 または :add / :addall / :rm ...',
+                  })}
+                  className={styles.paletteInput}
+                  aria-label={translate({
+                    id: 'nickmark.showcase.inputAria',
+                    message: 'Nickmark コマンドパレットデモ入力欄',
+                  })}
+                />
+                <div className={styles.paletteHeaderActions}>
+                  {query && (
+                    <button
+                      type="button"
+                      onClick={() => handleQueryChange('')}
+                      className={styles.headerIconBtn}
+                      aria-label={translate({ id: 'nickmark.showcase.clear', message: '入力をクリア' })}
+                    >
+                      <X size={14} strokeWidth={2.2} />
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {commandFeedback && (
+                <div className={styles.paletteFeedback} role="status">
+                  <CheckCircle2 size={15} strokeWidth={2.2} aria-hidden="true" />
+                  <span>{commandFeedback}</span>
+                </div>
+              )}
+
+              {query.trim() ? (
+                paletteItems.length === 0 ? (
+                  <div className={styles.paletteEmpty}>
+                    <Translate id="nickmark.showcase.noMatch">
+                      一致する候補が見つかりませんでした。
+                    </Translate>
+                  </div>
+                ) : (
+                  <div className={styles.paletteList} role="listbox">
+                    {paletteItems.map((item, idx) => {
+                      const isSelected = idx === safeSelectedIndex;
+                      return (
+                        <button
+                          key={item.id}
+                          type="button"
+                          role="option"
+                          aria-selected={isSelected}
+                          onMouseEnter={() => setSelectedIndex(idx)}
+                          onClick={(e) => {
+                            const disp = e.shiftKey
+                              ? 'background'
+                              : e.metaKey || e.ctrlKey || e.altKey
+                                ? 'foreground'
+                                : 'current';
+                            executeDemoItem(item, disp);
+                          }}
+                          className={`${styles.paletteItem} ${isSelected ? styles.paletteItemSelected : ''}`}
+                        >
+                          <span className={styles.itemIconWrap} aria-hidden="true">
+                            {item.kind === 'folder' ? (
+                              <Folder size={14} strokeWidth={2.2} />
+                            ) : item.kind === 'bookmarklet' ? (
+                              <Code2 size={14} strokeWidth={2.2} className={styles.itemIconCode} />
+                            ) : item.kind === 'command' ? (
+                              <Terminal size={14} strokeWidth={2.2} className={styles.itemIconCmd} />
+                            ) : (
+                              <Globe size={14} strokeWidth={2} />
+                            )}
+                          </span>
+
+                          <span className={styles.itemBody}>
+                            <span className={styles.itemTopRow}>
+                              <span className={styles.itemBadge}>{item.badge}</span>
+                              <span className={styles.itemTitle}>{item.title}</span>
+                              {item.isPinned && (
+                                <Pin size={12} strokeWidth={2.2} className={styles.itemPinIcon} aria-hidden="true" />
+                              )}
+                              {item.typeTag && <span className={styles.itemTypeTag}>{item.typeTag}</span>}
+                            </span>
+                            <span className={styles.itemSubtitle}>{item.subtitle}</span>
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setTipIndex((prev) => prev + 1)}
+                  className={styles.paletteTips}
+                  title={translate({
+                    id: 'nickmark.showcase.nextTip',
+                    message: 'クリックで次のヒントを表示',
+                  })}
+                >
+                  <Lightbulb size={16} strokeWidth={2.2} className={styles.tipsIcon} aria-hidden="true" />
+                  <span className={styles.tipsContent}>
+                    <span className={styles.tipsBadge}>TIP</span>
+                    <span className={styles.tipsText}>
+                      <Translate id={currentTip.id}>{currentTip.message}</Translate>
+                    </span>
+                  </span>
+                  <RotateCcw size={14} strokeWidth={2} aria-hidden="true" />
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* キー操作デモボタン（ブラウザ外下部） */}
+      <div className={styles.actionHintsRow}>
+        <button
+          type="button"
+          disabled={paletteItems.length === 0}
+          onClick={() => {
+            const target = paletteItems[safeSelectedIndex];
+            if (target) executeDemoItem(target, 'current');
+          }}
+          className={styles.actionHintBtn}
+        >
+          <kbd>Enter</kbd>
+          <span>
+            <Translate id="nickmark.showcase.hint.current">現在のタブで開く</Translate>
+          </span>
+        </button>
+        <button
+          type="button"
+          disabled={paletteItems.length === 0}
+          onClick={() => {
+            const target = paletteItems[safeSelectedIndex];
+            if (target) executeDemoItem(target, 'foreground');
+          }}
+          className={styles.actionHintBtn}
+        >
+          <kbd>⌘/Ctrl + Enter</kbd>
+          <span>
+            <Translate id="nickmark.showcase.hint.newTab">新しいタブで開く</Translate>
+          </span>
+        </button>
+        <button
+          type="button"
+          disabled={paletteItems.length === 0}
+          onClick={() => {
+            const target = paletteItems[safeSelectedIndex];
+            if (target) executeDemoItem(target, 'background');
+          }}
+          className={styles.actionHintBtn}
+        >
+          <kbd>Shift + Enter</kbd>
+          <span>
+            <Translate id="nickmark.showcase.hint.bgTab">バックグラウンドで連続起動</Translate>
+          </span>
+        </button>
       </div>
     </div>
   );

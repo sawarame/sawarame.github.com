@@ -2786,38 +2786,17 @@
   "nickmark.cta.docs": {
     "message": "Read Documentation"
   },
-  "nickmark.showcase.tablistLabel": {
-    "message": "Nickmark preview modes"
-  },
-  "nickmark.showcase.tab.palette": {
-    "message": "Command Palette"
-  },
-  "nickmark.showcase.tab.dashboard": {
-    "message": "Dashboard"
-  },
-  "nickmark.showcase.tab.preferences": {
-    "message": "Preferences & Sync"
-  },
   "nickmark.showcase.presetsLabel": {
     "message": "Try:"
   },
-  "nickmark.showcase.clearPreset": {
-    "message": "Clear (Tips)"
-  },
   "nickmark.showcase.placeholder": {
-    "message": "Search nicknames or run :add / :open / :rm ..."
+    "message": "Search nicknames or run :add / :addall / :rm ..."
   },
   "nickmark.showcase.inputAria": {
     "message": "Nickmark command palette demo input"
   },
   "nickmark.showcase.clear": {
     "message": "Clear input"
-  },
-  "nickmark.showcase.openList": {
-    "message": "Open Dashboard (:ls)"
-  },
-  "nickmark.showcase.openPrefs": {
-    "message": "Open Preferences (:prefs)"
   },
   "nickmark.showcase.noMatch": {
     "message": "No matching candidates found."
@@ -2829,13 +2808,22 @@
     "message": "Run :add <name> (or :a) to bookmark the current tab immediately."
   },
   "nickmark.showcase.tip2": {
-    "message": "Type folder/ or :open folder/ and press Enter to batch-open all bookmarks under a folder."
+    "message": "Type folder/ (e.g. work/) and press Enter to batch-open all bookmarks under a folder."
   },
   "nickmark.showcase.tip3": {
     "message": "Include %s in a URL to pass arguments directly—e.g. \"nickname query\"."
   },
   "nickmark.showcase.tip4": {
     "message": "Use Shift+Enter to open multiple background tabs without closing the palette, or Cmd/Ctrl+Enter for a new foreground tab."
+  },
+  "nickmark.showcase.browser.tabsAria": {
+    "message": "Demo browser tabs"
+  },
+  "nickmark.showcase.browser.closeTabAria": {
+    "message": "Close tab"
+  },
+  "nickmark.showcase.browser.reset": {
+    "message": "Reset Tabs"
   },
   "nickmark.showcase.hint.current": {
     "message": "Current Tab"
@@ -2852,68 +2840,11 @@
   "nickmark.showcase.feedback.removed": {
     "message": "Removed \"{nickname}\" from the demo list"
   },
-  "nickmark.showcase.feedback.batchOpen": {
-    "message": "Batch-opened tabs under \"{folder}/\" in background tabs"
-  },
   "nickmark.showcase.feedback.command": {
     "message": "Executed command {cmd}"
   },
   "nickmark.showcase.feedback.bookmarklet": {
     "message": "Executed bookmarklet on the active tab via userScripts API (MAIN world)"
-  },
-  "nickmark.showcase.mode.cur": {
-    "message": "Opened in current tab"
-  },
-  "nickmark.showcase.mode.fg": {
-    "message": "Opened in new foreground tab"
-  },
-  "nickmark.showcase.mode.bg": {
-    "message": "Opened in background tab (palette stays open)"
-  },
-  "nickmark.showcase.dash.all": {
-    "message": "All"
-  },
-  "nickmark.showcase.dash.root": {
-    "message": "Uncategorized"
-  },
-  "nickmark.showcase.dash.sortScore": {
-    "message": "By Score"
-  },
-  "nickmark.showcase.dash.sortName": {
-    "message": "By Name"
-  },
-  "nickmark.showcase.dash.colNick": {
-    "message": "Nickname"
-  },
-  "nickmark.showcase.dash.colTitle": {
-    "message": "Title"
-  },
-  "nickmark.showcase.dash.colScore": {
-    "message": "Score"
-  },
-  "nickmark.showcase.dash.colPin": {
-    "message": "Pin"
-  },
-  "nickmark.showcase.dash.togglePinAria": {
-    "message": "Toggle pin"
-  },
-  "nickmark.showcase.prefs.syncTitle": {
-    "message": "Google Account Sync"
-  },
-  "nickmark.showcase.prefs.syncDesc": {
-    "message": "Sync bookmarks across devices (100KB quota with automatic 8KB chunking and conflict-resolution dialog)"
-  },
-  "nickmark.showcase.prefs.limitTitle": {
-    "message": "Batch Open Safety Limit"
-  },
-  "nickmark.showcase.prefs.limitDesc": {
-    "message": "Maximum tabs opened automatically without confirmation when batch-opening a folder (1–100, default: 20)"
-  },
-  "nickmark.showcase.prefs.historyTitle": {
-    "message": "Browser History Search (Opt-in)"
-  },
-  "nickmark.showcase.prefs.historyDesc": {
-    "message": "Requests history permission only when enabled and displays matching history below bookmark suggestions"
   },
   "nickmark.feature1.eyebrow": {
     "message": "Command Palette (⌥⇧D / Alt+⇧D)"
@@ -2967,7 +2898,7 @@
     "message": "launch whole workspaces."
   },
   "nickmark.feature3.desc": {
-    "message": "Use slashes like work/mail and work/docs to organize nicknames into folders automatically. Type \"work/\" or \":open work/\" to open every bookmark inside in background tabs."
+    "message": "Use slashes like work/mail and work/docs to organize nicknames into folders automatically. Type \"work/\" and press Enter to open every bookmark inside in background tabs."
   },
   "nickmark.feature3.b1": {
     "message": "Deduplicates identical URLs and skips javascript: bookmarklets cleanly during batch opens"
@@ -3094,9 +3025,6 @@
   },
   "nickmark.commands.addall": {
     "message": "Save all open tabs in the current window"
-  },
-  "nickmark.commands.open": {
-    "message": "Open all associated URLs or a folder in background tabs"
   },
   "nickmark.commands.rm": {
     "message": "Remove a nickname or a specific URL entry"
