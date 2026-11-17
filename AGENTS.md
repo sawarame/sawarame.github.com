@@ -91,6 +91,6 @@
 
 1.  **バージョン更新**: リリース準備が整ったら、`package.json` の `"version"` を手動で更新（例: `0.1.0` -> `0.2.0`）し、master ブランチへマージします。
 2.  **自動タグ付け**: master ブランチへプッシュされると GitHub Actions (`release-tag.yml`) が起動し、`package.json` のバージョンに基づいた Git タグ（例: `v0.2.0`）を自動で作成・プッシュします。
-3.  **自動デプロイ**: 新しい `v*` タグがプッシュされると、GitHub Actions (`deploy.yml`) が起動し、本番環境（GitHub Pages）へのビルドとデプロイが行われます。
+3.  **自動デプロイ**: 新しいタグが作成されると、`release-tag.yml` から `deploy.yml` が呼び出され、そのまま本番環境（GitHub Pages）へのビルドとデプロイが行われます。（GitHub Release の公開や手動トリガーでのデプロイにも対応しています）
 
 

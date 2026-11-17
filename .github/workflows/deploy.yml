@@ -1,11 +1,13 @@
 name: Deploy to GitHub Pages
 
-# Releaseが作成・公開されたときに発火
+# Releaseが作成・公開されたとき、手動実行、または他ワークフローからの呼び出し時に発火
 on:
   release:
     types: [published]
   # 手動実行も可能にする
   workflow_dispatch:
+  # タグ作成ワークフローなどからの呼び出しを可能にする
+  workflow_call:
 
 # GitHub Actions の実行環境を Node.js 24 に強制する
 env:
