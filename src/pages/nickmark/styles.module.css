@@ -1,0 +1,752 @@
+/* 全体共通コンテナ */
+.pageMain {
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+  color: var(--ifm-font-color-base);
+  background: var(--ifm-background-color);
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.sectionAlt {
+  background: var(--ifm-background-surface-color);
+}
+
+/* ============================================================
+   Hero Section
+   ============================================================ */
+.hero {
+  position: relative;
+  padding: 2.5rem 0 3rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.heroGlow {
+  position: absolute;
+  top: -140px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 780px;
+  height: 420px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(16, 185, 129, 0.22) 0%,
+    rgba(51, 102, 204, 0.14) 50%,
+    transparent 75%
+  );
+  filter: blur(48px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme='dark'] .heroGlow {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(16, 185, 129, 0.25) 0%,
+    rgba(52, 211, 153, 0.14) 48%,
+    transparent 75%
+  );
+}
+
+/* クイックアンカーナビゲーション */
+.anchorNav {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+  padding: 0.35rem;
+  border-radius: 9999px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-card-background-color);
+}
+
+.anchorPill {
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700);
+  text-decoration: none !important;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.anchorPill:hover {
+  background: var(--ifm-color-emphasis-100);
+  color: #059669;
+}
+
+[data-theme='dark'] .anchorPill:hover {
+  color: #34d399;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  max-width: 920px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heroAppBadge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.heroIcon {
+  border-radius: 20px;
+  filter: drop-shadow(0 16px 32px rgba(15, 23, 42, 0.22));
+  transition: transform 0.3s ease;
+}
+
+.heroIcon:hover {
+  transform: translateY(-3px) scale(1.02);
+}
+
+.metaPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #059669;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.26);
+}
+
+[data-theme='dark'] .metaPill {
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.16);
+  border-color: rgba(52, 211, 153, 0.3);
+}
+
+.heroTitle {
+  font-size: clamp(2.1rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.24;
+  letter-spacing: -0.01em;
+  margin: 0 0 1.25rem;
+  color: var(--ifm-font-color-base);
+}
+
+.heroTitleAccent {
+  background: linear-gradient(135deg, #10b981 0%, #059669 48%, #2563eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme='dark'] .heroTitleAccent {
+  background: linear-gradient(135deg, #34d399 0%, #10b981 48%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroSubtitle {
+  font-size: clamp(0.98rem, 2vw, 1.12rem);
+  color: var(--ifm-color-emphasis-700);
+  max-width: 680px;
+  margin: 0 0 2rem;
+  line-height: 1.75;
+}
+
+/* CTA グループ */
+.ctaGroup {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.primaryStoreBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  height: 48px;
+  padding: 0 1.65rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff !important;
+  font-size: 0.95rem;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-decoration: none !important;
+  box-shadow: 0 10px 26px rgba(16, 185, 129, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.primaryStoreBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(16, 185, 129, 0.4);
+  filter: brightness(1.06);
+}
+
+.primaryStoreBtn:active {
+  transform: scale(0.97);
+}
+
+.secondaryDocsBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 48px;
+  padding: 0 1.4rem;
+  border-radius: 9999px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-card-background-color);
+  backdrop-filter: blur(12px);
+  color: var(--ifm-font-color-base) !important;
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-decoration: none !important;
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.secondaryDocsBtn:hover {
+  transform: translateY(-2px);
+  border-color: #10b981;
+  color: #059669 !important;
+}
+
+[data-theme='dark'] .secondaryDocsBtn:hover {
+  color: #34d399 !important;
+}
+
+.heroLinks {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.githubLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700) !important;
+  text-decoration: none !important;
+  transition: color 0.18s ease;
+}
+
+.githubLink:hover {
+  color: #059669 !important;
+}
+
+[data-theme='dark'] .githubLink:hover {
+  color: #34d399 !important;
+}
+
+/* ============================================================
+   Interactive Showcase Section
+   ============================================================ */
+.showcaseSection {
+  padding: 1rem 0 5rem;
+}
+
+/* ============================================================
+   Feature Sections（2カラム交互配置）
+   ============================================================ */
+.featureSection {
+  padding: 5rem 0;
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.featureGridReverse .featureCopy {
+  order: 2;
+}
+
+.featureGridReverse .featureVisual {
+  order: 1;
+}
+
+.eyebrow,
+.eyebrowCenter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #059669;
+  margin-bottom: 0.75rem;
+}
+
+[data-theme='dark'] .eyebrow,
+[data-theme='dark'] .eyebrowCenter {
+  color: #34d399;
+}
+
+.featureTitle {
+  font-size: clamp(1.65rem, 3.2vw, 2.35rem);
+  font-weight: 800;
+  line-height: 1.28;
+  margin: 0 0 1rem;
+  color: var(--ifm-font-color-base);
+}
+
+.featureTitleAccent {
+  color: #059669;
+}
+
+[data-theme='dark'] .featureTitleAccent {
+  color: #34d399;
+}
+
+.featureDesc {
+  font-size: 0.98rem;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0 0 1.5rem;
+  line-height: 1.8;
+}
+
+.bulletList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.bulletItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: 0.92rem;
+  color: var(--ifm-font-color-base);
+}
+
+.bulletIcon {
+  color: #10b981;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+/* ============================================================
+   Commands & Shortcuts Section
+   ============================================================ */
+.referenceSection,
+.installSection {
+  padding: 5rem 0;
+}
+
+.sectionHeader {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 3rem;
+}
+
+.sectionTitle {
+  font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+  font-weight: 800;
+  margin: 0 0 0.75rem;
+  color: var(--ifm-font-color-base);
+}
+
+.sectionSubtitle {
+  font-size: 0.98rem;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0;
+  line-height: 1.7;
+}
+
+.referenceSubheading {
+  max-width: 880px;
+  margin: 2.5rem auto 1rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ifm-font-color-base);
+}
+
+.referenceSubheading:first-of-type {
+  margin-top: 0;
+}
+
+/* Flex リストテーブル */
+.flexList {
+  max-width: 880px;
+  margin: 0 auto;
+  border-radius: 16px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-card-background-color);
+  overflow: hidden;
+}
+
+.flexRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.95rem 1.4rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  transition: background-color 0.15s ease;
+}
+
+.flexRow:last-child {
+  border-bottom: none;
+}
+
+.flexRow:hover {
+  background: rgba(16, 185, 129, 0.04);
+}
+
+.keyCell {
+  min-width: 240px;
+  flex-shrink: 0;
+}
+
+.kbdBadge {
+  display: inline-block;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.28rem 0.6rem;
+  border-radius: 8px;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  color: var(--ifm-font-color-base);
+  box-shadow: 0 1px 0 var(--ifm-color-emphasis-300);
+}
+
+.aliasCell {
+  min-width: 110px;
+  flex-shrink: 0;
+}
+
+.aliasPill {
+  display: inline-block;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+}
+
+[data-theme='dark'] .aliasPill {
+  color: #34d399;
+}
+
+.descCell {
+  flex: 1;
+  font-size: 0.9rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+/* ============================================================
+   Installation Grid & Specs Strip
+   ============================================================ */
+.installGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.installCard {
+  display: flex;
+  flex-direction: column;
+  padding: 1.75rem;
+  border-radius: 16px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-card-background-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.installCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+}
+
+.installCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.installBadgeRecommended,
+.installBadgeDev {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+}
+
+.installBadgeRecommended {
+  background: rgba(16, 185, 129, 0.15);
+  color: #059669;
+}
+
+[data-theme='dark'] .installBadgeRecommended {
+  background: rgba(52, 211, 153, 0.16);
+  color: #34d399;
+}
+
+.installBadgeDev {
+  background: rgba(51, 102, 204, 0.12);
+  color: var(--ifm-color-primary);
+}
+
+.installCardTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.installCardDesc {
+  font-size: 0.9rem;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0 0 1.25rem;
+}
+
+.stepList {
+  margin: 0 0 1.25rem;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  font-size: 0.9rem;
+  color: var(--ifm-font-color-base);
+}
+
+.noteBox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  font-size: 0.82rem;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0 0 1.25rem;
+}
+
+.noteBox svg {
+  color: #10b981;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.commandStack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+
+.subCommandGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.subCommandLabel {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.cardActionBtnPrimary {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff !important;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none !important;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.cardActionBtnPrimary:hover {
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+}
+
+.cardActionBtnOutline {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  border: 1px solid var(--ifm-color-primary);
+  color: var(--ifm-color-primary) !important;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none !important;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.cardActionBtnOutline:hover {
+  background: rgba(51, 102, 204, 0.08);
+  transform: translateY(-2px);
+}
+
+/* 動作要件サマリー */
+.specsStrip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 16px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-card-background-color);
+}
+
+.specItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.specIcon {
+  color: #10b981;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.specLabel {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.specValue {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+}
+
+/* ============================================================
+   Bottom CTA Section
+   ============================================================ */
+.bottomCtaSection {
+  padding: 5rem 0;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.bottomCtaInner {
+  max-width: 920px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bottomCtaIcon {
+  border-radius: 16px;
+  margin-bottom: 1.25rem;
+  filter: drop-shadow(0 12px 24px rgba(15, 23, 42, 0.18));
+}
+
+.bottomCtaTitle {
+  font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+  font-weight: 800;
+  margin: 0 0 0.75rem;
+}
+
+.bottomCtaDesc {
+  font-size: 0.95rem;
+  color: var(--ifm-color-emphasis-700);
+  max-width: 640px;
+  margin: 0 0 1.75rem;
+}
+
+/* ============================================================
+   Responsive（900px / 768px ブレイクポイント）
+   ============================================================ */
+@media screen and (max-width: 900px) {
+  .featureSection,
+  .referenceSection,
+  .installSection,
+  .bottomCtaSection {
+    padding: 3.5rem 0;
+  }
+
+  .featureGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .featureGridReverse .featureCopy {
+    order: 1;
+  }
+
+  .featureGridReverse .featureVisual {
+    order: 2;
+  }
+
+  .installGrid,
+  .specsStrip {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .anchorNav {
+    border-radius: 16px;
+  }
+
+  .flexRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+  }
+
+  .keyCell,
+  .aliasCell {
+    min-width: auto;
+  }
+
+  .primaryStoreBtn,
+  .secondaryDocsBtn {
+    width: 100%;
+  }
+}

@@ -2731,5 +2731,494 @@
   },
   "wintch.bottomCta.desc": {
     "message": "Free and open-source under the MIT License."
+  },
+  "nickmark.page.title": {
+    "message": "Nickmark | Keyboard-First Bookmark Launcher Chrome Extension"
+  },
+  "nickmark.page.description": {
+    "message": "Introducing Nickmark, a keyboard-first Chrome extension with a command palette, dynamic URLs (%s), folder batch open, bookmarklet execution, and exponential decay ranking."
+  },
+  "nickmark.nav.ariaLabel": {
+    "message": "In-page navigation"
+  },
+  "nickmark.nav.palette": {
+    "message": "Command Palette"
+  },
+  "nickmark.nav.dynamic": {
+    "message": "Dynamic URL & JS"
+  },
+  "nickmark.nav.folders": {
+    "message": "Folder Batch Open"
+  },
+  "nickmark.nav.dashboard": {
+    "message": "Ranking & Dashboard"
+  },
+  "nickmark.nav.privacy": {
+    "message": "Sync & Privacy"
+  },
+  "nickmark.nav.commands": {
+    "message": "Commands"
+  },
+  "nickmark.nav.install": {
+    "message": "Install"
+  },
+  "nickmark.hero.meta": {
+    "message": "v2.0.4 · Chrome 135+ · MIT License"
+  },
+  "nickmark.hero.titlePrefix": {
+    "message": "Access your bookmarks,"
+  },
+  "nickmark.hero.titleAccent": {
+    "message": "at keyboard speed."
+  },
+  "nickmark.hero.subtitle": {
+    "message": "Nickmark is a keyboard-first Chrome extension built for engineers and power users. Assign short nicknames to frequent pages, search templates (%s), folder groups, and bookmarklets—and launch them in seconds from the command palette or address bar."
+  },
+  "nickmark.cta.store": {
+    "message": "Add from Chrome Web Store"
+  },
+  "nickmark.cta.docs": {
+    "message": "Read Documentation"
+  },
+  "nickmark.showcase.tablistLabel": {
+    "message": "Nickmark preview modes"
+  },
+  "nickmark.showcase.tab.palette": {
+    "message": "Command Palette"
+  },
+  "nickmark.showcase.tab.dashboard": {
+    "message": "Dashboard"
+  },
+  "nickmark.showcase.tab.preferences": {
+    "message": "Preferences & Sync"
+  },
+  "nickmark.showcase.presetsLabel": {
+    "message": "Try:"
+  },
+  "nickmark.showcase.clearPreset": {
+    "message": "Clear (Tips)"
+  },
+  "nickmark.showcase.placeholder": {
+    "message": "Search nicknames or run :add / :open / :rm ..."
+  },
+  "nickmark.showcase.inputAria": {
+    "message": "Nickmark command palette demo input"
+  },
+  "nickmark.showcase.clear": {
+    "message": "Clear input"
+  },
+  "nickmark.showcase.openList": {
+    "message": "Open Dashboard (:ls)"
+  },
+  "nickmark.showcase.openPrefs": {
+    "message": "Open Preferences (:prefs)"
+  },
+  "nickmark.showcase.noMatch": {
+    "message": "No matching candidates found."
+  },
+  "nickmark.showcase.nextTip": {
+    "message": "Click to show the next tip"
+  },
+  "nickmark.showcase.tip1": {
+    "message": "Run :add <name> (or :a) to bookmark the current tab immediately."
+  },
+  "nickmark.showcase.tip2": {
+    "message": "Type folder/ or :open folder/ and press Enter to batch-open all bookmarks under a folder."
+  },
+  "nickmark.showcase.tip3": {
+    "message": "Include %s in a URL to pass arguments directly—e.g. \"nickname query\"."
+  },
+  "nickmark.showcase.tip4": {
+    "message": "Use Shift+Enter to open multiple background tabs without closing the palette, or Cmd/Ctrl+Enter for a new foreground tab."
+  },
+  "nickmark.showcase.hint.current": {
+    "message": "Current Tab"
+  },
+  "nickmark.showcase.hint.newTab": {
+    "message": "New Tab"
+  },
+  "nickmark.showcase.hint.bgTab": {
+    "message": "Background Multi-Open"
+  },
+  "nickmark.showcase.feedback.added": {
+    "message": "Added \"{nickname}\" to the demo list"
+  },
+  "nickmark.showcase.feedback.removed": {
+    "message": "Removed \"{nickname}\" from the demo list"
+  },
+  "nickmark.showcase.feedback.batchOpen": {
+    "message": "Batch-opened tabs under \"{folder}/\" in background tabs"
+  },
+  "nickmark.showcase.feedback.command": {
+    "message": "Executed command {cmd}"
+  },
+  "nickmark.showcase.feedback.bookmarklet": {
+    "message": "Executed bookmarklet on the active tab via userScripts API (MAIN world)"
+  },
+  "nickmark.showcase.mode.cur": {
+    "message": "Opened in current tab"
+  },
+  "nickmark.showcase.mode.fg": {
+    "message": "Opened in new foreground tab"
+  },
+  "nickmark.showcase.mode.bg": {
+    "message": "Opened in background tab (palette stays open)"
+  },
+  "nickmark.showcase.dash.all": {
+    "message": "All"
+  },
+  "nickmark.showcase.dash.root": {
+    "message": "Uncategorized"
+  },
+  "nickmark.showcase.dash.sortScore": {
+    "message": "By Score"
+  },
+  "nickmark.showcase.dash.sortName": {
+    "message": "By Name"
+  },
+  "nickmark.showcase.dash.colNick": {
+    "message": "Nickname"
+  },
+  "nickmark.showcase.dash.colTitle": {
+    "message": "Title"
+  },
+  "nickmark.showcase.dash.colScore": {
+    "message": "Score"
+  },
+  "nickmark.showcase.dash.colPin": {
+    "message": "Pin"
+  },
+  "nickmark.showcase.dash.togglePinAria": {
+    "message": "Toggle pin"
+  },
+  "nickmark.showcase.prefs.syncTitle": {
+    "message": "Google Account Sync"
+  },
+  "nickmark.showcase.prefs.syncDesc": {
+    "message": "Sync bookmarks across devices (100KB quota with automatic 8KB chunking and conflict-resolution dialog)"
+  },
+  "nickmark.showcase.prefs.limitTitle": {
+    "message": "Batch Open Safety Limit"
+  },
+  "nickmark.showcase.prefs.limitDesc": {
+    "message": "Maximum tabs opened automatically without confirmation when batch-opening a folder (1–100, default: 20)"
+  },
+  "nickmark.showcase.prefs.historyTitle": {
+    "message": "Browser History Search (Opt-in)"
+  },
+  "nickmark.showcase.prefs.historyDesc": {
+    "message": "Requests history permission only when enabled and displays matching history below bookmark suggestions"
+  },
+  "nickmark.feature1.eyebrow": {
+    "message": "Command Palette (⌥⇧D / Alt+⇧D)"
+  },
+  "nickmark.feature1.titlePrefix": {
+    "message": "Launch from anywhere,"
+  },
+  "nickmark.feature1.titleAccent": {
+    "message": "without breaking flow."
+  },
+  "nickmark.feature1.desc": {
+    "message": "Press Option + Shift + D (or Alt + Shift + D on Windows/Linux) from any tab to summon the command palette. Search across nicknames, titles, and URLs, and choose how tabs open right from Enter modifiers."
+  },
+  "nickmark.feature1.b1": {
+    "message": "Navigate with ↑ / ↓ or Ctrl + N / P, autocomplete with Tab, and stay safe from IME accidental submits"
+  },
+  "nickmark.feature1.b2": {
+    "message": "Enter opens in the current tab, Cmd/Ctrl/Alt + Enter opens a new tab, and Shift + Enter launches background tabs continuously"
+  },
+  "nickmark.feature1.b3": {
+    "message": "Omnibox support (nm + Space) in the address bar remains available for backward compatibility"
+  },
+  "nickmark.feature2.eyebrow": {
+    "message": "Dynamic URLs (%s) & Bookmarklets"
+  },
+  "nickmark.feature2.titlePrefix": {
+    "message": "Arguments & scripts,"
+  },
+  "nickmark.feature2.titleAccent": {
+    "message": "executed in one shot."
+  },
+  "nickmark.feature2.desc": {
+    "message": "Embed %s in any URL to build instant search shortcuts like \"gh sawarame/Nickmark\". Register javascript: bookmarklets to run safely on the active tab without navigating away."
+  },
+  "nickmark.feature2.b1": {
+    "message": "Automatically preserves slashes in path segments and URL-encodes query parameters, with optional default values or origin fallback"
+  },
+  "nickmark.feature2.b2": {
+    "message": "Executes javascript: bookmarklets directly in the active tab's MAIN world via Chrome 135+ userScripts API"
+  },
+  "nickmark.feature2.b3": {
+    "message": "Optional opt-in browser history search displays deduplicated history matches below bookmark results without affecting scores"
+  },
+  "nickmark.feature3.eyebrow": {
+    "message": "Folders & Batch Open"
+  },
+  "nickmark.feature3.titlePrefix": {
+    "message": "Slash-separated folders,"
+  },
+  "nickmark.feature3.titleAccent": {
+    "message": "launch whole workspaces."
+  },
+  "nickmark.feature3.desc": {
+    "message": "Use slashes like work/mail and work/docs to organize nicknames into folders automatically. Type \"work/\" or \":open work/\" to open every bookmark inside in background tabs."
+  },
+  "nickmark.feature3.b1": {
+    "message": "Deduplicates identical URLs and skips javascript: bookmarklets cleanly during batch opens"
+  },
+  "nickmark.feature3.b2": {
+    "message": "Prompts for confirmation whenever a folder exceeds your configurable safety limit (1–100 tabs, default 20)"
+  },
+  "nickmark.feature3.b3": {
+    "message": "Filter, batch-open, rename, or delete entire folders directly from the management dashboard"
+  },
+  "nickmark.feature4.eyebrow": {
+    "message": "Smart Ranking & Dashboard"
+  },
+  "nickmark.feature4.titlePrefix": {
+    "message": "Adapts to your habits,"
+  },
+  "nickmark.feature4.titleAccent": {
+    "message": "effortless to maintain."
+  },
+  "nickmark.feature4.desc": {
+    "message": "Exponential decay scoring combined with manual pinning keeps your most relevant bookmarks at the top. In the dashboard (:ls), click any cell to edit inline or import existing Chrome bookmarks."
+  },
+  "nickmark.feature4.b1": {
+    "message": "Time-decay scoring (0.95^elapsedDays) plus pinning automatically adapts as your daily workflow shifts"
+  },
+  "nickmark.feature4.b2": {
+    "message": "Click any nickname, title, or URL cell to edit inline (Enter or blur saves, Esc cancels)"
+  },
+  "nickmark.feature4.b3": {
+    "message": "Supports Chrome bookmark HTML & Nickmark JSON import (merge/overwrite/target folder) plus a built-in JSON editor"
+  },
+  "nickmark.feature5.eyebrow": {
+    "message": "Privacy First & Sync"
+  },
+  "nickmark.feature5.titlePrefix": {
+    "message": "Zero external servers,"
+  },
+  "nickmark.feature5.titleAccent": {
+    "message": "local or synced your way."
+  },
+  "nickmark.feature5.desc": {
+    "message": "No external servers, telemetry, or tracking. Switch anytime between unlimited local storage and personal Chrome account sync—plus instant English/Japanese UI switching without reload."
+  },
+  "nickmark.feature5.b1": {
+    "message": "Choose between unlimited chrome.storage.local or chrome.storage.sync (100KB with automatic 8KB chunking)"
+  },
+  "nickmark.feature5.b2": {
+    "message": "Switching sync mode shows a comparison & conflict-resolution dialog comparing local vs. cloud timestamps and item counts"
+  },
+  "nickmark.feature5.b3": {
+    "message": "Browser history permission is strictly optional (optional_permissions) and never requested unless you opt in"
+  },
+  "nickmark.visual.palette.headline": {
+    "message": "Summon instantly from any tab"
+  },
+  "nickmark.visual.palette.curTab": {
+    "message": "Current Tab"
+  },
+  "nickmark.visual.palette.newTab": {
+    "message": "New Tab"
+  },
+  "nickmark.visual.palette.bgTab": {
+    "message": "Background Multi"
+  },
+  "nickmark.visual.dynamic.bmlTitle": {
+    "message": "Run directly via userScripts API (MAIN world)"
+  },
+  "nickmark.visual.folder.count": {
+    "message": "Open 3 tabs at once"
+  },
+  "nickmark.visual.folder.safeNote": {
+    "message": "Deduplicates URLs & prompts above safety limit (1–100, default 20)"
+  },
+  "nickmark.visual.rank.formulaLabel": {
+    "message": "Exponential Decay Score"
+  },
+  "nickmark.visual.rank.inline": {
+    "message": "Inline Cell Editing"
+  },
+  "nickmark.visual.rank.import": {
+    "message": "Chrome HTML / JSON Import"
+  },
+  "nickmark.visual.rank.json": {
+    "message": "JSON Editor & Backup"
+  },
+  "nickmark.visual.arch.localTitle": {
+    "message": "Zero External Servers or Tracking"
+  },
+  "nickmark.visual.arch.localStatus": {
+    "message": "Bookmarks stay strictly in local browser storage or your personal Chrome sync"
+  },
+  "nickmark.visual.arch.syncTitle": {
+    "message": "Unlimited Local & Chrome Account Sync"
+  },
+  "nickmark.visual.arch.syncStatus": {
+    "message": "Automatic 8KB chunking within 100KB sync quota with conflict resolution"
+  },
+  "nickmark.visual.arch.historyTitle": {
+    "message": "Opt-in History Search (optional_permissions)"
+  },
+  "nickmark.visual.arch.historyStatus": {
+    "message": "Never requests browsing history access unless explicitly enabled in Preferences"
+  },
+  "nickmark.visual.arch.i18nTitle": {
+    "message": "Bilingual UI & MIT Open Source"
+  },
+  "nickmark.visual.arch.i18nStatus": {
+    "message": "Instant EN/JA switching, built with TypeScript / Vue 3 / PrimeVue"
+  },
+  "nickmark.ref.eyebrow": {
+    "message": "Commands & Shortcuts"
+  },
+  "nickmark.ref.title": {
+    "message": "Keyboard Operation Reference"
+  },
+  "nickmark.ref.subtitle": {
+    "message": "Prefix with \":\" in the command palette (or omnibox) to register, batch-open, remove, or jump to management views."
+  },
+  "nickmark.commands.heading": {
+    "message": "Built-in Commands"
+  },
+  "nickmark.commands.add": {
+    "message": "Save the active tab, a custom URL, or a javascript: bookmarklet"
+  },
+  "nickmark.commands.addall": {
+    "message": "Save all open tabs in the current window"
+  },
+  "nickmark.commands.open": {
+    "message": "Open all associated URLs or a folder in background tabs"
+  },
+  "nickmark.commands.rm": {
+    "message": "Remove a nickname or a specific URL entry"
+  },
+  "nickmark.commands.ls": {
+    "message": "Open the bookmark management & inline editing dashboard"
+  },
+  "nickmark.commands.prefs": {
+    "message": "Open Preferences (sync, language, history search, batch limit)"
+  },
+  "nickmark.commands.help": {
+    "message": "Open the online help documentation"
+  },
+  "nickmark.shortcuts.heading": {
+    "message": "Keyboard Shortcuts"
+  },
+  "nickmark.shortcuts.scope.global": {
+    "message": "Launch"
+  },
+  "nickmark.shortcuts.scope.palette": {
+    "message": "Palette"
+  },
+  "nickmark.shortcuts.scope.action": {
+    "message": "Action"
+  },
+  "nickmark.shortcuts.scope.omnibox": {
+    "message": "Address Bar"
+  },
+  "nickmark.shortcuts.desc.launch": {
+    "message": "Open the command palette anywhere (customizable in chrome://extensions/shortcuts)"
+  },
+  "nickmark.shortcuts.desc.navigate": {
+    "message": "Move selection up or down in the suggestion list"
+  },
+  "nickmark.shortcuts.desc.autocomplete": {
+    "message": "Autocomplete the selected nickname, folder path, or command into the input"
+  },
+  "nickmark.shortcuts.desc.enter": {
+    "message": "Open in the current tab (or execute bookmarklet / command)"
+  },
+  "nickmark.shortcuts.desc.newTab": {
+    "message": "Open in a new foreground tab"
+  },
+  "nickmark.shortcuts.desc.bgTab": {
+    "message": "Open in a background tab while keeping the palette open"
+  },
+  "nickmark.shortcuts.desc.omnibox": {
+    "message": "Search nicknames or run commands directly from Chrome's address bar (backward compatible)"
+  },
+  "nickmark.install.eyebrow": {
+    "message": "Installation"
+  },
+  "nickmark.install.title": {
+    "message": "Install & Quick Start"
+  },
+  "nickmark.install.subtitle": {
+    "message": "Install in one click from the Chrome Web Store, or build directly from the open-source GitHub repository."
+  },
+  "nickmark.install.store.badge": {
+    "message": "Recommended"
+  },
+  "nickmark.install.store.title": {
+    "message": "Install from Chrome Web Store"
+  },
+  "nickmark.install.store.desc": {
+    "message": "Once added to Chrome, get started in four quick steps:"
+  },
+  "nickmark.install.store.step1": {
+    "message": "Open any page you visit frequently."
+  },
+  "nickmark.install.store.step2": {
+    "message": "Press Option + Shift + D (macOS) or Alt + Shift + D (Windows/Linux) to open the command palette."
+  },
+  "nickmark.install.store.step3": {
+    "message": "Type \":add gh\" and press Enter to save the current tab under the nickname \"gh\"."
+  },
+  "nickmark.install.store.step4": {
+    "message": "Next time, open the palette, type \"gh\", and press Enter to jump right there."
+  },
+  "nickmark.install.store.userscriptsNote": {
+    "message": "To execute javascript: bookmarklets, enable \"Allow User Scripts\" on the extension details page (chrome://extensions)."
+  },
+  "nickmark.install.store.button": {
+    "message": "Open Chrome Web Store"
+  },
+  "nickmark.install.dev.title": {
+    "message": "Build from GitHub Source"
+  },
+  "nickmark.install.dev.desc": {
+    "message": "Published as MIT-licensed open source—easy to build and load locally."
+  },
+  "nickmark.install.dev.cloneLabel": {
+    "message": "Clone the repository"
+  },
+  "nickmark.install.dev.buildLabel": {
+    "message": "Install dependencies & build"
+  },
+  "nickmark.install.dev.step1": {
+    "message": "Open chrome://extensions in Chrome and enable Developer mode."
+  },
+  "nickmark.install.dev.step2": {
+    "message": "Click \"Load unpacked\" and select the built package/ directory."
+  },
+  "nickmark.install.dev.button": {
+    "message": "View GitHub Repository"
+  },
+  "nickmark.specs.browserLabel": {
+    "message": "Browser & Spec"
+  },
+  "nickmark.specs.browserValue": {
+    "message": "Google Chrome 135+ · Manifest V3"
+  },
+  "nickmark.specs.permLabel": {
+    "message": "Privacy & Permissions"
+  },
+  "nickmark.specs.permValue": {
+    "message": "Zero Telemetry · Opt-in History Access"
+  },
+  "nickmark.specs.licenseLabel": {
+    "message": "License & Stack"
+  },
+  "nickmark.specs.licenseValue": {
+    "message": "MIT License · TypeScript / Vue 3 / PrimeVue"
+  },
+  "nickmark.bottomCta.title": {
+    "message": "Stop hunting through bookmarks."
+  },
+  "nickmark.bottomCta.desc": {
+    "message": "Free and open-source under the MIT License. Available now on the Chrome Web Store."
   }
 }
