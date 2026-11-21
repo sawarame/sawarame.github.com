@@ -38,8 +38,6 @@ In Nickmark (v2.1.0), all searching, registering, deleting, and navigation to ma
   - You can customize this shortcut anytime at `chrome://extensions/shortcuts`.
 - **Toolbar Icon**: Clicking the Nickmark icon in the browser toolbar also opens the exact same command palette.
 
-![Nickmark Command Palette Launcher Overview](./img/promo_en_01_launcher.png)
-
 :::note Contextual Tips When Empty
 When the search input is empty, a helpful usage tip (TIP) is displayed below the input bar. Click the tip area to cycle to another tip while keeping keyboard focus in the search box.
 :::
@@ -56,8 +54,6 @@ When the search input is empty, a helpful usage tip (TIP) is displayed below the
    - You can also start commands with a **semicolon `;`** (e.g. `;add dev`), which is especially convenient on Japanese and some international keyboards.
 4. A confirmation banner appears inside the popup, and the current tab is saved as `dev` without switching pages.
 
-![Register the active tab on the spot with :add](./img/promo_en_02_quick_register.png)
-
 :::tip
 - If the current page is already registered under another nickname, typing `:add` shows an informational banner in the popup listing the existing nickname(s).
 - All registration, deletion, and error notifications are displayed cleanly inside the popup without forcing a tab switch, even on restricted pages such as `chrome://`.
@@ -71,8 +67,6 @@ When the search input is empty, a helpful usage tip (TIP) is displayed below the
    - **`Enter`** (or click): Open in the current tab
    - **`Cmd / Ctrl / Alt + Enter`**: Open in a new foreground tab
    - **`Shift + Enter`**: Open in a background tab while keeping the palette open
-
-![Search by nickname and choose how tabs open](./img/promo_en_03_quick_launch.png)
 
 :::info
 Enable **"Open in a new tab by default"** in Preferences (`:prefs`) to make plain `Enter` open bookmarks in a new foreground tab. With the sub-option **"Open in the current tab when on a New Tab"**, opening from a New Tab page will still reuse that tab.
@@ -119,8 +113,6 @@ Include slashes (`/`) in nicknames to organize bookmarks into hierarchical folde
 
 Register `javascript:...` URLs to execute bookmarklets directly on the active tab without navigating away (powered by Chrome 135+ `userScripts` API in the `MAIN` world).
 
-![Folder batch open and direct bookmarklet execution](./img/promo_en_04_folders_bookmarklets.png)
-
 :::warning Enabling User Scripts (Chrome 135+)
 To run `javascript:` bookmarklets, enable **"Allow User Scripts"** on Nickmark's extension details page (`chrome://extensions`). If disabled, Nickmark displays a notice in the popup and management dashboard.
 :::
@@ -165,8 +157,6 @@ To prevent conflicts with command syntax and dynamic URLs, nicknames cannot cont
 ## Management Dashboard (`:ls`)
 
 Run **`:ls`** in the palette or click the list icon in the palette header to open the management dashboard (`list.html`).
-
-![Management dashboard inline editing and exponential decay ranking](./img/promo_en_05_dashboard_ranking.png)
 
 - **Inline Cell Editing**: Click any nickname, title, or URL cell to edit inline (`Enter` or blur saves, `Esc` cancels). For dynamic URLs (`%s`), `default_value` can be edited in the same cell.
 - **Per-Column Filtering**: Click the filter button on the Nickname, Title, or URL column headers to filter in real time with space-separated AND matching.
