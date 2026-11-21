@@ -101,7 +101,7 @@ const COMMAND_ITEMS: CommandRowItem[] = [
     command: ':prefs',
     alias: '—',
     descId: 'nickmark.commands.prefs',
-    desc: '設定画面（同期・言語・履歴検索・一括オープン安全上限）を開く',
+    desc: '設定画面（同期・言語・別タブ設定・履歴検索・定番プリセット18種・安全上限）を開く',
   },
   {
     command: ':help',
@@ -143,6 +143,13 @@ const SHORTCUT_ITEMS: Array<{
     desc: '選択中のニックネームやフォルダパス・コマンドを入力欄へ補完',
   },
   {
+    keys: 'Esc',
+    scopeId: 'nickmark.shortcuts.scope.palette',
+    scope: 'パレット',
+    descId: 'nickmark.shortcuts.desc.esc',
+    desc: 'アクションを実行せずにコマンドパレットを閉じる',
+  },
+  {
     keys: 'Enter',
     scopeId: 'nickmark.shortcuts.scope.action',
     scope: '実行',
@@ -162,13 +169,6 @@ const SHORTCUT_ITEMS: Array<{
     scope: '実行',
     descId: 'nickmark.shortcuts.desc.bgTab',
     desc: 'パレットを開いたままバックグラウンドタブで連続起動',
-  },
-  {
-    keys: 'nm + Space',
-    scopeId: 'nickmark.shortcuts.scope.omnibox',
-    scope: 'アドレスバー',
-    descId: 'nickmark.shortcuts.desc.omnibox',
-    desc: 'アドレスバー（Omnibox）から直接ニックネーム検索・コマンド実行（後方互換）',
   },
 ];
 
@@ -245,7 +245,7 @@ function NickmarkHeroSection(): JSX.Element {
             />
             <span className={styles.metaPill}>
               <Translate id="nickmark.hero.meta">
-                v2.0.4 · Chrome 135+ · MIT License
+                v2.1.0 · Chrome 135+ · MIT License
               </Translate>
             </span>
           </div>
@@ -260,7 +260,7 @@ function NickmarkHeroSection(): JSX.Element {
 
           <p className={styles.heroSubtitle}>
             <Translate id="nickmark.hero.subtitle">
-              Nickmark は、マウス移動を最小限にしたいエンジニアやパワーユーザーのための Chrome 拡張機能です。よく使うページ・検索テンプレート（%s）・フォルダグループ・ブックマークレットに短いニックネームを割り当て、コマンドパレットやアドレスバーから瞬時に呼び出せます。
+              Nickmark は、マウス移動を最小限にしたいエンジニアやパワーユーザーのための Chrome 拡張機能です。よく使うページ・検索テンプレート（%s）・フォルダグループ・ブックマークレットに短いニックネームを割り当て、コマンドパレットから瞬時に呼び出せます。
             </Translate>
           </p>
 
@@ -443,7 +443,7 @@ export default function NickmarkPage(): JSX.Element {
               },
               {
                 id: 'nickmark.feature1.b3',
-                text: 'アドレスバーに「nm + Space」を入力するオムニボックス連携も後方互換として継続サポート',
+                text: 'ツールバーアイコンからも起動でき、「:」または「;」を先頭に入力するだけで即座にコマンドモードへ切り替え',
               },
             ]}
             visual={<CommandPaletteVisual />}
@@ -454,13 +454,13 @@ export default function NickmarkPage(): JSX.Element {
             id="dynamic-url"
             icon={<Code2 size={15} strokeWidth={2.2} aria-hidden="true" />}
             eyebrowId="nickmark.feature2.eyebrow"
-            eyebrow="動的 URL (%s) & ブックマークレット"
+            eyebrow="動的 URL (%s)・定番プリセット & ブックマークレット"
             titlePrefixId="nickmark.feature2.titlePrefix"
             titlePrefix="検索引数もスクリプトも、"
             titleAccentId="nickmark.feature2.titleAccent"
             titleAccent="そのままワンショットで。"
             descriptionId="nickmark.feature2.desc"
-            description="URL に %s を埋め込めば、「gh sawarame/Nickmark」のように引数を渡して遷移できるカスタム検索ショートカットに早変わり。javascript: から始まるブックマークレットも、ページ遷移なしで安全に実行できます。"
+            description="URL に %s を埋め込めば、「gh sawarame/Nickmark」のように引数を渡して遷移できるカスタム検索ショートカットに早変わり。設定画面の定番プリセット 18 種（検索エンジン 15 件・ブックマークレット 3 件）をチェックひとつで即座に有効化でき、javascript: コードも安全に実行できます。"
             bullets={[
               {
                 id: 'nickmark.feature2.b1',
@@ -493,7 +493,7 @@ export default function NickmarkPage(): JSX.Element {
             bullets={[
               {
                 id: 'nickmark.feature3.b1',
-                text: '同一 URL の重複除外とブックマークレットの自動スキップにより、クリーンにタブを展開',
+                text: '「github/repo」に対する「repo/」のような途中フォルダ名での検索に対応し、重複 URL 除外・ブックマークレットスキップを自動実行',
               },
               {
                 id: 'nickmark.feature3.b2',
@@ -526,7 +526,7 @@ export default function NickmarkPage(): JSX.Element {
               },
               {
                 id: 'nickmark.feature4.b2',
-                text: '管理テーブルのニックネーム・タイトル・URL をクリックで即座にインライン編集（Enter 保存 / Esc キャンセル）',
+                text: 'セルクリックでのインライン編集（Enter 保存 / Esc キャンセル）に加え、列別 AND フィルターとスコア・日時ソートを搭載',
               },
               {
                 id: 'nickmark.feature4.b3',
@@ -579,7 +579,7 @@ export default function NickmarkPage(): JSX.Element {
                 </h2>
                 <p className={styles.sectionSubtitle}>
                   <Translate id="nickmark.ref.subtitle">
-                    パレット（またはアドレスバー）でコロン「:」から始めるだけで、登録から設定画面の呼び出しまで完結します。
+                    コマンドパレットでコロン「:」またはセミコロン「;」から始めるだけで、登録から設定画面の呼び出しまで完結します。
                   </Translate>
                 </p>
               </div>
@@ -681,7 +681,7 @@ export default function NickmarkPage(): JSX.Element {
                     </li>
                     <li>
                       <Translate id="nickmark.install.store.step3">
-                        「:add gh」と入力して Enter を押すと、現在のタブがニックネーム「gh」として登録されます。
+                        「:add gh」（または「;add gh」）と入力して Enter を押すと、現在のタブがニックネーム「gh」として登録されます。
                       </Translate>
                     </li>
                     <li>

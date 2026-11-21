@@ -158,6 +158,9 @@
   "home.extensions.envicon.desc": {
     "message": "A browser extension for developers that changes the favicon based on production, staging, and development environments."
   },
+  "home.extensions.nickmark.desc": {
+    "message": "A keyboard-first browser extension for instantly accessing bookmarks and dynamic URLs from a command palette using nicknames."
+  },
   "home.extensions.geminikit.desc": {
     "message": "An extension to enhance the Google Gemini web interface. Use Enter for new lines and Cmd/Ctrl+Enter to send."
   },
@@ -2769,7 +2772,7 @@
     "message": "Install"
   },
   "nickmark.hero.meta": {
-    "message": "v2.0.4 · Chrome 135+ · MIT License"
+    "message": "v2.1.0 · Chrome 135+ · MIT License"
   },
   "nickmark.hero.titlePrefix": {
     "message": "Access your bookmarks,"
@@ -2778,7 +2781,7 @@
     "message": "at keyboard speed."
   },
   "nickmark.hero.subtitle": {
-    "message": "Nickmark is a keyboard-first Chrome extension built for engineers and power users. Assign short nicknames to frequent pages, search templates (%s), folder groups, and bookmarklets—and launch them in seconds from the command palette or address bar."
+    "message": "Nickmark is a keyboard-first Chrome extension built for engineers and power users. Assign short nicknames to frequent pages, search templates (%s), folder groups, and bookmarklets—and launch them in seconds from the command palette."
   },
   "nickmark.cta.store": {
     "message": "Add from Chrome Web Store"
@@ -2790,7 +2793,7 @@
     "message": "Try:"
   },
   "nickmark.showcase.placeholder": {
-    "message": "Search nicknames or run :add / :addall / :rm ..."
+    "message": "Search nicknames or type :add / ;add / :rm ..."
   },
   "nickmark.showcase.inputAria": {
     "message": "Nickmark command palette demo input"
@@ -2805,7 +2808,7 @@
     "message": "Click to show the next tip"
   },
   "nickmark.showcase.tip1": {
-    "message": "Run :add <name> (or :a) to bookmark the current tab immediately."
+    "message": "Run :add <name> (or ;add / :a) to bookmark the current tab immediately."
   },
   "nickmark.showcase.tip2": {
     "message": "Type folder/ (e.g. work/) and press Enter to batch-open all bookmarks under a folder."
@@ -2840,6 +2843,12 @@
   "nickmark.showcase.feedback.removed": {
     "message": "Removed \"{nickname}\" from the demo list"
   },
+  "nickmark.showcase.feedback.forbidden": {
+    "message": "Nickname contains forbidden characters (spaces, : ; \\ % ? # & = * \" ' ` < > |, etc.)."
+  },
+  "nickmark.showcase.alreadyBookmarked": {
+    "message": "This page is already bookmarked (Nickname: {nicknames})"
+  },
   "nickmark.showcase.feedback.command": {
     "message": "Executed command {cmd}"
   },
@@ -2865,10 +2874,10 @@
     "message": "Enter opens in the current tab, Cmd/Ctrl/Alt + Enter opens a new tab, and Shift + Enter launches background tabs continuously"
   },
   "nickmark.feature1.b3": {
-    "message": "Omnibox support (nm + Space) in the address bar remains available for backward compatibility"
+    "message": "Also accessible from the toolbar icon, and supports both \":\" and \";\" prefixes to switch straight into command mode"
   },
   "nickmark.feature2.eyebrow": {
-    "message": "Dynamic URLs (%s) & Bookmarklets"
+    "message": "Dynamic URLs (%s), Presets & Bookmarklets"
   },
   "nickmark.feature2.titlePrefix": {
     "message": "Arguments & scripts,"
@@ -2877,7 +2886,7 @@
     "message": "executed in one shot."
   },
   "nickmark.feature2.desc": {
-    "message": "Embed %s in any URL to build instant search shortcuts like \"gh sawarame/Nickmark\". Register javascript: bookmarklets to run safely on the active tab without navigating away."
+    "message": "Embed %s in any URL to build instant search shortcuts like \"gh sawarame/Nickmark\". Enable 18 built-in presets (15 search engines & 3 bookmarklets) with checkboxes in Preferences, or register javascript: bookmarklets to run safely on the active tab."
   },
   "nickmark.feature2.b1": {
     "message": "Automatically preserves slashes in path segments and URL-encodes query parameters, with optional default values or origin fallback"
@@ -2901,7 +2910,7 @@
     "message": "Use slashes like work/mail and work/docs to organize nicknames into folders automatically. Type \"work/\" and press Enter to open every bookmark inside in background tabs."
   },
   "nickmark.feature3.b1": {
-    "message": "Deduplicates identical URLs and skips javascript: bookmarklets cleanly during batch opens"
+    "message": "Supports intermediate folder matching (e.g., \"repo/\" for \"github/repo\"), deduplicates URLs, and skips javascript: bookmarklets"
   },
   "nickmark.feature3.b2": {
     "message": "Prompts for confirmation whenever a folder exceeds your configurable safety limit (1–100 tabs, default 20)"
@@ -2925,7 +2934,7 @@
     "message": "Time-decay scoring (0.95^elapsedDays) plus pinning automatically adapts as your daily workflow shifts"
   },
   "nickmark.feature4.b2": {
-    "message": "Click any nickname, title, or URL cell to edit inline (Enter or blur saves, Esc cancels)"
+    "message": "Click any cell to edit inline (Enter/blur saves, Esc cancels), plus per-column AND filters and score/date sorting"
   },
   "nickmark.feature4.b3": {
     "message": "Supports Chrome bookmark HTML & Nickmark JSON import (merge/overwrite/target folder) plus a built-in JSON editor"
@@ -2976,13 +2985,13 @@
     "message": "Exponential Decay Score"
   },
   "nickmark.visual.rank.inline": {
-    "message": "Inline Cell Editing"
+    "message": "Inline Edit & Column Filters"
   },
   "nickmark.visual.rank.import": {
     "message": "Chrome HTML / JSON Import"
   },
   "nickmark.visual.rank.json": {
-    "message": "JSON Editor & Backup"
+    "message": "JSON Editor & Sorting"
   },
   "nickmark.visual.arch.localTitle": {
     "message": "Zero External Servers or Tracking"
@@ -3015,7 +3024,7 @@
     "message": "Keyboard Operation Reference"
   },
   "nickmark.ref.subtitle": {
-    "message": "Prefix with \":\" in the command palette (or omnibox) to register, batch-open, remove, or jump to management views."
+    "message": "Prefix with \":\" or \";\" in the command palette to register, batch-open, remove, or jump to management views."
   },
   "nickmark.commands.heading": {
     "message": "Built-in Commands"
@@ -3033,7 +3042,7 @@
     "message": "Open the bookmark management & inline editing dashboard"
   },
   "nickmark.commands.prefs": {
-    "message": "Open Preferences (sync, language, history search, batch limit)"
+    "message": "Open Preferences (sync, language, tab behavior, history, 18 presets, batch limit)"
   },
   "nickmark.commands.help": {
     "message": "Open the online help documentation"
@@ -3050,9 +3059,6 @@
   "nickmark.shortcuts.scope.action": {
     "message": "Action"
   },
-  "nickmark.shortcuts.scope.omnibox": {
-    "message": "Address Bar"
-  },
   "nickmark.shortcuts.desc.launch": {
     "message": "Open the command palette anywhere (customizable in chrome://extensions/shortcuts)"
   },
@@ -3062,6 +3068,9 @@
   "nickmark.shortcuts.desc.autocomplete": {
     "message": "Autocomplete the selected nickname, folder path, or command into the input"
   },
+  "nickmark.shortcuts.desc.esc": {
+    "message": "Close the command palette without running an action"
+  },
   "nickmark.shortcuts.desc.enter": {
     "message": "Open in the current tab (or execute bookmarklet / command)"
   },
@@ -3070,9 +3079,6 @@
   },
   "nickmark.shortcuts.desc.bgTab": {
     "message": "Open in a background tab while keeping the palette open"
-  },
-  "nickmark.shortcuts.desc.omnibox": {
-    "message": "Search nicknames or run commands directly from Chrome's address bar (backward compatible)"
   },
   "nickmark.install.eyebrow": {
     "message": "Installation"
@@ -3099,7 +3105,7 @@
     "message": "Press Option + Shift + D (macOS) or Alt + Shift + D (Windows/Linux) to open the command palette."
   },
   "nickmark.install.store.step3": {
-    "message": "Type \":add gh\" and press Enter to save the current tab under the nickname \"gh\"."
+    "message": "Type \":add gh\" (or \";add gh\") and press Enter to save the current tab under the nickname \"gh\"."
   },
   "nickmark.install.store.step4": {
     "message": "Next time, open the palette, type \"gh\", and press Enter to jump right there."

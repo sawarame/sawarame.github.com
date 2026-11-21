@@ -29,6 +29,11 @@ import {
   buildDemoPaletteItems,
   DemoBookmarkItem,
   DemoSearchResult,
+  findDemoNicknamesForUrl,
+  hasForbiddenDemoNicknameChars,
+  isDemoCommandQuery,
+  normalizeDemoCommandPrefix,
+  normalizeDemoNicknamePath,
 } from './nickmarkSearchUtils';
 
 /**
@@ -132,7 +137,7 @@ const INITIAL_DEMO_BOOKMARKS: DemoBookmarkItem[] = [
 const DEMO_TIPS: Array<{ id: string; message: string }> = [
   {
     id: 'nickmark.showcase.tip1',
-    message: ':add <名前>（短縮 :a）で、開いているタブを即座にブックマーク登録できます。',
+    message: ':add <名前>（または ;add / :a）で、開いているタブを即座にブックマーク登録できます。',
   },
   {
     id: 'nickmark.showcase.tip2',
@@ -253,7 +258,7 @@ function SimulatedWebPage({ tab }: { tab: DemoBrowserTab }): JSX.Element {
           <div className={`${styles.mailRow} ${styles.mailRowUnread}`}>
             <span className={styles.mailUnreadDot} />
             <span className={styles.mailSender}>Release Bot</span>
-            <span className={styles.mailSubject}>[Nickmark] v2.0.4 deployed to Chrome Web Store</span>
+            <span className={styles.mailSubject}>[Nickmark] v2.1.0 deployed to Chrome Web Store</span>
             <span className={styles.mailTime}>10:42</span>
           </div>
           <div className={`${styles.mailRow} ${styles.mailRowUnread}`}>
@@ -400,7 +405,7 @@ function SimulatedWebPage({ tab }: { tab: DemoBrowserTab }): JSX.Element {
         </div>
       </div>
       <div className={styles.sawaraHeroContent}>
-        <div className={styles.sawaraBadge}>v2.0.4 · Chrome 135+ · MIT License</div>
+        <div className={styles.sawaraBadge}>v2.1.0 · Chrome 135+ · MIT License</div>
         <div className={styles.sawaraHeroHeading}>{tab.title}</div>
         <div className={styles.sawaraHeroSub}>
           よく使うページやフォルダに短いニックネームを付けて、キーボードだけで瞬時に起動。
@@ -430,7 +435,10 @@ export default function NickmarkShowcase(): JSX.Element {
   const [query, setQuery] = useState<string>('gh/Nickmark');
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [tipIndex, setTipIndex] = useState<number>(0);
-  const [commandFeedback, setCommandFeedback] = useState<string | null>(null);
+  const [commandFeedback, setCommandFeedback] = useState<{
+    severity: 'success' | 'error';
+    message: string;
+  } | null>(null);
 
   // 模擬ブラウザのタブとページ状態
   const [browserTabs, setBrowserTabs] = useState<DemoBrowserTab[]>(INITIAL_BROWSER_TABS);
@@ -438,7 +446,7 @@ export default function NickmarkShowcase(): JSX.Element {
   const [navRevision, setNavRevision] = useState<number>(0);
   const [scriptBanner, setScriptBanner] = useState<string | null>(null);
 
-  const isCommandMode = query.trimStart().startsWith(':');
+  const isCommandMode = isDemoCommandQuery(query);
 
   /**
    * 現在アクティブな模擬ブラウザタブ
@@ -446,6 +454,28 @@ export default function NickmarkShowcase(): JSX.Element {
   const activeBrowserTab = useMemo(() => {
     return browserTabs.find((t) => t.id === activeBrowserTabId) ?? browserTabs[0];
   }, [browserTabs, activeBrowserTabId]);
+
+  /**
+   * :add / ;add 入力時に現在の模擬タブが登録済みであればお知らせメッセージを生成する
+   */
+  const alreadyBookmarkedNotice = useMemo(() => {
+    if (!isCommandMode) return null;
+    const normalized = normalizeDemoCommandPrefix(query);
+    const firstToken = normalized.split(/\s+/)[0] || '';
+    if (firstToken.length < 2 || ![':add', ':a', ':ad'].some((c) => c === firstToken || ':add'.startsWith(firstToken))) {
+      return null;
+    }
+    if (!firstToken.startsWith(':a')) return null;
+    const existing = findDemoNicknamesForUrl(activeBrowserTab.url, bookmarks);
+    if (existing.length === 0) return null;
+    return translate(
+      {
+        id: 'nickmark.showcase.alreadyBookmarked',
+        message: 'このページはすでにブックマークに登録されています（ニックネーム: {nicknames}）',
+      },
+      { nicknames: existing.join(', ') }
+    );
+  }, [isCommandMode, query, activeBrowserTab.url, bookmarks]);
 
   /**
    * 現在の検索クエリに基づく候補リスト
@@ -534,8 +564,19 @@ export default function NickmarkShowcase(): JSX.Element {
       if (item.kind === 'command') {
         const val = item.executeValue.trim();
         if (val.startsWith(':addall ')) {
-          const newNick = val.slice(8).trim().split(/\s+/)[0];
+          const newNick = normalizeDemoNicknamePath(val.slice(8).trim().split(/\s+/)[0] || '');
           if (newNick) {
+            if (hasForbiddenDemoNicknameChars(newNick)) {
+              setCommandFeedback({
+                severity: 'error',
+                message: translate({
+                  id: 'nickmark.showcase.feedback.forbidden',
+                  message:
+                    'ニックネームに使用できない文字（空白、: ; \\ % ? # & = * " \' ` < > | など）が含まれています。',
+                }),
+              });
+              return;
+            }
             setBookmarks((prev) => {
               const additions: DemoBookmarkItem[] = browserTabs.map((t, i) => ({
                 id: `demo-all-${Date.now()}-${i}`,
@@ -548,22 +589,34 @@ export default function NickmarkShowcase(): JSX.Element {
               }));
               return [...additions, ...prev];
             });
-            setCommandFeedback(
-              translate(
+            setCommandFeedback({
+              severity: 'success',
+              message: translate(
                 {
                   id: 'nickmark.showcase.feedback.added',
                   message: '「{nickname}」をデモリストに登録しました',
                 },
                 { nickname: newNick }
-              )
-            );
+              ),
+            });
             setQuery('');
             return;
           }
         }
         if (val.startsWith(':add ')) {
-          const newNick = val.slice(5).trim().split(/\s+/)[0];
+          const newNick = normalizeDemoNicknamePath(val.slice(5).trim().split(/\s+/)[0] || '');
           if (newNick) {
+            if (hasForbiddenDemoNicknameChars(newNick)) {
+              setCommandFeedback({
+                severity: 'error',
+                message: translate({
+                  id: 'nickmark.showcase.feedback.forbidden',
+                  message:
+                    'ニックネームに使用できない文字（空白、: ; \\ % ? # & = * " \' ` < > | など）が含まれています。',
+                }),
+              });
+              return;
+            }
             setBookmarks((prev) => {
               if (prev.some((b) => b.nickname === newNick)) {
                 return prev;
@@ -581,15 +634,16 @@ export default function NickmarkShowcase(): JSX.Element {
                 ...prev,
               ];
             });
-            setCommandFeedback(
-              translate(
+            setCommandFeedback({
+              severity: 'success',
+              message: translate(
                 {
                   id: 'nickmark.showcase.feedback.added',
                   message: '「{nickname}」をデモリストに登録しました',
                 },
                 { nickname: newNick }
-              )
-            );
+              ),
+            });
             setQuery('');
             return;
           }
@@ -598,28 +652,30 @@ export default function NickmarkShowcase(): JSX.Element {
           const targetNick = val.slice(4).trim().split(/\s+/)[0];
           if (targetNick) {
             setBookmarks((prev) => prev.filter((b) => b.nickname !== targetNick));
-            setCommandFeedback(
-              translate(
+            setCommandFeedback({
+              severity: 'success',
+              message: translate(
                 {
                   id: 'nickmark.showcase.feedback.removed',
                   message: '「{nickname}」をデモリストから削除しました',
                 },
                 { nickname: targetNick }
-              )
-            );
+              ),
+            });
             setQuery('');
             return;
           }
         }
-        setCommandFeedback(
-          translate(
+        setCommandFeedback({
+          severity: 'success',
+          message: translate(
             {
               id: 'nickmark.showcase.feedback.command',
               message: 'コマンド {cmd} を実行しました',
             },
             { cmd: val }
-          )
-        );
+          ),
+        });
         return;
       }
 
@@ -750,6 +806,7 @@ export default function NickmarkShowcase(): JSX.Element {
     { label: 'gh/Nickmark', value: 'gh/Nickmark' },
     { label: 'work/', value: 'work/' },
     { label: ':add dev', value: ':add dev' },
+    { label: ';add dev', value: ';add dev' },
     { label: 'js/top', value: 'js/top' },
   ];
 
@@ -903,7 +960,7 @@ export default function NickmarkShowcase(): JSX.Element {
                   onKeyDown={handleInputKeyDown}
                   placeholder={translate({
                     id: 'nickmark.showcase.placeholder',
-                    message: 'ニックネーム検索 または :add / :addall / :rm ...',
+                    message: 'ニックネーム検索 または :add / ;add / :rm ...',
                   })}
                   className={styles.paletteInput}
                   aria-label={translate({
@@ -926,9 +983,28 @@ export default function NickmarkShowcase(): JSX.Element {
               </div>
 
               {commandFeedback && (
-                <div className={styles.paletteFeedback} role="status">
-                  <CheckCircle2 size={15} strokeWidth={2.2} aria-hidden="true" />
-                  <span>{commandFeedback}</span>
+                <div
+                  className={`${styles.paletteFeedback} ${
+                    commandFeedback.severity === 'error' ? styles.paletteFeedbackError : ''
+                  }`}
+                  role={commandFeedback.severity === 'error' ? 'alert' : 'status'}
+                >
+                  {commandFeedback.severity === 'error' ? (
+                    <Info size={15} strokeWidth={2.2} aria-hidden="true" />
+                  ) : (
+                    <CheckCircle2 size={15} strokeWidth={2.2} aria-hidden="true" />
+                  )}
+                  <span>{commandFeedback.message}</span>
+                </div>
+              )}
+
+              {alreadyBookmarkedNotice && (
+                <div
+                  className={`${styles.paletteFeedback} ${styles.paletteFeedbackInfo}`}
+                  role="status"
+                >
+                  <Info size={15} strokeWidth={2.2} aria-hidden="true" />
+                  <span>{alreadyBookmarkedNotice}</span>
                 </div>
               )}
 

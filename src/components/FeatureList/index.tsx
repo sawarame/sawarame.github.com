@@ -230,7 +230,7 @@ export const extensions = [
     title: 'Nickmark',
     descriptionId: 'home.extensions.nickmark.desc',
     description:
-      'ニックネームを使ってアドレスバーからブックマークへ瞬時にアクセスするための、キーボード操作特化型拡張機能。',
+      'ニックネームを使ってコマンドパレットからブックマークや動的 URL へ瞬時にアクセスできる、キーボード操作特化型拡張機能。',
     link: 'https://chromewebstore.google.com/detail/nickmark/bicojpjoabhecikokcohbjgaiojggpno',
     badge: 'Chrome Web Store',
   },

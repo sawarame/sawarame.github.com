@@ -3,6 +3,8 @@ import {
   buildDemoPaletteItems,
   expandDemoDynamicUrl,
   extractDemoFolders,
+  findDemoNicknamesForUrl,
+  hasForbiddenDemoNicknameChars,
   DemoBookmarkItem,
 } from './nickmarkSearchUtils';
 
@@ -41,6 +43,14 @@ const SAMPLE_BOOKMARKS: DemoBookmarkItem[] = [
     score: 9.1,
     lastUsedLabel: '昨日',
   },
+  {
+    id: '5',
+    nickname: 'github/repo/issues',
+    title: 'Repository Issues',
+    url: 'https://github.com/sawarame/Nickmark/issues',
+    score: 12.0,
+    lastUsedLabel: '5時間前',
+  },
 ];
 
 describe('NickmarkShowcase 検索デモユーティリティ', () => {
@@ -69,6 +79,7 @@ describe('NickmarkShowcase 検索デモユーティリティ', () => {
     it('ブックマークレットを除外してフォルダ配下のオープン可能件数を集計すること', () => {
       const folders = extractDemoFolders(SAMPLE_BOOKMARKS);
       expect(folders.get('work')).toBe(2);
+      expect(folders.get('github/repo')).toBe(1);
       expect(folders.has('js')).toBe(false);
     });
   });
@@ -88,10 +99,42 @@ describe('NickmarkShowcase 検索デモユーティリティ', () => {
       expect(items[0].typeTag).toBe('📁 2');
     });
 
+    it('階層途中のフォルダ名でもセグメント境界一致で一括オープン候補を返すこと', () => {
+      const items = buildDemoPaletteItems('repo/', SAMPLE_BOOKMARKS, 'ja');
+      expect(items[0].kind).toBe('folder');
+      expect(items[0].badge).toBe('github/repo/');
+      expect(items[0].typeTag).toBe('📁 1');
+    });
+
     it('コロン入力時は組み込みコマンド候補を返すこと', () => {
       const items = buildDemoPaletteItems(':ad', SAMPLE_BOOKMARKS, 'ja');
       expect(items.some((item) => item.badge === ':add')).toBe(true);
       expect(items.some((item) => item.badge === ':addall')).toBe(true);
+    });
+
+    it('セミコロン入力時もコマンドモードとして起動し正規化されたコマンド候補を返すこと', () => {
+      const items = buildDemoPaletteItems(';add dev', SAMPLE_BOOKMARKS, 'ja');
+      expect(items[0].kind).toBe('command');
+      expect(items[0].badge).toBe(':add');
+      expect(items[0].fillText).toBe(':add dev');
+    });
+  });
+
+  describe('hasForbiddenDemoNicknameChars', () => {
+    it('コマンド起動文字や禁止記号を検出し、スラッシュは許可すること', () => {
+      expect(hasForbiddenDemoNicknameChars('work/gh-1')).toBe(false);
+      expect(hasForbiddenDemoNicknameChars('my:nick')).toBe(true);
+      expect(hasForbiddenDemoNicknameChars('my;nick')).toBe(true);
+      expect(hasForbiddenDemoNicknameChars('my nick')).toBe(true);
+      expect(hasForbiddenDemoNicknameChars('q?a=1')).toBe(true);
+    });
+  });
+
+  describe('findDemoNicknamesForUrl', () => {
+    it('すでに登録されている URL に一致するニックネーム一覧を返すこと', () => {
+      expect(findDemoNicknamesForUrl('https://mail.example.com/', SAMPLE_BOOKMARKS)).toEqual([
+        'work/mail',
+      ]);
     });
   });
 });

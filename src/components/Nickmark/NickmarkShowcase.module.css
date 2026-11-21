@@ -1062,6 +1062,28 @@
   color: #6ee7b7;
 }
 
+.paletteFeedbackInfo {
+  background: rgba(59, 130, 246, 0.12);
+  color: #1d4ed8;
+  border-bottom-color: rgba(59, 130, 246, 0.24);
+}
+
+[data-theme='dark'] .paletteFeedbackInfo {
+  background: rgba(59, 130, 246, 0.18);
+  color: #93c5fd;
+}
+
+.paletteFeedbackError {
+  background: rgba(239, 68, 68, 0.12);
+  color: #b91c1c;
+  border-bottom-color: rgba(239, 68, 68, 0.24);
+}
+
+[data-theme='dark'] .paletteFeedbackError {
+  background: rgba(239, 68, 68, 0.18);
+  color: #fca5a5;
+}
+
 /* 候補リスト */
 .paletteList {
   max-height: 255px;
