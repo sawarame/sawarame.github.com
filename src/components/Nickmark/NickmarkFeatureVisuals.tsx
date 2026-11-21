@@ -206,7 +206,7 @@ export function RankingDashboardVisual(): JSX.Element {
       <div className={styles.featureChipGrid}>
         <span className={styles.featureChip}>
           <Pencil size={12} strokeWidth={2.2} aria-hidden="true" />
-          <Translate id="nickmark.visual.rank.inline">セル直接インライン編集</Translate>
+          <Translate id="nickmark.visual.rank.inline">インライン編集＆列フィルター</Translate>
         </span>
         <span className={styles.featureChip}>
           <Upload size={12} strokeWidth={2.2} aria-hidden="true" />
@@ -214,7 +214,7 @@ export function RankingDashboardVisual(): JSX.Element {
         </span>
         <span className={styles.featureChip}>
           <FileJson size={12} strokeWidth={2.2} aria-hidden="true" />
-          <Translate id="nickmark.visual.rank.json">JSON エディタ＆バックアップ</Translate>
+          <Translate id="nickmark.visual.rank.json">JSON エディタ＆ソート</Translate>
         </span>
       </div>
     </div>

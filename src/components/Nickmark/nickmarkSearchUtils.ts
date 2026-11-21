@@ -45,6 +45,92 @@ export interface DemoSearchResult {
 }
 
 /**
+ * ニックネームまたはフォルダ名に使用できない文字（ブラックリスト）の正規表現
+ * コマンド起動文字（`:`, `;`）、空白、バックスラッシュ、URL/構文衝突記号、制御・ゼロ幅文字を禁止する（`/` は許可）
+ */
+const FORBIDDEN_DEMO_NICKNAME_CHAR_REGEX =
+  /[:;\\\s%?#&=*"'`<>|\u0000-\u001F\u007F\u200B-\u200D\uFEFF]/;
+
+/**
+ * 入力文字列がコマンドモード（`:` または `;` で開始）かどうかを判定する
+ * @param rawQuery - 入力された検索/コマンド文字列
+ * @returns コマンドモードの場合は true
+ */
+export function isDemoCommandQuery(rawQuery: string): boolean {
+  if (!rawQuery) return false;
+  const trimmedStart = rawQuery.trimStart();
+  return trimmedStart.startsWith(':') || trimmedStart.startsWith(';');
+}
+
+/**
+ * コマンド入力文字列の先頭プレフィックス `;` を標準の `:` へ正規化する
+ * @param rawQuery - 入力されたコマンド文字列
+ * @returns 先頭プレフィックスを `:` に正規化した文字列
+ */
+export function normalizeDemoCommandPrefix(rawQuery: string): string {
+  const trimmedStart = rawQuery.trimStart();
+  if (trimmedStart.startsWith(';')) {
+    return `:${trimmedStart.slice(1)}`;
+  }
+  return trimmedStart;
+}
+
+/**
+ * デモ用ニックネームに使用不可文字が含まれるか判定する
+ * @param value - 判定対象のニックネーム文字列
+ * @returns 使用不可文字を含む場合は true
+ */
+export function hasForbiddenDemoNicknameChars(value: string): boolean {
+  if (!value) return false;
+  return FORBIDDEN_DEMO_NICKNAME_CHAR_REGEX.test(value);
+}
+
+/**
+ * ニックネームおよびフォルダパスの先頭・末尾・連続スラッシュを正規化する
+ * @param rawPath - 入力された生のパス文字列
+ * @returns 正規化後のパス文字列
+ */
+export function normalizeDemoNicknamePath(rawPath: string): string {
+  return rawPath
+    .trim()
+    .split('/')
+    .map((segment) => segment.trim())
+    .filter((segment) => segment.length > 0)
+    .join('/');
+}
+
+/**
+ * フォルダパスがクエリ文字列にセグメント境界（`/` 区切り）起点で一致するか判定する
+ * @param folderPath - フォルダパス
+ * @param lowerNormQuery - 小文字化・正規化済みのクエリ文字列
+ * @param exactSuffix - 末尾 `/` 明示時のサフィックス完全一致フラグ
+ * @returns 一致する場合は true
+ */
+function matchesDemoFolderBySegment(
+  folderPath: string,
+  lowerNormQuery: string,
+  exactSuffix: boolean
+): boolean {
+  const lowerPath = folderPath.toLowerCase();
+  if (exactSuffix) {
+    return lowerPath === lowerNormQuery || lowerPath.endsWith(`/${lowerNormQuery}`);
+  }
+  if (lowerPath.startsWith(lowerNormQuery)) {
+    return true;
+  }
+
+  let searchFrom = 0;
+  while (true) {
+    const slashIndex = lowerPath.indexOf('/', searchFrom);
+    if (slashIndex === -1) return false;
+    if (lowerPath.startsWith(lowerNormQuery, slashIndex + 1)) {
+      return true;
+    }
+    searchFrom = slashIndex + 1;
+  }
+}
+
+/**
  * 動的 URL の `%s` を引数で展開するヘルパー関数
  * @param templateUrl - `%s` を含むテンプレート URL
  * @param arg - 埋め込む引数文字列
@@ -121,6 +207,30 @@ export function extractDemoFolders(bookmarks: DemoBookmarkItem[]): Map<string, n
 }
 
 /**
+ * 対象 URL がすでに登録されているデモブックマークのニックネーム一覧を返す
+ * @param targetUrl - 判定対象の URL
+ * @param bookmarks - デモブックマーク一覧
+ * @returns 登録済みニックネームの配列
+ */
+export function findDemoNicknamesForUrl(
+  targetUrl: string,
+  bookmarks: DemoBookmarkItem[]
+): string[] {
+  if (!targetUrl || /^javascript:/i.test(targetUrl.trim())) return [];
+  const normalizedTarget = targetUrl.trim().replace(/\/+$/, '').toLowerCase();
+  const matched: string[] = [];
+
+  for (const item of bookmarks) {
+    if (/^javascript:/i.test(item.url.trim())) continue;
+    const normItem = item.url.trim().replace(/\/+$/, '').toLowerCase();
+    if (normItem === normalizedTarget && !matched.includes(item.nickname)) {
+      matched.push(item.nickname);
+    }
+  }
+  return matched;
+}
+
+/**
  * 組み込みコマンドの定義一覧
  */
 const DEMO_COMMANDS: Array<{
@@ -162,8 +272,8 @@ const DEMO_COMMANDS: Array<{
     cmd: ':prefs',
     aliases: [],
     usage: ':prefs',
-    descJa: '設定画面（同期・言語・履歴検索・上限件数）を開く',
-    descEn: 'Open Preferences (sync, language, history, batch limit)',
+    descJa: '設定画面（同期・言語・履歴検索・プリセット・上限）を開く',
+    descEn: 'Open Preferences (sync, language, history, presets, batch limit)',
   },
   {
     cmd: ':help',
@@ -189,11 +299,12 @@ export function buildDemoPaletteItems(
   const trimmed = rawQuery.trim();
   if (!trimmed) return [];
 
-  // コマンドモード（':' プレフィックス）
-  if (trimmed.startsWith(':')) {
-    const spaceIdx = trimmed.indexOf(' ');
-    const cmdToken = spaceIdx === -1 ? trimmed : trimmed.slice(0, spaceIdx);
-    const argText = spaceIdx === -1 ? '' : trimmed.slice(spaceIdx + 1).trim();
+  // コマンドモード（':' または ';' プレフィックス、内部で ':' に正規化）
+  if (isDemoCommandQuery(trimmed)) {
+    const normalizedCmdInput = normalizeDemoCommandPrefix(trimmed);
+    const spaceIdx = normalizedCmdInput.indexOf(' ');
+    const cmdToken = spaceIdx === -1 ? normalizedCmdInput : normalizedCmdInput.slice(0, spaceIdx);
+    const argText = spaceIdx === -1 ? '' : normalizedCmdInput.slice(spaceIdx + 1).trim();
     const results: DemoSearchResult[] = [];
 
     for (const def of DEMO_COMMANDS) {
@@ -237,7 +348,12 @@ export function buildDemoPaletteItems(
 
   const folders = extractDemoFolders(bookmarks);
   const isExplicitFolder = trimmed.endsWith('/');
-  const cleanFolder = trimmed.replace(/^\/+|\/+$/g, '').toLowerCase();
+  const cleanFolder = normalizeDemoNicknamePath(trimmed).toLowerCase();
+
+  // スラッシュのみ（'/' や '///'）の入力時は全件誤ヒットを防ぐため空配列を返す
+  if (!cleanFolder && trimmed.includes('/')) {
+    return [];
+  }
 
   const scored: Array<{ tier: number; item: DemoBookmarkItem; resolvedUrl: string; isDynamic: boolean }> = [];
 
@@ -310,31 +426,34 @@ export function buildDemoPaletteItems(
     };
   });
 
-  // フォルダ一括オープン候補の挿入
+  // フォルダ一括オープン候補の挿入（セグメント境界一致・アルファベット順）
   if (cleanFolder) {
-    for (const [folderPath, count] of folders.entries()) {
-      const pathLower = folderPath.toLowerCase();
-      if (pathLower === cleanFolder || (!isExplicitFolder && pathLower.startsWith(cleanFolder))) {
-        const folderResult: DemoSearchResult = {
-          kind: 'folder',
-          id: `folder-${folderPath}`,
-          badge: `${folderPath}/`,
-          title:
-            locale === 'en'
-              ? `Open all bookmarks in "${folderPath}" (${count} tabs)`
-              : `フォルダ「${folderPath}」を一括オープン (${count}タブ)`,
-          subtitle: `${folderPath}/`,
-          typeTag: `📁 ${count}`,
-          fillText: `${folderPath}/`,
-          executeValue: `folder:${folderPath}`,
-        };
-        if (isExplicitFolder) {
-          results.unshift(folderResult);
-        } else {
-          const insertIdx = scored[0]?.tier === 1 ? 1 : 0;
-          results.splice(insertIdx, 0, folderResult);
-        }
-        break;
+    const matchedFolders = Array.from(folders.entries())
+      .filter(([folderPath]) =>
+        matchesDemoFolderBySegment(folderPath, cleanFolder, isExplicitFolder)
+      )
+      .sort(([a], [b]) => a.toLowerCase().localeCompare(b.toLowerCase()));
+
+    if (matchedFolders.length > 0) {
+      const folderResults: DemoSearchResult[] = matchedFolders.map(([folderPath, count]) => ({
+        kind: 'folder',
+        id: `folder-${folderPath}`,
+        badge: `${folderPath}/`,
+        title:
+          locale === 'en'
+            ? `Open all bookmarks in "${folderPath}" (${count} tabs)`
+            : `フォルダ「${folderPath}」を一括オープン (${count}タブ)`,
+        subtitle: `${folderPath}/`,
+        typeTag: `📁 ${count}`,
+        fillText: `${folderPath}/`,
+        executeValue: `folder:${folderPath}`,
+      }));
+
+      if (isExplicitFolder) {
+        results.unshift(...folderResults);
+      } else {
+        const insertIdx = scored[0]?.tier === 1 ? 1 : 0;
+        results.splice(insertIdx, 0, ...folderResults);
       }
     }
   }
