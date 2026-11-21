@@ -1,11 +1,20 @@
 import React from 'react';
-import Layout from '@theme/Layout';
+import LayoutProvider from '@theme/Layout/Provider';
+import SkipToContent from '@theme/SkipToContent';
+import ErrorPageContent from '@theme/ErrorPageContent';
+import ErrorBoundary from '@docusaurus/ErrorBoundary';
+import {
+  PageMetadata,
+  SkipToContentFallbackId,
+  ThemeClassNames,
+} from '@docusaurus/theme-common';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Translate, { translate } from '@docusaurus/Translate';
 import MuiTheme from '@site/src/components/MuiTheme';
 import CopyCommandPill from '@site/src/components/Wintch/CopyCommandPill';
 import WintchShowcase from '@site/src/components/Wintch/WintchShowcase';
+import WintchTopControls from '@site/src/components/Wintch/WintchTopControls';
 import {
   WindowSwitcherVisual,
   CaptureGridVisual,
@@ -178,6 +187,9 @@ function WintchHeroSection(): JSX.Element {
     <section className={styles.hero}>
       <div className={styles.heroGlow} aria-hidden="true" />
       <div className={styles.container}>
+        {/* 言語切替・ダークモード切替ユーティリティバー */}
+        <WintchTopControls />
+
         {/* セクションアンカーピル（LinearMouse 風クイックナビ） */}
         <nav
           className={styles.anchorNav}
@@ -358,9 +370,16 @@ export default function WintchPage(): JSX.Element {
   });
 
   return (
-    <Layout title={`${pageTitle} | ${siteConfig.title}`} description={pageDesc}>
+    <LayoutProvider>
+      <PageMetadata title={`${pageTitle} | ${siteConfig.title}`} description={pageDesc} />
+      <SkipToContent />
       <MuiTheme>
-        <main className={styles.pageMain}>
+        <div
+          id={SkipToContentFallbackId}
+          className={ThemeClassNames.wrapper.main}
+        >
+          <ErrorBoundary fallback={(params) => <ErrorPageContent {...params} />}>
+            <main className={styles.pageMain}>
           {/* 1. ヒーロー */}
           <WintchHeroSection />
 
@@ -751,8 +770,10 @@ export default function WintchPage(): JSX.Element {
               </div>
             </div>
           </section>
-        </main>
+            </main>
+          </ErrorBoundary>
+        </div>
       </MuiTheme>
-    </Layout>
+    </LayoutProvider>
   );
 }

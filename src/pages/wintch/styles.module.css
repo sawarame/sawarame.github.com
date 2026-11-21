@@ -1,5 +1,6 @@
 /* 全体共通コンテナ */
 .pageMain {
+  min-height: 100vh;
   line-height: 1.7;
   letter-spacing: 0.03em;
   color: var(--ifm-font-color-base);
@@ -22,7 +23,7 @@
    ============================================================ */
 .hero {
   position: relative;
-  padding: 2.5rem 0 3rem;
+  padding: 1.5rem 0 3rem;
   text-align: center;
   overflow: hidden;
 }
