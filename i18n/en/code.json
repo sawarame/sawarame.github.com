@@ -2741,6 +2741,12 @@
   "wintch.bottomCta.desc": {
     "message": "Free and open-source under the MIT License."
   },
+  "wintch.topControls.languageAria": {
+    "message": "Switch language"
+  },
+  "wintch.topControls.menuAria": {
+    "message": "Available languages"
+  },
   "nickmark.page.title": {
     "message": "Nickmark | Keyboard-First Bookmark Launcher Chrome Extension"
   },
