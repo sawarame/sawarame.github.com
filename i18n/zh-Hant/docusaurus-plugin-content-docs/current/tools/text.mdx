@@ -1,0 +1,29 @@
+---
+title: 文字暫存區
+slug: /text
+sidebar_position: 10
+hide_title: true
+---
+
+import TextScratchpad from "@site/src/components/TextScratchpad";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { StickyNote } from "lucide-react";
+
+<ToolPageHeader
+  title="文字暫存區"
+  desc="用來暫時儲存文字的便利空間。儲存的文字會保留在瀏覽器的本機儲存空間中。"
+  icon={<StickyNote size={48} color="#fff" />}
+/>
+
+<TextScratchpad />
+
+## 使用方式
+
+1. 在左側輸入區域輸入文字，按下「儲存」按鈕或 Enter 鍵（視設定而定）即可儲存。
+2. 儲存的文字會加入右側清單中，並記錄在瀏覽器的本機儲存空間內。
+3. 常用的文字可點擊釘選圖示固定於頂端。
+4. 善用複製或批次下載功能，輕鬆運用已儲存的文字內容。
+
+:::info 關於安全性
+🔒 所有資料皆儲存於您所使用的瀏覽器內，絕不會傳送至伺服器。
+:::

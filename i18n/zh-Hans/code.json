@@ -1,0 +1,3317 @@
+{
+  "about.title": {
+    "message": "关于本站 | sawara.me"
+  },
+  "about.header.title": {
+    "message": "关于 sawara.me"
+  },
+  "about.header.desc": {
+    "message": "关于 sawara.me 的设计理念及提供的功能"
+  },
+  "about.concept.title": {
+    "message": "网站理念"
+  },
+  "about.concept.free.title": {
+    "message": "人人免费使用"
+  },
+  "about.concept.free.desc": {
+    "message": "sawara.me 是一个免费提供各类小巧实用工具的网站，旨在解决日常生活中的小麻烦。我们致力于打造一个无需繁琐注册或登录、无广告干扰、随时打开即可使用的工具站。"
+  },
+  "about.concept.secure.title": {
+    "message": "100% 浏览器本地处理的安全性"
+  },
+  "about.concept.secure.desc": {
+    "message": "无需担心“想压缩图片却不放心上传照片到服务器”或“想生成密码又怕通信内容泄露”等隐私问题。本站工具的所有处理均在您的浏览器本地完成，数据绝不会被发送至任何外部服务器。"
+  },
+  "about.extension.title": {
+    "message": "自制浏览器扩展程序"
+  },
+  "about.extension.desc": {
+    "message": "除了 Web 工具外，我们还面向 Chrome / Edge 浏览器开发并发布了多款自制扩展程序，用于改善特定网站的使用体验或大幅提升开发效率。"
+  },
+  "about.tech.title": {
+    "message": "技术栈"
+  },
+  "about.tech.docusaurus.desc": {
+    "message": "高速静态站点生成"
+  },
+  "about.tech.mui.desc": {
+    "message": "统一美观的 UI 组件"
+  },
+  "about.tech.ts.desc": {
+    "message": "通过类型安全保障稳定运行"
+  },
+  "home.description": {
+    "message": "sawara.me — 一个发布实用小工具和应用程序、用于解决日常小不便的网站。"
+  },
+  "home.hero.badge": {
+    "message": "实用工具与浏览器扩展程序"
+  },
+  "home.hero.subtitle": {
+    "message": "打造小而美的工具。"
+  },
+  "home.hero.description": {
+    "message": "解决日常小不便的安全、纯浏览器端实用工具与扩展程序合集。"
+  },
+  "home.hero.actions.tools": {
+    "message": "查看工具"
+  },
+  "home.hero.actions.extensions": {
+    "message": "查看扩展程序"
+  },
+  "home.hero.aboutLink": {
+    "message": "关于本站"
+  },
+  "home.tools.label": {
+    "message": "工具"
+  },
+  "home.tools.title": {
+    "message": "浏览器工具"
+  },
+  "home.tools.subtitle": {
+    "message": "完全在浏览器内运行的日常极简实用工具。"
+  },
+  "home.tools.password.title": {
+    "message": "密码生成器"
+  },
+  "home.tools.password.desc": {
+    "message": "按指定条件生成密码。设置保存在 URL 中便于分享，全程在浏览器内安全运行。"
+  },
+  "home.tools.text.title": {
+    "message": "文本暂存板"
+  },
+  "home.tools.text.desc": {
+    "message": "用于临时保存文本的便签空间。内容存储在浏览器的本地存储中。"
+  },
+  "home.tools.device.title": {
+    "message": "设备信息检测"
+  },
+  "home.tools.device.desc": {
+    "message": "显示当前设备的屏幕尺寸和 User-Agent 等信息。"
+  },
+  "home.tools.qr.title": {
+    "message": "QR 码生成器"
+  },
+  "home.tools.qr.desc": {
+    "message": "根据 URL 或文本生成 QR 码。支持嵌入图标、Wi-Fi 配置及日历事件创建。"
+  },
+  "home.tools.qr-reader.title": {
+    "message": "QR 码识别器"
+  },
+  "home.tools.qr-reader.desc": {
+    "message": "上传 QR 码图片即可解码其中的文本。URL 可直接打开，所有处理均在浏览器内完成。"
+  },
+  "home.tools.date.title": {
+    "message": "日期比较工具"
+  },
+  "home.tools.date.desc": {
+    "message": "计算两个日期之间的差值，支持多种日期输入格式。"
+  },
+  "home.tools.exif.title": {
+    "message": "照片 Exif 信息查看器"
+  },
+  "home.tools.exif.desc": {
+    "message": "读取照片的拍摄日期、相机信息和 GPS 等元数据。照片仅在本地处理，安全无忧。"
+  },
+  "home.tools.resize.title": {
+    "message": "图片压缩与裁剪"
+  },
+  "home.tools.resize.desc": {
+    "message": "在浏览器中压缩图片并转换为 WebP 格式。支持批量处理和清除 EXIF 信息。"
+  },
+  "home.tools.pdfEditor.title": {
+    "message": "PDF 编辑器（图片与 PDF 导出）"
+  },
+  "home.tools.pdfEditor.desc": {
+    "message": "提取、合并 PDF 页面或将其转换为图片。支持通过预览选择特定页面，全程在浏览器内安全运行。"
+  },
+  "home.tools.benchmark.title": {
+    "message": "Web 性能测试"
+  },
+  "home.tools.benchmark.desc": {
+    "message": "在浏览器中测试设备的计算性能，并以分数和等级进行评估。"
+  },
+  "home.tools.encoding.title": {
+    "message": "文本编码转换器"
+  },
+  "home.tools.encoding.desc": {
+    "message": "自动检测并转换字符编码（UTF-8、Shift_JIS 等），同时预估目标文件大小。支持直接粘贴文本。"
+  },
+  "home.tools.markdownPdf.title": {
+    "message": "Markdown 转 PDF"
+  },
+  "home.tools.markdownPdf.desc": {
+    "message": "在浏览器中将上传的 Markdown 文件或直接输入的文本转换为可选中、可搜索文本的 PDF。"
+  },
+  "home.extensions.label": {
+    "message": "扩展程序"
+  },
+  "home.extensions.title": {
+    "message": "Chrome 扩展程序"
+  },
+  "home.extensions.subtitle": {
+    "message": "上架于 Chrome Web Store 的实用扩展程序，让您的开发与浏览体验更加顺畅。"
+  },
+  "home.extensions.taborigami.desc": {
+    "message": "借助 AI 自动整理过多打开的标签页。让 Gemini 一键为您的浏览器减负。"
+  },
+  "home.extensions.envicon.desc": {
+    "message": "面向开发者的浏览器扩展程序，可根据生产、预发布和开发环境自动更改网站图标（Favicon）。"
+  },
+  "home.extensions.nickmark.desc": {
+    "message": "键盘优先的浏览器扩展程序，可通过命令面板输入别名即时访问书签和动态 URL。"
+  },
+  "home.extensions.geminikit.desc": {
+    "message": "增强 Google Gemini 网页端体验的扩展程序。支持按 Enter 换行，按 Cmd/Ctrl+Enter 发送。"
+  },
+  "home.extensions.mdpicker.desc": {
+    "message": "轻松以 Markdown 格式复制网页链接的浏览器扩展程序。"
+  },
+  "home.extensions.ketchuptimer.desc": {
+    "message": "以趣味番茄酱瓶为灵感的番茄钟计时器。番茄酱余量直观呈现剩余专注时间，让高效工作更具视觉趣味。"
+  },
+  "home.extensions.foursight.desc": {
+    "message": "用于追踪和可视化 GitHub Four Keys（DORA 指标）的扩展程序，助力提升开发团队效能。"
+  },
+  "home.extensions.linkText": {
+    "message": "在 Chrome Web Store 查看 →"
+  },
+  "home.macApps.label": {
+    "message": "Mac 应用"
+  },
+  "home.macApps.title": {
+    "message": "macOS 桌面应用"
+  },
+  "home.macApps.subtitle": {
+    "message": "使用 Swift 和 SwiftUI 构建的轻量级原生 macOS 应用。"
+  },
+  "home.macApps.wintch.desc": {
+    "message": "专为 macOS 打造的按窗口切换器与搜索启动器，支持列表视图和实时截图网格模式，助您直达任意已打开的窗口。"
+  },
+  "home.macApps.linkText": {
+    "message": "查看介绍页与安装方法 →"
+  },
+  "theme.ErrorPageContent.title": {
+    "message": "页面已崩溃。",
+    "description": "The title of the fallback page when the page crashed"
+  },
+  "theme.BackToTopButton.buttonAriaLabel": {
+    "message": "回到顶部",
+    "description": "The ARIA label for the back to top button"
+  },
+  "theme.blog.archive.title": {
+    "message": "历史博文",
+    "description": "The page & hero title of the blog archive page"
+  },
+  "theme.blog.archive.description": {
+    "message": "历史博文",
+    "description": "The page & hero description of the blog archive page"
+  },
+  "theme.blog.paginator.navAriaLabel": {
+    "message": "博文列表分页导航",
+    "description": "The ARIA label for the blog pagination"
+  },
+  "theme.blog.paginator.newerEntries": {
+    "message": "较新的博文",
+    "description": "The label used to navigate to the newer blog posts page (previous page)"
+  },
+  "theme.blog.paginator.olderEntries": {
+    "message": "较旧的博文",
+    "description": "The label used to navigate to the older blog posts page (next page)"
+  },
+  "theme.blog.post.paginator.navAriaLabel": {
+    "message": "博文分页导航",
+    "description": "The ARIA label for the blog posts pagination"
+  },
+  "theme.blog.post.paginator.newerPost": {
+    "message": "较新一篇",
+    "description": "The blog post button label to navigate to the newer/previous post"
+  },
+  "theme.blog.post.paginator.olderPost": {
+    "message": "较旧一篇",
+    "description": "The blog post button label to navigate to the older/next post"
+  },
+  "theme.tags.tagsPageLink": {
+    "message": "查看所有标签",
+    "description": "The label of the link targeting the tag list page"
+  },
+  "theme.colorToggle.ariaLabel.mode.system": {
+    "message": "system mode",
+    "description": "The name for the system color mode"
+  },
+  "theme.colorToggle.ariaLabel.mode.light": {
+    "message": "浅色模式",
+    "description": "The name for the light color mode"
+  },
+  "theme.colorToggle.ariaLabel.mode.dark": {
+    "message": "暗黑模式",
+    "description": "The name for the dark color mode"
+  },
+  "theme.colorToggle.ariaLabel": {
+    "message": "切换浅色/暗黑模式（当前为{mode}）",
+    "description": "The ARIA label for the color mode toggle"
+  },
+  "theme.docs.breadcrumbs.navAriaLabel": {
+    "message": "页面路径",
+    "description": "The ARIA label for the breadcrumbs"
+  },
+  "theme.docs.paginator.navAriaLabel": {
+    "message": "文件选项卡",
+    "description": "The ARIA label for the docs pagination"
+  },
+  "theme.docs.paginator.previous": {
+    "message": "上一页",
+    "description": "The label used to navigate to the previous doc"
+  },
+  "theme.docs.paginator.next": {
+    "message": "下一页",
+    "description": "The label used to navigate to the next doc"
+  },
+  "theme.docs.tagDocListPageTitle.nDocsTagged": {
+    "message": "{count} 篇文档带有标签",
+    "description": "Pluralized label for \"{count} docs tagged\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.docs.tagDocListPageTitle": {
+    "message": "{nDocsTagged}「{tagName}」",
+    "description": "The title of the page for a docs tag"
+  },
+  "theme.docs.versionBadge.label": {
+    "message": "版本：{versionLabel}"
+  },
+  "theme.docs.versions.unreleasedVersionLabel": {
+    "message": "此为 {siteTitle} {versionLabel} 版尚未发行的文档。",
+    "description": "The label used to tell the user that he's browsing an unreleased doc version"
+  },
+  "theme.docs.versions.unmaintainedVersionLabel": {
+    "message": "此为 {siteTitle} {versionLabel} 版的文档，现已不再积极维护。",
+    "description": "The label used to tell the user that he's browsing an unmaintained doc version"
+  },
+  "theme.docs.versions.latestVersionSuggestionLabel": {
+    "message": "最新的文档请参阅 {latestVersionLink} ({versionLabel})。",
+    "description": "The label used to tell the user to check the latest version"
+  },
+  "theme.docs.versions.latestVersionLinkLabel": {
+    "message": "最新版本",
+    "description": "The label used for the latest version suggestion link label"
+  },
+  "theme.common.editThisPage": {
+    "message": "编辑此页",
+    "description": "The link label to edit the current page"
+  },
+  "theme.common.headingLinkTitle": {
+    "message": "{heading}的直接链接",
+    "description": "Title for link to heading"
+  },
+  "theme.lastUpdated.atDate": {
+    "message": "于 {date} ",
+    "description": "The words used to describe on which date a page has been last updated"
+  },
+  "theme.lastUpdated.byUser": {
+    "message": "由 {user} ",
+    "description": "The words used to describe by who the page has been last updated"
+  },
+  "theme.lastUpdated.lastUpdatedAtBy": {
+    "message": "最后{byUser}{atDate}更新",
+    "description": "The sentence used to display when a page has been last updated, and by who"
+  },
+  "theme.navbar.mobileVersionsDropdown.label": {
+    "message": "选择版本",
+    "description": "The label for the navbar versions dropdown on mobile view"
+  },
+  "theme.NotFound.title": {
+    "message": "找不到页面",
+    "description": "The title of the 404 page"
+  },
+  "theme.tags.tagsListLabel": {
+    "message": "标签：",
+    "description": "The label alongside a tag list"
+  },
+  "theme.AnnouncementBar.closeButtonAriaLabel": {
+    "message": "关闭",
+    "description": "The ARIA label for close button of announcement bar"
+  },
+  "theme.admonition.caution": {
+    "message": "警告",
+    "description": "The default label used for the Caution admonition (:::caution)"
+  },
+  "theme.admonition.danger": {
+    "message": "危险",
+    "description": "The default label used for the Danger admonition (:::danger)"
+  },
+  "theme.admonition.info": {
+    "message": "信息",
+    "description": "The default label used for the Info admonition (:::info)"
+  },
+  "theme.admonition.note": {
+    "message": "备注",
+    "description": "The default label used for the Note admonition (:::note)"
+  },
+  "theme.admonition.tip": {
+    "message": "提示",
+    "description": "The default label used for the Tip admonition (:::tip)"
+  },
+  "theme.admonition.warning": {
+    "message": "注意",
+    "description": "The default label used for the Warning admonition (:::warning)"
+  },
+  "theme.blog.sidebar.navAriaLabel": {
+    "message": "最近博文导航",
+    "description": "The ARIA label for recent posts in the blog sidebar"
+  },
+  "theme.DocSidebarItem.expandCategoryAriaLabel": {
+    "message": "展开侧边栏分类 '{label}'",
+    "description": "The ARIA label to expand the sidebar category"
+  },
+  "theme.DocSidebarItem.collapseCategoryAriaLabel": {
+    "message": "折叠侧边栏分类 '{label}'",
+    "description": "The ARIA label to collapse the sidebar category"
+  },
+  "theme.IconExternalLink.ariaLabel": {
+    "message": "(opens in new tab)",
+    "description": "The ARIA label for the external link icon"
+  },
+  "theme.NavBar.navAriaLabel": {
+    "message": "主导航",
+    "description": "The ARIA label for the main navigation"
+  },
+  "theme.navbar.mobileLanguageDropdown.label": {
+    "message": "选择语言",
+    "description": "The label for the mobile language switcher dropdown"
+  },
+  "theme.NotFound.p1": {
+    "message": "我们找不到您要找的页面。",
+    "description": "The first paragraph of the 404 page"
+  },
+  "theme.NotFound.p2": {
+    "message": "请联系原始链接来源网站的所有者，并告知他们链接已损坏。",
+    "description": "The 2nd paragraph of the 404 page"
+  },
+  "theme.TOCCollapsible.toggleButtonLabel": {
+    "message": "本页总览",
+    "description": "The label used by the button on the collapsible TOC component"
+  },
+  "theme.blog.post.readMore": {
+    "message": "阅读更多",
+    "description": "The label used in blog post item excerpts to link to full blog posts"
+  },
+  "theme.blog.post.readMoreLabel": {
+    "message": "阅读 {title} 的全文",
+    "description": "The ARIA label for the link to full blog posts from excerpts"
+  },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "阅读需 {readingTime} 分钟",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.CodeBlock.copy": {
+    "message": "复制",
+    "description": "The copy button label on code blocks"
+  },
+  "theme.CodeBlock.copied": {
+    "message": "复制成功",
+    "description": "The copied button label on code blocks"
+  },
+  "theme.CodeBlock.copyButtonAriaLabel": {
+    "message": "复制代码到剪贴板",
+    "description": "The ARIA label for copy code blocks button"
+  },
+  "theme.CodeBlock.wordWrapToggle": {
+    "message": "切换自动换行",
+    "description": "The title attribute for toggle word wrapping button of code block lines"
+  },
+  "theme.docs.breadcrumbs.home": {
+    "message": "主页面",
+    "description": "The ARIA label for the home page in the breadcrumbs"
+  },
+  "theme.docs.sidebar.collapseButtonTitle": {
+    "message": "收起侧边栏",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.collapseButtonAriaLabel": {
+    "message": "收起侧边栏",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.navAriaLabel": {
+    "message": "文档侧边栏",
+    "description": "The ARIA label for the sidebar navigation"
+  },
+  "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
+    "message": "关闭导航栏",
+    "description": "The ARIA label for close button of mobile sidebar"
+  },
+  "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
+    "message": "切换导航栏",
+    "description": "The ARIA label for hamburger menu button of mobile navigation"
+  },
+  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
+    "message": "← 回到主菜单",
+    "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
+  },
+  "theme.docs.sidebar.expandButtonTitle": {
+    "message": "展开侧边栏",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.docs.sidebar.expandButtonAriaLabel": {
+    "message": "展开侧边栏",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.navbar.mobileDropdown.collapseButton.expandAriaLabel": {
+    "message": "Expand the dropdown",
+    "description": "The ARIA label of the button to expand the mobile dropdown navbar item"
+  },
+  "theme.navbar.mobileDropdown.collapseButton.collapseAriaLabel": {
+    "message": "Collapse the dropdown",
+    "description": "The ARIA label of the button to collapse the mobile dropdown navbar item"
+  },
+  "theme.blog.post.plurals": {
+    "message": "{count} 篇博文",
+    "description": "Pluralized label for \"{count} posts\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.blog.tagTitle": {
+    "message": "{nPosts} 含有标签「{tagName}」",
+    "description": "The title of the page for a blog tag"
+  },
+  "theme.blog.author.pageTitle": {
+    "message": "{authorName} - {nPosts}",
+    "description": "The title of the page for a blog author"
+  },
+  "theme.blog.authorsList.pageTitle": {
+    "message": "作者",
+    "description": "The title of the authors page"
+  },
+  "theme.blog.authorsList.viewAll": {
+    "message": "查看所有作者",
+    "description": "The label of the link targeting the blog authors page"
+  },
+  "theme.blog.author.noPosts": {
+    "message": "该作者尚未撰写任何文章。",
+    "description": "The text for authors with 0 blog post"
+  },
+  "theme.contentVisibility.unlistedBanner.title": {
+    "message": "未列出页",
+    "description": "The unlisted content banner title"
+  },
+  "theme.contentVisibility.unlistedBanner.message": {
+    "message": "此页面未列出。搜索引擎不会对其索引，只有拥有直接链接的用户才能访问。",
+    "description": "The unlisted content banner message"
+  },
+  "theme.contentVisibility.draftBanner.title": {
+    "message": "草稿页",
+    "description": "The draft content banner title"
+  },
+  "theme.contentVisibility.draftBanner.message": {
+    "message": "此页面是草稿，仅在开发环境中可见，不会包含在正式版本中。",
+    "description": "The draft content banner message"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count} 个项目",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "重试",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
+  },
+  "theme.common.skipToMainContent": {
+    "message": "跳到主要内容",
+    "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
+  },
+  "theme.tags.tagsPageTitle": {
+    "message": "标签",
+    "description": "The title of the tag list page"
+  },
+  "common.clear": {
+    "message": "清空"
+  },
+  "common.cancel": {
+    "message": "取消"
+  },
+  "common.close": {
+    "message": "关闭"
+  },
+  "common.download": {
+    "message": "下载"
+  },
+  "common.file": {
+    "message": "文件:"
+  },
+  "common.copy": {
+    "message": "复制"
+  },
+  "common.copied": {
+    "message": "已复制！"
+  },
+  "common.save": {
+    "message": "保存"
+  },
+  "common.delete": {
+    "message": "删除"
+  },
+  "common.deleteAll": {
+    "message": "全部删除"
+  },
+  "common.copyAll": {
+    "message": "全部复制"
+  },
+  "tool.common.uploadFile": {
+    "message": "上传文件"
+  },
+  "tool.common.copy": {
+    "message": "复制"
+  },
+  "tool.common.download": {
+    "message": "下载"
+  },
+  "tool.common.copied": {
+    "message": "已复制"
+  },
+  "home.tools.jsonFormatter.title": {
+    "message": "JSON 格式化与校验"
+  },
+  "home.tools.jsonFormatter.desc": {
+    "message": "实时校验、格式化 JSON 数据并自动生成 TypeScript 接口。全程在浏览器内安全处理。"
+  },
+  "home.tools.dummyData.title": {
+    "message": "测试数据生成器"
+  },
+  "home.tools.dummyData.desc": {
+    "message": "在浏览器中安全快速地生成用于 API Mock 和数据库测试的模拟数据。"
+  },
+  "tool.dummyData.settings": {
+    "message": "设置"
+  },
+  "tool.dummyData.preset": {
+    "message": "预设"
+  },
+  "tool.dummyData.preset.user": {
+    "message": "用户信息"
+  },
+  "tool.dummyData.preset.company": {
+    "message": "公司信息"
+  },
+  "tool.dummyData.preset.product": {
+    "message": "商品信息"
+  },
+  "tool.dummyData.preset.custom": {
+    "message": "自定义"
+  },
+  "tool.dummyData.locale": {
+    "message": "数据语言"
+  },
+  "tool.dummyData.fields": {
+    "message": "字段定义"
+  },
+  "tool.dummyData.dragToReorder": {
+    "message": "拖动以排序"
+  },
+  "tool.dummyData.addField": {
+    "message": "添加字段"
+  },
+  "tool.dummyData.count": {
+    "message": "生成条数"
+  },
+  "tool.dummyData.format": {
+    "message": "输出格式"
+  },
+  "tool.dummyData.tableName": {
+    "message": "表名"
+  },
+  "tool.dummyData.generateButton": {
+    "message": "生成数据"
+  },
+  "tool.dummyData.result": {
+    "message": "输出预览"
+  },
+  "tool.jsonFormatter.invalidJson": {
+    "message": "无效的 JSON"
+  },
+  "tool.jsonFormatter.indent": {
+    "message": "缩进"
+  },
+  "tool.jsonFormatter.formatBtn": {
+    "message": "格式化"
+  },
+  "tool.jsonFormatter.minifyBtn": {
+    "message": "压缩"
+  },
+  "tool.jsonFormatter.tabEditor": {
+    "message": "编辑器"
+  },
+  "tool.jsonFormatter.tabTree": {
+    "message": "树形视图"
+  },
+  "tool.jsonFormatter.tabTypes": {
+    "message": "TypeScript 类型定义"
+  },
+  "tool.jsonFormatter.errorPrefix": {
+    "message": "语法错误："
+  },
+  "date.title": {
+    "message": "日期比较工具"
+  },
+  "date.header.title": {
+    "message": "日期比较工具"
+  },
+  "date.header.desc": {
+    "message": "计算两个日期之间的时间差。支持多种日期输入格式。"
+  },
+  "date.input.title": {
+    "message": "要比较的日期"
+  },
+  "date.input.alwaysCurrent": {
+    "message": "始终与当前时间比较"
+  },
+  "date.result.title": {
+    "message": "差值结果"
+  },
+  "date.result.dayLabel": {
+    "message": "天 / 时 / 分 / 秒"
+  },
+  "date.result.totalSec": {
+    "message": "总秒数"
+  },
+  "date.unit.days": {
+    "message": "天"
+  },
+  "date.unit.hours": {
+    "message": "小时"
+  },
+  "date.unit.minutes": {
+    "message": "分钟"
+  },
+  "date.unit.seconds": {
+    "message": "秒"
+  },
+  "date.unit.sec": {
+    "message": "秒"
+  },
+  "device.header.title": {
+    "message": "设备信息检测"
+  },
+  "device.header.desc": {
+    "message": "显示当前设备的屏幕尺寸和用户代理（User Agent）信息。"
+  },
+  "device.loading": {
+    "message": "加载中..."
+  },
+  "device.ip.bot": {
+    "message": "检测到来自机器人/爬虫的访问，因此不显示 IP 地址。"
+  },
+  "device.ip.error": {
+    "message": "获取失败。"
+  },
+  "device.memory.unknown": {
+    "message": "未知（当前浏览器不支持）"
+  },
+  "device.cores.unit": {
+    "message": " 核"
+  },
+  "device.cores.unknown": {
+    "message": "未知"
+  },
+  "device.section.network": {
+    "message": "网络"
+  },
+  "device.section.screen": {
+    "message": "屏幕尺寸"
+  },
+  "device.section.hardware": {
+    "message": "硬件"
+  },
+  "device.section.ua": {
+    "message": "用户代理"
+  },
+  "device.info.ip": {
+    "message": "IP 地址"
+  },
+  "device.info.physicalSize": {
+    "message": "物理分辨率"
+  },
+  "device.info.logicalSize": {
+    "message": "窗口尺寸"
+  },
+  "device.info.cores": {
+    "message": "逻辑核心数"
+  },
+  "device.info.memory": {
+    "message": "内存容量"
+  },
+  "device.disclaimer": {
+    "message": "※ 出于隐私保护，浏览器可能会限制或对精确数值进行取整显示。"
+  },
+  "text.header.title": {
+    "message": "文本暂存板"
+  },
+  "text.header.desc": {
+    "message": "用于临时保存文本的便签空间。保存的文本存储在浏览器的本地存储中。"
+  },
+  "text.pin.pin": {
+    "message": "置顶"
+  },
+  "text.pin.unpin": {
+    "message": "取消置顶"
+  },
+  "text.copiedAll": {
+    "message": "已复制全部文本！"
+  },
+  "text.input.title": {
+    "message": "输入文本"
+  },
+  "text.input.placeholder": {
+    "message": "在此输入文本..."
+  },
+  "text.input.saveOnEnter": {
+    "message": "按 Enter 保存"
+  },
+  "text.saved.title": {
+    "message": "已保存的文本"
+  },
+  "text.saved.empty": {
+    "message": "暂无已保存的文本"
+  },
+  "password.header.title": {
+    "message": "密码生成器"
+  },
+  "password.header.desc": {
+    "message": "按指定条件生成密码。设置会保存在 URL 中，方便分享。全程在浏览器内安全运行。"
+  },
+  "password.settings.title": {
+    "message": "设置"
+  },
+  "password.settings.length": {
+    "message": "密码长度"
+  },
+  "password.settings.count": {
+    "message": "生成数量"
+  },
+  "password.settings.exclude.label": {
+    "message": "排除字符"
+  },
+  "password.settings.exclude.placeholder": {
+    "message": "输入要排除的字符（可直接输入）"
+  },
+  "password.settings.exclude.upperCase": {
+    "message": "排除大写字母"
+  },
+  "password.settings.exclude.lowerCase": {
+    "message": "排除小写字母"
+  },
+  "password.settings.useSymbols": {
+    "message": "使用符号"
+  },
+  "password.settings.symbols.label": {
+    "message": "允许使用的符号（留空 = 全部符号）"
+  },
+  "password.settings.useSameChar": {
+    "message": "允许重复字符"
+  },
+  "password.result.title": {
+    "message": "已生成的密码"
+  },
+  "password.result.regenerate": {
+    "message": "重新生成"
+  },
+  "password.copy.ariaLabel": {
+    "message": "复制密码"
+  },
+  "exif.header.title": {
+    "message": "照片 Exif 信息查看器"
+  },
+  "exif.header.desc": {
+    "message": "从上传的照片中读取相机信息、拍摄日期、GPS 等元数据。照片完全在本地处理，安全放心。"
+  },
+  "exif.upload.title": {
+    "message": "选择照片"
+  },
+  "exif.upload.dropLabel": {
+    "message": "点击、拖放或粘贴以选择文件"
+  },
+  "exif.upload.formats": {
+    "message": "支持格式：JPEG、PNG、WebP 等"
+  },
+  "exif.result.title": {
+    "message": "EXIF 信息"
+  },
+  "exif.result.dateTime": {
+    "message": "拍摄时间"
+  },
+  "exif.result.make": {
+    "message": "相机制造商"
+  },
+  "exif.result.model": {
+    "message": "型号"
+  },
+  "exif.result.fNumber": {
+    "message": "光圈（F 值）"
+  },
+  "exif.result.exposureTime": {
+    "message": "快门速度"
+  },
+  "exif.result.sec": {
+    "message": "秒"
+  },
+  "exif.result.iso": {
+    "message": "ISO 感光度"
+  },
+  "exif.result.gps": {
+    "message": "GPS 位置信息"
+  },
+  "exif.result.resolution": {
+    "message": "分辨率"
+  },
+  "exif.guide.title": {
+    "message": "使用说明"
+  },
+  "exif.guide.step1": {
+    "message": "选择或拖放要查看的照片文件（主要为 JPEG 格式）。"
+  },
+  "exif.guide.step2": {
+    "message": "选择后将自动开始解析，并显示拍摄日期、相机型号、拍摄参数和 GPS 等元数据。"
+  },
+  "exif.guide.step3": {
+    "message": "点击各项旁边的复制按钮，即可将对应数值复制到剪贴板。"
+  },
+  "exif.guide.step4": {
+    "message": "如果包含 GPS 信息，可以点击链接在 Google Maps 上查看拍摄地点。"
+  },
+  "exif.guide.step5": {
+    "message": "点击清空按钮（垃圾桶图标）可重置当前显示的信息。"
+  },
+  "exif.guide.security": {
+    "message": "🔒 照片分析完全在你的设备（浏览器）本地完成，不会向外部服务器发送任何数据，充分保护你的隐私。"
+  },
+  "exif.error.notImage": {
+    "message": "请选择图片文件。"
+  },
+  "exif.error.noExif": {
+    "message": "未找到 EXIF 信息。"
+  },
+  "exif.error.parse": {
+    "message": "文件读取或 EXIF 解析失败。"
+  },
+  "qr.header.title": {
+    "message": "QR 码生成器"
+  },
+  "qr.header.desc": {
+    "message": "根据 URL 及各类信息生成 QR 码，支持嵌入 Logo。"
+  },
+  "qr.input.title": {
+    "message": "输入 QR 码内容"
+  },
+  "qr.input.type": {
+    "message": "类型"
+  },
+  "qr.mode.text": {
+    "message": "文本 / URL"
+  },
+  "qr.mode.contact": {
+    "message": "联系人"
+  },
+  "qr.mode.event": {
+    "message": "日程（日历）"
+  },
+  "qr.mode.email": {
+    "message": "编写邮件"
+  },
+  "qr.text.label": {
+    "message": "URL 或文本"
+  },
+  "qr.text.placeholder": {
+    "message": "在此输入 URL 或文本"
+  },
+  "qr.wifi.encryption": {
+    "message": "加密方式"
+  },
+  "qr.wifi.none": {
+    "message": "无"
+  },
+  "qr.wifi.password": {
+    "message": "密码"
+  },
+  "qr.contact.name": {
+    "message": "姓名"
+  },
+  "qr.contact.phone": {
+    "message": "电话号码"
+  },
+  "qr.contact.email": {
+    "message": "电子邮箱"
+  },
+  "qr.event.name": {
+    "message": "日程名称"
+  },
+  "qr.event.start": {
+    "message": "开始时间"
+  },
+  "qr.event.end": {
+    "message": "结束时间"
+  },
+  "qr.event.error.date": {
+    "message": "结束时间必须晚于开始时间"
+  },
+  "qr.email.to": {
+    "message": "收件人邮箱"
+  },
+  "qr.email.subject": {
+    "message": "主题"
+  },
+  "qr.email.body": {
+    "message": "正文"
+  },
+  "qr.input.resolution": {
+    "message": "分辨率"
+  },
+  "qr.style.title": {
+    "message": "样式设置"
+  },
+  "qr.style.dots": {
+    "message": "码点形状"
+  },
+  "qr.style.corner": {
+    "message": "边角形状"
+  },
+  "qr.style.shape.square": {
+    "message": "方形"
+  },
+  "qr.style.shape.dots": {
+    "message": "圆点"
+  },
+  "qr.style.shape.rounded": {
+    "message": "圆角"
+  },
+  "qr.style.shape.extraRounded": {
+    "message": "大圆角"
+  },
+  "qr.style.shape.classy": {
+    "message": "经典"
+  },
+  "qr.style.shape.classyRounded": {
+    "message": "经典圆角"
+  },
+  "qr.style.shape.dot": {
+    "message": "圆点"
+  },
+  "qr.logo.title": {
+    "message": "在中心嵌入 Logo（可选）"
+  },
+  "qr.logo.usePreset": {
+    "message": "使用预设 Logo"
+  },
+  "qr.logo.select": {
+    "message": "选择 Logo 图片"
+  },
+  "qr.preview.title": {
+    "message": "预览"
+  },
+  "qr.preview.save": {
+    "message": "保存 QR 码"
+  },
+  "qr.preview.copy": {
+    "message": "复制 QR 码"
+  },
+  "qr.preview.share": {
+    "message": "分享"
+  },
+  "qr.preview.empty": {
+    "message": "QR 码将显示在此处"
+  },
+  "qr.tooltip.copyImage": {
+    "message": "作为图片复制到剪贴板"
+  },
+  "qr.copied.image": {
+    "message": "已复制图片！"
+  },
+  "qr.copied.clipboard": {
+    "message": "已将 QR 码复制到剪贴板！"
+  },
+  "qr.guide.title": {
+    "message": "使用指南"
+  },
+  "qr.guide.step1": {
+    "message": "从下拉菜单中选择要生成的 QR 码类型。"
+  },
+  "qr.guide.step2": {
+    "message": "输入所需信息（如 URL 或 Wi-Fi 详情），系统将实时生成 QR 码。"
+  },
+  "qr.guide.step3": {
+    "message": "您还可以选择在 QR 码中心嵌入 Logo 图片（使用预设 Logo 或自定义图片）。"
+  },
+  "qr.guide.step4": {
+    "message": "点击“保存 QR 码”下载生成的 QR 码，或点击“复制 QR 码”直接复制到剪贴板。"
+  },
+  "qr.guide.security": {
+    "message": "🔒 所有输入的信息和 Logo 图片均完全在您的设备（浏览器）内处理，绝不会发送到任何服务器。"
+  },
+  "qrReader.header.title": {
+    "message": "QR 码识别器"
+  },
+  "qrReader.header.desc": {
+    "message": "上传 QR 码图片以解码其中的内容。所有处理均在浏览器内完成，图片绝不会发送到服务器。"
+  },
+  "qrReader.upload.title": {
+    "message": "选择 QR 码图片"
+  },
+  "qrReader.upload.ariaLabel": {
+    "message": "选择或拖放 QR 码图片"
+  },
+  "qrReader.upload.dropLabel": {
+    "message": "点击、拖放或粘贴以选择图片"
+  },
+  "qrReader.upload.formats": {
+    "message": "支持格式：PNG、JPEG、WebP、GIF、BMP"
+  },
+  "qrReader.result.title": {
+    "message": "解析结果"
+  },
+  "qrReader.result.scanning": {
+    "message": "正在解析..."
+  },
+  "qrReader.result.urlDetected": {
+    "message": "🔗 检测到 URL"
+  },
+  "qrReader.result.copy": {
+    "message": "复制文本"
+  },
+  "qrReader.result.open": {
+    "message": "打开 URL"
+  },
+  "qrReader.copied": {
+    "message": "已复制文本！"
+  },
+  "qrReader.error.notImage": {
+    "message": "请选择图片文件。"
+  },
+  "qrReader.error.notQR": {
+    "message": "未检测到 QR 码，请确认图片是否清晰。"
+  },
+  "qrReader.error.parse": {
+    "message": "识别过程中发生错误。"
+  },
+  "qrReader.error.loadImage": {
+    "message": "图片加载失败。"
+  },
+  "qrReader.guide.title": {
+    "message": "使用方法"
+  },
+  "qrReader.guide.step1": {
+    "message": "选择或拖放包含 QR 码的图片文件。"
+  },
+  "qrReader.guide.step2": {
+    "message": "系统会自动解码 QR 码并显示其中包含的文本。"
+  },
+  "qrReader.guide.step3": {
+    "message": "点击复制按钮即可将结果复制到剪贴板，若为 URL 也可直接打开。"
+  },
+  "qrReader.guide.security": {
+    "message": "🔒 上传的图片绝不会发送到服务器。所有处理均在浏览器内完成。"
+  },
+  "resize.header.title": {
+    "message": "图片压缩与裁剪工具"
+  },
+  "resize.header.desc": {
+    "message": "完全在浏览器内完成图片裁剪与 WebP 等格式转换，图片绝不会上传至服务器。"
+  },
+  "resize.upload.title": {
+    "message": "选择图片"
+  },
+  "resize.upload.dropLabel": {
+    "message": "点击、拖放或粘贴以选择"
+  },
+  "resize.upload.formats": {
+    "message": "支持格式：JPEG、PNG、WebP、GIF、BMP 等（支持 Cmd/Ctrl+V 粘贴）"
+  },
+  "resize.noLimit": {
+    "message": "无限制"
+  },
+  "resize.crop.aspectFree": {
+    "message": "自由"
+  },
+  "resize.crop.title": {
+    "message": "裁剪图片"
+  },
+  "resize.crop.aspect": {
+    "message": "选择宽高比："
+  },
+  "resize.crop.apply": {
+    "message": "应用"
+  },
+  "resize.action.crop": {
+    "message": "裁剪"
+  },
+  "resize.action.start": {
+    "message": "开始优化"
+  },
+  "resize.settings.title": {
+    "message": "优化设置"
+  },
+  "resize.settings.format": {
+    "message": "输出格式"
+  },
+  "resize.settings.maxWidth": {
+    "message": "最大宽度 (px)"
+  },
+  "resize.settings.maxWidthPlaceholder": {
+    "message": "输入像素值 (px)"
+  },
+  "resize.settings.quality": {
+    "message": "画质："
+  },
+  "resize.settings.preserveExif": {
+    "message": "保留 EXIF 信息（仅限 JPEG）"
+  },
+  "resize.format.original": {
+    "message": "原格式"
+  },
+  "resize.format.recommended": {
+    "message": "（推荐）"
+  },
+  "resize.format.webpUnsupported": {
+    "message": "（当前浏览器不支持）"
+  },
+  "resize.format.webpWarning": {
+    "message": "※ 您的浏览器不支持 WebP 转换，建议选择 JPEG。"
+  },
+  "resize.exif.webpNote": {
+    "message": "由于浏览器限制，转换为 WebP/PNG 格式时无法保留 EXIF 信息。"
+  },
+  "resize.compare.label": {
+    "message": "前后对比"
+  },
+  "resize.compare.zoom": {
+    "message": "缩放："
+  },
+  "resize.compare.reset": {
+    "message": "重置"
+  },
+  "resize.compare.after": {
+    "message": "压缩后"
+  },
+  "resize.compare.before": {
+    "message": "原图"
+  },
+  "resize.compare.dialogTitle": {
+    "message": "对比预览"
+  },
+  "resize.error.webpUnsupported": {
+    "message": "您的浏览器不支持 WebP 转换，请选择 JPEG 格式。"
+  },
+  "resize.error.processing": {
+    "message": "处理失败"
+  },
+  "resize.error.prefix": {
+    "message": "错误："
+  },
+  "resize.error.failed": {
+    "message": "处理失败。"
+  },
+  "resize.guide.title": {
+    "message": "使用指南"
+  },
+  "resize.guide.step1": {
+    "message": "通过拖放或点击选择需要优化的图片（支持多选）。"
+  },
+  "resize.guide.step2": {
+    "message": "如有需要，可点击“裁剪”按钮对图片进行裁剪。"
+  },
+  "resize.guide.step3": {
+    "message": "在“优化设置”中调整输出格式（推荐 WebP）、最大宽度和画质。"
+  },
+  "resize.guide.step4": {
+    "message": "点击“开始优化”在浏览器内处理图片。"
+  },
+  "resize.guide.step5": {
+    "message": "处理完成后，可点击“对比”按钮检查画质，并点击“下载”保存图片。"
+  },
+  "resize.guide.security": {
+    "message": "🔒 图片优化与裁剪完全在您的设备本地（浏览器内）完成，数据绝不会发送到任何外部服务器。"
+  },
+  "pdfEditor.header.title": {
+    "message": "PDF 编辑器（导出图片 / PDF）"
+  },
+  "pdfEditor.header.desc": {
+    "message": "将 PDF 页面转换为图片，或提取并合并页面生成新的 PDF。所有处理均在浏览器内完成，文件绝不会发送到服务器。"
+  },
+  "pdfEditor.upload.title": {
+    "message": "选择 PDF"
+  },
+  "pdfEditor.upload.dropLabel": {
+    "message": "点击、拖放或粘贴 (Ctrl+V) 选择 PDF"
+  },
+  "pdfEditor.action.change": {
+    "message": "更改"
+  },
+  "pdfEditor.action.downloadImg": {
+    "message": "下载为图片"
+  },
+  "pdfEditor.action.downloadPdf": {
+    "message": "另存为新 PDF"
+  },
+  "pdfEditor.settings.title": {
+    "message": "转换设置"
+  },
+  "pdfEditor.settings.format": {
+    "message": "输出格式"
+  },
+  "pdfEditor.settings.maxWidth": {
+    "message": "最大宽度 (px)"
+  },
+  "pdfEditor.settings.maxWidthPlaceholder": {
+    "message": "输入数值 (px)"
+  },
+  "pdfEditor.pages.title": {
+    "message": "页面选择"
+  },
+  "pdfEditor.pages.selectAll": {
+    "message": "全选"
+  },
+  "pdfEditor.pages.select": {
+    "message": "选择此页"
+  },
+  "pdfEditor.pages.deselectAll": {
+    "message": "取消全选"
+  },
+  "pdfEditor.pages.noLimit": {
+    "message": "无限制"
+  },
+  "pdfEditor.pages.generating": {
+    "message": "正在生成预览..."
+  },
+  "pdfEditor.error.notPdf": {
+    "message": "请选择 PDF 文件。"
+  },
+  "pdfEditor.error.load": {
+    "message": "PDF 加载失败。"
+  },
+  "pdfEditor.error.convert": {
+    "message": "转换过程中发生错误。"
+  },
+  "pdfEditor.success": {
+    "message": "转换完成。"
+  },
+  "pdfEditor.successPdf": {
+    "message": "PDF 创建完成。"
+  },
+  "pdfEditor.error.pdf": {
+    "message": "创建 PDF 时发生错误。"
+  },
+  "pdfEditor.guide.title": {
+    "message": "使用方法"
+  },
+  "pdfEditor.guide.step1": {
+    "message": "通过点击选择、拖放或从剪贴板粘贴，添加要编辑的 PDF 文件。"
+  },
+  "pdfEditor.guide.step2": {
+    "message": "如需导出为图片，请设置输出格式（PNG / JPEG / WebP）和最大宽度。"
+  },
+  "pdfEditor.guide.step3": {
+    "message": "选择要提取或转换为图片的页面（支持多选）。"
+  },
+  "pdfEditor.guide.step4": {
+    "message": "可将所选页面导出为图片（打包为 ZIP 下载），或保存为新的 PDF 文档。"
+  },
+  "pdfEditor.guide.security": {
+    "message": "🔒 上传的 PDF 文件不会发送到任何服务器。所有处理均在浏览器内完成，即使包含敏感信息的文档也可放心使用。"
+  },
+  "benchmark.header.title": {
+    "message": "Web 性能测试"
+  },
+  "benchmark.header.desc": {
+    "message": "测试您的浏览器和设备计算性能，并通过评分与等级进行评估。"
+  },
+  "benchmark.ui.testTitle": {
+    "message": "测试浏览器计算性能"
+  },
+  "benchmark.ui.testDesc": {
+    "message": "点击“开始测试”按钮，在浏览器中运行高强度计算并测算性能分数。"
+  },
+  "benchmark.ui.warning.bold": {
+    "message": "注意："
+  },
+  "benchmark.ui.warning": {
+    "message": "本测试会运行高强度计算，在智能手机和移动设备上可能会暂时加快耗电。"
+  },
+  "benchmark.ui.start": {
+    "message": "开始测试"
+  },
+  "benchmark.ui.measuring": {
+    "message": "测试中..."
+  },
+  "benchmark.ui.env": {
+    "message": "测试环境:"
+  },
+  "benchmark.ui.singleCore": {
+    "message": "单核 (1 Worker)"
+  },
+  "benchmark.ui.multiCore": {
+    "message": "多核"
+  },
+  "benchmark.ui.estimate": {
+    "message": "参考:"
+  },
+  "benchmark.ui.notStarted": {
+    "message": "未测试"
+  },
+  "benchmark.ui.modalBtn": {
+    "message": "关于分数参考标准"
+  },
+  "benchmark.ui.share": {
+    "message": "分享结果"
+  },
+  "benchmark.ui.featureTitle": {
+    "message": "浏览器功能支持情况"
+  },
+  "benchmark.ui.must": {
+    "message": "必需"
+  },
+  "benchmark.modal.title": {
+    "message": "评分判定标准"
+  },
+  "benchmark.modal.single": {
+    "message": "单核："
+  },
+  "benchmark.modal.multi": {
+    "message": "多核："
+  },
+  "benchmark.progress.preparing": {
+    "message": "准备中..."
+  },
+  "benchmark.progress.singlePreparing": {
+    "message": "正在准备单核测试..."
+  },
+  "benchmark.progress.multiPreparing": {
+    "message": "正在准备多核测试..."
+  },
+  "benchmark.progress.feature": {
+    "message": "正在检测功能支持情况..."
+  },
+  "benchmark.progress.single": {
+    "message": "正在测试单核性能..."
+  },
+  "benchmark.progress.multi": {
+    "message": "正在测试多核性能..."
+  },
+  "benchmark.progress.pass": {
+    "message": "次"
+  },
+  "benchmark.canvas.title": {
+    "message": "Web 性能测试结果"
+  },
+  "benchmark.canvas.featureTitle": {
+    "message": "Web 功能支持情况"
+  },
+  "benchmark.single.rank.s": {
+    "message": "极致速度。即便在最新旗舰设备中也属于顶尖处理性能"
+  },
+  "benchmark.single.rank.a": {
+    "message": "流畅。大多数 Web 应用都能毫无压力地流畅运行"
+  },
+  "benchmark.single.rank.b": {
+    "message": "实用。日常网页浏览性能充足"
+  },
+  "benchmark.single.rank.c": {
+    "message": "标准。足以满足一般网页浏览需求"
+  },
+  "benchmark.single.rank.d": {
+    "message": "基础性能。加载复杂页面时可能需要稍多时间"
+  },
+  "benchmark.single.rank.e": {
+    "message": "较慢。可能受老旧设备或省电模式影响"
+  },
+  "benchmark.single.rank.f": {
+    "message": "运行吃力。性能严重不足，难以流畅使用现代 Web 服务"
+  },
+  "benchmark.multi.rank.s": {
+    "message": "顶级。凭借压倒性的并行处理能力，轻松应对各类高负载任务"
+  },
+  "benchmark.multi.rank.a": {
+    "message": "强劲。同时开启多个任务也能保持稳定流畅"
+  },
+  "benchmark.multi.rank.b": {
+    "message": "流畅。并行处理多个任务时依然游刃有余"
+  },
+  "benchmark.multi.rank.c": {
+    "message": "标准。能够顺畅应对日常多任务处理"
+  },
+  "benchmark.multi.rank.d": {
+    "message": "基础。并行任务增多时运行可能会变慢"
+  },
+  "benchmark.multi.rank.e": {
+    "message": "性能不足。不适合并行处理，运行表现受限"
+  },
+  "benchmark.multi.rank.f": {
+    "message": "性能严重不足。几乎无法发挥并行处理的优势"
+  },
+  "benchmark.cat.sns.category": {
+    "message": "社交与媒体浏览"
+  },
+  "benchmark.cat.sns.summary": {
+    "message": "视频和图片能否流畅、清晰地呈现"
+  },
+  "benchmark.cat.sns.avif.name": {
+    "message": "AVIF / WebP 支持"
+  },
+  "benchmark.cat.sns.avif.desc": {
+    "message": "新一代超轻量图片格式，直接提升页面加载速度。"
+  },
+  "benchmark.cat.sns.av1.name": {
+    "message": "AV1 解码"
+  },
+  "benchmark.cat.sns.av1.desc": {
+    "message": "能够以更低负载、更高画质播放 YouTube 等平台的 4K 视频。"
+  },
+  "benchmark.cat.sns.webshare.name": {
+    "message": "Web Share API"
+  },
+  "benchmark.cat.sns.webshare.desc": {
+    "message": "调用系统原生分享菜单，快速分享图片或链接。"
+  },
+  "benchmark.cat.sns.speculation.name": {
+    "message": "Speculation Rules"
+  },
+  "benchmark.cat.sns.speculation.desc": {
+    "message": "在点击链接前预加载页面，实现瞬时跳转。"
+  },
+  "benchmark.cat.sns.fetchpriority.name": {
+    "message": "fetchpriority 属性"
+  },
+  "benchmark.cat.sns.fetchpriority.desc": {
+    "message": "优先加载关键图片，提升页面渲染速度。"
+  },
+  "benchmark.cat.sns.objectfit.name": {
+    "message": "Object-fit / Aspect-ratio"
+  },
+  "benchmark.cat.sns.objectfit.desc": {
+    "message": "确保图片在容器内完美适配，不会拉伸或挤压变形。"
+  },
+  "benchmark.cat.sns.csslayer.name": {
+    "message": "CSS @layer"
+  },
+  "benchmark.cat.sns.csslayer.desc": {
+    "message": "确保大型网站的样式按预期正确生效。"
+  },
+  "benchmark.cat.biz.category": {
+    "message": "办公与工具"
+  },
+  "benchmark.cat.biz.summary": {
+    "message": "能否流畅运行 Notion、Figma 等应用级网站"
+  },
+  "benchmark.cat.biz.eyedropper.name": {
+    "message": "EyeDropper API"
+  },
+  "benchmark.cat.biz.eyedropper.desc": {
+    "message": "可提取屏幕上任意颜色的吸管工具，有效提升设计效率。"
+  },
+  "benchmark.cat.biz.navigation.name": {
+    "message": "Navigation API"
+  },
+  "benchmark.cat.biz.navigation.desc": {
+    "message": "新一代基础技术，可更流畅、稳定地控制单页应用（SPA）的页面切换。"
+  },
+  "benchmark.cat.biz.anchorpos.name": {
+    "message": "Anchor Positioning API"
+  },
+  "benchmark.cat.biz.anchorpos.desc": {
+    "message": "使弹窗能够准确贴合目标按钮位置显示。"
+  },
+  "benchmark.cat.biz.popover.name": {
+    "message": "Popover API"
+  },
+  "benchmark.cat.biz.popover.desc": {
+    "message": "使菜单不受其他元素遮挡，始终显示在最顶层。"
+  },
+  "benchmark.cat.biz.compression.name": {
+    "message": "Compression Streams API"
+  },
+  "benchmark.cat.biz.compression.desc": {
+    "message": "可在浏览器内高速进行文件的 ZIP 压缩与解压。"
+  },
+  "benchmark.cat.biz.crypto.name": {
+    "message": "Web Crypto API"
+  },
+  "benchmark.cat.biz.crypto.desc": {
+    "message": "支持安全通信、密码管理及数据加密。"
+  },
+  "benchmark.cat.biz.indexeddb.name": {
+    "message": "IndexedDB (v3)"
+  },
+  "benchmark.cat.biz.indexeddb.desc": {
+    "message": "存储大量本地数据，支持离线工作。"
+  },
+  "benchmark.cat.creative.category": {
+    "message": "娱乐与创意"
+  },
+  "benchmark.cat.creative.summary": {
+    "message": "3D、动画和游戏体验是否流畅"
+  },
+  "benchmark.cat.creative.webgpu.name": {
+    "message": "WebGPU"
+  },
+  "benchmark.cat.creative.webgpu.desc": {
+    "message": "可在浏览器中运行大型 3D 游戏及 AI 图像生成。"
+  },
+  "benchmark.cat.creative.webxr.name": {
+    "message": "WebXR Device API"
+  },
+  "benchmark.cat.creative.webxr.desc": {
+    "message": "可直接通过浏览器操作 VR（虚拟现实）和 AR（增强现实）设备。"
+  },
+  "benchmark.cat.creative.viewtransitions.name": {
+    "message": "View Transitions API"
+  },
+  "benchmark.cat.creative.viewtransitions.desc": {
+    "message": "让页面切换如原生应用般平滑过渡。"
+  },
+  "benchmark.cat.creative.scrollanimations.name": {
+    "message": "Scroll-driven Animations"
+  },
+  "benchmark.cat.creative.scrollanimations.desc": {
+    "message": "支持与滚动联动的丰富动画效果。"
+  },
+  "benchmark.cat.creative.offscreencanvas.name": {
+    "message": "Offscreen Canvas"
+  },
+  "benchmark.cat.creative.offscreencanvas.desc": {
+    "message": "将繁重的图形处理移至后台执行，让页面运行更流畅。"
+  },
+  "benchmark.cat.creative.spatialaudio.name": {
+    "message": "Web Audio (Spatial Audio)"
+  },
+  "benchmark.cat.creative.spatialaudio.desc": {
+    "message": "支持在浏览器中原生播放空间（3D）音频。"
+  },
+  "benchmark.cat.sys.category": {
+    "message": "系统及其他"
+  },
+  "benchmark.cat.sys.summary": {
+    "message": "应用化体验、通知及登录的便捷程度"
+  },
+  "benchmark.cat.sys.passkeys.name": {
+    "message": "WebAuthn (Passkeys)"
+  },
+  "benchmark.cat.sys.passkeys.desc": {
+    "message": "支持使用指纹或面容识别，实现无密码登录。"
+  },
+  "benchmark.cat.sys.badging.name": {
+    "message": "Badging API"
+  },
+  "benchmark.cat.sys.badging.desc": {
+    "message": "可在应用图标上显示未读角标。"
+  },
+  "benchmark.cat.sys.wakelock.name": {
+    "message": "Screen Wake Lock API"
+  },
+  "benchmark.cat.sys.wakelock.desc": {
+    "message": "可防止浏览时屏幕自动熄灭。"
+  },
+  "benchmark.cat.sys.webusb.name": {
+    "message": "Web USB"
+  },
+  "benchmark.cat.sys.webusb.desc": {
+    "message": "可直接从浏览器控制通过 USB 连接的专用设备。"
+  },
+  "benchmark.cat.sys.filesystem.name": {
+    "message": "File System Access API"
+  },
+  "benchmark.cat.sys.filesystem.desc": {
+    "message": "可直接编辑并保存设备上的本地文件。"
+  },
+  "benchmark.ref.rank.s.single": {
+    "message": "4000 以上"
+  },
+  "benchmark.ref.rank.s.multi": {
+    "message": "30000 以上"
+  },
+  "benchmark.ref.rank.s.desc": {
+    "message": "无可匹敌的速度。超越高端设备的顶尖性能"
+  },
+  "benchmark.ref.rank.a.single": {
+    "message": "2000-3999"
+  },
+  "benchmark.ref.rank.a.multi": {
+    "message": "10000-29999"
+  },
+  "benchmark.ref.rank.a.desc": {
+    "message": "非常流畅。绝大多数应用都能极为顺滑地运行"
+  },
+  "benchmark.ref.rank.b.single": {
+    "message": "1000-1999"
+  },
+  "benchmark.ref.rank.b.multi": {
+    "message": "4000-9999"
+  },
+  "benchmark.ref.rank.b.desc": {
+    "message": "流畅。多任务并行时依然性能充裕"
+  },
+  "benchmark.ref.rank.c.single": {
+    "message": "250-999"
+  },
+  "benchmark.ref.rank.c.multi": {
+    "message": "500-3999"
+  },
+  "benchmark.ref.rank.c.desc": {
+    "message": "标准。足以满足日常网页浏览需求"
+  },
+  "benchmark.ref.rank.d.single": {
+    "message": "100-249"
+  },
+  "benchmark.ref.rank.d.multi": {
+    "message": "200-499"
+  },
+  "benchmark.ref.rank.d.desc": {
+    "message": "基础。负载较高时加载速度可能会变慢"
+  },
+  "benchmark.ref.rank.e.single": {
+    "message": "50-99"
+  },
+  "benchmark.ref.rank.e.multi": {
+    "message": "100-199"
+  },
+  "benchmark.ref.rank.e.desc": {
+    "message": "较慢。可能是老旧设备或开启了省电模式"
+  },
+  "benchmark.ref.rank.f.single": {
+    "message": "低于 50"
+  },
+  "benchmark.ref.rank.f.multi": {
+    "message": "低于 100"
+  },
+  "benchmark.ref.rank.f.desc": {
+    "message": "运行吃力。性能远低于现代 Web 标准要求"
+  },
+  "benchmark.share.title": {
+    "message": "Web 性能测试结果"
+  },
+  "benchmark.share.single": {
+    "message": "单核:"
+  },
+  "benchmark.share.multi": {
+    "message": "多核:"
+  },
+  "benchmark.share.alert": {
+    "message": "已将结果图片复制到剪贴板！\n请粘贴到 X（Twitter）等平台的发布界面进行分享。"
+  },
+  "home.tools.roulette.title": {
+    "message": "转盘抽签器"
+  },
+  "home.tools.roulette.desc": {
+    "message": "从输入的列表中轻松抽签。支持移除已中选项和保存历史记录。"
+  },
+  "roulette.header.title": {
+    "message": "转盘生成器"
+  },
+  "roulette.header.desc": {
+    "message": "一款基于浏览器的转盘抽签工具，可轻松从列表中随机抽取项目。"
+  },
+  "roulette.display.ready": {
+    "message": "准备就绪"
+  },
+  "roulette.display.empty": {
+    "message": "请输入项目"
+  },
+  "roulette.action.start": {
+    "message": "开始抽奖"
+  },
+  "roulette.input.title": {
+    "message": "项目列表"
+  },
+  "roulette.action.import": {
+    "message": "导入"
+  },
+  "roulette.action.export": {
+    "message": "导出"
+  },
+  "roulette.input.placeholder": {
+    "message": "请输入项目，每行一个"
+  },
+  "roulette.settings.remove": {
+    "message": "抽中后从列表中移除"
+  },
+  "roulette.history.title": {
+    "message": "抽签历史"
+  },
+  "roulette.action.clearHistory": {
+    "message": "清除历史"
+  },
+  "roulette.history.empty": {
+    "message": "暂无历史记录"
+  },
+  "roulette.guide.title": {
+    "message": "使用方法"
+  },
+  "roulette.guide.step1": {
+    "message": "在“项目列表”中每行输入一个要抽取的项目，也可以从文本文件导入。"
+  },
+  "roulette.guide.step2": {
+    "message": "如果开启“抽中后从列表中移除”，已抽中的项目将自动从列表中移除。"
+  },
+  "roulette.guide.step3": {
+    "message": "点击“开始抽签”按钮即可旋转转盘，随机抽取一个项目。"
+  },
+  "roulette.guide.step4": {
+    "message": "“抽签历史”区域会显示以往的抽签结果。"
+  },
+  "roulette.guide.security": {
+    "message": "🔒 您的数据和历史记录仅保存在浏览器的本地存储中，绝不会发送到任何服务器。即使是敏感信息也可以放心使用。"
+  },
+  "roulette.preset.title": {
+    "message": "预设："
+  },
+  "roulette.preset.bingo": {
+    "message": "宾果 (1-75)"
+  },
+  "roulette.preset.confirm": {
+    "message": "当前列表将被覆盖，确定要继续吗？"
+  },
+  "encoding.error.read": {
+    "message": "文件读取失败。"
+  },
+  "encoding.error.preview": {
+    "message": "预览生成失败，请检查字符编码设置。"
+  },
+  "encoding.success.download": {
+    "message": "转换并保存成功。"
+  },
+  "encoding.error.convert": {
+    "message": "转换失败。"
+  },
+  "encoding.upload.title": {
+    "message": "选择文本"
+  },
+  "encoding.upload.main": {
+    "message": "将文件拖放到此处，{br} 点击选择或粘贴"
+  },
+  "encoding.upload.sub": {
+    "message": "支持文本文件和粘贴的文本"
+  },
+  "encoding.label.current": {
+    "message": "当前字符编码"
+  },
+  "encoding.label.target": {
+    "message": "目标字符编码"
+  },
+  "encoding.label.currentLineBreak": {
+    "message": "当前换行符"
+  },
+  "encoding.label.targetLineBreak": {
+    "message": "目标换行符"
+  },
+  "encoding.detected": {
+    "message": "识别结果:"
+  },
+  "encoding.preview.title": {
+    "message": "预览"
+  },
+  "encoding.button.download": {
+    "message": "转换并下载"
+  },
+  "encoding.correct.title": {
+    "message": "修正识别结果"
+  },
+  "encoding.button.correct": {
+    "message": "修正"
+  },
+  "encoding.stats.title": {
+    "message": "文本信息"
+  },
+  "encoding.stats.chars": {
+    "message": "字符数"
+  },
+  "encoding.stats.lines": {
+    "message": "行数"
+  },
+  "encoding.stats.currentSize": {
+    "message": "当前大小"
+  },
+  "encoding.stats.targetSize": {
+    "message": "转换后大小 (估算)"
+  },
+  "home.tools.diff.title": {
+    "message": "文本差异对比"
+  },
+  "home.tools.diff.desc": {
+    "message": "对比两段文本或文件并高亮显示差异。支持多文件上传和多种对比模式。"
+  },
+  "diff.error.read": {
+    "message": "文件读取失败。"
+  },
+  "diff.upload.title": {
+    "message": "上传文件"
+  },
+  "diff.upload.dropLabel": {
+    "message": "点击、拖放或粘贴以添加"
+  },
+  "diff.upload.formats": {
+    "message": "支持格式: .txt, .csv, .log, .md, .json 等"
+  },
+  "diff.list.title": {
+    "message": "选择要比较的文件"
+  },
+  "diff.list.count": {
+    "message": "个文件"
+  },
+  "diff.table.left": {
+    "message": "左 (原始)"
+  },
+  "diff.table.right": {
+    "message": "右 (修改后)"
+  },
+  "diff.table.name": {
+    "message": "文件名"
+  },
+  "diff.table.size": {
+    "message": "大小"
+  },
+  "diff.viewer.title": {
+    "message": "差异对比"
+  },
+  "diff.options.ignoreWhitespace": {
+    "message": "忽略空白字符"
+  },
+  "diff.tooltip.unified": {
+    "message": "统一视图"
+  },
+  "markdownPdf.editor.title": {
+    "message": "Markdown 输入"
+  },
+  "markdownPdf.editor.sample": {
+    "message": "插入示例"
+  },
+  "markdownPdf.editor.clear": {
+    "message": "清空"
+  },
+  "markdownPdf.upload.button": {
+    "message": "选择 Markdown 文件 (.md)"
+  },
+  "markdownPdf.upload.dropText": {
+    "message": "或将文件拖放到此处，也可以直接粘贴"
+  },
+  "markdownPdf.editor.placeholder": {
+    "message": "# 在此处输入 Markdown..."
+  },
+  "markdownPdf.options.title": {
+    "message": "PDF 输出设置"
+  },
+  "markdownPdf.options.fontSize": {
+    "message": "字体大小"
+  },
+  "markdownPdf.options.fontSize.small": {
+    "message": "小 (10pt)"
+  },
+  "markdownPdf.options.fontSize.medium": {
+    "message": "中 (12pt)"
+  },
+  "markdownPdf.options.fontSize.large": {
+    "message": "大 (14pt)"
+  },
+  "markdownPdf.options.margin": {
+    "message": "页边距"
+  },
+  "markdownPdf.options.margin.narrow": {
+    "message": "窄 (10mm)"
+  },
+  "markdownPdf.options.margin.normal": {
+    "message": "标准 (20mm)"
+  },
+  "markdownPdf.options.margin.wide": {
+    "message": "宽 (30mm)"
+  },
+  "markdownPdf.options.format": {
+    "message": "纸张尺寸"
+  },
+  "markdownPdf.options.orientation": {
+    "message": "方向"
+  },
+  "markdownPdf.options.orientation.portrait": {
+    "message": "纵向"
+  },
+  "markdownPdf.options.orientation.landscape": {
+    "message": "横向"
+  },
+  "markdownPdf.options.pageNumbers": {
+    "message": "在页脚显示页码"
+  },
+  "markdownPdf.btn.loadingFont": {
+    "message": "正在加载字体..."
+  },
+  "markdownPdf.btn.downloadHtml": {
+    "message": "下载 HTML"
+  },
+  "markdownPdf.btn.download": {
+    "message": "下载 PDF"
+  },
+  "markdownPdf.tab.previewHtml": {
+    "message": "HTML 预览"
+  },
+  "markdownPdf.tab.previewPdf": {
+    "message": "PDF 预览"
+  },
+  "markdownPdf.preview.empty": {
+    "message": "输入 Markdown 后将在此处显示预览。"
+  },
+  "markdownPdf.error.generate": {
+    "message": "生成 PDF 时发生错误。"
+  },
+  "markdownPdf.confirm.clear": {
+    "message": "确定要清空文本吗？"
+  },
+  "markdownPdf.error.htmlGenerate": {
+    "message": "生成 HTML 时发生错误。"
+  },
+  "markdownPdf.preview.loadingFont": {
+    "message": "正在加载字体..."
+  },
+  "markdownPdf.preview.generating": {
+    "message": "正在生成 PDF..."
+  },
+  "markdownPdf.preview.noPdf": {
+    "message": "无法显示 PDF 预览。"
+  },
+  "home.tools.seo.title": {
+    "message": "SEO 元数据提取器"
+  },
+  "home.tools.seo.desc": {
+    "message": "通过输入 URL 或粘贴 HTML 提取并预览 SEO 元数据（Favicon、OGP、标题、描述、关键词等）。本地安全处理。"
+  },
+  "seo.tab.urlMode": {
+    "message": "通过 URL 解析"
+  },
+  "seo.tab.htmlMode": {
+    "message": "通过 HTML 解析"
+  },
+  "seo.input.urlLabel": {
+    "message": "目标 URL"
+  },
+  "seo.input.htmlLabel": {
+    "message": "HTML 源代码"
+  },
+  "seo.security.title": {
+    "message": "关于隐私"
+  },
+  "seo.security.desc": {
+    "message": "自动解析 URL 时，系统会临时通过外部免费的 CORS 代理获取 HTML。如果您需要解析内网页面或包含个人信息的私密 URL，请使用“通过 HTML 解析”模式（完全在浏览器本地处理）。"
+  },
+  "seo.action.parsing": {
+    "message": "解析中..."
+  },
+  "seo.action.parse": {
+    "message": "解析"
+  },
+  "seo.action.download": {
+    "message": "下载"
+  },
+  "seo.state.loading": {
+    "message": "正在获取并解析 HTML..."
+  },
+  "seo.error.title": {
+    "message": "发生错误"
+  },
+  "seo.error.invalidUrl": {
+    "message": "请输入有效的 URL。"
+  },
+  "seo.error.fetchFailed": {
+    "message": "获取元数据失败。可能是 URL 有误、存在安全限制 (CORS)，或目标网站阻止了访问。建议切换到“通过 HTML 解析”模式直接粘贴 HTML。"
+  },
+  "seo.error.parseFailed": {
+    "message": "解析 HTML 失败，请检查源代码。"
+  },
+  "seo.resultTab.preview": {
+    "message": "预览"
+  },
+  "seo.resultTab.basic": {
+    "message": "基本元数据"
+  },
+  "seo.resultTab.ogp": {
+    "message": "OGP 与社交信息"
+  },
+  "seo.resultTab.json": {
+    "message": "JSON 数据"
+  },
+  "seo.preview.title": {
+    "message": "搜索结果与社交媒体分享预览"
+  },
+  "seo.preview.noTitle": {
+    "message": "未设置标题"
+  },
+  "seo.preview.noDesc": {
+    "message": "未设置描述。搜索引擎可能会根据页面正文自动生成摘要。"
+  },
+  "seo.preview.noImage": {
+    "message": "无 OGP 图片"
+  },
+  "seo.eval.title": {
+    "message": "字数检查评估"
+  },
+  "seo.meta.title": {
+    "message": "标题"
+  },
+  "seo.meta.desc": {
+    "message": "描述"
+  },
+  "seo.recommend": {
+    "message": "推荐"
+  },
+  "seo.status.missing": {
+    "message": "未设置"
+  },
+  "seo.status.good": {
+    "message": "合适"
+  },
+  "seo.status.short": {
+    "message": "字数偏少"
+  },
+  "seo.status.long": {
+    "message": "字数偏多"
+  },
+  "seo.item.title": {
+    "message": "标题"
+  },
+  "seo.item.desc": {
+    "message": "描述 (Description)"
+  },
+  "seo.item.keywords": {
+    "message": "关键词 (Keywords)"
+  },
+  "seo.item.robots": {
+    "message": "搜索排除 (Robots)"
+  },
+  "seo.empty": {
+    "message": "未设置"
+  },
+  "seo.empty.none": {
+    "message": "未设置（允许索引）"
+  },
+  "seo.export.success": {
+    "message": "已导出 JSON 文件"
+  },
+  "embed.section.title": {
+    "message": "将此工具嵌入到你的网站"
+  },
+  "embed.section.iframeLabel": {
+    "message": "iframe 嵌入代码"
+  },
+  "embed.section.urlLabel": {
+    "message": "嵌入用 URL"
+  },
+  "home.tools.regex.title": {
+    "message": "正则表达式测试"
+  },
+  "home.tools.regex.desc": {
+    "message": "实时测试与调试正则表达式，支持语法高亮、捕获组提取及常用预设模板。"
+  },
+  "regex.title": {
+    "message": "正则表达式测试工具"
+  },
+  "regex.desc": {
+    "message": "实时测试和调试正则表达式，支持语法高亮、捕获组提取和预设模板。"
+  },
+  "regex.template.selectLabel": {
+    "message": "选择预设模板"
+  },
+  "regex.template.custom": {
+    "message": "自定义（直接输入）"
+  },
+  "regex.template.email": {
+    "message": "电子邮箱地址"
+  },
+  "regex.template.url": {
+    "message": "URL (HTTP/HTTPS)"
+  },
+  "regex.template.postal": {
+    "message": "邮政编码（日本）"
+  },
+  "regex.template.phone": {
+    "message": "电话号码（日本）"
+  },
+  "regex.template.date": {
+    "message": "日期 (YYYY-MM-DD / YYYY/MM/DD)"
+  },
+  "regex.template.time": {
+    "message": "时间 (HH:MM:SS)"
+  },
+  "regex.template.ipv4": {
+    "message": "IPv4 地址"
+  },
+  "regex.template.alphanumeric": {
+    "message": "字母与数字"
+  },
+  "regex.template.html": {
+    "message": "HTML 标签"
+  },
+  "regex.template.hexColor": {
+    "message": "十六进制颜色代码 (#RGB / #RRGGBB)"
+  },
+  "regex.actions.resetAll": {
+    "message": "全部清除"
+  },
+  "regex.actions.clear": {
+    "message": "清除"
+  },
+  "regex.actions.copyPattern": {
+    "message": "复制模式"
+  },
+  "regex.actions.copyMatches": {
+    "message": "复制匹配结果"
+  },
+  "regex.actions.copied": {
+    "message": "已复制到剪贴板"
+  },
+  "regex.pattern.title": {
+    "message": "正则表达式模式"
+  },
+  "regex.pattern.label": {
+    "message": "正则表达式"
+  },
+  "regex.pattern.clear": {
+    "message": "清除模式"
+  },
+  "regex.pattern.copy": {
+    "message": "复制模式"
+  },
+  "regex.pattern.copyTooltip": {
+    "message": "复制正则表达式模式 (/{pattern}/{flags})"
+  },
+  "regex.pattern.placeholder": {
+    "message": "例如：[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}"
+  },
+  "regex.error.title": {
+    "message": "正则表达式错误："
+  },
+  "regex.flags.title": {
+    "message": "标志设置："
+  },
+  "regex.flags.label": {
+    "message": "标志"
+  },
+  "regex.flags.g": {
+    "message": "全局 (g)"
+  },
+  "regex.flags.i": {
+    "message": "忽略大小写 (i)"
+  },
+  "regex.flags.m": {
+    "message": "多行 (m)"
+  },
+  "regex.flags.s": {
+    "message": "dotAll (s)"
+  },
+  "regex.flags.u": {
+    "message": "Unicode (u)"
+  },
+  "regex.flags.y": {
+    "message": "粘连 (y)"
+  },
+  "regex.flag.g.title": {
+    "message": "全局搜索 (g)"
+  },
+  "regex.flag.g.desc": {
+    "message": "查找所有匹配项，而非在首次匹配后停止"
+  },
+  "regex.flag.i.title": {
+    "message": "忽略大小写 (i)"
+  },
+  "regex.flag.i.desc": {
+    "message": "不区分大小写匹配"
+  },
+  "regex.flag.m.title": {
+    "message": "多行模式 (m)"
+  },
+  "regex.flag.m.desc": {
+    "message": "^ 和 $ 匹配每行的开头和结尾"
+  },
+  "regex.flag.s.title": {
+    "message": "dotAll 模式 (s)"
+  },
+  "regex.flag.s.desc": {
+    "message": "点号 (.) 匹配包括换行符 \\n 在内的任意字符"
+  },
+  "regex.flag.u.title": {
+    "message": "Unicode (u)"
+  },
+  "regex.flag.u.desc": {
+    "message": "启用 Unicode 支持（代理对、Unicode 属性转义）"
+  },
+  "regex.flag.y.title": {
+    "message": "粘连匹配 (y)"
+  },
+  "regex.flag.y.desc": {
+    "message": "仅从 lastIndex 属性指示的索引位置开始匹配"
+  },
+  "regex.text.title": {
+    "message": "测试文本"
+  },
+  "regex.text.label": {
+    "message": "测试文本"
+  },
+  "regex.text.clear": {
+    "message": "清除文本"
+  },
+  "regex.text.placeholder": {
+    "message": "请在此输入要测试的文本..."
+  },
+  "regex.text.meta": {
+    "message": "{chars} 字符 / {lines} 行"
+  },
+  "regex.text.insertSample": {
+    "message": "插入示例文本"
+  },
+  "regex.result.title": {
+    "message": "匹配结果与高亮"
+  },
+  "regex.result.errorStatus": {
+    "message": "错误"
+  },
+  "regex.result.matchCount": {
+    "message": "匹配 {count} 项"
+  },
+  "regex.result.noMatch": {
+    "message": "无匹配"
+  },
+  "regex.status.matchCount": {
+    "message": "找到 {count} 个匹配项"
+  },
+  "regex.status.noMatch": {
+    "message": "未找到匹配项"
+  },
+  "regex.status.error": {
+    "message": "正则表达式语法错误"
+  },
+  "regex.warning.truncated": {
+    "message": "匹配数量已达上限（1,000 项），后续匹配已省略。"
+  },
+  "regex.result.copyPattern": {
+    "message": "复制模式"
+  },
+  "regex.result.copyMatches": {
+    "message": "复制匹配列表"
+  },
+  "regex.result.copiedPattern": {
+    "message": "已复制正则表达式模式！"
+  },
+  "regex.result.copiedMatches": {
+    "message": "已复制匹配结果！"
+  },
+  "regex.result.copiedSingle": {
+    "message": "已复制匹配文本！"
+  },
+  "regex.result.noMatchesToCopy": {
+    "message": "没有可复制的匹配结果"
+  },
+  "regex.viewer.placeholder": {
+    "message": "输入文本后，匹配内容将在此高亮显示。"
+  },
+  "regex.highlight.title": {
+    "message": "匹配高亮"
+  },
+  "regex.details.title": {
+    "message": "匹配详情与捕获组"
+  },
+  "regex.details.matchNum": {
+    "message": "匹配 #{index}"
+  },
+  "regex.details.range": {
+    "message": "位置：{start} - {end}（长度：{length}）"
+  },
+  "regex.details.groups": {
+    "message": "捕获组 ({count})"
+  },
+  "regex.details.noGroups": {
+    "message": "模式中无捕获组"
+  },
+  "regex.details.charsUnit": {
+    "message": "字符"
+  },
+  "wintch.page.title": {
+    "message": "Wintch | macOS 简洁窗口级切换器与启动器"
+  },
+  "wintch.page.description": {
+    "message": "完全本地运行、轻量简洁的 macOS 窗口级切换器与搜索启动器“Wintch”的功能介绍与安装指南。"
+  },
+  "wintch.nav.ariaLabel": {
+    "message": "页面内导航"
+  },
+  "wintch.nav.switcher": {
+    "message": "窗口切换器"
+  },
+  "wintch.nav.capture": {
+    "message": "截图视图"
+  },
+  "wintch.nav.launcher": {
+    "message": "搜索启动器"
+  },
+  "wintch.nav.close": {
+    "message": "关闭窗口"
+  },
+  "wintch.nav.privacy": {
+    "message": "原生设计"
+  },
+  "wintch.nav.install": {
+    "message": "安装"
+  },
+  "wintch.hero.meta": {
+    "message": "{version} · macOS 14.0+ · MIT License"
+  },
+  "wintch.hero.titlePrefix": {
+    "message": "让窗口切换，"
+  },
+  "wintch.hero.titleAccent": {
+    "message": "更加直观。"
+  },
+  "wintch.hero.subtitle": {
+    "message": "Wintch（Window + Switch）是一款简洁轻量的 macOS 窗口级切换器与搜索启动器，弥补 macOS 原生 Command + Tab 的不足，助您瞬间切换到同一应用的任意窗口。"
+  },
+  "wintch.cta.download": {
+    "message": "下载 ({version})"
+  },
+  "wintch.cta.copyBrewAria": {
+    "message": "复制 Homebrew 安装命令：brew install --cask sawarame/tap/wintch"
+  },
+  "wintch.copy.copied": {
+    "message": "已复制"
+  },
+  "wintch.copy.hint": {
+    "message": "点击复制命令"
+  },
+  "wintch.showcase.tablistLabel": {
+    "message": "Wintch 预览模式"
+  },
+  "wintch.showcase.tab.switcher": {
+    "message": "窗口切换器"
+  },
+  "wintch.showcase.tab.launcher": {
+    "message": "搜索启动器"
+  },
+  "wintch.showcase.tab.settings": {
+    "message": "设置与权限"
+  },
+  "wintch.showcase.allClosed": {
+    "message": "已关闭所有演示窗口"
+  },
+  "wintch.showcase.reset": {
+    "message": "重置演示"
+  },
+  "wintch.showcase.btn.prev": {
+    "message": "上一个"
+  },
+  "wintch.showcase.btn.next": {
+    "message": "下一个"
+  },
+  "wintch.showcase.btn.close": {
+    "message": "关闭"
+  },
+  "wintch.showcase.feedback.closedWindow": {
+    "message": "已关闭“{appName} — {title}”"
+  },
+  "wintch.showcase.feedback.switchWindow": {
+    "message": "已切换至“{appName} — {title}”"
+  },
+  "wintch.showcase.feedback.launchApp": {
+    "message": "已启动“{appName}”"
+  },
+  "wintch.showcase.searchPlaceholder": {
+    "message": "按应用名称或窗口标题搜索（如：saf、note、code）"
+  },
+  "wintch.showcase.searchAria": {
+    "message": "搜索启动器演示输入框"
+  },
+  "wintch.showcase.clearQuery": {
+    "message": "清除搜索"
+  },
+  "wintch.showcase.noOpenWindows": {
+    "message": "当前没有打开的窗口（输入应用名称即可启动）"
+  },
+  "wintch.showcase.noMatchingApps": {
+    "message": "未找到匹配的应用"
+  },
+  "wintch.showcase.noMatch": {
+    "message": "未找到匹配的窗口或应用"
+  },
+  "wintch.showcase.launchHeaderNoWin": {
+    "message": "无匹配窗口，启动应用"
+  },
+  "wintch.showcase.launchHeader": {
+    "message": "启动应用"
+  },
+  "wintch.showcase.launchBadge": {
+    "message": "启动"
+  },
+  "wintch.showcase.tryQuery": {
+    "message": "试试看："
+  },
+  "wintch.showcase.allMru": {
+    "message": "清空 (MRU)"
+  },
+  "wintch.showcase.settings.title": {
+    "message": "Wintch 设置"
+  },
+  "wintch.showcase.settings.normalSection": {
+    "message": "窗口切换器（按住式）"
+  },
+  "wintch.showcase.settings.launcherSection": {
+    "message": "搜索启动器（切换式）"
+  },
+  "wintch.showcase.settings.shortcut": {
+    "message": "触发快捷键"
+  },
+  "wintch.showcase.settings.reverse": {
+    "message": "反向移动"
+  },
+  "wintch.showcase.settings.generalAndPerm": {
+    "message": "通用与系统权限"
+  },
+  "wintch.showcase.settings.launchAtLogin": {
+    "message": "登录时自动启动"
+  },
+  "wintch.showcase.settings.accessibility": {
+    "message": "辅助功能权限"
+  },
+  "wintch.showcase.settings.screenRecording": {
+    "message": "屏幕录制权限（可选）"
+  },
+  "wintch.showcase.settings.displayStyle": {
+    "message": "显示样式"
+  },
+  "wintch.showcase.settings.displayStyleNote": {
+    "message": "默认为列表模式。选择截图网格后，将以卡片网格预览各窗口的缩略图。"
+  },
+  "wintch.showcase.styleToggleAria": {
+    "message": "切换切换器显示样式"
+  },
+  "wintch.showcase.style.list": {
+    "message": "列表"
+  },
+  "wintch.showcase.style.capture": {
+    "message": "截图网格"
+  },
+  "wintch.showcase.settings.granted": {
+    "message": "已授权"
+  },
+  "wintch.feature1.eyebrow": {
+    "message": "窗口切换器 (⌥ + Tab)"
+  },
+  "wintch.feature1.titlePrefix": {
+    "message": "按窗口切换，"
+  },
+  "wintch.feature1.titleAccent": {
+    "message": "不再迷失。"
+  },
+  "wintch.feature1.desc": {
+    "message": "macOS 原生的 Command + Tab 按应用切换，而 Wintch 会单独列出每个已打开的窗口，并按最近使用顺序 (MRU) 排列。即使同一应用打开了多个窗口，也能直达目标窗口。"
+  },
+  "wintch.feature1.b1": {
+    "message": "只需按下并松开 Option + Tab，即可直接跳回上一个窗口"
+  },
+  "wintch.feature1.b2": {
+    "message": "按住修饰键，通过 Tab / Shift+Tab 或方向键循环选择，松开即可确认切换"
+  },
+  "wintch.feature1.b3": {
+    "message": "在设置中自由自定义显示样式（列表 / 缩略图网格）和快捷键"
+  },
+  "wintch.featureCapture.eyebrow": {
+    "message": "截图网格视图"
+  },
+  "wintch.featureCapture.titlePrefix": {
+    "message": "挑选窗口，"
+  },
+  "wintch.featureCapture.titleAccent": {
+    "message": "一目了然。"
+  },
+  "wintch.featureCapture.desc": {
+    "message": "在设置中将窗口切换器的显示样式切换为“截图网格”，即可像 Windows 的 Alt + Tab 一样以卡片网格预览实时窗口缩略图，轻松区分同一应用的多个窗口。"
+  },
+  "wintch.featureCapture.b1": {
+    "message": "按下快捷键即刻弹出，随后异步更新为最新的窗口截图"
+  },
+  "wintch.featureCapture.b2": {
+    "message": "使用方向键（↑/↓/←/→）或 ⌥ + Tab 在网格中移动，支持点击卡片切换或按 ⌥ + Q 关闭"
+  },
+  "wintch.featureCapture.b3": {
+    "message": "屏幕录制权限仅在使用截图网格时按需开启（默认的列表模式下完全不需要）"
+  },
+  "wintch.feature2.eyebrow": {
+    "message": "搜索启动器 (⌥ + Space)"
+  },
+  "wintch.feature2.titlePrefix": {
+    "message": "搜索与应用启动，"
+  },
+  "wintch.feature2.titleAccent": {
+    "message": "一屏搞定。"
+  },
+  "wintch.feature2.desc": {
+    "message": "打开大量窗口时，可唤起搜索启动器。支持按应用名或窗口标题进行空格分隔的 AND 模糊搜索，也可直接从下方区域启动尚未打开的应用。"
+  },
+  "wintch.feature2.b1": {
+    "message": "使用粗体与强调色实时高亮匹配的字符"
+  },
+  "wintch.feature2.b2": {
+    "message": "即使没有打开任何窗口也可呼出，支持同时通过本地化名称和英文名称搜索应用（如 备忘录 / Notes）"
+  },
+  "wintch.feature2.b3": {
+    "message": "搜索时可使用 ↑ / ↓、Ctrl + N / P，甚至 ⌥ + Tab 流畅上下选择"
+  },
+  "wintch.feature3.eyebrow": {
+    "message": "关闭窗口 (⌥ + Q)"
+  },
+  "wintch.feature3.titlePrefix": {
+    "message": "整理窗口，"
+  },
+  "wintch.feature3.titleAccent": {
+    "message": "在列表中直接完成。"
+  },
+  "wintch.feature3.desc": {
+    "message": "无需为了关闭某个窗口而先切换到它。在切换器或启动器中选中任意窗口，按下修饰键 + Q（默认为 ⌥ + Q）即可当场关闭。"
+  },
+  "wintch.feature3.b1": {
+    "message": "在窗口切换器和搜索启动器中均可使用相同的 ⌥ + Q 快捷键"
+  },
+  "wintch.feature3.b2": {
+    "message": "连续关闭多个不需要的窗口——即使关掉最后一个窗口，面板仍会保持打开，方便继续启动其他应用"
+  },
+  "wintch.feature3.b3": {
+    "message": "绝不强制退出或丢弃未保存的工作，始终尊重系统标准的保存确认对话框"
+  },
+  "wintch.feature4.eyebrow": {
+    "message": "原生轻量"
+  },
+  "wintch.feature4.titlePrefix": {
+    "message": "原生打造，"
+  },
+  "wintch.feature4.titleAccent": {
+    "message": "轻快而纯粹。"
+  },
+  "wintch.feature4.desc": {
+    "message": "基于 Swift 6.0 与 SwiftUI 及 Apple 标准框架原生构建，零第三方依赖——让日常窗口切换快速、简洁且可靠。"
+  },
+  "wintch.feature4.b1": {
+    "message": "Universal Binary 通用二进制，同时支持 Apple Silicon 与 Intel Mac"
+  },
+  "wintch.feature4.b2": {
+    "message": "100% 本地运行，零外部网络请求或追踪（窗口截图仅暂存于内存缓存）"
+  },
+  "wintch.feature4.b3": {
+    "message": "静静常驻菜单栏（LSUIElement），不占用程序坞空间"
+  },
+  "wintch.visual.switcher.beforeLabel": {
+    "message": "系统默认的 Command + Tab（按应用切换）"
+  },
+  "wintch.visual.launchSection": {
+    "message": "启动应用"
+  },
+  "wintch.visual.notesApp": {
+    "message": "备忘录"
+  },
+  "wintch.visual.capture.badge": {
+    "message": "截图网格"
+  },
+  "wintch.visual.capture.headline": {
+    "message": "以卡片预览窗口内容"
+  },
+  "wintch.visual.capture.note": {
+    "message": "截图仅保留在内存临时缓存中，不会保存到磁盘或发送至外部"
+  },
+  "wintch.visual.close.headline": {
+    "message": "直接关闭当前选中的窗口"
+  },
+  "wintch.visual.close.safeNote": {
+    "message": "存在未保存更改时，始终尊重应用标准的确认对话框"
+  },
+  "wintch.visual.arch.swiftTitle": {
+    "message": "Swift 6.0 + SwiftUI"
+  },
+  "wintch.visual.arch.swiftStatus": {
+    "message": "原生 Universal Binary（Apple Silicon / Intel）"
+  },
+  "wintch.visual.arch.localTitle": {
+    "message": "100% 本地运行"
+  },
+  "wintch.visual.arch.localStatus": {
+    "message": "零外部通信或数据追踪"
+  },
+  "wintch.visual.arch.menuBarTitle": {
+    "message": "常驻菜单栏"
+  },
+  "wintch.visual.arch.menuBarStatus": {
+    "message": "静静常驻菜单栏，不占用程序坞"
+  },
+  "wintch.visual.arch.axTitle": {
+    "message": "辅助功能权限"
+  },
+  "wintch.visual.arch.axStatus": {
+    "message": "用于监听快捷键与切换窗口（截图网格模式下的屏幕录制权限为可选）"
+  },
+  "wintch.shortcuts.eyebrow": {
+    "message": "键盘快捷键"
+  },
+  "wintch.shortcuts.title": {
+    "message": "默认快捷键一览"
+  },
+  "wintch.shortcuts.subtitle": {
+    "message": "以下为默认快捷键配置。您可随时在设置界面（⌘ + ,）中自由自定义触发快捷键。"
+  },
+  "wintch.shortcuts.scope.normal": {
+    "message": "切换器"
+  },
+  "wintch.shortcuts.scope.launcher": {
+    "message": "启动器"
+  },
+  "wintch.shortcuts.scope.both": {
+    "message": "通用"
+  },
+  "wintch.shortcuts.desc.normalNext": {
+    "message": "按住以打开切换器并切换至下一个窗口（松开修饰键确认）"
+  },
+  "wintch.shortcuts.desc.normalPrev": {
+    "message": "向上移动选择至上一个窗口"
+  },
+  "wintch.shortcuts.desc.launcherToggle": {
+    "message": "打开或关闭搜索启动器"
+  },
+  "wintch.shortcuts.desc.navigate": {
+    "message": "使用方向键在列表项或截图网格中导航（在启动器中也可使用 ⌥ + Tab）"
+  },
+  "wintch.shortcuts.desc.close": {
+    "message": "关闭当前选中的窗口"
+  },
+  "wintch.shortcuts.desc.confirmCancel": {
+    "message": "Enter 确认切换或启动；Esc 取消且不切换"
+  },
+  "wintch.install.eyebrow": {
+    "message": "安装"
+  },
+  "wintch.install.title": {
+    "message": "安装与配置"
+  },
+  "wintch.install.subtitle": {
+    "message": "可通过 Homebrew Cask 或 GitHub Releases 发布的 ZIP 快速安装，均已通过 Developer ID 签名与 Apple 公证。"
+  },
+  "wintch.install.brew.badge": {
+    "message": "推荐"
+  },
+  "wintch.install.brew.title": {
+    "message": "通过 Homebrew 安装"
+  },
+  "wintch.install.brew.desc": {
+    "message": "在终端中运行以下命令，即可一步完成添加 Tap 并安装 Wintch。"
+  },
+  "wintch.install.brew.upgradeLabel": {
+    "message": "更新至最新版本"
+  },
+  "wintch.install.brew.uninstallLabel": {
+    "message": "卸载（如需同时删除设置请附加 --zap）"
+  },
+  "wintch.install.manual.title": {
+    "message": "通过 GitHub Releases 手动安装"
+  },
+  "wintch.install.manual.desc": {
+    "message": "如果不使用 Homebrew，也可以直接从发布页面下载已签名的安装包进行安装。"
+  },
+  "wintch.install.manual.step1": {
+    "message": "从 GitHub Releases 页面下载最新的 Wintch-vX.Y.Z.zip 并解压。"
+  },
+  "wintch.install.manual.step2": {
+    "message": "将解压后的 Wintch.app 移动到 /Applications（应用程序）文件夹并启动。"
+  },
+  "wintch.install.manual.step3": {
+    "message": "按照首次启动时的引导，在“系统设置 ＞ 隐私与安全性 ＞ 辅助功能”中允许 Wintch。"
+  },
+  "wintch.install.manual.notarized": {
+    "message": "发布版本已通过 Developer ID 签名及 Apple 公证，正常启动时不会触发 Gatekeeper 警告。"
+  },
+  "wintch.install.manual.button": {
+    "message": "打开 GitHub Releases"
+  },
+  "wintch.specs.osLabel": {
+    "message": "支持系统 / 架构"
+  },
+  "wintch.specs.osValue": {
+    "message": "macOS 14.0 (Sonoma) 及以上 · Apple Silicon / Intel"
+  },
+  "wintch.specs.permLabel": {
+    "message": "所需权限"
+  },
+  "wintch.specs.permValue": {
+    "message": "辅助功能（屏幕录制权限仅在截图网格模式下可选）"
+  },
+  "wintch.specs.licenseLabel": {
+    "message": "许可证 / 技术栈"
+  },
+  "wintch.specs.licenseValue": {
+    "message": "MIT License · Swift 6.0 / SwiftUI"
+  },
+  "wintch.bottomCta.title": {
+    "message": "让窗口切换毫无阻力。"
+  },
+  "wintch.bottomCta.desc": {
+    "message": "免费开源，基于 MIT License 发布。"
+  },
+  "wintch.topControls.languageAria": {
+    "message": "切换语言"
+  },
+  "wintch.topControls.menuAria": {
+    "message": "可用语言列表"
+  },
+  "nickmark.page.title": {
+    "message": "Nickmark | 键盘优先书签启动器 Chrome 扩展程序"
+  },
+  "nickmark.page.description": {
+    "message": "介绍键盘优先的 Chrome 扩展程序 Nickmark：内置命令面板、动态 URL (%s)、文件夹批量打开、小书签执行及指数衰减排序功能。"
+  },
+  "nickmark.nav.ariaLabel": {
+    "message": "页内导航"
+  },
+  "nickmark.nav.palette": {
+    "message": "命令面板"
+  },
+  "nickmark.nav.dynamic": {
+    "message": "动态 URL 与脚本"
+  },
+  "nickmark.nav.folders": {
+    "message": "文件夹批量打开"
+  },
+  "nickmark.nav.dashboard": {
+    "message": "排序与管理面板"
+  },
+  "nickmark.nav.privacy": {
+    "message": "同步与隐私"
+  },
+  "nickmark.nav.commands": {
+    "message": "命令参考"
+  },
+  "nickmark.nav.install": {
+    "message": "安装"
+  },
+  "nickmark.hero.meta": {
+    "message": "v2.1.0 · Chrome 135+ · MIT License"
+  },
+  "nickmark.hero.titlePrefix": {
+    "message": "让书签访问，"
+  },
+  "nickmark.hero.titleAccent": {
+    "message": "纯键盘极速直达。"
+  },
+  "nickmark.hero.subtitle": {
+    "message": "Nickmark 是一款专为工程师和进阶用户打造的键盘优先 Chrome 扩展程序。为常用页面、搜索模板（%s）、文件夹分组和小书签分配简短昵称，通过命令面板即可瞬间调用。"
+  },
+  "nickmark.cta.store": {
+    "message": "从 Chrome Web Store 添加"
+  },
+  "nickmark.cta.docs": {
+    "message": "查看使用文档"
+  },
+  "nickmark.showcase.presetsLabel": {
+    "message": "示例："
+  },
+  "nickmark.showcase.placeholder": {
+    "message": "搜索昵称，或输入 :add / ;add / :rm ..."
+  },
+  "nickmark.showcase.inputAria": {
+    "message": "Nickmark 命令面板演示输入框"
+  },
+  "nickmark.showcase.clear": {
+    "message": "清空输入"
+  },
+  "nickmark.showcase.noMatch": {
+    "message": "未找到匹配的候选项。"
+  },
+  "nickmark.showcase.nextTip": {
+    "message": "点击查看下一条提示"
+  },
+  "nickmark.showcase.tip1": {
+    "message": "输入 :add <name>（或 ;add / :a）即可立即收藏当前标签页。"
+  },
+  "nickmark.showcase.tip2": {
+    "message": "输入 folder/（例如 work/）并按 Enter，即可批量打开该文件夹下的所有书签。"
+  },
+  "nickmark.showcase.tip3": {
+    "message": "在 URL 中包含 %s 即可直接传递参数，例如输入 \"nickname query\"。"
+  },
+  "nickmark.showcase.tip4": {
+    "message": "使用 Shift+Enter 可在不关闭面板的情况下连续在后台打开多个标签页，使用 Cmd/Ctrl+Enter 则在前台新标签页中打开。"
+  },
+  "nickmark.showcase.browser.tabsAria": {
+    "message": "演示浏览器标签页列表"
+  },
+  "nickmark.showcase.browser.closeTabAria": {
+    "message": "关闭标签页"
+  },
+  "nickmark.showcase.browser.reset": {
+    "message": "重置标签页"
+  },
+  "nickmark.showcase.hint.current": {
+    "message": "当前标签页打开"
+  },
+  "nickmark.showcase.hint.newTab": {
+    "message": "新标签页打开"
+  },
+  "nickmark.showcase.hint.bgTab": {
+    "message": "后台连续打开"
+  },
+  "nickmark.showcase.feedback.added": {
+    "message": "已将「{nickname}」添加到演示列表"
+  },
+  "nickmark.showcase.feedback.removed": {
+    "message": "已将「{nickname}」从演示列表中删除"
+  },
+  "nickmark.showcase.feedback.forbidden": {
+    "message": "昵称包含不允许使用的字符（空格、: ; \\ % ? # & = * \" ' ` < > | 等）。"
+  },
+  "nickmark.showcase.alreadyBookmarked": {
+    "message": "此页面已添加到书签（昵称：{nicknames}）"
+  },
+  "nickmark.showcase.feedback.command": {
+    "message": "已执行命令 {cmd}"
+  },
+  "nickmark.showcase.feedback.bookmarklet": {
+    "message": "已通过 userScripts API（MAIN world）在当前标签页执行小书签"
+  },
+  "nickmark.feature1.eyebrow": {
+    "message": "命令面板 (⌥⇧D / Alt+⇧D)"
+  },
+  "nickmark.feature1.titlePrefix": {
+    "message": "随时随地呼出，"
+  },
+  "nickmark.feature1.titleAccent": {
+    "message": "不打断工作流。"
+  },
+  "nickmark.feature1.desc": {
+    "message": "在任意标签页按下 Option + Shift + D（Windows/Linux 为 Alt + Shift + D）即可呼出命令面板。支持按昵称、标题和 URL 搜索，并可通过 Enter 组合键灵活选择标签页的打开方式。"
+  },
+  "nickmark.feature1.b1": {
+    "message": "支持使用 ↑ / ↓ 或 Ctrl + N / P 导航、Tab 键自动补全，并有效防止输入法误提交"
+  },
+  "nickmark.feature1.b2": {
+    "message": "按 Enter 在当前标签页打开，Cmd/Ctrl/Alt + Enter 在新标签页打开，Shift + Enter 可连续在后台标签页打开"
+  },
+  "nickmark.feature1.b3": {
+    "message": "也可通过工具栏图标呼出，并支持输入 \":\" 或 \";\" 前缀直接切换至命令模式"
+  },
+  "nickmark.feature2.eyebrow": {
+    "message": "动态 URL (%s)、预设与小书签"
+  },
+  "nickmark.feature2.titlePrefix": {
+    "message": "参数与脚本，"
+  },
+  "nickmark.feature2.titleAccent": {
+    "message": "一步直达。"
+  },
+  "nickmark.feature2.desc": {
+    "message": "在任意 URL 中嵌入 %s 即可创建如 \"gh sawarame/Nickmark\" 般的即时搜索快捷方式。可在偏好设置中勾选启用 18 个内置预设（15 个搜索引擎和 3 个小书签），或注册 javascript: 小书签在当前标签页中安全运行。"
+  },
+  "nickmark.feature2.b1": {
+    "message": "自动保留路径段中的斜杠并对查询参数进行 URL 编码，支持可选默认值或回退至站点根目录"
+  },
+  "nickmark.feature2.b2": {
+    "message": "通过 Chrome 135+ 的 userScripts API 直接在当前标签页的 MAIN world 中执行 javascript: 小书签"
+  },
+  "nickmark.feature2.b3": {
+    "message": "可选开启浏览器历史记录搜索，在书签结果下方展示去重后的历史匹配项，且不影响评分排序"
+  },
+  "nickmark.feature3.eyebrow": {
+    "message": "文件夹与批量打开"
+  },
+  "nickmark.feature3.titlePrefix": {
+    "message": "斜杠分隔文件夹，"
+  },
+  "nickmark.feature3.titleAccent": {
+    "message": "一键启动整个工作区。"
+  },
+  "nickmark.feature3.desc": {
+    "message": "使用斜杠（如 work/mail 和 work/docs）自动将昵称归类到文件夹中。输入 \"work/\" 并按 Enter，即可在后台标签页中一键打开该文件夹下的所有书签。"
+  },
+  "nickmark.feature3.b1": {
+    "message": "支持中间层级文件夹匹配（例如输入 \"repo/\" 匹配 \"github/repo\"），自动去重 URL 并跳过 javascript: 小书签"
+  },
+  "nickmark.feature3.b2": {
+    "message": "当文件夹内书签数量超过可配置的安全上限（1–100 个标签页，默认 20 个）时弹出确认提示"
+  },
+  "nickmark.feature3.b3": {
+    "message": "直接在管理面板中筛选、批量打开、重命名或删除整个文件夹"
+  },
+  "nickmark.feature4.eyebrow": {
+    "message": "智能排序与管理面板"
+  },
+  "nickmark.feature4.titlePrefix": {
+    "message": "贴合使用习惯，"
+  },
+  "nickmark.feature4.titleAccent": {
+    "message": "轻松管理维护。"
+  },
+  "nickmark.feature4.desc": {
+    "message": "指数衰减评分结合手动置顶，让最常用的书签始终排在前列。在管理面板（:ls）中，点击任意单元格即可行内编辑，或导入现有的 Chrome 书签。"
+  },
+  "nickmark.feature4.b1": {
+    "message": "时间衰减评分（0.95^elapsedDays）结合置顶功能，随日常工作流变化自动调整排序"
+  },
+  "nickmark.feature4.b2": {
+    "message": "点击任意单元格即可行内编辑（Enter/失焦保存，Esc 取消），支持按列 AND 筛选及按评分/日期排序"
+  },
+  "nickmark.feature4.b3": {
+    "message": "支持导入 Chrome 书签 HTML 和 Nickmark JSON（合并/覆盖/指定目标文件夹），并内置 JSON 编辑器"
+  },
+  "nickmark.feature5.eyebrow": {
+    "message": "隐私优先与数据同步"
+  },
+  "nickmark.feature5.titlePrefix": {
+    "message": "零外部服务器，"
+  },
+  "nickmark.feature5.titleAccent": {
+    "message": "本地或同步随心选择。"
+  },
+  "nickmark.feature5.desc": {
+    "message": "无外部服务器、无遥测、无追踪。随时在无限制本地存储与个人 Chrome 账号同步之间切换，并支持无需刷新即时切换英/日双语界面。"
+  },
+  "nickmark.feature5.b1": {
+    "message": "可自由选择无容量限制的 chrome.storage.local 或 chrome.storage.sync（100KB 配额，支持自动 8KB 分片存储）"
+  },
+  "nickmark.feature5.b2": {
+    "message": "切换同步模式时会显示对比与冲突解决对话框，直观对比本地与云端的时间戳和条目数量"
+  },
+  "nickmark.feature5.b3": {
+    "message": "浏览器历史记录权限严格作为可选权限（optional_permissions），仅在用户主动启用时才会请求"
+  },
+  "nickmark.visual.palette.headline": {
+    "message": "在任意标签页即时呼出"
+  },
+  "nickmark.visual.palette.curTab": {
+    "message": "当前标签页"
+  },
+  "nickmark.visual.palette.newTab": {
+    "message": "新建标签页"
+  },
+  "nickmark.visual.palette.bgTab": {
+    "message": "后台连续打开"
+  },
+  "nickmark.visual.dynamic.bmlTitle": {
+    "message": "通过 userScripts API（MAIN world）直接运行"
+  },
+  "nickmark.visual.folder.count": {
+    "message": "一键打开 3 个标签页"
+  },
+  "nickmark.visual.folder.safeNote": {
+    "message": "自动去重 URL，超过安全上限（1–100 个，默认 20 个）时弹出确认提示"
+  },
+  "nickmark.visual.rank.formulaLabel": {
+    "message": "指数衰减评分"
+  },
+  "nickmark.visual.rank.inline": {
+    "message": "行内编辑与列筛选"
+  },
+  "nickmark.visual.rank.import": {
+    "message": "导入 Chrome HTML / JSON"
+  },
+  "nickmark.visual.rank.json": {
+    "message": "JSON 编辑器与排序"
+  },
+  "nickmark.visual.arch.localTitle": {
+    "message": "零外部服务器与零追踪"
+  },
+  "nickmark.visual.arch.localStatus": {
+    "message": "书签数据仅保存在本地浏览器存储或个人 Chrome 同步空间中"
+  },
+  "nickmark.visual.arch.syncTitle": {
+    "message": "无限制本地存储与 Chrome 账号同步"
+  },
+  "nickmark.visual.arch.syncStatus": {
+    "message": "在 100KB 同步配额内自动按 8KB 分片，并支持冲突解决"
+  },
+  "nickmark.visual.arch.historyTitle": {
+    "message": "可选历史记录搜索（optional_permissions）"
+  },
+  "nickmark.visual.arch.historyStatus": {
+    "message": "除非在偏好设置中明确启用，否则绝不请求浏览历史权限"
+  },
+  "nickmark.visual.arch.i18nTitle": {
+    "message": "双语界面与 MIT 开源"
+  },
+  "nickmark.visual.arch.i18nStatus": {
+    "message": "支持英/日界面即时切换，基于 TypeScript / Vue 3 / PrimeVue 构建"
+  },
+  "nickmark.ref.eyebrow": {
+    "message": "命令与快捷键"
+  },
+  "nickmark.ref.title": {
+    "message": "键盘操作参考"
+  },
+  "nickmark.ref.subtitle": {
+    "message": "在命令面板中只需以冒号「:」或分号「;」开头，即可完成从添加、批量打开、删除到呼出设置页面的全部操作。"
+  },
+  "nickmark.commands.heading": {
+    "message": "内置命令列表"
+  },
+  "nickmark.commands.add": {
+    "message": "保存当前标签页、自定义 URL 或 javascript: 书签脚本"
+  },
+  "nickmark.commands.addall": {
+    "message": "保存当前窗口中所有已打开的标签页"
+  },
+  "nickmark.commands.rm": {
+    "message": "删除别名或指定的 URL 条目"
+  },
+  "nickmark.commands.ls": {
+    "message": "打开书签管理与行内编辑面板"
+  },
+  "nickmark.commands.prefs": {
+    "message": "打开偏好设置（同步、语言、标签页行为、历史记录、18 种预设、批量上限）"
+  },
+  "nickmark.commands.help": {
+    "message": "打开在线帮助文档"
+  },
+  "nickmark.shortcuts.heading": {
+    "message": "键盘快捷键一览"
+  },
+  "nickmark.shortcuts.scope.global": {
+    "message": "启动"
+  },
+  "nickmark.shortcuts.scope.palette": {
+    "message": "面板内"
+  },
+  "nickmark.shortcuts.scope.action": {
+    "message": "操作"
+  },
+  "nickmark.shortcuts.desc.launch": {
+    "message": "在任意位置打开命令面板（可在 chrome://extensions/shortcuts 中自定义）"
+  },
+  "nickmark.shortcuts.desc.navigate": {
+    "message": "在候选列表中上下移动选中项"
+  },
+  "nickmark.shortcuts.desc.autocomplete": {
+    "message": "将选中的昵称、文件夹路径或命令自动补全到输入框"
+  },
+  "nickmark.shortcuts.desc.esc": {
+    "message": "关闭命令面板且不执行任何操作"
+  },
+  "nickmark.shortcuts.desc.enter": {
+    "message": "在当前标签页打开（或执行小书签 / 命令）"
+  },
+  "nickmark.shortcuts.desc.newTab": {
+    "message": "在前台新标签页中打开"
+  },
+  "nickmark.shortcuts.desc.bgTab": {
+    "message": "在后台标签页打开，同时保持命令面板开启"
+  },
+  "nickmark.install.eyebrow": {
+    "message": "安装指南"
+  },
+  "nickmark.install.title": {
+    "message": "安装与快速上手"
+  },
+  "nickmark.install.subtitle": {
+    "message": "支持从 Chrome Web Store 一键安装，也可直接从开源 GitHub 仓库克隆并构建加载。"
+  },
+  "nickmark.install.store.badge": {
+    "message": "推荐"
+  },
+  "nickmark.install.store.title": {
+    "message": "从 Chrome Web Store 安装"
+  },
+  "nickmark.install.store.desc": {
+    "message": "从商店添加后，只需以下 4 步即可快速上手："
+  },
+  "nickmark.install.store.step1": {
+    "message": "打开任意常用网页。"
+  },
+  "nickmark.install.store.step2": {
+    "message": "按下 Option + Shift + D（Windows / Linux 为 Alt + Shift + D）打开命令面板。"
+  },
+  "nickmark.install.store.step3": {
+    "message": "输入「:add gh」（或「;add gh」）并按 Enter，即可将当前标签页注册为昵称「gh」。"
+  },
+  "nickmark.install.store.step4": {
+    "message": "下次打开面板后输入「gh」并按 Enter，即可立即跳转。"
+  },
+  "nickmark.install.store.userscriptsNote": {
+    "message": "如需运行 javascript: 小书签，请在 Chrome 扩展程序详情页（chrome://extensions）中启用「允许用户脚本」。"
+  },
+  "nickmark.install.store.button": {
+    "message": "打开 Chrome Web Store"
+  },
+  "nickmark.install.dev.title": {
+    "message": "从 GitHub 源码构建加载"
+  },
+  "nickmark.install.dev.desc": {
+    "message": "采用 MIT License 开源发布，可在本地轻松构建、加载与自定义。"
+  },
+  "nickmark.install.dev.cloneLabel": {
+    "message": "克隆仓库"
+  },
+  "nickmark.install.dev.buildLabel": {
+    "message": "安装依赖并构建"
+  },
+  "nickmark.install.dev.step1": {
+    "message": "在 Chrome 中打开 chrome://extensions，并启用右上角的「开发者模式」。"
+  },
+  "nickmark.install.dev.step2": {
+    "message": "点击「加载未打包的扩展程序」，选择构建生成的 package/ 目录。"
+  },
+  "nickmark.install.dev.button": {
+    "message": "查看 GitHub 仓库"
+  },
+  "nickmark.specs.browserLabel": {
+    "message": "支持浏览器 / 规范"
+  },
+  "nickmark.specs.browserValue": {
+    "message": "Google Chrome 135+ · Manifest V3"
+  },
+  "nickmark.specs.permLabel": {
+    "message": "隐私 / 权限"
+  },
+  "nickmark.specs.permValue": {
+    "message": "零外部传输 · 历史记录访问默认关闭"
+  },
+  "nickmark.specs.licenseLabel": {
+    "message": "开源协议 / 技术栈"
+  },
+  "nickmark.specs.licenseValue": {
+    "message": "MIT License · TypeScript / Vue 3 / PrimeVue"
+  },
+  "nickmark.bottomCta.title": {
+    "message": "告别翻找书签的时间。"
+  },
+  "nickmark.bottomCta.desc": {
+    "message": "基于 MIT License 免费开源发布。现已上架 Chrome Web Store，即装即用。"
+  },
+  "benchmark.gfx.rank.a": {
+    "message": "流畅。即使是包含丰富视觉效果的网站也能顺滑运行"
+  },
+  "benchmark.gfx.rank.b": {
+    "message": "实用。足以胜任常见的动画和图形渲染"
+  },
+  "benchmark.gfx.rank.c": {
+    "message": "标准。日常网页浏览的渲染性能没有问题"
+  },
+  "benchmark.gfx.rank.d": {
+    "message": "基础。在较重的渲染任务中可能会感到卡顿"
+  },
+  "benchmark.gfx.rank.e": {
+    "message": "较慢。渲染性能偏弱，视觉效果可能出现延迟"
+  },
+  "benchmark.gfx.rank.f": {
+    "message": "运行吃力。不适合呈现动画或复杂的 UI 效果"
+  },
+  "benchmark.gfx.rank.s": {
+    "message": "顶尖。即使面对复杂的图形渲染和动画也极其丝滑"
+  },
+  "benchmark.modal.gfx": {
+    "message": "渲染："
+  },
+  "benchmark.progress.graphics": {
+    "message": "正在测试渲染性能..."
+  },
+  "benchmark.progress.graphicsPreparing": {
+    "message": "正在准备渲染性能测试..."
+  },
+  "benchmark.share.gfx": {
+    "message": "图形:"
+  },
+  "benchmark.ui.graphics": {
+    "message": "渲染性能 (Canvas & DOM)"
+  },
+  "common.copyLabel": {
+    "message": "复制{label}"
+  },
+  "common.decrease": {
+    "message": "减少"
+  },
+  "common.increase": {
+    "message": "增加"
+  },
+  "common.reset": {
+    "message": "清空"
+  },
+  "date.input.calendar": {
+    "message": "打开日历"
+  },
+  "diff.tooltip.split": {
+    "message": "并排视图"
+  },
+  "encoding.upload.dropLabel": {
+    "message": "点击、拖放或粘贴以选择"
+  },
+  "encoding.upload.formats": {
+    "message": "支持格式: .txt, .csv, .log, .md, .json 等"
+  },
+  "exif.result.changeFormatLink": {
+    "message": "可以更改图片格式"
+  },
+  "exif.result.noExifData": {
+    "message": "此图片不包含 EXIF 信息。"
+  },
+  "exif.result.removeExifLink": {
+    "message": "可以清除 Exif 信息"
+  },
+  "exif.title": {
+    "message": "照片 Exif 信息查看器"
+  },
+  "markdownPdf.upload.dropLabel": {
+    "message": "点击、拖放或粘贴以选择文件"
+  },
+  "markdownPdf.upload.formats": {
+    "message": "支持格式：Markdown (.md)"
+  },
+  "markdownPdf.upload.title": {
+    "message": "选择 Markdown 文件"
+  },
+  "password.title": {
+    "message": "密码生成器"
+  },
+  "pdfEditor.action.remove": {
+    "message": "删除"
+  },
+  "pdfEditor.action.zoom": {
+    "message": "放大预览"
+  },
+  "pdfEditor.list.pages": {
+    "message": "页"
+  },
+  "pdfEditor.list.selected": {
+    "message": "已选择"
+  },
+  "pdfEditor.list.title": {
+    "message": "已选择的文件"
+  },
+  "pdfEditor.pages.unit": {
+    "message": "页已选"
+  },
+  "pdfEditor.preview.next": {
+    "message": "下一页"
+  },
+  "pdfEditor.preview.prev": {
+    "message": "上一页"
+  },
+  "pdfEditor.upload.formats": {
+    "message": "支持格式：PDF"
+  },
+  "qr.input.generated": {
+    "message": "生成的字符串"
+  },
+  "seo.action.fetch": {
+    "message": "获取"
+  },
+  "seo.action.fetching": {
+    "message": "获取中..."
+  },
+  "seo.info.desc": {
+    "message": "通过服务器访问指定的 URL 并获取元数据。※ 需要身份验证的页面或内网页面可能无法获取。"
+  },
+  "seo.info.title": {
+    "message": "从 URL 自动获取"
+  },
+  "seo.security.desc.secure": {
+    "message": "粘贴的 HTML 源代码完全仅在您的浏览器本地进行解析处理，绝不会将 URL 或 HTML 数据发送到任何外部服务器。即使是在离线环境或解析企业内部非公开网站的源代码，也能完全安全地使用。"
+  },
+  "seo.security.title.secure": {
+    "message": "100% 安全的本地处理（无 CORS 限制）"
+  },
+  "seo.tab.html": {
+    "message": "粘贴 HTML"
+  },
+  "seo.tab.url": {
+    "message": "从 URL 获取"
+  },
+  "text.input.ariaLabel": {
+    "message": "文本输入区域"
+  },
+  "tool.jsonFormatter.upload.dropLabel": {
+    "message": "点击、拖放或粘贴以选择文件"
+  },
+  "tool.jsonFormatter.upload.formats": {
+    "message": "支持格式：JSON, Text"
+  }
+}

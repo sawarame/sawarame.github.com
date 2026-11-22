@@ -1,0 +1,30 @@
+---
+title: 圖片壓縮與裁切工具
+slug: /resize
+sidebar_position: 3
+hide_title: true
+---
+
+import ImageOptimizer from "@site/src/components/ImageOptimizer";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Image } from "lucide-react";
+
+<ToolPageHeader
+  title="圖片壓縮與裁切工具"
+  desc="直接在瀏覽器中裁切圖片，並轉換為 WebP 等格式以縮減檔案大小。支援批次處理與移除 EXIF 資訊。所有處理皆在瀏覽器內完成，圖片不會上傳至伺服器，安全無虞。"
+  icon={<Image size={48} color="#fff" />}
+/>
+
+<ImageOptimizer />
+
+## 使用方式
+
+1. 拖放或點擊選擇要壓縮最佳化的圖片檔案（支援多選），亦支援從剪貼簿貼上（Ctrl+V）。
+2. 如有需要，可點擊每張圖片的「裁切」按鈕進行圖片裁切，並提供適合社群媒體使用的預設比例。
+3. 在「最佳化設定」中調整輸出格式（建議使用 WebP）、最大寬度與畫質等選項。若輸出為 JPEG 格式，可選擇是否保留 EXIF 資訊。
+4. 點擊「開始最佳化」，即會在瀏覽器內執行轉換處理。
+5. 處理完成後，可透過「比較」按鈕確認壓縮前後的畫質，確認無誤後點擊「下載」儲存圖片。若有多張圖片，將會自動打包為 ZIP 檔案一併下載。
+
+:::info 隱私與安全性
+🔒 圖片壓縮與裁切處理完全在您的裝置（瀏覽器內）執行，絕不會將資料傳送至任何外部伺服器，即使是機密性高的圖片也能放心使用。
+:::

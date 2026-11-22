@@ -118,4 +118,43 @@ describe('WintchTopControlsView', () => {
     });
     expect(container.querySelector('ul[role="menu"]')).toBeNull();
   });
+
+  it('中国語（簡体字・繁体字）・韓国語を含む全 5 ロケール構成で遷移リンクが正しく生成されること', () => {
+    const fiveLocaleProps = {
+      ...baseProps,
+      currentLocale: 'zh-Hans',
+      currentBaseUrl: '/zh-Hans/',
+      pathname: '/zh-Hans/wintch',
+      locales: ['ja', 'en', 'zh-Hans', 'zh-Hant', 'ko'],
+      localeConfigs: {
+        ja: { label: '日本語', htmlLang: 'ja', baseUrl: '/', url: 'https://sawara.me' },
+        en: { label: 'English', htmlLang: 'en', baseUrl: '/en/', url: 'https://sawara.me' },
+        'zh-Hans': { label: '简体中文', htmlLang: 'zh-Hans', baseUrl: '/zh-Hans/', url: 'https://sawara.me' },
+        'zh-Hant': { label: '繁體中文', htmlLang: 'zh-Hant', baseUrl: '/zh-Hant/', url: 'https://sawara.me' },
+        ko: { label: '한국어', htmlLang: 'ko', baseUrl: '/ko/', url: 'https://sawara.me' },
+      },
+    };
+
+    act(() => {
+      root.render(<WintchTopControlsView {...fiveLocaleProps} />);
+    });
+
+    const trigger = container.querySelector('button[aria-haspopup="menu"]') as HTMLButtonElement;
+    expect(trigger.textContent).toContain('简体中文');
+
+    act(() => {
+      trigger.click();
+    });
+
+    const menuItems = Array.from(container.querySelectorAll('a[role="menuitem"]'));
+    expect(menuItems).toHaveLength(5);
+    expect(menuItems.map((el) => el.getAttribute('href'))).toEqual([
+      'pathname:///wintch?tab=launcher#install',
+      'pathname:///en/wintch?tab=launcher#install',
+      'pathname:///zh-Hans/wintch?tab=launcher#install',
+      'pathname:///zh-Hant/wintch?tab=launcher#install',
+      'pathname:///ko/wintch?tab=launcher#install',
+    ]);
+    expect(menuItems[2]?.getAttribute('aria-current')).toBe('page');
+  });
 });

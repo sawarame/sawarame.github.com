@@ -1,0 +1,3317 @@
+{
+  "about.title": {
+    "message": "이 사이트에 대하여 | sawara.me"
+  },
+  "about.header.title": {
+    "message": "sawara.me 소개"
+  },
+  "about.header.desc": {
+    "message": "sawara.me의 콘셉트 및 제공 기능 안내"
+  },
+  "about.concept.title": {
+    "message": "콘셉트"
+  },
+  "about.concept.free.title": {
+    "message": "누구나 무료로 이용 가능"
+  },
+  "about.concept.free.desc": {
+    "message": "sawara.me는 일상의 사소한 불편을 해결해 주는 작고 유용한 도구를 무료로 공개하는 사이트입니다. 번거로운 회원가입이나 로그인, 광고에 방해받지 않고 필요할 때 바로 이용할 수 있는 공간을 지향합니다."
+  },
+  "about.concept.secure.title": {
+    "message": "100% 브라우저 내 처리의 안전성"
+  },
+  "about.concept.secure.desc": {
+    "message": "'이미지 용량을 줄이고 싶지만 서버에 사진을 업로드하는 건 불안하다', '비밀번호를 생성하고 싶지만 통신 내용이 노출되지 않을까 걱정된다' 같은 걱정은 필요 없습니다. 이 사이트의 도구는 모든 처리를 사용자의 브라우저 내에서 수행합니다. 데이터가 외부 서버로 전송되는 일은 결코 없습니다."
+  },
+  "about.extension.title": {
+    "message": "자체 제작 브라우저 확장 프로그램"
+  },
+  "about.extension.desc": {
+    "message": "웹 도구뿐만 아니라 특정 사이트의 사용성을 높이거나 개발 효율을 크게 향상시켜 주는 Chrome / Edge용 자체 제작 확장 프로그램도 공개 및 제공하고 있습니다."
+  },
+  "about.tech.title": {
+    "message": "기술 스택"
+  },
+  "about.tech.docusaurus.desc": {
+    "message": "빠른 정적 사이트 생성"
+  },
+  "about.tech.mui.desc": {
+    "message": "일관성 있고 아름다운 UI 컴포넌트"
+  },
+  "about.tech.ts.desc": {
+    "message": "타입 안전성을 통한 안정적인 동작"
+  },
+  "home.description": {
+    "message": "sawara.me — 일상의 소소한 불편함을 해결하는 작고 유용한 도구와 애플리케이션을 공개하는 사이트입니다."
+  },
+  "home.hero.badge": {
+    "message": "유용한 도구 & 브라우저 확장 프로그램"
+  },
+  "home.hero.subtitle": {
+    "message": "작은 것들을 꾸준히 만듭니다."
+  },
+  "home.hero.description": {
+    "message": "일상의 소소한 불편함을 해결하는 브라우저 기반의 안전한 도구 및 확장 프로그램 모음입니다."
+  },
+  "home.hero.actions.tools": {
+    "message": "도구 보기"
+  },
+  "home.hero.actions.extensions": {
+    "message": "확장 프로그램 보기"
+  },
+  "home.hero.aboutLink": {
+    "message": "이 사이트에 대해"
+  },
+  "home.tools.label": {
+    "message": "도구"
+  },
+  "home.tools.title": {
+    "message": "브라우저 도구"
+  },
+  "home.tools.subtitle": {
+    "message": "브라우저에서 바로 실행되는 일상용 간편 도구입니다."
+  },
+  "home.tools.password.title": {
+    "message": "비밀번호 생성기"
+  },
+  "home.tools.password.desc": {
+    "message": "원하는 조건에 맞는 비밀번호를 생성합니다. 설정이 URL에 포함되어 간편하게 공유할 수 있으며 브라우저에서 안전하게 실행됩니다."
+  },
+  "home.tools.text.title": {
+    "message": "텍스트 메모장"
+  },
+  "home.tools.text.desc": {
+    "message": "텍스트를 임시로 저장하는 공간입니다. 저장된 텍스트는 브라우저의 로컬 스토리지에 보관됩니다."
+  },
+  "home.tools.device.title": {
+    "message": "기기 정보 체커"
+  },
+  "home.tools.device.desc": {
+    "message": "현재 기기의 화면 크기와 사용자 에이전트 정보를 표시합니다."
+  },
+  "home.tools.qr.title": {
+    "message": "QR 코드 생성기"
+  },
+  "home.tools.qr.desc": {
+    "message": "URL이나 텍스트로 QR 코드를 생성합니다. 로고 삽입, Wi-Fi 설정, 캘린더 일정 생성을 지원합니다."
+  },
+  "home.tools.qr-reader.title": {
+    "message": "QR 코드 리더"
+  },
+  "home.tools.qr-reader.desc": {
+    "message": "QR 코드 이미지를 업로드해 포함된 문자열을 해독합니다. URL은 바로 열 수 있으며 모든 처리는 브라우저 내에서 이루어집니다."
+  },
+  "home.tools.date.title": {
+    "message": "날짜 비교 도구"
+  },
+  "home.tools.date.desc": {
+    "message": "두 날짜 사이의 차이를 계산합니다. 다양한 날짜 입력 형식을 지원합니다."
+  },
+  "home.tools.exif.title": {
+    "message": "사진 Exif 정보 뷰어"
+  },
+  "home.tools.exif.desc": {
+    "message": "촬영 일시, 카메라 정보, GPS 등 사진의 메타데이터를 확인합니다. 사진은 로컬에서 안전하게 처리됩니다."
+  },
+  "home.tools.resize.title": {
+    "message": "이미지 리사이즈 & 크롭"
+  },
+  "home.tools.resize.desc": {
+    "message": "브라우저에서 이미지 용량을 줄이고 WebP 형식으로 변환합니다. 일괄 처리와 EXIF 제거를 지원합니다."
+  },
+  "home.tools.pdfEditor.title": {
+    "message": "PDF 편집기 (이미지 & PDF 내보내기)"
+  },
+  "home.tools.pdfEditor.desc": {
+    "message": "PDF 페이지를 추출, 병합하거나 이미지로 변환합니다. 미리보기로 원하는 페이지를 선택할 수 있으며 브라우저에서 안전하게 실행됩니다."
+  },
+  "home.tools.benchmark.title": {
+    "message": "웹 성능 측정"
+  },
+  "home.tools.benchmark.desc": {
+    "message": "브라우저에서 기기의 연산 성능을 측정하고 점수와 등급으로 평가합니다."
+  },
+  "home.tools.encoding.title": {
+    "message": "문자 인코딩 변환기"
+  },
+  "home.tools.encoding.desc": {
+    "message": "문자 인코딩(UTF-8, Shift_JIS 등)을 자동 감지 및 변환하고 변환 후 파일 크기를 시뮬레이션합니다. 텍스트 붙여넣기도 지원합니다."
+  },
+  "home.tools.markdownPdf.title": {
+    "message": "Markdown → PDF 변환"
+  },
+  "home.tools.markdownPdf.desc": {
+    "message": "업로드한 Markdown 파일이나 직접 입력한 텍스트를 텍스트 선택 및 검색이 가능한 PDF로 브라우저에서 바로 변환합니다."
+  },
+  "home.extensions.label": {
+    "message": "확장 프로그램"
+  },
+  "home.extensions.title": {
+    "message": "Chrome 확장 프로그램"
+  },
+  "home.extensions.subtitle": {
+    "message": "개발과 브라우징을 더욱 쾌적하게 만들어 주는 Chrome Web Store 확장 프로그램입니다."
+  },
+  "home.extensions.taborigami.desc": {
+    "message": "너무 많이 열린 탭을 AI로 자동 정리합니다. Gemini가 브라우저를 순식간에 깔끔하게 정리해 줍니다."
+  },
+  "home.extensions.envicon.desc": {
+    "message": "운영, 스테이징, 개발 환경에 따라 파비콘을 변경해 주는 개발자용 브라우저 확장 프로그램입니다."
+  },
+  "home.extensions.nickmark.desc": {
+    "message": "커맨드 팔레트에서 닉네임으로 북마크와 동적 URL에 즉시 접근할 수 있는 키보드 중심 브라우저 확장 프로그램입니다."
+  },
+  "home.extensions.geminikit.desc": {
+    "message": "Google Gemini 웹 인터페이스를 개선하는 확장 프로그램입니다. Enter로 줄바꿈하고 Cmd/Ctrl+Enter로 전송할 수 있습니다."
+  },
+  "home.extensions.mdpicker.desc": {
+    "message": "웹 페이지 링크를 Markdown 형식으로 간편하게 복사할 수 있는 브라우저 확장 프로그램입니다."
+  },
+  "home.extensions.ketchuptimer.desc": {
+    "message": "재미있는 케첩 병 콘셉트의 뽀모도로 타이머입니다. 케첩 잔량으로 남은 집중 시간을 시각적으로 보여주어 더욱 즐겁게 몰입할 수 있습니다."
+  },
+  "home.extensions.foursight.desc": {
+    "message": "GitHub Four Keys(DORA 지표)를 추적하고 시각화하여 개발 팀의 생산성 향상을 돕는 확장 프로그램입니다."
+  },
+  "home.extensions.linkText": {
+    "message": "Chrome Web Store에서 보기 →"
+  },
+  "home.macApps.label": {
+    "message": "Mac 앱"
+  },
+  "home.macApps.title": {
+    "message": "macOS 데스크톱 앱"
+  },
+  "home.macApps.subtitle": {
+    "message": "Swift와 SwiftUI로 제작된 가벼운 네이티브 macOS 애플리케이션입니다."
+  },
+  "home.macApps.wintch.desc": {
+    "message": "열려 있는 모든 창으로 바로 이동할 수 있는 macOS용 창 전환 및 검색 런처입니다. 목록 보기와 실시간 캡처 그리드 모드를 모두 지원합니다."
+  },
+  "home.macApps.linkText": {
+    "message": "소개 페이지 및 설치 방법 보기 →"
+  },
+  "theme.ErrorPageContent.title": {
+    "message": "페이지에 오류가 발생하였습니다.",
+    "description": "The title of the fallback page when the page crashed"
+  },
+  "theme.BackToTopButton.buttonAriaLabel": {
+    "message": "맨 위로 스크롤하기",
+    "description": "The ARIA label for the back to top button"
+  },
+  "theme.blog.archive.title": {
+    "message": "게시물 목록",
+    "description": "The page & hero title of the blog archive page"
+  },
+  "theme.blog.archive.description": {
+    "message": "게시물 목록",
+    "description": "The page & hero description of the blog archive page"
+  },
+  "theme.blog.paginator.navAriaLabel": {
+    "message": "블로그 게시물 목록 탐색",
+    "description": "The ARIA label for the blog pagination"
+  },
+  "theme.blog.paginator.newerEntries": {
+    "message": "이전 페이지",
+    "description": "The label used to navigate to the newer blog posts page (previous page)"
+  },
+  "theme.blog.paginator.olderEntries": {
+    "message": "다음 페이지",
+    "description": "The label used to navigate to the older blog posts page (next page)"
+  },
+  "theme.blog.post.paginator.navAriaLabel": {
+    "message": "블로그 게시물 탐색",
+    "description": "The ARIA label for the blog posts pagination"
+  },
+  "theme.blog.post.paginator.newerPost": {
+    "message": "이전 게시물",
+    "description": "The blog post button label to navigate to the newer/previous post"
+  },
+  "theme.blog.post.paginator.olderPost": {
+    "message": "다음 게시물",
+    "description": "The blog post button label to navigate to the older/next post"
+  },
+  "theme.tags.tagsPageLink": {
+    "message": "모든 태그 보기",
+    "description": "The label of the link targeting the tag list page"
+  },
+  "theme.colorToggle.ariaLabel.mode.system": {
+    "message": "system mode",
+    "description": "The name for the system color mode"
+  },
+  "theme.colorToggle.ariaLabel.mode.light": {
+    "message": "밝은 모드",
+    "description": "The name for the light color mode"
+  },
+  "theme.colorToggle.ariaLabel.mode.dark": {
+    "message": "어두운 모드",
+    "description": "The name for the dark color mode"
+  },
+  "theme.colorToggle.ariaLabel": {
+    "message": "어두운 모드와 밝은 모드 전환하기 (현재 {mode})",
+    "description": "The ARIA label for the color mode toggle"
+  },
+  "theme.docs.breadcrumbs.navAriaLabel": {
+    "message": "탐색 경로",
+    "description": "The ARIA label for the breadcrumbs"
+  },
+  "theme.docs.paginator.navAriaLabel": {
+    "message": "문서 페이지",
+    "description": "The ARIA label for the docs pagination"
+  },
+  "theme.docs.paginator.previous": {
+    "message": "이전",
+    "description": "The label used to navigate to the previous doc"
+  },
+  "theme.docs.paginator.next": {
+    "message": "다음",
+    "description": "The label used to navigate to the next doc"
+  },
+  "theme.docs.tagDocListPageTitle.nDocsTagged": {
+    "message": "{count}개 문서가",
+    "description": "Pluralized label for \"{count} docs tagged\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.docs.tagDocListPageTitle": {
+    "message": "{nDocsTagged} \"{tagName}\" 태그에 분류되었습니다",
+    "description": "The title of the page for a docs tag"
+  },
+  "theme.docs.versionBadge.label": {
+    "message": "버전: {versionLabel}"
+  },
+  "theme.docs.versions.unreleasedVersionLabel": {
+    "message": "{siteTitle} {versionLabel} 문서는 아직 정식 공개되지 않았습니다.",
+    "description": "The label used to tell the user that he's browsing an unreleased doc version"
+  },
+  "theme.docs.versions.unmaintainedVersionLabel": {
+    "message": "{siteTitle} {versionLabel} 문서는 더 이상 업데이트되지 않습니다.",
+    "description": "The label used to tell the user that he's browsing an unmaintained doc version"
+  },
+  "theme.docs.versions.latestVersionSuggestionLabel": {
+    "message": "최신 문서는 {latestVersionLink} ({versionLabel})을 확인하세요.",
+    "description": "The label used to tell the user to check the latest version"
+  },
+  "theme.docs.versions.latestVersionLinkLabel": {
+    "message": "최신 버전",
+    "description": "The label used for the latest version suggestion link label"
+  },
+  "theme.common.editThisPage": {
+    "message": "페이지 편집",
+    "description": "The link label to edit the current page"
+  },
+  "theme.common.headingLinkTitle": {
+    "message": "{heading}에 대한 직접 링크",
+    "description": "Title for link to heading"
+  },
+  "theme.lastUpdated.atDate": {
+    "message": " {date}에",
+    "description": "The words used to describe on which date a page has been last updated"
+  },
+  "theme.lastUpdated.byUser": {
+    "message": " {user}가",
+    "description": "The words used to describe by who the page has been last updated"
+  },
+  "theme.lastUpdated.lastUpdatedAtBy": {
+    "message": "최종 수정: {atDate}{byUser}",
+    "description": "The sentence used to display when a page has been last updated, and by who"
+  },
+  "theme.navbar.mobileVersionsDropdown.label": {
+    "message": "버전",
+    "description": "The label for the navbar versions dropdown on mobile view"
+  },
+  "theme.NotFound.title": {
+    "message": "페이지를 찾을 수 없습니다.",
+    "description": "The title of the 404 page"
+  },
+  "theme.tags.tagsListLabel": {
+    "message": "태그:",
+    "description": "The label alongside a tag list"
+  },
+  "theme.AnnouncementBar.closeButtonAriaLabel": {
+    "message": "닫기",
+    "description": "The ARIA label for close button of announcement bar"
+  },
+  "theme.admonition.caution": {
+    "message": "주의",
+    "description": "The default label used for the Caution admonition (:::caution)"
+  },
+  "theme.admonition.danger": {
+    "message": "위험",
+    "description": "The default label used for the Danger admonition (:::danger)"
+  },
+  "theme.admonition.info": {
+    "message": "정보",
+    "description": "The default label used for the Info admonition (:::info)"
+  },
+  "theme.admonition.note": {
+    "message": "노트",
+    "description": "The default label used for the Note admonition (:::note)"
+  },
+  "theme.admonition.tip": {
+    "message": "팁",
+    "description": "The default label used for the Tip admonition (:::tip)"
+  },
+  "theme.admonition.warning": {
+    "message": "경고",
+    "description": "The default label used for the Warning admonition (:::warning)"
+  },
+  "theme.blog.sidebar.navAriaLabel": {
+    "message": "최근 블로그 문서 둘러보기",
+    "description": "The ARIA label for recent posts in the blog sidebar"
+  },
+  "theme.DocSidebarItem.expandCategoryAriaLabel": {
+    "message": "사이드바 분류 '{label}' 펼치기",
+    "description": "The ARIA label to expand the sidebar category"
+  },
+  "theme.DocSidebarItem.collapseCategoryAriaLabel": {
+    "message": "사이드바 분류 '{label}' 접기",
+    "description": "The ARIA label to collapse the sidebar category"
+  },
+  "theme.IconExternalLink.ariaLabel": {
+    "message": "(opens in new tab)",
+    "description": "The ARIA label for the external link icon"
+  },
+  "theme.NavBar.navAriaLabel": {
+    "message": "메인",
+    "description": "The ARIA label for the main navigation"
+  },
+  "theme.navbar.mobileLanguageDropdown.label": {
+    "message": "언어",
+    "description": "The label for the mobile language switcher dropdown"
+  },
+  "theme.NotFound.p1": {
+    "message": "원하는 페이지를 찾을 수 없습니다.",
+    "description": "The first paragraph of the 404 page"
+  },
+  "theme.NotFound.p2": {
+    "message": "사이트 관리자에게 링크가 깨진 것을 알려주세요.",
+    "description": "The 2nd paragraph of the 404 page"
+  },
+  "theme.TOCCollapsible.toggleButtonLabel": {
+    "message": "이 페이지에서",
+    "description": "The label used by the button on the collapsible TOC component"
+  },
+  "theme.blog.post.readMore": {
+    "message": "자세히 보기",
+    "description": "The label used in blog post item excerpts to link to full blog posts"
+  },
+  "theme.blog.post.readMoreLabel": {
+    "message": "{title} 에 대해 더 읽어보기",
+    "description": "The ARIA label for the link to full blog posts from excerpts"
+  },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "약 {readingTime}분",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.CodeBlock.copy": {
+    "message": "복사",
+    "description": "The copy button label on code blocks"
+  },
+  "theme.CodeBlock.copied": {
+    "message": "복사했습니다",
+    "description": "The copied button label on code blocks"
+  },
+  "theme.CodeBlock.copyButtonAriaLabel": {
+    "message": "클립보드에 코드 복사",
+    "description": "The ARIA label for copy code blocks button"
+  },
+  "theme.CodeBlock.wordWrapToggle": {
+    "message": "줄 바꿈 전환",
+    "description": "The title attribute for toggle word wrapping button of code block lines"
+  },
+  "theme.docs.breadcrumbs.home": {
+    "message": "홈",
+    "description": "The ARIA label for the home page in the breadcrumbs"
+  },
+  "theme.docs.sidebar.collapseButtonTitle": {
+    "message": "사이드바 숨기기",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.collapseButtonAriaLabel": {
+    "message": "사이드바 숨기기",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.navAriaLabel": {
+    "message": "문서 사이드바",
+    "description": "The ARIA label for the sidebar navigation"
+  },
+  "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
+    "message": "사이드바 닫기",
+    "description": "The ARIA label for close button of mobile sidebar"
+  },
+  "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
+    "message": "사이드바 펼치거나 접기",
+    "description": "The ARIA label for hamburger menu button of mobile navigation"
+  },
+  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
+    "message": "← 메인 메뉴로 돌아가기",
+    "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
+  },
+  "theme.docs.sidebar.expandButtonTitle": {
+    "message": "사이드바 열기",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.docs.sidebar.expandButtonAriaLabel": {
+    "message": "사이드바 열기",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.navbar.mobileDropdown.collapseButton.expandAriaLabel": {
+    "message": "Expand the dropdown",
+    "description": "The ARIA label of the button to expand the mobile dropdown navbar item"
+  },
+  "theme.navbar.mobileDropdown.collapseButton.collapseAriaLabel": {
+    "message": "Collapse the dropdown",
+    "description": "The ARIA label of the button to collapse the mobile dropdown navbar item"
+  },
+  "theme.blog.post.plurals": {
+    "message": "{count}개 게시물",
+    "description": "Pluralized label for \"{count} posts\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.blog.tagTitle": {
+    "message": "\"{tagName}\" 태그로 연결된 {nPosts}개의 게시물이 있습니다.",
+    "description": "The title of the page for a blog tag"
+  },
+  "theme.blog.author.pageTitle": {
+    "message": "{authorName} - {nPosts}",
+    "description": "The title of the page for a blog author"
+  },
+  "theme.blog.authorsList.pageTitle": {
+    "message": "저자",
+    "description": "The title of the authors page"
+  },
+  "theme.blog.authorsList.viewAll": {
+    "message": "모든 저자 보기",
+    "description": "The label of the link targeting the blog authors page"
+  },
+  "theme.blog.author.noPosts": {
+    "message": "작성자가 아직 게시글을 작성하지 않았습니다.",
+    "description": "The text for authors with 0 blog post"
+  },
+  "theme.contentVisibility.unlistedBanner.title": {
+    "message": "색인되지 않은 문서",
+    "description": "The unlisted content banner title"
+  },
+  "theme.contentVisibility.unlistedBanner.message": {
+    "message": "이 문서는 색인되지 않습니다. 검색 엔진이 이 문서를 색인하지 않으며, 주소를 알고 있는 사용자만 접근할 수 있습니다.",
+    "description": "The unlisted content banner message"
+  },
+  "theme.contentVisibility.draftBanner.title": {
+    "message": "작성 중인 페이지",
+    "description": "The draft content banner title"
+  },
+  "theme.contentVisibility.draftBanner.message": {
+    "message": "이 페이지는 아직 작성 중입니다. 개발 환경에서만 보이며 프로덕션 빌드에서는 제외됩니다.",
+    "description": "The draft content banner message"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count} 항목",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "다시 시도해 보세요",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
+  },
+  "theme.common.skipToMainContent": {
+    "message": "본문으로 건너뛰기",
+    "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
+  },
+  "theme.tags.tagsPageTitle": {
+    "message": "태그",
+    "description": "The title of the tag list page"
+  },
+  "common.clear": {
+    "message": "지우기"
+  },
+  "common.cancel": {
+    "message": "취소"
+  },
+  "common.close": {
+    "message": "닫기"
+  },
+  "common.download": {
+    "message": "다운로드"
+  },
+  "common.file": {
+    "message": "파일:"
+  },
+  "common.copy": {
+    "message": "복사"
+  },
+  "common.copied": {
+    "message": "복사했습니다!"
+  },
+  "common.save": {
+    "message": "저장"
+  },
+  "common.delete": {
+    "message": "삭제"
+  },
+  "common.deleteAll": {
+    "message": "모두 삭제"
+  },
+  "common.copyAll": {
+    "message": "모두 복사"
+  },
+  "tool.common.uploadFile": {
+    "message": "파일 불러오기"
+  },
+  "tool.common.copy": {
+    "message": "복사"
+  },
+  "tool.common.download": {
+    "message": "다운로드"
+  },
+  "tool.common.copied": {
+    "message": "복사했습니다"
+  },
+  "home.tools.jsonFormatter.title": {
+    "message": "JSON 포맷터 & 검증기"
+  },
+  "home.tools.jsonFormatter.desc": {
+    "message": "JSON 데이터의 실시간 유효성 검사, 포맷팅 및 TypeScript 인터페이스 자동 생성을 지원합니다. 브라우저 내에서 안전하게 처리됩니다."
+  },
+  "home.tools.dummyData.title": {
+    "message": "더미 데이터 생성기"
+  },
+  "home.tools.dummyData.desc": {
+    "message": "API 목업 및 데이터베이스 테스트용 더미 데이터를 브라우저에서 즉시 안전하게 생성합니다."
+  },
+  "tool.dummyData.settings": {
+    "message": "설정"
+  },
+  "tool.dummyData.preset": {
+    "message": "프리셋"
+  },
+  "tool.dummyData.preset.user": {
+    "message": "사용자 정보"
+  },
+  "tool.dummyData.preset.company": {
+    "message": "회사 정보"
+  },
+  "tool.dummyData.preset.product": {
+    "message": "상품 정보"
+  },
+  "tool.dummyData.preset.custom": {
+    "message": "사용자 정의"
+  },
+  "tool.dummyData.locale": {
+    "message": "데이터 언어"
+  },
+  "tool.dummyData.fields": {
+    "message": "필드 정의"
+  },
+  "tool.dummyData.dragToReorder": {
+    "message": "드래그하여 순서 변경"
+  },
+  "tool.dummyData.addField": {
+    "message": "필드 추가"
+  },
+  "tool.dummyData.count": {
+    "message": "생성 개수"
+  },
+  "tool.dummyData.format": {
+    "message": "출력 형식"
+  },
+  "tool.dummyData.tableName": {
+    "message": "테이블 이름"
+  },
+  "tool.dummyData.generateButton": {
+    "message": "데이터 생성"
+  },
+  "tool.dummyData.result": {
+    "message": "출력 미리보기"
+  },
+  "tool.jsonFormatter.invalidJson": {
+    "message": "유효하지 않은 JSON입니다"
+  },
+  "tool.jsonFormatter.indent": {
+    "message": "들여쓰기"
+  },
+  "tool.jsonFormatter.formatBtn": {
+    "message": "서식 정리 (Format)"
+  },
+  "tool.jsonFormatter.minifyBtn": {
+    "message": "압축 (Minify)"
+  },
+  "tool.jsonFormatter.tabEditor": {
+    "message": "에디터"
+  },
+  "tool.jsonFormatter.tabTree": {
+    "message": "트리 보기"
+  },
+  "tool.jsonFormatter.tabTypes": {
+    "message": "TypeScript 타입 정의"
+  },
+  "tool.jsonFormatter.errorPrefix": {
+    "message": "구문 오류:"
+  },
+  "date.title": {
+    "message": "날짜 비교 도구"
+  },
+  "date.header.title": {
+    "message": "날짜 비교 도구"
+  },
+  "date.header.desc": {
+    "message": "두 날짜 사이의 차이를 계산합니다. 다양한 날짜 입력 형식을 지원합니다."
+  },
+  "date.input.title": {
+    "message": "비교할 날짜"
+  },
+  "date.input.alwaysCurrent": {
+    "message": "항상 현재 시각과 비교"
+  },
+  "date.result.title": {
+    "message": "차이 결과"
+  },
+  "date.result.dayLabel": {
+    "message": "일 / 시 / 분 / 초"
+  },
+  "date.result.totalSec": {
+    "message": "총 초"
+  },
+  "date.unit.days": {
+    "message": "일"
+  },
+  "date.unit.hours": {
+    "message": "시간"
+  },
+  "date.unit.minutes": {
+    "message": "분"
+  },
+  "date.unit.seconds": {
+    "message": "초"
+  },
+  "date.unit.sec": {
+    "message": "초"
+  },
+  "device.header.title": {
+    "message": "기기 정보 확인"
+  },
+  "device.header.desc": {
+    "message": "현재 사용 중인 기기의 화면 크기와 사용자 에이전트(User Agent) 정보를 표시합니다."
+  },
+  "device.loading": {
+    "message": "불러오는 중..."
+  },
+  "device.ip.bot": {
+    "message": "봇/크롤러의 접근으로 감지되어 IP 주소를 표시하지 않습니다."
+  },
+  "device.ip.error": {
+    "message": "정보를 가져오지 못했습니다."
+  },
+  "device.memory.unknown": {
+    "message": "알 수 없음 (지원하지 않는 브라우저)"
+  },
+  "device.cores.unit": {
+    "message": " 코어"
+  },
+  "device.cores.unknown": {
+    "message": "알 수 없음"
+  },
+  "device.section.network": {
+    "message": "네트워크"
+  },
+  "device.section.screen": {
+    "message": "화면 크기"
+  },
+  "device.section.hardware": {
+    "message": "하드웨어"
+  },
+  "device.section.ua": {
+    "message": "사용자 에이전트"
+  },
+  "device.info.ip": {
+    "message": "IP 주소"
+  },
+  "device.info.physicalSize": {
+    "message": "물리 해상도"
+  },
+  "device.info.logicalSize": {
+    "message": "창 크기"
+  },
+  "device.info.cores": {
+    "message": "논리 코어 수"
+  },
+  "device.info.memory": {
+    "message": "메모리 용량"
+  },
+  "device.disclaimer": {
+    "message": "※ 개인정보 보호를 위해 정확한 값이 제한되거나 반올림된 값으로 표시될 수 있습니다."
+  },
+  "text.header.title": {
+    "message": "텍스트 메모장"
+  },
+  "text.header.desc": {
+    "message": "텍스트를 임시로 저장해 두는 공간입니다. 저장된 텍스트는 브라우저의 로컬 스토리지에 보관됩니다."
+  },
+  "text.pin.pin": {
+    "message": "고정"
+  },
+  "text.pin.unpin": {
+    "message": "고정 해제"
+  },
+  "text.copiedAll": {
+    "message": "모든 텍스트를 복사했습니다!"
+  },
+  "text.input.title": {
+    "message": "텍스트 입력"
+  },
+  "text.input.placeholder": {
+    "message": "여기에 텍스트를 입력하세요..."
+  },
+  "text.input.saveOnEnter": {
+    "message": "Enter로 저장"
+  },
+  "text.saved.title": {
+    "message": "저장된 텍스트"
+  },
+  "text.saved.empty": {
+    "message": "저장된 텍스트가 없습니다"
+  },
+  "password.header.title": {
+    "message": "비밀번호 생성기"
+  },
+  "password.header.desc": {
+    "message": "원하는 조건으로 비밀번호를 생성합니다. 설정이 URL에 포함되어 간편하게 공유할 수 있으며, 브라우저 내에서 안전하게 실행됩니다."
+  },
+  "password.settings.title": {
+    "message": "설정"
+  },
+  "password.settings.length": {
+    "message": "비밀번호 길이"
+  },
+  "password.settings.count": {
+    "message": "생성 개수"
+  },
+  "password.settings.exclude.label": {
+    "message": "제외할 문자"
+  },
+  "password.settings.exclude.placeholder": {
+    "message": "제외할 문자 입력 (직접 입력 가능)"
+  },
+  "password.settings.exclude.upperCase": {
+    "message": "대문자 제외"
+  },
+  "password.settings.exclude.lowerCase": {
+    "message": "소문자 제외"
+  },
+  "password.settings.useSymbols": {
+    "message": "기호 사용"
+  },
+  "password.settings.symbols.label": {
+    "message": "사용할 기호 (비워 두면 전체 기호)"
+  },
+  "password.settings.useSameChar": {
+    "message": "중복 문자 허용"
+  },
+  "password.result.title": {
+    "message": "생성된 비밀번호"
+  },
+  "password.result.regenerate": {
+    "message": "다시 생성"
+  },
+  "password.copy.ariaLabel": {
+    "message": "비밀번호 복사"
+  },
+  "exif.header.title": {
+    "message": "사진 Exif 정보 뷰어"
+  },
+  "exif.header.desc": {
+    "message": "업로드한 사진에서 카메라 정보, 촬영 일시, GPS 등의 메타데이터를 읽어옵니다. 사진은 로컬에서 안전하게 처리됩니다."
+  },
+  "exif.upload.title": {
+    "message": "사진 선택"
+  },
+  "exif.upload.dropLabel": {
+    "message": "클릭, 드래그 앤 드롭 또는 붙여넣기로 선택"
+  },
+  "exif.upload.formats": {
+    "message": "지원 포맷: JPEG, PNG, WebP 등"
+  },
+  "exif.result.title": {
+    "message": "EXIF 정보"
+  },
+  "exif.result.dateTime": {
+    "message": "촬영 일시"
+  },
+  "exif.result.make": {
+    "message": "카메라 제조사"
+  },
+  "exif.result.model": {
+    "message": "모델명"
+  },
+  "exif.result.fNumber": {
+    "message": "조리개(F값)"
+  },
+  "exif.result.exposureTime": {
+    "message": "셔터 속도"
+  },
+  "exif.result.sec": {
+    "message": "초"
+  },
+  "exif.result.iso": {
+    "message": "ISO 감도"
+  },
+  "exif.result.gps": {
+    "message": "GPS 위치 정보"
+  },
+  "exif.result.resolution": {
+    "message": "해상도"
+  },
+  "exif.guide.title": {
+    "message": "사용 방법"
+  },
+  "exif.guide.step1": {
+    "message": "확인할 사진 파일(주로 JPEG)을 선택하거나 드래그 앤 드롭하세요."
+  },
+  "exif.guide.step2": {
+    "message": "파일을 선택하면 자동으로 분석이 시작되며, 촬영 일시, 카메라 모델, 촬영 설정, GPS 등의 메타데이터가 표시됩니다."
+  },
+  "exif.guide.step3": {
+    "message": "각 항목 옆의 복사 버튼을 클릭하면 해당 값을 클립보드에 복사할 수 있습니다."
+  },
+  "exif.guide.step4": {
+    "message": "GPS 정보가 포함되어 있는 경우 링크를 클릭하여 Google Maps에서 촬영 위치를 확인할 수 있습니다."
+  },
+  "exif.guide.step5": {
+    "message": "지우기 버튼(휴지통 아이콘)을 클릭하면 표시된 정보를 초기화할 수 있습니다."
+  },
+  "exif.guide.security": {
+    "message": "🔒 사진 분석은 모두 사용자의 기기(브라우저 내부)에서 처리되며, 어떠한 데이터도 외부 서버로 전송되지 않습니다. 개인정보가 안전하게 보호됩니다."
+  },
+  "exif.error.notImage": {
+    "message": "이미지 파일을 선택해 주세요."
+  },
+  "exif.error.noExif": {
+    "message": "EXIF 정보를 찾을 수 없습니다."
+  },
+  "exif.error.parse": {
+    "message": "파일을 읽거나 EXIF 정보를 분석하지 못했습니다."
+  },
+  "qr.header.title": {
+    "message": "QR 코드 생성기"
+  },
+  "qr.header.desc": {
+    "message": "URL을 비롯한 다양한 정보로 QR 코드를 생성합니다. 로고 삽입도 지원합니다."
+  },
+  "qr.input.title": {
+    "message": "QR 코드 내용 입력"
+  },
+  "qr.input.type": {
+    "message": "종류"
+  },
+  "qr.mode.text": {
+    "message": "텍스트 / URL"
+  },
+  "qr.mode.contact": {
+    "message": "연락처"
+  },
+  "qr.mode.event": {
+    "message": "일정 (캘린더)"
+  },
+  "qr.mode.email": {
+    "message": "이메일 작성"
+  },
+  "qr.text.label": {
+    "message": "URL 또는 텍스트"
+  },
+  "qr.text.placeholder": {
+    "message": "여기에 URL이나 텍스트를 입력해 주세요"
+  },
+  "qr.wifi.encryption": {
+    "message": "암호화 방식"
+  },
+  "qr.wifi.none": {
+    "message": "없음"
+  },
+  "qr.wifi.password": {
+    "message": "비밀번호"
+  },
+  "qr.contact.name": {
+    "message": "이름"
+  },
+  "qr.contact.phone": {
+    "message": "전화번호"
+  },
+  "qr.contact.email": {
+    "message": "이메일 주소"
+  },
+  "qr.event.name": {
+    "message": "일정 이름"
+  },
+  "qr.event.start": {
+    "message": "시작 일시"
+  },
+  "qr.event.end": {
+    "message": "종료 일시"
+  },
+  "qr.event.error.date": {
+    "message": "종료 일시는 시작 일시 이후로 설정해 주세요."
+  },
+  "qr.email.to": {
+    "message": "받는 사람 이메일"
+  },
+  "qr.email.subject": {
+    "message": "제목"
+  },
+  "qr.email.body": {
+    "message": "본문"
+  },
+  "qr.input.resolution": {
+    "message": "해상도"
+  },
+  "qr.style.title": {
+    "message": "디자인 설정"
+  },
+  "qr.style.dots": {
+    "message": "도트 모양"
+  },
+  "qr.style.corner": {
+    "message": "모서리 모양"
+  },
+  "qr.style.shape.square": {
+    "message": "사각형"
+  },
+  "qr.style.shape.dots": {
+    "message": "도트"
+  },
+  "qr.style.shape.rounded": {
+    "message": "둥글게"
+  },
+  "qr.style.shape.extraRounded": {
+    "message": "더 둥글게"
+  },
+  "qr.style.shape.classy": {
+    "message": "클래식"
+  },
+  "qr.style.shape.classyRounded": {
+    "message": "둥근 클래식"
+  },
+  "qr.style.shape.dot": {
+    "message": "도트"
+  },
+  "qr.logo.title": {
+    "message": "중앙에 로고 삽입 (선택 사항)"
+  },
+  "qr.logo.usePreset": {
+    "message": "프리셋 로고 사용"
+  },
+  "qr.logo.select": {
+    "message": "로고 이미지 선택"
+  },
+  "qr.preview.title": {
+    "message": "미리보기"
+  },
+  "qr.preview.save": {
+    "message": "QR 저장"
+  },
+  "qr.preview.copy": {
+    "message": "QR 복사"
+  },
+  "qr.preview.share": {
+    "message": "공유"
+  },
+  "qr.preview.empty": {
+    "message": "여기에 QR 코드가 표시됩니다"
+  },
+  "qr.tooltip.copyImage": {
+    "message": "클립보드에 이미지로 복사"
+  },
+  "qr.copied.image": {
+    "message": "이미지를 복사했습니다!"
+  },
+  "qr.copied.clipboard": {
+    "message": "QR 코드를 클립보드에 복사했습니다!"
+  },
+  "qr.guide.title": {
+    "message": "사용 안내"
+  },
+  "qr.guide.step1": {
+    "message": "드롭다운에서 생성할 QR 코드의 종류를 선택합니다."
+  },
+  "qr.guide.step2": {
+    "message": "URL이나 Wi-Fi 정보 등 필요한 내용을 입력하면 QR 코드가 실시간으로 생성됩니다."
+  },
+  "qr.guide.step3": {
+    "message": "필요에 따라 QR 코드 중앙에 로고 이미지(프리셋 로고 또는 사용자 지정 이미지)를 넣을 수 있습니다."
+  },
+  "qr.guide.step4": {
+    "message": "완성된 QR 코드는 'QR 저장'을 눌러 다운로드하거나 'QR 복사'로 클립보드에 바로 복사할 수 있습니다."
+  },
+  "qr.guide.security": {
+    "message": "🔒 입력한 모든 정보와 로고 이미지는 기기(브라우저) 내에서만 처리되며 서버로 전송되지 않습니다."
+  },
+  "qrReader.header.title": {
+    "message": "QR 코드 리더"
+  },
+  "qrReader.header.desc": {
+    "message": "QR 코드 이미지를 업로드해 포함된 문자열을 디코딩합니다. 모든 처리는 브라우저 내에서 이루어지며 이미지는 서버로 전송되지 않습니다."
+  },
+  "qrReader.upload.title": {
+    "message": "QR 코드 이미지 선택"
+  },
+  "qrReader.upload.ariaLabel": {
+    "message": "QR 코드 이미지 선택 또는 드롭"
+  },
+  "qrReader.upload.dropLabel": {
+    "message": "클릭, 드래그 앤 드롭 또는 붙여넣기로 선택"
+  },
+  "qrReader.upload.formats": {
+    "message": "지원 형식: PNG, JPEG, WebP, GIF, BMP"
+  },
+  "qrReader.result.title": {
+    "message": "분석 결과"
+  },
+  "qrReader.result.scanning": {
+    "message": "분석 중..."
+  },
+  "qrReader.result.urlDetected": {
+    "message": "🔗 URL이 감지되었습니다"
+  },
+  "qrReader.result.copy": {
+    "message": "텍스트 복사"
+  },
+  "qrReader.result.open": {
+    "message": "URL 열기"
+  },
+  "qrReader.copied": {
+    "message": "텍스트를 복사했습니다!"
+  },
+  "qrReader.error.notImage": {
+    "message": "이미지 파일을 선택해 주세요."
+  },
+  "qrReader.error.notQR": {
+    "message": "QR 코드를 찾을 수 없습니다. 이미지가 선명한지 확인해 주세요."
+  },
+  "qrReader.error.parse": {
+    "message": "스캔 중 오류가 발생했습니다."
+  },
+  "qrReader.error.loadImage": {
+    "message": "이미지를 불러오지 못했습니다."
+  },
+  "qrReader.guide.title": {
+    "message": "사용 방법"
+  },
+  "qrReader.guide.step1": {
+    "message": "QR 코드가 포함된 이미지 파일을 선택하거나 드래그 앤 드롭합니다."
+  },
+  "qrReader.guide.step2": {
+    "message": "QR 코드가 자동으로 디코딩되어 포함된 텍스트가 표시됩니다."
+  },
+  "qrReader.guide.step3": {
+    "message": "복사 버튼으로 결과를 클립보드에 복사할 수 있으며, URL은 바로 열 수도 있습니다."
+  },
+  "qrReader.guide.security": {
+    "message": "🔒 업로드한 이미지는 서버로 전송되지 않습니다. 모든 처리는 브라우저 내에서 이루어집니다."
+  },
+  "resize.header.title": {
+    "message": "이미지 리사이즈 및 자르기"
+  },
+  "resize.header.desc": {
+    "message": "브라우저 내에서 이미지를 자르고 WebP 등 다양한 형식으로 변환합니다. 이미지는 서버로 전송되지 않습니다."
+  },
+  "resize.upload.title": {
+    "message": "이미지 선택"
+  },
+  "resize.upload.dropLabel": {
+    "message": "클릭, 드래그 앤 드롭 또는 붙여넣기로 선택"
+  },
+  "resize.upload.formats": {
+    "message": "지원 형식: JPEG, PNG, WebP, GIF, BMP 등"
+  },
+  "resize.noLimit": {
+    "message": "제한 없음"
+  },
+  "resize.crop.aspectFree": {
+    "message": "자유"
+  },
+  "resize.crop.title": {
+    "message": "이미지 자르기"
+  },
+  "resize.crop.aspect": {
+    "message": "비율 선택:"
+  },
+  "resize.crop.apply": {
+    "message": "적용"
+  },
+  "resize.action.crop": {
+    "message": "자르기"
+  },
+  "resize.action.start": {
+    "message": "최적화 시작"
+  },
+  "resize.settings.title": {
+    "message": "최적화 설정"
+  },
+  "resize.settings.format": {
+    "message": "출력 형식"
+  },
+  "resize.settings.maxWidth": {
+    "message": "최대 너비 (px)"
+  },
+  "resize.settings.maxWidthPlaceholder": {
+    "message": "숫자(px) 입력"
+  },
+  "resize.settings.quality": {
+    "message": "화질:"
+  },
+  "resize.settings.preserveExif": {
+    "message": "EXIF 정보 유지 (JPEG만 해당)"
+  },
+  "resize.format.original": {
+    "message": "원본"
+  },
+  "resize.format.recommended": {
+    "message": "(권장)"
+  },
+  "resize.format.webpUnsupported": {
+    "message": "(지원하지 않는 브라우저입니다)"
+  },
+  "resize.format.webpWarning": {
+    "message": "※ 사용 중인 브라우저는 WebP 변환을 지원하지 않으므로 JPEG를 권장합니다."
+  },
+  "resize.exif.webpNote": {
+    "message": "WebP/PNG 형식으로 변환할 때는 브라우저 제한으로 인해 EXIF 정보를 유지할 수 없습니다."
+  },
+  "resize.compare.label": {
+    "message": "Before/After 비교"
+  },
+  "resize.compare.zoom": {
+    "message": "확대/축소:"
+  },
+  "resize.compare.reset": {
+    "message": "초기화"
+  },
+  "resize.compare.after": {
+    "message": "압축 후"
+  },
+  "resize.compare.before": {
+    "message": "원본"
+  },
+  "resize.compare.dialogTitle": {
+    "message": "비교 미리보기"
+  },
+  "resize.error.webpUnsupported": {
+    "message": "사용 중인 브라우저는 WebP 변환을 지원하지 않습니다. JPEG 형식을 선택해 주세요."
+  },
+  "resize.error.processing": {
+    "message": "처리 실패"
+  },
+  "resize.error.prefix": {
+    "message": "오류:"
+  },
+  "resize.error.failed": {
+    "message": "처리에 실패했습니다."
+  },
+  "resize.guide.title": {
+    "message": "사용 방법"
+  },
+  "resize.guide.step1": {
+    "message": "드래그 앤 드롭 또는 클릭으로 최적화할 이미지를 선택합니다(여러 파일 선택 가능)."
+  },
+  "resize.guide.step2": {
+    "message": "필요한 경우 '자르기' 버튼으로 이미지를 자를 수 있습니다."
+  },
+  "resize.guide.step3": {
+    "message": "'최적화 설정'에서 출력 형식(WebP 권장), 최대 너비, 화질을 조정합니다."
+  },
+  "resize.guide.step4": {
+    "message": "'최적화 시작'을 클릭하면 브라우저 내에서 이미지가 처리됩니다."
+  },
+  "resize.guide.step5": {
+    "message": "처리가 완료되면 '비교' 버튼으로 화질을 확인하고 '다운로드'를 클릭해 이미지를 저장합니다."
+  },
+  "resize.guide.security": {
+    "message": "🔒 이미지 최적화 및 자르기는 모두 기기(브라우저) 내에서 처리됩니다. 데이터가 외부 서버로 전송되지 않습니다."
+  },
+  "pdfEditor.header.title": {
+    "message": "PDF 편집기 (이미지 및 PDF 내보내기)"
+  },
+  "pdfEditor.header.desc": {
+    "message": "PDF 페이지를 이미지로 변환하거나 원하는 페이지를 추출·병합해 새 PDF로 만듭니다. 모든 처리는 브라우저 내에서 이루어지며 파일은 서버로 전송되지 않습니다."
+  },
+  "pdfEditor.upload.title": {
+    "message": "PDF 선택"
+  },
+  "pdfEditor.upload.dropLabel": {
+    "message": "클릭, 드래그 앤 드롭 또는 붙여넣기(Ctrl+V)로 PDF 선택"
+  },
+  "pdfEditor.action.change": {
+    "message": "변경"
+  },
+  "pdfEditor.action.downloadImg": {
+    "message": "이미지로 다운로드"
+  },
+  "pdfEditor.action.downloadPdf": {
+    "message": "새 PDF로 저장"
+  },
+  "pdfEditor.settings.title": {
+    "message": "변환 설정"
+  },
+  "pdfEditor.settings.format": {
+    "message": "출력 형식"
+  },
+  "pdfEditor.settings.maxWidth": {
+    "message": "최대 너비 (px)"
+  },
+  "pdfEditor.settings.maxWidthPlaceholder": {
+    "message": "숫자(px) 입력"
+  },
+  "pdfEditor.pages.title": {
+    "message": "페이지 선택"
+  },
+  "pdfEditor.pages.selectAll": {
+    "message": "전체 선택"
+  },
+  "pdfEditor.pages.select": {
+    "message": "이 페이지 선택"
+  },
+  "pdfEditor.pages.deselectAll": {
+    "message": "전체 해제"
+  },
+  "pdfEditor.pages.noLimit": {
+    "message": "제한 없음"
+  },
+  "pdfEditor.pages.generating": {
+    "message": "미리보기 생성 중..."
+  },
+  "pdfEditor.error.notPdf": {
+    "message": "PDF 파일을 선택해 주세요."
+  },
+  "pdfEditor.error.load": {
+    "message": "PDF를 불러오지 못했습니다."
+  },
+  "pdfEditor.error.convert": {
+    "message": "변환 중 오류가 발생했습니다."
+  },
+  "pdfEditor.success": {
+    "message": "변환이 완료되었습니다."
+  },
+  "pdfEditor.successPdf": {
+    "message": "PDF 생성이 완료되었습니다."
+  },
+  "pdfEditor.error.pdf": {
+    "message": "PDF 생성 중 오류가 발생했습니다."
+  },
+  "pdfEditor.guide.title": {
+    "message": "사용 방법"
+  },
+  "pdfEditor.guide.step1": {
+    "message": "편집할 PDF 파일을 선택하거나 드래그 앤 드롭, 또는 클립보드에서 붙여넣어 추가합니다."
+  },
+  "pdfEditor.guide.step2": {
+    "message": "이미지로 내보낼 경우 출력 형식(PNG / JPEG / WebP)과 최대 너비를 설정합니다."
+  },
+  "pdfEditor.guide.step3": {
+    "message": "추출하거나 이미지로 변환할 페이지를 선택합니다 (여러 페이지 선택 가능)."
+  },
+  "pdfEditor.guide.step4": {
+    "message": "선택한 페이지는 이미지(ZIP으로 다운로드) 또는 새 PDF 문서로 내보낼 수 있습니다."
+  },
+  "pdfEditor.guide.security": {
+    "message": "🔒 업로드한 PDF 파일은 서버로 전송되지 않습니다. 모든 처리가 브라우저 내에서 완료되므로 민감한 정보가 포함된 문서도 안심하고 사용할 수 있습니다."
+  },
+  "benchmark.header.title": {
+    "message": "웹 쾌적도 측정"
+  },
+  "benchmark.header.desc": {
+    "message": "브라우저와 기기의 연산 성능을 측정하여 점수와 등급으로 평가합니다."
+  },
+  "benchmark.ui.testTitle": {
+    "message": "브라우저 연산 성능 측정"
+  },
+  "benchmark.ui.testDesc": {
+    "message": "\"측정 시작\" 버튼을 클릭하면 브라우저에서 고부하 연산을 실행하여 성능 점수를 계산합니다."
+  },
+  "benchmark.ui.warning.bold": {
+    "message": "주의:"
+  },
+  "benchmark.ui.warning": {
+    "message": "이 벤치마크는 고부하 연산을 수행하므로 스마트폰 및 모바일 기기에서 배터리가 일시적으로 빠르게 소모될 수 있습니다."
+  },
+  "benchmark.ui.start": {
+    "message": "측정 시작"
+  },
+  "benchmark.ui.measuring": {
+    "message": "측정 중..."
+  },
+  "benchmark.ui.env": {
+    "message": "측정 환경:"
+  },
+  "benchmark.ui.singleCore": {
+    "message": "싱글 코어 (1 Worker)"
+  },
+  "benchmark.ui.multiCore": {
+    "message": "멀티 코어"
+  },
+  "benchmark.ui.estimate": {
+    "message": "평가:"
+  },
+  "benchmark.ui.notStarted": {
+    "message": "미측정"
+  },
+  "benchmark.ui.modalBtn": {
+    "message": "점수 기준 안내"
+  },
+  "benchmark.ui.share": {
+    "message": "결과 공유"
+  },
+  "benchmark.ui.featureTitle": {
+    "message": "브라우저 기능 지원 현황"
+  },
+  "benchmark.ui.must": {
+    "message": "필수"
+  },
+  "benchmark.modal.title": {
+    "message": "점수 판정 기준"
+  },
+  "benchmark.modal.single": {
+    "message": "싱글:"
+  },
+  "benchmark.modal.multi": {
+    "message": "멀티:"
+  },
+  "benchmark.progress.preparing": {
+    "message": "준비 중..."
+  },
+  "benchmark.progress.singlePreparing": {
+    "message": "싱글 코어 측정 준비 중..."
+  },
+  "benchmark.progress.multiPreparing": {
+    "message": "멀티 코어 측정 준비 중..."
+  },
+  "benchmark.progress.feature": {
+    "message": "기능 지원 현황 판정 중..."
+  },
+  "benchmark.progress.single": {
+    "message": "싱글 코어 측정 중..."
+  },
+  "benchmark.progress.multi": {
+    "message": "멀티 코어 측정 중..."
+  },
+  "benchmark.progress.pass": {
+    "message": "회차"
+  },
+  "benchmark.canvas.title": {
+    "message": "웹 쾌적도 측정 결과"
+  },
+  "benchmark.canvas.featureTitle": {
+    "message": "웹 기능 지원 현황"
+  },
+  "benchmark.single.rank.s": {
+    "message": "압도적인 속도. 최신 하이엔드 기기 중에서도 최상위 수준의 처리 성능입니다."
+  },
+  "benchmark.single.rank.a": {
+    "message": "쾌적함. 대부분의 웹 앱이 막힘없이 원활하게 작동합니다."
+  },
+  "benchmark.single.rank.b": {
+    "message": "실용적. 일반적인 웹 브라우징에 충분한 성능입니다."
+  },
+  "benchmark.single.rank.c": {
+    "message": "표준. 일반적인 웹 페이지를 둘러보기에 충분한 성능입니다."
+  },
+  "benchmark.single.rank.d": {
+    "message": "기본 성능. 복잡한 페이지에서는 로딩이 다소 걸릴 수 있습니다."
+  },
+  "benchmark.single.rank.e": {
+    "message": "느림. 구형 기기이거나 절전 모드의 영향일 수 있습니다."
+  },
+  "benchmark.single.rank.f": {
+    "message": "실행 어려움. 최신 웹 서비스를 이용하기에는 성능이 크게 부족합니다."
+  },
+  "benchmark.multi.rank.s": {
+    "message": "최상급. 압도적인 병렬 처리 능력으로 모든 무거운 작업을 경쾌하게 처리합니다."
+  },
+  "benchmark.multi.rank.a": {
+    "message": "강력함. 여러 작업을 동시에 열어도 안정적입니다."
+  },
+  "benchmark.multi.rank.b": {
+    "message": "쾌적함. 여러 작업을 병행해도 여유로운 성능입니다."
+  },
+  "benchmark.multi.rank.c": {
+    "message": "표준적임. 멀티태스킹도 문제없이 수행할 수 있는 성능입니다."
+  },
+  "benchmark.multi.rank.d": {
+    "message": "최소한. 병렬 처리가 늘어나면 동작이 느려질 수 있습니다."
+  },
+  "benchmark.multi.rank.e": {
+    "message": "성능 부족. 병렬 처리에 적합하지 않으며 동작이 제한됩니다."
+  },
+  "benchmark.multi.rank.f": {
+    "message": "현저한 성능 부족. 병렬 처리의 이점을 거의 누릴 수 없습니다."
+  },
+  "benchmark.cat.sns.category": {
+    "message": "SNS·미디어 감상"
+  },
+  "benchmark.cat.sns.summary": {
+    "message": "동영상과 이미지가 빠르고 선명하게 표시되는지 여부"
+  },
+  "benchmark.cat.sns.avif.name": {
+    "message": "AVIF / WebP 지원"
+  },
+  "benchmark.cat.sns.avif.desc": {
+    "message": "차세대 초경량 이미지 형식으로 로딩 속도에 직접 영향을 줍니다."
+  },
+  "benchmark.cat.sns.av1.name": {
+    "message": "AV1 디코딩"
+  },
+  "benchmark.cat.sns.av1.desc": {
+    "message": "YouTube의 4K 동영상 등을 낮은 부하와 고화질로 재생할 수 있습니다."
+  },
+  "benchmark.cat.sns.webshare.name": {
+    "message": "Web Share API"
+  },
+  "benchmark.cat.sns.webshare.desc": {
+    "message": "OS 기본 공유 메뉴를 호출해 이미지나 링크를 빠르게 공유할 수 있습니다."
+  },
+  "benchmark.cat.sns.speculation.name": {
+    "message": "Speculation Rules"
+  },
+  "benchmark.cat.sns.speculation.desc": {
+    "message": "링크를 클릭하기 전에 페이지를 미리 불러와 순식간에 화면을 전환합니다."
+  },
+  "benchmark.cat.sns.fetchpriority.name": {
+    "message": "fetchpriority 속성"
+  },
+  "benchmark.cat.sns.fetchpriority.desc": {
+    "message": "중요한 이미지를 우선 불러와 표시 속도를 개선합니다."
+  },
+  "benchmark.cat.sns.objectfit.name": {
+    "message": "Object-fit / Aspect-ratio"
+  },
+  "benchmark.cat.sns.objectfit.desc": {
+    "message": "사진이 늘어나거나 찌그러지지 않고 프레임 안에 깔끔하게 맞춰집니다."
+  },
+  "benchmark.cat.sns.csslayer.name": {
+    "message": "CSS @layer"
+  },
+  "benchmark.cat.sns.csslayer.desc": {
+    "message": "대규모 사이트의 스타일이 의도한 대로 올바르게 적용되도록 보장합니다."
+  },
+  "benchmark.cat.biz.category": {
+    "message": "비즈니스·도구"
+  },
+  "benchmark.cat.biz.summary": {
+    "message": "Notion이나 Figma 같은 앱 수준 사이트의 구동 여부"
+  },
+  "benchmark.cat.biz.eyedropper.name": {
+    "message": "EyeDropper API"
+  },
+  "benchmark.cat.biz.eyedropper.desc": {
+    "message": "화면의 원하는 색상을 추출할 수 있는 스포이드 기능으로 디자인 작업을 효율화합니다."
+  },
+  "benchmark.cat.biz.navigation.name": {
+    "message": "Navigation API"
+  },
+  "benchmark.cat.biz.navigation.desc": {
+    "message": "SPA의 화면 전환을 더욱 매끄럽고 안정적으로 제어하는 차세대 기반 기술입니다."
+  },
+  "benchmark.cat.biz.anchorpos.name": {
+    "message": "Anchor Positioning API"
+  },
+  "benchmark.cat.biz.anchorpos.desc": {
+    "message": "팝업이 버튼 위치에 맞춰 정확하게 표시됩니다."
+  },
+  "benchmark.cat.biz.popover.name": {
+    "message": "Popover API"
+  },
+  "benchmark.cat.biz.popover.desc": {
+    "message": "메뉴가 다른 요소에 가려지지 않고 최상단에 표시됩니다."
+  },
+  "benchmark.cat.biz.compression.name": {
+    "message": "Compression Streams API"
+  },
+  "benchmark.cat.biz.compression.desc": {
+    "message": "브라우저에서 파일을 빠르게 ZIP 압축 및 해제할 수 있습니다."
+  },
+  "benchmark.cat.biz.crypto.name": {
+    "message": "Web Crypto API"
+  },
+  "benchmark.cat.biz.crypto.desc": {
+    "message": "안전한 통신, 비밀번호 관리 및 암호화를 지원합니다."
+  },
+  "benchmark.cat.biz.indexeddb.name": {
+    "message": "IndexedDB (v3)"
+  },
+  "benchmark.cat.biz.indexeddb.desc": {
+    "message": "대용량 데이터를 저장하여 오프라인 작업을 지원합니다."
+  },
+  "benchmark.cat.creative.category": {
+    "message": "엔터테인먼트·크리에이티브"
+  },
+  "benchmark.cat.creative.summary": {
+    "message": "3D, 애니메이션, 게임의 쾌적한 실행 여부"
+  },
+  "benchmark.cat.creative.webgpu.name": {
+    "message": "WebGPU"
+  },
+  "benchmark.cat.creative.webgpu.desc": {
+    "message": "본격적인 3D 게임이나 AI 이미지 생성을 브라우저에서 실행할 수 있습니다."
+  },
+  "benchmark.cat.creative.webxr.name": {
+    "message": "WebXR Device API"
+  },
+  "benchmark.cat.creative.webxr.desc": {
+    "message": "브라우저에서 VR(가상현실) 및 AR(증강현실) 기기를 직접 제어할 수 있습니다."
+  },
+  "benchmark.cat.creative.viewtransitions.name": {
+    "message": "View Transitions API"
+  },
+  "benchmark.cat.creative.viewtransitions.desc": {
+    "message": "화면 전환이 앱처럼 부드럽게 페이드됩니다."
+  },
+  "benchmark.cat.creative.scrollanimations.name": {
+    "message": "Scroll-driven Animations"
+  },
+  "benchmark.cat.creative.scrollanimations.desc": {
+    "message": "스크롤과 연동되는 풍부한 애니메이션 연출을 지원합니다."
+  },
+  "benchmark.cat.creative.offscreencanvas.name": {
+    "message": "Offscreen Canvas"
+  },
+  "benchmark.cat.creative.offscreencanvas.desc": {
+    "message": "무거운 그래픽 처리를 백그라운드에서 실행해 동작을 가볍게 합니다."
+  },
+  "benchmark.cat.creative.spatialaudio.name": {
+    "message": "Web Audio (Spatial Audio)"
+  },
+  "benchmark.cat.creative.spatialaudio.desc": {
+    "message": "브라우저에서 입체 음향(공간 음향)을 지원합니다."
+  },
+  "benchmark.cat.sys.category": {
+    "message": "시스템·기타"
+  },
+  "benchmark.cat.sys.summary": {
+    "message": "앱 설치, 알림, 로그인 편의성"
+  },
+  "benchmark.cat.sys.passkeys.name": {
+    "message": "WebAuthn (Passkeys)"
+  },
+  "benchmark.cat.sys.passkeys.desc": {
+    "message": "지문이나 얼굴 인식으로 비밀번호 없이 로그인할 수 있습니다."
+  },
+  "benchmark.cat.sys.badging.name": {
+    "message": "Badging API"
+  },
+  "benchmark.cat.sys.badging.desc": {
+    "message": "앱 아이콘에 읽지 않은 알림 수를 표시할 수 있습니다."
+  },
+  "benchmark.cat.sys.wakelock.name": {
+    "message": "Screen Wake Lock API"
+  },
+  "benchmark.cat.sys.wakelock.desc": {
+    "message": "열람 중 화면이 자동으로 꺼지지 않도록 제어할 수 있습니다."
+  },
+  "benchmark.cat.sys.webusb.name": {
+    "message": "Web USB"
+  },
+  "benchmark.cat.sys.webusb.desc": {
+    "message": "USB로 연결된 전용 기기를 브라우저에서 직접 제어할 수 있습니다."
+  },
+  "benchmark.cat.sys.filesystem.name": {
+    "message": "File System Access API"
+  },
+  "benchmark.cat.sys.filesystem.desc": {
+    "message": "기기 내 파일을 직접 편집하고 저장할 수 있습니다."
+  },
+  "benchmark.ref.rank.s.single": {
+    "message": "4000 이상"
+  },
+  "benchmark.ref.rank.s.multi": {
+    "message": "30000 이상"
+  },
+  "benchmark.ref.rank.s.desc": {
+    "message": "비교 불가한 속도. 하이엔드를 능가하는 최고 수준의 성능"
+  },
+  "benchmark.ref.rank.a.single": {
+    "message": "2000~3999"
+  },
+  "benchmark.ref.rank.a.multi": {
+    "message": "10000~29999"
+  },
+  "benchmark.ref.rank.a.desc": {
+    "message": "매우 쾌적함. 대부분의 앱이 극도로 부드럽게 동작"
+  },
+  "benchmark.ref.rank.b.single": {
+    "message": "1000~1999"
+  },
+  "benchmark.ref.rank.b.multi": {
+    "message": "4000~9999"
+  },
+  "benchmark.ref.rank.b.desc": {
+    "message": "쾌적함. 여러 작업을 병행해도 여유로운 성능"
+  },
+  "benchmark.ref.rank.c.single": {
+    "message": "250~999"
+  },
+  "benchmark.ref.rank.c.multi": {
+    "message": "500~3999"
+  },
+  "benchmark.ref.rank.c.desc": {
+    "message": "표준적임. 일반적인 페이지 열람에 충분한 성능"
+  },
+  "benchmark.ref.rank.d.single": {
+    "message": "100~249"
+  },
+  "benchmark.ref.rank.d.multi": {
+    "message": "200~499"
+  },
+  "benchmark.ref.rank.d.desc": {
+    "message": "기본적임. 부하에 따라 로딩이 느려질 수 있음"
+  },
+  "benchmark.ref.rank.e.single": {
+    "message": "50~99"
+  },
+  "benchmark.ref.rank.e.multi": {
+    "message": "100~199"
+  },
+  "benchmark.ref.rank.e.desc": {
+    "message": "저속. 구형 기기이거나 절전 모드일 가능성"
+  },
+  "benchmark.ref.rank.f.single": {
+    "message": "50 미만"
+  },
+  "benchmark.ref.rank.f.multi": {
+    "message": "100 미만"
+  },
+  "benchmark.ref.rank.f.desc": {
+    "message": "동작 곤란. 최신 웹 표준 대비 현저한 성능 부족"
+  },
+  "benchmark.share.title": {
+    "message": "웹 성능 측정 결과"
+  },
+  "benchmark.share.single": {
+    "message": "싱글:"
+  },
+  "benchmark.share.multi": {
+    "message": "멀티:"
+  },
+  "benchmark.share.alert": {
+    "message": "결과 이미지를 클립보드에 복사했습니다!\nX(Twitter) 등의 게시 화면에 붙여넣어 공유해 주세요."
+  },
+  "home.tools.roulette.title": {
+    "message": "룰렛 메이커"
+  },
+  "home.tools.roulette.desc": {
+    "message": "입력한 목록에서 간편하게 추첨합니다. 당첨 항목 제외 및 이력 저장 기능을 지원합니다."
+  },
+  "roulette.header.title": {
+    "message": "룰렛 메이커"
+  },
+  "roulette.header.desc": {
+    "message": "목록에서 간편하게 항목을 추첨할 수 있는 브라우저 기반 룰렛 메이커입니다."
+  },
+  "roulette.display.ready": {
+    "message": "준비 완료"
+  },
+  "roulette.display.empty": {
+    "message": "항목을 입력해 주세요"
+  },
+  "roulette.action.start": {
+    "message": "추첨 시작"
+  },
+  "roulette.input.title": {
+    "message": "항목 목록"
+  },
+  "roulette.action.import": {
+    "message": "가져오기"
+  },
+  "roulette.action.export": {
+    "message": "내보내기"
+  },
+  "roulette.input.placeholder": {
+    "message": "항목을 줄바꿈으로 구분해 입력해 주세요"
+  },
+  "roulette.settings.remove": {
+    "message": "한 번 나온 항목을 목록에서 제외"
+  },
+  "roulette.history.title": {
+    "message": "추첨 기록"
+  },
+  "roulette.action.clearHistory": {
+    "message": "기록 지우기"
+  },
+  "roulette.history.empty": {
+    "message": "기록이 없습니다"
+  },
+  "roulette.guide.title": {
+    "message": "사용 방법"
+  },
+  "roulette.guide.step1": {
+    "message": "'항목 목록'에 추첨할 항목을 한 줄에 하나씩 입력합니다. 텍스트 파일에서 불러올 수도 있습니다."
+  },
+  "roulette.guide.step2": {
+    "message": "'한 번 나온 항목을 목록에서 제외'를 켜면 당첨된 항목이 목록에서 자동으로 제거됩니다."
+  },
+  "roulette.guide.step3": {
+    "message": "'추첨 시작' 버튼을 누르면 룰렛이 돌아가며 항목 하나를 무작위로 선택합니다."
+  },
+  "roulette.guide.step4": {
+    "message": "'추첨 기록' 영역에서 이전 결과를 확인할 수 있습니다."
+  },
+  "roulette.guide.security": {
+    "message": "🔒 데이터와 추첨 기록은 브라우저의 로컬 스토리지에만 저장되며 외부 서버로 전송되지 않습니다. 민감한 정보도 안심하고 사용하실 수 있습니다."
+  },
+  "roulette.preset.title": {
+    "message": "프리셋:"
+  },
+  "roulette.preset.bingo": {
+    "message": "빙고 (1-75)"
+  },
+  "roulette.preset.confirm": {
+    "message": "현재 목록을 덮어씁니다. 계속하시겠습니까?"
+  },
+  "encoding.error.read": {
+    "message": "파일을 읽지 못했습니다."
+  },
+  "encoding.error.preview": {
+    "message": "미리보기를 생성하지 못했습니다. 문자 인코딩 설정을 확인해 주세요."
+  },
+  "encoding.success.download": {
+    "message": "변환하여 저장했습니다."
+  },
+  "encoding.error.convert": {
+    "message": "변환에 실패했습니다."
+  },
+  "encoding.upload.title": {
+    "message": "텍스트 선택"
+  },
+  "encoding.upload.main": {
+    "message": "여기에 파일을 끌어다 놓거나, {br} 클릭하여 선택하거나 붙여넣으세요"
+  },
+  "encoding.upload.sub": {
+    "message": "텍스트 파일 및 붙여넣은 텍스트 지원"
+  },
+  "encoding.label.current": {
+    "message": "문자 인코딩"
+  },
+  "encoding.label.target": {
+    "message": "변환할 문자 인코딩"
+  },
+  "encoding.label.currentLineBreak": {
+    "message": "줄 바꿈 문자"
+  },
+  "encoding.label.targetLineBreak": {
+    "message": "변환할 줄 바꿈 문자"
+  },
+  "encoding.detected": {
+    "message": "감지 결과:"
+  },
+  "encoding.preview.title": {
+    "message": "미리보기"
+  },
+  "encoding.button.download": {
+    "message": "변환 및 다운로드"
+  },
+  "encoding.correct.title": {
+    "message": "감지 결과 수정"
+  },
+  "encoding.button.correct": {
+    "message": "수정"
+  },
+  "encoding.stats.title": {
+    "message": "텍스트 정보"
+  },
+  "encoding.stats.chars": {
+    "message": "글자 수"
+  },
+  "encoding.stats.lines": {
+    "message": "줄 수"
+  },
+  "encoding.stats.currentSize": {
+    "message": "현재 크기"
+  },
+  "encoding.stats.targetSize": {
+    "message": "변환 후 크기 (예상)"
+  },
+  "home.tools.diff.title": {
+    "message": "텍스트 비교 도구"
+  },
+  "home.tools.diff.desc": {
+    "message": "두 텍스트나 파일을 비교하여 차이점을 시각적으로 강조 표시합니다. 다중 파일 업로드와 다양한 비교 모드를 지원합니다."
+  },
+  "diff.error.read": {
+    "message": "파일을 읽지 못했습니다."
+  },
+  "diff.upload.title": {
+    "message": "파일 업로드"
+  },
+  "diff.upload.dropLabel": {
+    "message": "클릭, 드래그 앤 드롭 또는 붙여넣기로 추가"
+  },
+  "diff.upload.formats": {
+    "message": "지원 형식: .txt, .csv, .log, .md, .json 등"
+  },
+  "diff.list.title": {
+    "message": "비교 대상 선택"
+  },
+  "diff.list.count": {
+    "message": "개의 파일"
+  },
+  "diff.table.left": {
+    "message": "왼쪽 (원본)"
+  },
+  "diff.table.right": {
+    "message": "오른쪽 (수정본)"
+  },
+  "diff.table.name": {
+    "message": "파일명"
+  },
+  "diff.table.size": {
+    "message": "크기"
+  },
+  "diff.viewer.title": {
+    "message": "차이 비교"
+  },
+  "diff.options.ignoreWhitespace": {
+    "message": "공백 무시"
+  },
+  "diff.tooltip.unified": {
+    "message": "통합 보기"
+  },
+  "markdownPdf.editor.title": {
+    "message": "Markdown 입력"
+  },
+  "markdownPdf.editor.sample": {
+    "message": "샘플 삽입"
+  },
+  "markdownPdf.editor.clear": {
+    "message": "지우기"
+  },
+  "markdownPdf.upload.button": {
+    "message": "Markdown 파일 선택 (.md)"
+  },
+  "markdownPdf.upload.dropText": {
+    "message": "또는 파일을 여기로 드래그 앤 드롭하거나 붙여넣기"
+  },
+  "markdownPdf.editor.placeholder": {
+    "message": "# 여기에 Markdown을 입력하세요..."
+  },
+  "markdownPdf.options.title": {
+    "message": "PDF 출력 설정"
+  },
+  "markdownPdf.options.fontSize": {
+    "message": "폰트 크기"
+  },
+  "markdownPdf.options.fontSize.small": {
+    "message": "작게 (10pt)"
+  },
+  "markdownPdf.options.fontSize.medium": {
+    "message": "보통 (12pt)"
+  },
+  "markdownPdf.options.fontSize.large": {
+    "message": "크게 (14pt)"
+  },
+  "markdownPdf.options.margin": {
+    "message": "여백"
+  },
+  "markdownPdf.options.margin.narrow": {
+    "message": "좁게 (10mm)"
+  },
+  "markdownPdf.options.margin.normal": {
+    "message": "표준 (20mm)"
+  },
+  "markdownPdf.options.margin.wide": {
+    "message": "넓게 (30mm)"
+  },
+  "markdownPdf.options.format": {
+    "message": "용지 크기"
+  },
+  "markdownPdf.options.orientation": {
+    "message": "방향"
+  },
+  "markdownPdf.options.orientation.portrait": {
+    "message": "세로"
+  },
+  "markdownPdf.options.orientation.landscape": {
+    "message": "가로"
+  },
+  "markdownPdf.options.pageNumbers": {
+    "message": "바닥글에 페이지 번호 표시"
+  },
+  "markdownPdf.btn.loadingFont": {
+    "message": "폰트 불러오는 중..."
+  },
+  "markdownPdf.btn.downloadHtml": {
+    "message": "HTML 다운로드"
+  },
+  "markdownPdf.btn.download": {
+    "message": "PDF 다운로드"
+  },
+  "markdownPdf.tab.previewHtml": {
+    "message": "HTML 미리보기"
+  },
+  "markdownPdf.tab.previewPdf": {
+    "message": "PDF 미리보기"
+  },
+  "markdownPdf.preview.empty": {
+    "message": "Markdown을 입력하면 여기에 미리보기가 표시됩니다."
+  },
+  "markdownPdf.error.generate": {
+    "message": "PDF 생성 중 오류가 발생했습니다."
+  },
+  "markdownPdf.confirm.clear": {
+    "message": "텍스트를 지우시겠습니까?"
+  },
+  "markdownPdf.error.htmlGenerate": {
+    "message": "HTML 생성 중 오류가 발생했습니다."
+  },
+  "markdownPdf.preview.loadingFont": {
+    "message": "폰트 불러오는 중..."
+  },
+  "markdownPdf.preview.generating": {
+    "message": "PDF 생성 중..."
+  },
+  "markdownPdf.preview.noPdf": {
+    "message": "PDF 미리보기를 표시할 수 없습니다."
+  },
+  "home.tools.seo.title": {
+    "message": "SEO 메타데이터 추출기"
+  },
+  "home.tools.seo.desc": {
+    "message": "URL을 입력하거나 HTML을 붙여넣어 SEO 메타데이터(파비콘, OGP, 제목, 설명, 키워드 등)를 추출하고 미리봅니다. 로컬에서 안전하게 처리됩니다."
+  },
+  "seo.tab.urlMode": {
+    "message": "URL로 분석"
+  },
+  "seo.tab.htmlMode": {
+    "message": "HTML로 분석"
+  },
+  "seo.input.urlLabel": {
+    "message": "대상 URL"
+  },
+  "seo.input.htmlLabel": {
+    "message": "HTML 소스 코드"
+  },
+  "seo.security.title": {
+    "message": "개인정보 보호 안내"
+  },
+  "seo.security.desc": {
+    "message": "URL을 자동으로 분석할 때는 HTML을 가져오기 위해 외부 무료 CORS 프록시를 일시적으로 경유합니다. 사내 시스템 페이지나 개인정보가 포함된 비공개 URL을 분석하려는 경우, 브라우저 내에서 완전히 처리되는 'HTML로 분석' 모드를 사용해 주세요."
+  },
+  "seo.action.parsing": {
+    "message": "분석 중..."
+  },
+  "seo.action.parse": {
+    "message": "분석하기"
+  },
+  "seo.action.download": {
+    "message": "다운로드"
+  },
+  "seo.state.loading": {
+    "message": "HTML을 가져와 분석하는 중..."
+  },
+  "seo.error.title": {
+    "message": "오류가 발생했습니다"
+  },
+  "seo.error.invalidUrl": {
+    "message": "올바른 URL을 입력해 주세요."
+  },
+  "seo.error.fetchFailed": {
+    "message": "메타데이터를 가져오는 데 실패했습니다. URL이 잘못되었거나 대상 사이트의 보안 제한(CORS) 또는 네트워크 문제로 접근이 차단되었을 수 있습니다. 'HTML로 분석' 모드에서 HTML을 직접 붙여넣어 보세요."
+  },
+  "seo.error.parseFailed": {
+    "message": "HTML 분석에 실패했습니다. 소스 코드를 확인해 주세요."
+  },
+  "seo.resultTab.preview": {
+    "message": "미리보기"
+  },
+  "seo.resultTab.basic": {
+    "message": "기본 메타 정보"
+  },
+  "seo.resultTab.ogp": {
+    "message": "OGP·SNS 정보"
+  },
+  "seo.resultTab.json": {
+    "message": "JSON 데이터"
+  },
+  "seo.preview.title": {
+    "message": "검색 결과 및 SNS 미리보기"
+  },
+  "seo.preview.noTitle": {
+    "message": "제목이 설정되어 있지 않습니다"
+  },
+  "seo.preview.noDesc": {
+    "message": "설명이 설정되어 있지 않습니다. 검색 엔진이 본문에서 자동으로 생성할 수 있습니다."
+  },
+  "seo.preview.noImage": {
+    "message": "OGP 이미지 없음"
+  },
+  "seo.eval.title": {
+    "message": "글자 수 검사 평가"
+  },
+  "seo.meta.title": {
+    "message": "제목"
+  },
+  "seo.meta.desc": {
+    "message": "설명"
+  },
+  "seo.recommend": {
+    "message": "권장"
+  },
+  "seo.status.missing": {
+    "message": "미설정"
+  },
+  "seo.status.good": {
+    "message": "적정"
+  },
+  "seo.status.short": {
+    "message": "글자 수 적음"
+  },
+  "seo.status.long": {
+    "message": "글자 수 많음"
+  },
+  "seo.item.title": {
+    "message": "제목"
+  },
+  "seo.item.desc": {
+    "message": "설명 (Description)"
+  },
+  "seo.item.keywords": {
+    "message": "키워드 (Keywords)"
+  },
+  "seo.item.robots": {
+    "message": "검색 제외 (Robots)"
+  },
+  "seo.empty": {
+    "message": "미설정"
+  },
+  "seo.empty.none": {
+    "message": "미설정 (색인 허용)"
+  },
+  "seo.export.success": {
+    "message": "JSON 파일을 내보냈습니다"
+  },
+  "embed.section.title": {
+    "message": "이 도구를 사이트에 임베드하기"
+  },
+  "embed.section.iframeLabel": {
+    "message": "iframe 임베드 코드"
+  },
+  "embed.section.urlLabel": {
+    "message": "임베드 URL"
+  },
+  "home.tools.regex.title": {
+    "message": "정규표현식 체커"
+  },
+  "home.tools.regex.desc": {
+    "message": "구문 강조, 캡처 그룹 추출, 프리셋 템플릿과 함께 정규표현식을 실시간으로 테스트하고 디버깅합니다."
+  },
+  "regex.title": {
+    "message": "정규 표현식 체커"
+  },
+  "regex.desc": {
+    "message": "구문 강조, 캡처 그룹 추출, 프리셋 템플릿을 통해 정규 표현식을 실시간으로 테스트하고 디버깅합니다."
+  },
+  "regex.template.selectLabel": {
+    "message": "프리셋 템플릿 선택"
+  },
+  "regex.template.custom": {
+    "message": "사용자 지정 (직접 입력)"
+  },
+  "regex.template.email": {
+    "message": "이메일 주소"
+  },
+  "regex.template.url": {
+    "message": "URL (HTTP/HTTPS)"
+  },
+  "regex.template.postal": {
+    "message": "우편번호 (일본)"
+  },
+  "regex.template.phone": {
+    "message": "전화번호 (일본)"
+  },
+  "regex.template.date": {
+    "message": "날짜 (YYYY-MM-DD / YYYY/MM/DD)"
+  },
+  "regex.template.time": {
+    "message": "시간 (HH:MM:SS)"
+  },
+  "regex.template.ipv4": {
+    "message": "IPv4 주소"
+  },
+  "regex.template.alphanumeric": {
+    "message": "영숫자"
+  },
+  "regex.template.html": {
+    "message": "HTML 태그"
+  },
+  "regex.template.hexColor": {
+    "message": "HEX 색상 코드 (#RGB / #RRGGBB)"
+  },
+  "regex.actions.resetAll": {
+    "message": "전체 지우기"
+  },
+  "regex.actions.clear": {
+    "message": "지우기"
+  },
+  "regex.actions.copyPattern": {
+    "message": "패턴 복사"
+  },
+  "regex.actions.copyMatches": {
+    "message": "일치 항목 복사"
+  },
+  "regex.actions.copied": {
+    "message": "클립보드에 복사되었습니다"
+  },
+  "regex.pattern.title": {
+    "message": "정규 표현식 패턴"
+  },
+  "regex.pattern.label": {
+    "message": "정규 표현식"
+  },
+  "regex.pattern.clear": {
+    "message": "패턴 지우기"
+  },
+  "regex.pattern.copy": {
+    "message": "패턴 복사"
+  },
+  "regex.pattern.copyTooltip": {
+    "message": "정규 표현식 패턴 복사 (/{pattern}/{flags})"
+  },
+  "regex.pattern.placeholder": {
+    "message": "예: [\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}"
+  },
+  "regex.error.title": {
+    "message": "정규 표현식 오류:"
+  },
+  "regex.flags.title": {
+    "message": "플래그 설정:"
+  },
+  "regex.flags.label": {
+    "message": "플래그"
+  },
+  "regex.flags.g": {
+    "message": "전역 (g)"
+  },
+  "regex.flags.i": {
+    "message": "대소문자 무시 (i)"
+  },
+  "regex.flags.m": {
+    "message": "여러 줄 (m)"
+  },
+  "regex.flags.s": {
+    "message": "Dot All (s)"
+  },
+  "regex.flags.u": {
+    "message": "Unicode (u)"
+  },
+  "regex.flags.y": {
+    "message": "Sticky (y)"
+  },
+  "regex.flag.g.title": {
+    "message": "전역 검색 (g)"
+  },
+  "regex.flag.g.desc": {
+    "message": "첫 번째 일치에서 멈추지 않고 모든 일치 항목을 찾습니다"
+  },
+  "regex.flag.i.title": {
+    "message": "대소문자 무시 (i)"
+  },
+  "regex.flag.i.desc": {
+    "message": "대소문자를 구분하지 않고 일치시킵니다"
+  },
+  "regex.flag.m.title": {
+    "message": "여러 줄 (m)"
+  },
+  "regex.flag.m.desc": {
+    "message": "^ 및 $가 각 줄의 시작과 끝과 일치합니다"
+  },
+  "regex.flag.s.title": {
+    "message": "dotAll (s)"
+  },
+  "regex.flag.s.desc": {
+    "message": "점(.)이 줄바꿈(\\n)을 포함한 모든 문자와 일치합니다"
+  },
+  "regex.flag.u.title": {
+    "message": "Unicode (u)"
+  },
+  "regex.flag.u.desc": {
+    "message": "Unicode 지원을 활성화합니다 (서로게이트 쌍, Unicode 속성 이스케이프)"
+  },
+  "regex.flag.y.title": {
+    "message": "Sticky (y)"
+  },
+  "regex.flag.y.desc": {
+    "message": "lastIndex 속성이 가리키는 인덱스에서만 일치시킵니다"
+  },
+  "regex.text.title": {
+    "message": "테스트 대상 텍스트"
+  },
+  "regex.text.label": {
+    "message": "테스트 텍스트"
+  },
+  "regex.text.clear": {
+    "message": "텍스트 지우기"
+  },
+  "regex.text.placeholder": {
+    "message": "여기에 테스트할 텍스트를 입력하세요..."
+  },
+  "regex.text.meta": {
+    "message": "{chars}자 / {lines}줄"
+  },
+  "regex.text.insertSample": {
+    "message": "샘플 텍스트 삽입"
+  },
+  "regex.result.title": {
+    "message": "일치 결과 · 하이라이트"
+  },
+  "regex.result.errorStatus": {
+    "message": "오류"
+  },
+  "regex.result.matchCount": {
+    "message": "{count}건 일치"
+  },
+  "regex.result.noMatch": {
+    "message": "일치 없음"
+  },
+  "regex.status.matchCount": {
+    "message": "{count}건의 일치 항목을 찾았습니다"
+  },
+  "regex.status.noMatch": {
+    "message": "일치하는 항목이 없습니다"
+  },
+  "regex.status.error": {
+    "message": "정규 표현식 구문 오류"
+  },
+  "regex.warning.truncated": {
+    "message": "일치 건수가 최대 한도(1,000건)에 도달하여 이후 일치 항목은 생략되었습니다."
+  },
+  "regex.result.copyPattern": {
+    "message": "패턴 복사"
+  },
+  "regex.result.copyMatches": {
+    "message": "일치 목록 복사"
+  },
+  "regex.result.copiedPattern": {
+    "message": "정규 표현식 패턴을 복사했습니다!"
+  },
+  "regex.result.copiedMatches": {
+    "message": "일치 결과를 복사했습니다!"
+  },
+  "regex.result.copiedSingle": {
+    "message": "일치 텍스트를 복사했습니다!"
+  },
+  "regex.result.noMatchesToCopy": {
+    "message": "복사할 일치 항목이 없습니다"
+  },
+  "regex.viewer.placeholder": {
+    "message": "텍스트를 입력하면 여기에 일치하는 부분이 하이라이트 표시됩니다."
+  },
+  "regex.highlight.title": {
+    "message": "일치 항목 하이라이트"
+  },
+  "regex.details.title": {
+    "message": "일치 상세 & 캡처 그룹"
+  },
+  "regex.details.matchNum": {
+    "message": "일치 #{index}"
+  },
+  "regex.details.range": {
+    "message": "위치: {start} - {end} (길이: {length})"
+  },
+  "regex.details.groups": {
+    "message": "캡처 그룹 ({count})"
+  },
+  "regex.details.noGroups": {
+    "message": "패턴에 캡처 그룹이 없습니다"
+  },
+  "regex.details.charsUnit": {
+    "message": "자"
+  },
+  "wintch.page.title": {
+    "message": "Wintch | macOS용 심플 창 단위 전환기 & 런처"
+  },
+  "wintch.page.description": {
+    "message": "완전 로컬 동작으로 가볍고 심플한 macOS용 창 단위 전환기 & 검색 런처 'Wintch' 소개 및 설치 방법."
+  },
+  "wintch.nav.ariaLabel": {
+    "message": "페이지 내 탐색"
+  },
+  "wintch.nav.switcher": {
+    "message": "창 전환기"
+  },
+  "wintch.nav.capture": {
+    "message": "캡처 보기"
+  },
+  "wintch.nav.launcher": {
+    "message": "검색 런처"
+  },
+  "wintch.nav.close": {
+    "message": "창 닫기"
+  },
+  "wintch.nav.privacy": {
+    "message": "네이티브 설계"
+  },
+  "wintch.nav.install": {
+    "message": "설치"
+  },
+  "wintch.hero.meta": {
+    "message": "{version} · macOS 14.0+ · MIT License"
+  },
+  "wintch.hero.titlePrefix": {
+    "message": "창 전환을,"
+  },
+  "wintch.hero.titleAccent": {
+    "message": "더 직관적으로."
+  },
+  "wintch.hero.subtitle": {
+    "message": "Wintch(Window + Switch)는 macOS 기본 Command + Tab으로는 접근하기 어려운 '같은 앱의 여러 창' 사이를 즉시 전환할 수 있는 심플하고 가벼운 창 단위 전환기 & 검색 런처입니다."
+  },
+  "wintch.cta.download": {
+    "message": "다운로드 ({version})"
+  },
+  "wintch.cta.copyBrewAria": {
+    "message": "Homebrew 설치 명령어 복사: brew install --cask sawarame/tap/wintch"
+  },
+  "wintch.copy.copied": {
+    "message": "복사했습니다"
+  },
+  "wintch.copy.hint": {
+    "message": "클릭하여 명령어 복사"
+  },
+  "wintch.showcase.tablistLabel": {
+    "message": "Wintch 미리보기 모드"
+  },
+  "wintch.showcase.tab.switcher": {
+    "message": "일반 전환기"
+  },
+  "wintch.showcase.tab.launcher": {
+    "message": "검색 런처"
+  },
+  "wintch.showcase.tab.settings": {
+    "message": "설정 및 권한"
+  },
+  "wintch.showcase.allClosed": {
+    "message": "모든 데모 창을 닫았습니다"
+  },
+  "wintch.showcase.reset": {
+    "message": "데모 초기화"
+  },
+  "wintch.showcase.btn.prev": {
+    "message": "이전"
+  },
+  "wintch.showcase.btn.next": {
+    "message": "다음"
+  },
+  "wintch.showcase.btn.close": {
+    "message": "닫기"
+  },
+  "wintch.showcase.feedback.closedWindow": {
+    "message": "'{appName} — {title}' 창을 닫았습니다"
+  },
+  "wintch.showcase.feedback.switchWindow": {
+    "message": "'{appName} — {title}' 창으로 전환했습니다"
+  },
+  "wintch.showcase.feedback.launchApp": {
+    "message": "'{appName}' 앱을 실행했습니다"
+  },
+  "wintch.showcase.searchPlaceholder": {
+    "message": "앱 이름이나 창 제목으로 검색 (예: saf, note, code)"
+  },
+  "wintch.showcase.searchAria": {
+    "message": "검색 런처 데모 입력란"
+  },
+  "wintch.showcase.clearQuery": {
+    "message": "검색어 지우기"
+  },
+  "wintch.showcase.noOpenWindows": {
+    "message": "열린 창이 없습니다 (앱 이름을 입력해 실행)"
+  },
+  "wintch.showcase.noMatchingApps": {
+    "message": "일치하는 앱이 없습니다"
+  },
+  "wintch.showcase.noMatch": {
+    "message": "일치하는 창이나 앱이 없습니다"
+  },
+  "wintch.showcase.launchHeaderNoWin": {
+    "message": "일치하는 창이 없어 앱 실행"
+  },
+  "wintch.showcase.launchHeader": {
+    "message": "앱 실행"
+  },
+  "wintch.showcase.launchBadge": {
+    "message": "실행"
+  },
+  "wintch.showcase.tryQuery": {
+    "message": "검색 예시:"
+  },
+  "wintch.showcase.allMru": {
+    "message": "비어 있음 (MRU)"
+  },
+  "wintch.showcase.settings.title": {
+    "message": "Wintch 설정"
+  },
+  "wintch.showcase.settings.normalSection": {
+    "message": "일반 전환기 (홀드 방식)"
+  },
+  "wintch.showcase.settings.launcherSection": {
+    "message": "검색 런처 (토글 방식)"
+  },
+  "wintch.showcase.settings.shortcut": {
+    "message": "실행 단축키"
+  },
+  "wintch.showcase.settings.reverse": {
+    "message": "역순 이동"
+  },
+  "wintch.showcase.settings.generalAndPerm": {
+    "message": "일반 및 시스템 권한"
+  },
+  "wintch.showcase.settings.launchAtLogin": {
+    "message": "로그인 시 자동 실행"
+  },
+  "wintch.showcase.settings.accessibility": {
+    "message": "손쉬운 사용 권한"
+  },
+  "wintch.showcase.settings.screenRecording": {
+    "message": "화면 기록 권한 (선택)"
+  },
+  "wintch.showcase.settings.displayStyle": {
+    "message": "표시 형식"
+  },
+  "wintch.showcase.settings.displayStyleNote": {
+    "message": "기본 설정은 목록형입니다. 캡처 그리드를 선택하면 각 창의 썸네일을 그리드 형태로 표시합니다."
+  },
+  "wintch.showcase.styleToggleAria": {
+    "message": "전환기 표시 형식 전환"
+  },
+  "wintch.showcase.style.list": {
+    "message": "목록형"
+  },
+  "wintch.showcase.style.capture": {
+    "message": "캡처 그리드"
+  },
+  "wintch.showcase.settings.granted": {
+    "message": "허용됨"
+  },
+  "wintch.feature1.eyebrow": {
+    "message": "창 전환기 (⌥ + Tab)"
+  },
+  "wintch.feature1.titlePrefix": {
+    "message": "창 단위 전환을"
+  },
+  "wintch.feature1.titleAccent": {
+    "message": "헷갈림 없이."
+  },
+  "wintch.feature1.desc": {
+    "message": "macOS의 Command + Tab은 앱 단위로 전환하지만, Wintch는 열려 있는 모든 창을 최근 사용 순(MRU)으로 개별 표시합니다. 같은 앱에 여러 창이 열려 있어도 원하는 창으로 정확히 이동할 수 있습니다."
+  },
+  "wintch.feature1.b1": {
+    "message": "Option + Tab을 눌렀다 떼기만 하면 직전 창으로 바로 돌아갑니다"
+  },
+  "wintch.feature1.b2": {
+    "message": "보조 키를 누른 채 Tab / Shift+Tab 또는 방향키로 이동하고, 키를 떼면 선택이 확정됩니다"
+  },
+  "wintch.feature1.b3": {
+    "message": "설정에서 표시 스타일(목록 / 캡처 그리드)과 단축키를 자유롭게 변경할 수 있습니다"
+  },
+  "wintch.featureCapture.eyebrow": {
+    "message": "캡처 그리드 보기"
+  },
+  "wintch.featureCapture.titlePrefix": {
+    "message": "원하는 창을"
+  },
+  "wintch.featureCapture.titleAccent": {
+    "message": "한눈에 선택."
+  },
+  "wintch.featureCapture.desc": {
+    "message": "설정에서 창 전환기 표시 형식을 캡처 그리드로 바꾸면 Windows의 Alt + Tab처럼 각 창의 실시간 썸네일을 카드 그리드로 확인할 수 있어, 같은 앱의 여러 창도 손쉽게 구분할 수 있습니다."
+  },
+  "wintch.featureCapture.b1": {
+    "message": "단축키를 누르면 즉시 표시되고, 최신 창 캡처를 비동기로 빠르게 갱신합니다"
+  },
+  "wintch.featureCapture.b2": {
+    "message": "방향키(↑/↓/←/→)나 ⌥ + Tab으로 그리드를 이동하고, 카드 클릭 또는 ⌥ + Q로 창을 닫을 수 있습니다"
+  },
+  "wintch.featureCapture.b3": {
+    "message": "화면 기록 권한은 캡처 그리드 사용 시에만 선택적으로 필요합니다 (기본 목록 모드에서는 불필요)"
+  },
+  "wintch.feature2.eyebrow": {
+    "message": "검색 런처 (⌥ + Space)"
+  },
+  "wintch.feature2.titlePrefix": {
+    "message": "검색과 앱 실행을"
+  },
+  "wintch.feature2.titleAccent": {
+    "message": "하나의 패널에서."
+  },
+  "wintch.feature2.desc": {
+    "message": "열려 있는 창이 많을 때는 검색 런처를 열어 보세요. 공백으로 구분한 AND 퍼지 검색으로 앱 이름이나 창 제목을 빠르게 좁혀 찾거나, 아래 영역에서 열려 있지 않은 앱을 바로 실행할 수 있습니다."
+  },
+  "wintch.feature2.b1": {
+    "message": "일치하는 문자를 굵은 글꼴과 강조 색상으로 실시간 하이라이트합니다"
+  },
+  "wintch.feature2.b2": {
+    "message": "열린 창이 하나도 없을 때도 실행되며, 앱의 현지화 이름과 영문 이름 모두로 검색할 수 있습니다 (예: Notes / 메모)"
+  },
+  "wintch.feature2.b3": {
+    "message": "검색 중에도 ↑ / ↓, Ctrl + N / P는 물론 ⌥ + Tab으로 매끄럽게 이동할 수 있습니다"
+  },
+  "wintch.feature3.eyebrow": {
+    "message": "창 닫기 (⌥ + Q)"
+  },
+  "wintch.feature3.titlePrefix": {
+    "message": "창 정리를,"
+  },
+  "wintch.feature3.titleAccent": {
+    "message": "목록에서 바로."
+  },
+  "wintch.feature3.desc": {
+    "message": "창을 닫기 위해 굳이 해당 창으로 전환할 필요가 없습니다. 전환기나 런처에서 창을 선택한 뒤 보조 키 + Q(기본값 ⌥ + Q)를 누르면 그 자리에서 바로 닫을 수 있습니다."
+  },
+  "wintch.feature3.b1": {
+    "message": "창 전환기와 검색 런처 모두에서 동일한 ⌥ + Q 단축키로 동작합니다"
+  },
+  "wintch.feature3.b2": {
+    "message": "불필요한 창을 연속으로 닫을 수 있으며, 마지막 창을 닫은 뒤에도 패널을 유지한 채 다른 앱을 바로 실행할 수 있습니다"
+  },
+  "wintch.feature3.b3": {
+    "message": "강제 종료나 저장되지 않은 작업 손실 없이 앱의 기본 저장 확인 대화상자를 존중합니다"
+  },
+  "wintch.feature4.eyebrow": {
+    "message": "네이티브 & 경량 설계"
+  },
+  "wintch.feature4.titlePrefix": {
+    "message": "네이티브로 만들어,"
+  },
+  "wintch.feature4.titleAccent": {
+    "message": "빠르고 심플하게."
+  },
+  "wintch.feature4.desc": {
+    "message": "외부 라이브러리 의존성 없이 Apple 표준 프레임워크와 Swift 6.0, SwiftUI만으로 구현해 매일의 창 전환을 빠르고 깔끔하며 안정적으로 유지합니다."
+  },
+  "wintch.feature4.b1": {
+    "message": "Apple Silicon과 Intel Mac을 모두 지원하는 Universal Binary"
+  },
+  "wintch.feature4.b2": {
+    "message": "외부 통신이나 추적이 전혀 없는 100% 로컬 실행 (캡처는 메모리 캐시에만 유지)"
+  },
+  "wintch.feature4.b3": {
+    "message": "Dock을 차지하지 않고 메뉴 막대에 조용히 상주 (LSUIElement)"
+  },
+  "wintch.visual.switcher.beforeLabel": {
+    "message": "기본 Command + Tab (앱 단위)"
+  },
+  "wintch.visual.launchSection": {
+    "message": "앱 실행"
+  },
+  "wintch.visual.notesApp": {
+    "message": "메모"
+  },
+  "wintch.visual.capture.badge": {
+    "message": "캡처 그리드"
+  },
+  "wintch.visual.capture.headline": {
+    "message": "창 내용을 카드로 미리보기"
+  },
+  "wintch.visual.capture.note": {
+    "message": "이미지는 메모리의 임시 캐시에만 보관되며 디스크에 저장되거나 외부로 전송되지 않습니다"
+  },
+  "wintch.visual.close.headline": {
+    "message": "선택한 창을 그 자리에서 바로 닫기"
+  },
+  "wintch.visual.close.safeNote": {
+    "message": "저장되지 않은 변경 사항이 있으면 앱의 기본 저장 확인 대화상자를 존중합니다"
+  },
+  "wintch.visual.arch.swiftTitle": {
+    "message": "Swift 6.0 + SwiftUI"
+  },
+  "wintch.visual.arch.swiftStatus": {
+    "message": "네이티브 Universal Binary (Apple Silicon / Intel)"
+  },
+  "wintch.visual.arch.localTitle": {
+    "message": "100% 로컬 동작"
+  },
+  "wintch.visual.arch.localStatus": {
+    "message": "외부 통신이나 추적 전혀 없음"
+  },
+  "wintch.visual.arch.menuBarTitle": {
+    "message": "메뉴 막대 상주"
+  },
+  "wintch.visual.arch.menuBarStatus": {
+    "message": "Dock을 차지하지 않고 메뉴 막대에 조용히 상주"
+  },
+  "wintch.visual.arch.axTitle": {
+    "message": "손쉬운 사용 권한"
+  },
+  "wintch.visual.arch.axStatus": {
+    "message": "단축키 감지 및 창 전환에 사용 (화면 기록은 캡처 그리드용 선택 권한)"
+  },
+  "wintch.shortcuts.eyebrow": {
+    "message": "키보드 단축키"
+  },
+  "wintch.shortcuts.title": {
+    "message": "기본 단축키 목록"
+  },
+  "wintch.shortcuts.subtitle": {
+    "message": "기본 설정된 키 바인딩입니다. 실행 단축키는 설정 화면(⌘ + ,)에서 자유롭게 사용자 지정할 수 있습니다."
+  },
+  "wintch.shortcuts.scope.normal": {
+    "message": "전환기"
+  },
+  "wintch.shortcuts.scope.launcher": {
+    "message": "런처"
+  },
+  "wintch.shortcuts.scope.both": {
+    "message": "공통"
+  },
+  "wintch.shortcuts.desc.normalNext": {
+    "message": "누른 상태로 전환기를 열고 다음 창으로 이동 (보조 키를 떼면 확정)"
+  },
+  "wintch.shortcuts.desc.normalPrev": {
+    "message": "선택을 이전 창으로 역순 이동"
+  },
+  "wintch.shortcuts.desc.launcherToggle": {
+    "message": "검색 런처 열기/닫기 전환"
+  },
+  "wintch.shortcuts.desc.navigate": {
+    "message": "목록 항목 순환 또는 방향키로 캡처 그리드 이동 (런처에서도 ⌥ + Tab 사용 가능)"
+  },
+  "wintch.shortcuts.desc.close": {
+    "message": "선택한 창 닫기"
+  },
+  "wintch.shortcuts.desc.confirmCancel": {
+    "message": "Enter로 전환 또는 실행 확정, Esc로 전환하지 않고 취소"
+  },
+  "wintch.install.eyebrow": {
+    "message": "설치"
+  },
+  "wintch.install.title": {
+    "message": "설치 방법 및 초기 설정"
+  },
+  "wintch.install.subtitle": {
+    "message": "Homebrew Cask 또는 GitHub Releases의 배포 ZIP으로 바로 설치할 수 있습니다. Developer ID 서명 및 Apple 공증이 완료되었습니다."
+  },
+  "wintch.install.brew.badge": {
+    "message": "추천"
+  },
+  "wintch.install.brew.title": {
+    "message": "Homebrew로 설치"
+  },
+  "wintch.install.brew.desc": {
+    "message": "터미널에서 아래 명령어를 실행하면 Tap 추가와 설치가 한 번에 완료됩니다."
+  },
+  "wintch.install.brew.upgradeLabel": {
+    "message": "최신 버전으로 업데이트"
+  },
+  "wintch.install.brew.uninstallLabel": {
+    "message": "제거 (설정까지 삭제하려면 --zap 추가)"
+  },
+  "wintch.install.manual.title": {
+    "message": "GitHub Releases에서 수동 설치"
+  },
+  "wintch.install.manual.desc": {
+    "message": "Homebrew를 사용하지 않는 경우 릴리스 페이지에서 앱을 직접 다운로드하여 설치할 수 있습니다."
+  },
+  "wintch.install.manual.step1": {
+    "message": "GitHub Releases 페이지에서 최신 Wintch-vX.Y.Z.zip을 다운로드해 압축을 풉니다."
+  },
+  "wintch.install.manual.step2": {
+    "message": "압축을 푼 Wintch.app을 /Applications(응용 프로그램) 폴더로 이동한 뒤 실행합니다."
+  },
+  "wintch.install.manual.step3": {
+    "message": "처음 실행 시 표시되는 안내에 따라 '시스템 설정 > 개인정보 보호 및 보안 > 손쉬운 사용'에서 Wintch를 허용합니다."
+  },
+  "wintch.install.manual.notarized": {
+    "message": "배포 버전은 Developer ID 서명 및 Apple 공증을 완료했으므로 일반 실행 시 Gatekeeper 경고가 표시되지 않습니다."
+  },
+  "wintch.install.manual.button": {
+    "message": "GitHub Releases 열기"
+  },
+  "wintch.specs.osLabel": {
+    "message": "지원 OS / 아키텍처"
+  },
+  "wintch.specs.osValue": {
+    "message": "macOS 14.0 (Sonoma) 이상 · Apple Silicon / Intel"
+  },
+  "wintch.specs.permLabel": {
+    "message": "필요 권한"
+  },
+  "wintch.specs.permValue": {
+    "message": "손쉬운 사용 (화면 기록은 캡처 그리드 사용 시에만 선택)"
+  },
+  "wintch.specs.licenseLabel": {
+    "message": "라이선스 / 기술 스택"
+  },
+  "wintch.specs.licenseValue": {
+    "message": "MIT License · Swift 6.0 / SwiftUI"
+  },
+  "wintch.bottomCta.title": {
+    "message": "창 전환의 스트레스를 제로로."
+  },
+  "wintch.bottomCta.desc": {
+    "message": "무료 오픈소스(MIT License)로 공개되어 있습니다."
+  },
+  "wintch.topControls.languageAria": {
+    "message": "언어 전환"
+  },
+  "wintch.topControls.menuAria": {
+    "message": "언어 목록"
+  },
+  "nickmark.page.title": {
+    "message": "Nickmark | 키보드 중심 북마크 런처 Chrome 확장 프로그램"
+  },
+  "nickmark.page.description": {
+    "message": "커맨드 팔레트, 동적 URL(%s), 폴더 일괄 실행, 북마크릿 실행, 지수 감쇠 랭킹을 갖춘 키보드 중심 Chrome 확장 프로그램 'Nickmark' 소개 페이지입니다."
+  },
+  "nickmark.nav.ariaLabel": {
+    "message": "페이지 내 탐색"
+  },
+  "nickmark.nav.palette": {
+    "message": "커맨드 팔레트"
+  },
+  "nickmark.nav.dynamic": {
+    "message": "동적 URL & JS"
+  },
+  "nickmark.nav.folders": {
+    "message": "폴더 일괄 열기"
+  },
+  "nickmark.nav.dashboard": {
+    "message": "랭킹 & 대시보드"
+  },
+  "nickmark.nav.privacy": {
+    "message": "동기화 & 개인정보"
+  },
+  "nickmark.nav.commands": {
+    "message": "명령어"
+  },
+  "nickmark.nav.install": {
+    "message": "설치"
+  },
+  "nickmark.hero.meta": {
+    "message": "v2.1.0 · Chrome 135+ · MIT License"
+  },
+  "nickmark.hero.titlePrefix": {
+    "message": "북마크 접근을,"
+  },
+  "nickmark.hero.titleAccent": {
+    "message": "키보드만으로 가장 빠르게."
+  },
+  "nickmark.hero.subtitle": {
+    "message": "Nickmark는 마우스 이동을 최소화하고 싶은 엔지니어와 파워 유저를 위한 Chrome 확장 프로그램입니다. 자주 쓰는 페이지, 검색 템플릿(%s), 폴더 그룹, 북마크릿에 짧은 닉네임을 지정해 커맨드 팔레트에서 즉시 호출할 수 있습니다."
+  },
+  "nickmark.cta.store": {
+    "message": "Chrome Web Store에서 추가"
+  },
+  "nickmark.cta.docs": {
+    "message": "사용 설명서 보기"
+  },
+  "nickmark.showcase.presetsLabel": {
+    "message": "입력 예:"
+  },
+  "nickmark.showcase.placeholder": {
+    "message": "닉네임 검색 또는 :add / ;add / :rm ..."
+  },
+  "nickmark.showcase.inputAria": {
+    "message": "Nickmark 커맨드 팔레트 데모 입력란"
+  },
+  "nickmark.showcase.clear": {
+    "message": "입력 지우기"
+  },
+  "nickmark.showcase.noMatch": {
+    "message": "일치하는 후보가 없습니다."
+  },
+  "nickmark.showcase.nextTip": {
+    "message": "클릭하여 다음 팁 보기"
+  },
+  "nickmark.showcase.tip1": {
+    "message": ":add <name>(또는 ;add / :a)을 실행하면 현재 탭을 즉시 북마크할 수 있습니다."
+  },
+  "nickmark.showcase.tip2": {
+    "message": "folder/(예: work/)를 입력하고 Enter를 누르면 해당 폴더의 모든 북마크를 한 번에 열 수 있습니다."
+  },
+  "nickmark.showcase.tip3": {
+    "message": "URL에 %s를 포함하면 \"nickname query\"처럼 인수를 바로 전달할 수 있습니다."
+  },
+  "nickmark.showcase.tip4": {
+    "message": "Shift+Enter로 팔레트를 닫지 않고 백그라운드 탭을 여러 개 열거나, Cmd/Ctrl+Enter로 새 포그라운드 탭을 열 수 있습니다."
+  },
+  "nickmark.showcase.browser.tabsAria": {
+    "message": "데모 브라우저 탭 목록"
+  },
+  "nickmark.showcase.browser.closeTabAria": {
+    "message": "탭 닫기"
+  },
+  "nickmark.showcase.browser.reset": {
+    "message": "탭 초기화"
+  },
+  "nickmark.showcase.hint.current": {
+    "message": "현재 탭에서 열기"
+  },
+  "nickmark.showcase.hint.newTab": {
+    "message": "새 탭에서 열기"
+  },
+  "nickmark.showcase.hint.bgTab": {
+    "message": "백그라운드 연속 열기"
+  },
+  "nickmark.showcase.feedback.added": {
+    "message": "\"{nickname}\"을(를) 데모 목록에 등록했습니다"
+  },
+  "nickmark.showcase.feedback.removed": {
+    "message": "\"{nickname}\"을(를) 데모 목록에서 삭제했습니다"
+  },
+  "nickmark.showcase.feedback.forbidden": {
+    "message": "닉네임에 사용할 수 없는 문자(공백, : ; \\ % ? # & = * \" ' ` < > | 등)가 포함되어 있습니다."
+  },
+  "nickmark.showcase.alreadyBookmarked": {
+    "message": "이 페이지는 이미 북마크에 등록되어 있습니다 (닉네임: {nicknames})"
+  },
+  "nickmark.showcase.feedback.command": {
+    "message": "명령어 {cmd}을(를) 실행했습니다"
+  },
+  "nickmark.showcase.feedback.bookmarklet": {
+    "message": "userScripts API(MAIN world)로 현재 탭에서 북마크릿을 실행했습니다"
+  },
+  "nickmark.feature1.eyebrow": {
+    "message": "커맨드 팔레트 (⌥⇧D / Alt+⇧D)"
+  },
+  "nickmark.feature1.titlePrefix": {
+    "message": "어디서나 즉시 실행,"
+  },
+  "nickmark.feature1.titleAccent": {
+    "message": "작업 흐름을 끊지 않고."
+  },
+  "nickmark.feature1.desc": {
+    "message": "어느 탭에서나 Option + Shift + D(Windows/Linux에서는 Alt + Shift + D)를 눌러 커맨드 팔레트를 호출할 수 있습니다. 닉네임, 제목, URL을 통합 검색하고 Enter 조합 키로 탭을 여는 방식을 바로 선택하세요."
+  },
+  "nickmark.feature1.b1": {
+    "message": "↑ / ↓ 또는 Ctrl + N / P로 이동하고 Tab으로 자동 완성하며, IME 입력 중 오작동 제출을 방지합니다"
+  },
+  "nickmark.feature1.b2": {
+    "message": "Enter로 현재 탭, Cmd/Ctrl/Alt + Enter로 새 탭에서 열며, Shift + Enter로 백그라운드 탭을 연속 실행합니다"
+  },
+  "nickmark.feature1.b3": {
+    "message": "툴바 아이콘에서도 실행할 수 있으며, \":\" 및 \";\" 접두사로 바로 명령어 모드로 전환할 수 있습니다"
+  },
+  "nickmark.feature2.eyebrow": {
+    "message": "동적 URL (%s), 프리셋 & 북마크릿"
+  },
+  "nickmark.feature2.titlePrefix": {
+    "message": "인수와 스크립트를,"
+  },
+  "nickmark.feature2.titleAccent": {
+    "message": "한 번에 바로 실행."
+  },
+  "nickmark.feature2.desc": {
+    "message": "URL에 %s를 포함하면 \"gh sawarame/Nickmark\"처럼 즉석 검색 단축키를 만들 수 있습니다. 설정에서 18종의 내장 프리셋(검색 엔진 15종 및 북마크릿 3종)을 체크박스로 간편하게 활성화하거나, javascript: 북마크릿을 등록해 현재 탭에서 안전하게 실행하세요."
+  },
+  "nickmark.feature2.b1": {
+    "message": "경로 구간의 슬래시는 유지하고 쿼리 파라미터는 자동으로 URL 인코딩하며, 기본값 지정이나 오리진 폴백도 지원합니다"
+  },
+  "nickmark.feature2.b2": {
+    "message": "Chrome 135+의 userScripts API를 통해 활성 탭의 MAIN world에서 javascript: 북마크릿을 직접 실행합니다"
+  },
+  "nickmark.feature2.b3": {
+    "message": "선택적(옵트인) 브라우저 방문 기록 검색은 점수에 영향을 주지 않으면서 중복을 제거한 결과를 북마크 아래에 표시합니다"
+  },
+  "nickmark.feature3.eyebrow": {
+    "message": "폴더 & 일괄 열기"
+  },
+  "nickmark.feature3.titlePrefix": {
+    "message": "슬래시 구분 폴더로,"
+  },
+  "nickmark.feature3.titleAccent": {
+    "message": "워크스페이스를 한 번에 실행."
+  },
+  "nickmark.feature3.desc": {
+    "message": "work/mail, work/docs처럼 슬래시로 닉네임을 구분하면 자동으로 폴더 구조로 정리됩니다. \"work/\"를 입력하고 Enter를 누르면 해당 폴더의 모든 북마크를 백그라운드 탭으로 한 번에 열 수 있습니다."
+  },
+  "nickmark.feature3.b1": {
+    "message": "중간 폴더 일치(예: \"github/repo\"에 대해 \"repo/\")를 지원하며, 중복 URL을 제외하고 javascript: 북마크릿은 건너뜁니다"
+  },
+  "nickmark.feature3.b2": {
+    "message": "폴더 내 탭 수가 설정 가능한 안전 상한(1~100개 탭, 기본값 20)을 초과하면 확인 대화상자를 표시합니다"
+  },
+  "nickmark.feature3.b3": {
+    "message": "관리 대시보드에서 폴더 단위로 필터링, 일괄 열기, 이름 변경, 삭제를 바로 수행할 수 있습니다"
+  },
+  "nickmark.feature4.eyebrow": {
+    "message": "스마트 랭킹 & 대시보드"
+  },
+  "nickmark.feature4.titlePrefix": {
+    "message": "사용 습관에 맞춰 진화하고,"
+  },
+  "nickmark.feature4.titleAccent": {
+    "message": "관리도 손쉽게."
+  },
+  "nickmark.feature4.desc": {
+    "message": "지수 감쇠 점수 계산과 수동 고정 기능으로 지금 가장 필요한 북마크가 항상 상단에 유지됩니다. 대시보드(:ls)에서는 셀을 클릭해 바로 편집하거나 기존 Chrome 북마크를 가져올 수 있습니다."
+  },
+  "nickmark.feature4.b1": {
+    "message": "시간 감쇠 점수(0.95^elapsedDays)와 고정 기능을 결합해 변화하는 일상 워크플로에 자동으로 맞춰집니다"
+  },
+  "nickmark.feature4.b2": {
+    "message": "셀을 클릭해 인라인 편집(Enter/포커스 해제로 저장, Esc로 취소)할 수 있으며, 열별 AND 필터와 점수/날짜 정렬을 지원합니다"
+  },
+  "nickmark.feature4.b3": {
+    "message": "Chrome 북마크 HTML 및 Nickmark JSON 가져오기(병합/덮어쓰기/대상 폴더 지정)와 내장 JSON 편집기를 지원합니다"
+  },
+  "nickmark.feature5.eyebrow": {
+    "message": "개인정보 보호 & 동기화"
+  },
+  "nickmark.feature5.titlePrefix": {
+    "message": "외부 서버 전송 제로,"
+  },
+  "nickmark.feature5.titleAccent": {
+    "message": "로컬 저장과 동기화를 원하는 대로."
+  },
+  "nickmark.feature5.desc": {
+    "message": "외부 서버 전송, 텔레메트리, 추적이 전혀 없습니다. 무제한 로컬 저장소와 개인 Chrome 계정 동기화를 언제든 전환할 수 있으며, 새로고침 없이 영어/일본어 UI를 즉시 전환할 수 있습니다."
+  },
+  "nickmark.feature5.b1": {
+    "message": "무제한 용량의 chrome.storage.local과 chrome.storage.sync(100KB 한도, 8KB 단위 자동 분할) 중 선택할 수 있습니다"
+  },
+  "nickmark.feature5.b2": {
+    "message": "동기화 모드를 전환하면 로컬과 클라우드의 타임스탬프 및 항목 수를 비교하는 충돌 해결 대화상자가 표시됩니다"
+  },
+  "nickmark.feature5.b3": {
+    "message": "브라우저 방문 기록 권한은 완전한 선택 사항(optional_permissions)이며, 직접 활성화하지 않는 한 요청하지 않습니다"
+  },
+  "nickmark.visual.palette.headline": {
+    "message": "어느 탭에서나 즉시 호출"
+  },
+  "nickmark.visual.palette.curTab": {
+    "message": "현재 탭"
+  },
+  "nickmark.visual.palette.newTab": {
+    "message": "새 탭"
+  },
+  "nickmark.visual.palette.bgTab": {
+    "message": "백그라운드 연속"
+  },
+  "nickmark.visual.dynamic.bmlTitle": {
+    "message": "userScripts API(MAIN world)로 직접 실행"
+  },
+  "nickmark.visual.folder.count": {
+    "message": "3개 탭 일괄 실행"
+  },
+  "nickmark.visual.folder.safeNote": {
+    "message": "중복 URL 제외 · 안전 상한(1~100개, 기본값 20개) 초과 시 확인 대화상자 표시"
+  },
+  "nickmark.visual.rank.formulaLabel": {
+    "message": "지수 감쇠 점수"
+  },
+  "nickmark.visual.rank.inline": {
+    "message": "인라인 편집 및 열 필터"
+  },
+  "nickmark.visual.rank.import": {
+    "message": "Chrome HTML / JSON 가져오기"
+  },
+  "nickmark.visual.rank.json": {
+    "message": "JSON 편집기 및 정렬"
+  },
+  "nickmark.visual.arch.localTitle": {
+    "message": "외부 서버 전송 및 추적 제로"
+  },
+  "nickmark.visual.arch.localStatus": {
+    "message": "북마크는 로컬 브라우저 저장소 또는 개인 Chrome 동기화에만 안전하게 보관됩니다"
+  },
+  "nickmark.visual.arch.syncTitle": {
+    "message": "무제한 로컬 저장 & Chrome 계정 동기화"
+  },
+  "nickmark.visual.arch.syncStatus": {
+    "message": "100KB 동기화 한도 내 8KB 자동 분할 및 충돌 해결 지원"
+  },
+  "nickmark.visual.arch.historyTitle": {
+    "message": "옵트인 방문 기록 검색 (optional_permissions)"
+  },
+  "nickmark.visual.arch.historyStatus": {
+    "message": "설정에서 직접 활성화하지 않는 한 브라우저 방문 기록 권한을 요청하지 않습니다"
+  },
+  "nickmark.visual.arch.i18nTitle": {
+    "message": "다국어 UI & MIT 오픈소스"
+  },
+  "nickmark.visual.arch.i18nStatus": {
+    "message": "EN/JA 즉시 전환 지원, TypeScript / Vue 3 / PrimeVue 기반 개발"
+  },
+  "nickmark.ref.eyebrow": {
+    "message": "명령어 & 단축키"
+  },
+  "nickmark.ref.title": {
+    "message": "키보드 조작 레퍼런스"
+  },
+  "nickmark.ref.subtitle": {
+    "message": "커맨드 팔레트에서 콜론(\":\") 또는 세미콜론(\";\")으로 입력을 시작하면 북마크 등록부터 설정 화면 호출까지 한 번에 해결할 수 있습니다."
+  },
+  "nickmark.commands.heading": {
+    "message": "기본 제공 명령어 목록"
+  },
+  "nickmark.commands.add": {
+    "message": "현재 탭, 사용자 지정 URL 또는 javascript: 북마클릿 저장"
+  },
+  "nickmark.commands.addall": {
+    "message": "현재 창에 열려 있는 모든 탭 저장"
+  },
+  "nickmark.commands.rm": {
+    "message": "닉네임 또는 특정 URL 항목 삭제"
+  },
+  "nickmark.commands.ls": {
+    "message": "북마크 관리 및 인라인 편집 대시보드 열기"
+  },
+  "nickmark.commands.prefs": {
+    "message": "환경설정 열기 (동기화, 언어, 탭 동작, 기록, 프리셋 18종, 일괄 처리 제한)"
+  },
+  "nickmark.commands.help": {
+    "message": "온라인 도움말 문서 열기"
+  },
+  "nickmark.shortcuts.heading": {
+    "message": "키보드 단축키 목록"
+  },
+  "nickmark.shortcuts.scope.global": {
+    "message": "호출"
+  },
+  "nickmark.shortcuts.scope.palette": {
+    "message": "팔레트"
+  },
+  "nickmark.shortcuts.scope.action": {
+    "message": "동작"
+  },
+  "nickmark.shortcuts.desc.launch": {
+    "message": "어디서나 커맨드 팔레트를 엽니다(chrome://extensions/shortcuts에서 변경 가능)"
+  },
+  "nickmark.shortcuts.desc.navigate": {
+    "message": "추천 목록에서 선택 항목을 위아래로 이동합니다"
+  },
+  "nickmark.shortcuts.desc.autocomplete": {
+    "message": "선택한 닉네임, 폴더 경로 또는 명령어를 입력란에 자동 완성합니다"
+  },
+  "nickmark.shortcuts.desc.esc": {
+    "message": "동작을 실행하지 않고 커맨드 팔레트를 닫습니다"
+  },
+  "nickmark.shortcuts.desc.enter": {
+    "message": "현재 탭에서 엽니다(또는 북마크릿 / 명령어 실행)"
+  },
+  "nickmark.shortcuts.desc.newTab": {
+    "message": "새 포그라운드 탭에서 엽니다"
+  },
+  "nickmark.shortcuts.desc.bgTab": {
+    "message": "팔레트를 열어 둔 상태로 백그라운드 탭에서 엽니다"
+  },
+  "nickmark.install.eyebrow": {
+    "message": "설치"
+  },
+  "nickmark.install.title": {
+    "message": "설치 방법 및 빠른 시작"
+  },
+  "nickmark.install.subtitle": {
+    "message": "Chrome Web Store에서 클릭 한 번으로 설치하거나, GitHub 저장소에서 직접 빌드해 불러올 수 있습니다."
+  },
+  "nickmark.install.store.badge": {
+    "message": "권장"
+  },
+  "nickmark.install.store.title": {
+    "message": "Chrome Web Store에서 추가"
+  },
+  "nickmark.install.store.desc": {
+    "message": "스토어에서 추가한 뒤, 아래 4단계로 바로 시작할 수 있습니다."
+  },
+  "nickmark.install.store.step1": {
+    "message": "자주 방문하는 페이지를 엽니다."
+  },
+  "nickmark.install.store.step2": {
+    "message": "Option + Shift + D(Windows / Linux에서는 Alt + Shift + D)로 커맨드 팔레트를 엽니다."
+  },
+  "nickmark.install.store.step3": {
+    "message": "\":add gh\"(또는 \";add gh\")를 입력하고 Enter를 누르면 현재 탭이 \"gh\" 닉네임으로 등록됩니다."
+  },
+  "nickmark.install.store.step4": {
+    "message": "다음부터는 팔레트를 열고 \"gh\"를 입력한 뒤 Enter를 누르면 즉시 이동할 수 있습니다."
+  },
+  "nickmark.install.store.userscriptsNote": {
+    "message": "javascript: 북마크릿을 사용하려면 Chrome 확장 프로그램 세부정보 화면(chrome://extensions)에서 '사용자 스크립트 허용'을 활성화해 주세요."
+  },
+  "nickmark.install.store.button": {
+    "message": "Chrome Web Store 열기"
+  },
+  "nickmark.install.dev.title": {
+    "message": "GitHub 소스에서 빌드해 불러오기"
+  },
+  "nickmark.install.dev.desc": {
+    "message": "MIT License 오픈소스로 공개되어 있습니다. 로컬에서 간편하게 빌드하고 커스터마이징할 수 있습니다."
+  },
+  "nickmark.install.dev.cloneLabel": {
+    "message": "저장소 클론"
+  },
+  "nickmark.install.dev.buildLabel": {
+    "message": "의존성 설치 및 빌드"
+  },
+  "nickmark.install.dev.step1": {
+    "message": "Chrome에서 chrome://extensions를 열고 오른쪽 상단의 '개발자 모드'를 활성화합니다."
+  },
+  "nickmark.install.dev.step2": {
+    "message": "'압축해제된 확장 프로그램을 로드합니다.'를 클릭하고 빌드된 package/ 디렉터리를 선택합니다."
+  },
+  "nickmark.install.dev.button": {
+    "message": "GitHub 저장소 보기"
+  },
+  "nickmark.specs.browserLabel": {
+    "message": "지원 브라우저 / 사양"
+  },
+  "nickmark.specs.browserValue": {
+    "message": "Google Chrome 135 이상 · Manifest V3"
+  },
+  "nickmark.specs.permLabel": {
+    "message": "개인정보 보호 / 권한"
+  },
+  "nickmark.specs.permValue": {
+    "message": "외부 전송 제로 · 방문 기록 접근은 옵트인"
+  },
+  "nickmark.specs.licenseLabel": {
+    "message": "라이선스 / 기술 스택"
+  },
+  "nickmark.specs.licenseValue": {
+    "message": "MIT License · TypeScript / Vue 3 / PrimeVue"
+  },
+  "nickmark.bottomCta.title": {
+    "message": "북마크를 찾는 시간을 0으로."
+  },
+  "nickmark.bottomCta.desc": {
+    "message": "무료 오픈소스(MIT License)로 공개되어 있습니다. Chrome Web Store에서 바로 설치할 수 있습니다."
+  },
+  "benchmark.gfx.rank.a": {
+    "message": "쾌적함. 화려한 효과가 있는 사이트에서도 부드럽게 동작합니다."
+  },
+  "benchmark.gfx.rank.b": {
+    "message": "실용적임. 일반적인 애니메이션과 렌더링에 충분한 성능입니다."
+  },
+  "benchmark.gfx.rank.c": {
+    "message": "표준적임. 일반적인 브라우징에 무리가 없는 렌더링 성능입니다."
+  },
+  "benchmark.gfx.rank.d": {
+    "message": "기본적임. 무거운 렌더링 처리 시 끊김이 느껴질 수 있습니다."
+  },
+  "benchmark.gfx.rank.e": {
+    "message": "저속. 렌더링 성능이 다소 부족해 시각 효과가 지연될 수 있습니다."
+  },
+  "benchmark.gfx.rank.f": {
+    "message": "동작 곤란. 애니메이션이나 풍부한 UI 표시에는 적합하지 않습니다."
+  },
+  "benchmark.gfx.rank.s": {
+    "message": "최고 수준. 복잡한 렌더링과 애니메이션도 매우 부드럽게 처리합니다."
+  },
+  "benchmark.modal.gfx": {
+    "message": "렌더링:"
+  },
+  "benchmark.progress.graphics": {
+    "message": "렌더링 성능 측정 중..."
+  },
+  "benchmark.progress.graphicsPreparing": {
+    "message": "렌더링 성능 측정 준비 중..."
+  },
+  "benchmark.share.gfx": {
+    "message": "그래픽:"
+  },
+  "benchmark.ui.graphics": {
+    "message": "렌더링 성능 (Canvas & DOM)"
+  },
+  "common.copyLabel": {
+    "message": "{label} 복사"
+  },
+  "common.decrease": {
+    "message": "줄이기"
+  },
+  "common.increase": {
+    "message": "늘리기"
+  },
+  "common.reset": {
+    "message": "초기화"
+  },
+  "date.input.calendar": {
+    "message": "달력 열기"
+  },
+  "diff.tooltip.split": {
+    "message": "분할 보기"
+  },
+  "encoding.upload.dropLabel": {
+    "message": "클릭, 드래그 앤 드롭 또는 붙여넣기로 선택"
+  },
+  "encoding.upload.formats": {
+    "message": "지원 형식: .txt, .csv, .log, .md, .json 등"
+  },
+  "exif.result.changeFormatLink": {
+    "message": "이미지 포맷을 변경할 수 있습니다"
+  },
+  "exif.result.noExifData": {
+    "message": "이 이미지에는 EXIF 정보가 포함되어 있지 않습니다."
+  },
+  "exif.result.removeExifLink": {
+    "message": "Exif 정보를 삭제할 수 있습니다"
+  },
+  "exif.title": {
+    "message": "사진 Exif 정보 체커"
+  },
+  "markdownPdf.upload.dropLabel": {
+    "message": "클릭, 드래그 앤 드롭 또는 붙여넣기로 선택"
+  },
+  "markdownPdf.upload.formats": {
+    "message": "지원 포맷: Markdown (.md)"
+  },
+  "markdownPdf.upload.title": {
+    "message": "Markdown 파일 선택"
+  },
+  "password.title": {
+    "message": "비밀번호 생성기"
+  },
+  "pdfEditor.action.remove": {
+    "message": "삭제"
+  },
+  "pdfEditor.action.zoom": {
+    "message": "미리보기 확대"
+  },
+  "pdfEditor.list.pages": {
+    "message": "페이지"
+  },
+  "pdfEditor.list.selected": {
+    "message": "선택됨"
+  },
+  "pdfEditor.list.title": {
+    "message": "선택된 파일"
+  },
+  "pdfEditor.pages.unit": {
+    "message": "페이지 선택됨"
+  },
+  "pdfEditor.preview.next": {
+    "message": "다음 페이지"
+  },
+  "pdfEditor.preview.prev": {
+    "message": "이전 페이지"
+  },
+  "pdfEditor.upload.formats": {
+    "message": "지원 형식: PDF"
+  },
+  "qr.input.generated": {
+    "message": "생성되는 문자열"
+  },
+  "seo.action.fetch": {
+    "message": "가져오기"
+  },
+  "seo.action.fetching": {
+    "message": "가져오는 중..."
+  },
+  "seo.info.desc": {
+    "message": "지정된 URL에 서버에서 접속해 메타데이터를 가져옵니다. ※인증이 필요한 페이지나 내부 네트워크 페이지는 가져오지 못할 수 있습니다."
+  },
+  "seo.info.title": {
+    "message": "URL에서 자동 가져오기"
+  },
+  "seo.security.desc.secure": {
+    "message": "붙여넣은 HTML 소스 코드는 전적으로 브라우저 내부(로컬)에서만 분석됩니다. 외부 서버로 URL이나 HTML 데이터가 전송되는 일은 전혀 없습니다. 오프라인 환경이나 사내용 비공개 사이트의 소스 코드도 안심하고 사용하실 수 있습니다."
+  },
+  "seo.security.title.secure": {
+    "message": "100% 안전한 로컬 처리 (CORS 제한 없음)"
+  },
+  "seo.tab.html": {
+    "message": "HTML 붙여넣기"
+  },
+  "seo.tab.url": {
+    "message": "URL에서 가져오기"
+  },
+  "text.input.ariaLabel": {
+    "message": "텍스트 입력 영역"
+  },
+  "tool.jsonFormatter.upload.dropLabel": {
+    "message": "클릭, 드래그 앤 드롭 또는 붙여넣기로 선택"
+  },
+  "tool.jsonFormatter.upload.formats": {
+    "message": "지원 형식: JSON, Text"
+  }
+}

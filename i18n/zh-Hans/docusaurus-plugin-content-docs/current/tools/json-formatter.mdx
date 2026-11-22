@@ -1,0 +1,31 @@
+---
+title: JSON 格式化 / 校验工具
+slug: /tools/json-formatter
+sidebar_position: 17
+hide_title: true
+---
+import JsonFormatter from "@site/src/components/JsonFormatter";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { FileJson } from "lucide-react";
+
+<ToolPageHeader
+  title="JSON 格式化 / 校验工具"
+  desc="实时校验与格式化 JSON 数据，并支持自动生成 TypeScript 类型定义（interface）的工具"
+  icon={<FileJson size={48} color="#fff" />}
+  color1="#fbc2eb"
+  color2="#a18cd1"
+/>
+
+<JsonFormatter />
+
+## 使用方法
+
+1. 选择文件，或直接将 JSON 数据粘贴到文本输入框中。
+2. 系统将实时校验语法，如存在语法错误会立即显示错误提示。
+3. 选择缩进宽度（2 个空格、4 个空格或 Tab），点击“格式化”按钮即可完成排版。
+4. 切换至“树形视图”标签页，可以可折叠的树状结构清晰浏览数据层级。
+5. 切换至“TypeScript 类型定义”标签页，可查看自动生成的 `interface` 代码，并支持一键复制或下载。
+
+:::info 关于安全
+🔒 所有处理均在浏览器本地完成，您的数据绝不会发送至任何服务器。
+:::

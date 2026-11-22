@@ -1,0 +1,34 @@
+---
+title: 文本字符编码转换
+slug: /tools/encoding-converter
+sidebar_position: 7
+hide_title: true
+---
+
+import EncodingConverter from "@site/src/components/EncodingConverter";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Languages } from "lucide-react";
+
+<ToolPageHeader
+  title="文本字符编码转换"
+  desc="自动识别文本文件的字符编码，在查看转换后预估文件大小的同时，将其转换为指定编码（UTF-8、Shift_JIS、UTF-16 等）并下载。"
+  icon={<Languages size={48} color="#fff" />}
+/>
+
+<EncodingConverter />
+
+## 使用方法
+
+1. 将文件拖放至上传区域，或点击选择文件。您也可以直接粘贴（Ctrl+V / Cmd+V）复制的文本或文件。
+2. 系统将自动识别字符编码并显示内容预览。如果预览出现乱码，请尝试手动切换“当前编码”。
+3. 在 **“文本信息”** 区域中，可以查看字符数、词数、行数及当前文件大小。
+4. 选择目标字符编码或换行符后，系统会实时模拟并显示**转换后的预估文件大小**。
+5. 点击“转换并下载”按钮，即可将文件以新的字符编码保存到本地。
+
+### 支持的格式
+- **字符编码**：UTF-8、Shift_JIS、EUC-JP、ISO-2022-JP (JIS)、UTF-16、ASCII 等
+- **换行符**：LF (Unix/macOS)、CRLF (Windows)、CR (Classic Mac)
+
+:::info 关于安全
+🔒 所有处理均在浏览器本地完成，文件内容及换行符信息绝不会发送至服务器。
+:::

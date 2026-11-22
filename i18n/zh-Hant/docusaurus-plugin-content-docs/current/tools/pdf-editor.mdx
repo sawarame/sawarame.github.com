@@ -1,0 +1,31 @@
+---
+title: PDF 轉換與編輯工具
+slug: /pdf-editor
+sidebar_position: 6
+hide_title: true
+---
+
+import PdfEditor from "@site/src/components/PdfEditor";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { FileText } from "lucide-react";
+
+<ToolPageHeader
+  title="PDF 轉換與編輯工具"
+  desc="可將 PDF 檔案轉換為圖片（PNG、JPEG、WebP），或僅擷取並合併所需的頁面以建立全新的 PDF 檔案。"
+  icon={<FileText size={48} color="#fff" />}
+/>
+
+<PdfEditor />
+
+## 使用方式
+
+1. 選擇、拖放或從剪貼簿貼上要編輯的 PDF 檔案。亦可一次加入多個 PDF 檔案。
+2. 若要匯出為圖片，請在右上方的設定面板中指定輸出格式（PNG/JPEG/WebP），並視需要設定最大寬度。
+3. 從檔案清單中選擇想要預覽的 PDF，下方即會顯示所有頁面的預覽。
+4. 點選要擷取或轉為圖片的頁面進行選取（預設為全選）。
+5. 點擊「下載為圖片」，即可將所選頁面批次下載為圖片檔案。
+6. 點擊「另存為新 PDF」，即可僅擷取所選頁面並合併建立新的 PDF 檔案。
+
+:::info 關於安全性
+🔒 上傳的 PDF 檔案全數在瀏覽器內進行處理，絕不會傳送至伺服器，即使是包含機密資訊的文件也能安心使用。
+:::

@@ -1,0 +1,31 @@
+---
+title: 文字差異比較
+slug: /tools/text-diff
+sidebar_position: 12
+hide_title: true
+---
+
+import TextDiff from "@site/src/components/TextDiff";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { FileDiff } from "lucide-react";
+
+<ToolPageHeader
+  title="文字差異比較"
+  desc="比較兩段文字或兩個檔案，以視覺化方式標示新增與刪除的差異處。支援上傳多個檔案並自由組合比較。"
+  icon={<FileDiff size={48} color="#fff" />}
+/>
+
+<TextDiff />
+
+## 使用方式
+
+1. 請拖放檔案或點擊選取檔案，亦可直接貼上複製的文字或檔案（Ctrl+V / Cmd+V）加入清單。
+2. 上傳的檔案將會顯示於清單中。
+3. 選擇 **「左（來源）」** 與 **「右（目標）」** 單選按鈕，指定要比較的兩個檔案。
+4. 畫面下方即會顯示差異結果。
+5. 可在 **「雙欄檢視（Split）」** 與 **「單欄檢視（Unified）」** 之間切換，以偏好的格式檢視。
+6. 啟用 **「忽略空白」** 選項後，可排除僅為縮排或空格造成的差異。
+
+:::info 關於安全性
+🔒 所有處理均在瀏覽器內完成，檔案內容絕不會傳送至伺服器。
+:::

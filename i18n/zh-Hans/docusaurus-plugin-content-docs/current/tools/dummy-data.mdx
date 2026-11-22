@@ -1,0 +1,32 @@
+---
+title: 模拟数据生成器
+slug: /tools/dummy-data
+sidebar_position: 18
+hide_title: true
+---
+
+import DummyDataGenerator from "@site/src/components/DummyDataGenerator";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Database } from 'lucide-react';
+
+<ToolPageHeader
+  title="模拟数据生成器"
+  desc="在浏览器中安全、即时地生成可用于 API 模拟（Mock）和数据库测试的虚拟数据。"
+  icon={<Database size={48} color="#fff" />}
+  color1="#3b82f6"
+  color2="#10b981"
+/>
+
+<DummyDataGenerator />
+
+## 使用方法
+
+1. **选择预设**：根据需求选择“用户信息”、“公司信息”等内置预设模板。
+2. **自定义字段**：按需添加、删除字段，或更改特定字段的数据类型。
+3. **设置输出格式**：指定要生成的记录条数以及输出格式（JSON、CSV、SQL）。
+4. **生成数据**：点击“生成数据”按钮，即可在预览区查看生成结果。
+5. **保存结果**：可将结果复制到剪贴板，或直接下载为文件使用。
+
+:::info 关于安全与隐私
+🔒 所有模拟数据的生成过程均在浏览器本地（客户端）完成，您的配置与生成结果绝不会发送至任何服务器。
+:::

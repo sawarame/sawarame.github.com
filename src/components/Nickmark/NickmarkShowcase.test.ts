@@ -5,6 +5,7 @@ import {
   extractDemoFolders,
   findDemoNicknamesForUrl,
   hasForbiddenDemoNicknameChars,
+  normalizeDemoLocale,
   DemoBookmarkItem,
 } from './nickmarkSearchUtils';
 
@@ -117,6 +118,35 @@ describe('NickmarkShowcase 検索デモユーティリティ', () => {
       expect(items[0].kind).toBe('command');
       expect(items[0].badge).toBe(':add');
       expect(items[0].fillText).toBe(':add dev');
+    });
+
+    it('中国語（簡体字・繁体字）および韓国語ロケールでコマンド説明とフォルダ一括オープン文言を返すこと', () => {
+      const zhHansCmd = buildDemoPaletteItems(':add', SAMPLE_BOOKMARKS, 'zh-Hans');
+      expect(zhHansCmd[0].subtitle).toContain('当前标签页');
+      const zhHansFolder = buildDemoPaletteItems('work/', SAMPLE_BOOKMARKS, 'zh-Hans');
+      expect(zhHansFolder[0].title).toBe('批量打开文件夹「work」(2 个标签页)');
+
+      const zhHantCmd = buildDemoPaletteItems(':add', SAMPLE_BOOKMARKS, 'zh-Hant');
+      expect(zhHantCmd[0].subtitle).toContain('目前分頁');
+      const zhHantFolder = buildDemoPaletteItems('work/', SAMPLE_BOOKMARKS, 'zh-Hant');
+      expect(zhHantFolder[0].title).toBe('批次開啟資料夾「work」(2 個分頁)');
+
+      const koCmd = buildDemoPaletteItems(':add', SAMPLE_BOOKMARKS, 'ko');
+      expect(koCmd[0].subtitle).toContain('현재 탭');
+      const koFolder = buildDemoPaletteItems('work/', SAMPLE_BOOKMARKS, 'ko');
+      expect(koFolder[0].title).toBe('폴더 「work」 일괄 열기 (2개 탭)');
+    });
+  });
+
+  describe('normalizeDemoLocale', () => {
+    it('Docusaurus のロケール文字列をサポート対象ロケールへ正規化すること', () => {
+      expect(normalizeDemoLocale('ja')).toBe('ja');
+      expect(normalizeDemoLocale('en')).toBe('en');
+      expect(normalizeDemoLocale('zh-Hans')).toBe('zh-Hans');
+      expect(normalizeDemoLocale('zh-Hant')).toBe('zh-Hant');
+      expect(normalizeDemoLocale('zh-TW')).toBe('zh-Hant');
+      expect(normalizeDemoLocale('ko')).toBe('ko');
+      expect(normalizeDemoLocale('fr')).toBe('en');
     });
   });
 

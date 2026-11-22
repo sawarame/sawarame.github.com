@@ -1,0 +1,22 @@
+{
+  "logo.alt": {
+    "message": "sawara.me",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Blog": {
+    "message": "블로그",
+    "description": "Navbar item with label Blog"
+  },
+  "item.label.About": {
+    "message": "소개",
+    "description": "Navbar item with label About"
+  },
+  "item.label.Tools": {
+    "message": "도구",
+    "description": "Navbar item with label Tools"
+  },
+  "item.label.Extensions": {
+    "message": "확장 프로그램",
+    "description": "Navbar item with label Extensions"
+  }
+}

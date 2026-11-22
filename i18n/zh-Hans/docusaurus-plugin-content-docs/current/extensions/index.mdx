@@ -1,0 +1,18 @@
+---
+title: 浏览器扩展程序
+slug: /extensions
+sidebar_position: 1
+hide_title: true
+---
+
+import { ExtensionGrid } from "@site/src/components/FeatureList";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Puzzle } from "lucide-react";
+
+<ToolPageHeader
+  title="Chrome 扩展程序"
+  desc="在 Chrome 应用商店发布的扩展程序，让您的日常开发与浏览更加舒适高效。"
+  icon={<Puzzle size={48} color="#fff" />}
+/>
+
+<ExtensionGrid />

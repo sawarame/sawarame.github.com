@@ -1,0 +1,3317 @@
+{
+  "about.title": {
+    "message": "關於本網站 | sawara.me"
+  },
+  "about.header.title": {
+    "message": "關於 sawara.me"
+  },
+  "about.header.desc": {
+    "message": "關於 sawara.me 的設計理念與提供的功能"
+  },
+  "about.concept.title": {
+    "message": "網站理念"
+  },
+  "about.concept.free.title": {
+    "message": "所有人皆可免費使用"
+  },
+  "about.concept.free.desc": {
+    "message": "sawara.me 是一個免費提供實用小工具的網站，專門解決日常生活中的小不便。我們致力於打造一個無需繁瑣會員註冊、登入，也沒有廣告干擾的空間，讓您在需要時能立即使用。"
+  },
+  "about.concept.secure.title": {
+    "message": "100% 瀏覽器端執行的安全性"
+  },
+  "about.concept.secure.desc": {
+    "message": "「想壓縮圖片，卻擔心把照片上傳到伺服器」「想產生密碼，卻不想讓傳輸內容被窺探」——這些顧慮完全多餘。本網站的所有工具皆在您的瀏覽器內完成處理，資料絕不會傳送至任何外部伺服器。"
+  },
+  "about.extension.title": {
+    "message": "自製瀏覽器擴充功能"
+  },
+  "about.extension.desc": {
+    "message": "除了網頁工具之外，我們也提供自製的 Chrome / Edge 瀏覽器擴充功能，協助改善特定網站的使用體驗並大幅提升開發效率。"
+  },
+  "about.tech.title": {
+    "message": "技術架構"
+  },
+  "about.tech.docusaurus.desc": {
+    "message": "高速的靜態網站產生"
+  },
+  "about.tech.mui.desc": {
+    "message": "風格一致且精美的 UI 元件"
+  },
+  "about.tech.ts.desc": {
+    "message": "透過型別安全實現穩定運作"
+  },
+  "home.description": {
+    "message": "sawara.me — 提供各種小巧實用的工具與應用程式，解決日常生活中些微不便的網站。"
+  },
+  "home.hero.badge": {
+    "message": "實用工具與瀏覽器擴充功能"
+  },
+  "home.hero.subtitle": {
+    "message": "打造小巧實用的工具。"
+  },
+  "home.hero.description": {
+    "message": "完全在瀏覽器內運作且安全可靠的實用工具與擴充功能集，解決日常中的各種小不便。"
+  },
+  "home.hero.actions.tools": {
+    "message": "查看工具"
+  },
+  "home.hero.actions.extensions": {
+    "message": "查看擴充功能"
+  },
+  "home.hero.aboutLink": {
+    "message": "關於本站"
+  },
+  "home.tools.label": {
+    "message": "工具"
+  },
+  "home.tools.title": {
+    "message": "瀏覽器工具"
+  },
+  "home.tools.subtitle": {
+    "message": "完全在瀏覽器內運作的日常簡便工具。"
+  },
+  "home.tools.password.title": {
+    "message": "密碼產生器"
+  },
+  "home.tools.password.desc": {
+    "message": "依指定條件產生密碼。設定值會同步至 URL 方便分享，並安全地在瀏覽器內執行。"
+  },
+  "home.tools.text.title": {
+    "message": "文字暫存區"
+  },
+  "home.tools.text.desc": {
+    "message": "用來暫存文字的空間，儲存的內容會保留在瀏覽器的本機儲存空間中。"
+  },
+  "home.tools.device.title": {
+    "message": "裝置資訊檢查器"
+  },
+  "home.tools.device.desc": {
+    "message": "顯示目前裝置的螢幕尺寸與 User-Agent 等相關資訊。"
+  },
+  "home.tools.qr.title": {
+    "message": "QR 碼產生器"
+  },
+  "home.tools.qr.desc": {
+    "message": "透過 URL 或文字產生 QR 碼。支援嵌入 Logo、Wi-Fi 連線設定與行事曆活動建立。"
+  },
+  "home.tools.qr-reader.title": {
+    "message": "QR 碼讀取器"
+  },
+  "home.tools.qr-reader.desc": {
+    "message": "上傳 QR 碼圖片以解碼內嵌文字，偵測到 URL 可直接開啟。所有處理皆於瀏覽器完成。"
+  },
+  "home.tools.date.title": {
+    "message": "日期比較工具"
+  },
+  "home.tools.date.desc": {
+    "message": "計算兩個日期之間的差距，支援多種日期輸入格式。"
+  },
+  "home.tools.exif.title": {
+    "message": "相片 Exif 資訊檢視器"
+  },
+  "home.tools.exif.desc": {
+    "message": "讀取相片的拍攝日期、相機資訊與 GPS 等中繼資料。所有相片皆於本機處理，安全無虞。"
+  },
+  "home.tools.resize.title": {
+    "message": "圖片壓縮與裁切工具"
+  },
+  "home.tools.resize.desc": {
+    "message": "在瀏覽器中壓縮圖片並轉換為 WebP 格式。支援批次處理與移除 EXIF 資訊。"
+  },
+  "home.tools.pdfEditor.title": {
+    "message": "PDF 編輯器（匯出圖片與 PDF）"
+  },
+  "home.tools.pdfEditor.desc": {
+    "message": "擷取、合併 PDF 頁面或將其轉換為圖片，可透過預覽挑選特定頁面。於瀏覽器內安全運作。"
+  },
+  "home.tools.benchmark.title": {
+    "message": "網頁效能測試"
+  },
+  "home.tools.benchmark.desc": {
+    "message": "在瀏覽器中測量裝置的運算效能，並以分數與等級呈現評估結果。"
+  },
+  "home.tools.encoding.title": {
+    "message": "文字編碼轉換器"
+  },
+  "home.tools.encoding.desc": {
+    "message": "自動偵測並轉換字元編碼（UTF-8、Shift_JIS 等），同時模擬目標檔案大小。支援直接貼上文字。"
+  },
+  "home.tools.markdownPdf.title": {
+    "message": "Markdown 轉 PDF"
+  },
+  "home.tools.markdownPdf.desc": {
+    "message": "在瀏覽器中將上傳的 Markdown 檔案或直接輸入的文字，轉換為可選取文字且可搜尋的 PDF。"
+  },
+  "home.extensions.label": {
+    "message": "擴充功能"
+  },
+  "home.extensions.title": {
+    "message": "Chrome 擴充功能"
+  },
+  "home.extensions.subtitle": {
+    "message": "上架於 Chrome Web Store 的擴充功能，讓你的開發與瀏覽體驗更加順手。"
+  },
+  "home.extensions.taborigami.desc": {
+    "message": "透過 AI 自動整理過多的開啟分頁，讓 Gemini 瞬間為你的瀏覽器分門別類。"
+  },
+  "home.extensions.envicon.desc": {
+    "message": "專為開發者打造的瀏覽器擴充功能，可依據正式、測試與開發環境自動變更網站圖示（Favicon）。"
+  },
+  "home.extensions.nickmark.desc": {
+    "message": "以鍵盤操作為優先的瀏覽器擴充功能，透過指令面板輸入暱稱即可快速開啟書籤與動態 URL。"
+  },
+  "home.extensions.geminikit.desc": {
+    "message": "強化 Google Gemini 網頁介面的擴充功能。支援以 Enter 換行、Cmd/Ctrl+Enter 送出訊息。"
+  },
+  "home.extensions.mdpicker.desc": {
+    "message": "輕鬆將網頁連結以 Markdown 格式複製下來的瀏覽器擴充功能。"
+  },
+  "home.extensions.ketchuptimer.desc": {
+    "message": "以趣味番茄醬瓶為概念的番茄鐘計時器。透過番茄醬剩餘量呈現專注時間，讓提升效率更直覺有趣。"
+  },
+  "home.extensions.foursight.desc": {
+    "message": "追蹤並視覺化 GitHub Four Keys（DORA 指標）的擴充功能，協助提升開發團隊的整體效能。"
+  },
+  "home.extensions.linkText": {
+    "message": "在 Chrome Web Store 查看 →"
+  },
+  "home.macApps.label": {
+    "message": "Mac 應用程式"
+  },
+  "home.macApps.title": {
+    "message": "macOS 桌面應用程式"
+  },
+  "home.macApps.subtitle": {
+    "message": "使用 Swift 與 SwiftUI 打造的輕量級原生 macOS 應用程式。"
+  },
+  "home.macApps.wintch.desc": {
+    "message": "專為 macOS 打造的視窗切換器與搜尋啟動器，讓你直達任何已開啟的視窗，支援清單檢視與即時擷取格狀模式。"
+  },
+  "home.macApps.linkText": {
+    "message": "查看介紹與安裝教學 →"
+  },
+  "theme.ErrorPageContent.title": {
+    "message": "此頁已當機。",
+    "description": "The title of the fallback page when the page crashed"
+  },
+  "theme.BackToTopButton.buttonAriaLabel": {
+    "message": "回到頂部",
+    "description": "The ARIA label for the back to top button"
+  },
+  "theme.blog.archive.title": {
+    "message": "歷史文章",
+    "description": "The page & hero title of the blog archive page"
+  },
+  "theme.blog.archive.description": {
+    "message": "歷史文章",
+    "description": "The page & hero description of the blog archive page"
+  },
+  "theme.blog.paginator.navAriaLabel": {
+    "message": "部落格文章列表分頁導覽",
+    "description": "The ARIA label for the blog pagination"
+  },
+  "theme.blog.paginator.newerEntries": {
+    "message": "較新的文章",
+    "description": "The label used to navigate to the newer blog posts page (previous page)"
+  },
+  "theme.blog.paginator.olderEntries": {
+    "message": "較舊的文章",
+    "description": "The label used to navigate to the older blog posts page (next page)"
+  },
+  "theme.blog.post.paginator.navAriaLabel": {
+    "message": "部落格文章分頁導覽",
+    "description": "The ARIA label for the blog posts pagination"
+  },
+  "theme.blog.post.paginator.newerPost": {
+    "message": "較新一篇",
+    "description": "The blog post button label to navigate to the newer/previous post"
+  },
+  "theme.blog.post.paginator.olderPost": {
+    "message": "較舊一篇",
+    "description": "The blog post button label to navigate to the older/next post"
+  },
+  "theme.tags.tagsPageLink": {
+    "message": "檢視所有標籤",
+    "description": "The label of the link targeting the tag list page"
+  },
+  "theme.colorToggle.ariaLabel.mode.system": {
+    "message": "system mode",
+    "description": "The name for the system color mode"
+  },
+  "theme.colorToggle.ariaLabel.mode.light": {
+    "message": "淺色模式",
+    "description": "The name for the light color mode"
+  },
+  "theme.colorToggle.ariaLabel.mode.dark": {
+    "message": "深色模式",
+    "description": "The name for the dark color mode"
+  },
+  "theme.colorToggle.ariaLabel": {
+    "message": "切換淺色/深色模式（當前為{mode}）",
+    "description": "The ARIA label for the color mode toggle"
+  },
+  "theme.docs.breadcrumbs.navAriaLabel": {
+    "message": "頁面路徑",
+    "description": "The ARIA label for the breadcrumbs"
+  },
+  "theme.docs.paginator.navAriaLabel": {
+    "message": "文件選項卡",
+    "description": "The ARIA label for the docs pagination"
+  },
+  "theme.docs.paginator.previous": {
+    "message": "上一頁",
+    "description": "The label used to navigate to the previous doc"
+  },
+  "theme.docs.paginator.next": {
+    "message": "下一頁",
+    "description": "The label used to navigate to the next doc"
+  },
+  "theme.docs.tagDocListPageTitle.nDocsTagged": {
+    "message": "{count} 篇文件帶有標籤",
+    "description": "Pluralized label for \"{count} docs tagged\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.docs.tagDocListPageTitle": {
+    "message": "{nDocsTagged}「{tagName}」",
+    "description": "The title of the page for a docs tag"
+  },
+  "theme.docs.versionBadge.label": {
+    "message": "版本：{versionLabel}"
+  },
+  "theme.docs.versions.unreleasedVersionLabel": {
+    "message": "此為 {siteTitle} {versionLabel} 版尚未發行的文件。",
+    "description": "The label used to tell the user that he's browsing an unreleased doc version"
+  },
+  "theme.docs.versions.unmaintainedVersionLabel": {
+    "message": "此為 {siteTitle} {versionLabel} 版的文件，現已不再積極維護。",
+    "description": "The label used to tell the user that he's browsing an unmaintained doc version"
+  },
+  "theme.docs.versions.latestVersionSuggestionLabel": {
+    "message": "最新的文件請參閱 {latestVersionLink} ({versionLabel})。",
+    "description": "The label used to tell the user to check the latest version"
+  },
+  "theme.docs.versions.latestVersionLinkLabel": {
+    "message": "最新版本",
+    "description": "The label used for the latest version suggestion link label"
+  },
+  "theme.common.editThisPage": {
+    "message": "編輯此頁",
+    "description": "The link label to edit the current page"
+  },
+  "theme.common.headingLinkTitle": {
+    "message": "{heading}的直接連結",
+    "description": "Title for link to heading"
+  },
+  "theme.lastUpdated.atDate": {
+    "message": "於 {date} ",
+    "description": "The words used to describe on which date a page has been last updated"
+  },
+  "theme.lastUpdated.byUser": {
+    "message": "由 {user} ",
+    "description": "The words used to describe by who the page has been last updated"
+  },
+  "theme.lastUpdated.lastUpdatedAtBy": {
+    "message": "最後{byUser}{atDate}更新",
+    "description": "The sentence used to display when a page has been last updated, and by who"
+  },
+  "theme.navbar.mobileVersionsDropdown.label": {
+    "message": "選擇版本",
+    "description": "The label for the navbar versions dropdown on mobile view"
+  },
+  "theme.NotFound.title": {
+    "message": "找不到頁面",
+    "description": "The title of the 404 page"
+  },
+  "theme.tags.tagsListLabel": {
+    "message": "標籤：",
+    "description": "The label alongside a tag list"
+  },
+  "theme.AnnouncementBar.closeButtonAriaLabel": {
+    "message": "關閉",
+    "description": "The ARIA label for close button of announcement bar"
+  },
+  "theme.admonition.caution": {
+    "message": "警告",
+    "description": "The default label used for the Caution admonition (:::caution)"
+  },
+  "theme.admonition.danger": {
+    "message": "危險",
+    "description": "The default label used for the Danger admonition (:::danger)"
+  },
+  "theme.admonition.info": {
+    "message": "資訊",
+    "description": "The default label used for the Info admonition (:::info)"
+  },
+  "theme.admonition.note": {
+    "message": "備註",
+    "description": "The default label used for the Note admonition (:::note)"
+  },
+  "theme.admonition.tip": {
+    "message": "提示",
+    "description": "The default label used for the Tip admonition (:::tip)"
+  },
+  "theme.admonition.warning": {
+    "message": "注意",
+    "description": "The default label used for the Warning admonition (:::warning)"
+  },
+  "theme.blog.sidebar.navAriaLabel": {
+    "message": "最近部落格文章導覽",
+    "description": "The ARIA label for recent posts in the blog sidebar"
+  },
+  "theme.DocSidebarItem.expandCategoryAriaLabel": {
+    "message": "展開側邊欄分類 '{label}'",
+    "description": "The ARIA label to expand the sidebar category"
+  },
+  "theme.DocSidebarItem.collapseCategoryAriaLabel": {
+    "message": "收起側邊欄分類 '{label}'",
+    "description": "The ARIA label to collapse the sidebar category"
+  },
+  "theme.IconExternalLink.ariaLabel": {
+    "message": "(opens in new tab)",
+    "description": "The ARIA label for the external link icon"
+  },
+  "theme.NavBar.navAriaLabel": {
+    "message": "主導航",
+    "description": "The ARIA label for the main navigation"
+  },
+  "theme.navbar.mobileLanguageDropdown.label": {
+    "message": "選擇語言",
+    "description": "The label for the mobile language switcher dropdown"
+  },
+  "theme.NotFound.p1": {
+    "message": "我們沒有您要找的頁面。",
+    "description": "The first paragraph of the 404 page"
+  },
+  "theme.NotFound.p2": {
+    "message": "請聯絡原始連結來源網站的所有者，並通知他們連結已毀損。",
+    "description": "The 2nd paragraph of the 404 page"
+  },
+  "theme.TOCCollapsible.toggleButtonLabel": {
+    "message": "本頁導覽",
+    "description": "The label used by the button on the collapsible TOC component"
+  },
+  "theme.blog.post.readMore": {
+    "message": "閱讀更多",
+    "description": "The label used in blog post item excerpts to link to full blog posts"
+  },
+  "theme.blog.post.readMoreLabel": {
+    "message": "閱讀 {title} 全文",
+    "description": "The ARIA label for the link to full blog posts from excerpts"
+  },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "閱讀時間約 {readingTime} 分鐘",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.CodeBlock.copy": {
+    "message": "複製",
+    "description": "The copy button label on code blocks"
+  },
+  "theme.CodeBlock.copied": {
+    "message": "複製成功",
+    "description": "The copied button label on code blocks"
+  },
+  "theme.CodeBlock.copyButtonAriaLabel": {
+    "message": "複製程式碼至剪貼簿",
+    "description": "The ARIA label for copy code blocks button"
+  },
+  "theme.CodeBlock.wordWrapToggle": {
+    "message": "切換自動換行",
+    "description": "The title attribute for toggle word wrapping button of code block lines"
+  },
+  "theme.docs.breadcrumbs.home": {
+    "message": "主頁面",
+    "description": "The ARIA label for the home page in the breadcrumbs"
+  },
+  "theme.docs.sidebar.collapseButtonTitle": {
+    "message": "收起側邊欄",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.collapseButtonAriaLabel": {
+    "message": "收起側邊欄",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.navAriaLabel": {
+    "message": "文件側邊欄",
+    "description": "The ARIA label for the sidebar navigation"
+  },
+  "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
+    "message": "關閉導覽列",
+    "description": "The ARIA label for close button of mobile sidebar"
+  },
+  "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
+    "message": "切換導覽列",
+    "description": "The ARIA label for hamburger menu button of mobile navigation"
+  },
+  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
+    "message": "← 回到主選單",
+    "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
+  },
+  "theme.docs.sidebar.expandButtonTitle": {
+    "message": "展開側邊欄",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.docs.sidebar.expandButtonAriaLabel": {
+    "message": "展開側邊欄",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.navbar.mobileDropdown.collapseButton.expandAriaLabel": {
+    "message": "Expand the dropdown",
+    "description": "The ARIA label of the button to expand the mobile dropdown navbar item"
+  },
+  "theme.navbar.mobileDropdown.collapseButton.collapseAriaLabel": {
+    "message": "Collapse the dropdown",
+    "description": "The ARIA label of the button to collapse the mobile dropdown navbar item"
+  },
+  "theme.blog.post.plurals": {
+    "message": "{count} 篇文章",
+    "description": "Pluralized label for \"{count} posts\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.blog.tagTitle": {
+    "message": "{nPosts} 含有標籤「{tagName}」",
+    "description": "The title of the page for a blog tag"
+  },
+  "theme.blog.author.pageTitle": {
+    "message": "{authorName} - {nPosts}",
+    "description": "The title of the page for a blog author"
+  },
+  "theme.blog.authorsList.pageTitle": {
+    "message": "作者列表",
+    "description": "The title of the authors page"
+  },
+  "theme.blog.authorsList.viewAll": {
+    "message": "檢視所有作者",
+    "description": "The label of the link targeting the blog authors page"
+  },
+  "theme.blog.author.noPosts": {
+    "message": "此作者尚未撰寫任何文章。",
+    "description": "The text for authors with 0 blog post"
+  },
+  "theme.contentVisibility.unlistedBanner.title": {
+    "message": "未列出頁",
+    "description": "The unlisted content banner title"
+  },
+  "theme.contentVisibility.unlistedBanner.message": {
+    "message": "此頁面未列出。搜索引擎不會對其索引，只有擁有直接連結的用戶才能訪問。",
+    "description": "The unlisted content banner message"
+  },
+  "theme.contentVisibility.draftBanner.title": {
+    "message": "草稿頁",
+    "description": "The draft content banner title"
+  },
+  "theme.contentVisibility.draftBanner.message": {
+    "message": "此頁面為草稿，僅在開發環境中可見，不會包含於正式版本中。",
+    "description": "The draft content banner message"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count} 個項目",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "重試",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
+  },
+  "theme.common.skipToMainContent": {
+    "message": "跳至主要内容",
+    "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
+  },
+  "theme.tags.tagsPageTitle": {
+    "message": "標籤",
+    "description": "The title of the tag list page"
+  },
+  "common.clear": {
+    "message": "清除"
+  },
+  "common.cancel": {
+    "message": "取消"
+  },
+  "common.close": {
+    "message": "關閉"
+  },
+  "common.download": {
+    "message": "下載"
+  },
+  "common.file": {
+    "message": "檔案:"
+  },
+  "common.copy": {
+    "message": "複製"
+  },
+  "common.copied": {
+    "message": "已複製！"
+  },
+  "common.save": {
+    "message": "儲存"
+  },
+  "common.delete": {
+    "message": "刪除"
+  },
+  "common.deleteAll": {
+    "message": "全部刪除"
+  },
+  "common.copyAll": {
+    "message": "全部複製"
+  },
+  "tool.common.uploadFile": {
+    "message": "載入檔案"
+  },
+  "tool.common.copy": {
+    "message": "複製"
+  },
+  "tool.common.download": {
+    "message": "下載"
+  },
+  "tool.common.copied": {
+    "message": "已複製"
+  },
+  "home.tools.jsonFormatter.title": {
+    "message": "JSON 格式化與驗證器"
+  },
+  "home.tools.jsonFormatter.desc": {
+    "message": "即時驗證、格式化 JSON 資料，並自動產生 TypeScript 介面。完全在瀏覽器內安全處理。"
+  },
+  "home.tools.dummyData.title": {
+    "message": "測試資料產生器"
+  },
+  "home.tools.dummyData.desc": {
+    "message": "直接在瀏覽器中快速且安全地產生用於 API 模擬與資料庫測試的假資料。"
+  },
+  "tool.dummyData.settings": {
+    "message": "設定"
+  },
+  "tool.dummyData.preset": {
+    "message": "預設範本"
+  },
+  "tool.dummyData.preset.user": {
+    "message": "使用者資訊"
+  },
+  "tool.dummyData.preset.company": {
+    "message": "公司資訊"
+  },
+  "tool.dummyData.preset.product": {
+    "message": "商品資訊"
+  },
+  "tool.dummyData.preset.custom": {
+    "message": "自訂"
+  },
+  "tool.dummyData.locale": {
+    "message": "資料語系"
+  },
+  "tool.dummyData.fields": {
+    "message": "欄位定義"
+  },
+  "tool.dummyData.dragToReorder": {
+    "message": "拖曳以重新排序"
+  },
+  "tool.dummyData.addField": {
+    "message": "新增欄位"
+  },
+  "tool.dummyData.count": {
+    "message": "產生筆數"
+  },
+  "tool.dummyData.format": {
+    "message": "輸出格式"
+  },
+  "tool.dummyData.tableName": {
+    "message": "資料表名稱"
+  },
+  "tool.dummyData.generateButton": {
+    "message": "產生資料"
+  },
+  "tool.dummyData.result": {
+    "message": "輸出預覽"
+  },
+  "tool.jsonFormatter.invalidJson": {
+    "message": "無效的 JSON"
+  },
+  "tool.jsonFormatter.indent": {
+    "message": "縮排"
+  },
+  "tool.jsonFormatter.formatBtn": {
+    "message": "格式化 (Format)"
+  },
+  "tool.jsonFormatter.minifyBtn": {
+    "message": "壓縮 (Minify)"
+  },
+  "tool.jsonFormatter.tabEditor": {
+    "message": "編輯器"
+  },
+  "tool.jsonFormatter.tabTree": {
+    "message": "樹狀檢視"
+  },
+  "tool.jsonFormatter.tabTypes": {
+    "message": "TypeScript 型別定義"
+  },
+  "tool.jsonFormatter.errorPrefix": {
+    "message": "語法錯誤："
+  },
+  "date.title": {
+    "message": "日期比較工具"
+  },
+  "date.header.title": {
+    "message": "日期比較工具"
+  },
+  "date.header.desc": {
+    "message": "計算兩個日期之間的差距，支援多種日期輸入格式。"
+  },
+  "date.input.title": {
+    "message": "要比較的日期"
+  },
+  "date.input.alwaysCurrent": {
+    "message": "始終與目前時間比較"
+  },
+  "date.result.title": {
+    "message": "相差結果"
+  },
+  "date.result.dayLabel": {
+    "message": "天 / 時 / 分 / 秒"
+  },
+  "date.result.totalSec": {
+    "message": "總秒數"
+  },
+  "date.unit.days": {
+    "message": "天"
+  },
+  "date.unit.hours": {
+    "message": "小時"
+  },
+  "date.unit.minutes": {
+    "message": "分"
+  },
+  "date.unit.seconds": {
+    "message": "秒"
+  },
+  "date.unit.sec": {
+    "message": "秒"
+  },
+  "device.header.title": {
+    "message": "裝置資訊檢查工具"
+  },
+  "device.header.desc": {
+    "message": "顯示目前裝置的螢幕尺寸與使用者代理（User Agent）等資訊。"
+  },
+  "device.loading": {
+    "message": "載入中..."
+  },
+  "device.ip.bot": {
+    "message": "系統判定為機器人／爬蟲存取，因此不顯示 IP 位址。"
+  },
+  "device.ip.error": {
+    "message": "取得失敗。"
+  },
+  "device.memory.unknown": {
+    "message": "未知（此瀏覽器不支援）"
+  },
+  "device.cores.unit": {
+    "message": " 核心"
+  },
+  "device.cores.unknown": {
+    "message": "未知"
+  },
+  "device.section.network": {
+    "message": "網路"
+  },
+  "device.section.screen": {
+    "message": "螢幕尺寸"
+  },
+  "device.section.hardware": {
+    "message": "硬體"
+  },
+  "device.section.ua": {
+    "message": "使用者代理 (User Agent)"
+  },
+  "device.info.ip": {
+    "message": "IP 位址"
+  },
+  "device.info.physicalSize": {
+    "message": "實體解析度"
+  },
+  "device.info.logicalSize": {
+    "message": "視窗尺寸"
+  },
+  "device.info.cores": {
+    "message": "邏輯核心數"
+  },
+  "device.info.memory": {
+    "message": "記憶體容量"
+  },
+  "device.disclaimer": {
+    "message": "※ 為保護隱私，瀏覽器可能會限制顯示精確容量或僅提供四捨五入後的數值。"
+  },
+  "text.header.title": {
+    "message": "文字暫存區"
+  },
+  "text.header.desc": {
+    "message": "暫時儲存文字的空間。儲存的文字會保留在瀏覽器的本機儲存空間中。"
+  },
+  "text.pin.pin": {
+    "message": "釘選"
+  },
+  "text.pin.unpin": {
+    "message": "取消釘選"
+  },
+  "text.copiedAll": {
+    "message": "已複製全部文字！"
+  },
+  "text.input.title": {
+    "message": "輸入文字"
+  },
+  "text.input.placeholder": {
+    "message": "在此輸入文字..."
+  },
+  "text.input.saveOnEnter": {
+    "message": "按 Enter 儲存"
+  },
+  "text.saved.title": {
+    "message": "已儲存的文字"
+  },
+  "text.saved.empty": {
+    "message": "尚無已儲存的文字"
+  },
+  "password.header.title": {
+    "message": "密碼產生器"
+  },
+  "password.header.desc": {
+    "message": "依指定條件產生密碼。設定會包含在 URL 中方便分享，並於瀏覽器內安全執行。"
+  },
+  "password.settings.title": {
+    "message": "設定"
+  },
+  "password.settings.length": {
+    "message": "密碼長度"
+  },
+  "password.settings.count": {
+    "message": "產生數量"
+  },
+  "password.settings.exclude.label": {
+    "message": "排除字元"
+  },
+  "password.settings.exclude.placeholder": {
+    "message": "輸入要排除的字元（可直接輸入）"
+  },
+  "password.settings.exclude.upperCase": {
+    "message": "排除大寫字母"
+  },
+  "password.settings.exclude.lowerCase": {
+    "message": "排除小寫字母"
+  },
+  "password.settings.useSymbols": {
+    "message": "使用符號"
+  },
+  "password.settings.symbols.label": {
+    "message": "可用符號（留空 = 全部符號）"
+  },
+  "password.settings.useSameChar": {
+    "message": "允許重複字元"
+  },
+  "password.result.title": {
+    "message": "已產生的密碼"
+  },
+  "password.result.regenerate": {
+    "message": "重新產生"
+  },
+  "password.copy.ariaLabel": {
+    "message": "複製密碼"
+  },
+  "exif.header.title": {
+    "message": "相片 Exif 資訊檢視器"
+  },
+  "exif.header.desc": {
+    "message": "讀取上傳照片中的相機資訊、拍攝日期、GPS 等中繼資料。所有照片皆於本機處理，安全無虞。"
+  },
+  "exif.upload.title": {
+    "message": "選擇相片"
+  },
+  "exif.upload.dropLabel": {
+    "message": "點擊、拖放或貼上以選擇檔案"
+  },
+  "exif.upload.formats": {
+    "message": "支援格式：JPEG、PNG、WebP 等"
+  },
+  "exif.result.title": {
+    "message": "EXIF 資訊"
+  },
+  "exif.result.dateTime": {
+    "message": "拍攝時間"
+  },
+  "exif.result.make": {
+    "message": "相機製造商"
+  },
+  "exif.result.model": {
+    "message": "型號"
+  },
+  "exif.result.fNumber": {
+    "message": "光圈（F 值）"
+  },
+  "exif.result.exposureTime": {
+    "message": "快門速度"
+  },
+  "exif.result.sec": {
+    "message": "秒"
+  },
+  "exif.result.iso": {
+    "message": "ISO 感光度"
+  },
+  "exif.result.gps": {
+    "message": "GPS 位置資訊"
+  },
+  "exif.result.resolution": {
+    "message": "解析度"
+  },
+  "exif.guide.title": {
+    "message": "使用說明"
+  },
+  "exif.guide.step1": {
+    "message": "選擇或拖放您想檢查的照片檔案（主要支援 JPEG 格式）。"
+  },
+  "exif.guide.step2": {
+    "message": "選取後系統將自動開始解析，並顯示拍攝日期、相機型號、拍攝設定與 GPS 等中繼資料。"
+  },
+  "exif.guide.step3": {
+    "message": "點擊各項目旁的複製按鈕，即可將數值複製至剪貼簿。"
+  },
+  "exif.guide.step4": {
+    "message": "若包含 GPS 資訊，您可以點擊連結在 Google Maps 上查看拍攝地點。"
+  },
+  "exif.guide.step5": {
+    "message": "點擊清除按鈕（垃圾桶圖示）即可重設顯示的資訊。"
+  },
+  "exif.guide.security": {
+    "message": "🔒 照片解析完全在您的裝置（瀏覽器）上進行，不會傳送任何資料至外部伺服器，充分保障您的隱私安全。"
+  },
+  "exif.error.notImage": {
+    "message": "請選擇圖片檔案。"
+  },
+  "exif.error.noExif": {
+    "message": "找不到 EXIF 資訊。"
+  },
+  "exif.error.parse": {
+    "message": "讀取檔案或解析 EXIF 資料失敗。"
+  },
+  "qr.header.title": {
+    "message": "QR Code 產生器"
+  },
+  "qr.header.desc": {
+    "message": "將 URL 與各種資訊轉換為 QR Code，並支援嵌入 Logo。"
+  },
+  "qr.input.title": {
+    "message": "輸入 QR Code 內容"
+  },
+  "qr.input.type": {
+    "message": "類型"
+  },
+  "qr.mode.text": {
+    "message": "文字 / URL"
+  },
+  "qr.mode.contact": {
+    "message": "聯絡人"
+  },
+  "qr.mode.event": {
+    "message": "活動（行事曆）"
+  },
+  "qr.mode.email": {
+    "message": "撰寫電子郵件"
+  },
+  "qr.text.label": {
+    "message": "URL 或文字"
+  },
+  "qr.text.placeholder": {
+    "message": "請在此輸入 URL 或文字"
+  },
+  "qr.wifi.encryption": {
+    "message": "加密方式"
+  },
+  "qr.wifi.none": {
+    "message": "無"
+  },
+  "qr.wifi.password": {
+    "message": "密碼"
+  },
+  "qr.contact.name": {
+    "message": "姓名"
+  },
+  "qr.contact.phone": {
+    "message": "電話號碼"
+  },
+  "qr.contact.email": {
+    "message": "電子郵件地址"
+  },
+  "qr.event.name": {
+    "message": "活動名稱"
+  },
+  "qr.event.start": {
+    "message": "開始日期與時間"
+  },
+  "qr.event.end": {
+    "message": "結束日期與時間"
+  },
+  "qr.event.error.date": {
+    "message": "結束日期與時間必須晚於開始日期與時間"
+  },
+  "qr.email.to": {
+    "message": "收件人電子郵件"
+  },
+  "qr.email.subject": {
+    "message": "主旨"
+  },
+  "qr.email.body": {
+    "message": "內文"
+  },
+  "qr.input.resolution": {
+    "message": "解析度"
+  },
+  "qr.style.title": {
+    "message": "樣式設定"
+  },
+  "qr.style.dots": {
+    "message": "點陣形狀"
+  },
+  "qr.style.corner": {
+    "message": "邊角形狀"
+  },
+  "qr.style.shape.square": {
+    "message": "方形"
+  },
+  "qr.style.shape.dots": {
+    "message": "圓點"
+  },
+  "qr.style.shape.rounded": {
+    "message": "圓角"
+  },
+  "qr.style.shape.extraRounded": {
+    "message": "大圓角"
+  },
+  "qr.style.shape.classy": {
+    "message": "經典"
+  },
+  "qr.style.shape.classyRounded": {
+    "message": "經典圓角"
+  },
+  "qr.style.shape.dot": {
+    "message": "圓點"
+  },
+  "qr.logo.title": {
+    "message": "在中央嵌入 Logo（選填）"
+  },
+  "qr.logo.usePreset": {
+    "message": "使用預設 Logo"
+  },
+  "qr.logo.select": {
+    "message": "選擇 Logo 圖片"
+  },
+  "qr.preview.title": {
+    "message": "預覽"
+  },
+  "qr.preview.save": {
+    "message": "儲存 QR"
+  },
+  "qr.preview.copy": {
+    "message": "複製 QR"
+  },
+  "qr.preview.share": {
+    "message": "分享"
+  },
+  "qr.preview.empty": {
+    "message": "QR Code 將顯示於此"
+  },
+  "qr.tooltip.copyImage": {
+    "message": "以圖片格式複製到剪貼簿"
+  },
+  "qr.copied.image": {
+    "message": "已複製圖片！"
+  },
+  "qr.copied.clipboard": {
+    "message": "已將 QR Code 複製到剪貼簿！"
+  },
+  "qr.guide.title": {
+    "message": "使用指南"
+  },
+  "qr.guide.step1": {
+    "message": "從下拉選單中選擇要產生的 QR Code 類型。"
+  },
+  "qr.guide.step2": {
+    "message": "輸入所需資訊（如 URL 或 Wi-Fi 詳細資訊），QR Code 便會即時產生。"
+  },
+  "qr.guide.step3": {
+    "message": "您也可選擇在 QR Code 中央嵌入 Logo 圖片（使用預設 Logo 或自訂圖片）。"
+  },
+  "qr.guide.step4": {
+    "message": "點擊「儲存 QR」下載完成的 QR Code，或使用「複製 QR」直接複製到剪貼簿。"
+  },
+  "qr.guide.security": {
+    "message": "🔒 所有輸入的資訊與 Logo 圖片皆完全在您的裝置（瀏覽器）內處理，絕不會傳送至任何伺服器。"
+  },
+  "qrReader.header.title": {
+    "message": "QR Code 讀取器"
+  },
+  "qrReader.header.desc": {
+    "message": "上傳 QR Code 圖片以解碼內含字串。所有處理皆在瀏覽器內完成，圖片絕不會傳送至伺服器。"
+  },
+  "qrReader.upload.title": {
+    "message": "選擇 QR Code 圖片"
+  },
+  "qrReader.upload.ariaLabel": {
+    "message": "選取或拖放 QR Code 圖片"
+  },
+  "qrReader.upload.dropLabel": {
+    "message": "點擊、拖放或貼上以選擇圖片"
+  },
+  "qrReader.upload.formats": {
+    "message": "支援格式：PNG、JPEG、WebP、GIF、BMP"
+  },
+  "qrReader.result.title": {
+    "message": "解析結果"
+  },
+  "qrReader.result.scanning": {
+    "message": "解析中..."
+  },
+  "qrReader.result.urlDetected": {
+    "message": "🔗 偵測到 URL"
+  },
+  "qrReader.result.copy": {
+    "message": "複製文字"
+  },
+  "qrReader.result.open": {
+    "message": "開啟 URL"
+  },
+  "qrReader.copied": {
+    "message": "已複製文字！"
+  },
+  "qrReader.error.notImage": {
+    "message": "請選擇圖片檔案。"
+  },
+  "qrReader.error.notQR": {
+    "message": "找不到 QR Code。請確認圖片是否清晰。"
+  },
+  "qrReader.error.parse": {
+    "message": "掃描過程中發生錯誤。"
+  },
+  "qrReader.error.loadImage": {
+    "message": "圖片載入失敗。"
+  },
+  "qrReader.guide.title": {
+    "message": "使用方式"
+  },
+  "qrReader.guide.step1": {
+    "message": "選擇或拖放包含 QR Code 的圖片檔案。"
+  },
+  "qrReader.guide.step2": {
+    "message": "系統會自動解碼 QR Code 並顯示其中包含的文字。"
+  },
+  "qrReader.guide.step3": {
+    "message": "點擊複製按鈕即可將結果複製到剪貼簿；若為 URL 也可直接開啟。"
+  },
+  "qrReader.guide.security": {
+    "message": "🔒 上傳的圖片絕不會傳送至伺服器。所有處理皆在瀏覽器內完成。"
+  },
+  "resize.header.title": {
+    "message": "圖片壓縮與裁切工具"
+  },
+  "resize.header.desc": {
+    "message": "完全在瀏覽器內裁切圖片並轉換為 WebP 等格式，圖片絕不會傳送至伺服器。"
+  },
+  "resize.upload.title": {
+    "message": "選擇圖片"
+  },
+  "resize.upload.dropLabel": {
+    "message": "點擊、拖放或貼上以選擇圖片"
+  },
+  "resize.upload.formats": {
+    "message": "支援格式：JPEG、PNG、WebP、GIF、BMP 等（亦支援 Cmd/Ctrl+V 貼上）"
+  },
+  "resize.noLimit": {
+    "message": "無限制"
+  },
+  "resize.crop.aspectFree": {
+    "message": "自由"
+  },
+  "resize.crop.title": {
+    "message": "裁切圖片"
+  },
+  "resize.crop.aspect": {
+    "message": "選擇長寬比："
+  },
+  "resize.crop.apply": {
+    "message": "套用"
+  },
+  "resize.action.crop": {
+    "message": "裁切"
+  },
+  "resize.action.start": {
+    "message": "開始最佳化"
+  },
+  "resize.settings.title": {
+    "message": "最佳化設定"
+  },
+  "resize.settings.format": {
+    "message": "輸出格式"
+  },
+  "resize.settings.maxWidth": {
+    "message": "最大寬度 (px)"
+  },
+  "resize.settings.maxWidthPlaceholder": {
+    "message": "輸入數值 (px)"
+  },
+  "resize.settings.quality": {
+    "message": "畫質："
+  },
+  "resize.settings.preserveExif": {
+    "message": "保留 EXIF 資訊（僅限 JPEG）"
+  },
+  "resize.format.original": {
+    "message": "原始格式"
+  },
+  "resize.format.recommended": {
+    "message": "(建議)"
+  },
+  "resize.format.webpUnsupported": {
+    "message": "(瀏覽器不支援)"
+  },
+  "resize.format.webpWarning": {
+    "message": "※ 您的瀏覽器不支援 WebP 轉換，建議選擇 JPEG。"
+  },
+  "resize.exif.webpNote": {
+    "message": "轉換為 WebP/PNG 格式時，因瀏覽器限制無法保留 EXIF 資訊。"
+  },
+  "resize.compare.label": {
+    "message": "壓縮前後比較"
+  },
+  "resize.compare.zoom": {
+    "message": "縮放："
+  },
+  "resize.compare.reset": {
+    "message": "重設"
+  },
+  "resize.compare.after": {
+    "message": "壓縮後"
+  },
+  "resize.compare.before": {
+    "message": "原圖"
+  },
+  "resize.compare.dialogTitle": {
+    "message": "比較預覽"
+  },
+  "resize.error.webpUnsupported": {
+    "message": "您的瀏覽器不支援 WebP 轉換，請選擇 JPEG 格式。"
+  },
+  "resize.error.processing": {
+    "message": "處理失敗"
+  },
+  "resize.error.prefix": {
+    "message": "錯誤："
+  },
+  "resize.error.failed": {
+    "message": "處理失敗。"
+  },
+  "resize.guide.title": {
+    "message": "使用說明"
+  },
+  "resize.guide.step1": {
+    "message": "透過拖放或點擊選擇要最佳化的圖片（支援多選）。"
+  },
+  "resize.guide.step2": {
+    "message": "如有需要，可點擊「裁切」按鈕裁切圖片。"
+  },
+  "resize.guide.step3": {
+    "message": "在「最佳化設定」中調整輸出格式（建議使用 WebP）、最大寬度與畫質。"
+  },
+  "resize.guide.step4": {
+    "message": "點擊「開始最佳化」，即可在瀏覽器內處理圖片。"
+  },
+  "resize.guide.step5": {
+    "message": "處理完成後，可使用「比較」按鈕確認畫質，並點擊「下載」儲存圖片。"
+  },
+  "resize.guide.security": {
+    "message": "🔒 圖片最佳化與裁切完全在您的裝置（瀏覽器內）執行，資料絕不會傳送至任何外部伺服器。"
+  },
+  "pdfEditor.header.title": {
+    "message": "PDF 編輯器（圖片與 PDF 匯出）"
+  },
+  "pdfEditor.header.desc": {
+    "message": "將 PDF 頁面轉換為圖片，或擷取並合併頁面成為新的 PDF。所有處理皆在瀏覽器內完成，檔案絕不會傳送至伺服器。"
+  },
+  "pdfEditor.upload.title": {
+    "message": "選擇 PDF"
+  },
+  "pdfEditor.upload.dropLabel": {
+    "message": "點擊、拖放或貼上 (Ctrl+V) 以選擇 PDF"
+  },
+  "pdfEditor.action.change": {
+    "message": "變更"
+  },
+  "pdfEditor.action.downloadImg": {
+    "message": "下載為圖片"
+  },
+  "pdfEditor.action.downloadPdf": {
+    "message": "另存為新 PDF"
+  },
+  "pdfEditor.settings.title": {
+    "message": "轉換設定"
+  },
+  "pdfEditor.settings.format": {
+    "message": "輸出格式"
+  },
+  "pdfEditor.settings.maxWidth": {
+    "message": "最大寬度 (px)"
+  },
+  "pdfEditor.settings.maxWidthPlaceholder": {
+    "message": "輸入數值 (px)"
+  },
+  "pdfEditor.pages.title": {
+    "message": "選擇頁面"
+  },
+  "pdfEditor.pages.selectAll": {
+    "message": "全選"
+  },
+  "pdfEditor.pages.select": {
+    "message": "選取此頁"
+  },
+  "pdfEditor.pages.deselectAll": {
+    "message": "取消全選"
+  },
+  "pdfEditor.pages.noLimit": {
+    "message": "無限制"
+  },
+  "pdfEditor.pages.generating": {
+    "message": "正在產生預覽..."
+  },
+  "pdfEditor.error.notPdf": {
+    "message": "請選擇 PDF 檔案。"
+  },
+  "pdfEditor.error.load": {
+    "message": "PDF 載入失敗。"
+  },
+  "pdfEditor.error.convert": {
+    "message": "轉換過程中發生錯誤。"
+  },
+  "pdfEditor.success": {
+    "message": "轉換完成。"
+  },
+  "pdfEditor.successPdf": {
+    "message": "PDF 建立完成。"
+  },
+  "pdfEditor.error.pdf": {
+    "message": "建立 PDF 時發生錯誤。"
+  },
+  "pdfEditor.guide.title": {
+    "message": "使用方式"
+  },
+  "pdfEditor.guide.step1": {
+    "message": "透過選取、拖放或從剪貼簿貼上來加入要編輯的 PDF 檔案。"
+  },
+  "pdfEditor.guide.step2": {
+    "message": "若要匯出為圖片，請設定輸出格式（PNG / JPEG / WebP）與最大寬度。"
+  },
+  "pdfEditor.guide.step3": {
+    "message": "選擇要擷取或轉換為圖片的頁面（可多選）。"
+  },
+  "pdfEditor.guide.step4": {
+    "message": "可將選取的頁面匯出為圖片（以 ZIP 檔下載）或另存為新的 PDF 文件。"
+  },
+  "pdfEditor.guide.security": {
+    "message": "🔒 上傳的 PDF 檔案不會傳送至任何伺服器。所有處理皆在瀏覽器內完成，即使包含機密資訊的文件也能安心使用。"
+  },
+  "benchmark.header.title": {
+    "message": "網頁流暢度測試"
+  },
+  "benchmark.header.desc": {
+    "message": "測試您的瀏覽器與裝置運算效能，並以分數與等級進行評估。"
+  },
+  "benchmark.ui.testTitle": {
+    "message": "測試瀏覽器運算效能"
+  },
+  "benchmark.ui.testDesc": {
+    "message": "點擊「開始測試」按鈕，在瀏覽器中執行高負載運算以計算效能分數。"
+  },
+  "benchmark.ui.warning.bold": {
+    "message": "注意："
+  },
+  "benchmark.ui.warning": {
+    "message": "此基準測試會執行大量運算，在智慧型手機與行動裝置上可能會暫時增加耗電量。"
+  },
+  "benchmark.ui.start": {
+    "message": "開始測試"
+  },
+  "benchmark.ui.measuring": {
+    "message": "測試中..."
+  },
+  "benchmark.ui.env": {
+    "message": "測試環境:"
+  },
+  "benchmark.ui.singleCore": {
+    "message": "單核心 (1 Worker)"
+  },
+  "benchmark.ui.multiCore": {
+    "message": "多核心"
+  },
+  "benchmark.ui.estimate": {
+    "message": "參考評估:"
+  },
+  "benchmark.ui.notStarted": {
+    "message": "尚未測試"
+  },
+  "benchmark.ui.modalBtn": {
+    "message": "關於分數參考標準"
+  },
+  "benchmark.ui.share": {
+    "message": "分享結果"
+  },
+  "benchmark.ui.featureTitle": {
+    "message": "瀏覽器功能支援狀態"
+  },
+  "benchmark.ui.must": {
+    "message": "必要"
+  },
+  "benchmark.modal.title": {
+    "message": "分數判定標準"
+  },
+  "benchmark.modal.single": {
+    "message": "單核："
+  },
+  "benchmark.modal.multi": {
+    "message": "多核："
+  },
+  "benchmark.progress.preparing": {
+    "message": "準備中..."
+  },
+  "benchmark.progress.singlePreparing": {
+    "message": "正在準備單核效能測試..."
+  },
+  "benchmark.progress.multiPreparing": {
+    "message": "正在準備多核效能測試..."
+  },
+  "benchmark.progress.feature": {
+    "message": "正在檢測功能支援狀態..."
+  },
+  "benchmark.progress.single": {
+    "message": "正在測試單核效能..."
+  },
+  "benchmark.progress.multi": {
+    "message": "正在測試多核效能..."
+  },
+  "benchmark.progress.pass": {
+    "message": "次"
+  },
+  "benchmark.canvas.title": {
+    "message": "網頁流暢度測試結果"
+  },
+  "benchmark.canvas.featureTitle": {
+    "message": "網頁功能支援狀態"
+  },
+  "benchmark.single.rank.s": {
+    "message": "極致流暢。即使在最新高階裝置中也屬頂尖的處理效能。"
+  },
+  "benchmark.single.rank.a": {
+    "message": "流暢。大多數網頁應用程式都能順暢運作，毫無卡頓。"
+  },
+  "benchmark.single.rank.b": {
+    "message": "實用。足以應付一般的網頁瀏覽需求。"
+  },
+  "benchmark.single.rank.c": {
+    "message": "標準。足以瀏覽一般網頁。"
+  },
+  "benchmark.single.rank.d": {
+    "message": "基本效能。載入較複雜的網頁時可能會稍花時間。"
+  },
+  "benchmark.single.rank.e": {
+    "message": "偏慢。可能是較舊的裝置，或正處於省電模式所致。"
+  },
+  "benchmark.single.rank.f": {
+    "message": "運作吃力。效能嚴重不足，難以順暢使用現代網路服務。"
+  },
+  "benchmark.multi.rank.s": {
+    "message": "最頂級。具備壓倒性的平行處理能力，輕鬆應付各種繁重工作"
+  },
+  "benchmark.multi.rank.a": {
+    "message": "強勁。同時開啟多項工作依然穩定順暢"
+  },
+  "benchmark.multi.rank.b": {
+    "message": "流暢。平行處理多項工作仍有充裕效能"
+  },
+  "benchmark.multi.rank.c": {
+    "message": "標準。可毫無問題地應付多工處理"
+  },
+  "benchmark.multi.rank.d": {
+    "message": "基本。平行處理增多時反應可能會變慢"
+  },
+  "benchmark.multi.rank.e": {
+    "message": "效能不足。不適合平行處理，運作會受到限制"
+  },
+  "benchmark.multi.rank.f": {
+    "message": "效能嚴重不足。幾乎無法發揮平行處理的優勢"
+  },
+  "benchmark.cat.sns.category": {
+    "message": "社群與影音瀏覽"
+  },
+  "benchmark.cat.sns.summary": {
+    "message": "影片與圖片是否能流暢且清晰地瀏覽"
+  },
+  "benchmark.cat.sns.avif.name": {
+    "message": "AVIF / WebP 支援"
+  },
+  "benchmark.cat.sns.avif.desc": {
+    "message": "次世代超輕量圖片格式，直接影響網頁載入速度。"
+  },
+  "benchmark.cat.sns.av1.name": {
+    "message": "AV1 解碼"
+  },
+  "benchmark.cat.sns.av1.desc": {
+    "message": "能以低負載、高畫質播放 YouTube 等平台的 4K 影片。"
+  },
+  "benchmark.cat.sns.webshare.name": {
+    "message": "Web Share API"
+  },
+  "benchmark.cat.sns.webshare.desc": {
+    "message": "呼叫系統內建的分享選單，快速分享圖片或連結。"
+  },
+  "benchmark.cat.sns.speculation.name": {
+    "message": "Speculation Rules"
+  },
+  "benchmark.cat.sns.speculation.desc": {
+    "message": "在點擊連結前預先載入頁面，實現瞬間切換畫面的體驗。"
+  },
+  "benchmark.cat.sns.fetchpriority.name": {
+    "message": "fetchpriority 屬性"
+  },
+  "benchmark.cat.sns.fetchpriority.desc": {
+    "message": "優先載入重要圖片，有效提升畫面顯示速度。"
+  },
+  "benchmark.cat.sns.objectfit.name": {
+    "message": "Object-fit / Aspect-ratio"
+  },
+  "benchmark.cat.sns.objectfit.desc": {
+    "message": "確保照片完美契合版面外框，不會變形或拉伸。"
+  },
+  "benchmark.cat.sns.csslayer.name": {
+    "message": "CSS @layer"
+  },
+  "benchmark.cat.sns.csslayer.desc": {
+    "message": "確保大型網站的樣式能依照預期正確套用。"
+  },
+  "benchmark.cat.biz.category": {
+    "message": "商務與工具"
+  },
+  "benchmark.cat.biz.summary": {
+    "message": "能否順暢運行 Notion、Figma 等應用程式級網站"
+  },
+  "benchmark.cat.biz.eyedropper.name": {
+    "message": "EyeDropper API"
+  },
+  "benchmark.cat.biz.eyedropper.desc": {
+    "message": "可擷取畫面上任意顏色的滴管功能，讓設計工作更有效率。"
+  },
+  "benchmark.cat.biz.navigation.name": {
+    "message": "Navigation API"
+  },
+  "benchmark.cat.biz.navigation.desc": {
+    "message": "能更流暢且穩定地控制 SPA 畫面切換的次世代基礎技術。"
+  },
+  "benchmark.cat.biz.anchorpos.name": {
+    "message": "Anchor Positioning API"
+  },
+  "benchmark.cat.biz.anchorpos.desc": {
+    "message": "確保彈出式視窗能準確貼齊目標按鈕顯示。"
+  },
+  "benchmark.cat.biz.popover.name": {
+    "message": "Popover API"
+  },
+  "benchmark.cat.biz.popover.desc": {
+    "message": "讓選單不受其他元素干擾，顯示於最上層。"
+  },
+  "benchmark.cat.biz.compression.name": {
+    "message": "Compression Streams API"
+  },
+  "benchmark.cat.biz.compression.desc": {
+    "message": "可直接在瀏覽器中高速進行檔案的 ZIP 壓縮與解壓縮。"
+  },
+  "benchmark.cat.biz.crypto.name": {
+    "message": "Web Crypto API"
+  },
+  "benchmark.cat.biz.crypto.desc": {
+    "message": "支援安全通訊、密碼管理與資料加密功能。"
+  },
+  "benchmark.cat.biz.indexeddb.name": {
+    "message": "IndexedDB (v3)"
+  },
+  "benchmark.cat.biz.indexeddb.desc": {
+    "message": "儲存大量資料，支援離線作業。"
+  },
+  "benchmark.cat.creative.category": {
+    "message": "娛樂與創作"
+  },
+  "benchmark.cat.creative.summary": {
+    "message": "3D、動畫與遊戲體驗是否流暢"
+  },
+  "benchmark.cat.creative.webgpu.name": {
+    "message": "WebGPU"
+  },
+  "benchmark.cat.creative.webgpu.desc": {
+    "message": "可在瀏覽器中運行大型 3D 遊戲與 AI 影像生成。"
+  },
+  "benchmark.cat.creative.webxr.name": {
+    "message": "WebXR Device API"
+  },
+  "benchmark.cat.creative.webxr.desc": {
+    "message": "可直接從瀏覽器操作 VR（虛擬實境）與 AR（擴增實境）裝置。"
+  },
+  "benchmark.cat.creative.viewtransitions.name": {
+    "message": "View Transitions API"
+  },
+  "benchmark.cat.creative.viewtransitions.desc": {
+    "message": "讓畫面切換如同原生應用程式般平滑淡入淡出。"
+  },
+  "benchmark.cat.creative.scrollanimations.name": {
+    "message": "Scroll-driven Animations"
+  },
+  "benchmark.cat.creative.scrollanimations.desc": {
+    "message": "支援隨捲動聯動的豐富視覺特效。"
+  },
+  "benchmark.cat.creative.offscreencanvas.name": {
+    "message": "Offscreen Canvas"
+  },
+  "benchmark.cat.creative.offscreencanvas.desc": {
+    "message": "將繁重的繪圖運算移至背景執行，讓操作更輕快流暢。"
+  },
+  "benchmark.cat.creative.spatialaudio.name": {
+    "message": "Web Audio (Spatial Audio)"
+  },
+  "benchmark.cat.creative.spatialaudio.desc": {
+    "message": "支援在瀏覽器中播放空間立體音效。"
+  },
+  "benchmark.cat.sys.category": {
+    "message": "系統與其他"
+  },
+  "benchmark.cat.sys.summary": {
+    "message": "應用程式體驗、通知與登入便利性"
+  },
+  "benchmark.cat.sys.passkeys.name": {
+    "message": "WebAuthn (Passkeys)"
+  },
+  "benchmark.cat.sys.passkeys.desc": {
+    "message": "透過指紋或臉部辨識，無需輸入密碼即可登入。"
+  },
+  "benchmark.cat.sys.badging.name": {
+    "message": "Badging API"
+  },
+  "benchmark.cat.sys.badging.desc": {
+    "message": "可在應用程式圖示上顯示未讀數量標記。"
+  },
+  "benchmark.cat.sys.wakelock.name": {
+    "message": "Screen Wake Lock API"
+  },
+  "benchmark.cat.sys.wakelock.desc": {
+    "message": "可控制瀏覽期間防止螢幕自動關閉。"
+  },
+  "benchmark.cat.sys.webusb.name": {
+    "message": "Web USB"
+  },
+  "benchmark.cat.sys.webusb.desc": {
+    "message": "可直接從瀏覽器控制透過 USB 連接的專用裝置。"
+  },
+  "benchmark.cat.sys.filesystem.name": {
+    "message": "File System Access API"
+  },
+  "benchmark.cat.sys.filesystem.desc": {
+    "message": "可直接編輯並儲存裝置內的檔案。"
+  },
+  "benchmark.ref.rank.s.single": {
+    "message": "4000 以上"
+  },
+  "benchmark.ref.rank.s.multi": {
+    "message": "30000 以上"
+  },
+  "benchmark.ref.rank.s.desc": {
+    "message": "無可匹敵的速度。超越高階裝置的頂級效能"
+  },
+  "benchmark.ref.rank.a.single": {
+    "message": "2000～3999"
+  },
+  "benchmark.ref.rank.a.multi": {
+    "message": "10000～29999"
+  },
+  "benchmark.ref.rank.a.desc": {
+    "message": "非常流暢。大多數應用程式都能極為順暢地運作"
+  },
+  "benchmark.ref.rank.b.single": {
+    "message": "1000～1999"
+  },
+  "benchmark.ref.rank.b.multi": {
+    "message": "4000～9999"
+  },
+  "benchmark.ref.rank.b.desc": {
+    "message": "流暢。即使平行處理多項工作仍有充裕效能"
+  },
+  "benchmark.ref.rank.c.single": {
+    "message": "250～999"
+  },
+  "benchmark.ref.rank.c.multi": {
+    "message": "500～3999"
+  },
+  "benchmark.ref.rank.c.desc": {
+    "message": "標準。足以應付一般網頁瀏覽"
+  },
+  "benchmark.ref.rank.d.single": {
+    "message": "100～249"
+  },
+  "benchmark.ref.rank.d.multi": {
+    "message": "200～499"
+  },
+  "benchmark.ref.rank.d.desc": {
+    "message": "基本。負載較高時載入速度可能會變慢"
+  },
+  "benchmark.ref.rank.e.single": {
+    "message": "50～99"
+  },
+  "benchmark.ref.rank.e.multi": {
+    "message": "100～199"
+  },
+  "benchmark.ref.rank.e.desc": {
+    "message": "偏慢。可能是較舊的裝置或正處於省電模式"
+  },
+  "benchmark.ref.rank.f.single": {
+    "message": "未滿 50"
+  },
+  "benchmark.ref.rank.f.multi": {
+    "message": "未滿 100"
+  },
+  "benchmark.ref.rank.f.desc": {
+    "message": "運作困難。面對現代網頁標準效能明顯不足"
+  },
+  "benchmark.share.title": {
+    "message": "網頁效能測試結果"
+  },
+  "benchmark.share.single": {
+    "message": "單核心:"
+  },
+  "benchmark.share.multi": {
+    "message": "多核心:"
+  },
+  "benchmark.share.alert": {
+    "message": "已將結果圖片複製到剪貼簿！\n請貼上至 X（Twitter）等平台的發文畫面進行分享。"
+  },
+  "home.tools.roulette.title": {
+    "message": "輪盤抽籤工具"
+  },
+  "home.tools.roulette.desc": {
+    "message": "從輸入的清單輕鬆抽籤。支援移除已抽出項目與儲存歷史紀錄。"
+  },
+  "roulette.header.title": {
+    "message": "輪盤抽籤器"
+  },
+  "roulette.header.desc": {
+    "message": "在瀏覽器中即可輕鬆從清單進行抽籤的輪盤工具。"
+  },
+  "roulette.display.ready": {
+    "message": "準備就緒"
+  },
+  "roulette.display.empty": {
+    "message": "請輸入項目"
+  },
+  "roulette.action.start": {
+    "message": "開始抽籤"
+  },
+  "roulette.input.title": {
+    "message": "項目清單"
+  },
+  "roulette.action.import": {
+    "message": "匯入"
+  },
+  "roulette.action.export": {
+    "message": "匯出"
+  },
+  "roulette.input.placeholder": {
+    "message": "請以換行分隔輸入項目"
+  },
+  "roulette.settings.remove": {
+    "message": "抽中後從清單移除"
+  },
+  "roulette.history.title": {
+    "message": "抽籤紀錄"
+  },
+  "roulette.action.clearHistory": {
+    "message": "清除歷史紀錄"
+  },
+  "roulette.history.empty": {
+    "message": "尚無紀錄"
+  },
+  "roulette.guide.title": {
+    "message": "使用說明"
+  },
+  "roulette.guide.step1": {
+    "message": "在「項目清單」中以每行一筆的方式輸入要抽籤的項目，也可以從文字檔匯入。"
+  },
+  "roulette.guide.step2": {
+    "message": "若開啟「抽中後從清單移除」，已抽中的項目將自動從清單中移除。"
+  },
+  "roulette.guide.step3": {
+    "message": "按下「開始抽籤」按鈕即可旋轉輪盤，隨機抽出一個項目。"
+  },
+  "roulette.guide.step4": {
+    "message": "「抽籤紀錄」區塊會顯示過去的抽籤結果。"
+  },
+  "roulette.guide.security": {
+    "message": "🔒 您的資料與紀錄僅儲存在瀏覽器的本機儲存空間中，絕不會傳送至任何伺服器。即使是機密資訊也能安心使用。"
+  },
+  "roulette.preset.title": {
+    "message": "預設範本："
+  },
+  "roulette.preset.bingo": {
+    "message": "賓果 (1-75)"
+  },
+  "roulette.preset.confirm": {
+    "message": "目前的清單將被覆蓋，確定要繼續嗎？"
+  },
+  "encoding.error.read": {
+    "message": "讀取檔案失敗。"
+  },
+  "encoding.error.preview": {
+    "message": "預覽產生失敗，請確認字元編碼設定。"
+  },
+  "encoding.success.download": {
+    "message": "已轉換並儲存。"
+  },
+  "encoding.error.convert": {
+    "message": "轉換失敗。"
+  },
+  "encoding.upload.title": {
+    "message": "選擇文字"
+  },
+  "encoding.upload.main": {
+    "message": "將檔案拖放至此、{br}點擊選擇，或直接貼上"
+  },
+  "encoding.upload.sub": {
+    "message": "支援文字檔案與貼上的文字"
+  },
+  "encoding.label.current": {
+    "message": "字元編碼"
+  },
+  "encoding.label.target": {
+    "message": "轉換後的字元編碼"
+  },
+  "encoding.label.currentLineBreak": {
+    "message": "換行符號"
+  },
+  "encoding.label.targetLineBreak": {
+    "message": "轉換後的換行符號"
+  },
+  "encoding.detected": {
+    "message": "偵測結果:"
+  },
+  "encoding.preview.title": {
+    "message": "預覽"
+  },
+  "encoding.button.download": {
+    "message": "轉換並下載"
+  },
+  "encoding.correct.title": {
+    "message": "修正偵測結果"
+  },
+  "encoding.button.correct": {
+    "message": "修正"
+  },
+  "encoding.stats.title": {
+    "message": "文字資訊"
+  },
+  "encoding.stats.chars": {
+    "message": "字元數"
+  },
+  "encoding.stats.lines": {
+    "message": "行數"
+  },
+  "encoding.stats.currentSize": {
+    "message": "目前大小"
+  },
+  "encoding.stats.targetSize": {
+    "message": "轉換後大小 (預估)"
+  },
+  "home.tools.diff.title": {
+    "message": "文字差異比對工具"
+  },
+  "home.tools.diff.desc": {
+    "message": "比對兩段文字或檔案並以視覺化高亮顯示差異。支援多檔案上傳與多種比對模式。"
+  },
+  "diff.error.read": {
+    "message": "讀取檔案失敗。"
+  },
+  "diff.upload.title": {
+    "message": "上傳檔案"
+  },
+  "diff.upload.dropLabel": {
+    "message": "點擊、拖放或貼上以新增"
+  },
+  "diff.upload.formats": {
+    "message": "支援格式：.txt, .csv, .log, .md, .json 等"
+  },
+  "diff.list.title": {
+    "message": "選擇要比較的檔案"
+  },
+  "diff.list.count": {
+    "message": "個檔案"
+  },
+  "diff.table.left": {
+    "message": "左 (原始)"
+  },
+  "diff.table.right": {
+    "message": "右 (變更後)"
+  },
+  "diff.table.name": {
+    "message": "檔案名稱"
+  },
+  "diff.table.size": {
+    "message": "大小"
+  },
+  "diff.viewer.title": {
+    "message": "差異比較"
+  },
+  "diff.options.ignoreWhitespace": {
+    "message": "忽略空白"
+  },
+  "diff.tooltip.unified": {
+    "message": "單欄顯示"
+  },
+  "markdownPdf.editor.title": {
+    "message": "Markdown 輸入"
+  },
+  "markdownPdf.editor.sample": {
+    "message": "插入範例"
+  },
+  "markdownPdf.editor.clear": {
+    "message": "清除"
+  },
+  "markdownPdf.upload.button": {
+    "message": "選擇 Markdown 檔案 (.md)"
+  },
+  "markdownPdf.upload.dropText": {
+    "message": "或將檔案拖放至此，或直接貼上"
+  },
+  "markdownPdf.editor.placeholder": {
+    "message": "# 在此輸入 Markdown..."
+  },
+  "markdownPdf.options.title": {
+    "message": "PDF 輸出設定"
+  },
+  "markdownPdf.options.fontSize": {
+    "message": "字型大小"
+  },
+  "markdownPdf.options.fontSize.small": {
+    "message": "小 (10pt)"
+  },
+  "markdownPdf.options.fontSize.medium": {
+    "message": "中 (12pt)"
+  },
+  "markdownPdf.options.fontSize.large": {
+    "message": "大 (14pt)"
+  },
+  "markdownPdf.options.margin": {
+    "message": "邊界"
+  },
+  "markdownPdf.options.margin.narrow": {
+    "message": "窄 (10mm)"
+  },
+  "markdownPdf.options.margin.normal": {
+    "message": "標準 (20mm)"
+  },
+  "markdownPdf.options.margin.wide": {
+    "message": "寬 (30mm)"
+  },
+  "markdownPdf.options.format": {
+    "message": "紙張大小"
+  },
+  "markdownPdf.options.orientation": {
+    "message": "方向"
+  },
+  "markdownPdf.options.orientation.portrait": {
+    "message": "直向"
+  },
+  "markdownPdf.options.orientation.landscape": {
+    "message": "橫向"
+  },
+  "markdownPdf.options.pageNumbers": {
+    "message": "在頁尾顯示頁碼"
+  },
+  "markdownPdf.btn.loadingFont": {
+    "message": "載入字型中..."
+  },
+  "markdownPdf.btn.downloadHtml": {
+    "message": "下載 HTML"
+  },
+  "markdownPdf.btn.download": {
+    "message": "下載 PDF"
+  },
+  "markdownPdf.tab.previewHtml": {
+    "message": "HTML 預覽"
+  },
+  "markdownPdf.tab.previewPdf": {
+    "message": "PDF 預覽"
+  },
+  "markdownPdf.preview.empty": {
+    "message": "輸入 Markdown 後，預覽結果將會顯示於此。"
+  },
+  "markdownPdf.error.generate": {
+    "message": "產生 PDF 時發生錯誤。"
+  },
+  "markdownPdf.confirm.clear": {
+    "message": "確定要清除文字嗎？"
+  },
+  "markdownPdf.error.htmlGenerate": {
+    "message": "產生 HTML 時發生錯誤。"
+  },
+  "markdownPdf.preview.loadingFont": {
+    "message": "正在載入字型..."
+  },
+  "markdownPdf.preview.generating": {
+    "message": "正在產生 PDF..."
+  },
+  "markdownPdf.preview.noPdf": {
+    "message": "無法顯示 PDF 預覽。"
+  },
+  "home.tools.seo.title": {
+    "message": "SEO 中繼資料擷取器"
+  },
+  "home.tools.seo.desc": {
+    "message": "輸入 URL 或貼上 HTML 即可擷取並預覽 SEO 中繼資料（Favicon、OGP、標題、描述、關鍵字等）。本機安全處理。"
+  },
+  "seo.tab.urlMode": {
+    "message": "透過 URL 分析"
+  },
+  "seo.tab.htmlMode": {
+    "message": "透過 HTML 分析"
+  },
+  "seo.input.urlLabel": {
+    "message": "目標 URL"
+  },
+  "seo.input.htmlLabel": {
+    "message": "HTML 原始碼"
+  },
+  "seo.security.title": {
+    "message": "關於隱私"
+  },
+  "seo.security.desc": {
+    "message": "自動分析 URL 時，會暫時透過外部免費的 CORS Proxy 來擷取 HTML。若要分析內部系統頁面或包含個人資訊等非公開 URL，請使用「透過 HTML 分析」模式（全程於您的瀏覽器本機處理）。"
+  },
+  "seo.action.parsing": {
+    "message": "解析中..."
+  },
+  "seo.action.parse": {
+    "message": "分析"
+  },
+  "seo.action.download": {
+    "message": "下載"
+  },
+  "seo.state.loading": {
+    "message": "正在擷取並解析 HTML..."
+  },
+  "seo.error.title": {
+    "message": "發生錯誤"
+  },
+  "seo.error.invalidUrl": {
+    "message": "請輸入有效的 URL。"
+  },
+  "seo.error.fetchFailed": {
+    "message": "無法擷取中繼資料。可能是 URL 有誤、目標網站封鎖存取或受限於安全性限制（CORS）。建議改用「透過 HTML 分析」模式直接貼上 HTML。"
+  },
+  "seo.error.parseFailed": {
+    "message": "無法解析 HTML，請檢查原始碼。"
+  },
+  "seo.resultTab.preview": {
+    "message": "預覽"
+  },
+  "seo.resultTab.basic": {
+    "message": "基本 Meta 資訊"
+  },
+  "seo.resultTab.ogp": {
+    "message": "OGP 與社群資訊"
+  },
+  "seo.resultTab.json": {
+    "message": "JSON 資料"
+  },
+  "seo.preview.title": {
+    "message": "搜尋結果與社群分享預覽"
+  },
+  "seo.preview.noTitle": {
+    "message": "尚未設定標題"
+  },
+  "seo.preview.noDesc": {
+    "message": "尚未設定描述。搜尋引擎可能會從頁面內文中自動產生摘要。"
+  },
+  "seo.preview.noImage": {
+    "message": "無 OGP 圖片"
+  },
+  "seo.eval.title": {
+    "message": "字數檢查評估"
+  },
+  "seo.meta.title": {
+    "message": "標題"
+  },
+  "seo.meta.desc": {
+    "message": "描述"
+  },
+  "seo.recommend": {
+    "message": "建議"
+  },
+  "seo.status.missing": {
+    "message": "未設定"
+  },
+  "seo.status.good": {
+    "message": "適中"
+  },
+  "seo.status.short": {
+    "message": "字數偏少"
+  },
+  "seo.status.long": {
+    "message": "字數偏多"
+  },
+  "seo.item.title": {
+    "message": "標題"
+  },
+  "seo.item.desc": {
+    "message": "描述 (Description)"
+  },
+  "seo.item.keywords": {
+    "message": "關鍵字 (Keywords)"
+  },
+  "seo.item.robots": {
+    "message": "搜尋排除 (Robots)"
+  },
+  "seo.empty": {
+    "message": "未設定"
+  },
+  "seo.empty.none": {
+    "message": "未設定（允許索引）"
+  },
+  "seo.export.success": {
+    "message": "已匯出 JSON 檔案"
+  },
+  "embed.section.title": {
+    "message": "將此工具內嵌至您的網站"
+  },
+  "embed.section.iframeLabel": {
+    "message": "iframe 內嵌程式碼"
+  },
+  "embed.section.urlLabel": {
+    "message": "內嵌用 URL"
+  },
+  "home.tools.regex.title": {
+    "message": "正規表達式測試器"
+  },
+  "home.tools.regex.desc": {
+    "message": "即時測試與除錯正規表達式，具備語法高亮、擷取群組解析與預設範本功能。"
+  },
+  "regex.title": {
+    "message": "正規表示式檢測工具"
+  },
+  "regex.desc": {
+    "message": "即時測試與除錯正規表示式，支援語法醒目提示、擷取群組解析與預設範本。"
+  },
+  "regex.template.selectLabel": {
+    "message": "選擇預設範本"
+  },
+  "regex.template.custom": {
+    "message": "自訂（直接輸入）"
+  },
+  "regex.template.email": {
+    "message": "電子郵件地址"
+  },
+  "regex.template.url": {
+    "message": "URL (HTTP/HTTPS)"
+  },
+  "regex.template.postal": {
+    "message": "郵遞區號（日本）"
+  },
+  "regex.template.phone": {
+    "message": "電話號碼（日本）"
+  },
+  "regex.template.date": {
+    "message": "日期 (YYYY-MM-DD / YYYY/MM/DD)"
+  },
+  "regex.template.time": {
+    "message": "時間 (HH:MM:SS)"
+  },
+  "regex.template.ipv4": {
+    "message": "IPv4 位址"
+  },
+  "regex.template.alphanumeric": {
+    "message": "英數字"
+  },
+  "regex.template.html": {
+    "message": "HTML 標籤"
+  },
+  "regex.template.hexColor": {
+    "message": "十六進位色碼 (#RGB / #RRGGBB)"
+  },
+  "regex.actions.resetAll": {
+    "message": "全部清除"
+  },
+  "regex.actions.clear": {
+    "message": "清除"
+  },
+  "regex.actions.copyPattern": {
+    "message": "複製模式"
+  },
+  "regex.actions.copyMatches": {
+    "message": "複製符合項目"
+  },
+  "regex.actions.copied": {
+    "message": "已複製到剪貼簿"
+  },
+  "regex.pattern.title": {
+    "message": "正規表示式模式"
+  },
+  "regex.pattern.label": {
+    "message": "正規表示式"
+  },
+  "regex.pattern.clear": {
+    "message": "清除模式"
+  },
+  "regex.pattern.copy": {
+    "message": "複製模式"
+  },
+  "regex.pattern.copyTooltip": {
+    "message": "複製正規表示式模式 (/{pattern}/{flags})"
+  },
+  "regex.pattern.placeholder": {
+    "message": "例：[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}"
+  },
+  "regex.error.title": {
+    "message": "正規表示式錯誤："
+  },
+  "regex.flags.title": {
+    "message": "旗標設定："
+  },
+  "regex.flags.label": {
+    "message": "旗標"
+  },
+  "regex.flags.g": {
+    "message": "全域 (g)"
+  },
+  "regex.flags.i": {
+    "message": "忽略大小寫 (i)"
+  },
+  "regex.flags.m": {
+    "message": "多行 (m)"
+  },
+  "regex.flags.s": {
+    "message": "dotAll (s)"
+  },
+  "regex.flags.u": {
+    "message": "Unicode (u)"
+  },
+  "regex.flags.y": {
+    "message": "黏性 (y)"
+  },
+  "regex.flag.g.title": {
+    "message": "全域搜尋 (g)"
+  },
+  "regex.flag.g.desc": {
+    "message": "尋找所有符合項目，而非在第一個符合後停止"
+  },
+  "regex.flag.i.title": {
+    "message": "忽略大小寫 (i)"
+  },
+  "regex.flag.i.desc": {
+    "message": "比對時忽略大小寫"
+  },
+  "regex.flag.m.title": {
+    "message": "多行模式 (m)"
+  },
+  "regex.flag.m.desc": {
+    "message": "^ 和 $ 符合每一行的開頭與結尾"
+  },
+  "regex.flag.s.title": {
+    "message": "dotAll (s)"
+  },
+  "regex.flag.s.desc": {
+    "message": "點號 (.) 符合包含換行符號 \\n 在內的任意字元"
+  },
+  "regex.flag.u.title": {
+    "message": "Unicode (u)"
+  },
+  "regex.flag.u.desc": {
+    "message": "啟用 Unicode 支援（代理對、Unicode 屬性跳脫）"
+  },
+  "regex.flag.y.title": {
+    "message": "黏性比對 (y)"
+  },
+  "regex.flag.y.desc": {
+    "message": "僅從 lastIndex 屬性指定的索引位置開始比對"
+  },
+  "regex.text.title": {
+    "message": "測試文字"
+  },
+  "regex.text.label": {
+    "message": "測試文字"
+  },
+  "regex.text.clear": {
+    "message": "清除文字"
+  },
+  "regex.text.placeholder": {
+    "message": "請在此輸入要測試的文字..."
+  },
+  "regex.text.meta": {
+    "message": "{chars} 字元 / {lines} 行"
+  },
+  "regex.text.insertSample": {
+    "message": "插入範例文字"
+  },
+  "regex.result.title": {
+    "message": "符合結果與醒目提示"
+  },
+  "regex.result.errorStatus": {
+    "message": "錯誤"
+  },
+  "regex.result.matchCount": {
+    "message": "{count} 筆符合"
+  },
+  "regex.result.noMatch": {
+    "message": "無符合項目"
+  },
+  "regex.status.matchCount": {
+    "message": "找到 {count} 筆符合項目"
+  },
+  "regex.status.noMatch": {
+    "message": "找不到符合項目"
+  },
+  "regex.status.error": {
+    "message": "正規表示式語法錯誤"
+  },
+  "regex.warning.truncated": {
+    "message": "符合數量已達上限（1,000 筆），其餘符合項目已省略。"
+  },
+  "regex.result.copyPattern": {
+    "message": "複製模式"
+  },
+  "regex.result.copyMatches": {
+    "message": "複製符合清單"
+  },
+  "regex.result.copiedPattern": {
+    "message": "已複製正規表示式模式！"
+  },
+  "regex.result.copiedMatches": {
+    "message": "已複製符合結果！"
+  },
+  "regex.result.copiedSingle": {
+    "message": "已複製符合文字！"
+  },
+  "regex.result.noMatchesToCopy": {
+    "message": "沒有可複製的符合項目"
+  },
+  "regex.viewer.placeholder": {
+    "message": "輸入文字後，符合的位置將在此醒目提示。"
+  },
+  "regex.highlight.title": {
+    "message": "符合項目醒目提示"
+  },
+  "regex.details.title": {
+    "message": "符合詳情與擷取群組"
+  },
+  "regex.details.matchNum": {
+    "message": "符合項目 #{index}"
+  },
+  "regex.details.range": {
+    "message": "位置：{start} - {end}（長度：{length}）"
+  },
+  "regex.details.groups": {
+    "message": "擷取群組 ({count})"
+  },
+  "regex.details.noGroups": {
+    "message": "模式中沒有擷取群組"
+  },
+  "regex.details.charsUnit": {
+    "message": "字元"
+  },
+  "wintch.page.title": {
+    "message": "Wintch | 專為 macOS 打造的簡潔視窗切換器與啟動器"
+  },
+  "wintch.page.description": {
+    "message": "完全本機執行、輕量簡潔的 macOS 視窗切換器與搜尋啟動器「Wintch」功能介紹與安裝指南。"
+  },
+  "wintch.nav.ariaLabel": {
+    "message": "頁面內導覽"
+  },
+  "wintch.nav.switcher": {
+    "message": "視窗切換器"
+  },
+  "wintch.nav.capture": {
+    "message": "擷取檢視"
+  },
+  "wintch.nav.launcher": {
+    "message": "搜尋啟動器"
+  },
+  "wintch.nav.close": {
+    "message": "關閉視窗"
+  },
+  "wintch.nav.privacy": {
+    "message": "原生設計"
+  },
+  "wintch.nav.install": {
+    "message": "安裝方式"
+  },
+  "wintch.hero.meta": {
+    "message": "{version} · macOS 14.0+ · MIT License"
+  },
+  "wintch.hero.titlePrefix": {
+    "message": "讓視窗切換，"
+  },
+  "wintch.hero.titleAccent": {
+    "message": "更加直覺。"
+  },
+  "wintch.hero.subtitle": {
+    "message": "Wintch（Window + Switch）是一款專為 macOS 打造的簡潔輕量視窗切換器與搜尋啟動器，彌補 macOS 內建 Command + Tab 的不足，讓你能瞬間切換至同一應用程式的各個獨立視窗。"
+  },
+  "wintch.cta.download": {
+    "message": "下載 ({version})"
+  },
+  "wintch.cta.copyBrewAria": {
+    "message": "複製 Homebrew 安裝指令：brew install --cask sawarame/tap/wintch"
+  },
+  "wintch.copy.copied": {
+    "message": "已複製"
+  },
+  "wintch.copy.hint": {
+    "message": "點擊複製指令"
+  },
+  "wintch.showcase.tablistLabel": {
+    "message": "Wintch 預覽模式"
+  },
+  "wintch.showcase.tab.switcher": {
+    "message": "一般切換器"
+  },
+  "wintch.showcase.tab.launcher": {
+    "message": "搜尋啟動器"
+  },
+  "wintch.showcase.tab.settings": {
+    "message": "設定與權限"
+  },
+  "wintch.showcase.allClosed": {
+    "message": "已關閉所有示範視窗"
+  },
+  "wintch.showcase.reset": {
+    "message": "重設示範"
+  },
+  "wintch.showcase.btn.prev": {
+    "message": "上一個"
+  },
+  "wintch.showcase.btn.next": {
+    "message": "下一個"
+  },
+  "wintch.showcase.btn.close": {
+    "message": "關閉"
+  },
+  "wintch.showcase.feedback.closedWindow": {
+    "message": "已關閉「{appName} — {title}」"
+  },
+  "wintch.showcase.feedback.switchWindow": {
+    "message": "已切換至「{appName} — {title}」"
+  },
+  "wintch.showcase.feedback.launchApp": {
+    "message": "已啟動「{appName}」"
+  },
+  "wintch.showcase.searchPlaceholder": {
+    "message": "依應用程式名稱或視窗標題搜尋（例：saf、note、code）"
+  },
+  "wintch.showcase.searchAria": {
+    "message": "搜尋啟動器示範輸入欄"
+  },
+  "wintch.showcase.clearQuery": {
+    "message": "清除搜尋"
+  },
+  "wintch.showcase.noOpenWindows": {
+    "message": "沒有開啟中的視窗（輸入應用程式名稱即可啟動）"
+  },
+  "wintch.showcase.noMatchingApps": {
+    "message": "找不到符合的應用程式"
+  },
+  "wintch.showcase.noMatch": {
+    "message": "找不到符合的視窗或應用程式"
+  },
+  "wintch.showcase.launchHeaderNoWin": {
+    "message": "找不到符合的視窗，改為啟動應用程式"
+  },
+  "wintch.showcase.launchHeader": {
+    "message": "啟動應用程式"
+  },
+  "wintch.showcase.launchBadge": {
+    "message": "啟動"
+  },
+  "wintch.showcase.tryQuery": {
+    "message": "試試看："
+  },
+  "wintch.showcase.allMru": {
+    "message": "空白 (MRU)"
+  },
+  "wintch.showcase.settings.title": {
+    "message": "Wintch 設定"
+  },
+  "wintch.showcase.settings.normalSection": {
+    "message": "一般切換器（長按式）"
+  },
+  "wintch.showcase.settings.launcherSection": {
+    "message": "搜尋啟動器（切換開關式）"
+  },
+  "wintch.showcase.settings.shortcut": {
+    "message": "啟動快捷鍵"
+  },
+  "wintch.showcase.settings.reverse": {
+    "message": "反向移動"
+  },
+  "wintch.showcase.settings.generalAndPerm": {
+    "message": "一般與系統權限"
+  },
+  "wintch.showcase.settings.launchAtLogin": {
+    "message": "登入時自動啟動"
+  },
+  "wintch.showcase.settings.accessibility": {
+    "message": "輔助使用權限"
+  },
+  "wintch.showcase.settings.screenRecording": {
+    "message": "螢幕錄製權限（選用）"
+  },
+  "wintch.showcase.settings.displayStyle": {
+    "message": "顯示樣式"
+  },
+  "wintch.showcase.settings.displayStyleNote": {
+    "message": "預設為清單樣式。選擇擷取格狀後，將以卡片格狀預覽各視窗的縮圖。"
+  },
+  "wintch.showcase.styleToggleAria": {
+    "message": "切換顯示樣式"
+  },
+  "wintch.showcase.style.list": {
+    "message": "清單"
+  },
+  "wintch.showcase.style.capture": {
+    "message": "擷取格狀"
+  },
+  "wintch.showcase.settings.granted": {
+    "message": "已授權"
+  },
+  "wintch.feature1.eyebrow": {
+    "message": "視窗切換器 (⌥ + Tab)"
+  },
+  "wintch.feature1.titlePrefix": {
+    "message": "以視窗為單位切換，"
+  },
+  "wintch.feature1.titleAccent": {
+    "message": "不再迷失。"
+  },
+  "wintch.feature1.desc": {
+    "message": "相較於 macOS 的 Command + Tab 只能以應用程式為單位切換，Wintch 會逐一列出所有開啟中的視窗，並依最近使用順序（MRU）排序，即使同一個應用程式開啟多個視窗，也能精準切換到想要的視窗。"
+  },
+  "wintch.feature1.b1": {
+    "message": "只需輕按並放開 Option + Tab，即可立即跳回上一個視窗"
+  },
+  "wintch.feature1.b2": {
+    "message": "按住修飾鍵即可用 Tab / Shift+Tab 或方向鍵循環切換，放開即可確認"
+  },
+  "wintch.feature1.b3": {
+    "message": "可在設定中自由自訂顯示樣式（清單 / 擷取格狀）與快捷鍵"
+  },
+  "wintch.featureCapture.eyebrow": {
+    "message": "擷取格狀檢視"
+  },
+  "wintch.featureCapture.titlePrefix": {
+    "message": "挑選視窗，"
+  },
+  "wintch.featureCapture.titleAccent": {
+    "message": "一眼就能辨識。"
+  },
+  "wintch.featureCapture.desc": {
+    "message": "在設定中將視窗切換器的顯示樣式改為「擷取格狀」，即可像 Windows 的 Alt + Tab 一樣以卡片格狀檢視即時視窗縮圖，輕鬆辨識同一應用程式的多個視窗。"
+  },
+  "wintch.featureCapture.b1": {
+    "message": "按下快捷鍵後立即顯示，並以非同步方式即時更新最新視窗擷取畫面"
+  },
+  "wintch.featureCapture.b2": {
+    "message": "可使用方向鍵（↑/↓/←/→）或 ⌥ + Tab 在格狀中移動、直接點擊卡片，或按 ⌥ + Q 關閉"
+  },
+  "wintch.featureCapture.b3": {
+    "message": "螢幕錄製權限僅在啟用擷取格狀時才需選擇性授權（預設的清單模式完全不需要）"
+  },
+  "wintch.feature2.eyebrow": {
+    "message": "搜尋啟動器 (⌥ + Space)"
+  },
+  "wintch.feature2.titlePrefix": {
+    "message": "搜尋與啟動應用程式，"
+  },
+  "wintch.feature2.titleAccent": {
+    "message": "集中於單一面板。"
+  },
+  "wintch.feature2.desc": {
+    "message": "當開啟大量視窗時，可喚出搜尋啟動器。支援以空格分隔的 AND 模糊搜尋，依應用程式名稱或視窗標題快速篩選，也能直接從下方區塊啟動尚未開啟的應用程式。"
+  },
+  "wintch.feature2.b1": {
+    "message": "即時以粗體與強調色標示符合的字元"
+  },
+  "wintch.feature2.b2": {
+    "message": "即使沒有開啟任何視窗也能啟動，並支援同時以本地化名稱與英文名稱搜尋應用程式（例如 備忘錄 / Notes）"
+  },
+  "wintch.feature2.b3": {
+    "message": "搜尋時可使用 ↑ / ↓、Ctrl + N / P，甚至 ⌥ + Tab 流暢移動選擇"
+  },
+  "wintch.feature3.eyebrow": {
+    "message": "關閉視窗（⌥ + Q）"
+  },
+  "wintch.feature3.titlePrefix": {
+    "message": "整理視窗，"
+  },
+  "wintch.feature3.titleAccent": {
+    "message": "在清單中就能直接完成。"
+  },
+  "wintch.feature3.desc": {
+    "message": "無需為了關閉視窗而先切換過去。只需在切換器或啟動器中選取任一視窗，並按下修飾鍵 + Q（預設為 ⌥ + Q），即可當場關閉。"
+  },
+  "wintch.feature3.b1": {
+    "message": "在視窗切換器與搜尋啟動器中皆可使用相同的 ⌥ + Q 快捷鍵"
+  },
+  "wintch.feature3.b2": {
+    "message": "可連續關閉多個不需要的視窗——即使關閉最後一個視窗，面板仍會保持開啟，方便立即啟動其他應用程式"
+  },
+  "wintch.feature3.b3": {
+    "message": "絕不強制結束或捨棄未儲存的工作，會尊重標準的儲存確認對話框"
+  },
+  "wintch.feature4.eyebrow": {
+    "message": "原生輕量"
+  },
+  "wintch.feature4.titlePrefix": {
+    "message": "原生打造，"
+  },
+  "wintch.feature4.titleAccent": {
+    "message": "輕快又簡潔。"
+  },
+  "wintch.feature4.desc": {
+    "message": "採用 Swift 6.0 與 SwiftUI 搭配標準 Apple 框架開發，零第三方相依套件，讓日常視窗切換保持快速、俐落又穩定。"
+  },
+  "wintch.feature4.b1": {
+    "message": "同時支援 Apple Silicon 與 Intel Mac 的 Universal Binary"
+  },
+  "wintch.feature4.b2": {
+    "message": "100% 本機執行，完全不發送外部連線或進行追蹤（擷取畫面僅暫存於記憶體快取）"
+  },
+  "wintch.feature4.b3": {
+    "message": "安靜常駐於選單列（LSUIElement），不佔用 Dock 空間"
+  },
+  "wintch.visual.switcher.beforeLabel": {
+    "message": "內建 Command + Tab（以應用程式為單位）"
+  },
+  "wintch.visual.launchSection": {
+    "message": "啟動應用程式"
+  },
+  "wintch.visual.notesApp": {
+    "message": "備忘錄"
+  },
+  "wintch.visual.capture.badge": {
+    "message": "擷取格狀"
+  },
+  "wintch.visual.capture.headline": {
+    "message": "以卡片預覽視窗內容"
+  },
+  "wintch.visual.capture.note": {
+    "message": "擷取畫面僅保留於記憶體暫存快取中，不會儲存至磁碟或傳送至外部"
+  },
+  "wintch.visual.close.headline": {
+    "message": "當場關閉選取的視窗"
+  },
+  "wintch.visual.close.safeNote": {
+    "message": "若有未儲存的變更，會尊重應用程式標準的確認對話框"
+  },
+  "wintch.visual.arch.swiftTitle": {
+    "message": "Swift 6.0 + SwiftUI"
+  },
+  "wintch.visual.arch.swiftStatus": {
+    "message": "原生 Universal Binary（Apple Silicon / Intel）"
+  },
+  "wintch.visual.arch.localTitle": {
+    "message": "100% 本機執行"
+  },
+  "wintch.visual.arch.localStatus": {
+    "message": "零外部連線、零追蹤"
+  },
+  "wintch.visual.arch.menuBarTitle": {
+    "message": "常駐選單列"
+  },
+  "wintch.visual.arch.menuBarStatus": {
+    "message": "安靜常駐於選單列，不佔用 Dock"
+  },
+  "wintch.visual.arch.axTitle": {
+    "message": "輔助使用權限"
+  },
+  "wintch.visual.arch.axStatus": {
+    "message": "用於偵測快捷鍵與切換視窗（螢幕錄製僅於啟用擷取格狀時選用）"
+  },
+  "wintch.shortcuts.eyebrow": {
+    "message": "鍵盤操作"
+  },
+  "wintch.shortcuts.title": {
+    "message": "預設快捷鍵一覽"
+  },
+  "wintch.shortcuts.subtitle": {
+    "message": "以下為預設按鍵配置。隨時可在設定畫面（⌘ + ,）自由自訂啟動快捷鍵。"
+  },
+  "wintch.shortcuts.scope.normal": {
+    "message": "切換器"
+  },
+  "wintch.shortcuts.scope.launcher": {
+    "message": "啟動器"
+  },
+  "wintch.shortcuts.scope.both": {
+    "message": "共用"
+  },
+  "wintch.shortcuts.desc.normalNext": {
+    "message": "按住開啟切換器並切換至下一個視窗（放開修飾鍵即可確認）"
+  },
+  "wintch.shortcuts.desc.normalPrev": {
+    "message": "反向選取上一個視窗"
+  },
+  "wintch.shortcuts.desc.launcherToggle": {
+    "message": "開啟或關閉搜尋啟動器"
+  },
+  "wintch.shortcuts.desc.navigate": {
+    "message": "使用方向鍵在清單項目或擷取格狀中移動（在搜尋啟動器中也可使用 ⌥ + Tab）"
+  },
+  "wintch.shortcuts.desc.close": {
+    "message": "關閉選取的視窗"
+  },
+  "wintch.shortcuts.desc.confirmCancel": {
+    "message": "按 Enter 確認切換或啟動；按 Esc 取消且不切換"
+  },
+  "wintch.install.eyebrow": {
+    "message": "安裝"
+  },
+  "wintch.install.title": {
+    "message": "安裝與初始設定"
+  },
+  "wintch.install.subtitle": {
+    "message": "可透過 Homebrew Cask 或 GitHub Releases 的 ZIP 檔快速安裝，均已通過 Developer ID 簽章與 Apple 公證。"
+  },
+  "wintch.install.brew.badge": {
+    "message": "推薦"
+  },
+  "wintch.install.brew.title": {
+    "message": "透過 Homebrew 安裝"
+  },
+  "wintch.install.brew.desc": {
+    "message": "在終端機執行以下指令，即可一次完成新增 Tap 與安裝 Wintch。"
+  },
+  "wintch.install.brew.upgradeLabel": {
+    "message": "更新至最新版本"
+  },
+  "wintch.install.brew.uninstallLabel": {
+    "message": "解除安裝（加上 --zap 可一併刪除設定）"
+  },
+  "wintch.install.manual.title": {
+    "message": "從 GitHub Releases 手動安裝"
+  },
+  "wintch.install.manual.desc": {
+    "message": "若不使用 Homebrew，可直接從發布頁面下載應用程式檔案安裝。"
+  },
+  "wintch.install.manual.step1": {
+    "message": "從 GitHub Releases 頁面下載最新的 Wintch-vX.Y.Z.zip 並解壓縮。"
+  },
+  "wintch.install.manual.step2": {
+    "message": "將解壓縮後的 Wintch.app 移至 /Applications（應用程式）資料夾並啟動。"
+  },
+  "wintch.install.manual.step3": {
+    "message": "依照首次啟動時的提示，前往「系統設定 ＞ 隱私權與安全性 ＞ 輔助使用」允許 Wintch。"
+  },
+  "wintch.install.manual.notarized": {
+    "message": "發布版本已完成 Developer ID 簽章與 Apple 公證，一般啟動時不會顯示 Gatekeeper 警告。"
+  },
+  "wintch.install.manual.button": {
+    "message": "開啟 GitHub Releases"
+  },
+  "wintch.specs.osLabel": {
+    "message": "支援系統 / 架構"
+  },
+  "wintch.specs.osValue": {
+    "message": "macOS 14.0 (Sonoma) 以上 · Apple Silicon / Intel"
+  },
+  "wintch.specs.permLabel": {
+    "message": "所需權限"
+  },
+  "wintch.specs.permValue": {
+    "message": "輔助使用（螢幕錄製僅於啟用擷取格狀時選用）"
+  },
+  "wintch.specs.licenseLabel": {
+    "message": "授權條款 / 技術棧"
+  },
+  "wintch.specs.licenseValue": {
+    "message": "MIT License · Swift 6.0 / SwiftUI"
+  },
+  "wintch.bottomCta.title": {
+    "message": "讓視窗切換的煩躁感歸零。"
+  },
+  "wintch.bottomCta.desc": {
+    "message": "免費且以 MIT License 開源釋出。"
+  },
+  "wintch.topControls.languageAria": {
+    "message": "切換語言"
+  },
+  "wintch.topControls.menuAria": {
+    "message": "可用語言列表"
+  },
+  "nickmark.page.title": {
+    "message": "Nickmark | 鍵盤優先書籤啟動器 Chrome 擴充功能"
+  },
+  "nickmark.page.description": {
+    "message": "介紹鍵盤操作導向的 Chrome 擴充功能「Nickmark」，具備指令面板、動態 URL（%s）、資料夾批次開啟、書籤小工具執行與指數衰減排序功能。"
+  },
+  "nickmark.nav.ariaLabel": {
+    "message": "頁內導覽"
+  },
+  "nickmark.nav.palette": {
+    "message": "指令面板"
+  },
+  "nickmark.nav.dynamic": {
+    "message": "動態 URL 與 JS"
+  },
+  "nickmark.nav.folders": {
+    "message": "資料夾批次開啟"
+  },
+  "nickmark.nav.dashboard": {
+    "message": "排序與管理面板"
+  },
+  "nickmark.nav.privacy": {
+    "message": "同步與隱私"
+  },
+  "nickmark.nav.commands": {
+    "message": "指令"
+  },
+  "nickmark.nav.install": {
+    "message": "安裝"
+  },
+  "nickmark.hero.meta": {
+    "message": "v2.1.0 · Chrome 135+ · MIT License"
+  },
+  "nickmark.hero.titlePrefix": {
+    "message": "開啟書籤，"
+  },
+  "nickmark.hero.titleAccent": {
+    "message": "只靠鍵盤極速直達。"
+  },
+  "nickmark.hero.subtitle": {
+    "message": "Nickmark 是專為希望減少滑鼠移動的工程師與進階使用者打造的 Chrome 擴充功能。為常用網頁、搜尋範本（%s）、資料夾群組與書籤小工具指派簡短暱稱，即可從指令面板瞬間開啟。"
+  },
+  "nickmark.cta.store": {
+    "message": "從 Chrome Web Store 加入"
+  },
+  "nickmark.cta.docs": {
+    "message": "查看使用文件"
+  },
+  "nickmark.showcase.presetsLabel": {
+    "message": "輸入範例："
+  },
+  "nickmark.showcase.placeholder": {
+    "message": "搜尋暱稱，或輸入 :add / ;add / :rm ..."
+  },
+  "nickmark.showcase.inputAria": {
+    "message": "Nickmark 指令面板示範輸入欄"
+  },
+  "nickmark.showcase.clear": {
+    "message": "清除輸入"
+  },
+  "nickmark.showcase.noMatch": {
+    "message": "找不到相符的項目。"
+  },
+  "nickmark.showcase.nextTip": {
+    "message": "點擊顯示下一個提示"
+  },
+  "nickmark.showcase.tip1": {
+    "message": "執行 :add <name>（或 ;add / :a）即可立即將目前分頁加入書籤。"
+  },
+  "nickmark.showcase.tip2": {
+    "message": "輸入 folder/（例如 work/）並按 Enter，即可批次開啟該資料夾下的所有書籤。"
+  },
+  "nickmark.showcase.tip3": {
+    "message": "在 URL 中加入 %s 即可直接傳入參數，例如「nickname query」。"
+  },
+  "nickmark.showcase.tip4": {
+    "message": "按 Shift+Enter 可在不關閉面板的情況下開啟多個背景分頁，按 Cmd/Ctrl+Enter 則在新的前景分頁開啟。"
+  },
+  "nickmark.showcase.browser.tabsAria": {
+    "message": "示範瀏覽器分頁列表"
+  },
+  "nickmark.showcase.browser.closeTabAria": {
+    "message": "關閉分頁"
+  },
+  "nickmark.showcase.browser.reset": {
+    "message": "重設分頁"
+  },
+  "nickmark.showcase.hint.current": {
+    "message": "於目前分頁開啟"
+  },
+  "nickmark.showcase.hint.newTab": {
+    "message": "於新分頁開啟"
+  },
+  "nickmark.showcase.hint.bgTab": {
+    "message": "背景連續開啟"
+  },
+  "nickmark.showcase.feedback.added": {
+    "message": "已將「{nickname}」加入示範清單"
+  },
+  "nickmark.showcase.feedback.removed": {
+    "message": "已從示範清單移除「{nickname}」"
+  },
+  "nickmark.showcase.feedback.forbidden": {
+    "message": "暱稱包含不可使用的字元（空白、: ; \\ % ? # & = * \" ' ` < > | 等）。"
+  },
+  "nickmark.showcase.alreadyBookmarked": {
+    "message": "此頁面已加入書籤（暱稱：{nicknames}）"
+  },
+  "nickmark.showcase.feedback.command": {
+    "message": "已執行指令 {cmd}"
+  },
+  "nickmark.showcase.feedback.bookmarklet": {
+    "message": "已透過 userScripts API（MAIN world）在目前分頁執行書籤小工具"
+  },
+  "nickmark.feature1.eyebrow": {
+    "message": "指令面板（⌥⇧D / Alt+⇧D）"
+  },
+  "nickmark.feature1.titlePrefix": {
+    "message": "隨時隨地啟動，"
+  },
+  "nickmark.feature1.titleAccent": {
+    "message": "不打斷工作節奏。"
+  },
+  "nickmark.feature1.desc": {
+    "message": "在任何分頁按下 Option + Shift + D（Windows/Linux 為 Alt + Shift + D）即可喚出指令面板。跨暱稱、標題與 URL 快速搜尋，並直接透過 Enter 組合鍵決定分頁開啟方式。"
+  },
+  "nickmark.feature1.b1": {
+    "message": "使用 ↑ / ↓ 或 Ctrl + N / P 移動選項，按 Tab 自動完成，並避免輸入法（IME）組字時誤觸送出"
+  },
+  "nickmark.feature1.b2": {
+    "message": "按 Enter 在目前分頁開啟，Cmd/Ctrl/Alt + Enter 在新分頁開啟，Shift + Enter 則可連續在背景分頁開啟"
+  },
+  "nickmark.feature1.b3": {
+    "message": "也可透過工具列圖示開啟，並支援以「:」或「;」前綴直接切換至指令模式"
+  },
+  "nickmark.feature2.eyebrow": {
+    "message": "動態 URL（%s）、預設項目與書籤小工具"
+  },
+  "nickmark.feature2.titlePrefix": {
+    "message": "參數與指令碼，"
+  },
+  "nickmark.feature2.titleAccent": {
+    "message": "一次到位執行。"
+  },
+  "nickmark.feature2.desc": {
+    "message": "在任何 URL 中嵌入 %s，即可建立如「gh sawarame/Nickmark」般的即時搜尋快捷方式。可在偏好設定中勾選啟用 18 個內建預設項目（15 個搜尋引擎與 3 個書籤小工具），或註冊 javascript: 書籤小工具於目前分頁安全執行。"
+  },
+  "nickmark.feature2.b1": {
+    "message": "自動保留路徑區段中的斜線並對查詢參數進行 URL 編碼，同時支援選用的預設值或來源網址備援"
+  },
+  "nickmark.feature2.b2": {
+    "message": "透過 Chrome 135+ 的 userScripts API，直接在目前分頁的 MAIN world 中執行 javascript: 書籤小工具"
+  },
+  "nickmark.feature2.b3": {
+    "message": "可選擇性啟用瀏覽器歷史紀錄搜尋，在書籤結果下方顯示去重後的歷史紀錄相符項目，且不影響書籤評分"
+  },
+  "nickmark.feature3.eyebrow": {
+    "message": "資料夾與批次開啟"
+  },
+  "nickmark.feature3.titlePrefix": {
+    "message": "斜線分隔資料夾，"
+  },
+  "nickmark.feature3.titleAccent": {
+    "message": "一鍵啟動整個工作區。"
+  },
+  "nickmark.feature3.desc": {
+    "message": "使用如 work/mail、work/docs 的斜線命名方式，即可自動將暱稱歸類至資料夾。輸入「work/」並按下 Enter，就能在背景分頁一次開啟裡面的所有書籤。"
+  },
+  "nickmark.feature3.b1": {
+    "message": "支援中間層資料夾比對（例如以「repo/」比對「github/repo」），自動去除重複 URL 並略過 javascript: 書籤小工具"
+  },
+  "nickmark.feature3.b2": {
+    "message": "當資料夾內的書籤數超過自訂安全上限（1–100 個分頁，預設 20）時，會顯示確認提示"
+  },
+  "nickmark.feature3.b3": {
+    "message": "直接從管理面板篩選、批次開啟、重新命名或刪除整個資料夾"
+  },
+  "nickmark.feature4.eyebrow": {
+    "message": "智慧排序與管理面板"
+  },
+  "nickmark.feature4.titlePrefix": {
+    "message": "貼合使用習慣，"
+  },
+  "nickmark.feature4.titleAccent": {
+    "message": "維護毫不費力。"
+  },
+  "nickmark.feature4.desc": {
+    "message": "透過指數衰減評分搭配手動釘選，讓最常用的書籤始終置頂。在管理面板（:ls）中，點擊任意儲存格即可行內編輯，或輕鬆匯入現有的 Chrome 書籤。"
+  },
+  "nickmark.feature4.b1": {
+    "message": "結合時間衰減評分（0.95^elapsedDays）與釘選功能，隨著日常工作流程變化自動調整排序"
+  },
+  "nickmark.feature4.b2": {
+    "message": "點擊任意儲存格即可行內編輯（按 Enter 或移開焦點儲存、Esc 取消），並支援逐欄 AND 篩選與依評分／日期排序"
+  },
+  "nickmark.feature4.b3": {
+    "message": "支援匯入 Chrome 書籤 HTML 與 Nickmark JSON（合併／覆寫／指定目標資料夾），並內建 JSON 編輯器"
+  },
+  "nickmark.feature5.eyebrow": {
+    "message": "隱私優先與同步"
+  },
+  "nickmark.feature5.titlePrefix": {
+    "message": "零外部伺服器，"
+  },
+  "nickmark.feature5.titleAccent": {
+    "message": "本機儲存或同步任您選擇。"
+  },
+  "nickmark.feature5.desc": {
+    "message": "無外部伺服器、無遙測、無追蹤。隨時在無上限本機儲存與個人 Chrome 帳戶同步間切換，並支援免重新載入的即時英／日介面切換。"
+  },
+  "nickmark.feature5.b1": {
+    "message": "可自由選擇無容量限制的 chrome.storage.local 或 chrome.storage.sync（100KB 上限，支援自動 8KB 分塊）"
+  },
+  "nickmark.feature5.b2": {
+    "message": "切換同步模式時會顯示比對與衝突解決對話框，比較本機與雲端的時間戳記與項目數量"
+  },
+  "nickmark.feature5.b3": {
+    "message": "瀏覽器歷史紀錄權限為嚴格選用（optional_permissions），除非您主動啟用，否則絕不會要求授權"
+  },
+  "nickmark.visual.palette.headline": {
+    "message": "在任何分頁瞬間喚出"
+  },
+  "nickmark.visual.palette.curTab": {
+    "message": "目前分頁"
+  },
+  "nickmark.visual.palette.newTab": {
+    "message": "新分頁"
+  },
+  "nickmark.visual.palette.bgTab": {
+    "message": "背景連續開啟"
+  },
+  "nickmark.visual.dynamic.bmlTitle": {
+    "message": "透過 userScripts API（MAIN world）直接執行"
+  },
+  "nickmark.visual.folder.count": {
+    "message": "一次開啟 3 個分頁"
+  },
+  "nickmark.visual.folder.safeNote": {
+    "message": "自動去除重複 URL・超過安全上限（1–100 筆，預設 20 筆）時顯示確認對話框"
+  },
+  "nickmark.visual.rank.formulaLabel": {
+    "message": "指數衰減分數"
+  },
+  "nickmark.visual.rank.inline": {
+    "message": "行內編輯與欄位篩選"
+  },
+  "nickmark.visual.rank.import": {
+    "message": "匯入 Chrome HTML / JSON"
+  },
+  "nickmark.visual.rank.json": {
+    "message": "JSON 編輯器與排序"
+  },
+  "nickmark.visual.arch.localTitle": {
+    "message": "零外部伺服器與零追蹤"
+  },
+  "nickmark.visual.arch.localStatus": {
+    "message": "書籤嚴格保存在本機瀏覽器儲存空間或您的個人 Chrome 同步帳戶中"
+  },
+  "nickmark.visual.arch.syncTitle": {
+    "message": "無上限本機儲存與 Chrome 帳戶同步"
+  },
+  "nickmark.visual.arch.syncStatus": {
+    "message": "在 100KB 同步配額內自動以 8KB 分塊並提供衝突解決機制"
+  },
+  "nickmark.visual.arch.historyTitle": {
+    "message": "選擇性歷史紀錄搜尋（optional_permissions）"
+  },
+  "nickmark.visual.arch.historyStatus": {
+    "message": "除非在偏好設定中明確啟用，否則絕不會要求存取瀏覽紀錄"
+  },
+  "nickmark.visual.arch.i18nTitle": {
+    "message": "雙語介面與 MIT 開源授權"
+  },
+  "nickmark.visual.arch.i18nStatus": {
+    "message": "支援英／日即時切換，以 TypeScript / Vue 3 / PrimeVue 建置"
+  },
+  "nickmark.ref.eyebrow": {
+    "message": "指令與快捷鍵"
+  },
+  "nickmark.ref.title": {
+    "message": "鍵盤操作參考"
+  },
+  "nickmark.ref.subtitle": {
+    "message": "在指令面板中只要以冒號「:」或分號「;」開頭，就能一次完成註冊、批次開啟、移除或開啟管理畫面。"
+  },
+  "nickmark.commands.heading": {
+    "message": "內建指令一覽"
+  },
+  "nickmark.commands.add": {
+    "message": "儲存目前分頁、自訂 URL 或 javascript: 書籤小工具"
+  },
+  "nickmark.commands.addall": {
+    "message": "儲存目前視窗中所有已開啟的分頁"
+  },
+  "nickmark.commands.rm": {
+    "message": "移除暱稱或指定的 URL 項目"
+  },
+  "nickmark.commands.ls": {
+    "message": "開啟書籤管理與行內編輯儀表板"
+  },
+  "nickmark.commands.prefs": {
+    "message": "開啟偏好設定（同步、語言、分頁行為、歷史紀錄、18 種預設範本、批次上限）"
+  },
+  "nickmark.commands.help": {
+    "message": "開啟線上說明文件"
+  },
+  "nickmark.shortcuts.heading": {
+    "message": "鍵盤快捷鍵一覽"
+  },
+  "nickmark.shortcuts.scope.global": {
+    "message": "啟動"
+  },
+  "nickmark.shortcuts.scope.palette": {
+    "message": "面板"
+  },
+  "nickmark.shortcuts.scope.action": {
+    "message": "操作"
+  },
+  "nickmark.shortcuts.desc.launch": {
+    "message": "隨時隨地開啟指令面板（可於 chrome://extensions/shortcuts 自訂）"
+  },
+  "nickmark.shortcuts.desc.navigate": {
+    "message": "在建議清單中上下移動選取項目"
+  },
+  "nickmark.shortcuts.desc.autocomplete": {
+    "message": "將選取的暱稱、資料夾路徑或指令自動填入輸入欄"
+  },
+  "nickmark.shortcuts.desc.esc": {
+    "message": "不執行任何動作並關閉指令面板"
+  },
+  "nickmark.shortcuts.desc.enter": {
+    "message": "在目前分頁開啟（或執行書籤小工具／指令）"
+  },
+  "nickmark.shortcuts.desc.newTab": {
+    "message": "在新的前景分頁開啟"
+  },
+  "nickmark.shortcuts.desc.bgTab": {
+    "message": "在背景分頁開啟，同時保持指令面板開啟"
+  },
+  "nickmark.install.eyebrow": {
+    "message": "安裝方式"
+  },
+  "nickmark.install.title": {
+    "message": "安裝方式與快速上手"
+  },
+  "nickmark.install.subtitle": {
+    "message": "可從 Chrome Web Store 一鍵安裝，也能直接從開源的 GitHub 儲存庫建置並載入。"
+  },
+  "nickmark.install.store.badge": {
+    "message": "推薦"
+  },
+  "nickmark.install.store.title": {
+    "message": "從 Chrome Web Store 安裝"
+  },
+  "nickmark.install.store.desc": {
+    "message": "從商店加入後，只需以下 4 個步驟即可立刻開始使用。"
+  },
+  "nickmark.install.store.step1": {
+    "message": "開啟您經常造訪的網頁。"
+  },
+  "nickmark.install.store.step2": {
+    "message": "按下 Option + Shift + D（Windows / Linux 為 Alt + Shift + D）開啟指令面板。"
+  },
+  "nickmark.install.store.step3": {
+    "message": "輸入「:add gh」（或「;add gh」）並按下 Enter，即可將目前分頁以暱稱「gh」儲存。"
+  },
+  "nickmark.install.store.step4": {
+    "message": "下次只需開啟面板、輸入「gh」並按 Enter，就能瞬間跳轉至該頁面。"
+  },
+  "nickmark.install.store.userscriptsNote": {
+    "message": "若要使用 javascript: 書籤小工具，請在 Chrome 的擴充功能詳細資料頁面（chrome://extensions）中啟用「允許使用者指令碼」。"
+  },
+  "nickmark.install.store.button": {
+    "message": "開啟 Chrome Web Store"
+  },
+  "nickmark.install.dev.title": {
+    "message": "從 GitHub 原始碼建置並載入"
+  },
+  "nickmark.install.dev.desc": {
+    "message": "以 MIT License 開源釋出，在本地建置與自訂也非常簡單。"
+  },
+  "nickmark.install.dev.cloneLabel": {
+    "message": "複製儲存庫"
+  },
+  "nickmark.install.dev.buildLabel": {
+    "message": "安裝相依套件並建置"
+  },
+  "nickmark.install.dev.step1": {
+    "message": "在 Chrome 開啟 chrome://extensions，並啟用右上角的「開發人員模式」。"
+  },
+  "nickmark.install.dev.step2": {
+    "message": "點擊「載入未封裝項目」，選擇建置完成的 package/ 目錄。"
+  },
+  "nickmark.install.dev.button": {
+    "message": "檢視 GitHub 儲存庫"
+  },
+  "nickmark.specs.browserLabel": {
+    "message": "支援瀏覽器 / 規格"
+  },
+  "nickmark.specs.browserValue": {
+    "message": "Google Chrome 135 以上 · Manifest V3"
+  },
+  "nickmark.specs.permLabel": {
+    "message": "隱私 / 權限"
+  },
+  "nickmark.specs.permValue": {
+    "message": "零外部傳送 · 選擇性啟用歷史紀錄存取"
+  },
+  "nickmark.specs.licenseLabel": {
+    "message": "授權條款 / 技術架構"
+  },
+  "nickmark.specs.licenseValue": {
+    "message": "MIT License · TypeScript / Vue 3 / PrimeVue"
+  },
+  "nickmark.bottomCta.title": {
+    "message": "讓翻找書籤的時間歸零。"
+  },
+  "nickmark.bottomCta.desc": {
+    "message": "以 MIT License 免費開源發布。立即前往 Chrome Web Store 安裝使用。"
+  },
+  "benchmark.gfx.rank.a": {
+    "message": "流暢。即使是有豐富視覺效果的網站也能順暢運作"
+  },
+  "benchmark.gfx.rank.b": {
+    "message": "實用。對一般動畫與畫面繪製具備充足效能"
+  },
+  "benchmark.gfx.rank.c": {
+    "message": "標準。具備足以應付一般網頁瀏覽的繪圖效能"
+  },
+  "benchmark.gfx.rank.d": {
+    "message": "基本。在繁重的繪圖處理時可能會感到卡頓"
+  },
+  "benchmark.gfx.rank.e": {
+    "message": "偏慢。繪圖效能略顯不足，視覺效果可能會出現延遲"
+  },
+  "benchmark.gfx.rank.f": {
+    "message": "運作困難。不適合顯示動畫或豐富的 UI 介面"
+  },
+  "benchmark.gfx.rank.s": {
+    "message": "頂級水準。再複雜的繪圖與動畫都極為滑順"
+  },
+  "benchmark.modal.gfx": {
+    "message": "繪圖："
+  },
+  "benchmark.progress.graphics": {
+    "message": "正在測試繪圖效能..."
+  },
+  "benchmark.progress.graphicsPreparing": {
+    "message": "正在準備繪圖效能測試..."
+  },
+  "benchmark.share.gfx": {
+    "message": "圖形處理:"
+  },
+  "benchmark.ui.graphics": {
+    "message": "繪圖效能 (Canvas & DOM)"
+  },
+  "common.copyLabel": {
+    "message": "複製{label}"
+  },
+  "common.decrease": {
+    "message": "減少"
+  },
+  "common.increase": {
+    "message": "增加"
+  },
+  "common.reset": {
+    "message": "清除"
+  },
+  "date.input.calendar": {
+    "message": "開啟月曆"
+  },
+  "diff.tooltip.split": {
+    "message": "雙欄顯示"
+  },
+  "encoding.upload.dropLabel": {
+    "message": "點擊、拖放或貼上以選擇"
+  },
+  "encoding.upload.formats": {
+    "message": "支援格式：.txt, .csv, .log, .md, .json 等"
+  },
+  "exif.result.changeFormatLink": {
+    "message": "可以變更圖片格式"
+  },
+  "exif.result.noExifData": {
+    "message": "此圖片不包含 EXIF 資訊。"
+  },
+  "exif.result.removeExifLink": {
+    "message": "可以清除 Exif 資訊"
+  },
+  "exif.title": {
+    "message": "相片 Exif 資訊檢視器"
+  },
+  "markdownPdf.upload.dropLabel": {
+    "message": "點擊、拖放或貼上以選擇檔案"
+  },
+  "markdownPdf.upload.formats": {
+    "message": "支援格式：Markdown (.md)"
+  },
+  "markdownPdf.upload.title": {
+    "message": "選擇 Markdown 檔案"
+  },
+  "password.title": {
+    "message": "密碼產生器"
+  },
+  "pdfEditor.action.remove": {
+    "message": "刪除"
+  },
+  "pdfEditor.action.zoom": {
+    "message": "放大預覽"
+  },
+  "pdfEditor.list.pages": {
+    "message": "頁"
+  },
+  "pdfEditor.list.selected": {
+    "message": "已選取"
+  },
+  "pdfEditor.list.title": {
+    "message": "已選取的檔案"
+  },
+  "pdfEditor.pages.unit": {
+    "message": "頁已選取"
+  },
+  "pdfEditor.preview.next": {
+    "message": "下一頁"
+  },
+  "pdfEditor.preview.prev": {
+    "message": "上一頁"
+  },
+  "pdfEditor.upload.formats": {
+    "message": "支援格式：PDF"
+  },
+  "qr.input.generated": {
+    "message": "產生的字串"
+  },
+  "seo.action.fetch": {
+    "message": "擷取"
+  },
+  "seo.action.fetching": {
+    "message": "擷取中..."
+  },
+  "seo.info.desc": {
+    "message": "將由伺服器存取指定的 URL 以擷取中繼資料。※需要驗證的頁面或內部網路頁面可能無法擷取。"
+  },
+  "seo.info.title": {
+    "message": "從 URL 自動擷取"
+  },
+  "seo.security.desc.secure": {
+    "message": "貼上的 HTML 原始碼僅會在您的瀏覽器內部（本機）進行解析處理，絕不會將 URL 或 HTML 資料傳送至任何外部伺服器。即使是離線環境或公司內部的非公開網站原始碼，也能完全安心使用。"
+  },
+  "seo.security.title.secure": {
+    "message": "100% 安全的本機處理（無 CORS 限制）"
+  },
+  "seo.tab.html": {
+    "message": "貼上 HTML"
+  },
+  "seo.tab.url": {
+    "message": "從 URL 擷取"
+  },
+  "text.input.ariaLabel": {
+    "message": "文字輸入區域"
+  },
+  "tool.jsonFormatter.upload.dropLabel": {
+    "message": "點擊、拖放或貼上以選擇檔案"
+  },
+  "tool.jsonFormatter.upload.formats": {
+    "message": "支援格式：JSON、Text"
+  }
+}

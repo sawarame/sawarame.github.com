@@ -1,0 +1,31 @@
+---
+title: JSON 格式化與驗證工具
+slug: /tools/json-formatter
+sidebar_position: 17
+hide_title: true
+---
+import JsonFormatter from "@site/src/components/JsonFormatter";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { FileJson } from "lucide-react";
+
+<ToolPageHeader
+  title="JSON 格式化與驗證工具"
+  desc="即時驗證與格式化 JSON 資料，並自動產生 TypeScript 型別定義（interface）的工具"
+  icon={<FileJson size={48} color="#fff" />}
+  color1="#fbc2eb"
+  color2="#a18cd1"
+/>
+
+<JsonFormatter />
+
+## 使用方式
+
+1. 選擇檔案，或在文字區域貼上 JSON 資料。
+2. 系統會即時驗證語法；若有錯誤，將會顯示錯誤訊息。
+3. 選擇縮排寬度（2 個空格、4 個空格、Tab）並點擊「格式化」按鈕，即可整理排版。
+4. 在「樹狀檢視」分頁中，可以透過可摺疊的樹狀結構檢視資料層級。
+5. 在「TypeScript 型別定義」分頁中，可檢視自動產生的 interface，並進行複製或下載。
+
+:::info 關於安全性
+🔒 所有處理皆在瀏覽器內完成，資料絕不會傳送至任何伺服器。
+:::

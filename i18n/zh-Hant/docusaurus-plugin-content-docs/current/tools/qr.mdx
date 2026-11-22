@@ -1,0 +1,30 @@
+---
+title: QR Code 產生器
+slug: /qr
+sidebar_position: 4
+hide_title: true
+---
+
+import QrGenerator from "@site/src/components/QrGenerator";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { QrCode } from "lucide-react";
+
+<ToolPageHeader
+  title="QR Code 產生器"
+  desc="可根據網址、Wi-Fi、聯絡人等資訊產生 QR Code，並支援嵌入標誌（Logo）圖片。"
+  icon={<QrCode size={48} color="#fff" />}
+/>
+
+<QrGenerator />
+
+## 使用方式
+
+1. 選擇要建立的資訊類型（URL、Wi-Fi、聯絡人等）。
+2. 輸入必要資訊後，預覽畫面將會即時更新。
+3. 您也可以選擇在 QR Code 中央放置標誌圖片，除了使用預設圖示外，亦支援上傳自己的圖片。
+4. 選擇解析度（240px / 480px），並點擊「儲存 QR Code」下載圖片。
+5. 透過「分享」按鈕，也可將其傳送至其他應用程式或複製到剪貼簿。
+
+:::info 關於隱私保護
+🔒 您輸入的文字與標誌圖片資料全數在瀏覽器內處理，絕不會傳送至伺服器。
+:::

@@ -1,0 +1,36 @@
+---
+title: 날짜 비교 도구
+slug: /date
+sidebar_position: 13
+hide_title: true
+---
+
+import DateComparison from "@site/src/components/DateComparison";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Calendar } from "lucide-react";
+
+<ToolPageHeader
+  title="날짜 비교 도구"
+  desc="두 날짜의 차이를 계산합니다. 다양한 형식의 날짜 입력을 지원합니다."
+  icon={<Calendar size={48} color="#fff" />}
+/>
+
+import EmbedCodeSection from "@site/src/components/EmbedCodeSection";
+
+<DateComparison />
+
+## 사용 방법
+
+1. 비교하고 싶은 두 날짜를 입력합니다.
+2. 날짜 형식은 슬래시 구분(2026/01/01), 자연어 표기, Unix 타임스탬프 등 폭넓게 지원합니다.
+3. 캘린더 아이콘을 클릭하면 날짜 선택기에서 직접 날짜를 고를 수도 있습니다.
+4. "항상 현재 시각과 비교"를 체크하면 첫 번째 날짜가 자동으로 현재 시각에 고정되어 실시간으로 차이가 업데이트됩니다.
+5. 차이 결과는 "일·시·분·초" 형식과 "총 초 수" 두 가지로 표시되며, 복사 버튼으로 클립보드에 저장할 수 있습니다.
+
+:::info 개인정보 보호 안내
+🔒 입력한 날짜 데이터는 모두 브라우저 내에서 처리되며 서버로 전송되지 않습니다.
+:::
+
+## 이 도구 임베드하기
+
+<EmbedCodeSection path="/ko/embed/date" syncParams={true} />

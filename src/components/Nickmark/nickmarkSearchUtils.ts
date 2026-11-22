@@ -231,56 +231,130 @@ export function findDemoNicknamesForUrl(
 }
 
 /**
+ * Nickmark デモでサポートする表示ロケール型
+ */
+export type DemoLocale = 'ja' | 'en' | 'zh-Hans' | 'zh-Hant' | 'ko';
+
+/**
+ * Docusaurus のロケール文字列をデモ用のサポートロケールへ正規化する
+ * @param locale - 現在のロケール文字列（例: 'ja', 'en', 'zh-Hans', 'zh-Hant', 'ko'）
+ * @returns 正規化されたデモ用ロケール
+ */
+export function normalizeDemoLocale(locale: string): DemoLocale {
+  if (locale === 'ja' || locale.startsWith('ja-')) return 'ja';
+  if (locale === 'zh-Hant' || locale.startsWith('zh-TW') || locale.startsWith('zh-HK')) {
+    return 'zh-Hant';
+  }
+  if (locale === 'zh-Hans' || locale === 'zh' || locale.startsWith('zh-')) {
+    return 'zh-Hans';
+  }
+  if (locale === 'ko' || locale.startsWith('ko-')) return 'ko';
+  return 'en';
+}
+
+/**
+ * フォルダ一括オープン候補のローカライズされたタイトルを生成する
+ * @param folderPath - 対象フォルダパス
+ * @param count - フォルダ配下のタブ件数
+ * @param locale - 表示ロケール
+ * @returns ローカライズされたタイトル文字列
+ */
+function formatDemoFolderBatchTitle(folderPath: string, count: number, locale: DemoLocale): string {
+  switch (locale) {
+    case 'ja':
+      return `フォルダ「${folderPath}」を一括オープン (${count}タブ)`;
+    case 'zh-Hans':
+      return `批量打开文件夹「${folderPath}」(${count} 个标签页)`;
+    case 'zh-Hant':
+      return `批次開啟資料夾「${folderPath}」(${count} 個分頁)`;
+    case 'ko':
+      return `폴더 「${folderPath}」 일괄 열기 (${count}개 탭)`;
+    case 'en':
+    default:
+      return `Open all bookmarks in "${folderPath}" (${count} tabs)`;
+  }
+}
+
+/**
  * 組み込みコマンドの定義一覧
  */
 const DEMO_COMMANDS: Array<{
   cmd: string;
   aliases: string[];
   usage: string;
-  descJa: string;
-  descEn: string;
+  desc: Record<DemoLocale, string>;
 }> = [
   {
     cmd: ':add',
     aliases: [':a'],
     usage: ':add [nickname]',
-    descJa: '現在のタブを登録（または URL・ブックマークレットを指定）',
-    descEn: 'Save active tab (or specify URL / bookmarklet)',
+    desc: {
+      ja: '現在のタブを登録（または URL・ブックマークレットを指定）',
+      en: 'Save active tab (or specify URL / bookmarklet)',
+      'zh-Hans': '保存当前标签页（或指定 URL / 书签脚本）',
+      'zh-Hant': '儲存目前分頁（或指定 URL / 書籤小工具）',
+      ko: '현재 탭 저장 (또는 URL / 북마클릿 지정)',
+    },
   },
   {
     cmd: ':addall',
     aliases: [':aa'],
     usage: ':addall [nickname]',
-    descJa: '現在のウィンドウの全タブを一括登録',
-    descEn: 'Save all open tabs in the current window',
+    desc: {
+      ja: '現在のウィンドウの全タブを一括登録',
+      en: 'Save all open tabs in the current window',
+      'zh-Hans': '批量保存当前窗口中打开的所有标签页',
+      'zh-Hant': '批次儲存目前視窗中開啟的所有分頁',
+      ko: '현재 창에 열려 있는 모든 탭 일괄 저장',
+    },
   },
   {
     cmd: ':rm',
     aliases: [],
     usage: ':rm [nickname]',
-    descJa: 'ニックネームまたは特定の URL を削除',
-    descEn: 'Remove a nickname or a specific URL entry',
+    desc: {
+      ja: 'ニックネームまたは特定の URL を削除',
+      en: 'Remove a nickname or a specific URL entry',
+      'zh-Hans': '删除指定昵称或特定 URL 条目',
+      'zh-Hant': '刪除指定暱稱或特定 URL 項目',
+      ko: '지정한 닉네임 또는 특정 URL 항목 삭제',
+    },
   },
   {
     cmd: ':ls',
     aliases: [],
     usage: ':ls',
-    descJa: 'ブックマーク一覧・管理画面を開く',
-    descEn: 'Open the bookmark management dashboard',
+    desc: {
+      ja: 'ブックマーク一覧・管理画面を開く',
+      en: 'Open the bookmark management dashboard',
+      'zh-Hans': '打开书签列表与管理界面',
+      'zh-Hant': '開啟書籤列表與管理介面',
+      ko: '북마크 목록 및 관리 대시보드 열기',
+    },
   },
   {
     cmd: ':prefs',
     aliases: [],
     usage: ':prefs',
-    descJa: '設定画面（同期・言語・履歴検索・プリセット・上限）を開く',
-    descEn: 'Open Preferences (sync, language, history, presets, batch limit)',
+    desc: {
+      ja: '設定画面（同期・言語・履歴検索・プリセット・上限）を開く',
+      en: 'Open Preferences (sync, language, history, presets, batch limit)',
+      'zh-Hans': '打开设置界面（同步、语言、历史搜索、预设、安全上限）',
+      'zh-Hant': '開啟設定介面（同步、語言、歷史搜尋、預設集、安全上限）',
+      ko: '설정 화면 열기 (동기화, 언어, 방문 기록 검색, 프리셋, 안전 상한)',
+    },
   },
   {
     cmd: ':help',
     aliases: [],
     usage: ':help',
-    descJa: 'ヘルプ・ドキュメントを開く',
-    descEn: 'Open the documentation page',
+    desc: {
+      ja: 'ヘルプ・ドキュメントを開く',
+      en: 'Open the documentation page',
+      'zh-Hans': '打开帮助与文档页面',
+      'zh-Hant': '開啟說明與文件頁面',
+      ko: '도움말 및 문서 페이지 열기',
+    },
   },
 ];
 
@@ -288,13 +362,13 @@ const DEMO_COMMANDS: Array<{
  * 入力クエリから Nickmark コマンドパレットのデモ候補リストを生成する
  * @param rawQuery - 入力された検索/コマンド文字列
  * @param bookmarks - 現在のデモブックマーク配列
- * @param locale - 表示ロケール（'ja' または 'en'）
+ * @param locale - 表示ロケール（'ja' | 'en' | 'zh-Hans' | 'zh-Hant' | 'ko'）
  * @returns パレット候補配列
  */
 export function buildDemoPaletteItems(
   rawQuery: string,
   bookmarks: DemoBookmarkItem[],
-  locale: 'ja' | 'en' = 'ja'
+  locale: DemoLocale = 'ja'
 ): DemoSearchResult[] {
   const trimmed = rawQuery.trim();
   if (!trimmed) return [];
@@ -320,7 +394,7 @@ export function buildDemoPaletteItems(
           id: `cmd-exec-${def.cmd}`,
           badge: def.cmd,
           title: `${def.cmd} ${argText}`,
-          subtitle: locale === 'en' ? def.descEn : def.descJa,
+          subtitle: def.desc[locale],
           fillText: `${def.cmd} ${argText}`,
           executeValue: `${def.cmd} ${argText}`,
         });
@@ -330,7 +404,7 @@ export function buildDemoPaletteItems(
           id: `cmd-${def.cmd}`,
           badge: def.cmd,
           title: def.usage,
-          subtitle: locale === 'en' ? def.descEn : def.descJa,
+          subtitle: def.desc[locale],
           fillText: def.cmd === ':ls' || def.cmd === ':prefs' || def.cmd === ':help' ? def.cmd : `${def.cmd} `,
           executeValue: def.cmd === ':ls' || def.cmd === ':prefs' || def.cmd === ':help' ? def.cmd : `${def.cmd} ${argText}`.trim(),
         });
@@ -439,10 +513,7 @@ export function buildDemoPaletteItems(
         kind: 'folder',
         id: `folder-${folderPath}`,
         badge: `${folderPath}/`,
-        title:
-          locale === 'en'
-            ? `Open all bookmarks in "${folderPath}" (${count} tabs)`
-            : `フォルダ「${folderPath}」を一括オープン (${count}タブ)`,
+        title: formatDemoFolderBatchTitle(folderPath, count, locale),
         subtitle: `${folderPath}/`,
         typeTag: `📁 ${count}`,
         fillText: `${folderPath}/`,

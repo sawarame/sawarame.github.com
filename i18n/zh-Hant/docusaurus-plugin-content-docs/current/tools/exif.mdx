@@ -1,0 +1,36 @@
+---
+title: 照片 Exif 資訊檢視器
+slug: /exif
+sidebar_position: 8
+hide_title: true
+---
+
+import ExifViewer from "@site/src/components/ExifViewer";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Camera } from "lucide-react";
+import EmbedCodeSection from "@site/src/components/EmbedCodeSection";
+
+<ToolPageHeader
+  title="照片 Exif 資訊檢視器"
+  desc="從上傳的照片（JPEG 格式）中讀取相機資訊、拍攝日期時間、GPS 等中繼資料。照片不會傳送至伺服器，全部都在瀏覽器內處理，安全無虞。"
+  icon={<Camera size={48} color="#fff" />}
+/>
+
+<ExifViewer />
+
+## 使用方式
+
+1. 拖放或點擊選擇想要確認 Exif 資訊的照片檔案。
+2. 選擇後會自動開始解析，並顯示拍攝日期時間、相機型號、拍攝設定、位置資訊等內容。
+3. 點擊各項目旁的複製按鈕，即可將該數值複製到剪貼簿。
+4. 若包含 GPS 資訊，可以點擊連結在 Google Maps 上查看拍攝地點。
+5. 點擊「清除」按鈕（垃圾桶圖示），即可重設目前顯示的資訊。
+6. 您也可以從解析結果卡片中的連結，直接將該圖片傳送至[圖片壓縮與裁切工具](/resize)，進行 Exif 資訊清除或尺寸調整。
+
+:::info 關於安全性
+🔒 照片解析皆完全在您的裝置（瀏覽器內）執行，絕不會將任何資料傳送至外部伺服器，完整保護您的隱私。
+:::
+
+## 嵌入此工具
+
+<EmbedCodeSection path="/zh-Hant/embed/exif" />
