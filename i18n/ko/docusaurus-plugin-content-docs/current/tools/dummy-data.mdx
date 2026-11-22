@@ -1,0 +1,32 @@
+---
+title: 더미 데이터 생성기
+slug: /tools/dummy-data
+sidebar_position: 18
+hide_title: true
+---
+
+import DummyDataGenerator from "@site/src/components/DummyDataGenerator";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Database } from 'lucide-react';
+
+<ToolPageHeader
+  title="더미 데이터 생성기"
+  desc="API 목(Mock)이나 데이터베이스 테스트 데이터에 사용할 수 있는 더미 정보를 브라우저에서 안전하고 즉시 생성합니다."
+  icon={<Database size={48} color="#fff" />}
+  color1="#3b82f6"
+  color2="#10b981"
+/>
+
+<DummyDataGenerator />
+
+## 사용 방법
+
+1. **프리셋 선택**: "사용자 정보", "회사 정보" 등 용도에 맞는 프리셋을 선택합니다.
+2. **필드 사용자 지정**: 필요에 따라 특정 항목을 추가하거나 삭제하고 데이터 유형을 변경할 수 있습니다.
+3. **출력 형식 설정**: 생성할 건수와 출력 형식(JSON, CSV, SQL)을 지정합니다.
+4. **데이터 생성**: "데이터 생성" 버튼을 누르면 미리보기 영역에 결과가 표시됩니다.
+5. **저장**: 클립보드에 복사하거나 파일로 다운로드하여 사용할 수 있습니다.
+
+:::info 보안 및 개인정보 보호 안내
+🔒 모든 더미 데이터 생성 처리는 브라우저 내(클라이언트 사이드)에서 실행됩니다. 입력한 설정이나 생성 결과가 서버로 전송되는 일은 전혀 없습니다.
+:::

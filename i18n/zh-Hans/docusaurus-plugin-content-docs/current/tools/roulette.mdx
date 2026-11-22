@@ -1,0 +1,30 @@
+---
+title: 转盘抽签工具
+slug: /roulette
+sidebar_position: 14
+hide_title: true
+---
+
+import RouletteMaker from "@site/src/components/RouletteMaker";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Target } from "lucide-react";
+
+<ToolPageHeader
+  title="转盘抽签工具"
+  desc="从输入的列表中随机抽取项目的抽签工具，适用于宾果抽奖、决定顺序等场景。"
+  icon={<Target size={48} color="#fff" />}
+/>
+
+<RouletteMaker />
+
+## 使用方法
+
+1. **输入项目**：在“项目列表”中按行输入要参与抽签的内容（每行一项）。
+2. **设置**：开启“从列表中移除已抽中项目”后，抽中的项目会自动从列表中删除，实现不重复抽签。
+3. **导入 / 导出**：支持读取文本文件批量导入，或将当前创建的列表导出保存。
+4. **开始抽签**：点击按钮转动转盘，随机抽取一个项目。
+5. **历史记录管理**：可在“抽签历史”中查看往期中奖结果，并按需清空。
+
+:::info 关于隐私
+🔒 输入的数据和抽签历史均仅保存在浏览器的本地存储中，绝不会发送至服务器。
+:::

@@ -28,13 +28,26 @@ import styles from './NickmarkShowcase.module.css';
 import {
   buildDemoPaletteItems,
   DemoBookmarkItem,
+  DemoLocale,
   DemoSearchResult,
   findDemoNicknamesForUrl,
   hasForbiddenDemoNicknameChars,
   isDemoCommandQuery,
   normalizeDemoCommandPrefix,
+  normalizeDemoLocale,
   normalizeDemoNicknamePath,
 } from './nickmarkSearchUtils';
+
+/**
+ * デモブックマーク追加時の「たった今」ラベル（5 言語対応）
+ */
+const JUST_NOW_LABELS: Record<DemoLocale, string> = {
+  ja: 'たった今',
+  en: 'Just now',
+  'zh-Hans': '刚刚',
+  'zh-Hant': '剛剛',
+  ko: '방금 전',
+};
 
 /**
  * デモブラウザの模擬タブ項目データ
@@ -428,7 +441,7 @@ function SimulatedWebPage({ tab }: { tab: DemoBrowserTab }): JSX.Element {
  */
 export default function NickmarkShowcase(): JSX.Element {
   const { i18n } = useDocusaurusContext();
-  const locale: 'ja' | 'en' = i18n.currentLocale.startsWith('en') ? 'en' : 'ja';
+  const locale: DemoLocale = normalizeDemoLocale(i18n.currentLocale);
   const appIconUrl = useBaseUrl('/img/nickmark/app-icon.svg');
 
   const [bookmarks, setBookmarks] = useState<DemoBookmarkItem[]>(INITIAL_DEMO_BOOKMARKS);
@@ -585,7 +598,7 @@ export default function NickmarkShowcase(): JSX.Element {
                 url: t.url,
                 isPinned: false,
                 score: 1.0,
-                lastUsedLabel: locale === 'en' ? 'Just now' : 'たった今',
+                lastUsedLabel: JUST_NOW_LABELS[locale],
               }));
               return [...additions, ...prev];
             });
@@ -629,7 +642,7 @@ export default function NickmarkShowcase(): JSX.Element {
                   url: activeBrowserTab.url,
                   isPinned: false,
                   score: 1.0,
-                  lastUsedLabel: locale === 'en' ? 'Just now' : 'たった今',
+                  lastUsedLabel: JUST_NOW_LABELS[locale],
                 },
                 ...prev,
               ];

@@ -1,0 +1,29 @@
+---
+title: 文本暂存区
+slug: /text
+sidebar_position: 10
+hide_title: true
+---
+
+import TextScratchpad from "@site/src/components/TextScratchpad";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { StickyNote } from "lucide-react";
+
+<ToolPageHeader
+  title="文本暂存区"
+  desc="用于临时保存文本的工具。保存的文本会存储在浏览器的本地存储中。"
+  icon={<StickyNote size={48} color="#fff" />}
+/>
+
+<TextScratchpad />
+
+## 使用方法
+
+1. 在左侧输入区域输入文本，点击“保存”按钮或按回车键（取决于设置）即可保存。
+2. 保存的文本会添加到右侧列表中，并存储在浏览器的本地存储中。
+3. 常用文本可点击置顶图标固定在顶部。
+4. 可使用复制或批量下载功能，方便复用已保存的文本。
+
+:::info 关于安全性
+🔒 所有数据均保存在您使用的浏览器本地，绝不会发送至服务器。
+:::

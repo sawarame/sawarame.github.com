@@ -1,0 +1,36 @@
+---
+title: 마크다운 PDF 변환
+slug: /markdown-pdf
+sidebar_position: 15
+hide_title: true
+---
+
+import MarkdownPdf from "@site/src/components/MarkdownPdf";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { FileDown } from "lucide-react";
+
+<ToolPageHeader
+  title="마크다운 PDF 변환"
+  desc="업로드한 마크다운 파일(.md)이나 직접 입력한 텍스트를 브라우저에서 텍스트 선택 및 검색이 가능한 PDF로 변환하여 다운로드합니다."
+  icon={<FileDown size={48} color="#fff" />}
+/>
+
+<MarkdownPdf />
+
+## 사용 방법
+
+1. **마크다운 입력**:
+   * **파일 불러오기**: "파일 선택" 버튼으로 `.md` 파일을 선택하거나 드래그 앤 드롭하여 불러옵니다.
+   * **텍스트 붙여넣기**: 텍스트 영역에 마크다운 텍스트를 직접 붙여넣거나 입력합니다.
+2. **옵션 설정**:
+   * 출력 설정 패널에서 글꼴 크기, 여백(마진), 용지 크기(A4/Letter), 용지 방향(세로/가로), 페이지 번호 표시 여부를 조정합니다.
+3. **미리보기 확인**:
+   * **HTML 미리보기**: 마크다운의 HTML 변환 결과를 실시간으로 확인할 수 있습니다.
+   * **PDF 미리보기**: "PDF 미리보기" 탭을 선택하면 지정한 레이아웃 설정을 반영한 PDF 미리보기가 자동으로 생성되어 표시됩니다.
+4. **파일 다운로드**:
+   * **HTML 다운로드**: "HTML 다운로드" 버튼을 클릭하면 깔끔한 스타일이 적용된 HTML 파일을 다운로드할 수 있습니다.
+   * **PDF 다운로드**: "PDF 다운로드" 버튼을 클릭하면 브라우저에서 즉시 PDF를 생성하여 다운로드할 수 있습니다.
+
+:::info 보안 안내
+🔒 업로드한 파일이나 입력한 텍스트는 모두 사용 중인 브라우저 내에서 처리됩니다. 서버로 전송되는 일이 전혀 없으므로 기밀 정보가 포함된 파일도 안심하고 사용할 수 있습니다.
+:::

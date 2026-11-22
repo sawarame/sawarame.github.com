@@ -1,0 +1,40 @@
+---
+title: SEO 資訊（中繼資料）擷取工具
+slug: /tools/seo-extractor
+sidebar_position: 15
+hide_title: true
+---
+
+import SeoExtractor from "@site/src/components/SeoExtractor";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Globe } from "lucide-react";
+
+<ToolPageHeader
+  title="SEO 資訊（中繼資料）擷取工具"
+  desc="從指定的網址或貼上的 HTML 原始碼中，取得並擷取標題、Meta 描述、favicon、OGP 圖片等 SEO 相關中繼資料，並進行預覽與檢查。"
+  icon={<Globe size={48} color="#fff" />}
+/>
+
+<SeoExtractor />
+
+## 使用方式
+
+1. **選擇輸入方式**：選擇「從 URL 取得」或「貼上 HTML」分頁。
+2. **輸入資料**：
+    *   **從 URL 取得**：輸入要分析的網站網址，並點擊「取得」按鈕。
+    *   **貼上 HTML**：從目標網站的「檢視網頁原始碼」複製 HTML 程式碼並貼上，接著點擊「解析」按鈕。
+3. **查看結果**：系統會將結果整理為「預覽」、「基本 Meta 資訊」、「OGP 與社群資訊」、「JSON 資料」供您瀏覽與確認，亦可個別複製項目或將完整資料下載為 JSON 檔案。
+
+---
+
+## 💡 SEO 檢查功能
+
+*   **字數測量計**：自動判定標題長度（建議：25〜35 字）與 Meta 描述長度（建議：80〜120 字）是否落在 SEO 最佳範圍內，並透過視覺化指標呈現。
+*   **搜尋結果與社群預覽**：
+    *   **Google 搜尋預覽**：模擬網頁在搜尋引擎結果頁中的顯示樣貌。
+    *   **社群分享預覽**：模擬分享至 Facebook、Slack、Twitter 等平台時的卡片樣式（含 OGP 圖片）。
+
+:::info ℹ️ 取得方式與安全性說明
+*   **從 URL 取得**：系統會透過專用 API 伺服器存取您輸入的網址以取得中繼資料。※無法取得內部網路等外部無法存取的頁面。
+*   **貼上 HTML**：貼上的 HTML 解析處理**完全僅在您的瀏覽器內部（用戶端）執行**。絕不會向外部傳送任何資料，即使是包含機密資訊的 HTML 程式碼也能 100% 安心使用。
+:::

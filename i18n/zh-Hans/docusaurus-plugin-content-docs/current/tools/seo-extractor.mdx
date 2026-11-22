@@ -1,0 +1,40 @@
+---
+title: SEO 信息（元数据）提取工具
+slug: /tools/seo-extractor
+sidebar_position: 15
+hide_title: true
+---
+
+import SeoExtractor from "@site/src/components/SeoExtractor";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Globe } from "lucide-react";
+
+<ToolPageHeader
+  title="SEO 信息（元数据）提取工具"
+  desc="从指定的 URL 或粘贴的 HTML 源代码中提取标题、Meta 描述、favicon、OGP 图片等 SEO 相关元数据，并进行预览与检测。"
+  icon={<Globe size={48} color="#fff" />}
+/>
+
+<SeoExtractor />
+
+## 使用方法
+
+1. **选择输入方式**：选择“从 URL 获取”或“粘贴 HTML”标签页。
+2. **输入数据**：
+    *   **从 URL 获取**：输入要分析的网站 URL，然后点击“获取”按钮。
+    *   **粘贴 HTML**：在目标网站中使用“查看网页源代码”复制 HTML 代码，粘贴到输入框后点击“解析”按钮。
+3. **查看结果**：查看整理为“预览”、“基本 Meta 信息”、“OGP 与社交信息”和“JSON 数据”的结果。支持单项复制以及将全部数据下载为 JSON 文件。
+
+---
+
+## 💡 SEO 检测功能
+
+*   **字数指示器**：自动判断标题长度（建议：25–35 字）和 Meta 描述长度（建议：80–120 字）是否处于 SEO 最佳范围，并以可视化进度条直观呈现。
+*   **搜索结果与社交分享预览**：
+    *   **Google 搜索预览**：模拟页面在搜索引擎结果中的显示效果。
+    *   **社交分享预览**：还原在 Facebook、Slack、Twitter 等平台分享时的卡片样式（含 OGP 图片）。
+
+:::info ℹ️ 获取方式与安全性
+*   **从 URL 获取**：通过专用 API 服务器访问所输入的 URL 以获取元数据。※无法获取内网等外部无法访问的页面。
+*   **粘贴 HTML**：对粘贴的 HTML 进行解析的处理**完全仅在您的浏览器内部（客户端）执行**。不会向外部发送任何数据，即使包含机密信息的 HTML 代码也可 100% 安全使用。
+:::

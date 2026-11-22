@@ -1,0 +1,30 @@
+---
+title: QR 코드 생성
+slug: /qr
+sidebar_position: 4
+hide_title: true
+---
+
+import QrGenerator from "@site/src/components/QrGenerator";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { QrCode } from "lucide-react";
+
+<ToolPageHeader
+  title="QR 코드 생성"
+  desc="URL, Wi-Fi, 연락처 등의 정보로 QR 코드를 생성합니다. 로고 삽입도 지원합니다."
+  icon={<QrCode size={48} color="#fff" />}
+/>
+
+<QrGenerator />
+
+## 사용 방법
+
+1. 생성할 정보 유형(URL, Wi-Fi, 연락처 등)을 선택합니다.
+2. 필요한 정보를 입력하면 미리보기가 실시간으로 업데이트됩니다.
+3. 선택 사항으로 QR 코드 중앙에 로고 이미지를 배치할 수 있습니다. 프리셋 아이콘을 사용하거나 직접 이미지를 업로드할 수도 있습니다.
+4. 해상도(240px / 480px)를 선택한 뒤 "QR 저장"을 클릭해 이미지를 다운로드할 수 있습니다.
+5. "공유" 버튼으로 다른 앱에 전송하거나 클립보드에 복사할 수도 있습니다.
+
+:::info 개인정보 보호 안내
+🔒 입력한 텍스트와 로고 이미지 데이터는 모두 브라우저 내에서 처리되며 서버로 전송되지 않습니다.
+:::

@@ -1,0 +1,36 @@
+---
+title: Markdown 轉 PDF 工具
+slug: /markdown-pdf
+sidebar_position: 15
+hide_title: true
+---
+
+import MarkdownPdf from "@site/src/components/MarkdownPdf";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { FileDown } from "lucide-react";
+
+<ToolPageHeader
+  title="Markdown 轉 PDF 工具"
+  desc="在瀏覽器中將上傳的 Markdown 檔案（.md）或直接輸入的文字，轉換為可選取文字且可搜尋的 PDF 並下載。"
+  icon={<FileDown size={48} color="#fff" />}
+/>
+
+<MarkdownPdf />
+
+## 使用方式
+
+1. **輸入 Markdown**：
+   * **載入檔案**：點擊「選擇檔案」按鈕選取 `.md` 檔案，或直接拖放載入。
+   * **貼上文字**：直接在文字區域貼上或輸入 Markdown 文字。
+2. **設定選項**：
+   * 在輸出設定面板中調整字體大小、邊界（Margin）、紙張大小（A4/Letter）、紙張方向（直向/橫向）以及是否顯示頁碼。
+3. **確認預覽**：
+   * **HTML 預覽**：即時確認 Markdown 轉換為 HTML 後的呈現效果。
+   * **PDF 預覽**：切換至「PDF 預覽」分頁後，會依據指定的版面設定自動產生並顯示 PDF 預覽。
+4. **下載檔案**：
+   * **下載 HTML**：點擊「下載 HTML」按鈕，即可下載套用清晰樣式的 HTML 檔案。
+   * **下載 PDF**：點擊「下載 PDF」按鈕，即可在瀏覽器中即時產生並下載 PDF 檔案。
+
+:::info 關於安全性
+🔒 上傳的檔案與輸入的文字皆完全在您的瀏覽器內處理，絕不會傳送至任何伺服器，即使包含機密資訊的文件也能安心使用。
+:::

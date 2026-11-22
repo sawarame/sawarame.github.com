@@ -1,0 +1,31 @@
+---
+title: JSON 포매터 / 검증기
+slug: /tools/json-formatter
+sidebar_position: 17
+hide_title: true
+---
+import JsonFormatter from "@site/src/components/JsonFormatter";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { FileJson } from "lucide-react";
+
+<ToolPageHeader
+  title="JSON 포매터 / 검증기"
+  desc="JSON 데이터의 실시간 검증 및 포매팅과 TypeScript 타입 정의(interface) 자동 생성 도구"
+  icon={<FileJson size={48} color="#fff" />}
+  color1="#fbc2eb"
+  color2="#a18cd1"
+/>
+
+<JsonFormatter />
+
+## 사용 방법
+
+1. 파일을 선택하거나 텍스트 영역에 JSON을 붙여넣습니다.
+2. 실시간으로 구문 검증이 이루어집니다. 오류가 있는 경우 오류 메시지가 표시됩니다.
+3. 들여쓰기 너비(2스페이스, 4스페이스, Tab)를 선택한 뒤 "포매팅" 버튼을 누르면 깔끔하게 정렬됩니다.
+4. "트리 보기" 탭에서 접고 펼 수 있는 트리 형식으로 구조를 확인할 수 있습니다.
+5. "TypeScript 타입 정의" 탭에서 자동 생성된 interface를 확인하고 복사하거나 다운로드할 수 있습니다.
+
+:::info 보안 안내
+🔒 모든 처리는 브라우저 내에서 이루어지며 데이터가 서버로 전송되지 않습니다.
+:::

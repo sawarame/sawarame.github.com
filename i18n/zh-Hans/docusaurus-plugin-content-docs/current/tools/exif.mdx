@@ -1,0 +1,36 @@
+---
+title: 照片 Exif 信息查看器
+slug: /exif
+sidebar_position: 8
+hide_title: true
+---
+
+import ExifViewer from "@site/src/components/ExifViewer";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Camera } from "lucide-react";
+import EmbedCodeSection from "@site/src/components/EmbedCodeSection";
+
+<ToolPageHeader
+  title="照片 Exif 信息查看器"
+  desc="读取上传照片（JPEG 格式）中的相机型号、拍摄时间、GPS 位置等元数据。照片不会上传至服务器，全部在浏览器本地安全解析。"
+  icon={<Camera size={48} color="#fff" />}
+/>
+
+<ExifViewer />
+
+## 使用方法
+
+1. 将需要查看 Exif 信息的照片文件拖放至区域内，或点击选择文件。
+2. 选择后将自动开始解析，并展示拍摄日期时间、相机型号、拍摄参数、位置信息等元数据。
+3. 点击各项旁的复制按钮，即可将对应数值复制到剪贴板。
+4. 若包含 GPS 位置信息，可点击链接在 Google 地图中查看拍摄地点。
+5. 点击“清除”按钮（垃圾桶图标）可重置当前显示的信息。
+6. 点击解析结果卡片中的链接，还可将该图片直接传递至[图片压缩与裁剪工具](/resize)，快速清除 Exif 信息或调整尺寸。
+
+:::info 关于安全
+🔒 照片解析完全在您的设备（浏览器本地）上执行，绝不会向外部服务器发送任何数据，充分保障您的隐私安全。
+:::
+
+## 嵌入此工具
+
+<EmbedCodeSection path="/zh-Hans/embed/exif" />

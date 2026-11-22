@@ -1,0 +1,34 @@
+---
+title: 텍스트 문자 인코딩 변환
+slug: /tools/encoding-converter
+sidebar_position: 7
+hide_title: true
+---
+
+import EncodingConverter from "@site/src/components/EncodingConverter";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Languages } from "lucide-react";
+
+<ToolPageHeader
+  title="텍스트 문자 인코딩 변환"
+  desc="텍스트 파일의 문자 인코딩을 자동으로 판별하고, 변환 후 예상 크기를 확인하면서 지정한 문자 인코딩(UTF-8, Shift_JIS, UTF-16 등)으로 변환 및 다운로드할 수 있습니다."
+  icon={<Languages size={48} color="#fff" />}
+/>
+
+<EncodingConverter />
+
+## 사용 방법
+
+1. 파일을 드래그 앤 드롭하거나 클릭해서 파일을 선택하세요. 복사한 텍스트나 파일을 직접 붙여넣기(Ctrl+V / Cmd+V)할 수도 있습니다.
+2. 자동으로 문자 인코딩이 판별되어 내용 미리보기가 표시됩니다. 미리보기의 문자가 깨져 보인다면 "현재 문자 인코딩"을 수동으로 변경해 보세요.
+3. **"텍스트 정보"** 섹션에서는 글자 수, 단어 수, 줄 수, 현재 파일 크기를 확인할 수 있습니다.
+4. 변환할 문자 인코딩이나 줄바꿈 코드를 선택하면 **변환 후 예상 파일 크기**가 시뮬레이션됩니다.
+5. "변환 및 다운로드" 버튼을 누르면 새 문자 인코딩으로 파일이 저장됩니다.
+
+### 지원 형식
+- **문자 인코딩:** UTF-8, Shift_JIS, EUC-JP, ISO-2022-JP (JIS), UTF-16, ASCII 등
+- **줄바꿈 코드:** LF (Unix/macOS), CRLF (Windows), CR (Classic Mac)
+
+:::info 보안 안내
+🔒 모든 처리는 브라우저 내에서 이루어집니다. 파일 내용이나 줄바꿈 코드가 서버로 전송되지 않습니다.
+:::

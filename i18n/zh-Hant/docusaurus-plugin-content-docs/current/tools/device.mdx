@@ -1,0 +1,33 @@
+---
+title: 裝置資訊檢視器
+slug: /device
+sidebar_position: 11
+hide_title: true
+---
+
+import DeviceInfo from "@site/src/components/DeviceInfo";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Smartphone } from "lucide-react";
+
+<ToolPageHeader
+  title="裝置資訊檢視器"
+  desc="顯示目前使用裝置的螢幕尺寸、User-Agent、IP 位址等相關資訊。"
+  icon={<Smartphone size={48} color="#fff" />}
+/>
+
+<DeviceInfo />
+
+## 顯示的資訊
+
+- **網路**：顯示目前的公開 IP 位址。
+- **螢幕尺寸**：
+  - **實體解析度**：從 `window.screen` 取得的整體螢幕像素大小。
+  - **視窗大小**：瀏覽器可視區域（`window.innerWidth/Height`）的尺寸。
+- **硬體**：
+  - **邏輯核心數**：顯示裝置的 CPU 核心數。
+  - **記憶體容量**：顯示大約的 RAM 容量（可能因瀏覽器的隱私保護機制而有所限制）。
+- **User-Agent**：顯示瀏覽器送出的識別字串。
+
+:::info 關於隱私
+🔒 除了取得 IP 位址外，所有資訊皆直接在瀏覽器內取得。取得的裝置資訊不會儲存於伺服器，也不會用於識別個人身分。
+:::

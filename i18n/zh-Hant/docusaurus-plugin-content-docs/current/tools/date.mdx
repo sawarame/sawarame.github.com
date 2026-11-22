@@ -1,0 +1,36 @@
+---
+title: 日期比較工具
+slug: /date
+sidebar_position: 13
+hide_title: true
+---
+
+import DateComparison from "@site/src/components/DateComparison";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Calendar } from "lucide-react";
+
+<ToolPageHeader
+  title="日期比較工具"
+  desc="計算兩個日期之間的時間差，支援多種日期輸入格式。"
+  icon={<Calendar size={48} color="#fff" />}
+/>
+
+import EmbedCodeSection from "@site/src/components/EmbedCodeSection";
+
+<DateComparison />
+
+## 使用方式
+
+1. 輸入想要比較的兩個日期。
+2. 支援多種日期格式，包括斜線分隔（2026/01/01）、自然日期格式（2026年1月1日）以及 Unix 時間戳記等。
+3. 點擊日曆圖示，也可以使用日期選擇器進行挑選。
+4. 勾選「始終與目前時間比較」後，第一個日期會自動固定為目前時間，並即時更新時間差。
+5. 計算結果會同時以「日時分秒」格式與「總秒數」顯示，並可點擊複製按鈕儲存至剪貼簿。
+
+:::info 關於隱私
+🔒 您輸入的所有日期資料皆完全在瀏覽器內處理，絕不會傳送至伺服器。
+:::
+
+## 嵌入此工具
+
+<EmbedCodeSection path="/zh-Hant/embed/date" syncParams={true} />

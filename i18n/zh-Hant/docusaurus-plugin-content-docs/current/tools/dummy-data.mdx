@@ -1,0 +1,32 @@
+---
+title: 假資料產生器
+slug: /tools/dummy-data
+sidebar_position: 18
+hide_title: true
+---
+
+import DummyDataGenerator from "@site/src/components/DummyDataGenerator";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Database } from 'lucide-react';
+
+<ToolPageHeader
+  title="假資料產生器"
+  desc="在瀏覽器中安全且即時地產生適用於 API Mock 或資料庫測試的假資料。"
+  icon={<Database size={48} color="#fff" />}
+  color1="#3b82f6"
+  color2="#10b981"
+/>
+
+<DummyDataGenerator />
+
+## 使用方式
+
+1. **選擇預設範本**：依照需求選擇「使用者資訊」、「公司資訊」等預設範本。
+2. **自訂欄位**：可依需求新增、刪除特定項目，或變更資料型別。
+3. **設定輸出格式**：指定要產生的筆數與輸出格式（JSON、CSV、SQL）。
+4. **產生資料**：點擊「產生資料」按鈕後，結果會顯示在預覽畫面中。
+5. **儲存**：可複製到剪貼簿，或下載為檔案使用。
+
+:::info 關於安全性與隱私
+🔒 所有假資料產生處理皆在瀏覽器內（用戶端）執行，您輸入的設定與產生的結果絕不會傳送至任何伺服器。
+:::

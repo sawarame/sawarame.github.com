@@ -1,0 +1,33 @@
+---
+title: 设备信息检测工具
+slug: /device
+sidebar_position: 11
+hide_title: true
+---
+
+import DeviceInfo from "@site/src/components/DeviceInfo";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Smartphone } from "lucide-react";
+
+<ToolPageHeader
+  title="设备信息检测工具"
+  desc="查看当前使用设备的屏幕尺寸、用户代理（User Agent）、IP 地址及硬件参数等信息。"
+  icon={<Smartphone size={48} color="#fff" />}
+/>
+
+<DeviceInfo />
+
+## 显示的信息
+
+- **网络**：显示当前的公网 IP 地址。
+- **屏幕尺寸**：
+  - **物理分辨率**：通过 `window.screen` 获取的屏幕总像素尺寸。
+  - **窗口尺寸**：当前浏览器可视区域（`window.innerWidth/Height`）的尺寸。
+- **硬件**：
+  - **逻辑核心数**：显示设备的 CPU 逻辑核心数量。
+  - **内存容量**：显示估算的 RAM 容量（受浏览器隐私保护机制影响，显示值可能受限）。
+- **用户代理（User Agent）**：显示浏览器发送的标识字符串。
+
+:::info 关于隐私
+🔒 除获取公网 IP 地址外，其余所有信息均直接在您的浏览器本地读取。获取到的设备信息不会被保存至服务器，也不会用于识别个人身份。
+:::

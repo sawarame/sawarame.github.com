@@ -1,0 +1,30 @@
+---
+title: 抽獎輪盤製作工具
+slug: /roulette
+sidebar_position: 14
+hide_title: true
+---
+
+import RouletteMaker from "@site/src/components/RouletteMaker";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Target } from "lucide-react";
+
+<ToolPageHeader
+  title="抽獎輪盤製作工具"
+  desc="從輸入的清單中隨機抽出項目的抽籤工具，適合用於賓果抽獎或決定順序等情境。"
+  icon={<Target size={48} color="#fff" />}
+/>
+
+<RouletteMaker />
+
+## 使用方式
+
+1. **輸入項目**：在「項目清單」中逐行輸入想要抽籤的內容。
+2. **設定**：開啟「將已抽出的項目從清單中排除」後，中獎項目將自動從清單移除，實現不重複抽籤。
+3. **匯入／匯出**：可讀取文字檔進行批次輸入，或將建立好的清單儲存下來以供日後使用。
+4. **開始抽籤**：點擊按鈕即可轉動輪盤，隨機選出一個項目。
+5. **紀錄管理**：過去的中獎結果可在「抽籤紀錄」中查看，並視需要清除。
+
+:::info 關於隱私保護
+🔒 您輸入的所有資料與抽籤紀錄僅儲存在瀏覽器的本機儲存空間（LocalStorage）中，絕不會傳送至伺服器。
+:::

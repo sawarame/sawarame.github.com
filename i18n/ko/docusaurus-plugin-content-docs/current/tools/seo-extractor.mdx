@@ -1,0 +1,40 @@
+---
+title: SEO 정보(메타데이터) 추출 도구
+slug: /tools/seo-extractor
+sidebar_position: 15
+hide_title: true
+---
+
+import SeoExtractor from "@site/src/components/SeoExtractor";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Globe } from "lucide-react";
+
+<ToolPageHeader
+  title="SEO 정보(메타데이터) 추출 도구"
+  desc="지정한 URL 또는 붙여넣은 HTML 소스 코드에서 제목, 메타 설명, 파비콘(favicon), OGP 이미지 등 SEO 관련 메타데이터를 가져와 추출하고 미리보기 및 검증을 수행합니다."
+  icon={<Globe size={48} color="#fff" />}
+/>
+
+<SeoExtractor />
+
+## 사용 방법
+
+1. **입력 방법 선택**: "URL에서 가져오기" 또는 "HTML 붙여넣기" 탭을 선택합니다.
+2. **데이터 입력**:
+    *   **URL에서 가져오기**: 분석할 웹사이트의 URL을 입력하고 "가져오기" 버튼을 누릅니다.
+    *   **HTML 붙여넣기**: 대상 사이트의 "페이지 소스 보기"에서 복사한 HTML 코드를 붙여넣고 "분석하기" 버튼을 누릅니다.
+3. **결과 확인**: "미리보기", "기본 메타 정보", "OGP·SNS 정보", "JSON 데이터"로 정리된 결과를 확인합니다. 각 항목을 복사하거나 전체 데이터를 JSON으로 다운로드할 수도 있습니다.
+
+---
+
+## 💡 SEO 검증 기능
+
+*   **글자 수 미터**: 제목 길이(권장: 25~35자), 메타 설명 길이(권장: 80~120자)가 SEO 측면에서 적절한 범위인지 자동으로 판정해 시각적인 인디케이터로 표시합니다.
+*   **검색 결과 & SNS 미리보기**:
+    *   **Google 검색 미리보기**: 검색 엔진에서 어떻게 표시되는지 재현합니다.
+    *   **SNS 공유 미리보기**: Facebook, Slack, Twitter 등에서 공유될 때의 카드형 표시(OGP 이미지 포함)를 재현합니다.
+
+:::info ℹ️ 가져오기 방식 및 보안 안내
+*   **URL에서 가져오기**: 입력된 URL에 전용 API 서버를 통해 접근하여 메타데이터를 가져옵니다. ※내부 네트워크 등 외부에서 접근할 수 없는 페이지는 가져올 수 없습니다.
+*   **HTML 붙여넣기**: 붙여넣은 HTML의 파싱 처리는 **완전히 사용자의 브라우저 내부(클라이언트 사이드)에서만 실행됩니다**. 외부로의 데이터 전송이 전혀 없으므로 기밀 데이터가 포함된 HTML 코드라도 100% 안전하게 이용하실 수 있습니다.
+:::

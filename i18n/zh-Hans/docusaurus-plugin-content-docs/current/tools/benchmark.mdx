@@ -1,0 +1,52 @@
+---
+title: Web 性能测试
+slug: /benchmark
+sidebar_position: 2
+hide_title: true
+---
+
+import Benchmark from "@site/src/components/Benchmark";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Gauge } from "lucide-react";
+
+<ToolPageHeader
+  title="Web 性能测试"
+  desc="测试当前浏览器与设备的运算性能，并以分数和等级进行评估。除基准测试分数外，还可一目了然地查看最新 Web 标准特性的支持情况。"
+  icon={<Gauge size={48} color="#fff" />}
+/>
+
+:::warning 注意
+此基准测试会执行高负载运算，在智能手机等移动设备上可能会暂时导致电量消耗加快。
+:::
+
+## 测试浏览器运算性能
+
+点击“开始测试”按钮后，系统将在浏览器中执行高负载运算任务，并根据处理速度计算性能分数。
+
+<Benchmark />
+
+## 关于评分
+
+本工具在浏览器中从以下三个维度综合评估设备性能：
+
+- **单核（Single Core）**：仅使用单个 Worker 进行运算的性能。该指标接近 JavaScript 主线程的处理能力。
+- **多核（Multi Core）**：调用设备全部逻辑核心进行并行运算的性能，反映应对高负载处理与多任务场景的能力。
+- **图形（Graphics）**：在页面上执行大量 DOM 操作与 Canvas 绘制，测定能够维持流畅帧率（FPS）的极限值，直接关系到界面交互的顺滑程度。
+
+## 评估等级
+
+根据测得的分数，系统将给出从 S 到 F 的综合评级：
+
+- **Rank S**：极致流畅，最新旗舰级设备水准。
+- **Rank A**：非常流畅，绝大多数应用均可极其顺滑地运行。
+- **Rank B**：流畅，即使同时处理多项任务也游刃有余。
+- **Rank C**：标准水平，足以满足日常网页浏览需求。
+- **Rank D-F**：基础性能，在复杂网页中可能会出现卡顿。
+
+## Web 特性支持情况
+
+检测当前浏览器对最新 Web 技术（如 WebGPU、Passkeys、AV1 解码等）的支持程度。这些特性是获得更先进、更高速网页体验的关键要素。
+
+:::info 关于隐私
+🔒 所有测试与检测均完全在您的浏览器本地执行，不会将任何设备详情或测试结果发送至服务器。
+:::

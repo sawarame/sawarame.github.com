@@ -1,0 +1,31 @@
+---
+title: 文本差异对比
+slug: /tools/text-diff
+sidebar_position: 12
+hide_title: true
+---
+
+import TextDiff from "@site/src/components/TextDiff";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { FileDiff } from "lucide-react";
+
+<ToolPageHeader
+  title="文本差异对比"
+  desc="对比两段文本或两个文件，直观高亮显示新增与删除的差异。支持上传多个文件并自由组合对比。"
+  icon={<FileDiff size={48} color="#fff" />}
+/>
+
+<TextDiff />
+
+## 使用方法
+
+1. 拖放文件或点击选择文件。也可以直接粘贴（Ctrl+V / Cmd+V）复制的文本或文件进行添加。
+2. 上传的文件将显示在列表中。
+3. 选择 **“左（原文件）”** 和 **“右（目标文件）”** 单选按钮，指定要对比的两个文件。
+4. 差异结果将显示在页面下方。
+5. 可在 **“双栏视图（Split）”** 和 **“单栏视图（Unified）”** 之间切换，按习惯的方式查看。
+6. 启用 **“忽略空白字符”** 选项，可排除仅由缩进或空格引起的差异。
+
+:::info 关于安全性
+🔒 所有处理均在浏览器本地完成，文件内容绝不会发送至服务器。
+:::

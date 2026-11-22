@@ -1,0 +1,22 @@
+{
+  "logo.alt": {
+    "message": "sawara.me",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Blog": {
+    "message": "博客",
+    "description": "Navbar item with label Blog"
+  },
+  "item.label.About": {
+    "message": "关于",
+    "description": "Navbar item with label About"
+  },
+  "item.label.Tools": {
+    "message": "工具",
+    "description": "Navbar item with label Tools"
+  },
+  "item.label.Extensions": {
+    "message": "扩展程序",
+    "description": "Navbar item with label Extensions"
+  }
+}

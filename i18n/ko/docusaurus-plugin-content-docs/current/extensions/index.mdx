@@ -1,0 +1,18 @@
+---
+title: 브라우저 확장 프로그램
+slug: /extensions
+sidebar_position: 1
+hide_title: true
+---
+
+import { ExtensionGrid } from "@site/src/components/FeatureList";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { Puzzle } from "lucide-react";
+
+<ToolPageHeader
+  title="Chrome 확장 프로그램"
+  desc="Chrome 웹 스토어에 공개된 확장 프로그램입니다. 일상적인 개발과 웹 브라우징을 더욱 쾌적하게 만들어 줍니다."
+  icon={<Puzzle size={48} color="#fff" />}
+/>
+
+<ExtensionGrid />

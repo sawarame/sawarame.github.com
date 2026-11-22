@@ -1,0 +1,30 @@
+---
+title: QR 二维码生成器
+slug: /qr
+sidebar_position: 4
+hide_title: true
+---
+
+import QrGenerator from "@site/src/components/QrGenerator";
+import ToolPageHeader from "@site/src/components/ToolPageHeader";
+import { QrCode } from "lucide-react";
+
+<ToolPageHeader
+  title="QR 二维码生成器"
+  desc="根据 URL、Wi-Fi、联系人等信息生成 QR 码，支持嵌入自定义 Logo。"
+  icon={<QrCode size={48} color="#fff" />}
+/>
+
+<QrGenerator />
+
+## 使用方法
+
+1. 选择要生成的信息类型（URL、Wi-Fi、联系人等）。
+2. 输入所需信息后，预览将实时更新。
+3. 可选在 QR 码中央添加 Logo 图片，既可使用预设图标，也可上传自己的图片。
+4. 选择分辨率（240px / 480px），点击“保存 QR 码”即可下载图片。
+5. 点击“分享”按钮，还可以发送到其他应用或复制到剪贴板。
+
+:::info 关于隐私
+🔒 输入的文本和 Logo 图片数据均完全在浏览器本地处理，绝不会发送至服务器。
+:::

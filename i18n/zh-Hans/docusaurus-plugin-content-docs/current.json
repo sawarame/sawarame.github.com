@@ -1,0 +1,10 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.extensionsSidebar.category.TabOrigami": {
+    "message": "TabOrigami",
+    "description": "The label for category 'TabOrigami' in sidebar 'extensionsSidebar'"
+  }
+}
