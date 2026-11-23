@@ -24,7 +24,7 @@ import NickmarkPng from '@site/src/icons/Nickmark.png';
   ]}
 />
 
-:::info 介紹與互動式示範頁面
+:::info[介紹與互動式示範頁面]
 歡迎同時瀏覽可在瀏覽器上親自體驗指令面板操作手感的 [**Nickmark 介紹與示範頁面（/nickmark）**](/nickmark)。
 :::
 
@@ -38,7 +38,7 @@ import NickmarkPng from '@site/src/icons/Nickmark.png';
   - 您可隨時於 Chrome 的 `chrome://extensions/shortcuts` 自訂按鍵配置。
 - **工具列圖示**：點擊瀏覽器右上角的擴充功能圖示，也能開啟相同的彈出視窗。
 
-:::note 空白狀態下的操作提示（Tips）
+:::note[空白狀態下的操作提示（Tips）]
 當搜尋輸入欄為空時，輸入欄下方會顯示一則實用的操作提示（TIP）。點擊 TIP 區域即可切換至另一則提示，同時維持搜尋欄的輸入焦點不變。
 :::
 
@@ -113,7 +113,7 @@ import NickmarkPng from '@site/src/icons/Nickmark.png';
 
 只要註冊以 `javascript:` 開頭的書籤小工具，就能在不切換頁面的情況下，直接於目前的作用中分頁上執行（使用 Chrome 135 以上版本的 `userScripts` API / `MAIN` world）。
 
-:::warning 使用書籤小工具前的事前設定（Chrome 135 以上版本）
+:::warning[使用書籤小工具前的事前設定（Chrome 135 以上版本）]
 若要執行 `javascript:` 書籤小工具，須前往 Chrome 的擴充功能詳細資訊頁面（`chrome://extensions` → Nickmark 的「詳細資訊」），開啟 **「允許使用者指令碼」**。若尚未允許，彈出視窗與管理畫面中將會顯示引導提示。
 :::
 
@@ -148,7 +148,7 @@ Nickmark 會自動學習您「最近最常使用哪些 URL」：
 | `:prefs` | — | 開啟設定畫面。 | `:prefs` |
 | `:help` | — | 開啟本說明與文件頁面。 | `:help` |
 
-:::note 暱稱輸入規則（禁用字元驗證）
+:::note[暱稱輸入規則（禁用字元驗證）]
 在指令註冊、管理畫面編輯與 JSON 匯入中，為避免與系統語法衝突，暱稱不可包含以下字元：**空白字元、`:`, `;`, `\`, `%`, `?`, `#`, `&`, `=`, `*`, `"`, `'`, `` ` ``, `<`, `>`, `|`，以及控制字元與零寬字元**。作為資料夾階層分隔符號的斜線 **`/`** 則可正常使用。
 :::
 

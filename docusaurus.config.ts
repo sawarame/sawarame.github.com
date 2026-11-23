@@ -7,6 +7,11 @@ const config: Config = {
   tagline: 'Ship small things.',
   favicon: 'img/sawara_favicon.svg',
 
+  // Docusaurus v4 互換フラグおよび Faster 機能を有効化する
+  future: {
+    v4: true,
+  },
+
   // Set the production url of your site here
   url: 'https://sawara.me',
   // Set the /<baseUrl>/ pathname under which your site is served

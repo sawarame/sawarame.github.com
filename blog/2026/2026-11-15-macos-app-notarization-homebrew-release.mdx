@@ -22,7 +22,7 @@ macOS 向けのネイティブアプリケーションを App Store を経由せ
   emoji="🪟"
 />
 
-<!-- truncate -->
+{/* truncate */}
 
 ## 自動リリースパイプラインの全体像
 
@@ -47,7 +47,7 @@ macOS 向けのネイティブアプリケーションを App Store を経由せ
 - **App Sandbox**: オフ（ウィンドウ操作用 API である `AXUIElement` や `CGEventTap`、`SMAppService.mainApp` を使用するため）
 - **Hardened Runtime**: リリースビルド時に `codesign --options runtime` で有効化
 
-:::info .xcodeproj を使わない構成での署名について
+:::info[.xcodeproj を使わない構成での署名について]
 `.xcodeproj` が存在しない構成では、Xcode GUI の「Signing & Capabilities」や `xcodebuild archive` ではなく、`scripts/build-app.sh` 内の `codesign` コマンドと GitHub Actions ワークフロー（`.github/workflows/release.yml`）側で署名・公証を制御します。
 :::
 
@@ -59,7 +59,7 @@ Apple 外（GitHub Releases や Homebrew）でアプリを配布するには、A
 
 Xcode の **Settings... > Accounts** から Apple Developer Program 登録済みのアカウントを選択し、**Manage Certificates...** から **`+`** ＞ **Developer ID Application** を選んで証明書を作成します。
 
-:::tip Xcode から作成できない場合の対処法
+:::tip[Xcode から作成できない場合の対処法]
 Xcode 上で「Communication with Apple failed / This operation can only be performed by the Account Holder.」といったエラーが出る場合は、以下の手順を確認します。
 
 1. [Apple Developer Account](https://developer.apple.com/account) にサインインし、未同意の規約（License Agreement）や更新通知があれば承認する。

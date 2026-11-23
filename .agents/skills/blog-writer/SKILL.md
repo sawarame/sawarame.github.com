@@ -41,6 +41,10 @@ description: sawara.me のブログ記事を作成・校正するためのスキ
 
 ## 3. MDX / Docusaurus 特有の記法
 
+- **MDX v2/v3 正式記法の遵守（Docusaurus v4 互換）**: 本サイトでは `future.v4: true`（`mdx1CompatDisabledByDefault: true`）を有効化しているため、MDX v1 互換の旧記法はビルドエラーとなる。記事執筆時は必ず以下の正式記法を使用する。
+  - **記事一覧の抜粋区切り（truncate）**: HTML コメント形式の `<!-- truncate -->` は使用せず、MDX コメント形式の `{/* truncate */}` を記述する。
+  - **アドモニションのカスタムタイトル**: スペース区切りの旧形式（`:::tip タイトル`）は使用せず、角括弧で囲む正式形式（`:::tip[タイトル]` / `:::info[タイトル]` / `:::note[タイトル]` / `:::warning[タイトル]` 等）を記述する。
+  - **コメント記法**: HTML コメント（`<!-- ... -->`）は使用せず、MDX コメント（`{/* ... */}`）を使用する。
 - **画像とキャプションの配置**: 画像を挿入し、その下に説明文（キャプション）を添える際は、隙間が空きすぎないように Docusaurus (Infima) のクラスとインラインスタイルを用いて以下のように記述する。
   ```markdown
   <div className="text--center" style={{ margin: '2rem 0' }}>

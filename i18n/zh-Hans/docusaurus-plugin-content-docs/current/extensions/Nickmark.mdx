@@ -24,7 +24,7 @@ import NickmarkPng from '@site/src/icons/Nickmark.png';
   ]}
 />
 
-:::info 介绍与交互式演示页面
+:::info[介绍与交互式演示页面]
 欢迎前往 [**Nickmark 介绍与交互式演示页面（/nickmark）**](/nickmark)，直接在浏览器中体验命令面板的操作手感。
 :::
 
@@ -38,7 +38,7 @@ import NickmarkPng from '@site/src/icons/Nickmark.png';
   - 您可以随时在 Chrome 的 `chrome://extensions/shortcuts` 中自定义快捷键。
 - **工具栏图标**：点击浏览器右上角的扩展程序图标，同样会打开该命令面板。
 
-:::note 输入框为空时的使用提示（Tips）
+:::note[输入框为空时的使用提示（Tips）]
 当搜索输入框为空时，输入框下方会显示一条实用的使用提示（TIP）。点击 TIP 区域即可切换为另一条提示，同时搜索框会继续保持焦点状态。
 :::
 
@@ -113,7 +113,7 @@ import NickmarkPng from '@site/src/icons/Nickmark.png';
 
 注册以 `javascript:` 开头的小书签（Bookmarklet）后，无需跳转页面即可直接在当前活动标签页上执行脚本（基于 Chrome 135 及以上版本的 `userScripts` API / `MAIN` world）。
 
-:::warning 使用小书签前的前置设置（Chrome 135 及以上版本）
+:::warning[使用小书签前的前置设置（Chrome 135 及以上版本）]
 要执行 `javascript:` 小书签，需要在 Chrome 的扩展程序详情页（`chrome://extensions` → Nickmark 的“详情”）中开启 **“允许用户脚本”**。如果未开启，弹出窗口和管理页面会显示相应提示。
 :::
 
@@ -148,7 +148,7 @@ Nickmark 会自动学习您最近最常使用的 URL：
 | `:prefs` | — | 打开设置页面。 | `:prefs` |
 | `:help` | — | 打开本帮助与文档页面。 | `:help` |
 
-:::note 别名命名规则（禁用字符校验）
+:::note[别名命名规则（禁用字符校验）]
 为避免与命令语法和动态 URL 冲突，在命令添加、管理页面编辑以及 JSON 导入时，别名中不能包含以下字符：**空白字符、`:`、`;`、`\`、`%`、`?`、`#`、`&`、`=`、`*`、`"`、`'`、`` ` ``、`<`、`>`、`|`，以及控制字符和零宽字符**。正斜杠 **`/`** 可用于表示文件夹层级。
 :::
 
