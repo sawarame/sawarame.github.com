@@ -1,14 +1,16 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import {
   TYPING_BEST_STORAGE_KEY,
+  TYPING_VERSION,
   buildCourseSearch,
-  calculateAccuracy,
+  buildTypingShareText,
   calculateCpm,
   computeResultMetrics,
   determineRank,
   evaluateInputPreview,
   evaluateSubmission,
   formatRemainingTime,
+  getTypingDeviceInfo,
   loadBestRecords,
   normalizeChar,
   normalizeText,
@@ -276,20 +278,18 @@ describe('Typing Tool Pure Logic Suite', () => {
   });
 
   // =========================================================================
-  // 4. スコア・CPM・正答率・ランク算出
+  // 4. スコア・CPM・ランク算出・共有ユーティリティ
   // =========================================================================
   describe('スコア指標とランク判定', () => {
+    it('ツールバージョン定数がセマンティックバージョン形式で定義されていること', () => {
+      expect(TYPING_VERSION).toBe('1.0.0');
+      expect(TYPING_VERSION).toMatch(/^\d+\.\d+\.\d+$/);
+    });
+
     it('1分コースと3分コースの CPM を正しく算出すること', () => {
       expect(calculateCpm(120, 60)).toBe(120);
       expect(calculateCpm(360, 180)).toBe(120);
       expect(calculateCpm(0, 60)).toBe(0);
-    });
-
-    it('正答率を小数第1位まで算出し、提出 0 時は 0 を返すこと', () => {
-      expect(calculateAccuracy(0, 0)).toBe(0);
-      expect(calculateAccuracy(100, 100)).toBe(100);
-      expect(calculateAccuracy(85, 100)).toBe(85);
-      expect(calculateAccuracy(2, 3)).toBe(66.7);
     });
 
     it('CPM 閾値に応じて S / A / B / C / D ランクを正しく判定すること', () => {
@@ -304,21 +304,19 @@ describe('Typing Tool Pure Logic Suite', () => {
       expect(determineRank(0)).toBe('D');
     });
 
-    it('computeResultMetrics が全指標を一貫して算出すること', () => {
+    it('computeResultMetrics が正答率を含まず全指標を一貫して算出すること', () => {
       const metrics = computeResultMetrics({
         digestedChars: 480,
-        submittedChars: 500,
         completedPassages: 4,
         courseSeconds: 180,
       });
       expect(metrics).toEqual({
         digestedChars: 480,
-        submittedChars: 500,
         cpm: 160,
-        accuracy: 96,
         completedPassages: 4,
         rank: 'A',
       });
+      expect('accuracy' in metrics).toBe(false);
     });
 
     it('formatRemainingTime が残りミリ秒を MM:SS へ正しく整形すること', () => {
@@ -327,6 +325,78 @@ describe('Typing Tool Pure Logic Suite', () => {
       expect(formatRemainingTime(9100)).toBe('00:10');
       expect(formatRemainingTime(0)).toBe('00:00');
       expect(formatRemainingTime(-500)).toBe('00:00');
+    });
+
+    it('getTypingDeviceInfo が各 UA から ES バージョンを含まないブラウザ・OS 情報を取得できること', () => {
+      const chromeMacUa =
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36';
+      expect(getTypingDeviceInfo(chromeMacUa, 0)).toBe('Chrome 128 (macOS)');
+
+      const firefoxWinUa =
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0';
+      expect(getTypingDeviceInfo(firefoxWinUa, 0)).toBe('Firefox 128 (Windows)');
+
+      const safariMacUa =
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15';
+      expect(getTypingDeviceInfo(safariMacUa, 0)).toBe('Safari 17 (macOS)');
+      // iPadOS（Mac UA + タッチ対応）は iOS として判定されること
+      expect(getTypingDeviceInfo(safariMacUa, 5)).toBe('Safari 17 (iOS)');
+
+      const edgeWinUa =
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0';
+      expect(getTypingDeviceInfo(edgeWinUa, 0)).toBe('Edge 124 (Windows)');
+
+      const safariIosUa =
+        'Mozilla/5.0 (iPhone; CPU iPhone OS 18_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1 Mobile/15E148 Safari/604.1';
+      expect(getTypingDeviceInfo(safariIosUa, 5)).toBe('Safari 18 (iOS)');
+
+      const chromeAndroidUa =
+        'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Mobile Safari/537.36';
+      expect(getTypingDeviceInfo(chromeAndroidUa, 5)).toBe('Chrome 128 (Android)');
+
+      expect(getTypingDeviceInfo('', 0)).toBe('');
+    });
+
+    it('buildTypingShareText が正答率を含まない共有テキストを正しく生成すること', () => {
+      const textWithUrl = buildTypingShareText({
+        title: '日本語変換タイピング結果',
+        courseLabel: '1分コース',
+        rankLabel: 'ランク評価',
+        rank: 'A',
+        charsLabel: '総消化文字数',
+        digestedChars: 165,
+        charsUnit: '文字',
+        cpmLabel: 'CPM（文字/分）',
+        cpm: 165,
+        passagesLabel: '完走文章数',
+        completedPassages: 1,
+        passagesUnit: '本',
+        url: 'https://sawara.me/typing',
+      });
+
+      expect(textWithUrl).toContain('【日本語変換タイピング結果】(1分コース)');
+      expect(textWithUrl).toContain('ランク評価: Rank A');
+      expect(textWithUrl).toContain('総消化文字数: 165文字');
+      expect(textWithUrl).toContain('CPM（文字/分）: 165');
+      expect(textWithUrl).toContain('完走文章数: 1本');
+      expect(textWithUrl).toContain('https://sawara.me/typing');
+      expect(textWithUrl).not.toContain('正答率');
+
+      const textWithoutUrl = buildTypingShareText({
+        title: '日本語変換タイピング結果',
+        courseLabel: '3分コース',
+        rankLabel: 'ランク評価',
+        rank: 'S',
+        charsLabel: '総消化文字数',
+        digestedChars: 620,
+        charsUnit: '文字',
+        cpmLabel: 'CPM（文字/分）',
+        cpm: 207,
+        passagesLabel: '完走文章数',
+        completedPassages: 5,
+        passagesUnit: '本',
+      });
+      expect(textWithoutUrl).not.toContain('https://sawara.me/typing');
     });
   });
 
@@ -386,11 +456,10 @@ describe('Typing Tool Pure Logic Suite', () => {
       expect(buildCourseSearch('?course=180', 60)).toBe('course=60');
     });
 
-    it('コース別の自己ベスト記録を保存・更新判定・復元できること', () => {
+    it('コース別の自己ベスト記録（accuracy なし新規形式）を保存・更新判定・復元できること', () => {
       const first: BestRecord = {
         chars: 120,
         cpm: 120,
-        accuracy: 95.5,
         completedPassages: 1,
         achievedAt: '2026-11-23T00:00:00.000Z',
       };
@@ -418,7 +487,6 @@ describe('Typing Tool Pure Logic Suite', () => {
       const course3Min: BestRecord = {
         chars: 420,
         cpm: 140,
-        accuracy: 92,
         completedPassages: 3,
         achievedAt: '2026-11-23T01:00:00.000Z',
       };
@@ -428,11 +496,37 @@ describe('Typing Tool Pure Logic Suite', () => {
       expect(loaded[180]).toEqual(course3Min);
     });
 
+    it('既存の accuracy を含む LocalStorage データも後方互換で読み込め、更新できること', () => {
+      const legacyPayload = {
+        '60': {
+          chars: 150,
+          cpm: 150,
+          accuracy: 95.4,
+          completedPassages: 1,
+          achievedAt: '2026-11-20T00:00:00.000Z',
+        },
+      };
+      mockStorage.setItem(TYPING_BEST_STORAGE_KEY, JSON.stringify(legacyPayload));
+
+      const loaded = loadBestRecords(mockStorage);
+      expect(loaded[60]).toEqual(legacyPayload['60']);
+
+      const improved: BestRecord = {
+        chars: 180,
+        cpm: 180,
+        completedPassages: 2,
+        achievedAt: '2026-11-23T10:00:00.000Z',
+      };
+      const updated = saveBestRecordIfImproved(60, improved, mockStorage);
+      expect(updated.isNewBest).toBe(true);
+      expect(updated.previousBest?.chars).toBe(150);
+      expect(loadBestRecords(mockStorage)[60]).toEqual(improved);
+    });
+
     it('0 文字のスコアでは自己ベストを新規登録しないこと', () => {
       const zero: BestRecord = {
         chars: 0,
         cpm: 0,
-        accuracy: 0,
         completedPassages: 0,
         achievedAt: '2026-11-23T00:00:00.000Z',
       };

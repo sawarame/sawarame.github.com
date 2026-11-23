@@ -3236,11 +3236,8 @@
   "typing.action.backToSelect": {
     "message": "Back to Course Selection"
   },
-  "typing.action.copyResult": {
-    "message": "Copy Result"
-  },
-  "typing.action.copied": {
-    "message": "Copied"
+  "typing.action.shareResult": {
+    "message": "Share Results"
   },
   "typing.countdown.ready": {
     "message": "Get ready to type..."
@@ -3308,9 +3305,6 @@
   "typing.result.cpm": {
     "message": "CPM (chars/min)"
   },
-  "typing.result.accuracy": {
-    "message": "Accuracy"
-  },
   "typing.result.completedPassages": {
     "message": "Completed Passages"
   },
@@ -3347,7 +3341,10 @@
   "typing.result.noScore": {
     "message": "Personal best was not updated because 0 characters were digested."
   },
-  "typing.result.copyTemplateTitle": {
+  "typing.share.title": {
     "message": "Japanese IME Typing Result"
+  },
+  "typing.share.alert": {
+    "message": "Result image copied to clipboard!\nPlease paste and post it on X (Twitter) or other apps."
   }
 }
