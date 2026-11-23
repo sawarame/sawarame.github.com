@@ -2861,6 +2861,9 @@
   "nickmark.showcase.feedback.bookmarklet": {
     "message": "已通过 userScripts API（MAIN world）在当前标签页执行小书签"
   },
+  "nickmark.showcase.simulated.sawaraHeroSub": {
+    "message": "为常用页面和文件夹设置简短昵称，仅用键盘即可瞬间启动。"
+  },
   "nickmark.feature1.eyebrow": {
     "message": "命令面板 (⌥⇧D / Alt+⇧D)"
   },
