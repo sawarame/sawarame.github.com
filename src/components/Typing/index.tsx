@@ -735,47 +735,6 @@ function TypingToolContent(): JSX.Element {
       {phase === 'playing' && (
         <>
           <section className={styles.card}>
-            <div className={styles.statusBar}>
-              <div className={styles.statCard}>
-                <span className={styles.statLabel}>
-                  <Timer size={15} strokeWidth={2} />
-                  <Translate id="typing.playing.remainingTime">残り時間</Translate>
-                </span>
-                <span
-                  className={`${styles.statValue} ${isTimeWarning ? styles.statValueWarning : ''}`}
-                >
-                  {formatRemainingTime(remainingMs)}
-                </span>
-              </div>
-
-              <div className={styles.statCard}>
-                <span className={styles.statLabel}>
-                  <Target size={15} strokeWidth={2} />
-                  <Translate id="typing.playing.digestedChars">消化文字数</Translate>
-                </span>
-                <span className={styles.statValue}>{digestedChars}</span>
-              </div>
-
-              <div className={styles.statCard}>
-                <span className={styles.statLabel}>
-                  <FileCheck2 size={15} strokeWidth={2} />
-                  <Translate id="typing.playing.completedPassages">完走文章</Translate>
-                </span>
-                <span className={styles.statValue}>{completedPassages}</span>
-              </div>
-            </div>
-
-            <div className={styles.timerProgressWrap}>
-              <LinearProgress
-                variant="determinate"
-                value={timerProgress}
-                color={isTimeWarning ? 'error' : 'primary'}
-                sx={{ height: 8, borderRadius: 4 }}
-              />
-            </div>
-          </section>
-
-          <section className={styles.card}>
             <div className={styles.passageHeader}>
               <div className={styles.passageMeta}>
                 <Chip
@@ -927,27 +886,68 @@ function TypingToolContent(): JSX.Element {
                   </span>
                 )}
               </div>
+            </Box>
+          </section>
 
-              <div className={styles.playingControls}>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  startIcon={<RotateCcw size={16} strokeWidth={2} />}
-                  onClick={startCountdown}
-                  sx={{ borderRadius: 3, textTransform: 'none' }}
+          <section className={styles.card}>
+            <div className={styles.statusBar}>
+              <div className={styles.statCard}>
+                <span className={styles.statLabel}>
+                  <Timer size={15} strokeWidth={2} />
+                  <Translate id="typing.playing.remainingTime">残り時間</Translate>
+                </span>
+                <span
+                  className={`${styles.statValue} ${isTimeWarning ? styles.statValueWarning : ''}`}
                 >
-                  <Translate id="typing.action.retry">リトライ</Translate>
-                </Button>
-                <Button
-                  variant="outlined"
-                  color="inherit"
-                  startIcon={<X size={16} strokeWidth={2} />}
-                  onClick={handleAbortToIdle}
-                  sx={{ borderRadius: 3, textTransform: 'none' }}
-                >
-                  <Translate id="typing.action.abort">中断</Translate>
-                </Button>
+                  {formatRemainingTime(remainingMs)}
+                </span>
               </div>
+
+              <div className={styles.statCard}>
+                <span className={styles.statLabel}>
+                  <Target size={15} strokeWidth={2} />
+                  <Translate id="typing.playing.digestedChars">消化文字数</Translate>
+                </span>
+                <span className={styles.statValue}>{digestedChars}</span>
+              </div>
+
+              <div className={styles.statCard}>
+                <span className={styles.statLabel}>
+                  <FileCheck2 size={15} strokeWidth={2} />
+                  <Translate id="typing.playing.completedPassages">完走文章</Translate>
+                </span>
+                <span className={styles.statValue}>{completedPassages}</span>
+              </div>
+            </div>
+
+            <div className={styles.timerProgressWrap}>
+              <LinearProgress
+                variant="determinate"
+                value={timerProgress}
+                color={isTimeWarning ? 'error' : 'primary'}
+                sx={{ height: 8, borderRadius: 4 }}
+              />
+            </div>
+
+            <Box className={styles.playingControls} sx={{ mt: 2 }}>
+              <Button
+                variant="outlined"
+                color="primary"
+                startIcon={<RotateCcw size={16} strokeWidth={2} />}
+                onClick={startCountdown}
+                sx={{ borderRadius: 3, textTransform: 'none' }}
+              >
+                <Translate id="typing.action.retry">リトライ</Translate>
+              </Button>
+              <Button
+                variant="outlined"
+                color="inherit"
+                startIcon={<X size={16} strokeWidth={2} />}
+                onClick={handleAbortToIdle}
+                sx={{ borderRadius: 3, textTransform: 'none' }}
+              >
+                <Translate id="typing.action.abort">中断</Translate>
+              </Button>
             </Box>
           </section>
         </>
