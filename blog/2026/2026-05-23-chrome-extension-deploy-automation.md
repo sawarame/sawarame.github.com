@@ -13,7 +13,7 @@ import { Puzzle } from 'lucide-react';
 Chrome拡張機能の開発において、完成した成果物をZIP形式にまとめ、デベロッパーダッシュボードから手動でアップロードする作業は、頻度が高まると意外に大きな負担となります。
 今回は、GitHub Actions を活用して、リリースタグ（v1.0.0 など）の作成をトリガーに、Chrome Web Storeへのアップロードを自動化する方法を紹介します。
 
-<!-- truncate -->
+{/* truncate */}
 
 ## 自動化のメリット
 

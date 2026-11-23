@@ -20,7 +20,7 @@ import { Package } from 'lucide-react';
 今回は、さらに一歩進んで **GitHub Actions を使い、コードを GitHub にプッシュするだけで自動的にデプロイされる仕組み** を構築します。
 
 
-<!-- truncate -->
+{/* truncate */}
 
 ## 手順の概要
 

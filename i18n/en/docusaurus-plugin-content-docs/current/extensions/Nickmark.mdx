@@ -24,7 +24,7 @@ import NickmarkPng from '@site/src/icons/Nickmark.png';
   ]}
 />
 
-:::info Introduction & Interactive Demo
+:::info[Introduction & Interactive Demo]
 Try out the command palette directly in your browser on the [**Nickmark Overview & Interactive Demo (/nickmark)**](/nickmark).
 :::
 
@@ -38,7 +38,7 @@ In Nickmark (v2.1.0), all searching, registering, deleting, and navigation to ma
   - You can customize this shortcut anytime at `chrome://extensions/shortcuts`.
 - **Toolbar Icon**: Clicking the Nickmark icon in the browser toolbar also opens the exact same command palette.
 
-:::note Contextual Tips When Empty
+:::note[Contextual Tips When Empty]
 When the search input is empty, a helpful usage tip (TIP) is displayed below the input bar. Click the tip area to cycle to another tip while keeping keyboard focus in the search box.
 :::
 
@@ -113,7 +113,7 @@ Include slashes (`/`) in nicknames to organize bookmarks into hierarchical folde
 
 Register `javascript:...` URLs to execute bookmarklets directly on the active tab without navigating away (powered by Chrome 135+ `userScripts` API in the `MAIN` world).
 
-:::warning Enabling User Scripts (Chrome 135+)
+:::warning[Enabling User Scripts (Chrome 135+)]
 To run `javascript:` bookmarklets, enable **"Allow User Scripts"** on Nickmark's extension details page (`chrome://extensions`). If disabled, Nickmark displays a notice in the popup and management dashboard.
 :::
 
@@ -148,7 +148,7 @@ Start your input with a colon **`:`** or semicolon **`;`** to enter Command Mode
 | `:prefs` | — | Open Preferences. | `:prefs` |
 | `:help` | — | Open this help & documentation page. | `:help` |
 
-:::note Nickname Validation Rules
+:::note[Nickname Validation Rules]
 To prevent conflicts with command syntax and dynamic URLs, nicknames cannot contain **whitespace, `:`, `;`, `\`, `%`, `?`, `#`, `&`, `=`, `*`, `"`, `'`, `` ` ``, `<`, `>`, `|`, control characters, or zero-width characters**. Forward slash **`/`** is allowed for folder hierarchy.
 :::
 
