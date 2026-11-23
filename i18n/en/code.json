@@ -2861,6 +2861,9 @@
   "nickmark.showcase.feedback.bookmarklet": {
     "message": "Executed bookmarklet on the active tab via userScripts API (MAIN world)"
   },
+  "nickmark.showcase.simulated.sawaraHeroSub": {
+    "message": "Assign short nicknames to frequent pages and folders, and launch them instantly from your keyboard."
+  },
   "nickmark.feature1.eyebrow": {
     "message": "Command Palette (⌥⇧D / Alt+⇧D)"
   },

@@ -421,7 +421,9 @@ function SimulatedWebPage({ tab }: { tab: DemoBrowserTab }): JSX.Element {
         <div className={styles.sawaraBadge}>v2.1.0 · Chrome 135+ · MIT License</div>
         <div className={styles.sawaraHeroHeading}>{tab.title}</div>
         <div className={styles.sawaraHeroSub}>
-          よく使うページやフォルダに短いニックネームを付けて、キーボードだけで瞬時に起動。
+          <Translate id="nickmark.showcase.simulated.sawaraHeroSub">
+            よく使うページやフォルダに短いニックネームを付けて、キーボードだけで瞬時に起動。
+          </Translate>
         </div>
         <div className={styles.sawaraHeroActions}>
           <span className={styles.sawaraPrimaryPill}>

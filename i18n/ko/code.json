@@ -2861,6 +2861,9 @@
   "nickmark.showcase.feedback.bookmarklet": {
     "message": "userScripts API(MAIN world)로 현재 탭에서 북마크릿을 실행했습니다"
   },
+  "nickmark.showcase.simulated.sawaraHeroSub": {
+    "message": "자주 사용하는 페이지나 폴더에 짧은 닉네임을 지정해 키보드만으로 즉시 실행하세요."
+  },
   "nickmark.feature1.eyebrow": {
     "message": "커맨드 팔레트 (⌥⇧D / Alt+⇧D)"
   },
