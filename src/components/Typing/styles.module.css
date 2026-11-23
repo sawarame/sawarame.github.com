@@ -1,0 +1,626 @@
+.container {
+  max-width: 1100px;
+  margin: 0 auto 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.card {
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+[data-theme='dark'] .card {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.24);
+}
+
+/* ============================================================
+ * Idle Screen
+ * ============================================================ */
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ifm-font-color-base);
+  margin: 0 0 16px;
+}
+
+.courseGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.courseCard {
+  appearance: none;
+  text-align: left;
+  width: 100%;
+  background: var(--ifm-background-surface-color);
+  border: 2px solid var(--ifm-color-emphasis-200);
+  border-radius: 16px;
+  padding: 20px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: var(--ifm-font-color-base);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.courseCard:hover {
+  transform: translateY(-3px);
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.courseCard:focus-visible {
+  outline: 3px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+.courseCardActive {
+  border-color: var(--ifm-color-primary);
+  background: rgba(51, 102, 204, 0.06);
+  box-shadow: 0 8px 24px rgba(51, 102, 204, 0.14);
+}
+
+[data-theme='dark'] .courseCardActive {
+  background: rgba(79, 157, 255, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
+}
+
+.courseCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.courseName {
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.courseSub {
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.courseBestBox {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  font-size: 0.875rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.courseBestValue {
+  font-family: var(--ifm-font-family-monospace);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--ifm-color-primary);
+}
+
+.rulesList {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+  color: var(--ifm-color-emphasis-800);
+  font-size: 0.95rem;
+}
+
+.startActionRow {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.primaryGradientButton {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: #ffffff !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  padding: 12px 36px !important;
+  font-size: 1.05rem !important;
+  text-transform: none !important;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.primaryGradientButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(102, 126, 234, 0.4) !important;
+}
+
+/* ============================================================
+ * Countdown Screen
+ * ============================================================ */
+
+.countdownCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 320px;
+  gap: 16px;
+}
+
+.countdownNumber {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: clamp(4rem, 12vw, 6.5rem);
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: countdownPop 0.9s ease-out;
+}
+
+@keyframes countdownPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.65);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.countdownSubtitle {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+  margin: 0;
+}
+
+.countdownHint {
+  font-size: 0.875rem;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0;
+}
+
+/* ============================================================
+ * Playing Screen
+ * ============================================================ */
+
+.statusBar {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.statCard {
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.statValue {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--ifm-font-color-base);
+  line-height: 1.2;
+}
+
+.statValueWarning {
+  color: var(--ifm-color-danger);
+}
+
+.timerProgressWrap {
+  margin-top: 12px;
+}
+
+.passageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.passageMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.passageTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ifm-font-color-base);
+}
+
+.passageCounter {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.passageBox {
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 14px;
+  padding: 24px;
+  font-size: 1.2rem;
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+  word-break: break-all;
+  overflow-wrap: anywhere;
+  user-select: none;
+  cursor: text;
+}
+
+.charDigested {
+  color: var(--ifm-color-emphasis-500);
+  background: rgba(51, 102, 204, 0.08);
+  border-radius: 2px;
+}
+
+[data-theme='dark'] .charDigested {
+  color: var(--ifm-color-emphasis-500);
+  background: rgba(79, 157, 255, 0.14);
+}
+
+.charCurrent {
+  color: var(--ifm-color-primary-contrast-foreground, #ffffff);
+  background: var(--ifm-color-primary);
+  border-radius: 4px;
+  padding: 0 2px;
+  font-weight: 700;
+  box-shadow: 0 0 0 2px rgba(51, 102, 204, 0.25);
+}
+
+.charRemaining {
+  color: var(--ifm-font-color-base);
+  font-weight: 500;
+}
+
+.inputSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.inputRow {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.inputWrap {
+  flex: 1;
+}
+
+.inputShake {
+  animation: shake 0.36s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+.feedbackSlot {
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+.feedbackBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.feedbackSuccess {
+  color: var(--ifm-color-success-darkest);
+  background: var(--ifm-color-success-contrast-background);
+}
+
+.feedbackWarning {
+  color: var(--ifm-color-warning-darkest);
+  background: var(--ifm-color-warning-contrast-background);
+}
+
+.feedbackError {
+  color: var(--ifm-color-danger-darkest);
+  background: var(--ifm-color-danger-contrast-background);
+}
+
+[data-theme='dark'] .feedbackSuccess {
+  color: var(--ifm-color-success-lightest);
+}
+
+[data-theme='dark'] .feedbackWarning {
+  color: var(--ifm-color-warning-lightest);
+}
+
+[data-theme='dark'] .feedbackError {
+  color: var(--ifm-color-danger-lightest);
+}
+
+.playingControls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+ * Result Screen
+ * ============================================================ */
+
+.resultHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.resultHero {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.rankBadge {
+  width: 84px;
+  height: 84px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 900;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+  flex-shrink: 0;
+}
+
+.rankBadgeLabel {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  opacity: 0.9;
+}
+
+.rankBadgeValue {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.rankS {
+  background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+}
+
+.rankA {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.rankB {
+  background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
+}
+
+.rankC {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.rankD {
+  background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+}
+
+.resultScoreBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.resultTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.resultHeading {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ifm-font-color-base);
+}
+
+.newBestBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #ffffff;
+  background: linear-gradient(135deg, #f59e0b 0%, #ec4899 100%);
+}
+
+.mainScoreRow {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.mainScoreValue {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  font-weight: 900;
+  color: var(--ifm-color-primary);
+  line-height: 1.1;
+}
+
+.mainScoreUnit {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.rankDescription {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.6;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.bestComparisonBox {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 14px;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.bestComparisonText {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+}
+
+.resultActions {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ============================================================
+ * Responsive
+ * ============================================================ */
+
+@media (max-width: 768px) {
+  .card {
+    padding: 16px;
+  }
+
+  .courseGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .statusBar {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .statCard {
+    padding: 12px 10px;
+  }
+
+  .statValue {
+    font-size: 1.25rem;
+  }
+
+  .passageBox {
+    padding: 16px;
+    font-size: 1.05rem;
+  }
+
+  .inputRow {
+    flex-direction: column;
+  }
+
+  .metricsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .resultHero {
+    align-items: flex-start;
+  }
+
+  .rankBadge {
+    width: 68px;
+    height: 68px;
+  }
+
+  .rankBadgeValue {
+    font-size: 2rem;
+  }
+
+  .resultActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

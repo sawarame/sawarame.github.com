@@ -3316,5 +3316,185 @@
   },
   "tool.jsonFormatter.upload.formats": {
     "message": "지원 형식: JSON, Text"
+  },
+  "home.tools.typing.title": {
+    "message": "일본어 변환 타이핑"
+  },
+  "home.tools.typing.desc": {
+    "message": "IME 변환 확정 후의 문자열을 장문 예문과 대조해 소화하는 타이핑 연습 도구입니다. 영숫자·기호가 포함된 실무 일본어 입력 실력을 브라우저 내에서 측정할 수 있습니다."
+  },
+  "typing.course.1min": {
+    "message": "1분 코스"
+  },
+  "typing.course.3min": {
+    "message": "3분 코스"
+  },
+  "typing.course.1minSub": {
+    "message": "60초 · 단기 집중"
+  },
+  "typing.course.3minSub": {
+    "message": "180초 · 장문 지구력"
+  },
+  "typing.course.label": {
+    "message": "코스 선택"
+  },
+  "typing.best.title": {
+    "message": "코스별 최고 기록"
+  },
+  "typing.best.noRecord": {
+    "message": "아직 기록이 없습니다"
+  },
+  "typing.best.charsUnit": {
+    "message": "자"
+  },
+  "typing.best.passagesUnit": {
+    "message": "편"
+  },
+  "typing.rules.title": {
+    "message": "플레이 방법 및 판정 규칙"
+  },
+  "typing.rules.item1": {
+    "message": "일본어 IME로 변환을 확정한 뒤, 조합 중이 아닌 상태에서 Enter를 한 번 더 누르면 입력 문자열을 판정합니다."
+  },
+  "typing.rules.item2": {
+    "message": "예문 맨 앞부터 일치한 글자만 소화되며, 일치하지 않은 부분은 입력란에 그대로 남습니다. 바로 수정해 다시 Enter로 제출할 수 있습니다."
+  },
+  "typing.rules.item3": {
+    "message": "영숫자·ASCII 기호·공백의 반각/전각은 동일하게 취급하지만, 알파벳 대소문자는 엄격하게 구분합니다."
+  },
+  "typing.rules.item4": {
+    "message": "모든 로케일에서 공통으로 일본어 장문 예문이 출제됩니다. 붙여넣기 및 드래그 앤 드롭 입력은 비활성화되어 있습니다."
+  },
+  "typing.action.start": {
+    "message": "시작"
+  },
+  "typing.action.cancel": {
+    "message": "중단하고 돌아가기"
+  },
+  "typing.action.retry": {
+    "message": "다시 시작"
+  },
+  "typing.action.abort": {
+    "message": "중단"
+  },
+  "typing.action.playAgain": {
+    "message": "같은 코스로 한 번 더"
+  },
+  "typing.action.backToSelect": {
+    "message": "코스 선택으로 돌아가기"
+  },
+  "typing.action.copyResult": {
+    "message": "결과 복사"
+  },
+  "typing.action.copied": {
+    "message": "복사 완료"
+  },
+  "typing.countdown.ready": {
+    "message": "곧 시작합니다..."
+  },
+  "typing.countdown.hint": {
+    "message": "시작과 동시에 입력란에 자동으로 포커스가 맞춰집니다"
+  },
+  "typing.playing.remainingTime": {
+    "message": "남은 시간"
+  },
+  "typing.playing.digestedChars": {
+    "message": "소화 글자 수"
+  },
+  "typing.playing.completedPassages": {
+    "message": "완주 문장"
+  },
+  "typing.playing.passageProgress": {
+    "message": "진행도"
+  },
+  "typing.playing.inputPlaceholder": {
+    "message": "변환 확정 후 Enter로 판정..."
+  },
+  "typing.playing.inputHelper": {
+    "message": "IME 변환 확정용 Enter에서는 판정되지 않습니다. 확정 후 Enter를 한 번 더 눌러 제출하세요."
+  },
+  "typing.playing.submitButton": {
+    "message": "판정 (Enter)"
+  },
+  "typing.feedback.matchedAll": {
+    "message": "{count}자를 소화했습니다"
+  },
+  "typing.feedback.matchedPartial": {
+    "message": "{count}자를 소화했습니다 (남은 불일치 부분을 수정 후 다시 Enter)"
+  },
+  "typing.feedback.mismatch": {
+    "message": "앞부분이 일치하지 않습니다. 입력 내용을 확인하고 다시 Enter를 눌러 주세요."
+  },
+  "typing.feedback.passageComplete": {
+    "message": "문장을 완주했습니다! 다음 예문으로 넘어갑니다."
+  },
+  "typing.feedback.pasteBlocked": {
+    "message": "붙여넣기 및 드래그 앤 드롭 입력은 비활성화되어 있습니다."
+  },
+  "typing.genre.business": {
+    "message": "비즈니스"
+  },
+  "typing.genre.tech": {
+    "message": "IT / 개발"
+  },
+  "typing.genre.news": {
+    "message": "뉴스 / 칼럼"
+  },
+  "typing.genre.daily": {
+    "message": "일상 / 교양"
+  },
+  "typing.result.title": {
+    "message": "타임업! 결과 발표"
+  },
+  "typing.result.newBest": {
+    "message": "NEW BEST!"
+  },
+  "typing.result.totalDigested": {
+    "message": "총 소화 글자 수"
+  },
+  "typing.result.cpm": {
+    "message": "CPM (글자/분)"
+  },
+  "typing.result.accuracy": {
+    "message": "정확도"
+  },
+  "typing.result.completedPassages": {
+    "message": "완주 문장 수"
+  },
+  "typing.result.rank": {
+    "message": "랭크 평가"
+  },
+  "typing.result.rankDesc.S": {
+    "message": "전문가 수준! 변환을 포함해 압도적인 속도와 정확도입니다."
+  },
+  "typing.result.rankDesc.A": {
+    "message": "고급 수준! 실무에서도 매우 뛰어난 입력 퍼포먼스입니다."
+  },
+  "typing.result.rankDesc.B": {
+    "message": "실무 수준! 안정적인 변환과 템포로 입력하고 있습니다."
+  },
+  "typing.result.rankDesc.C": {
+    "message": "표준 수준! 변환 확정 리듬을 익히면 더욱 향상됩니다."
+  },
+  "typing.result.rankDesc.D": {
+    "message": "입문 수준! 서두르지 말고 한 문절씩 정확하게 확정해 보세요."
+  },
+  "typing.result.firstRecord": {
+    "message": "첫 최고 기록을 저장했습니다!"
+  },
+  "typing.result.beatBestBy": {
+    "message": "이전 최고 기록({prev}자)을 +{diff}자 경신했습니다!"
+  },
+  "typing.result.diffFromBest": {
+    "message": "최고 기록({best}자)까지 {diff}자 남았습니다"
+  },
+  "typing.result.tiedBest": {
+    "message": "최고 기록({best}자)과 동점입니다!"
+  },
+  "typing.result.noScore": {
+    "message": "소화 글자 수가 0이므로 최고 기록은 갱신되지 않았습니다."
+  },
+  "typing.result.copyTemplateTitle": {
+    "message": "일본어 변환 타이핑 결과"
   }
 }

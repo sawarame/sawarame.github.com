@@ -3316,5 +3316,185 @@
   },
   "tool.jsonFormatter.upload.formats": {
     "message": "支持格式：JSON, Text"
+  },
+  "home.tools.typing.title": {
+    "message": "日语输入法打字练习"
+  },
+  "home.tools.typing.desc": {
+    "message": "基于 IME 候选确认后的文本与长句范例比对消化的打字练习工具，可在浏览器本地测试包含英数字与符号的实用日语输入能力。"
+  },
+  "typing.course.1min": {
+    "message": "1分钟课程"
+  },
+  "typing.course.3min": {
+    "message": "3分钟课程"
+  },
+  "typing.course.1minSub": {
+    "message": "60秒 · 短期冲刺"
+  },
+  "typing.course.3minSub": {
+    "message": "180秒 · 长文耐力"
+  },
+  "typing.course.label": {
+    "message": "选择课程"
+  },
+  "typing.best.title": {
+    "message": "课程最佳记录"
+  },
+  "typing.best.noRecord": {
+    "message": "暂无记录"
+  },
+  "typing.best.charsUnit": {
+    "message": "字"
+  },
+  "typing.best.passagesUnit": {
+    "message": "篇"
+  },
+  "typing.rules.title": {
+    "message": "玩法与判定规则"
+  },
+  "typing.rules.item1": {
+    "message": "使用日语 IME 确认转换后，在非组合状态下再次按 Enter 即可判定输入内容。"
+  },
+  "typing.rules.item2": {
+    "message": "系统仅消化与范例开头连续匹配的字数，不匹配的剩余文字会保留在输入框中，可直接修改后再次提交。"
+  },
+  "typing.rules.item3": {
+    "message": "英数字、ASCII 符号和空格不区分半角/全角，但英文字母严格区分大小写。"
+  },
+  "typing.rules.item4": {
+    "message": "所有语言界面下均统一出题日语长句范例。已禁用粘贴和拖放输入。"
+  },
+  "typing.action.start": {
+    "message": "开始"
+  },
+  "typing.action.cancel": {
+    "message": "取消并返回"
+  },
+  "typing.action.retry": {
+    "message": "重新开始"
+  },
+  "typing.action.abort": {
+    "message": "中止"
+  },
+  "typing.action.playAgain": {
+    "message": "同课程再来一次"
+  },
+  "typing.action.backToSelect": {
+    "message": "返回课程选择"
+  },
+  "typing.action.copyResult": {
+    "message": "复制结果"
+  },
+  "typing.action.copied": {
+    "message": "已复制"
+  },
+  "typing.countdown.ready": {
+    "message": "即将开始..."
+  },
+  "typing.countdown.hint": {
+    "message": "开始后将自动聚焦到输入框"
+  },
+  "typing.playing.remainingTime": {
+    "message": "剩余时间"
+  },
+  "typing.playing.digestedChars": {
+    "message": "已消化字数"
+  },
+  "typing.playing.completedPassages": {
+    "message": "完成篇数"
+  },
+  "typing.playing.passageProgress": {
+    "message": "进度"
+  },
+  "typing.playing.inputPlaceholder": {
+    "message": "确认转换后按 Enter 判定..."
+  },
+  "typing.playing.inputHelper": {
+    "message": "IME 转换确认时的 Enter 不会触发判定，确认后请再按一次 Enter 提交。"
+  },
+  "typing.playing.submitButton": {
+    "message": "判定 (Enter)"
+  },
+  "typing.feedback.matchedAll": {
+    "message": "已消化 {count} 个字符"
+  },
+  "typing.feedback.matchedPartial": {
+    "message": "已消化 {count} 个字符（请修改剩余未匹配内容后再次按 Enter）"
+  },
+  "typing.feedback.mismatch": {
+    "message": "开头不匹配，请检查输入内容后再次按 Enter。"
+  },
+  "typing.feedback.passageComplete": {
+    "message": "本篇完成！已切换至下一篇范例。"
+  },
+  "typing.feedback.pasteBlocked": {
+    "message": "已禁用粘贴与拖放输入。"
+  },
+  "typing.genre.business": {
+    "message": "商务"
+  },
+  "typing.genre.tech": {
+    "message": "IT / 开发"
+  },
+  "typing.genre.news": {
+    "message": "新闻 / 专栏"
+  },
+  "typing.genre.daily": {
+    "message": "日常 / 常识"
+  },
+  "typing.result.title": {
+    "message": "时间到！成绩单"
+  },
+  "typing.result.newBest": {
+    "message": "NEW BEST!"
+  },
+  "typing.result.totalDigested": {
+    "message": "总消化字数"
+  },
+  "typing.result.cpm": {
+    "message": "CPM（字/分）"
+  },
+  "typing.result.accuracy": {
+    "message": "正确率"
+  },
+  "typing.result.completedPassages": {
+    "message": "完成篇数"
+  },
+  "typing.result.rank": {
+    "message": "等级评价"
+  },
+  "typing.result.rankDesc.S": {
+    "message": "专家级！包含转换在内展现出惊人的速度与准确度。"
+  },
+  "typing.result.rankDesc.A": {
+    "message": "高级水平！在实务工作中拥有极高的输入效率。"
+  },
+  "typing.result.rankDesc.B": {
+    "message": "实务水平！转换节奏稳定且准确。"
+  },
+  "typing.result.rankDesc.C": {
+    "message": "标准水平！掌握好转换确认节奏后会进一步提升。"
+  },
+  "typing.result.rankDesc.D": {
+    "message": "入门水平！不必着急，试着逐段准确确认转换吧。"
+  },
+  "typing.result.firstRecord": {
+    "message": "已保存首次最佳记录！"
+  },
+  "typing.result.beatBestBy": {
+    "message": "超越上次最佳记录（{prev}字）+{diff}字！"
+  },
+  "typing.result.diffFromBest": {
+    "message": "距离最佳记录（{best}字）还差 {diff}字"
+  },
+  "typing.result.tiedBest": {
+    "message": "追平了个人最佳记录（{best}字）！"
+  },
+  "typing.result.noScore": {
+    "message": "由于消化字数为 0，未更新个人最佳记录。"
+  },
+  "typing.result.copyTemplateTitle": {
+    "message": "日语输入法打字练习结果"
   }
 }
