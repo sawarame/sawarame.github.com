@@ -182,6 +182,7 @@ function TypingToolContent(): JSX.Element {
   const [feedback, setFeedback] = useState<FeedbackState | null>(null);
   const [isInputError, setIsInputError] = useState<boolean>(false);
   const [shakeTrigger, setShakeTrigger] = useState<number>(0);
+  const [isShaking, setIsShaking] = useState<boolean>(false);
   const [isComposing, setIsComposing] = useState<boolean>(false);
 
   // 結果画面の状態
@@ -302,6 +303,7 @@ function TypingToolContent(): JSX.Element {
     setRemainingMs(course * 1000);
     setFeedback(null);
     setIsInputError(false);
+    setIsShaking(false);
     setOutcome(null);
     setCopied(false);
     setCountdown(3);
@@ -318,6 +320,7 @@ function TypingToolContent(): JSX.Element {
     setInputValue('');
     setFeedback(null);
     setIsInputError(false);
+    setIsShaking(false);
     setRemainingMs(course * 1000);
     setPhase('idle');
   }, [course]);
@@ -398,9 +401,10 @@ function TypingToolContent(): JSX.Element {
     submittedCharsRef.current += evaluation.submittedChars;
 
     if (evaluation.isMismatch) {
-      // 1文字も一致しない場合は消化せず視覚フィードバックを表示し入力内容は残す
+      // 1文字も一致しない場合は消化せず視覚フィードバックを表示し入力内容とフォーカスを残す
       setIsInputError(true);
       setShakeTrigger((prev) => prev + 1);
+      setIsShaking(true);
       pushFeedback(
         'error',
         translate({
@@ -413,6 +417,7 @@ function TypingToolContent(): JSX.Element {
 
     // 先頭一致した文字数だけ消化を進める
     setIsInputError(false);
+    setIsShaking(false);
     digestedCharsRef.current += evaluation.matchedLen;
     setDigestedChars(digestedCharsRef.current);
     setInputValue(evaluation.remainingInput);
@@ -502,6 +507,7 @@ function TypingToolContent(): JSX.Element {
       event.preventDefault();
       setIsInputError(true);
       setShakeTrigger((prev) => prev + 1);
+      setIsShaking(true);
       pushFeedback(
         'error',
         translate({
@@ -767,8 +773,14 @@ function TypingToolContent(): JSX.Element {
             <Box className={styles.inputSection} sx={{ mt: 3 }}>
               <div className={styles.inputRow}>
                 <div
-                  key={shakeTrigger}
-                  className={`${styles.inputWrap} ${isInputError ? styles.inputShake : ''}`}
+                  className={`${styles.inputWrap} ${
+                    isShaking
+                      ? shakeTrigger % 2 === 1
+                        ? styles.inputShakeA
+                        : styles.inputShakeB
+                      : ''
+                  }`}
+                  onAnimationEnd={() => setIsShaking(false)}
                 >
                   <div
                     className={`${styles.richInputContainer} ${
@@ -851,7 +863,11 @@ function TypingToolContent(): JSX.Element {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={handleSubmitInput}
+                  onMouseDown={(event) => event.preventDefault()}
+                  onClick={() => {
+                    handleSubmitInput();
+                    inputRef.current?.focus();
+                  }}
                   sx={{
                     borderRadius: 3,
                     px: 3,
