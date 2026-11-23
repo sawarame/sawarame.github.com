@@ -2861,6 +2861,9 @@
   "nickmark.showcase.feedback.bookmarklet": {
     "message": "已透過 userScripts API（MAIN world）在目前分頁執行書籤小工具"
   },
+  "nickmark.showcase.simulated.sawaraHeroSub": {
+    "message": "為常用頁面與資料夾設定簡短暱稱，僅用鍵盤即可瞬間啟動。"
+  },
   "nickmark.feature1.eyebrow": {
     "message": "指令面板（⌥⇧D / Alt+⇧D）"
   },
