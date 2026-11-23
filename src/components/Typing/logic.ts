@@ -57,6 +57,28 @@ export interface SubmitEvaluation {
 }
 
 /**
+ * 送信前リアルタイム照合における1文字ごとの判定データ
+ */
+export interface PreviewCharItem {
+  /** 表示対象の1文字 */
+  char: string;
+  /** 課題文の対応位置と一致している場合は true、不一致または余剰文字の場合は false */
+  isMatch: boolean;
+}
+
+/**
+ * 送信前リアルタイム照合プレビューの結果データ
+ */
+export interface InputPreviewEvaluation {
+  /** 課題文の未消化先頭から入力文字数分を1文字ずつ一致/不一致判定した配列 */
+  passagePreview: PreviewCharItem[];
+  /** 入力欄の文字列を1文字ずつ一致/不一致判定した配列（例文末尾超過分は不一致扱い） */
+  inputPreview: PreviewCharItem[];
+  /** 入力中文字の直後にある課題文上の次カーソル位置 */
+  nextCursorIndex: number;
+}
+
+/**
  * 結果画面で表示するスコア集計結果
  */
 export interface TypingResultMetrics {
@@ -97,8 +119,9 @@ export const COMPOSITION_END_GUARD_MS = 30;
 /**
  * 1文字（NFC 正規化済み）を比較用に正規化する
  * 全角英数字・全角 ASCII 記号（U+FF01〜U+FF5E）を半角（U+0021〜U+007E）へ、
- * 全角スペース（U+3000）を半角スペース（U+0020）へ変換する。
- * アルファベットの大文字・小文字および日本語文字はそのまま保持する。
+ * 全角スペース（U+3000）を半角スペース（U+0020）へ、
+ * 長音符「ー」（U+30FC）をハイフン「-」（U+002D）へ変換する。
+ * アルファベットの大文字・小文字およびその他の日本語文字はそのまま保持する。
  * @param char - NFC 正規化済みの1文字
  * @returns 比較用に正規化された1文字
  */
@@ -111,7 +134,11 @@ export function normalizeChar(char: string): string {
   if (code === 0x3000) {
     return ' ';
   }
-  // 全角英数字・全角 ASCII 記号を半角へ正規化
+  // 長音符「ー」をハイフン「-」と同一視して正規化
+  if (code === 0x30fc) {
+    return '-';
+  }
+  // 全角英数字・全角 ASCII 記号（全角ハイフン「－」U+FF0D を含む）を半角へ正規化
   if (code >= 0xff01 && code <= 0xff5e) {
     return String.fromCharCode(code - 0xfee0);
   }
@@ -189,6 +216,56 @@ export function evaluateSubmission(
     nextCursor,
     isPassageCompleted: nextCursor >= passageChars.length,
     isMismatch: matchedLen === 0,
+  };
+}
+
+/**
+ * 送信前の入力中文字列を課題文の未消化部分と1文字ずつリアルタイム照合し、
+ * 一致（緑）・不一致（赤）のプレビュー用判定結果を生成する
+ * @param passageText - 現在の課題例文テキスト
+ * @param cursor - 現在の消化済み位置（NFC コードポイント単位）
+ * @param rawInput - 入力欄に入力されている文字列
+ * @returns 課題文側および入力側の1文字ごとの一致/不一致判定結果
+ */
+export function evaluateInputPreview(
+  passageText: string,
+  cursor: number,
+  rawInput: string
+): InputPreviewEvaluation {
+  const passageChars = splitNfcChars(passageText);
+  const safeCursor = Math.max(0, Math.min(cursor, passageChars.length));
+  const inputChars = splitNfcChars(rawInput);
+
+  if (inputChars.length === 0) {
+    return {
+      passagePreview: [],
+      inputPreview: [],
+      nextCursorIndex: safeCursor,
+    };
+  }
+
+  const passagePreview: PreviewCharItem[] = [];
+  const inputPreview: PreviewCharItem[] = [];
+
+  for (let i = 0; i < inputChars.length; i += 1) {
+    const inputChar = inputChars[i];
+    const targetIndex = safeCursor + i;
+
+    if (targetIndex < passageChars.length) {
+      const targetChar = passageChars[targetIndex];
+      const isMatch = normalizeChar(targetChar) === normalizeChar(inputChar);
+      passagePreview.push({ char: targetChar, isMatch });
+      inputPreview.push({ char: inputChar, isMatch });
+    } else {
+      // 課題文の末尾を超過した入力文字は不一致として赤表示する
+      inputPreview.push({ char: inputChar, isMatch: false });
+    }
+  }
+
+  return {
+    passagePreview,
+    inputPreview,
+    nextCursorIndex: safeCursor + passagePreview.length,
   };
 }
 

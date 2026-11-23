@@ -6,6 +6,7 @@ import {
   calculateCpm,
   computeResultMetrics,
   determineRank,
+  evaluateInputPreview,
   evaluateSubmission,
   formatRemainingTime,
   loadBestRecords,
@@ -33,6 +34,15 @@ describe('Typing Tool Pure Logic Suite', () => {
     it('全角スペース（U+3000）を半角スペース（U+0020）へ変換すること', () => {
       expect(normalizeChar('\u3000')).toBe(' ');
       expect(normalizeText('A\u3000B')).toBe('A B');
+    });
+
+    it('長音符「ー」とハイフン「-」「－」を同一文字（"-"）へ正規化すること', () => {
+      expect(normalizeChar('ー')).toBe('-');
+      expect(normalizeChar('-')).toBe('-');
+      expect(normalizeChar('－')).toBe('-');
+      expect(normalizeText('ミーティング 14:00-15:30')).toBe('ミ-ティング 14:00-15:30');
+      expect(normalizeText('ミ-ティング 14:00ー15:30')).toBe('ミ-ティング 14:00-15:30');
+      expect(normalizeText('ミ－ティング 14:00－15:30')).toBe('ミ-ティング 14:00-15:30');
     });
 
     it('大文字・小文字は厳密に区別したまま保持すること', () => {
@@ -129,6 +139,81 @@ describe('Typing Tool Pure Logic Suite', () => {
       expect(result.matchedLen).toBe(2);
       expect(result.isPassageCompleted).toBe(true);
       expect(result.remainingInput).toBe('DEF');
+    });
+
+    it('「ー」と「-」「－」を相互に同一文字として消化判定できること', () => {
+      const res1 = evaluateSubmission('ミーティング14:00-15:30', 0, 'ミ-ティング14:00ー15:30');
+      expect(res1.matchedLen).toBe(17);
+      expect(res1.isPassageCompleted).toBe(true);
+      expect(res1.remainingInput).toBe('');
+
+      const res2 = evaluateSubmission('#project-alpha', 0, '#projectーalpha');
+      expect(res2.matchedLen).toBe(14);
+      expect(res2.isPassageCompleted).toBe(true);
+    });
+  });
+
+  // =========================================================================
+  // 2.5. 送信前リアルタイム照合プレビュー
+  // =========================================================================
+  describe('送信前リアルタイム照合プレビュー（evaluateInputPreview）', () => {
+    it('入力が空の場合は空配列と現在カーソル位置を返すこと', () => {
+      expect(evaluateInputPreview('来週の会議', 2, '')).toEqual({
+        passagePreview: [],
+        inputPreview: [],
+        nextCursorIndex: 2,
+      });
+    });
+
+    it('一致文字を true（緑）、不一致文字を false（赤）として1文字ずつ判定すること', () => {
+      // '来週の月時定例' vs '来週の月次定例会議'
+      const preview = evaluateInputPreview('来週の月次定例会議', 0, '来週の月時定例');
+      expect(preview.nextCursorIndex).toBe(7);
+      expect(preview.passagePreview).toEqual([
+        { char: '来', isMatch: true },
+        { char: '週', isMatch: true },
+        { char: 'の', isMatch: true },
+        { char: '月', isMatch: true },
+        { char: '次', isMatch: false },
+        { char: '定', isMatch: true },
+        { char: '例', isMatch: true },
+      ]);
+      expect(preview.inputPreview).toEqual([
+        { char: '来', isMatch: true },
+        { char: '週', isMatch: true },
+        { char: 'の', isMatch: true },
+        { char: '月', isMatch: true },
+        { char: '時', isMatch: false },
+        { char: '定', isMatch: true },
+        { char: '例', isMatch: true },
+      ]);
+    });
+
+    it('全角半角統一・「ー」と「-」同一視・大文字小文字区別がプレビューにも反映されること', () => {
+      const preview = evaluateInputPreview('API-キー', 0, 'ＡpＩーキ-');
+      expect(preview.inputPreview).toEqual([
+        { char: 'Ａ', isMatch: true },
+        { char: 'p', isMatch: false },
+        { char: 'Ｉ', isMatch: true },
+        { char: 'ー', isMatch: true },
+        { char: 'キ', isMatch: true },
+        { char: '-', isMatch: true },
+      ]);
+    });
+
+    it('例文末尾を超過して入力された余剰文字は inputPreview 側で false（赤）となること', () => {
+      const preview = evaluateInputPreview('ABC', 1, 'BCDE');
+      expect(preview.nextCursorIndex).toBe(3);
+      expect(preview.passagePreview).toEqual([
+        { char: 'B', isMatch: true },
+        { char: 'C', isMatch: true },
+      ]);
+      expect(preview.inputPreview).toEqual([
+        { char: 'B', isMatch: true },
+        { char: 'C', isMatch: true },
+        { char: 'D', isMatch: false },
+        { char: 'E', isMatch: false },
+      ]);
     });
   });
 

@@ -310,9 +310,57 @@
   box-shadow: 0 0 0 2px rgba(51, 102, 204, 0.25);
 }
 
+.charPreviewMatch {
+  color: var(--ifm-color-success-darkest);
+  background: var(--ifm-color-success-contrast-background);
+  border-radius: 3px;
+  font-weight: 700;
+}
+
+.charPreviewMismatch {
+  color: var(--ifm-color-danger-darkest);
+  background: var(--ifm-color-danger-contrast-background);
+  border-radius: 3px;
+  font-weight: 700;
+  text-decoration: underline wavy var(--ifm-color-danger);
+  text-underline-offset: 3px;
+}
+
+[data-theme='dark'] .charPreviewMatch {
+  color: var(--ifm-color-success-lightest);
+}
+
+[data-theme='dark'] .charPreviewMismatch {
+  color: var(--ifm-color-danger-lightest);
+}
+
 .charRemaining {
   color: var(--ifm-font-color-base);
   font-weight: 500;
+}
+
+.inputPreviewBox {
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.inputPreviewLabel {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.inputPreviewText {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+  word-break: break-all;
+  overflow-wrap: anywhere;
 }
 
 .inputSection {

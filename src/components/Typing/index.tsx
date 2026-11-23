@@ -25,6 +25,7 @@ import {
   AVAILABLE_COURSES,
   buildCourseSearch,
   computeResultMetrics,
+  evaluateInputPreview,
   evaluateSubmission,
   formatRemainingTime,
   loadBestRecords,
@@ -559,10 +560,16 @@ function TypingToolContent(): JSX.Element {
   );
   const isTimeWarning = remainingMs <= 10_000;
 
-  // 課題文を消化済み・現在位置・未消化に分割
+  // 送信前リアルタイム照合プレビュー（合っている文字を緑、合っていない文字を赤で表示）
+  const livePreview = useMemo(
+    () => evaluateInputPreview(currentPassage.text, cursor, inputValue),
+    [currentPassage.text, cursor, inputValue]
+  );
+
+  // 課題文を消化済み・入力中プレビュー・現在位置・未消化に分割
   const digestedSegment = passageChars.slice(0, cursor).join('');
-  const currentCharSegment = passageChars[cursor] ?? '';
-  const remainingSegment = passageChars.slice(cursor + 1).join('');
+  const currentCharSegment = passageChars[livePreview.nextCursorIndex] ?? '';
+  const remainingSegment = passageChars.slice(livePreview.nextCursorIndex + 1).join('');
 
   return (
     <div className={styles.container}>
@@ -659,12 +666,12 @@ function TypingToolContent(): JSX.Element {
               </li>
               <li>
                 <Translate id="typing.rules.item2">
-                  例文の先頭から一致した文字だけが消化され、不一致の部分は入力欄に残ります。そのまま修正して再 Enter できます。
+                  送信前でも入力中の文字はリアルタイムに照合され、合っている文字は緑・合っていない文字は赤で表示されます。Enter 時は先頭一致分のみ消化され、不一致部分は入力欄に残ります。
                 </Translate>
               </li>
               <li>
                 <Translate id="typing.rules.item3">
-                  英数字・記号・スペースの半角／全角は同一視されますが、アルファベットの大文字・小文字は厳密に区別されます。
+                  英数字・記号・スペースの半角／全角、および「ー」と「-」は同一視されますが、アルファベットの大文字・小文字は厳密に区別されます。
                 </Translate>
               </li>
               <li>
@@ -770,6 +777,14 @@ function TypingToolContent(): JSX.Element {
               aria-label={currentPassage.title}
             >
               <span className={styles.charDigested}>{digestedSegment}</span>
+              {livePreview.passagePreview.map((item, idx) => (
+                <span
+                  key={`${cursor + idx}-${item.isMatch ? 'm' : 'x'}`}
+                  className={item.isMatch ? styles.charPreviewMatch : styles.charPreviewMismatch}
+                >
+                  {item.char}
+                </span>
+              ))}
               {currentCharSegment && (
                 <span className={styles.charCurrent}>{currentCharSegment}</span>
               )}
@@ -836,6 +851,28 @@ function TypingToolContent(): JSX.Element {
                   <Translate id="typing.playing.submitButton">判定 (Enter)</Translate>
                 </Button>
               </div>
+
+              {livePreview.inputPreview.length > 0 && (
+                <div className={styles.inputPreviewBox} aria-live="off">
+                  <span className={styles.inputPreviewLabel}>
+                    <Translate id="typing.playing.livePreviewLabel">
+                      送信前プレビュー（緑: 一致 / 赤: 不一致）
+                    </Translate>
+                  </span>
+                  <div className={styles.inputPreviewText}>
+                    {livePreview.inputPreview.map((item, idx) => (
+                      <span
+                        key={`${idx}-${item.isMatch ? 'm' : 'x'}`}
+                        className={
+                          item.isMatch ? styles.charPreviewMatch : styles.charPreviewMismatch
+                        }
+                      >
+                        {item.char}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div className={styles.feedbackSlot} aria-live="polite">
                 {feedback && (

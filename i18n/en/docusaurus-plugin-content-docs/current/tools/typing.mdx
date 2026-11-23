@@ -35,8 +35,9 @@ import { Keyboard } from "lucide-react";
 ### 1. Committed-Text Evaluation for Real-World Japanese Typing
 Instead of judging individual romaji keystrokes, this tool measures your practical ability to type and convert accurate Japanese sentences using your own IME—whether you submit short phrases or longer clauses.
 
-### 2. Full-Width/Half-Width Normalization & Case Sensitivity
-- **Half-width & Full-width treated equally**: Alphanumeric characters, ASCII symbols, and spaces match regardless of width (e.g., `A` matches `Ａ`, `100%` matches `１００％`).
+### 2. Normalization, Hyphen/Prolonged-Sound Equivalence & Live Color Preview
+- **Live pre-submit color preview**: Before pressing Enter, characters currently in the input box are compared in real time against the passage—matching characters appear in green and mismatched characters appear in red.
+- **Half-width/Full-width & `ー`/`-` treated equally**: Alphanumeric characters, ASCII symbols, and spaces match regardless of width (e.g., `A` matches `Ａ`, `100%` matches `１００％`), and the prolonged sound mark `ー` matches hyphen `-` (including full-width `－`).
 - **Case-sensitive**: Uppercase and lowercase letters are strictly distinguished (`A` does not match `a`).
 - **Exact Japanese matching**: Hiragana, katakana, kanji, and Japanese punctuation are matched strictly, with Unicode `NFC` normalization handling combining diacritics.
 - **Japanese Passages Across All Locales**: Because this tool focuses specifically on Japanese IME conversion typing, the built-in passages are always presented in Japanese regardless of the site language.
