@@ -1144,20 +1144,18 @@ function TypingToolContent(): JSX.Element {
 
             <Box className={styles.inputSection} sx={{ mt: 3 }}>
               <div className={styles.inputRow}>
-                <div
-                  className={`${styles.inputWrap} ${
-                    isShaking
-                      ? shakeTrigger % 2 === 1
-                        ? styles.inputShakeA
-                        : styles.inputShakeB
-                      : ''
-                  }`}
-                  onAnimationEnd={() => setIsShaking(false)}
-                >
+                <div className={styles.inputWrap}>
                   <div
                     className={`${styles.richInputContainer} ${
                       isInputError ? styles.richInputContainerError : ''
+                    } ${
+                      isShaking
+                        ? shakeTrigger % 2 === 1
+                          ? styles.inputShakeA
+                          : styles.inputShakeB
+                        : ''
                     }`}
+                    onAnimationEnd={() => setIsShaking(false)}
                   >
                     <div
                       ref={mirrorRef}
@@ -1222,6 +1220,18 @@ function TypingToolContent(): JSX.Element {
                       onPaste={handleBlockPasteOrDrop}
                       onDrop={handleBlockPasteOrDrop}
                       onDragOver={(event) => event.preventDefault()}
+                    />
+                  </div>
+                  <div className={styles.timerProgressWrap}>
+                    <LinearProgress
+                      variant="determinate"
+                      value={timerProgress}
+                      color={isTimeWarning ? 'error' : 'primary'}
+                      aria-label={translate({
+                        id: 'typing.playing.remainingTime',
+                        message: '残り時間',
+                      })}
+                      sx={{ height: 8, borderRadius: 4 }}
                     />
                   </div>
                   <p className={styles.inputHelperText}>
@@ -1306,15 +1316,6 @@ function TypingToolContent(): JSX.Element {
                 </span>
                 <span className={styles.statValue}>{completedPassages}</span>
               </div>
-            </div>
-
-            <div className={styles.timerProgressWrap}>
-              <LinearProgress
-                variant="determinate"
-                value={timerProgress}
-                color={isTimeWarning ? 'error' : 'primary'}
-                sx={{ height: 8, borderRadius: 4 }}
-              />
             </div>
 
             <Box className={styles.playingControls} sx={{ mt: 2 }}>
