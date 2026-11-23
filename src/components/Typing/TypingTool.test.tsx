@@ -102,6 +102,79 @@ describe('TypingTool 入力欄フォーカス維持テスト', () => {
     expect(document.activeElement).toBe(inputBefore);
     expect(inputBefore.value).toBe('@@@誤入力テスト');
   });
+
+  it('残り時間プログレスバーが入力ボックスの真下かつヘルパー文の上に1つだけ配置され、残り10秒以下で警告色になり、エラー時に進捗バーは揺れないこと', () => {
+    act(() => {
+      root.render(<TypingTool />);
+    });
+
+    // スタートボタンをクリックして 3 秒カウントダウンを開始
+    const startButton = Array.from(container.querySelectorAll('button')).find((btn) =>
+      btn.textContent?.includes('スタート')
+    );
+    expect(startButton).toBeDefined();
+
+    act(() => {
+      startButton?.click();
+    });
+
+    for (let i = 0; i < 3; i += 1) {
+      act(() => {
+        vi.advanceTimersByTime(1000);
+      });
+    }
+
+    // プログレスバーがプレイ画面に 1 つだけ存在すること
+    const progressBars = container.querySelectorAll('[role="progressbar"]');
+    expect(progressBars).toHaveLength(1);
+    const progressBar = progressBars[0] as HTMLElement;
+
+    const input = container.querySelector('input[type="text"]') as HTMLInputElement | null;
+    expect(input).not.toBeNull();
+    if (!input) return;
+
+    const richInputContainer = input.parentElement as HTMLElement;
+    const progressWrap = progressBar.parentElement as HTMLElement;
+    const inputWrap = richInputContainer.parentElement as HTMLElement;
+    const helperText = Array.from(container.querySelectorAll('p')).find((p) =>
+      p.textContent?.includes('IME変換確定の Enter では判定されません')
+    );
+
+    expect(helperText).toBeDefined();
+    // 同じ inputWrap 内で「入力ボックス → プログレスバー → ヘルパー文」の順に並んでいること
+    expect(progressWrap.parentElement).toBe(inputWrap);
+    expect(helperText?.parentElement).toBe(inputWrap);
+    expect(richInputContainer.nextElementSibling).toBe(progressWrap);
+    expect(progressWrap.nextElementSibling).toBe(helperText);
+
+    // 初期状態は primary カラー、値 100 付近であること
+    expect(progressBar.className).toContain('MuiLinearProgress-colorPrimary');
+    expect(Number(progressBar.getAttribute('aria-valuenow'))).toBe(100);
+
+    // 不一致 Enter 送信時、シェイク用クラスは入力ボックスコンテナのみに付きプログレスバーや親には付かないこと
+    act(() => {
+      input.focus();
+      setInputValue(input, '@@@誤入力テスト');
+    });
+    act(() => {
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true })
+      );
+    });
+    expect(richInputContainer.className).toMatch(/inputShake[AB]/);
+    expect(inputWrap.className).not.toMatch(/inputShake[AB]/);
+    expect(progressWrap.className).not.toMatch(/inputShake[AB]/);
+    expect(document.activeElement).toBe(input);
+
+    // 52 秒経過（残り 8 秒）で進捗バーが減少し、警告色（error）へ切り替わること
+    act(() => {
+      vi.advanceTimersByTime(52_000);
+    });
+    const remainingValue = Number(progressBar.getAttribute('aria-valuenow'));
+    expect(remainingValue).toBeLessThan(20);
+    expect(remainingValue).toBeGreaterThan(0);
+    expect(progressBar.className).toContain('MuiLinearProgress-colorError');
+  });
 });
 
 /**
