@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useHistory, useLocation } from '@docusaurus/router';
 import Translate, { translate } from '@docusaurus/Translate';
-import { Box, Button, Chip, LinearProgress, TextField } from '@mui/material';
+import { Box, Button, Chip, LinearProgress } from '@mui/material';
 import {
   AlertCircle,
   ArrowLeft,
@@ -182,13 +182,15 @@ function TypingToolContent(): JSX.Element {
   const [feedback, setFeedback] = useState<FeedbackState | null>(null);
   const [isInputError, setIsInputError] = useState<boolean>(false);
   const [shakeTrigger, setShakeTrigger] = useState<number>(0);
+  const [isComposing, setIsComposing] = useState<boolean>(false);
 
   // 結果画面の状態
   const [outcome, setOutcome] = useState<SessionOutcome | null>(null);
   const [copied, setCopied] = useState<boolean>(false);
 
-  // タイマー・IME・最新スコア参照用 Ref
+  // タイマー・IME・スクロール同期・最新スコア参照用 Ref
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const mirrorRef = useRef<HTMLDivElement | null>(null);
   const isComposingRef = useRef<boolean>(false);
   const lastCompositionEndMsRef = useRef<number>(0);
   const endTimeMsRef = useRef<number>(0);
@@ -294,6 +296,7 @@ function TypingToolContent(): JSX.Element {
     setDeckIndex(0);
     setCursor(0);
     setInputValue('');
+    setIsComposing(false);
     setDigestedChars(0);
     setCompletedPassages(0);
     setRemainingMs(course * 1000);
@@ -310,6 +313,8 @@ function TypingToolContent(): JSX.Element {
    */
   const handleAbortToIdle = useCallback(() => {
     hasFinishedRef.current = true;
+    isComposingRef.current = false;
+    setIsComposing(false);
     setInputValue('');
     setFeedback(null);
     setIsInputError(false);
@@ -560,16 +565,33 @@ function TypingToolContent(): JSX.Element {
   );
   const isTimeWarning = remainingMs <= 10_000;
 
-  // 送信前リアルタイム照合プレビュー（合っている文字を緑、合っていない文字を赤で表示）
-  const livePreview = useMemo(
+  /**
+   * 入力欄の横スクロール位置を背面の色分けミラーレイヤーへ同期する
+   */
+  const syncInputScroll = useCallback(() => {
+    if (mirrorRef.current && inputRef.current) {
+      mirrorRef.current.scrollLeft = inputRef.current.scrollLeft;
+    }
+  }, []);
+
+  // 入力値や変換状態の変化時にも横スクロール位置を同期する
+  useEffect(() => {
+    syncInputScroll();
+  }, [inputValue, isComposing, syncInputScroll]);
+
+  // 入力欄内の送信前リアルタイム照合（合っている文字を緑、合っていない文字を赤で表示）
+  const inputPreviewChars = useMemo(
     () => evaluateInputPreview(currentPassage.text, cursor, inputValue),
     [currentPassage.text, cursor, inputValue]
   );
 
-  // 課題文を消化済み・入力中プレビュー・現在位置・未消化に分割
+  // 課題文を消化済み・現在位置・未消化に分割
   const digestedSegment = passageChars.slice(0, cursor).join('');
-  const currentCharSegment = passageChars[livePreview.nextCursorIndex] ?? '';
-  const remainingSegment = passageChars.slice(livePreview.nextCursorIndex + 1).join('');
+  const currentCharSegment = passageChars[cursor] ?? '';
+  const remainingSegment = passageChars.slice(cursor + 1).join('');
+
+  // IME 変換中でなく入力文字列がある場合に、入力欄内の文字を緑／赤オーバーレイ表示する
+  const useColorOverlay = !isComposing && inputValue.length > 0;
 
   return (
     <div className={styles.container}>
@@ -666,7 +688,7 @@ function TypingToolContent(): JSX.Element {
               </li>
               <li>
                 <Translate id="typing.rules.item2">
-                  送信前でも入力中の文字はリアルタイムに照合され、合っている文字は緑・合っていない文字は赤で表示されます。Enter 時は先頭一致分のみ消化され、不一致部分は入力欄に残ります。
+                  送信前でも入力欄内の文字はリアルタイムに照合され、合っている文字は緑・合っていない文字は赤で表示されます。Enter 時は先頭一致分のみ消化され、不一致部分は入力欄に残ります。
                 </Translate>
               </li>
               <li>
@@ -777,14 +799,6 @@ function TypingToolContent(): JSX.Element {
               aria-label={currentPassage.title}
             >
               <span className={styles.charDigested}>{digestedSegment}</span>
-              {livePreview.passagePreview.map((item, idx) => (
-                <span
-                  key={`${cursor + idx}-${item.isMatch ? 'm' : 'x'}`}
-                  className={item.isMatch ? styles.charPreviewMatch : styles.charPreviewMismatch}
-                >
-                  {item.char}
-                </span>
-              ))}
               {currentCharSegment && (
                 <span className={styles.charCurrent}>{currentCharSegment}</span>
               )}
@@ -797,43 +811,83 @@ function TypingToolContent(): JSX.Element {
                   key={shakeTrigger}
                   className={`${styles.inputWrap} ${isInputError ? styles.inputShake : ''}`}
                 >
-                  <TextField
-                    fullWidth
-                    variant="outlined"
-                    inputRef={inputRef}
-                    value={inputValue}
-                    error={isInputError}
-                    autoComplete="off"
-                    autoCorrect="off"
-                    autoCapitalize="off"
-                    spellCheck={false}
-                    placeholder={translate({
-                      id: 'typing.playing.inputPlaceholder',
-                      message: '変換確定後に Enter で判定...',
-                    })}
-                    onChange={(event) => {
-                      setInputValue(event.target.value);
-                      if (isInputError) {
-                        setIsInputError(false);
-                      }
-                    }}
-                    onCompositionStart={() => {
-                      isComposingRef.current = true;
-                    }}
-                    onCompositionEnd={() => {
-                      isComposingRef.current = false;
-                      lastCompositionEndMsRef.current = performance.now();
-                    }}
-                    onKeyDown={handleInputKeyDown}
-                    onPaste={handleBlockPasteOrDrop}
-                    onDrop={handleBlockPasteOrDrop}
-                    onDragOver={(event) => event.preventDefault()}
-                    helperText={translate({
+                  <div
+                    className={`${styles.richInputContainer} ${
+                      isInputError ? styles.richInputContainerError : ''
+                    }`}
+                  >
+                    <div
+                      ref={mirrorRef}
+                      className={`${styles.richInputMirror} ${
+                        useColorOverlay ? '' : styles.richInputMirrorHidden
+                      }`}
+                      aria-hidden="true"
+                    >
+                      {inputPreviewChars.map((item, idx) => (
+                        <span
+                          key={`${idx}-${item.isMatch ? 'm' : 'x'}`}
+                          className={
+                            item.isMatch ? styles.inputCharMatch : styles.inputCharMismatch
+                          }
+                        >
+                          {item.char}
+                        </span>
+                      ))}
+                    </div>
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      className={`${styles.richInputField} ${
+                        useColorOverlay ? styles.richInputFieldOverlay : ''
+                      }`}
+                      value={inputValue}
+                      aria-invalid={isInputError}
+                      aria-label={translate({
+                        id: 'typing.playing.inputPlaceholder',
+                        message: '変換確定後に Enter で判定...',
+                      })}
+                      autoComplete="off"
+                      autoCorrect="off"
+                      autoCapitalize="off"
+                      spellCheck={false}
+                      placeholder={translate({
+                        id: 'typing.playing.inputPlaceholder',
+                        message: '変換確定後に Enter で判定...',
+                      })}
+                      onChange={(event) => {
+                        setInputValue(event.target.value);
+                        if (isInputError) {
+                          setIsInputError(false);
+                        }
+                        syncInputScroll();
+                      }}
+                      onCompositionStart={() => {
+                        isComposingRef.current = true;
+                        setIsComposing(true);
+                      }}
+                      onCompositionEnd={() => {
+                        isComposingRef.current = false;
+                        lastCompositionEndMsRef.current = performance.now();
+                        setIsComposing(false);
+                        syncInputScroll();
+                      }}
+                      onKeyDown={handleInputKeyDown}
+                      onKeyUp={syncInputScroll}
+                      onScroll={syncInputScroll}
+                      onClick={syncInputScroll}
+                      onSelect={syncInputScroll}
+                      onPaste={handleBlockPasteOrDrop}
+                      onDrop={handleBlockPasteOrDrop}
+                      onDragOver={(event) => event.preventDefault()}
+                    />
+                  </div>
+                  <p className={styles.inputHelperText}>
+                    {translate({
                       id: 'typing.playing.inputHelper',
                       message:
                         'IME変換確定の Enter では判定されません。確定後にもう一度 Enter で送信してください。',
                     })}
-                  />
+                  </p>
                 </div>
                 <Button
                   variant="contained"
@@ -851,28 +905,6 @@ function TypingToolContent(): JSX.Element {
                   <Translate id="typing.playing.submitButton">判定 (Enter)</Translate>
                 </Button>
               </div>
-
-              {livePreview.inputPreview.length > 0 && (
-                <div className={styles.inputPreviewBox} aria-live="off">
-                  <span className={styles.inputPreviewLabel}>
-                    <Translate id="typing.playing.livePreviewLabel">
-                      送信前プレビュー（緑: 一致 / 赤: 不一致）
-                    </Translate>
-                  </span>
-                  <div className={styles.inputPreviewText}>
-                    {livePreview.inputPreview.map((item, idx) => (
-                      <span
-                        key={`${idx}-${item.isMatch ? 'm' : 'x'}`}
-                        className={
-                          item.isMatch ? styles.charPreviewMatch : styles.charPreviewMismatch
-                        }
-                      >
-                        {item.char}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
 
               <div className={styles.feedbackSlot} aria-live="polite">
                 {feedback && (

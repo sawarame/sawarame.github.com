@@ -3357,7 +3357,7 @@
     "message": "使用日语 IME 确认转换后，在非组合状态下再次按 Enter 即可判定输入内容。"
   },
   "typing.rules.item2": {
-    "message": "在按 Enter 提交前也会实时比对输入内容：匹配字符显示为绿色，不匹配字符显示为红色。按 Enter 时仅消化连续匹配的前缀，剩余文字保留在输入框中。"
+    "message": "按下 Enter 提交前，输入框中的文字会实时与范例比对：匹配字符显示为绿色，不匹配字符显示为红色。按 Enter 时仅消化连续匹配的前缀，剩余文字保留在输入框中。"
   },
   "typing.rules.item3": {
     "message": "英数字、ASCII 符号和空格不区分半角/全角，「ー」与「-」也视为相同字符，但英文字母严格区分大小写。"
@@ -3496,8 +3496,5 @@
   },
   "typing.result.copyTemplateTitle": {
     "message": "日语输入法打字练习结果"
-  },
-  "typing.playing.livePreviewLabel": {
-    "message": "提交前预览（绿：匹配 / 红：不匹配）"
   }
 }

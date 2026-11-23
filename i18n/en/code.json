@@ -3210,7 +3210,7 @@
     "message": "Commit your Japanese IME conversion as usual, then press Enter again (while not composing) to evaluate your text."
   },
   "typing.rules.item2": {
-    "message": "Even before pressing Enter, your input is compared in real time: matching characters are shown in green and mismatched ones in red. On Enter, only the matching prefix is digested and unmatched text stays in the box."
+    "message": "Even before pressing Enter, text inside the input box is compared in real time: matching characters appear in green and mismatched ones in red. On Enter, only the matching prefix is digested and unmatched text stays in the box."
   },
   "typing.rules.item3": {
     "message": "Half-width and full-width alphanumeric characters, ASCII symbols, spaces, and \"ー\" / \"-\" are treated equally, while uppercase and lowercase letters are strictly distinguished."
@@ -3349,8 +3349,5 @@
   },
   "typing.result.copyTemplateTitle": {
     "message": "Japanese IME Typing Result"
-  },
-  "typing.playing.livePreviewLabel": {
-    "message": "Pre-submit preview (Green: Match / Red: Mismatch)"
   }
 }

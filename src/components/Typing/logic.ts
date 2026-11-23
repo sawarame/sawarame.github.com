@@ -57,25 +57,13 @@ export interface SubmitEvaluation {
 }
 
 /**
- * 送信前リアルタイム照合における1文字ごとの判定データ
+ * 入力欄内の送信前リアルタイム照合における1文字ごとの判定データ
  */
 export interface PreviewCharItem {
-  /** 表示対象の1文字 */
+  /** 入力欄に表示される1文字 */
   char: string;
   /** 課題文の対応位置と一致している場合は true、不一致または余剰文字の場合は false */
   isMatch: boolean;
-}
-
-/**
- * 送信前リアルタイム照合プレビューの結果データ
- */
-export interface InputPreviewEvaluation {
-  /** 課題文の未消化先頭から入力文字数分を1文字ずつ一致/不一致判定した配列 */
-  passagePreview: PreviewCharItem[];
-  /** 入力欄の文字列を1文字ずつ一致/不一致判定した配列（例文末尾超過分は不一致扱い） */
-  inputPreview: PreviewCharItem[];
-  /** 入力中文字の直後にある課題文上の次カーソル位置 */
-  nextCursorIndex: number;
 }
 
 /**
@@ -220,53 +208,38 @@ export function evaluateSubmission(
 }
 
 /**
- * 送信前の入力中文字列を課題文の未消化部分と1文字ずつリアルタイム照合し、
- * 一致（緑）・不一致（赤）のプレビュー用判定結果を生成する
+ * 送信前の入力欄文字列を課題文の未消化部分と1文字ずつリアルタイム照合し、
+ * 入力欄内で緑（一致）・赤（不一致／末尾超過）に色分けするための判定配列を返す
  * @param passageText - 現在の課題例文テキスト
  * @param cursor - 現在の消化済み位置（NFC コードポイント単位）
  * @param rawInput - 入力欄に入力されている文字列
- * @returns 課題文側および入力側の1文字ごとの一致/不一致判定結果
+ * @returns 入力文字ごとの一致/不一致判定配列
  */
 export function evaluateInputPreview(
   passageText: string,
   cursor: number,
   rawInput: string
-): InputPreviewEvaluation {
+): PreviewCharItem[] {
+  const inputChars = splitNfcChars(rawInput);
+  if (inputChars.length === 0) {
+    return [];
+  }
+
   const passageChars = splitNfcChars(passageText);
   const safeCursor = Math.max(0, Math.min(cursor, passageChars.length));
-  const inputChars = splitNfcChars(rawInput);
 
-  if (inputChars.length === 0) {
-    return {
-      passagePreview: [],
-      inputPreview: [],
-      nextCursorIndex: safeCursor,
-    };
-  }
-
-  const passagePreview: PreviewCharItem[] = [];
-  const inputPreview: PreviewCharItem[] = [];
-
-  for (let i = 0; i < inputChars.length; i += 1) {
-    const inputChar = inputChars[i];
-    const targetIndex = safeCursor + i;
-
-    if (targetIndex < passageChars.length) {
-      const targetChar = passageChars[targetIndex];
-      const isMatch = normalizeChar(targetChar) === normalizeChar(inputChar);
-      passagePreview.push({ char: targetChar, isMatch });
-      inputPreview.push({ char: inputChar, isMatch });
-    } else {
+  return inputChars.map((inputChar, index) => {
+    const targetIndex = safeCursor + index;
+    if (targetIndex >= passageChars.length) {
       // 課題文の末尾を超過した入力文字は不一致として赤表示する
-      inputPreview.push({ char: inputChar, isMatch: false });
+      return { char: inputChar, isMatch: false };
     }
-  }
-
-  return {
-    passagePreview,
-    inputPreview,
-    nextCursorIndex: safeCursor + passagePreview.length,
-  };
+    const targetChar = passageChars[targetIndex];
+    return {
+      char: inputChar,
+      isMatch: normalizeChar(targetChar) === normalizeChar(inputChar),
+    };
+  });
 }
 
 /**

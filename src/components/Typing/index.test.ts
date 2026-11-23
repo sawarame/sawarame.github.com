@@ -154,31 +154,17 @@ describe('Typing Tool Pure Logic Suite', () => {
   });
 
   // =========================================================================
-  // 2.5. 送信前リアルタイム照合プレビュー
+  // 2.5. 入力欄内の送信前リアルタイム色分け判定
   // =========================================================================
-  describe('送信前リアルタイム照合プレビュー（evaluateInputPreview）', () => {
-    it('入力が空の場合は空配列と現在カーソル位置を返すこと', () => {
-      expect(evaluateInputPreview('来週の会議', 2, '')).toEqual({
-        passagePreview: [],
-        inputPreview: [],
-        nextCursorIndex: 2,
-      });
+  describe('入力欄内の送信前リアルタイム色分け判定（evaluateInputPreview）', () => {
+    it('入力が空の場合は空配列を返すこと', () => {
+      expect(evaluateInputPreview('来週の会議', 2, '')).toEqual([]);
     });
 
     it('一致文字を true（緑）、不一致文字を false（赤）として1文字ずつ判定すること', () => {
       // '来週の月時定例' vs '来週の月次定例会議'
       const preview = evaluateInputPreview('来週の月次定例会議', 0, '来週の月時定例');
-      expect(preview.nextCursorIndex).toBe(7);
-      expect(preview.passagePreview).toEqual([
-        { char: '来', isMatch: true },
-        { char: '週', isMatch: true },
-        { char: 'の', isMatch: true },
-        { char: '月', isMatch: true },
-        { char: '次', isMatch: false },
-        { char: '定', isMatch: true },
-        { char: '例', isMatch: true },
-      ]);
-      expect(preview.inputPreview).toEqual([
+      expect(preview).toEqual([
         { char: '来', isMatch: true },
         { char: '週', isMatch: true },
         { char: 'の', isMatch: true },
@@ -189,9 +175,9 @@ describe('Typing Tool Pure Logic Suite', () => {
       ]);
     });
 
-    it('全角半角統一・「ー」と「-」同一視・大文字小文字区別がプレビューにも反映されること', () => {
+    it('全角半角統一・「ー」と「-」同一視・大文字小文字区別が入力欄色分けにも反映されること', () => {
       const preview = evaluateInputPreview('API-キー', 0, 'ＡpＩーキ-');
-      expect(preview.inputPreview).toEqual([
+      expect(preview).toEqual([
         { char: 'Ａ', isMatch: true },
         { char: 'p', isMatch: false },
         { char: 'Ｉ', isMatch: true },
@@ -201,14 +187,9 @@ describe('Typing Tool Pure Logic Suite', () => {
       ]);
     });
 
-    it('例文末尾を超過して入力された余剰文字は inputPreview 側で false（赤）となること', () => {
+    it('例文末尾を超過して入力された余剰文字は false（赤）となること', () => {
       const preview = evaluateInputPreview('ABC', 1, 'BCDE');
-      expect(preview.nextCursorIndex).toBe(3);
-      expect(preview.passagePreview).toEqual([
-        { char: 'B', isMatch: true },
-        { char: 'C', isMatch: true },
-      ]);
-      expect(preview.inputPreview).toEqual([
+      expect(preview).toEqual([
         { char: 'B', isMatch: true },
         { char: 'C', isMatch: true },
         { char: 'D', isMatch: false },

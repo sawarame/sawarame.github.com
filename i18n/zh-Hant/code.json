@@ -3357,7 +3357,7 @@
     "message": "使用日語 IME 確認轉換後，在非組字狀態下再按一次 Enter 即可判定輸入文字。"
   },
   "typing.rules.item2": {
-    "message": "按下 Enter 送出前也會即時比對輸入文字：相符字元顯示為綠色，不相符字元顯示為紅色。按下 Enter 時僅消化開頭連續相符字元，其餘保留於輸入欄。"
+    "message": "按下 Enter 送出前，輸入欄中的文字會即時與範例比對：相符字元顯示為綠色，不相符字元顯示為紅色。按下 Enter 時僅消化開頭連續相符字元，其餘保留於輸入欄。"
   },
   "typing.rules.item3": {
     "message": "英數字、ASCII 符號與空白不分半形／全形，「ー」與「-」亦視為同一字元，但英文字母嚴格區分大小寫。"
@@ -3496,8 +3496,5 @@
   },
   "typing.result.copyTemplateTitle": {
     "message": "日語輸入法打字練習結果"
-  },
-  "typing.playing.livePreviewLabel": {
-    "message": "送出前預覽（綠：相符 / 紅：不相符）"
   }
 }

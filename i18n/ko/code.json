@@ -3357,7 +3357,7 @@
     "message": "일본어 IME로 변환을 확정한 뒤, 조합 중이 아닌 상태에서 Enter를 한 번 더 누르면 입력 문자열을 판정합니다."
   },
   "typing.rules.item2": {
-    "message": "Enter로 제출하기 전에도 입력 중인 문자열을 실시간 대조하여 일치 문자는 초록색, 불일치 문자는 빨간색으로 표시합니다. Enter 시 선두 일치분만 소화되고 나머지는 입력란에 남습니다."
+    "message": "Enter로 제출하기 전에도 입력란의 문자가 실시간 대조되어 일치 문자는 초록색, 불일치 문자는 빨간색으로 표시됩니다. Enter 시 선두 일치분만 소화되고 나머지는 입력란에 남습니다."
   },
   "typing.rules.item3": {
     "message": "영숫자·ASCII 기호·공백의 반각/전각과 「ー」·「-」는 동일하게 취급하지만, 알파벳 대소문자는 엄격하게 구분합니다."
@@ -3496,8 +3496,5 @@
   },
   "typing.result.copyTemplateTitle": {
     "message": "일본어 변환 타이핑 결과"
-  },
-  "typing.playing.livePreviewLabel": {
-    "message": "제출 전 미리보기 (초록: 일치 / 빨강: 불일치)"
   }
 }
