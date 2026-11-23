@@ -4,11 +4,11 @@
 * **ID**: `typing`
 * **URL**: `/typing`
 * **ドキュメント**:
-  - `docs/tools/typing.mdx` (`sidebar_position: 20`)
-  - `i18n/en/docusaurus-plugin-content-docs/current/tools/typing.mdx` (`sidebar_position: 20`)
-  - `i18n/zh-Hans/docusaurus-plugin-content-docs/current/tools/typing.mdx` (`sidebar_position: 20`)
-  - `i18n/zh-Hant/docusaurus-plugin-content-docs/current/tools/typing.mdx` (`sidebar_position: 20`)
-  - `i18n/ko/docusaurus-plugin-content-docs/current/tools/typing.mdx` (`sidebar_position: 20`)
+  - `docs/tools/typing.mdx` (`sidebar_position: 4`)
+  - `i18n/en/docusaurus-plugin-content-docs/current/tools/typing.mdx` (`sidebar_position: 4`)
+  - `i18n/zh-Hans/docusaurus-plugin-content-docs/current/tools/typing.mdx` (`sidebar_position: 4`)
+  - `i18n/zh-Hant/docusaurus-plugin-content-docs/current/tools/typing.mdx` (`sidebar_position: 4`)
+  - `i18n/ko/docusaurus-plugin-content-docs/current/tools/typing.mdx` (`sidebar_position: 4`)
 * **名称**: 日本語変換タイピング (Japanese IME Typing)
 * **目的**: ローマ字1打鍵ごとの判定ではなく、IME 変換確定後の文字列を長文例文と照合して消化していくことで、日本語・英数字・記号が混在する実務的な入力力を測定・練習できるブラウザ完結型 Web ツール。
 * **主要技術**: React 18, TypeScript, MUI (Material UI) v6, Lucide React, Docusaurus 3, Vitest 2.

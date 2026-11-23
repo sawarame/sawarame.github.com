@@ -59,6 +59,15 @@ export const tools = [
     gradient: 'linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%)',
   },
   {
+    icon: <Keyboard size={ICON_SIZE} />,
+    titleId: 'home.tools.typing.title',
+    title: '日本語変換タイピング',
+    descriptionId: 'home.tools.typing.desc',
+    description: 'IME変換確定後の文字を長文例文と照合して消化するタイピング練習ツール。英数字・記号混在の実務的な日本語入力力をブラウザ完結で測定できます。',
+    link: '/typing',
+    gradient: 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)',
+  },
+  {
     icon: <QrCode size={ICON_SIZE} />,
     titleId: 'home.tools.qr.title',
     title: 'QRコード作成',
@@ -204,15 +213,6 @@ export const tools = [
     description: '正規表現とテスト文字列を入力し、リアルタイムにマッチ判定・ハイライト・グループ抽出を行うツールです。',
     link: '/tools/regex-checker',
     gradient: 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%)',
-  },
-  {
-    icon: <Keyboard size={ICON_SIZE} />,
-    titleId: 'home.tools.typing.title',
-    title: '日本語変換タイピング',
-    descriptionId: 'home.tools.typing.desc',
-    description: 'IME変換確定後の文字を長文例文と照合して消化するタイピング練習ツール。英数字・記号混在の実務的な日本語入力力をブラウザ完結で測定できます。',
-    link: '/typing',
-    gradient: 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)',
   },
 ];
 
