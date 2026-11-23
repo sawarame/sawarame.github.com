@@ -3383,11 +3383,8 @@
   "typing.action.backToSelect": {
     "message": "코스 선택으로 돌아가기"
   },
-  "typing.action.copyResult": {
-    "message": "결과 복사"
-  },
-  "typing.action.copied": {
-    "message": "복사 완료"
+  "typing.action.shareResult": {
+    "message": "결과 공유"
   },
   "typing.countdown.ready": {
     "message": "곧 시작합니다..."
@@ -3455,9 +3452,6 @@
   "typing.result.cpm": {
     "message": "CPM (글자/분)"
   },
-  "typing.result.accuracy": {
-    "message": "정확도"
-  },
   "typing.result.completedPassages": {
     "message": "완주 문장 수"
   },
@@ -3494,7 +3488,10 @@
   "typing.result.noScore": {
     "message": "소화 글자 수가 0이므로 최고 기록은 갱신되지 않았습니다."
   },
-  "typing.result.copyTemplateTitle": {
+  "typing.share.title": {
     "message": "일본어 변환 타이핑 결과"
+  },
+  "typing.share.alert": {
+    "message": "결과 이미지를 클립보드에 복사했습니다!\nX(Twitter) 등의 게시 화면에 붙여넣어 공유해 주세요."
   }
 }

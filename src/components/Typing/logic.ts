@@ -1,6 +1,11 @@
 import { type TypingPassage } from './passages';
 
 /**
+ * 日本語変換タイピングツールのセマンティックバージョン
+ */
+export const TYPING_VERSION = '1.0.0';
+
+/**
  * 選択可能なタイピングコースの制限時間（秒）
  */
 export type CourseDuration = 60 | 180;
@@ -23,12 +28,12 @@ export interface BestRecord {
   chars: number;
   /** 1分あたりの消化文字数（CPM） */
   cpm: number;
-  /** 正答率（%） */
-  accuracy: number;
   /** 完走文章数 */
   completedPassages: number;
   /** 達成日時（ISO 8601 形式） */
   achievedAt: string;
+  /** 旧バージョンの保存データとの後方互換用に残す任意フィールド（正答率） */
+  accuracy?: number;
 }
 
 /**
@@ -72,12 +77,8 @@ export interface PreviewCharItem {
 export interface TypingResultMetrics {
   /** 総消化文字数 */
   digestedChars: number;
-  /** 総提出文字数 */
-  submittedChars: number;
   /** 1分あたりの消化文字数（CPM） */
   cpm: number;
-  /** 正答率（0〜100、小数第1位まで） */
-  accuracy: number;
   /** 完走文章数 */
   completedPassages: number;
   /** ランク評価 */
@@ -285,21 +286,6 @@ export function calculateCpm(digestedChars: number, courseSeconds: CourseDuratio
 }
 
 /**
- * 総消化文字数と総提出文字数から正答率（%）を算出する
- * @param digestedChars - 総消化文字数
- * @param submittedChars - 空 Enter を除く総提出文字数
- * @returns 0〜100 の正答率（小数第1位で丸め、提出 0 の場合は 0）
- */
-export function calculateAccuracy(digestedChars: number, submittedChars: number): number {
-  if (submittedChars <= 0 || digestedChars <= 0) {
-    return 0;
-  }
-  const raw = (digestedChars / submittedChars) * 100;
-  const clamped = Math.min(100, Math.max(0, raw));
-  return Math.round(clamped * 10) / 10;
-}
-
-/**
  * CPM に応じたランク評価（S / A / B / C / D）を判定する
  * @param cpm - 1分あたりの消化文字数
  * @returns 判定されたランク
@@ -314,24 +300,20 @@ export function determineRank(cpm: number): TypingRank {
 
 /**
  * プレイ終了時の各種統計指標をまとめて算出する
- * @param params - 消化文字数・提出文字数・完走文章数・コース秒数
+ * @param params - 消化文字数・完走文章数・コース秒数
  * @returns 結果画面向けの統計指標オブジェクト
  */
 export function computeResultMetrics(params: {
   digestedChars: number;
-  submittedChars: number;
   completedPassages: number;
   courseSeconds: CourseDuration;
 }): TypingResultMetrics {
   const cpm = calculateCpm(params.digestedChars, params.courseSeconds);
-  const accuracy = calculateAccuracy(params.digestedChars, params.submittedChars);
   const rank = determineRank(cpm);
 
   return {
     digestedChars: params.digestedChars,
-    submittedChars: params.submittedChars,
     cpm,
-    accuracy,
     completedPassages: params.completedPassages,
     rank,
   };
@@ -397,6 +379,7 @@ export function buildCourseSearch(currentSearch: string, course: CourseDuration)
 
 /**
  * 任意オブジェクトが有効な BestRecord 形式かどうかを検証する
+ * 旧バージョンの保存データ（accuracy を含む）および新規データ（accuracy を含まない）の双方を有効とする
  * @param value - 検証対象の値
  * @returns 有効な BestRecord であれば true
  */
@@ -405,6 +388,12 @@ function isValidBestRecord(value: unknown): value is BestRecord {
     return false;
   }
   const candidate = value as Record<string, unknown>;
+  const hasValidOptionalAccuracy =
+    candidate.accuracy === undefined ||
+    (typeof candidate.accuracy === 'number' &&
+      Number.isFinite(candidate.accuracy) &&
+      candidate.accuracy >= 0);
+
   return (
     typeof candidate.chars === 'number' &&
     Number.isFinite(candidate.chars) &&
@@ -412,9 +401,7 @@ function isValidBestRecord(value: unknown): value is BestRecord {
     typeof candidate.cpm === 'number' &&
     Number.isFinite(candidate.cpm) &&
     candidate.cpm >= 0 &&
-    typeof candidate.accuracy === 'number' &&
-    Number.isFinite(candidate.accuracy) &&
-    candidate.accuracy >= 0 &&
+    hasValidOptionalAccuracy &&
     typeof candidate.completedPassages === 'number' &&
     Number.isFinite(candidate.completedPassages) &&
     candidate.completedPassages >= 0 &&
@@ -515,4 +502,134 @@ export function formatRemainingTime(remainingMs: number): string {
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
   return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+/**
+ * ユーザーエージェント文字列からブラウザ名・メジャーバージョン・OS を抽出し、
+ * スコア画像向けのデバイス情報文字列を返す（ECMAScript バージョン表記は含めない）
+ * @param customUa - テスト用等のカスタム User-Agent 文字列
+ * @param customMaxTouchPoints - iPadOS 判定用の最大タッチ点数（省略時は navigator.maxTouchPoints）
+ * @returns デバイス情報文字列（例: "Chrome 128 (macOS)"、"Safari 18 (iOS)"）
+ */
+export function getTypingDeviceInfo(
+  customUa?: string,
+  customMaxTouchPoints?: number
+): string {
+  const ua = customUa ?? (typeof navigator !== 'undefined' ? navigator.userAgent : '');
+  if (!ua) {
+    return '';
+  }
+
+  let browser = 'Unknown Browser';
+  let versionStr = '';
+
+  // 判定順序が重要: Edge / Opera / Samsung Browser 等は Chrome や Safari の文字列を含むため先に判定する
+  if (ua.indexOf('Firefox') > -1 || ua.indexOf('FxiOS') > -1) {
+    browser = 'Firefox';
+    const match = ua.match(/(?:firefox|fxios)[/: ]([\d.]+)/i);
+    if (match) versionStr = match[1];
+  } else if (ua.indexOf('SamsungBrowser') > -1) {
+    browser = 'Samsung Browser';
+    const match = ua.match(/samsungbrowser[/: ]([\d.]+)/i);
+    if (match) versionStr = match[1];
+  } else if (ua.indexOf('Opera') > -1 || ua.indexOf('OPR') > -1) {
+    browser = 'Opera';
+    const match = ua.match(/(?:opr|opera)[/: ]([\d.]+)/i);
+    if (match) versionStr = match[1];
+  } else if (ua.indexOf('Trident') > -1) {
+    browser = 'Internet Explorer';
+    const match = ua.match(/(?:rv:|msie )([\d.]+)/i);
+    if (match) versionStr = match[1];
+  } else if (ua.indexOf('Edge') > -1 || ua.indexOf('Edg') > -1 || ua.indexOf('EdgiOS') > -1) {
+    browser = 'Edge';
+    const match = ua.match(/(?:edge|edg|edgios)[/: ]([\d.]+)/i);
+    if (match) versionStr = match[1];
+  } else if (ua.indexOf('Chrome') > -1 || ua.indexOf('CriOS') > -1) {
+    browser = 'Chrome';
+    const match = ua.match(/(?:chrome|crios)[/: ]([\d.]+)/i);
+    if (match) versionStr = match[1];
+  } else if (ua.indexOf('Safari') > -1) {
+    browser = 'Safari';
+    const match = ua.match(/version[/: ]([\d.]+)/i);
+    if (match) versionStr = match[1];
+  }
+
+  let major = versionStr ? parseInt(versionStr.split('.')[0], 10) || 0 : 0;
+
+  let os = 'Unknown OS';
+  if (ua.indexOf('Win') > -1) {
+    os = 'Windows';
+  } else if (ua.indexOf('Android') > -1) {
+    os = 'Android';
+  } else if (ua.indexOf('iPhone') > -1 || ua.indexOf('iPad') > -1) {
+    os = 'iOS';
+  } else if (ua.indexOf('Mac') > -1) {
+    const touchPoints =
+      customMaxTouchPoints ??
+      (typeof navigator !== 'undefined' ? navigator.maxTouchPoints : 0);
+    os = touchPoints > 0 ? 'iOS' : 'macOS';
+  } else if (ua.indexOf('Linux') > -1) {
+    os = 'Linux';
+  }
+
+  // iOS 上の Safari で Version/ トークンが欠落している場合は OS メジャーバージョンを補完
+  if (os === 'iOS' && browser === 'Safari' && major === 0) {
+    const iosMatch = ua.match(/OS (\d+)[_.](\d+)/i);
+    if (iosMatch) {
+      major = parseInt(iosMatch[1], 10) || 0;
+    }
+  }
+
+  return major > 0 ? `${browser} ${major} (${os})` : `${browser} (${os})`;
+}
+
+/**
+ * 結果共有用テキストの組み立てに必要な入力パラメータ
+ */
+export interface TypingShareTextParams {
+  /** 共有タイトル */
+  title: string;
+  /** コース表示名 */
+  courseLabel: string;
+  /** ランク項目のラベル */
+  rankLabel: string;
+  /** 判定ランク */
+  rank: TypingRank;
+  /** 総消化文字数のラベル */
+  charsLabel: string;
+  /** 総消化文字数 */
+  digestedChars: number;
+  /** 文字数の単位 */
+  charsUnit: string;
+  /** CPM のラベル */
+  cpmLabel: string;
+  /** CPM 値 */
+  cpm: number;
+  /** 完走文章数のラベル */
+  passagesLabel: string;
+  /** 完走文章数 */
+  completedPassages: number;
+  /** 文章数の単位 */
+  passagesUnit: string;
+  /** 末尾に付与するツール URL（省略時は付与しない） */
+  url?: string;
+}
+
+/**
+ * SNS・Web Share API 向けの共有テキストを組み立てる（正答率は含めない）
+ * @param params - 共有テキストを構成するラベルとスコア値
+ * @returns 改行区切りの共有テキスト
+ */
+export function buildTypingShareText(params: TypingShareTextParams): string {
+  const lines = [
+    `【${params.title}】(${params.courseLabel})`,
+    `${params.rankLabel}: Rank ${params.rank}`,
+    `${params.charsLabel}: ${params.digestedChars}${params.charsUnit}`,
+    `${params.cpmLabel}: ${params.cpm}`,
+    `${params.passagesLabel}: ${params.completedPassages}${params.passagesUnit}`,
+  ];
+  if (params.url) {
+    lines.push(params.url);
+  }
+  return lines.join('\n');
 }

@@ -3383,11 +3383,8 @@
   "typing.action.backToSelect": {
     "message": "返回课程选择"
   },
-  "typing.action.copyResult": {
-    "message": "复制结果"
-  },
-  "typing.action.copied": {
-    "message": "已复制"
+  "typing.action.shareResult": {
+    "message": "分享结果"
   },
   "typing.countdown.ready": {
     "message": "即将开始..."
@@ -3455,9 +3452,6 @@
   "typing.result.cpm": {
     "message": "CPM（字/分）"
   },
-  "typing.result.accuracy": {
-    "message": "正确率"
-  },
   "typing.result.completedPassages": {
     "message": "完成篇数"
   },
@@ -3494,7 +3488,10 @@
   "typing.result.noScore": {
     "message": "由于消化字数为 0，未更新个人最佳记录。"
   },
-  "typing.result.copyTemplateTitle": {
+  "typing.share.title": {
     "message": "日语输入法打字练习结果"
+  },
+  "typing.share.alert": {
+    "message": "已将结果图片复制到剪贴板！\n请粘贴到 X（Twitter）等平台的发布界面进行分享。"
   }
 }

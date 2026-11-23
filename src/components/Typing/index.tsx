@@ -1,18 +1,17 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useHistory, useLocation } from '@docusaurus/router';
 import Translate, { translate } from '@docusaurus/Translate';
-import { Box, Button, Chip, LinearProgress } from '@mui/material';
+import { Box, Button, Chip, CircularProgress, LinearProgress } from '@mui/material';
 import {
   AlertCircle,
   ArrowLeft,
   Award,
-  Check,
   CheckCircle2,
-  Copy,
   FileCheck2,
   Keyboard,
   Play,
   RotateCcw,
+  Share2,
   Sparkles,
   Target,
   Timer,
@@ -23,11 +22,14 @@ import MuiTheme from '@site/src/components/MuiTheme';
 import { TYPING_PASSAGES, type TypingGenre, type TypingPassage } from './passages';
 import {
   AVAILABLE_COURSES,
+  TYPING_VERSION,
   buildCourseSearch,
+  buildTypingShareText,
   computeResultMetrics,
   evaluateInputPreview,
   evaluateSubmission,
   formatRemainingTime,
+  getTypingDeviceInfo,
   loadBestRecords,
   parseCourseFromSearch,
   saveBestRecordIfImproved,
@@ -154,6 +156,335 @@ function getCourseLabel(course: CourseDuration): string {
 }
 
 /**
+ * 共有用スコア画像生成に必要なパラメータ
+ */
+export interface TypingResultImageParams {
+  /** 集計されたスコア指標 */
+  metrics: TypingResultMetrics;
+  /** プレイしたコース秒数 */
+  course: CourseDuration;
+  /** 自己ベストを更新したかどうか */
+  isNewBest: boolean;
+  /** 表示するツールバージョン（省略時は TYPING_VERSION） */
+  version?: string;
+  /** 表示するデバイス情報文字列（省略時は getTypingDeviceInfo()） */
+  deviceInfo?: string;
+}
+
+/**
+ * Canvas 2D コンテキストへ角丸矩形のパスを描画する
+ * @param ctx - Canvas 2D コンテキスト
+ * @param x - 左上 X 座標
+ * @param y - 左上 Y 座標
+ * @param width - 幅
+ * @param height - 高さ
+ * @param radius - 角丸半径
+ */
+function drawRoundedRectPath(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  radius: number
+): void {
+  const r = Math.min(radius, width / 2, height / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + width - r, y);
+  ctx.quadraticCurveTo(x + width, y, x + width, y + r);
+  ctx.lineTo(x + width, y + height - r);
+  ctx.quadraticCurveTo(x + width, y + height, x + width - r, y + height);
+  ctx.lineTo(x + r, y + height);
+  ctx.quadraticCurveTo(x, y + height, x, y + height - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+/**
+ * Canvas 上で指定幅に収まるように文字列を折り返して描画する
+ * @param ctx - Canvas 2D コンテキスト
+ * @param text - 描画する文字列
+ * @param x - 描画開始 X 座標
+ * @param startY - 1行目の Y 座標
+ * @param maxWidth - 1行の最大幅（px）
+ * @param lineHeight - 行送り高さ（px）
+ */
+function drawWrappedText(
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  x: number,
+  startY: number,
+  maxWidth: number,
+  lineHeight: number
+): void {
+  let line = '';
+  let yPos = startY;
+  const chars = Array.from(text);
+  for (let i = 0; i < chars.length; i += 1) {
+    const testLine = line + chars[i];
+    if (ctx.measureText(testLine).width > maxWidth && i > 0) {
+      ctx.fillText(line, x, yPos);
+      line = chars[i];
+      yPos += lineHeight;
+    } else {
+      line = testLine;
+    }
+  }
+  if (line) {
+    ctx.fillText(line, x, yPos);
+  }
+}
+
+/**
+ * ランクに応じた Canvas グラデーション用カラーペアを返す
+ * @param rank - 算出されたランク
+ * @returns [開始色, 終了色] のタプル
+ */
+function getRankGradientColors(rank: TypingRank): [string, string] {
+  switch (rank) {
+    case 'S':
+      return ['#f59e0b', '#ef4444'];
+    case 'A':
+      return ['#667eea', '#764ba2'];
+    case 'B':
+      return ['#0ea5e9', '#2563eb'];
+    case 'C':
+      return ['#10b981', '#059669'];
+    case 'D':
+      return ['#64748b', '#475569'];
+  }
+}
+
+/**
+ * 日本語変換タイピングの結果共有用スコア画像（PNG）をブラウザ内の Canvas で生成する
+ * @param params - スコア・コース・バージョン・デバイス情報を含む生成パラメータ
+ * @returns 生成された PNG 画像の Blob（非ブラウザ環境や Canvas 初期化失敗時は null）
+ */
+export async function generateTypingResultImage(
+  params: TypingResultImageParams
+): Promise<Blob | null> {
+  if (typeof document === 'undefined') {
+    return null;
+  }
+
+  const canvas = document.createElement('canvas');
+  canvas.width = 1200;
+  canvas.height = 630;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) {
+    return null;
+  }
+
+  const versionText = `v${params.version ?? TYPING_VERSION}`;
+  const deviceInfoText = params.deviceInfo ?? getTypingDeviceInfo();
+  const titleText = translate({
+    id: 'typing.share.title',
+    message: '日本語変換タイピング結果',
+  });
+  const courseText = getCourseLabel(params.course);
+  const totalDigestedLabel = translate({
+    id: 'typing.result.totalDigested',
+    message: '総消化文字数',
+  });
+  const charsUnit = translate({ id: 'typing.best.charsUnit', message: '文字' });
+  const cpmLabel = translate({ id: 'typing.result.cpm', message: 'CPM（文字/分）' });
+  const passagesLabel = translate({
+    id: 'typing.result.completedPassages',
+    message: '完走文章数',
+  });
+  const passagesUnit = translate({ id: 'typing.best.passagesUnit', message: '本' });
+  const newBestLabel = translate({ id: 'typing.result.newBest', message: 'NEW BEST!' });
+  const rankDescText = getRankDescription(params.metrics.rank);
+
+  // 背景グラデーション（Web快適度測定と同系統のダークトーン）
+  const bgGrad = ctx.createLinearGradient(0, 0, 1200, 630);
+  bgGrad.addColorStop(0, '#1a1a1a');
+  bgGrad.addColorStop(1, '#2d2d2d');
+  ctx.fillStyle = bgGrad;
+  ctx.fillRect(0, 0, 1200, 630);
+
+  // ブランディング用オーブ装飾
+  ctx.globalAlpha = 0.28;
+  const orb1 = ctx.createRadialGradient(180, 90, 0, 180, 90, 440);
+  orb1.addColorStop(0, '#667eea');
+  orb1.addColorStop(1, 'transparent');
+  ctx.fillStyle = orb1;
+  ctx.beginPath();
+  ctx.arc(180, 90, 440, 0, Math.PI * 2);
+  ctx.fill();
+
+  const orb2 = ctx.createRadialGradient(1040, 560, 0, 1040, 560, 380);
+  orb2.addColorStop(0, '#ff0844');
+  orb2.addColorStop(1, 'transparent');
+  ctx.fillStyle = orb2;
+  ctx.beginPath();
+  ctx.arc(1040, 560, 380, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.globalAlpha = 1.0;
+
+  // ヘッダー左: ブランド・タイトル・バージョン・コースバッジ
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 28px sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('sawara.me', 60, 58);
+
+  ctx.font = 'bold 42px sans-serif';
+  ctx.fillText(titleText, 60, 112);
+
+  ctx.fillStyle = '#aaaaaa';
+  ctx.font = 'bold 22px sans-serif';
+  ctx.fillText(versionText, 60, 148);
+
+  const versionWidth = ctx.measureText(versionText).width;
+  const coursePillX = 60 + versionWidth + 16;
+  const coursePillY = 124;
+  ctx.font = 'bold 18px sans-serif';
+  const coursePillW = Math.max(108, ctx.measureText(courseText).width + 28);
+  const coursePillH = 30;
+  ctx.fillStyle = 'rgba(102, 126, 234, 0.28)';
+  ctx.strokeStyle = 'rgba(102, 126, 234, 0.7)';
+  ctx.lineWidth = 1.5;
+  drawRoundedRectPath(ctx, coursePillX, coursePillY, coursePillW, coursePillH, 15);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = '#e0e7ff';
+  ctx.textAlign = 'center';
+  ctx.fillText(courseText, coursePillX + coursePillW / 2, coursePillY + 21);
+  ctx.textAlign = 'left';
+
+  // ヘッダー右: デバイス情報
+  if (deviceInfoText) {
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.65)';
+    ctx.font = '22px sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(deviceInfoText, 1140, 58);
+    ctx.textAlign = 'left';
+  }
+
+  // メイン結果カード
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+  ctx.lineWidth = 2;
+  drawRoundedRectPath(ctx, 60, 176, 1080, 392, 24);
+  ctx.fill();
+  ctx.stroke();
+
+  // ランクバッジ
+  const badgeX = 100;
+  const badgeY = 214;
+  const badgeSize = 148;
+  const [rankStart, rankEnd] = getRankGradientColors(params.metrics.rank);
+  const badgeGrad = ctx.createLinearGradient(
+    badgeX,
+    badgeY,
+    badgeX + badgeSize,
+    badgeY + badgeSize
+  );
+  badgeGrad.addColorStop(0, rankStart);
+  badgeGrad.addColorStop(1, rankEnd);
+  ctx.fillStyle = badgeGrad;
+  drawRoundedRectPath(ctx, badgeX, badgeY, badgeSize, badgeSize, 24);
+  ctx.fill();
+
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+  ctx.font = 'bold 20px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('RANK', badgeX + badgeSize / 2, badgeY + 42);
+
+  ctx.fillStyle = '#ffffff';
+  ctx.font = '900 76px sans-serif';
+  ctx.fillText(params.metrics.rank, badgeX + badgeSize / 2, badgeY + 120);
+  ctx.textAlign = 'left';
+
+  // メインスコア（総消化文字数）＋ NEW BEST バッジ
+  const scoreX = 286;
+  ctx.fillStyle = '#bbbbbb';
+  ctx.font = '24px sans-serif';
+  ctx.fillText(totalDigestedLabel, scoreX, 244);
+
+  if (params.isNewBest) {
+    const labelWidth = ctx.measureText(totalDigestedLabel).width;
+    const nbX = scoreX + labelWidth + 16;
+    const nbY = 220;
+    ctx.font = 'bold 16px sans-serif';
+    const nbW = Math.max(106, ctx.measureText(newBestLabel).width + 24);
+    const nbH = 28;
+    const nbGrad = ctx.createLinearGradient(nbX, nbY, nbX + nbW, nbY + nbH);
+    nbGrad.addColorStop(0, '#f59e0b');
+    nbGrad.addColorStop(1, '#ec4899');
+    ctx.fillStyle = nbGrad;
+    drawRoundedRectPath(ctx, nbX, nbY, nbW, nbH, 14);
+    ctx.fill();
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'center';
+    ctx.fillText(newBestLabel, nbX + nbW / 2, nbY + 20);
+    ctx.textAlign = 'left';
+  }
+
+  const scoreValueText = params.metrics.digestedChars.toLocaleString();
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 80px sans-serif';
+  ctx.fillText(scoreValueText, scoreX, 332);
+  const scoreValueWidth = ctx.measureText(scoreValueText).width;
+
+  ctx.fillStyle = '#cccccc';
+  ctx.font = 'bold 30px sans-serif';
+  ctx.fillText(charsUnit, scoreX + scoreValueWidth + 12, 328);
+
+  // ランク評価コメント
+  ctx.fillStyle = '#bbbbbb';
+  ctx.font = '20px sans-serif';
+  drawWrappedText(ctx, rankDescText, scoreX, 372, 810, 28);
+
+  // カード内区切り線
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(100, 424);
+  ctx.lineTo(1100, 424);
+  ctx.stroke();
+
+  // 下段サブ指標（CPM / 完走文章数）
+  const subCards = [
+    {
+      x: 100,
+      label: cpmLabel,
+      value: params.metrics.cpm.toLocaleString(),
+    },
+    {
+      x: 614,
+      label: passagesLabel,
+      value: `${params.metrics.completedPassages.toLocaleString()}${passagesUnit}`,
+    },
+  ];
+
+  for (const card of subCards) {
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+    drawRoundedRectPath(ctx, card.x, 446, 486, 96, 16);
+    ctx.fill();
+
+    ctx.fillStyle = '#aaaaaa';
+    ctx.font = '20px sans-serif';
+    ctx.fillText(card.label, card.x + 24, 480);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 40px sans-serif';
+    ctx.fillText(card.value, card.x + 24, 526);
+  }
+
+  // フッター URL
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+  ctx.font = '20px sans-serif';
+  ctx.fillText('https://sawara.me/typing', 60, 604);
+
+  return new Promise((resolve) => {
+    canvas.toBlob((blob) => resolve(blob), 'image/png');
+  });
+}
+
+/**
  * 変換確定ベースの日本語長文タイピングツール本体コンポーネント
  * @returns タイピングツールの JSX 要素
  */
@@ -187,7 +518,7 @@ function TypingToolContent(): JSX.Element {
 
   // 結果画面の状態
   const [outcome, setOutcome] = useState<SessionOutcome | null>(null);
-  const [copied, setCopied] = useState<boolean>(false);
+  const [isSharing, setIsSharing] = useState<boolean>(false);
 
   // タイマー・IME・スクロール同期・最新スコア参照用 Ref
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -197,7 +528,6 @@ function TypingToolContent(): JSX.Element {
   const endTimeMsRef = useRef<number>(0);
   const hasFinishedRef = useRef<boolean>(false);
   const digestedCharsRef = useRef<number>(0);
-  const submittedCharsRef = useRef<number>(0);
   const completedPassagesRef = useRef<number>(0);
   const feedbackSeqRef = useRef<number>(0);
 
@@ -251,7 +581,6 @@ function TypingToolContent(): JSX.Element {
 
     const metrics = computeResultMetrics({
       digestedChars: digestedCharsRef.current,
-      submittedChars: submittedCharsRef.current,
       completedPassages: completedPassagesRef.current,
       courseSeconds: course,
     });
@@ -259,7 +588,6 @@ function TypingToolContent(): JSX.Element {
     const currentRecord: BestRecord = {
       chars: metrics.digestedChars,
       cpm: metrics.cpm,
-      accuracy: metrics.accuracy,
       completedPassages: metrics.completedPassages,
       achievedAt: new Date().toISOString(),
     };
@@ -277,7 +605,7 @@ function TypingToolContent(): JSX.Element {
       course,
     });
     setRemainingMs(0);
-    setCopied(false);
+    setIsSharing(false);
     setPhase('result');
   }, [course]);
 
@@ -290,7 +618,6 @@ function TypingToolContent(): JSX.Element {
     isComposingRef.current = false;
     lastCompositionEndMsRef.current = 0;
     digestedCharsRef.current = 0;
-    submittedCharsRef.current = 0;
     completedPassagesRef.current = 0;
 
     setDeck(shuffled);
@@ -305,7 +632,7 @@ function TypingToolContent(): JSX.Element {
     setIsInputError(false);
     setIsShaking(false);
     setOutcome(null);
-    setCopied(false);
+    setIsSharing(false);
     setCountdown(3);
     setPhase('countdown');
   }, [course]);
@@ -396,9 +723,6 @@ function TypingToolContent(): JSX.Element {
     if (evaluation.isEmpty) {
       return;
     }
-
-    // 総提出文字数へ加算
-    submittedCharsRef.current += evaluation.submittedChars;
 
     if (evaluation.isMismatch) {
       // 1文字も一致しない場合は消化せず視覚フィードバックを表示し入力内容とフォーカスを残す
@@ -520,50 +844,98 @@ function TypingToolContent(): JSX.Element {
   );
 
   /**
-   * 結果テキストをクリップボードへコピーする
+   * 結果スコア画像を生成し、Web Share API またはクリップボードコピー＋X投稿画面で共有する
    */
-  const handleCopyResult = useCallback(async () => {
-    if (!outcome) {
+  const handleShareResult = useCallback(async () => {
+    if (isSharing || !outcome) {
       return;
     }
 
-    const title = translate({
-      id: 'typing.result.copyTemplateTitle',
-      message: '日本語変換タイピング結果',
-    });
-    const courseText = getCourseLabel(outcome.course);
-    const charsLabel = translate({
-      id: 'typing.result.totalDigested',
-      message: '総消化文字数',
-    });
-    const charsUnit = translate({ id: 'typing.best.charsUnit', message: '文字' });
-    const cpmLabel = translate({ id: 'typing.result.cpm', message: 'CPM（文字/分）' });
-    const accuracyLabel = translate({ id: 'typing.result.accuracy', message: '正答率' });
-    const passagesLabel = translate({
-      id: 'typing.result.completedPassages',
-      message: '完走文章数',
-    });
-    const passagesUnit = translate({ id: 'typing.best.passagesUnit', message: '本' });
-    const rankLabel = translate({ id: 'typing.result.rank', message: 'ランク評価' });
-
-    const lines = [
-      `【${title}】(${courseText})`,
-      `${rankLabel}: Rank ${outcome.metrics.rank}`,
-      `${charsLabel}: ${outcome.metrics.digestedChars}${charsUnit}`,
-      `${cpmLabel}: ${outcome.metrics.cpm}`,
-      `${accuracyLabel}: ${outcome.metrics.accuracy}%`,
-      `${passagesLabel}: ${outcome.metrics.completedPassages}${passagesUnit}`,
-      'https://sawara.me/typing',
-    ];
-
+    setIsSharing(true);
     try {
-      await navigator.clipboard.writeText(lines.join('\n'));
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2500);
-    } catch {
-      // Clipboard API 非対応環境では静かに無視
+      const blob = await generateTypingResultImage({
+        metrics: outcome.metrics,
+        course: outcome.course,
+        isNewBest: outcome.isNewBest,
+      });
+      if (!blob) {
+        return;
+      }
+
+      const siteUrl = 'https://sawara.me/typing';
+      const baseTextParams = {
+        title: translate({
+          id: 'typing.share.title',
+          message: '日本語変換タイピング結果',
+        }),
+        courseLabel: getCourseLabel(outcome.course),
+        rankLabel: translate({ id: 'typing.result.rank', message: 'ランク評価' }),
+        rank: outcome.metrics.rank,
+        charsLabel: translate({
+          id: 'typing.result.totalDigested',
+          message: '総消化文字数',
+        }),
+        digestedChars: outcome.metrics.digestedChars,
+        charsUnit: translate({ id: 'typing.best.charsUnit', message: '文字' }),
+        cpmLabel: translate({ id: 'typing.result.cpm', message: 'CPM（文字/分）' }),
+        cpm: outcome.metrics.cpm,
+        passagesLabel: translate({
+          id: 'typing.result.completedPassages',
+          message: '完走文章数',
+        }),
+        completedPassages: outcome.metrics.completedPassages,
+        passagesUnit: translate({ id: 'typing.best.passagesUnit', message: '本' }),
+      };
+
+      const shareTextWithUrl = buildTypingShareText({ ...baseTextParams, url: siteUrl });
+      const file = new File([blob], 'typing_result.png', { type: 'image/png' });
+
+      // Web Share API（ファイル共有対応）が利用できる場合は OS 標準の共有シートを起動
+      if (
+        typeof navigator !== 'undefined' &&
+        typeof navigator.share === 'function' &&
+        typeof navigator.canShare === 'function' &&
+        navigator.canShare({ files: [file] })
+      ) {
+        await navigator.share({
+          files: [file],
+          text: shareTextWithUrl,
+        });
+      } else {
+        // 非対応環境（PCブラウザ等）では画像をクリップボードへコピーした上で X 投稿画面を開く
+        if (
+          typeof ClipboardItem !== 'undefined' &&
+          typeof navigator !== 'undefined' &&
+          navigator.clipboard &&
+          typeof navigator.clipboard.write === 'function'
+        ) {
+          try {
+            const item = new ClipboardItem({ 'image/png': blob });
+            await navigator.clipboard.write([item]);
+            window.alert(
+              translate({
+                id: 'typing.share.alert',
+                message:
+                  '結果画像をクリップボードにコピーしました！\nX（Twitter）などの投稿画面に貼り付けて投稿してください。',
+              })
+            );
+          } catch {
+            // クリップボード権限拒否・非対応時はクラッシュさせず投稿画面のみ開く
+          }
+        }
+
+        const intentText = buildTypingShareText(baseTextParams);
+        const xUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(intentText)}&url=${encodeURIComponent(siteUrl)}`;
+        window.open(xUrl, '_blank', 'noopener,noreferrer');
+      }
+    } catch (error) {
+      if (error instanceof Error && error.name !== 'AbortError') {
+        console.error('Share failed:', error);
+      }
+    } finally {
+      setIsSharing(false);
     }
-  }, [outcome]);
+  }, [isSharing, outcome]);
 
   const timerProgress = Math.max(
     0,
@@ -1018,14 +1390,6 @@ function TypingToolContent(): JSX.Element {
 
             <div className={styles.statCard}>
               <span className={styles.statLabel}>
-                <Target size={15} strokeWidth={2} />
-                <Translate id="typing.result.accuracy">正答率</Translate>
-              </span>
-              <span className={styles.statValue}>{outcome.metrics.accuracy}%</span>
-            </div>
-
-            <div className={styles.statCard}>
-              <span className={styles.statLabel}>
                 <FileCheck2 size={15} strokeWidth={2} />
                 <Translate id="typing.result.completedPassages">完走文章数</Translate>
               </span>
@@ -1087,16 +1451,17 @@ function TypingToolContent(): JSX.Element {
               variant="outlined"
               color="primary"
               startIcon={
-                copied ? <Check size={18} strokeWidth={2} /> : <Copy size={18} strokeWidth={2} />
+                isSharing ? (
+                  <CircularProgress size={18} color="inherit" />
+                ) : (
+                  <Share2 size={18} strokeWidth={2} />
+                )
               }
-              onClick={handleCopyResult}
+              onClick={handleShareResult}
+              disabled={isSharing}
               sx={{ borderRadius: 3, px: 3, py: 1.25, textTransform: 'none', fontWeight: 700 }}
             >
-              {copied ? (
-                <Translate id="typing.action.copied">コピーしました</Translate>
-              ) : (
-                <Translate id="typing.action.copyResult">結果をコピー</Translate>
-              )}
+              <Translate id="typing.action.shareResult">結果を共有</Translate>
             </Button>
 
             <Button
