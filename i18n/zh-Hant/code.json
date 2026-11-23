@@ -3316,5 +3316,185 @@
   },
   "tool.jsonFormatter.upload.formats": {
     "message": "支援格式：JSON、Text"
+  },
+  "home.tools.typing.title": {
+    "message": "日語輸入法打字練習"
+  },
+  "home.tools.typing.desc": {
+    "message": "以 IME 轉換確認後的文字與長文範例比對消化的打字練習工具，可在瀏覽器本機端測試包含英數字與符號的實務日語輸入能力。"
+  },
+  "typing.course.1min": {
+    "message": "1分鐘課程"
+  },
+  "typing.course.3min": {
+    "message": "3分鐘課程"
+  },
+  "typing.course.1minSub": {
+    "message": "60秒 · 短期衝刺"
+  },
+  "typing.course.3minSub": {
+    "message": "180秒 · 長文耐力"
+  },
+  "typing.course.label": {
+    "message": "選擇課程"
+  },
+  "typing.best.title": {
+    "message": "課程個人最佳"
+  },
+  "typing.best.noRecord": {
+    "message": "尚無紀錄"
+  },
+  "typing.best.charsUnit": {
+    "message": "字"
+  },
+  "typing.best.passagesUnit": {
+    "message": "篇"
+  },
+  "typing.rules.title": {
+    "message": "玩法與判定規則"
+  },
+  "typing.rules.item1": {
+    "message": "使用日語 IME 確認轉換後，在非組字狀態下再按一次 Enter 即可判定輸入文字。"
+  },
+  "typing.rules.item2": {
+    "message": "按下 Enter 送出前，輸入欄中的文字會即時與範例比對：相符字元顯示為綠色，不相符字元顯示為紅色。按下 Enter 時僅消化開頭連續相符字元，其餘保留於輸入欄。"
+  },
+  "typing.rules.item3": {
+    "message": "英數字、ASCII 符號與空白不分半形／全形，「ー」與「-」亦視為同一字元，但英文字母嚴格區分大小寫。"
+  },
+  "typing.rules.item4": {
+    "message": "所有語系皆統一以日語長文出題。已停用貼上與拖放輸入。"
+  },
+  "typing.action.start": {
+    "message": "開始"
+  },
+  "typing.action.cancel": {
+    "message": "取消並返回"
+  },
+  "typing.action.retry": {
+    "message": "重新開始"
+  },
+  "typing.action.abort": {
+    "message": "中止"
+  },
+  "typing.action.playAgain": {
+    "message": "同課程再玩一次"
+  },
+  "typing.action.backToSelect": {
+    "message": "返回課程選擇"
+  },
+  "typing.action.copyResult": {
+    "message": "複製結果"
+  },
+  "typing.action.copied": {
+    "message": "已複製"
+  },
+  "typing.countdown.ready": {
+    "message": "即將開始..."
+  },
+  "typing.countdown.hint": {
+    "message": "開始同時會自動聚焦於輸入欄"
+  },
+  "typing.playing.remainingTime": {
+    "message": "剩餘時間"
+  },
+  "typing.playing.digestedChars": {
+    "message": "消化字數"
+  },
+  "typing.playing.completedPassages": {
+    "message": "完走篇數"
+  },
+  "typing.playing.passageProgress": {
+    "message": "進度"
+  },
+  "typing.playing.inputPlaceholder": {
+    "message": "確認轉換後按 Enter 判定..."
+  },
+  "typing.playing.inputHelper": {
+    "message": "IME 轉換確認時的 Enter 不會觸發判定，確認後請再按一次 Enter 送出。"
+  },
+  "typing.playing.submitButton": {
+    "message": "判定 (Enter)"
+  },
+  "typing.feedback.matchedAll": {
+    "message": "已消化 {count} 個字元"
+  },
+  "typing.feedback.matchedPartial": {
+    "message": "已消化 {count} 個字元（請修改剩餘不相符部分後再按 Enter）"
+  },
+  "typing.feedback.mismatch": {
+    "message": "開頭不相符，請確認輸入內容後再按 Enter。"
+  },
+  "typing.feedback.passageComplete": {
+    "message": "文章完走！已切換至下一篇範例。"
+  },
+  "typing.feedback.pasteBlocked": {
+    "message": "已停用貼上與拖放輸入。"
+  },
+  "typing.genre.business": {
+    "message": "商務"
+  },
+  "typing.genre.tech": {
+    "message": "IT / 開發"
+  },
+  "typing.genre.news": {
+    "message": "新聞 / 專欄"
+  },
+  "typing.genre.daily": {
+    "message": "日常 / 知識"
+  },
+  "typing.result.title": {
+    "message": "時間到！結果公布"
+  },
+  "typing.result.newBest": {
+    "message": "NEW BEST!"
+  },
+  "typing.result.totalDigested": {
+    "message": "總消化字數"
+  },
+  "typing.result.cpm": {
+    "message": "CPM（字/分）"
+  },
+  "typing.result.accuracy": {
+    "message": "正確率"
+  },
+  "typing.result.completedPassages": {
+    "message": "完走篇數"
+  },
+  "typing.result.rank": {
+    "message": "等級評價"
+  },
+  "typing.result.rankDesc.S": {
+    "message": "專家級！包含轉換在內展現出驚人的速度與準確度。"
+  },
+  "typing.result.rankDesc.A": {
+    "message": "進階水準！在實務工作上具備極高的輸入效率。"
+  },
+  "typing.result.rankDesc.B": {
+    "message": "實務水準！轉換節奏穩定且準確。"
+  },
+  "typing.result.rankDesc.C": {
+    "message": "標準水準！抓穩轉換確認的節奏後將能更進一步。"
+  },
+  "typing.result.rankDesc.D": {
+    "message": "入門水準！不用著急，試著逐段準確確認轉換吧。"
+  },
+  "typing.result.firstRecord": {
+    "message": "已儲存首次個人最佳紀錄！"
+  },
+  "typing.result.beatBestBy": {
+    "message": "超越上次個人最佳（{prev}字）+{diff}字！"
+  },
+  "typing.result.diffFromBest": {
+    "message": "距離個人最佳（{best}字）還差 {diff}字"
+  },
+  "typing.result.tiedBest": {
+    "message": "追平了個人最佳紀錄（{best}字）！"
+  },
+  "typing.result.noScore": {
+    "message": "由於消化字數為 0，未更新個人最佳紀錄。"
+  },
+  "typing.result.copyTemplateTitle": {
+    "message": "日語輸入法打字練習結果"
   }
 }

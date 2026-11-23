@@ -3169,5 +3169,185 @@
   },
   "nickmark.bottomCta.desc": {
     "message": "Free and open-source under the MIT License. Available now on the Chrome Web Store."
+  },
+  "home.tools.typing.title": {
+    "message": "Japanese IME Typing"
+  },
+  "home.tools.typing.desc": {
+    "message": "Practice real-world Japanese typing by matching committed IME text against long passages with letters, numbers, and symbols—100% in your browser."
+  },
+  "typing.course.1min": {
+    "message": "1-Minute Course"
+  },
+  "typing.course.3min": {
+    "message": "3-Minute Course"
+  },
+  "typing.course.1minSub": {
+    "message": "60s · Sprint"
+  },
+  "typing.course.3minSub": {
+    "message": "180s · Endurance"
+  },
+  "typing.course.label": {
+    "message": "Select Course"
+  },
+  "typing.best.title": {
+    "message": "Personal Best"
+  },
+  "typing.best.noRecord": {
+    "message": "No record yet"
+  },
+  "typing.best.charsUnit": {
+    "message": " chars"
+  },
+  "typing.best.passagesUnit": {
+    "message": ""
+  },
+  "typing.rules.title": {
+    "message": "How to Play & Matching Rules"
+  },
+  "typing.rules.item1": {
+    "message": "Commit your Japanese IME conversion as usual, then press Enter again (while not composing) to evaluate your text."
+  },
+  "typing.rules.item2": {
+    "message": "Even before pressing Enter, text inside the input box is compared in real time: matching characters appear in green and mismatched ones in red. On Enter, only the matching prefix is digested and unmatched text stays in the box."
+  },
+  "typing.rules.item3": {
+    "message": "Half-width and full-width alphanumeric characters, ASCII symbols, spaces, and \"ー\" / \"-\" are treated equally, while uppercase and lowercase letters are strictly distinguished."
+  },
+  "typing.rules.item4": {
+    "message": "Built-in passages are always presented in Japanese across all locales. Paste and drag-and-drop input are disabled."
+  },
+  "typing.action.start": {
+    "message": "Start"
+  },
+  "typing.action.cancel": {
+    "message": "Cancel"
+  },
+  "typing.action.retry": {
+    "message": "Retry"
+  },
+  "typing.action.abort": {
+    "message": "Quit"
+  },
+  "typing.action.playAgain": {
+    "message": "Play Again"
+  },
+  "typing.action.backToSelect": {
+    "message": "Back to Course Selection"
+  },
+  "typing.action.copyResult": {
+    "message": "Copy Result"
+  },
+  "typing.action.copied": {
+    "message": "Copied"
+  },
+  "typing.countdown.ready": {
+    "message": "Get ready to type..."
+  },
+  "typing.countdown.hint": {
+    "message": "The input field will be focused automatically when the timer begins."
+  },
+  "typing.playing.remainingTime": {
+    "message": "Time Left"
+  },
+  "typing.playing.digestedChars": {
+    "message": "Digested"
+  },
+  "typing.playing.completedPassages": {
+    "message": "Passages"
+  },
+  "typing.playing.passageProgress": {
+    "message": "Progress"
+  },
+  "typing.playing.inputPlaceholder": {
+    "message": "Commit IME conversion, then press Enter..."
+  },
+  "typing.playing.inputHelper": {
+    "message": "Pressing Enter while composing only commits the IME conversion. Press Enter again to evaluate."
+  },
+  "typing.playing.submitButton": {
+    "message": "Submit (Enter)"
+  },
+  "typing.feedback.matchedAll": {
+    "message": "Digested {count} characters"
+  },
+  "typing.feedback.matchedPartial": {
+    "message": "Digested {count} characters (edit the remaining text and press Enter again)"
+  },
+  "typing.feedback.mismatch": {
+    "message": "The start does not match. Check your input and press Enter again."
+  },
+  "typing.feedback.passageComplete": {
+    "message": "Passage completed! Moving to the next passage."
+  },
+  "typing.feedback.pasteBlocked": {
+    "message": "Pasting and drag-and-drop input are disabled."
+  },
+  "typing.genre.business": {
+    "message": "Business"
+  },
+  "typing.genre.tech": {
+    "message": "IT / Dev"
+  },
+  "typing.genre.news": {
+    "message": "News / Column"
+  },
+  "typing.genre.daily": {
+    "message": "Daily / General"
+  },
+  "typing.result.title": {
+    "message": "Time's Up! Results"
+  },
+  "typing.result.newBest": {
+    "message": "NEW BEST!"
+  },
+  "typing.result.totalDigested": {
+    "message": "Total Digested"
+  },
+  "typing.result.cpm": {
+    "message": "CPM (chars/min)"
+  },
+  "typing.result.accuracy": {
+    "message": "Accuracy"
+  },
+  "typing.result.completedPassages": {
+    "message": "Completed Passages"
+  },
+  "typing.result.rank": {
+    "message": "Rank"
+  },
+  "typing.result.rankDesc.S": {
+    "message": "Expert level! Outstanding speed and accuracy including IME conversion."
+  },
+  "typing.result.rankDesc.A": {
+    "message": "Advanced level! High-performance Japanese typing suited for demanding workflows."
+  },
+  "typing.result.rankDesc.B": {
+    "message": "Practical level! Steady conversion rhythm and solid accuracy."
+  },
+  "typing.result.rankDesc.C": {
+    "message": "Standard level! Keep building a smooth conversion rhythm to improve further."
+  },
+  "typing.result.rankDesc.D": {
+    "message": "Beginner level! Take your time and commit each phrase accurately."
+  },
+  "typing.result.firstRecord": {
+    "message": "Saved your first personal best!"
+  },
+  "typing.result.beatBestBy": {
+    "message": "Beat your previous best ({prev} chars) by +{diff} chars!"
+  },
+  "typing.result.diffFromBest": {
+    "message": "{diff} more chars to reach your best ({best} chars)"
+  },
+  "typing.result.tiedBest": {
+    "message": "Tied your personal best ({best} chars)!"
+  },
+  "typing.result.noScore": {
+    "message": "Personal best was not updated because 0 characters were digested."
+  },
+  "typing.result.copyTemplateTitle": {
+    "message": "Japanese IME Typing Result"
   }
 }

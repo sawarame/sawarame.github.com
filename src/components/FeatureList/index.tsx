@@ -20,7 +20,8 @@ import {
   Globe,
   FileJson,
   Database,
-  Regex
+  Regex,
+  Keyboard
 } from 'lucide-react';
 import styles from './styles.module.css';
 
@@ -56,6 +57,15 @@ export const tools = [
     description: 'ブラウザ上で画像を軽量化し、WebPなどの形式に変換します。一括処理やEXIF情報の削除にも対応しています。',
     link: '/resize',
     gradient: 'linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%)',
+  },
+  {
+    icon: <Keyboard size={ICON_SIZE} />,
+    titleId: 'home.tools.typing.title',
+    title: '日本語変換タイピング',
+    descriptionId: 'home.tools.typing.desc',
+    description: 'IME変換確定後の文字を長文例文と照合して消化するタイピング練習ツール。英数字・記号混在の実務的な日本語入力力をブラウザ完結で測定できます。',
+    link: '/typing',
+    gradient: 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)',
   },
   {
     icon: <QrCode size={ICON_SIZE} />,
