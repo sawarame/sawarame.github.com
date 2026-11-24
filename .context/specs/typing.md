@@ -48,7 +48,7 @@
   - 内蔵例文は Fisher-Yates 法で重複なくシャッフル巡回し、全件消化後は直前の末尾例文が先頭に連続しないよう再シャッフルして継続する。
 
 ### 3.2. 内蔵プリセット例文
-* ビジネス（5本）、IT・開発（6本）、ニュース・コラム（4本）、日常・教養（3本）の計 **18本** を `src/components/Typing/passages.ts` に内蔵。
+* ビジネス（14本）、IT・開発（15本）、ニュース・コラム（13本）、日常・教養（12本）の計 **54本** を `src/components/Typing/passages.ts` に内蔵。
 * 各例文は 80〜150 文字程度の単一パラグラフ（改行なし）とし、日本語（ひらがな・カタカナ・漢字）に加え、英字（大文字・小文字混在）・数字・記号（`%`, `/`, `-`, `:`, `()`, `@`, `#`, `!`, `?`, `.`, `,` 等）を自然に含む。
 
 ### 3.3. コース・タイマー・ゲームフロー
@@ -122,7 +122,7 @@
 ## 5. ディレクトリ・ファイル構成
 * `src/components/Typing/index.tsx`: UI コンポーネント（`MuiTheme` ラップ、状態遷移・IME/タイマー制御）
 * `src/components/Typing/logic.ts`: 文字正規化・先頭一致消化・IMEガード・スコア算出・シャッフル・LocalStorage 永続化の純粋ロジック
-* `src/components/Typing/passages.ts`: 内蔵プリセット例文データ（18本）
+* `src/components/Typing/passages.ts`: 内蔵プリセット例文データ（54本）
 * `src/components/Typing/styles.module.css`: ライト／ダークモード・レスポンシブ対応スタイル
 * `src/components/Typing/index.test.ts`: Vitest 単体テストスイート
 * `src/components/FeatureList/index.tsx`: トップページツール一覧登録（`Keyboard` アイコン）
