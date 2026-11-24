@@ -352,32 +352,6 @@ export function shufflePassages(
 }
 
 /**
- * URL クエリ文字列からコース秒数を安全に復元する
- * @param search - `location.search` 文字列（例: "?course=180"）
- * @returns 有効なコース秒数（不正値または未指定時は 60）
- */
-export function parseCourseFromSearch(search: string): CourseDuration {
-  const params = new URLSearchParams(search);
-  const raw = params.get('course');
-  if (raw === '180') {
-    return 180;
-  }
-  return DEFAULT_COURSE;
-}
-
-/**
- * 既存の URL クエリパラメータを保持しつつ course パラメータを更新したクエリ文字列を返す
- * @param currentSearch - 現在の `location.search`
- * @param course - 設定するコース秒数
- * @returns `?` を除いたクエリ文字列（例: "course=180"）
- */
-export function buildCourseSearch(currentSearch: string, course: CourseDuration): string {
-  const params = new URLSearchParams(currentSearch);
-  params.set('course', String(course));
-  return params.toString();
-}
-
-/**
  * 任意オブジェクトが有効な BestRecord 形式かどうかを検証する
  * 旧バージョンの保存データ（accuracy を含む）および新規データ（accuracy を含まない）の双方を有効とする
  * @param value - 検証対象の値

@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useHistory, useLocation } from '@docusaurus/router';
 import Translate, { translate } from '@docusaurus/Translate';
 import { Box, Button, Chip, CircularProgress, LinearProgress } from '@mui/material';
 import {
@@ -8,6 +7,7 @@ import {
   Award,
   CheckCircle2,
   FileCheck2,
+  Info,
   Keyboard,
   Play,
   RotateCcw,
@@ -22,8 +22,8 @@ import MuiTheme from '@site/src/components/MuiTheme';
 import { TYPING_PASSAGES, type TypingGenre, type TypingPassage } from './passages';
 import {
   AVAILABLE_COURSES,
+  DEFAULT_COURSE,
   TYPING_VERSION,
-  buildCourseSearch,
   buildTypingShareText,
   computeResultMetrics,
   evaluateInputPreview,
@@ -31,7 +31,6 @@ import {
   formatRemainingTime,
   getTypingDeviceInfo,
   loadBestRecords,
-  parseCourseFromSearch,
   saveBestRecordIfImproved,
   shouldIgnoreEnterKey,
   shufflePassages,
@@ -489,13 +488,8 @@ export async function generateTypingResultImage(
  * @returns タイピングツールの JSX 要素
  */
 function TypingToolContent(): JSX.Element {
-  const history = useHistory();
-  const location = useLocation();
-
   // コース・画面フェーズ状態
-  const [course, setCourse] = useState<CourseDuration>(() =>
-    parseCourseFromSearch(location.search)
-  );
+  const [course, setCourse] = useState<CourseDuration>(DEFAULT_COURSE);
   const [phase, setPhase] = useState<GamePhase>('idle');
   const [countdown, setCountdown] = useState<number>(3);
 
@@ -536,28 +530,14 @@ function TypingToolContent(): JSX.Element {
     setBestRecords(loadBestRecords());
   }, []);
 
-  // URL クエリパラメータ変更時（ブラウザ戻る/進む等）に待機中のコースを同期
-  useEffect(() => {
-    const parsedCourse = parseCourseFromSearch(location.search);
-    if (phase === 'idle' && parsedCourse !== course) {
-      setCourse(parsedCourse);
-      setRemainingMs(parsedCourse * 1000);
-    }
-  }, [location.search, phase, course]);
-
   /**
-   * 選択コースを更新し、URL クエリパラメータへリアルタイム同期する
+   * 選択コースを更新する（URL クエリパラメータは変更しない）
    * @param nextCourse - 新たに選択するコース秒数
    */
-  const handleSelectCourse = useCallback(
-    (nextCourse: CourseDuration) => {
-      setCourse(nextCourse);
-      setRemainingMs(nextCourse * 1000);
-      const nextSearch = buildCourseSearch(location.search, nextCourse);
-      history.replace({ search: nextSearch ? `?${nextSearch}` : '' });
-    },
-    [history, location.search]
-  );
+  const handleSelectCourse = useCallback((nextCourse: CourseDuration) => {
+    setCourse(nextCourse);
+    setRemainingMs(nextCourse * 1000);
+  }, []);
 
   /**
    * フィードバック表示を更新する
@@ -1039,6 +1019,15 @@ function TypingToolContent(): JSX.Element {
               })}
             </div>
 
+            <div className={styles.imeNotice} role="note">
+              <Info size={18} strokeWidth={2} className={styles.imeNoticeIcon} aria-hidden="true" />
+              <span>
+                <Translate id="typing.idle.imeNotice">
+                  スタートボタンを押す前に、日本語入力（IME）をONにしておいてください。
+                </Translate>
+              </span>
+            </div>
+
             <div className={styles.startActionRow}>
               <Button
                 variant="contained"
@@ -1046,7 +1035,6 @@ function TypingToolContent(): JSX.Element {
                 className={styles.primaryGradientButton}
                 startIcon={<Play size={20} strokeWidth={2} />}
                 onClick={startCountdown}
-                sx={{ mt: 3 }}
               >
                 <Translate id="typing.action.start">スタート</Translate>
               </Button>

@@ -3493,5 +3493,8 @@
   },
   "typing.share.alert": {
     "message": "결과 이미지를 클립보드에 복사했습니다!\nX(Twitter) 등의 게시 화면에 붙여넣어 공유해 주세요."
+  },
+  "typing.idle.imeNotice": {
+    "message": "시작 버튼을 누르기 전에 일본어 입력(IME)을 ON으로 설정해 주세요."
   }
 }

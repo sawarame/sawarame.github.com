@@ -3346,5 +3346,8 @@
   },
   "typing.share.alert": {
     "message": "Result image copied to clipboard!\nPlease paste and post it on X (Twitter) or other apps."
+  },
+  "typing.idle.imeNotice": {
+    "message": "Please turn on Japanese input (IME) before pressing Start."
   }
 }

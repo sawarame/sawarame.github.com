@@ -2,7 +2,6 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import {
   TYPING_BEST_STORAGE_KEY,
   TYPING_VERSION,
-  buildCourseSearch,
   buildTypingShareText,
   calculateCpm,
   computeResultMetrics,
@@ -14,7 +13,6 @@ import {
   loadBestRecords,
   normalizeChar,
   normalizeText,
-  parseCourseFromSearch,
   saveBestRecordIfImproved,
   shouldIgnoreEnterKey,
   shufflePassages,
@@ -401,9 +399,9 @@ describe('Typing Tool Pure Logic Suite', () => {
   });
 
   // =========================================================================
-  // 5. シャッフル巡回・URL同期・LocalStorage 永続化
+  // 5. シャッフル巡回・LocalStorage 永続化
   // =========================================================================
-  describe('シャッフル巡回・URL同期・LocalStorage 永続化', () => {
+  describe('シャッフル巡回・LocalStorage 永続化', () => {
     /**
      * テスト用のインメモリ Storage モックを生成する
      * @returns Web Storage 互換のインメモリ実装
@@ -445,15 +443,6 @@ describe('Typing Tool Pure Logic Suite', () => {
       expect(shuffled).toHaveLength(subset.length);
       expect(shuffled[0].id).not.toBe(subset[0].id);
       expect(new Set(shuffled.map((p) => p.id))).toEqual(new Set(subset.map((p) => p.id)));
-    });
-
-    it('URL クエリパラメータのパースと構築が正しく動作すること', () => {
-      expect(parseCourseFromSearch('')).toBe(60);
-      expect(parseCourseFromSearch('?course=60')).toBe(60);
-      expect(parseCourseFromSearch('?course=180')).toBe(180);
-      expect(parseCourseFromSearch('?course=999')).toBe(60);
-      expect(buildCourseSearch('?foo=bar', 180)).toBe('foo=bar&course=180');
-      expect(buildCourseSearch('?course=180', 60)).toBe('course=60');
     });
 
     it('コース別の自己ベスト記録（accuracy なし新規形式）を保存・更新判定・復元できること', () => {

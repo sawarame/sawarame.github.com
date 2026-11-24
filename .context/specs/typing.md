@@ -16,8 +16,8 @@
 ## 2. コア要件
 * **完全ローカル処理 (Client-Side Only)**:
   文字正規化、一致判定、タイマー管理、スコア集計、自己ベスト保存（LocalStorage）はすべてブラウザ内で完結し、外部サーバーへの通信は一切行わない。
-* **状態の同期と永続化 (URL Query & LocalStorage)**:
-  - コース選択（60秒 / 180秒）を URL クエリパラメータ（`?course=60` / `?course=180`）とリアルタイム同期。
+* **状態の管理と永続化 (ローカル状態 & LocalStorage)**:
+  - コース選択（60秒 / 180秒）はコンポーネント内部状態（デフォルト: 60秒）で管理し、URL クエリパラメータの付与・同期は行わない。
   - コース別自己ベスト記録を `localStorage`（キー: `sawara_typing_best_records_v1`）へ永続化。
 * **多言語対応 (i18n)**:
   - UI 文言は `@docusaurus/Translate`（`Translate` / `translate()`）で国際化し、`i18n/{en,zh-Hans,zh-Hant,ko}/code.json` へ翻訳を登録。
@@ -54,7 +54,7 @@
 ### 3.3. コース・タイマー・ゲームフロー
 * **コース選択**: 1分コース（60秒） / 3分コース（180秒）。
 * **画面フェーズ遷移**:
-  1. **待機画面 (`idle`)**: コース選択カード（各コース自己ベスト表示）、ルール概要、スタートボタン。
+  1. **待機画面 (`idle`)**: コース選択カード（各コース自己ベスト表示）、スタート前の日本語入力（IME）ON 案内バナー、スタートボタン、ルール概要。
   2. **カウントダウン画面 (`countdown`)**: 3 → 2 → 1 の3秒カウントダウン（中断・キャンセル可能）。終了と同時にタイマーを開始し、入力欄へ自動フォーカス。
   3. **プレイ画面 (`playing`)**:
      - 上部カード:
@@ -95,9 +95,7 @@
 ## 4. URL クエリパラメータ & LocalStorage 仕様
 
 ### 4.1. URL クエリパラメータ
-| パラメータ | 型 | 許容値 | デフォルト | 説明 |
-|---|---|---|---|---|
-| `course` | string | `"60"` / `"180"` | `"60"` | 選択中のコース時間（秒） |
+* 本ツールではコース選択を含め URL クエリパラメータへの同期は行わない（コース選択時に URL へ `?course=...` を付与しない）。
 
 ### 4.2. LocalStorage スキーマ
 * **キー**: `sawara_typing_best_records_v1`
@@ -123,7 +121,7 @@
 
 ## 5. ディレクトリ・ファイル構成
 * `src/components/Typing/index.tsx`: UI コンポーネント（`MuiTheme` ラップ、状態遷移・IME/タイマー制御）
-* `src/components/Typing/logic.ts`: 文字正規化・先頭一致消化・IMEガード・スコア算出・シャッフル・URL/LocalStorage 永続化の純粋ロジック
+* `src/components/Typing/logic.ts`: 文字正規化・先頭一致消化・IMEガード・スコア算出・シャッフル・LocalStorage 永続化の純粋ロジック
 * `src/components/Typing/passages.ts`: 内蔵プリセット例文データ（18本）
 * `src/components/Typing/styles.module.css`: ライト／ダークモード・レスポンシブ対応スタイル
 * `src/components/Typing/index.test.ts`: Vitest 単体テストスイート

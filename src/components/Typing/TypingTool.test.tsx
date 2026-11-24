@@ -428,3 +428,85 @@ describe('TypingTool 結果画面・共有機能テスト', () => {
     vi.unstubAllGlobals();
   });
 });
+
+describe('TypingTool 待機画面（コース選択・IME案内）テスト', () => {
+  let container: HTMLDivElement;
+  let root: Root;
+
+  beforeEach(() => {
+    container = document.createElement('div');
+    document.body.appendChild(container);
+    root = createRoot(container);
+  });
+
+  afterEach(() => {
+    act(() => {
+      root.unmount();
+    });
+    container.remove();
+    vi.restoreAllMocks();
+  });
+
+  it('コースを選択しても URL クエリパラメータが変更されず、選択状態のみ切り替わること', () => {
+    const replaceStateSpy = vi.spyOn(window.history, 'replaceState');
+    const pushStateSpy = vi.spyOn(window.history, 'pushState');
+    const initialSearch = window.location.search;
+
+    act(() => {
+      root.render(<TypingTool />);
+    });
+
+    const buttons = Array.from(container.querySelectorAll('button'));
+    const course1MinBtn = buttons.find((btn) => btn.textContent?.includes('1分コース'));
+    const course3MinBtn = buttons.find((btn) => btn.textContent?.includes('3分コース'));
+    expect(course1MinBtn).toBeDefined();
+    expect(course3MinBtn).toBeDefined();
+
+    // 初期状態は 1 分コースが選択状態
+    expect(course1MinBtn?.getAttribute('aria-pressed')).toBe('true');
+    expect(course3MinBtn?.getAttribute('aria-pressed')).toBe('false');
+
+    // 3 分コースを選択しても URL は変更されないこと
+    act(() => {
+      course3MinBtn?.click();
+    });
+    expect(course1MinBtn?.getAttribute('aria-pressed')).toBe('false');
+    expect(course3MinBtn?.getAttribute('aria-pressed')).toBe('true');
+    expect(window.location.search).toBe(initialSearch);
+    expect(replaceStateSpy).not.toHaveBeenCalled();
+    expect(pushStateSpy).not.toHaveBeenCalled();
+
+    // 1 分コースへ戻しても URL は変更されないこと
+    act(() => {
+      course1MinBtn?.click();
+    });
+    expect(course1MinBtn?.getAttribute('aria-pressed')).toBe('true');
+    expect(course3MinBtn?.getAttribute('aria-pressed')).toBe('false');
+    expect(window.location.search).toBe(initialSearch);
+    expect(replaceStateSpy).not.toHaveBeenCalled();
+    expect(pushStateSpy).not.toHaveBeenCalled();
+  });
+
+  it('待機画面でスタートボタンの前に日本語入力をONにしておく案内が表示されること', () => {
+    act(() => {
+      root.render(<TypingTool />);
+    });
+
+    const noticeEl = container.querySelector('[role="note"]');
+    expect(noticeEl).not.toBeNull();
+    expect(noticeEl?.textContent).toContain(
+      'スタートボタンを押す前に、日本語入力（IME）をONにしておいてください。'
+    );
+
+    const startButton = Array.from(container.querySelectorAll('button')).find((btn) =>
+      btn.textContent?.includes('スタート')
+    );
+    expect(startButton).toBeDefined();
+
+    // 案内要素がスタートボタンより前の DOM 位置に配置されていること
+    if (noticeEl && startButton) {
+      const position = noticeEl.compareDocumentPosition(startButton);
+      expect(position & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    }
+  });
+});
