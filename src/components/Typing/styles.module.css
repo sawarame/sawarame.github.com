@@ -333,13 +333,19 @@
   background: rgba(79, 157, 255, 0.14);
 }
 
+/* 現在入力位置カーソル：ライトモードはブランド青背景＋白文字、ダークモードは明るい青背景＋濃いグレー文字で高コントラストを確保 */
 .charCurrent {
-  color: var(--ifm-color-primary-contrast-foreground, #ffffff);
+  color: var(--ifm-color-white);
   background: var(--ifm-color-primary);
   border-radius: 4px;
   padding: 0 2px;
   font-weight: 700;
   box-shadow: 0 0 0 2px rgba(51, 102, 204, 0.25);
+}
+
+[data-theme='dark'] .charCurrent {
+  color: var(--ifm-color-gray-900);
+  box-shadow: 0 0 0 2px rgba(79, 157, 255, 0.35);
 }
 
 .charRemaining {
