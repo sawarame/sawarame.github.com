@@ -22,13 +22,13 @@ import { Keyboard } from "lucide-react";
 1. **Select a Course**:
    Choose between the **1-Minute Course (60s)** and **3-Minute Course (180s)**.
 2. **Start & Countdown**:
-   Turn on Japanese input (IME) before clicking **Start** to begin a 3-second countdown (`3 → 2 → 1`). As soon as the timer starts, the input field is automatically focused.
+   Turn on Japanese input (IME) before clicking **Start**. The page automatically scrolls to the typing area and begins a 3-second countdown (`3 → 2 → 1`). As soon as the timer starts, the input field is automatically focused.
 3. **Commit IME Conversion and Press Enter**:
    Type and convert Japanese text as usual with your IME, then press **Enter while not composing** to submit and match against the passage.
 4. **Prefix Digestion & Easy Correction**:
    Only the longest matching prefix from the start of the remaining passage is digested. Any unmatched tail stays in the input box so you can edit or reconvert it right away and press Enter again.
 5. **View Results, Personal Bests & Sharing**:
-   When time reaches zero, the results screen immediately displays your total digested characters, CPM (characters per minute), completed passages, and rank. Per-course personal bests are automatically stored in LocalStorage, and you can generate and share a branded score card image (including tool version and device info) via the **Share Results** button.
+   When time reaches zero, any unsubmitted text remaining in the input box is automatically evaluated and counted (matching prefix) before immediately showing the results screen with your total digested characters, CPM (characters per minute), completed passages, and rank. Per-course personal bests are automatically stored in LocalStorage, and you can generate and share a branded score card image (including tool version and device info) via the **Share Results** button.
 
 ## Matching Rules & Features
 

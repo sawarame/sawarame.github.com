@@ -3365,6 +3365,9 @@
   "typing.rules.item4": {
     "message": "所有語系皆統一以日語長文出題。已停用貼上與拖放輸入。"
   },
+  "typing.rules.item5": {
+    "message": "時間結束時，若輸入欄中仍有尚未送出的文字，系統會自動判定（計入開頭連續相符的部分）並納入最終成績。"
+  },
   "typing.action.start": {
     "message": "開始"
   },

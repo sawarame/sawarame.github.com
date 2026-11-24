@@ -280,7 +280,7 @@ describe('Typing Tool Pure Logic Suite', () => {
   // =========================================================================
   describe('スコア指標とランク判定', () => {
     it('ツールバージョン定数がセマンティックバージョン形式で定義されていること', () => {
-      expect(TYPING_VERSION).toBe('1.0.0');
+      expect(TYPING_VERSION).toBe('1.1.0');
       expect(TYPING_VERSION).toMatch(/^\d+\.\d+\.\d+$/);
     });
 

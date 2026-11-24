@@ -3365,6 +3365,9 @@
   "typing.rules.item4": {
     "message": "所有语言界面下均统一出题日语长句范例。已禁用粘贴和拖放输入。"
   },
+  "typing.rules.item5": {
+    "message": "倒计时结束时，如果输入框中仍有未提交的文字，系统会自动判定（计入开头连续匹配的部分）并纳入最终成绩。"
+  },
   "typing.action.start": {
     "message": "开始"
   },

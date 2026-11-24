@@ -3,7 +3,7 @@ import { type TypingPassage } from './passages';
 /**
  * 日本語変換タイピングツールのセマンティックバージョン
  */
-export const TYPING_VERSION = '1.0.0';
+export const TYPING_VERSION = '1.1.0';
 
 /**
  * 選択可能なタイピングコースの制限時間（秒）
