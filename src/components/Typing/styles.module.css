@@ -126,10 +126,41 @@
   font-size: 0.95rem;
 }
 
+.imeNotice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--ifm-color-info-dark);
+  background: var(--ifm-color-info-contrast-background);
+  color: var(--ifm-color-info-darkest);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+}
+
+[data-theme='dark'] .imeNotice {
+  border-color: var(--ifm-color-info-light);
+  color: var(--ifm-color-info-lightest);
+}
+
+.imeNoticeIcon {
+  flex-shrink: 0;
+  color: var(--ifm-color-info-dark);
+}
+
+[data-theme='dark'] .imeNoticeIcon {
+  color: var(--ifm-color-info-light);
+}
+
 .startActionRow {
   display: flex;
   justify-content: center;
-  margin-top: 8px;
+  margin-top: 24px;
 }
 
 .primaryGradientButton {

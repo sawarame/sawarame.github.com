@@ -3493,5 +3493,8 @@
   },
   "typing.share.alert": {
     "message": "已将结果图片复制到剪贴板！\n请粘贴到 X（Twitter）等平台的发布界面进行分享。"
+  },
+  "typing.idle.imeNotice": {
+    "message": "按下开始按钮前，请先开启日语输入法（IME）。"
   }
 }
