@@ -510,3 +510,452 @@ describe('TypingTool 待機画面（コース選択・IME案内）テスト', ()
     }
   });
 });
+
+/**
+ * テスト用のインメモリ Storage モックを生成する
+ * @returns Web Storage 互換のインメモリ実装
+ */
+function createMemoryStorage(): Storage {
+  const store = new Map<string, string>();
+  return {
+    get length() {
+      return store.size;
+    },
+    clear() {
+      store.clear();
+    },
+    getItem(key: string) {
+      return store.has(key) ? (store.get(key) ?? null) : null;
+    },
+    key(index: number) {
+      return Array.from(store.keys())[index] ?? null;
+    },
+    removeItem(key: string) {
+      store.delete(key);
+    },
+    setItem(key: string, value: string) {
+      store.set(key, String(value));
+    },
+  };
+}
+
+describe('TypingTool 自動スクロール・フォーカス制御テスト', () => {
+  let container: HTMLDivElement;
+  let root: Root;
+  let originalScrollIntoView: PropertyDescriptor | undefined;
+  let originalMatchMedia: PropertyDescriptor | undefined;
+
+  beforeEach(() => {
+    vi.useFakeTimers();
+    originalScrollIntoView = Object.getOwnPropertyDescriptor(
+      HTMLElement.prototype,
+      'scrollIntoView'
+    );
+    originalMatchMedia = Object.getOwnPropertyDescriptor(window, 'matchMedia');
+    container = document.createElement('div');
+    document.body.appendChild(container);
+    root = createRoot(container);
+  });
+
+  afterEach(() => {
+    act(() => {
+      root.unmount();
+    });
+    container.remove();
+    if (originalScrollIntoView) {
+      Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', originalScrollIntoView);
+    } else {
+      delete (HTMLElement.prototype as { scrollIntoView?: unknown }).scrollIntoView;
+    }
+    if (originalMatchMedia) {
+      Object.defineProperty(window, 'matchMedia', originalMatchMedia);
+    } else {
+      delete (window as { matchMedia?: unknown }).matchMedia;
+    }
+    vi.restoreAllMocks();
+    vi.useRealTimers();
+  });
+
+  /**
+   * テスト用に指定したラベルを含むボタンを取得する
+   * @param rootEl - 検索対象のコンテナ要素
+   * @param label - 検索するボタン文言
+   * @returns 該当する HTMLButtonElement（見つからない場合は undefined）
+   */
+  function findButtonByText(rootEl: HTMLElement, label: string): HTMLButtonElement | undefined {
+    return Array.from(rootEl.querySelectorAll('button')).find((btn) =>
+      btn.textContent?.includes(label)
+    );
+  }
+
+  /**
+   * 3秒カウントダウンを完了させてプレイ画面へ遷移するヘルパー
+   */
+  function completeCountdown(): void {
+    for (let i = 0; i < 3; i += 1) {
+      act(() => {
+        vi.advanceTimersByTime(1000);
+      });
+    }
+  }
+
+  it('スタート・リトライ・同じコースでもう一度でスムーズスクロールされ、中断やコース選択ではスクロールされないこと', () => {
+    const scrollIntoViewMock = vi.fn();
+    Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
+      configurable: true,
+      writable: true,
+      value: scrollIntoViewMock,
+    });
+    Object.defineProperty(window, 'matchMedia', {
+      configurable: true,
+      writable: true,
+      value: vi.fn().mockReturnValue({ matches: false }),
+    });
+
+    const focusSpy = vi.spyOn(HTMLInputElement.prototype, 'focus');
+
+    act(() => {
+      root.render(<TypingTool />);
+    });
+
+    // 初回描画やコース選択変更ではスクロールしないこと
+    expect(scrollIntoViewMock).not.toHaveBeenCalled();
+    const course3MinBtn = findButtonByText(container, '3分コース');
+    const course1MinBtn = findButtonByText(container, '1分コース');
+    act(() => {
+      course3MinBtn?.click();
+      course1MinBtn?.click();
+    });
+    expect(scrollIntoViewMock).not.toHaveBeenCalled();
+
+    // 1. 待機画面「スタート」クリックでスクロールすること
+    const startButton = findButtonByText(container, 'スタート');
+    expect(startButton).toBeDefined();
+    act(() => {
+      startButton?.click();
+    });
+    expect(scrollIntoViewMock).toHaveBeenCalledTimes(1);
+    expect(scrollIntoViewMock).toHaveBeenLastCalledWith({
+      behavior: 'smooth',
+      block: 'start',
+    });
+
+    // カウントダウン終了後の自動フォーカスが preventScroll: true で呼ばれること
+    completeCountdown();
+    act(() => {
+      vi.advanceTimersByTime(50);
+    });
+    expect(focusSpy).toHaveBeenCalledWith({ preventScroll: true });
+
+    // 2. プレイ中「リトライ」クリックで再度スクロールすること
+    const retryButton = findButtonByText(container, 'リトライ');
+    expect(retryButton).toBeDefined();
+    act(() => {
+      retryButton?.click();
+    });
+    expect(scrollIntoViewMock).toHaveBeenCalledTimes(2);
+    expect(scrollIntoViewMock).toHaveBeenLastCalledWith({
+      behavior: 'smooth',
+      block: 'start',
+    });
+
+    // プレイを進めて結果画面へ遷移
+    completeCountdown();
+    act(() => {
+      vi.advanceTimersByTime(60_200);
+    });
+    expect(container.textContent).toContain('タイムアップ！結果発表');
+    expect(scrollIntoViewMock).toHaveBeenCalledTimes(2);
+
+    // 3. 結果画面「同じコースでもう一度」クリックで再度スクロールすること
+    const playAgainButton = findButtonByText(container, '同じコースでもう一度');
+    expect(playAgainButton).toBeDefined();
+    act(() => {
+      playAgainButton?.click();
+    });
+    expect(scrollIntoViewMock).toHaveBeenCalledTimes(3);
+    expect(scrollIntoViewMock).toHaveBeenLastCalledWith({
+      behavior: 'smooth',
+      block: 'start',
+    });
+
+    // カウントダウン中の「中断して戻る」ではスクロールしないこと
+    const cancelButton = findButtonByText(container, '中断して戻る');
+    expect(cancelButton).toBeDefined();
+    act(() => {
+      cancelButton?.click();
+    });
+    expect(scrollIntoViewMock).toHaveBeenCalledTimes(3);
+  });
+
+  it('prefers-reduced-motion 有効時は behavior: auto でスクロールし、scrollIntoView 未定義でも例外が発生しないこと', () => {
+    const scrollIntoViewMock = vi.fn();
+    Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
+      configurable: true,
+      writable: true,
+      value: scrollIntoViewMock,
+    });
+    Object.defineProperty(window, 'matchMedia', {
+      configurable: true,
+      writable: true,
+      value: vi.fn().mockReturnValue({ matches: true }),
+    });
+
+    act(() => {
+      root.render(<TypingTool />);
+    });
+
+    const startButton = findButtonByText(container, 'スタート');
+    act(() => {
+      startButton?.click();
+    });
+    expect(scrollIntoViewMock).toHaveBeenCalledWith({
+      behavior: 'auto',
+      block: 'start',
+    });
+
+    // scrollIntoView が未定義の環境でもエラーなく開始できること
+    Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
+      configurable: true,
+      writable: true,
+      value: undefined,
+    });
+    const cancelButton = findButtonByText(container, '中断して戻る');
+    act(() => {
+      cancelButton?.click();
+    });
+    const startButtonAgain = findButtonByText(container, 'スタート');
+    expect(() => {
+      act(() => {
+        startButtonAgain?.click();
+      });
+    }).not.toThrow();
+  });
+});
+
+describe('TypingTool タイムアップ時の未送信文字自動集計テスト', () => {
+  let container: HTMLDivElement;
+  let root: Root;
+  let mockStorage: Storage;
+  let originalLocalStorage: PropertyDescriptor | undefined;
+
+  beforeEach(() => {
+    vi.useFakeTimers();
+    originalLocalStorage = Object.getOwnPropertyDescriptor(window, 'localStorage');
+    mockStorage = createMemoryStorage();
+    Object.defineProperty(window, 'localStorage', {
+      configurable: true,
+      writable: true,
+      value: mockStorage,
+    });
+    container = document.createElement('div');
+    document.body.appendChild(container);
+    root = createRoot(container);
+  });
+
+  afterEach(() => {
+    act(() => {
+      root.unmount();
+    });
+    container.remove();
+    if (originalLocalStorage) {
+      Object.defineProperty(window, 'localStorage', originalLocalStorage);
+    } else {
+      delete (window as { localStorage?: unknown }).localStorage;
+    }
+    vi.restoreAllMocks();
+    vi.useRealTimers();
+  });
+
+  /**
+   * 待機画面からプレイ開始状態まで進め、課題文テキストと入力欄要素を返すヘルパー
+   * @returns 現在の課題文全文と入力欄の HTMLInputElement
+   */
+  function startPlayingSession(): { passageText: string; input: HTMLInputElement } {
+    act(() => {
+      root.render(<TypingTool />);
+    });
+
+    const startButton = Array.from(container.querySelectorAll('button')).find((btn) =>
+      btn.textContent?.includes('スタート')
+    );
+    expect(startButton).toBeDefined();
+
+    act(() => {
+      startButton?.click();
+    });
+
+    for (let i = 0; i < 3; i += 1) {
+      act(() => {
+        vi.advanceTimersByTime(1000);
+      });
+    }
+
+    const passageBox = container.querySelector('[role="region"]');
+    const input = container.querySelector('input[type="text"]') as HTMLInputElement | null;
+    expect(passageBox).not.toBeNull();
+    expect(input).not.toBeNull();
+
+    return {
+      passageText: passageBox?.textContent ?? '',
+      input: input as HTMLInputElement,
+    };
+  }
+
+  /**
+   * 結果画面に表示された総消化文字数・完走文章数を抽出するヘルパー
+   * @param rootEl - レンダリング先コンテナ
+   * @returns 総消化文字数と完走文章数
+   */
+  function readResultStats(rootEl: HTMLElement): { digestedChars: number; completedPassages: number } {
+    const text = rootEl.textContent ?? '';
+    const charsMatch = text.match(/(\d+)文字（総消化文字数）/);
+    const passagesMatch = text.match(/完走文章数(\d+)本/);
+    return {
+      digestedChars: charsMatch ? Number(charsMatch[1]) : -1,
+      completedPassages: passagesMatch ? Number(passagesMatch[1]) : -1,
+    };
+  }
+
+  it('未送信の完全一致テキストが残った状態でタイムアップすると自動集計され自己ベストにも保存されること', () => {
+    const { passageText, input } = startPlayingSession();
+    const chars = Array.from(passageText.normalize('NFC'));
+    const firstPart = chars.slice(0, 5).join('');
+    const secondPart = chars.slice(5, 13).join('');
+
+    // まず 5 文字を Enter で確定送信
+    act(() => {
+      setInputValue(input, firstPart);
+    });
+    act(() => {
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true })
+      );
+    });
+
+    // 続く 8 文字は入力しただけで Enter せずにタイムアップ
+    act(() => {
+      setInputValue(input, secondPart);
+    });
+    act(() => {
+      vi.advanceTimersByTime(60_200);
+    });
+
+    expect(container.textContent).toContain('タイムアップ！結果発表');
+    const stats = readResultStats(container);
+    expect(stats.digestedChars).toBe(13);
+    expect(stats.completedPassages).toBe(0);
+
+    // 自己ベストにも加算後の 13 文字が保存されていること
+    const savedRaw = window.localStorage.getItem('sawara_typing_best_records_v1');
+    expect(savedRaw).not.toBeNull();
+    const saved = JSON.parse(savedRaw as string) as Record<string, { chars: number; cpm: number }>;
+    expect(saved['60']?.chars).toBe(13);
+    expect(saved['60']?.cpm).toBe(13);
+  });
+
+  it('未送信テキストが部分一致（前半一致＋後半誤変換）の場合は先頭一致分のみ自動加算されること', () => {
+    const { passageText, input } = startPlayingSession();
+    const chars = Array.from(passageText.normalize('NFC'));
+    const partialInput = `${chars.slice(0, 6).join('')}@@@誤変換`;
+
+    act(() => {
+      setInputValue(input, partialInput);
+    });
+    act(() => {
+      vi.advanceTimersByTime(60_200);
+    });
+
+    const stats = readResultStats(container);
+    expect(stats.digestedChars).toBe(6);
+    expect(stats.completedPassages).toBe(0);
+  });
+
+  it('未送信テキストによって例文末尾まで完走した場合は消化文字数に加えて完走文章数も +1 されること', () => {
+    const { passageText, input } = startPlayingSession();
+    const chars = Array.from(passageText.normalize('NFC'));
+    const head = chars.slice(0, 10).join('');
+    const tail = chars.slice(10).join('');
+
+    // 先頭 10 文字を Enter で消化
+    act(() => {
+      setInputValue(input, head);
+    });
+    act(() => {
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true })
+      );
+    });
+
+    // 残りの全文を入力して Enter しないままタイムアップ
+    act(() => {
+      setInputValue(input, tail);
+    });
+    act(() => {
+      vi.advanceTimersByTime(60_200);
+    });
+
+    const stats = readResultStats(container);
+    expect(stats.digestedChars).toBe(chars.length);
+    expect(stats.completedPassages).toBe(1);
+  });
+
+  it('IME 変換中（compositionstart 後）の未送信テキストであっても先頭一致分が自動集計されること', () => {
+    const { passageText, input } = startPlayingSession();
+    const chars = Array.from(passageText.normalize('NFC'));
+    const composingInput = chars.slice(0, 7).join('');
+
+    act(() => {
+      input.dispatchEvent(new CompositionEvent('compositionstart', { bubbles: true }));
+      setInputValue(input, composingInput);
+    });
+    act(() => {
+      vi.advanceTimersByTime(60_200);
+    });
+
+    const stats = readResultStats(container);
+    expect(stats.digestedChars).toBe(7);
+    expect(stats.completedPassages).toBe(0);
+  });
+
+  it('先頭不一致テキストが残ったままタイムアップした場合は 0 加算で結果画面へ遷移すること', () => {
+    const { input } = startPlayingSession();
+
+    act(() => {
+      setInputValue(input, '@@@完全不一致');
+    });
+    act(() => {
+      vi.advanceTimersByTime(60_200);
+    });
+
+    expect(container.textContent).toContain('タイムアップ！結果発表');
+    const stats = readResultStats(container);
+    expect(stats.digestedChars).toBe(0);
+    expect(stats.completedPassages).toBe(0);
+  });
+
+  it('プレイ中に未送信テキストが残った状態で中断した場合は集計・結果遷移・自己ベスト保存を行わないこと', () => {
+    const { passageText, input } = startPlayingSession();
+    const chars = Array.from(passageText.normalize('NFC'));
+
+    act(() => {
+      setInputValue(input, chars.slice(0, 10).join(''));
+    });
+
+    const abortButton = Array.from(container.querySelectorAll('button')).find(
+      (btn) => btn.textContent?.trim() === '中断'
+    );
+    expect(abortButton).toBeDefined();
+    act(() => {
+      abortButton?.click();
+    });
+
+    // 待機画面へ戻り、その後時間が経過しても結果画面へ遷移しないこと
+    expect(container.textContent).toContain('コースを選択');
+    act(() => {
+      vi.advanceTimersByTime(65_000);
+    });
+    expect(container.textContent).toContain('コースを選択');
+    expect(window.localStorage.getItem('sawara_typing_best_records_v1')).toBeNull();
+  });
+});

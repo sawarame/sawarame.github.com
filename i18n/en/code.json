@@ -3218,6 +3218,9 @@
   "typing.rules.item4": {
     "message": "Built-in passages are always presented in Japanese across all locales. Paste and drag-and-drop input are disabled."
   },
+  "typing.rules.item5": {
+    "message": "When time runs out, any unsubmitted text remaining in the input box is automatically evaluated and its matching prefix is added to your score."
+  },
   "typing.action.start": {
     "message": "Start"
   },

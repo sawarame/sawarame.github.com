@@ -513,8 +513,11 @@ function TypingToolContent(): JSX.Element {
   // 結果画面の状態
   const [outcome, setOutcome] = useState<SessionOutcome | null>(null);
   const [isSharing, setIsSharing] = useState<boolean>(false);
+  // スタート／リトライ／もう一度押下時にタイピング領域へスクロールするためのトリガーカウンタ
+  const [scrollRequestCount, setScrollRequestCount] = useState<number>(0);
 
-  // タイマー・IME・スクロール同期・最新スコア参照用 Ref
+  // タイマー・IME・スクロール同期・最新スコア／入力状態参照用 Ref
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const mirrorRef = useRef<HTMLDivElement | null>(null);
   const isComposingRef = useRef<boolean>(false);
@@ -523,12 +526,42 @@ function TypingToolContent(): JSX.Element {
   const hasFinishedRef = useRef<boolean>(false);
   const digestedCharsRef = useRef<number>(0);
   const completedPassagesRef = useRef<number>(0);
+  const currentPassageTextRef = useRef<string>(TYPING_PASSAGES[0].text);
+  const cursorRef = useRef<number>(0);
+  const inputValueRef = useRef<string>('');
   const feedbackSeqRef = useRef<number>(0);
 
   // クライアントマウント時に LocalStorage から自己ベストを読み込む
   useEffect(() => {
     setBestRecords(loadBestRecords());
   }, []);
+
+  /**
+   * タイピング領域のコンテナ上端へスムーズスクロールする
+   * prefers-reduced-motion が有効な場合は即時スクロールし、未対応環境では安全にスキップする
+   */
+  const scrollToTypingArea = useCallback(() => {
+    const containerEl = containerRef.current;
+    if (!containerEl || typeof containerEl.scrollIntoView !== 'function') {
+      return;
+    }
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    containerEl.scrollIntoView({
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      block: 'start',
+    });
+  }, []);
+
+  // セッション開始（スタート／リトライ／もう一度）の描画コミット後にタイピング領域へスクロールする
+  useEffect(() => {
+    if (scrollRequestCount === 0) {
+      return;
+    }
+    scrollToTypingArea();
+  }, [scrollRequestCount, scrollToTypingArea]);
 
   /**
    * 選択コースを更新する（URL クエリパラメータは変更しない）
@@ -550,14 +583,37 @@ function TypingToolContent(): JSX.Element {
   }, []);
 
   /**
-   * 制限時間終了時に現在の確定済みスコアを集計して結果画面へ遷移する
-   * 未 Enter の入力欄テキストはスコアへ一切含めない
+   * 制限時間終了時に未送信の入力文字も含めて最終スコアを集計し、結果画面へ遷移する
+   * IME 変換中かどうかにかかわらず、入力欄に残っている文字列を通常の先頭一致判定で自動集計する
    */
   const finishSession = useCallback(() => {
     if (hasFinishedRef.current) {
       return;
     }
     hasFinishedRef.current = true;
+
+    // タイムアップ時点で入力欄に未送信の文字列が残っていれば自動で先頭一致判定・集計を行う
+    const pendingInput = inputRef.current ? inputRef.current.value : inputValueRef.current;
+    const finalEvaluation = evaluateSubmission(
+      currentPassageTextRef.current,
+      cursorRef.current,
+      pendingInput
+    );
+
+    if (!finalEvaluation.isEmpty && finalEvaluation.matchedLen > 0) {
+      digestedCharsRef.current += finalEvaluation.matchedLen;
+      setDigestedChars(digestedCharsRef.current);
+      if (finalEvaluation.isPassageCompleted) {
+        completedPassagesRef.current += 1;
+        setCompletedPassages(completedPassagesRef.current);
+      }
+    }
+
+    // 結果画面遷移前に入力状態と IME 状態をリセット
+    inputValueRef.current = '';
+    isComposingRef.current = false;
+    setInputValue('');
+    setIsComposing(false);
 
     const metrics = computeResultMetrics({
       digestedChars: digestedCharsRef.current,
@@ -590,7 +646,7 @@ function TypingToolContent(): JSX.Element {
   }, [course]);
 
   /**
-   * 新しいセッションを初期化して 3 秒カウントダウンを開始する
+   * 新しいセッションを初期化して 3 秒カウントダウンを開始し、タイピング領域へスクロールする
    */
   const startCountdown = useCallback(() => {
     const shuffled = shufflePassages(TYPING_PASSAGES);
@@ -599,6 +655,9 @@ function TypingToolContent(): JSX.Element {
     lastCompositionEndMsRef.current = 0;
     digestedCharsRef.current = 0;
     completedPassagesRef.current = 0;
+    currentPassageTextRef.current = (shuffled[0] ?? TYPING_PASSAGES[0]).text;
+    cursorRef.current = 0;
+    inputValueRef.current = '';
 
     setDeck(shuffled);
     setDeckIndex(0);
@@ -615,6 +674,7 @@ function TypingToolContent(): JSX.Element {
     setIsSharing(false);
     setCountdown(3);
     setPhase('countdown');
+    setScrollRequestCount((prev) => prev + 1);
   }, [course]);
 
   /**
@@ -623,6 +683,8 @@ function TypingToolContent(): JSX.Element {
   const handleAbortToIdle = useCallback(() => {
     hasFinishedRef.current = true;
     isComposingRef.current = false;
+    cursorRef.current = 0;
+    inputValueRef.current = '';
     setIsComposing(false);
     setInputValue('');
     setFeedback(null);
@@ -651,13 +713,13 @@ function TypingToolContent(): JSX.Element {
     return () => window.clearTimeout(timerId);
   }, [phase, countdown, course]);
 
-  // プレイ開始直後に入力欄へ自動フォーカスする
+  // プレイ開始直後に入力欄へ自動フォーカスする（合わせたスクロール位置がズレないよう preventScroll を指定）
   useEffect(() => {
     if (phase !== 'playing') {
       return undefined;
     }
     const rafId = window.requestAnimationFrame(() => {
-      inputRef.current?.focus();
+      inputRef.current?.focus({ preventScroll: true });
     });
     return () => window.cancelAnimationFrame(rafId);
   }, [phase]);
@@ -724,19 +786,23 @@ function TypingToolContent(): JSX.Element {
     setIsShaking(false);
     digestedCharsRef.current += evaluation.matchedLen;
     setDigestedChars(digestedCharsRef.current);
+    inputValueRef.current = evaluation.remainingInput;
     setInputValue(evaluation.remainingInput);
 
     if (evaluation.isPassageCompleted) {
       // 例文を最後まで消化したら完走数を加算し、次の例文へ切り替える
       completedPassagesRef.current += 1;
       setCompletedPassages(completedPassagesRef.current);
+      cursorRef.current = 0;
       setCursor(0);
 
       if (deckIndex + 1 < deck.length) {
+        currentPassageTextRef.current = (deck[deckIndex + 1] ?? TYPING_PASSAGES[0]).text;
         setDeckIndex(deckIndex + 1);
       } else {
         // 全件消化したら直前末尾が連続しないよう再シャッフルして巡回継続
         const reshuffled = shufflePassages(TYPING_PASSAGES, currentPassage.id);
+        currentPassageTextRef.current = (reshuffled[0] ?? TYPING_PASSAGES[0]).text;
         setDeck(reshuffled);
         setDeckIndex(0);
       }
@@ -751,6 +817,7 @@ function TypingToolContent(): JSX.Element {
       return;
     }
 
+    cursorRef.current = evaluation.nextCursor;
     setCursor(evaluation.nextCursor);
     if (evaluation.remainingInput.length > 0) {
       pushFeedback(
@@ -952,7 +1019,7 @@ function TypingToolContent(): JSX.Element {
   const useColorOverlay = !isComposing && inputValue.length > 0;
 
   return (
-    <div className={styles.container}>
+    <div ref={containerRef} className={styles.container}>
       {phase === 'idle' && (
         <>
           <section className={styles.card}>
@@ -1065,6 +1132,11 @@ function TypingToolContent(): JSX.Element {
               <li>
                 <Translate id="typing.rules.item4">
                   出題例文は全ロケール共通で日本語長文が出題されます。ペーストおよびドロップ入力は無効です。
+                </Translate>
+              </li>
+              <li>
+                <Translate id="typing.rules.item5">
+                  制限時間終了時に入力欄へ未送信の文字が残っている場合は、自動で判定（先頭一致分を加算）してスコアに集計されます。
                 </Translate>
               </li>
             </ul>
@@ -1184,6 +1256,7 @@ function TypingToolContent(): JSX.Element {
                         message: '変換確定後に Enter で判定...',
                       })}
                       onChange={(event) => {
+                        inputValueRef.current = event.target.value;
                         setInputValue(event.target.value);
                         if (isInputError) {
                           setIsInputError(false);
