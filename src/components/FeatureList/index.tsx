@@ -294,7 +294,7 @@ export interface MacAppItem {
   descriptionId: string;
   /** アプリ説明文の既定日本語テキスト */
   description: string;
-  /** 紹介ページへの内部パス */
+  /** 紹介ページへのリンク URL（内部パスまたは外部 URL） */
   link: string;
   /** バッジ表示ラベル */
   badge: string;
@@ -310,7 +310,7 @@ export const macApps: MacAppItem[] = [
     descriptionId: 'home.macApps.wintch.desc',
     description:
       '同じアプリの複数ウィンドウへ直感的に切り替えられる macOS 用ウィンドウ単位スイッチャー＆検索ランチャー。リスト表示とキャプチャ表示の両方に対応しています。',
-    link: '/wintch',
+    link: 'https://wintch.sawara.me/',
     badge: 'macOS 14.0+',
   },
 ];
