@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { translate } from '@docusaurus/Translate';
 import { Terminal, Copy, Check } from 'lucide-react';
-import styles from './CopyCommandPill.module.css';
+import styles from './styles.module.css';
 
 /**
  * CopyCommandPill コンポーネントの Props 型定義
@@ -71,12 +71,12 @@ export default function CopyCommandPill({
   }, [command]);
 
   const copiedLabel = translate({
-    id: 'wintch.copy.copied',
+    id: 'common.copyCommand.copied',
     message: 'コピーしました',
   });
 
   const copyHint = translate({
-    id: 'wintch.copy.hint',
+    id: 'common.copyCommand.hint',
     message: 'クリックしてコマンドをコピー',
   });
 

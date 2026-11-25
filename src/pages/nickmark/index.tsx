@@ -5,7 +5,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Translate, { translate } from '@docusaurus/Translate';
 import MuiTheme from '@site/src/components/MuiTheme';
-import CopyCommandPill from '@site/src/components/Wintch/CopyCommandPill';
+import CopyCommandPill from '@site/src/components/CopyCommandPill';
 import NickmarkShowcase from '@site/src/components/Nickmark/NickmarkShowcase';
 import {
   CommandPaletteVisual,
