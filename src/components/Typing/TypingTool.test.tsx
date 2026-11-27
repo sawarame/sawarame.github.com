@@ -25,6 +25,99 @@ function setInputValue(input: HTMLInputElement, value: string): void {
   input.dispatchEvent(new Event('input', { bubbles: true }));
 }
 
+/**
+ * 指定したラベルを含むボタン要素を検索して返す
+ * @param rootEl - 検索対象の親要素
+ * @param label - 検索するボタン文言
+ * @returns 該当する HTMLButtonElement（見つからない場合は undefined）
+ */
+function findButtonByText(rootEl: ParentNode, label: string): HTMLButtonElement | undefined {
+  return Array.from(rootEl.querySelectorAll('button')).find((btn) =>
+    btn.textContent?.includes(label)
+  );
+}
+
+/**
+ * ページ上の「タイピング練習を開始」ボタンをクリックしてモーダルを開き、ダイアログ要素を返す
+ * @param container - コンポーネントのマウント先コンテナ
+ * @returns 開かれたダイアログの HTMLElement
+ */
+function openTypingModal(container: HTMLElement): HTMLElement {
+  const openButton = findButtonByText(container, 'タイピング練習を開始');
+  expect(openButton).toBeDefined();
+  act(() => {
+    openButton?.click();
+  });
+
+  const dialog = document.body.querySelector('[role="dialog"]') as HTMLElement | null;
+  expect(dialog).not.toBeNull();
+  return dialog as HTMLElement;
+}
+
+/**
+ * 3秒カウントダウンを完了させてプレイ画面へ遷移するヘルパー
+ */
+function completeCountdown(): void {
+  for (let i = 0; i < 3; i += 1) {
+    act(() => {
+      vi.advanceTimersByTime(1000);
+    });
+  }
+}
+
+/**
+ * MUI Dialog の背景（バックドロップ）クリックをシミュレートする
+ */
+function triggerDialogBackdropClick(): void {
+  const backdropContainer = document.body.querySelector('.MuiDialog-container') as HTMLElement | null;
+  expect(backdropContainer).not.toBeNull();
+  if (!backdropContainer) return;
+  act(() => {
+    backdropContainer.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+    backdropContainer.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+  });
+}
+
+/**
+ * MUI Dialog に対して Escape キー押下をシミュレートする
+ * @param dialog - 対象のダイアログ要素
+ */
+function triggerDialogEscapeKey(dialog: HTMLElement): void {
+  act(() => {
+    dialog.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })
+    );
+  });
+}
+
+/**
+ * テスト用のインメモリ Storage モックを生成する
+ * @returns Web Storage 互換のインメモリ実装
+ */
+function createMemoryStorage(): Storage {
+  const store = new Map<string, string>();
+  return {
+    get length() {
+      return store.size;
+    },
+    clear() {
+      store.clear();
+    },
+    getItem(key: string) {
+      return store.has(key) ? (store.get(key) ?? null) : null;
+    },
+    key(index: number) {
+      return Array.from(store.keys())[index] ?? null;
+    },
+    removeItem(key: string) {
+      store.delete(key);
+    },
+    setItem(key: string, value: string) {
+      store.set(key, String(value));
+    },
+  };
+}
+
 describe('TypingTool 入力欄フォーカス維持テスト', () => {
   let container: HTMLDivElement;
   let root: Root;
@@ -49,24 +142,19 @@ describe('TypingTool 入力欄フォーカス維持テスト', () => {
       root.render(<TypingTool />);
     });
 
+    const dialog = openTypingModal(container);
+
     // スタートボタンをクリックして 3 秒カウントダウンを開始
-    const startButton = Array.from(container.querySelectorAll('button')).find((btn) =>
-      btn.textContent?.includes('スタート')
-    );
+    const startButton = findButtonByText(dialog, 'スタート');
     expect(startButton).toBeDefined();
 
     act(() => {
       startButton?.click();
     });
 
-    // 3 秒カウントダウン（3 -> 2 -> 1 -> playing）を進める
-    for (let i = 0; i < 3; i += 1) {
-      act(() => {
-        vi.advanceTimersByTime(1000);
-      });
-    }
+    completeCountdown();
 
-    const inputBefore = container.querySelector('input[type="text"]') as HTMLInputElement | null;
+    const inputBefore = dialog.querySelector('input[type="text"]') as HTMLInputElement | null;
     expect(inputBefore).not.toBeNull();
     if (!inputBefore) return;
 
@@ -84,7 +172,7 @@ describe('TypingTool 入力欄フォーカス維持テスト', () => {
       );
     });
 
-    const inputAfterFirst = container.querySelector('input[type="text"]') as HTMLInputElement | null;
+    const inputAfterFirst = dialog.querySelector('input[type="text"]') as HTMLInputElement | null;
     expect(inputAfterFirst).toBe(inputBefore);
     expect(document.activeElement).toBe(inputBefore);
     expect(inputBefore.value).toBe('@@@誤入力テスト');
@@ -97,7 +185,7 @@ describe('TypingTool 入力欄フォーカス維持テスト', () => {
       );
     });
 
-    const inputAfterSecond = container.querySelector('input[type="text"]') as HTMLInputElement | null;
+    const inputAfterSecond = dialog.querySelector('input[type="text"]') as HTMLInputElement | null;
     expect(inputAfterSecond).toBe(inputBefore);
     expect(document.activeElement).toBe(inputBefore);
     expect(inputBefore.value).toBe('@@@誤入力テスト');
@@ -108,35 +196,31 @@ describe('TypingTool 入力欄フォーカス維持テスト', () => {
       root.render(<TypingTool />);
     });
 
+    const dialog = openTypingModal(container);
+
     // スタートボタンをクリックして 3 秒カウントダウンを開始
-    const startButton = Array.from(container.querySelectorAll('button')).find((btn) =>
-      btn.textContent?.includes('スタート')
-    );
+    const startButton = findButtonByText(dialog, 'スタート');
     expect(startButton).toBeDefined();
 
     act(() => {
       startButton?.click();
     });
 
-    for (let i = 0; i < 3; i += 1) {
-      act(() => {
-        vi.advanceTimersByTime(1000);
-      });
-    }
+    completeCountdown();
 
     // プログレスバーがプレイ画面に 1 つだけ存在すること
-    const progressBars = container.querySelectorAll('[role="progressbar"]');
+    const progressBars = dialog.querySelectorAll('[role="progressbar"]');
     expect(progressBars).toHaveLength(1);
     const progressBar = progressBars[0] as HTMLElement;
 
-    const input = container.querySelector('input[type="text"]') as HTMLInputElement | null;
+    const input = dialog.querySelector('input[type="text"]') as HTMLInputElement | null;
     expect(input).not.toBeNull();
     if (!input) return;
 
     const richInputContainer = input.parentElement as HTMLElement;
     const progressWrap = progressBar.parentElement as HTMLElement;
     const inputWrap = richInputContainer.parentElement as HTMLElement;
-    const helperText = Array.from(container.querySelectorAll('p')).find((p) =>
+    const helperText = Array.from(dialog.querySelectorAll('p')).find((p) =>
       p.textContent?.includes('IME変換確定の Enter では判定されません')
     );
 
@@ -232,46 +316,42 @@ describe('TypingTool 結果画面・共有機能テスト', () => {
   });
 
   /**
-   * 待機画面からカウントダウン・制限時間終了まで進めて結果画面へ遷移するヘルパー
+   * モーダルを開き、カウントダウン・制限時間終了まで進めて結果画面のダイアログ要素を返すヘルパー
+   * @returns 結果画面が表示されているダイアログ要素
    */
-  function advanceToResultScreen(): void {
+  function advanceToResultScreen(): HTMLElement {
     act(() => {
       root.render(<TypingTool />);
     });
 
-    const startButton = Array.from(container.querySelectorAll('button')).find((btn) =>
-      btn.textContent?.includes('スタート')
-    );
+    const dialog = openTypingModal(container);
+    const startButton = findButtonByText(dialog, 'スタート');
     expect(startButton).toBeDefined();
 
     act(() => {
       startButton?.click();
     });
 
-    // 3 秒カウントダウンを進める
-    for (let i = 0; i < 3; i += 1) {
-      act(() => {
-        vi.advanceTimersByTime(1000);
-      });
-    }
+    completeCountdown();
 
     // 1 分コースの制限時間（60 秒 + インターバル余裕）を進める
     act(() => {
       vi.advanceTimersByTime(60_200);
     });
+
+    return dialog;
   }
 
   it('結果画面に正答率が表示されず、結果をコピーの代わりに結果を共有ボタンが表示されること', () => {
-    advanceToResultScreen();
+    const dialog = advanceToResultScreen();
 
-    expect(container.textContent).toContain('タイムアップ！結果発表');
-    expect(container.textContent).toContain('CPM（文字/分）');
-    expect(container.textContent).toContain('完走文章数');
-    expect(container.textContent).not.toContain('正答率');
+    expect(dialog.textContent).toContain('タイムアップ！結果発表');
+    expect(dialog.textContent).toContain('CPM（文字/分）');
+    expect(dialog.textContent).toContain('完走文章数');
+    expect(dialog.textContent).not.toContain('正答率');
 
-    const buttons = Array.from(container.querySelectorAll('button'));
-    const shareButton = buttons.find((btn) => btn.textContent?.includes('結果を共有'));
-    const copyButton = buttons.find((btn) => btn.textContent?.includes('結果をコピー'));
+    const shareButton = findButtonByText(dialog, '結果を共有');
+    const copyButton = findButtonByText(dialog, '結果をコピー');
 
     expect(shareButton).toBeDefined();
     expect(copyButton).toBeUndefined();
@@ -336,11 +416,8 @@ describe('TypingTool 結果画面・共有機能テスト', () => {
       value: canShareMock,
     });
 
-    advanceToResultScreen();
-
-    const shareButton = Array.from(container.querySelectorAll('button')).find((btn) =>
-      btn.textContent?.includes('結果を共有')
-    );
+    const dialog = advanceToResultScreen();
+    const shareButton = findButtonByText(dialog, '結果を共有');
     expect(shareButton).toBeDefined();
 
     await act(async () => {
@@ -406,11 +483,8 @@ describe('TypingTool 結果画面・共有機能テスト', () => {
     const alertMock = vi.spyOn(window, 'alert').mockImplementation(() => undefined);
     const openMock = vi.spyOn(window, 'open').mockImplementation(() => null);
 
-    advanceToResultScreen();
-
-    const shareButton = Array.from(container.querySelectorAll('button')).find((btn) =>
-      btn.textContent?.includes('結果を共有')
-    );
+    const dialog = advanceToResultScreen();
+    const shareButton = findButtonByText(dialog, '結果を共有');
     expect(shareButton).toBeDefined();
 
     await act(async () => {
@@ -456,9 +530,9 @@ describe('TypingTool 待機画面（コース選択・IME案内）テスト', ()
       root.render(<TypingTool />);
     });
 
-    const buttons = Array.from(container.querySelectorAll('button'));
-    const course1MinBtn = buttons.find((btn) => btn.textContent?.includes('1分コース'));
-    const course3MinBtn = buttons.find((btn) => btn.textContent?.includes('3分コース'));
+    const dialog = openTypingModal(container);
+    const course1MinBtn = findButtonByText(dialog, '1分コース');
+    const course3MinBtn = findButtonByText(dialog, '3分コース');
     expect(course1MinBtn).toBeDefined();
     expect(course3MinBtn).toBeDefined();
 
@@ -492,15 +566,14 @@ describe('TypingTool 待機画面（コース選択・IME案内）テスト', ()
       root.render(<TypingTool />);
     });
 
-    const noticeEl = container.querySelector('[role="note"]');
+    const dialog = openTypingModal(container);
+    const noticeEl = dialog.querySelector('[role="note"]');
     expect(noticeEl).not.toBeNull();
     expect(noticeEl?.textContent).toContain(
       'スタートボタンを押す前に、日本語入力（IME）をONにしておいてください。'
     );
 
-    const startButton = Array.from(container.querySelectorAll('button')).find((btn) =>
-      btn.textContent?.includes('スタート')
-    );
+    const startButton = findButtonByText(dialog, 'スタート');
     expect(startButton).toBeDefined();
 
     // 案内要素がスタートボタンより前の DOM 位置に配置されていること
@@ -511,47 +584,26 @@ describe('TypingTool 待機画面（コース選択・IME案内）テスト', ()
   });
 });
 
-/**
- * テスト用のインメモリ Storage モックを生成する
- * @returns Web Storage 互換のインメモリ実装
- */
-function createMemoryStorage(): Storage {
-  const store = new Map<string, string>();
-  return {
-    get length() {
-      return store.size;
-    },
-    clear() {
-      store.clear();
-    },
-    getItem(key: string) {
-      return store.has(key) ? (store.get(key) ?? null) : null;
-    },
-    key(index: number) {
-      return Array.from(store.keys())[index] ?? null;
-    },
-    removeItem(key: string) {
-      store.delete(key);
-    },
-    setItem(key: string, value: string) {
-      store.set(key, String(value));
-    },
-  };
-}
-
-describe('TypingTool 自動スクロール・フォーカス制御テスト', () => {
+describe('TypingTool モーダル表示・クローズ制御・フォーカス制御テスト', () => {
   let container: HTMLDivElement;
   let root: Root;
+  let mockStorage: Storage;
+  let originalLocalStorage: PropertyDescriptor | undefined;
   let originalScrollIntoView: PropertyDescriptor | undefined;
-  let originalMatchMedia: PropertyDescriptor | undefined;
 
   beforeEach(() => {
     vi.useFakeTimers();
+    originalLocalStorage = Object.getOwnPropertyDescriptor(window, 'localStorage');
     originalScrollIntoView = Object.getOwnPropertyDescriptor(
       HTMLElement.prototype,
       'scrollIntoView'
     );
-    originalMatchMedia = Object.getOwnPropertyDescriptor(window, 'matchMedia');
+    mockStorage = createMemoryStorage();
+    Object.defineProperty(window, 'localStorage', {
+      configurable: true,
+      writable: true,
+      value: mockStorage,
+    });
     container = document.createElement('div');
     document.body.appendChild(container);
     root = createRoot(container);
@@ -562,174 +614,273 @@ describe('TypingTool 自動スクロール・フォーカス制御テスト', ()
       root.unmount();
     });
     container.remove();
+    if (originalLocalStorage) {
+      Object.defineProperty(window, 'localStorage', originalLocalStorage);
+    } else {
+      delete (window as { localStorage?: unknown }).localStorage;
+    }
     if (originalScrollIntoView) {
       Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', originalScrollIntoView);
     } else {
       delete (HTMLElement.prototype as { scrollIntoView?: unknown }).scrollIntoView;
     }
-    if (originalMatchMedia) {
-      Object.defineProperty(window, 'matchMedia', originalMatchMedia);
-    } else {
-      delete (window as { matchMedia?: unknown }).matchMedia;
-    }
     vi.restoreAllMocks();
     vi.useRealTimers();
   });
 
-  /**
-   * テスト用に指定したラベルを含むボタンを取得する
-   * @param rootEl - 検索対象のコンテナ要素
-   * @param label - 検索するボタン文言
-   * @returns 該当する HTMLButtonElement（見つからない場合は undefined）
-   */
-  function findButtonByText(rootEl: HTMLElement, label: string): HTMLButtonElement | undefined {
-    return Array.from(rootEl.querySelectorAll('button')).find((btn) =>
-      btn.textContent?.includes(label)
-    );
-  }
+  it('初期表示では「タイピング練習を開始」ボタンのみが表示され、ルールカードやモーダルが表示されないこと', () => {
+    act(() => {
+      root.render(<TypingTool />);
+    });
 
-  /**
-   * 3秒カウントダウンを完了させてプレイ画面へ遷移するヘルパー
-   */
-  function completeCountdown(): void {
-    for (let i = 0; i < 3; i += 1) {
-      act(() => {
-        vi.advanceTimersByTime(1000);
-      });
-    }
-  }
+    const buttons = Array.from(container.querySelectorAll('button'));
+    expect(buttons).toHaveLength(1);
+    expect(buttons[0].textContent).toContain('タイピング練習を開始');
+    expect(container.textContent).not.toContain('コースを選択');
+    expect(container.textContent).not.toContain('遊び方・判定ルール');
+    expect(document.body.querySelector('[role="dialog"]')).toBeNull();
 
-  it('スタート・リトライ・同じコースでもう一度でスムーズスクロールされ、中断やコース選択ではスクロールされないこと', () => {
+    // ボタン押下でモーダルが開きコース選択が表示されること（ルールカードは含まない）
+    const dialog = openTypingModal(container);
+    expect(dialog.textContent).toContain('コースを選択');
+    expect(dialog.textContent).not.toContain('遊び方・判定ルール');
+  });
+
+  it('プレイ開始時にページ自動スクロールを行わず入力欄へ自動フォーカスすること', () => {
     const scrollIntoViewMock = vi.fn();
     Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
       configurable: true,
       writable: true,
       value: scrollIntoViewMock,
     });
-    Object.defineProperty(window, 'matchMedia', {
-      configurable: true,
-      writable: true,
-      value: vi.fn().mockReturnValue({ matches: false }),
-    });
-
     const focusSpy = vi.spyOn(HTMLInputElement.prototype, 'focus');
 
     act(() => {
       root.render(<TypingTool />);
     });
 
-    // 初回描画やコース選択変更ではスクロールしないこと
-    expect(scrollIntoViewMock).not.toHaveBeenCalled();
-    const course3MinBtn = findButtonByText(container, '3分コース');
-    const course1MinBtn = findButtonByText(container, '1分コース');
-    act(() => {
-      course3MinBtn?.click();
-      course1MinBtn?.click();
-    });
-    expect(scrollIntoViewMock).not.toHaveBeenCalled();
-
-    // 1. 待機画面「スタート」クリックでスクロールすること
-    const startButton = findButtonByText(container, 'スタート');
-    expect(startButton).toBeDefined();
+    const dialog = openTypingModal(container);
+    const startButton = findButtonByText(dialog, 'スタート');
     act(() => {
       startButton?.click();
     });
-    expect(scrollIntoViewMock).toHaveBeenCalledTimes(1);
-    expect(scrollIntoViewMock).toHaveBeenLastCalledWith({
-      behavior: 'smooth',
-      block: 'start',
-    });
-
-    // カウントダウン終了後の自動フォーカスが preventScroll: true で呼ばれること
     completeCountdown();
     act(() => {
       vi.advanceTimersByTime(50);
     });
+
+    expect(scrollIntoViewMock).not.toHaveBeenCalled();
     expect(focusSpy).toHaveBeenCalledWith({ preventScroll: true });
-
-    // 2. プレイ中「リトライ」クリックで再度スクロールすること
-    const retryButton = findButtonByText(container, 'リトライ');
-    expect(retryButton).toBeDefined();
-    act(() => {
-      retryButton?.click();
-    });
-    expect(scrollIntoViewMock).toHaveBeenCalledTimes(2);
-    expect(scrollIntoViewMock).toHaveBeenLastCalledWith({
-      behavior: 'smooth',
-      block: 'start',
-    });
-
-    // プレイを進めて結果画面へ遷移
-    completeCountdown();
-    act(() => {
-      vi.advanceTimersByTime(60_200);
-    });
-    expect(container.textContent).toContain('タイムアップ！結果発表');
-    expect(scrollIntoViewMock).toHaveBeenCalledTimes(2);
-
-    // 3. 結果画面「同じコースでもう一度」クリックで再度スクロールすること
-    const playAgainButton = findButtonByText(container, '同じコースでもう一度');
-    expect(playAgainButton).toBeDefined();
-    act(() => {
-      playAgainButton?.click();
-    });
-    expect(scrollIntoViewMock).toHaveBeenCalledTimes(3);
-    expect(scrollIntoViewMock).toHaveBeenLastCalledWith({
-      behavior: 'smooth',
-      block: 'start',
-    });
-
-    // カウントダウン中の「中断して戻る」ではスクロールしないこと
-    const cancelButton = findButtonByText(container, '中断して戻る');
-    expect(cancelButton).toBeDefined();
-    act(() => {
-      cancelButton?.click();
-    });
-    expect(scrollIntoViewMock).toHaveBeenCalledTimes(3);
   });
 
-  it('prefers-reduced-motion 有効時は behavior: auto でスクロールし、scrollIntoView 未定義でも例外が発生しないこと', () => {
-    const scrollIntoViewMock = vi.fn();
-    Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
-      configurable: true,
-      writable: true,
-      value: scrollIntoViewMock,
-    });
-    Object.defineProperty(window, 'matchMedia', {
-      configurable: true,
-      writable: true,
-      value: vi.fn().mockReturnValue({ matches: true }),
-    });
-
+  it('待機画面および結果画面では「×」ボタン・背景クリック・Esc キーのいずれでもモーダルを閉じられること', () => {
     act(() => {
       root.render(<TypingTool />);
     });
 
-    const startButton = findButtonByText(container, 'スタート');
+    // 1. 待機画面：Esc キーで閉じる
+    const dialog1 = openTypingModal(container);
+    triggerDialogEscapeKey(dialog1);
     act(() => {
-      startButton?.click();
+      vi.advanceTimersByTime(500);
     });
-    expect(scrollIntoViewMock).toHaveBeenCalledWith({
-      behavior: 'auto',
-      block: 'start',
+    expect(document.body.querySelector('[role="dialog"]')).toBeNull();
+
+    // 2. 待機画面：背景クリックで閉じる
+    openTypingModal(container);
+    triggerDialogBackdropClick();
+    act(() => {
+      vi.advanceTimersByTime(500);
+    });
+    expect(document.body.querySelector('[role="dialog"]')).toBeNull();
+
+    // 3. 待機画面：右上の「×」ボタンで閉じる
+    const dialog3 = openTypingModal(container);
+    const closeBtn = dialog3.querySelector('button[aria-label="モーダルを閉じる"]') as HTMLButtonElement | null;
+    expect(closeBtn).not.toBeNull();
+    act(() => {
+      closeBtn?.click();
+    });
+    act(() => {
+      vi.advanceTimersByTime(500);
+    });
+    expect(document.body.querySelector('[role="dialog"]')).toBeNull();
+
+    // 4. 結果画面：Esc キーおよび背景クリックで閉じ、再オープン時はコース選択画面から始まること
+    const dialog4 = openTypingModal(container);
+    act(() => {
+      findButtonByText(dialog4, 'スタート')?.click();
+    });
+    completeCountdown();
+    act(() => {
+      vi.advanceTimersByTime(60_200);
+    });
+    expect(dialog4.textContent).toContain('タイムアップ！結果発表');
+
+    triggerDialogEscapeKey(dialog4);
+    act(() => {
+      vi.advanceTimersByTime(500);
+    });
+    expect(document.body.querySelector('[role="dialog"]')).toBeNull();
+
+    // 再度開くとコース選択画面（idle）が表示されること
+    const reopenedDialog = openTypingModal(container);
+    expect(reopenedDialog.textContent).toContain('コースを選択');
+    expect(reopenedDialog.textContent).not.toContain('タイムアップ！結果発表');
+
+    // 結果画面で背景クリックでも閉じられること
+    act(() => {
+      findButtonByText(reopenedDialog, 'スタート')?.click();
+    });
+    completeCountdown();
+    act(() => {
+      vi.advanceTimersByTime(60_200);
+    });
+    expect(reopenedDialog.textContent).toContain('タイムアップ！結果発表');
+    triggerDialogBackdropClick();
+    act(() => {
+      vi.advanceTimersByTime(500);
+    });
+    expect(document.body.querySelector('[role="dialog"]')).toBeNull();
+  });
+
+  it('カウントダウン中は背景クリック・Esc キーで閉じず、×ボタンで閉じるとカウントダウンが停止すること', () => {
+    act(() => {
+      root.render(<TypingTool />);
     });
 
-    // scrollIntoView が未定義の環境でもエラーなく開始できること
-    Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
-      configurable: true,
-      writable: true,
-      value: undefined,
-    });
-    const cancelButton = findButtonByText(container, '中断して戻る');
+    const dialog = openTypingModal(container);
     act(() => {
-      cancelButton?.click();
+      findButtonByText(dialog, 'スタート')?.click();
     });
-    const startButtonAgain = findButtonByText(container, 'スタート');
-    expect(() => {
-      act(() => {
-        startButtonAgain?.click();
-      });
-    }).not.toThrow();
+    expect(dialog.textContent).toContain('まもなくスタートします...');
+
+    // 背景クリック・Esc キーでは閉じないこと
+    triggerDialogBackdropClick();
+    triggerDialogEscapeKey(dialog);
+    act(() => {
+      vi.advanceTimersByTime(500);
+    });
+    expect(document.body.querySelector('[role="dialog"]')).not.toBeNull();
+    expect(dialog.textContent).toContain('まもなくスタートします...');
+
+    // 「×」ボタンで閉じられること
+    const closeBtn = dialog.querySelector('button[aria-label="モーダルを閉じる"]') as HTMLButtonElement | null;
+    expect(closeBtn).not.toBeNull();
+    act(() => {
+      closeBtn?.click();
+    });
+    act(() => {
+      vi.advanceTimersByTime(5_000);
+    });
+    expect(document.body.querySelector('[role="dialog"]')).toBeNull();
+
+    // 再度開くとコース選択画面であること
+    const reopened = openTypingModal(container);
+    expect(reopened.textContent).toContain('コースを選択');
+  });
+
+  it('プレイ中は背景クリック・Esc キーで閉じず、×ボタンで中断するとタイマー停止・未保存となり再オープン時にコース選択へ戻ること', () => {
+    act(() => {
+      root.render(<TypingTool />);
+    });
+
+    const dialog = openTypingModal(container);
+    // 3分コースを選択しておく（クローズ後の再オープン時も選択コースが維持されることを確認）
+    act(() => {
+      findButtonByText(dialog, '3分コース')?.click();
+    });
+    act(() => {
+      findButtonByText(dialog, 'スタート')?.click();
+    });
+    completeCountdown();
+
+    const passageBox = dialog.querySelector('[role="region"]');
+    const input = dialog.querySelector('input[type="text"]') as HTMLInputElement | null;
+    expect(passageBox).not.toBeNull();
+    expect(input).not.toBeNull();
+    if (!input) return;
+
+    const chars = Array.from((passageBox?.textContent ?? '').normalize('NFC'));
+    act(() => {
+      setInputValue(input, chars.slice(0, 8).join(''));
+    });
+
+    // プレイ中の背景クリック・Esc キー（IME 変換キャンセル想定）ではモーダルが閉じないこと
+    triggerDialogBackdropClick();
+    triggerDialogEscapeKey(dialog);
+    act(() => {
+      vi.advanceTimersByTime(500);
+    });
+    expect(document.body.querySelector('[role="dialog"]')).not.toBeNull();
+    expect(dialog.querySelector('input[type="text"]')).toBe(input);
+
+    // 右上の「×」ボタンでモーダルを閉じる
+    const closeBtn = dialog.querySelector('button[aria-label="モーダルを閉じる"]') as HTMLButtonElement | null;
+    expect(closeBtn).not.toBeNull();
+    act(() => {
+      closeBtn?.click();
+    });
+    act(() => {
+      vi.advanceTimersByTime(200_000);
+    });
+
+    // 時間が経過してもモーダルは閉じたまま、自己ベストも保存されないこと
+    expect(document.body.querySelector('[role="dialog"]')).toBeNull();
+    expect(window.localStorage.getItem('sawara_typing_best_records_v1')).toBeNull();
+
+    // 再度開くとコース選択画面が表示され、選択していた 3 分コースが維持されていること
+    const reopened = openTypingModal(container);
+    expect(reopened.textContent).toContain('コースを選択');
+    expect(findButtonByText(reopened, '3分コース')?.getAttribute('aria-pressed')).toBe('true');
+  });
+
+  it('モーダル内の「中断して戻る」「中断」「コース選択へ戻る」ボタンではモーダルを閉じずにコース選択画面へ戻ること', () => {
+    act(() => {
+      root.render(<TypingTool />);
+    });
+
+    const dialog = openTypingModal(container);
+
+    // 1. カウントダウン中の「中断して戻る」
+    act(() => {
+      findButtonByText(dialog, 'スタート')?.click();
+    });
+    act(() => {
+      findButtonByText(dialog, '中断して戻る')?.click();
+    });
+    expect(document.body.querySelector('[role="dialog"]')).not.toBeNull();
+    expect(dialog.textContent).toContain('コースを選択');
+
+    // 2. プレイ中の「中断」
+    act(() => {
+      findButtonByText(dialog, 'スタート')?.click();
+    });
+    completeCountdown();
+    const abortBtn = Array.from(dialog.querySelectorAll('button')).find(
+      (btn) => btn.textContent?.trim() === '中断'
+    );
+    expect(abortBtn).toBeDefined();
+    act(() => {
+      abortBtn?.click();
+    });
+    expect(document.body.querySelector('[role="dialog"]')).not.toBeNull();
+    expect(dialog.textContent).toContain('コースを選択');
+
+    // 3. 結果画面の「コース選択へ戻る」
+    act(() => {
+      findButtonByText(dialog, 'スタート')?.click();
+    });
+    completeCountdown();
+    act(() => {
+      vi.advanceTimersByTime(60_200);
+    });
+    expect(dialog.textContent).toContain('タイムアップ！結果発表');
+    act(() => {
+      findButtonByText(dialog, 'コース選択へ戻る')?.click();
+    });
+    expect(document.body.querySelector('[role="dialog"]')).not.toBeNull();
+    expect(dialog.textContent).toContain('コースを選択');
   });
 });
 
@@ -768,35 +919,35 @@ describe('TypingTool タイムアップ時の未送信文字自動集計テス�
   });
 
   /**
-   * 待機画面からプレイ開始状態まで進め、課題文テキストと入力欄要素を返すヘルパー
-   * @returns 現在の課題文全文と入力欄の HTMLInputElement
+   * モーダルを開きプレイ開始状態まで進め、ダイアログ要素・課題文テキスト・入力欄要素を返すヘルパー
+   * @returns ダイアログ要素、現在の課題文全文、入力欄の HTMLInputElement
    */
-  function startPlayingSession(): { passageText: string; input: HTMLInputElement } {
+  function startPlayingSession(): {
+    dialog: HTMLElement;
+    passageText: string;
+    input: HTMLInputElement;
+  } {
     act(() => {
       root.render(<TypingTool />);
     });
 
-    const startButton = Array.from(container.querySelectorAll('button')).find((btn) =>
-      btn.textContent?.includes('スタート')
-    );
+    const dialog = openTypingModal(container);
+    const startButton = findButtonByText(dialog, 'スタート');
     expect(startButton).toBeDefined();
 
     act(() => {
       startButton?.click();
     });
 
-    for (let i = 0; i < 3; i += 1) {
-      act(() => {
-        vi.advanceTimersByTime(1000);
-      });
-    }
+    completeCountdown();
 
-    const passageBox = container.querySelector('[role="region"]');
-    const input = container.querySelector('input[type="text"]') as HTMLInputElement | null;
+    const passageBox = dialog.querySelector('[role="region"]');
+    const input = dialog.querySelector('input[type="text"]') as HTMLInputElement | null;
     expect(passageBox).not.toBeNull();
     expect(input).not.toBeNull();
 
     return {
+      dialog,
       passageText: passageBox?.textContent ?? '',
       input: input as HTMLInputElement,
     };
@@ -804,7 +955,7 @@ describe('TypingTool タイムアップ時の未送信文字自動集計テス�
 
   /**
    * 結果画面に表示された総消化文字数・完走文章数を抽出するヘルパー
-   * @param rootEl - レンダリング先コンテナ
+   * @param rootEl - 検索対象のダイアログ要素
    * @returns 総消化文字数と完走文章数
    */
   function readResultStats(rootEl: HTMLElement): { digestedChars: number; completedPassages: number } {
@@ -818,7 +969,7 @@ describe('TypingTool タイムアップ時の未送信文字自動集計テス�
   }
 
   it('未送信の完全一致テキストが残った状態でタイムアップすると自動集計され自己ベストにも保存されること', () => {
-    const { passageText, input } = startPlayingSession();
+    const { dialog, passageText, input } = startPlayingSession();
     const chars = Array.from(passageText.normalize('NFC'));
     const firstPart = chars.slice(0, 5).join('');
     const secondPart = chars.slice(5, 13).join('');
@@ -841,8 +992,8 @@ describe('TypingTool タイムアップ時の未送信文字自動集計テス�
       vi.advanceTimersByTime(60_200);
     });
 
-    expect(container.textContent).toContain('タイムアップ！結果発表');
-    const stats = readResultStats(container);
+    expect(dialog.textContent).toContain('タイムアップ！結果発表');
+    const stats = readResultStats(dialog);
     expect(stats.digestedChars).toBe(13);
     expect(stats.completedPassages).toBe(0);
 
@@ -855,7 +1006,7 @@ describe('TypingTool タイムアップ時の未送信文字自動集計テス�
   });
 
   it('未送信テキストが部分一致（前半一致＋後半誤変換）の場合は先頭一致分のみ自動加算されること', () => {
-    const { passageText, input } = startPlayingSession();
+    const { dialog, passageText, input } = startPlayingSession();
     const chars = Array.from(passageText.normalize('NFC'));
     const partialInput = `${chars.slice(0, 6).join('')}@@@誤変換`;
 
@@ -866,13 +1017,13 @@ describe('TypingTool タイムアップ時の未送信文字自動集計テス�
       vi.advanceTimersByTime(60_200);
     });
 
-    const stats = readResultStats(container);
+    const stats = readResultStats(dialog);
     expect(stats.digestedChars).toBe(6);
     expect(stats.completedPassages).toBe(0);
   });
 
   it('未送信テキストによって例文末尾まで完走した場合は消化文字数に加えて完走文章数も +1 されること', () => {
-    const { passageText, input } = startPlayingSession();
+    const { dialog, passageText, input } = startPlayingSession();
     const chars = Array.from(passageText.normalize('NFC'));
     const head = chars.slice(0, 10).join('');
     const tail = chars.slice(10).join('');
@@ -895,13 +1046,13 @@ describe('TypingTool タイムアップ時の未送信文字自動集計テス�
       vi.advanceTimersByTime(60_200);
     });
 
-    const stats = readResultStats(container);
+    const stats = readResultStats(dialog);
     expect(stats.digestedChars).toBe(chars.length);
     expect(stats.completedPassages).toBe(1);
   });
 
   it('IME 変換中（compositionstart 後）の未送信テキストであっても先頭一致分が自動集計されること', () => {
-    const { passageText, input } = startPlayingSession();
+    const { dialog, passageText, input } = startPlayingSession();
     const chars = Array.from(passageText.normalize('NFC'));
     const composingInput = chars.slice(0, 7).join('');
 
@@ -913,13 +1064,13 @@ describe('TypingTool タイムアップ時の未送信文字自動集計テス�
       vi.advanceTimersByTime(60_200);
     });
 
-    const stats = readResultStats(container);
+    const stats = readResultStats(dialog);
     expect(stats.digestedChars).toBe(7);
     expect(stats.completedPassages).toBe(0);
   });
 
   it('先頭不一致テキストが残ったままタイムアップした場合は 0 加算で結果画面へ遷移すること', () => {
-    const { input } = startPlayingSession();
+    const { dialog, input } = startPlayingSession();
 
     act(() => {
       setInputValue(input, '@@@完全不一致');
@@ -928,21 +1079,21 @@ describe('TypingTool タイムアップ時の未送信文字自動集計テス�
       vi.advanceTimersByTime(60_200);
     });
 
-    expect(container.textContent).toContain('タイムアップ！結果発表');
-    const stats = readResultStats(container);
+    expect(dialog.textContent).toContain('タイムアップ！結果発表');
+    const stats = readResultStats(dialog);
     expect(stats.digestedChars).toBe(0);
     expect(stats.completedPassages).toBe(0);
   });
 
   it('プレイ中に未送信テキストが残った状態で中断した場合は集計・結果遷移・自己ベスト保存を行わないこと', () => {
-    const { passageText, input } = startPlayingSession();
+    const { dialog, passageText, input } = startPlayingSession();
     const chars = Array.from(passageText.normalize('NFC'));
 
     act(() => {
       setInputValue(input, chars.slice(0, 10).join(''));
     });
 
-    const abortButton = Array.from(container.querySelectorAll('button')).find(
+    const abortButton = Array.from(dialog.querySelectorAll('button')).find(
       (btn) => btn.textContent?.trim() === '中断'
     );
     expect(abortButton).toBeDefined();
@@ -951,11 +1102,11 @@ describe('TypingTool タイムアップ時の未送信文字自動集計テス�
     });
 
     // 待機画面へ戻り、その後時間が経過しても結果画面へ遷移しないこと
-    expect(container.textContent).toContain('コースを選択');
+    expect(dialog.textContent).toContain('コースを選択');
     act(() => {
       vi.advanceTimersByTime(65_000);
     });
-    expect(container.textContent).toContain('コースを選択');
+    expect(dialog.textContent).toContain('コースを選択');
     expect(window.localStorage.getItem('sawara_typing_best_records_v1')).toBeNull();
   });
 });

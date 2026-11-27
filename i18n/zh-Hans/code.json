@@ -3076,5 +3076,14 @@
   },
   "typing.idle.imeNotice": {
     "message": "按下开始按钮前，请先开启日语输入法（IME）。"
+  },
+  "typing.action.openModal": {
+    "message": "开始打字练习"
+  },
+  "typing.modal.title": {
+    "message": "日语输入法打字练习"
+  },
+  "typing.action.closeModal": {
+    "message": "关闭弹窗"
   }
 }
