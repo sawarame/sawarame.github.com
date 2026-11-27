@@ -158,9 +158,77 @@ function getRankClassName(rank: TypingRank): string {
  * @returns コース名文字列
  */
 function getCourseLabel(course: CourseDuration): string {
-  return course === 60
-    ? translate({ id: 'typing.course.1min', message: '1分コース' })
-    : translate({ id: 'typing.course.3min', message: '3分コース' });
+  switch (course) {
+    case 60:
+      return translate({ id: 'typing.course.1min', message: '1分コース' });
+    case 180:
+      return translate({ id: 'typing.course.3min', message: '3分コース' });
+    case 300:
+      return translate({ id: 'typing.course.5min', message: '5分コース' });
+    case 600:
+      return translate({ id: 'typing.course.10min', message: '10分コース' });
+  }
+}
+
+/**
+ * コース秒数に応じたサブ表記（Chip 用ラベル）を返す
+ * @param course - コース秒数
+ * @returns ローカライズされたサブ表記文字列
+ */
+function getCourseSubLabel(course: CourseDuration): string {
+  switch (course) {
+    case 60:
+      return translate({ id: 'typing.course.1minSub', message: '60秒・短期集中' });
+    case 180:
+      return translate({ id: 'typing.course.3minSub', message: '180秒・長文持久' });
+    case 300:
+      return translate({ id: 'typing.course.5minSub', message: '300秒・本格練習' });
+    case 600:
+      return translate({ id: 'typing.course.10minSub', message: '600秒・マラソン' });
+  }
+}
+
+/**
+ * 課題文セグメント内の半角スペースを、DOM テキストは半角スペースのまま保ちつつ
+ * CSS 描画の「␣」風インジケーター付き要素へ変換して返す
+ * @param text - 描画対象の課題文セグメント文字列
+ * @param variant - セグメントの表示状態（消化済み / 現在位置 / 未消化）
+ * @param keyPrefix - React 要素キーの接頭辞
+ * @returns 半角スペース可視化に対応した React ノード
+ */
+function renderPassageTextWithSpaceMarkers(
+  text: string,
+  variant: 'digested' | 'current' | 'remaining',
+  keyPrefix: string
+): React.ReactNode {
+  if (!text.includes(' ')) {
+    return text;
+  }
+
+  const variantClass =
+    variant === 'current'
+      ? styles.spaceMarkerCurrent
+      : variant === 'digested'
+        ? styles.spaceMarkerDigested
+        : '';
+
+  return text.split(/( )/).map((segment, index) => {
+    if (segment === '') {
+      return null;
+    }
+    if (segment === ' ') {
+      return (
+        <span
+          key={`${keyPrefix}-sp-${index}`}
+          data-space-marker={variant}
+          className={`${styles.spaceMarker} ${variantClass}`.trim()}
+        >
+          {' '}
+        </span>
+      );
+    }
+    return <React.Fragment key={`${keyPrefix}-tx-${index}`}>{segment}</React.Fragment>;
+  });
 }
 
 /**
@@ -1116,17 +1184,7 @@ function TypingToolContent(): JSX.Element {
                             size="small"
                             color={isActive ? 'primary' : 'default'}
                             variant={isActive ? 'filled' : 'outlined'}
-                            label={
-                              duration === 60
-                                ? translate({
-                                    id: 'typing.course.1minSub',
-                                    message: '60秒・短期集中',
-                                  })
-                                : translate({
-                                    id: 'typing.course.3minSub',
-                                    message: '180秒・長文持久',
-                                  })
-                            }
+                            label={getCourseSubLabel(duration)}
                           />
                         </div>
 
@@ -1236,11 +1294,17 @@ function TypingToolContent(): JSX.Element {
                   role="region"
                   aria-label={currentPassage.title}
                 >
-                  <span className={styles.charDigested}>{digestedSegment}</span>
+                  <span className={styles.charDigested}>
+                    {renderPassageTextWithSpaceMarkers(digestedSegment, 'digested', 'digested')}
+                  </span>
                   {currentCharSegment && (
-                    <span className={styles.charCurrent}>{currentCharSegment}</span>
+                    <span className={styles.charCurrent}>
+                      {renderPassageTextWithSpaceMarkers(currentCharSegment, 'current', 'current')}
+                    </span>
                   )}
-                  <span className={styles.charRemaining}>{remainingSegment}</span>
+                  <span className={styles.charRemaining}>
+                    {renderPassageTextWithSpaceMarkers(remainingSegment, 'remaining', 'remaining')}
+                  </span>
                 </div>
 
                 <Box className={styles.inputSection} sx={{ mt: 2 }}>
@@ -1344,25 +1408,6 @@ function TypingToolContent(): JSX.Element {
                         })}
                       </p>
                     </div>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onMouseDown={(event) => event.preventDefault()}
-                      onClick={() => {
-                        handleSubmitInput();
-                        inputRef.current?.focus();
-                      }}
-                      sx={{
-                        borderRadius: 3,
-                        px: 3,
-                        height: 56,
-                        fontWeight: 700,
-                        textTransform: 'none',
-                        flexShrink: 0,
-                      }}
-                    >
-                      <Translate id="typing.playing.submitButton">判定 (Enter)</Translate>
-                    </Button>
                   </div>
 
                   <div className={styles.feedbackSlot} aria-live="polite">

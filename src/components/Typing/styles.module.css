@@ -125,11 +125,11 @@
   background: var(--ifm-background-surface-color);
   border: 2px solid var(--ifm-color-emphasis-200);
   border-radius: 16px;
-  padding: 20px;
+  padding: 16px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   color: var(--ifm-font-color-base);
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
@@ -422,6 +422,45 @@
 .charRemaining {
   color: var(--ifm-font-color-base);
   font-weight: 500;
+}
+
+/* 課題文中の半角スペース可視化（DOM テキストは半角スペースのまま CSS で「␣」風の印を描画） */
+.spaceMarker {
+  position: relative;
+  display: inline-block;
+  min-width: 0.52em;
+  white-space: pre;
+  vertical-align: baseline;
+}
+
+.spaceMarker::after {
+  content: '';
+  position: absolute;
+  left: 0.08em;
+  right: 0.08em;
+  bottom: 0.24em;
+  height: 0.22em;
+  border-left: 1.5px solid var(--ifm-color-emphasis-500);
+  border-right: 1.5px solid var(--ifm-color-emphasis-500);
+  border-bottom: 1.5px solid var(--ifm-color-emphasis-500);
+  border-radius: 0 0 1px 1px;
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+[data-theme='dark'] .spaceMarker::after {
+  border-color: var(--ifm-color-emphasis-600);
+  opacity: 0.8;
+}
+
+.spaceMarkerDigested::after {
+  border-color: var(--ifm-color-emphasis-500);
+  opacity: 0.45;
+}
+
+.spaceMarkerCurrent::after {
+  border-color: currentColor;
+  opacity: 0.95;
 }
 
 .inputSection {

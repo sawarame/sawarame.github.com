@@ -20,7 +20,7 @@ import { Keyboard } from "lucide-react";
 ## How to Use
 
 1. **Open the Typing Modal & Select a Course**:
-   Click **Start Typing Practice** to open the typing modal, then choose between the **1-Minute Course (60s)** and **3-Minute Course (180s)**.
+   Click **Start Typing Practice** to open the typing modal, then choose from the **1-Minute (60s)**, **3-Minute (180s)**, **5-Minute (300s)**, or **10-Minute (600s)** course.
 2. **Start & Countdown**:
    Turn on Japanese input (IME) before clicking **Start** to begin a 3-second countdown (`3 → 2 → 1`). As soon as the timer starts, the input field is automatically focused. *(During countdown and active play, backdrop clicks and the Esc key are disabled to prevent accidental interruptions; use the top-right close button or **Quit** / **Cancel** to exit.)*
 3. **Commit IME Conversion and Press Enter**:
@@ -37,6 +37,7 @@ Instead of judging individual romaji keystrokes, this tool measures your practic
 
 ### 2. Normalization, Hyphen/Prolonged-Sound Equivalence & Live Color Preview
 - **Live pre-submit color preview**: Before pressing Enter, characters currently in the input box are compared in real time against the passage—matching characters appear in green and mismatched characters appear in red.
+- **Visible half-width spaces in passages**: Half-width spaces in the target passage are marked with a subtle `␣`-style indicator so you can spot them easily while typing.
 - **Half-width/Full-width & `ー`/`-` treated equally**: Alphanumeric characters, ASCII symbols, and spaces match regardless of width (e.g., `A` matches `Ａ`, `100%` matches `１００％`), and the prolonged sound mark `ー` matches hyphen `-` (including full-width `－`).
 - **Case-sensitive**: Uppercase and lowercase letters are strictly distinguished (`A` does not match `a`).
 - **Exact Japanese matching**: Hiragana, katakana, kanji, and Japanese punctuation are matched strictly, with Unicode `NFC` normalization handling combining diacritics.

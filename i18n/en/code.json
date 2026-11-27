@@ -2759,11 +2759,23 @@
   "typing.course.3min": {
     "message": "3-Minute Course"
   },
+  "typing.course.5min": {
+    "message": "5-Minute Course"
+  },
+  "typing.course.10min": {
+    "message": "10-Minute Course"
+  },
   "typing.course.1minSub": {
     "message": "60s · Sprint"
   },
   "typing.course.3minSub": {
     "message": "180s · Endurance"
+  },
+  "typing.course.5minSub": {
+    "message": "300s · Standard"
+  },
+  "typing.course.10minSub": {
+    "message": "600s · Marathon"
   },
   "typing.course.label": {
     "message": "Select Course"
@@ -2842,9 +2854,6 @@
   },
   "typing.playing.inputHelper": {
     "message": "Pressing Enter while composing only commits the IME conversion. Press Enter again to evaluate."
-  },
-  "typing.playing.submitButton": {
-    "message": "Submit (Enter)"
   },
   "typing.feedback.matchedAll": {
     "message": "Digested {count} characters"

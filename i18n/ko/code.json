@@ -2906,11 +2906,23 @@
   "typing.course.3min": {
     "message": "3분 코스"
   },
+  "typing.course.5min": {
+    "message": "5분 코스"
+  },
+  "typing.course.10min": {
+    "message": "10분 코스"
+  },
   "typing.course.1minSub": {
     "message": "60초 · 단기 집중"
   },
   "typing.course.3minSub": {
     "message": "180초 · 장문 지구력"
+  },
+  "typing.course.5minSub": {
+    "message": "300초 · 본격 연습"
+  },
+  "typing.course.10minSub": {
+    "message": "600초 · 마라톤"
   },
   "typing.course.label": {
     "message": "코스 선택"
@@ -2989,9 +3001,6 @@
   },
   "typing.playing.inputHelper": {
     "message": "IME 변환 확정용 Enter에서는 판정되지 않습니다. 확정 후 Enter를 한 번 더 눌러 제출하세요."
-  },
-  "typing.playing.submitButton": {
-    "message": "판정 (Enter)"
   },
   "typing.feedback.matchedAll": {
     "message": "{count}자를 소화했습니다"

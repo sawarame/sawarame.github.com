@@ -7,6 +7,7 @@ vi.mock('@docusaurus/theme-common', () => ({
 }));
 
 import TypingTool, { generateTypingResultImage } from './index';
+import { TYPING_PASSAGES } from './passages';
 
 // React 18 の act 環境フラグを有効化
 (globalThis as unknown as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
@@ -394,6 +395,39 @@ describe('TypingTool 結果画面・共有機能テスト', () => {
     expect(drawnTexts.join(' ')).not.toContain('正答率');
   });
 
+  it('generateTypingResultImage がデフォルトバージョン v1.2.0 と 5分・10分コース表記を正しく描画すること', async () => {
+    const fakeBlob = new Blob(['png-bytes'], { type: 'image/png' });
+    vi.spyOn(HTMLCanvasElement.prototype, 'toBlob').mockImplementation((callback) => {
+      callback(fakeBlob);
+    });
+
+    const mock5Min = createMockCanvasContext();
+    vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(
+      mock5Min.ctx as CanvasRenderingContext2D
+    );
+    await generateTypingResultImage({
+      metrics: { digestedChars: 750, cpm: 150, completedPassages: 6, rank: 'A' },
+      course: 300,
+      isNewBest: false,
+      deviceInfo: 'Chrome 128 (macOS)',
+    });
+    expect(mock5Min.drawnTexts).toContain('v1.2.0');
+    expect(mock5Min.drawnTexts).toContain('5分コース');
+
+    const mock10Min = createMockCanvasContext();
+    vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(
+      mock10Min.ctx as CanvasRenderingContext2D
+    );
+    await generateTypingResultImage({
+      metrics: { digestedChars: 1600, cpm: 160, completedPassages: 14, rank: 'A' },
+      course: 600,
+      isNewBest: true,
+      deviceInfo: 'Chrome 128 (macOS)',
+    });
+    expect(mock10Min.drawnTexts).toContain('v1.2.0');
+    expect(mock10Min.drawnTexts).toContain('10分コース');
+  });
+
   it('Web Share API 対応環境で結果を共有ボタン押下時に画像ファイル付きで navigator.share が呼ばれること', async () => {
     const { ctx } = createMockCanvasContext();
     const fakeBlob = new Blob(['png-bytes'], { type: 'image/png' });
@@ -533,19 +567,41 @@ describe('TypingTool 待機画面（コース選択・IME案内）テスト', ()
     const dialog = openTypingModal(container);
     const course1MinBtn = findButtonByText(dialog, '1分コース');
     const course3MinBtn = findButtonByText(dialog, '3分コース');
+    const course5MinBtn = findButtonByText(dialog, '5分コース');
+    const course10MinBtn = findButtonByText(dialog, '10分コース');
     expect(course1MinBtn).toBeDefined();
     expect(course3MinBtn).toBeDefined();
+    expect(course5MinBtn).toBeDefined();
+    expect(course10MinBtn).toBeDefined();
+    expect(course1MinBtn?.textContent).toContain('60秒・短期集中');
+    expect(course3MinBtn?.textContent).toContain('180秒・長文持久');
+    expect(course5MinBtn?.textContent).toContain('300秒・本格練習');
+    expect(course10MinBtn?.textContent).toContain('600秒・マラソン');
 
     // 初期状態は 1 分コースが選択状態
     expect(course1MinBtn?.getAttribute('aria-pressed')).toBe('true');
     expect(course3MinBtn?.getAttribute('aria-pressed')).toBe('false');
+    expect(course5MinBtn?.getAttribute('aria-pressed')).toBe('false');
+    expect(course10MinBtn?.getAttribute('aria-pressed')).toBe('false');
 
-    // 3 分コースを選択しても URL は変更されないこと
+    // 3 分・5 分・10 分コースを順次選択しても URL は変更されないこと
     act(() => {
       course3MinBtn?.click();
     });
     expect(course1MinBtn?.getAttribute('aria-pressed')).toBe('false');
     expect(course3MinBtn?.getAttribute('aria-pressed')).toBe('true');
+
+    act(() => {
+      course5MinBtn?.click();
+    });
+    expect(course3MinBtn?.getAttribute('aria-pressed')).toBe('false');
+    expect(course5MinBtn?.getAttribute('aria-pressed')).toBe('true');
+
+    act(() => {
+      course10MinBtn?.click();
+    });
+    expect(course5MinBtn?.getAttribute('aria-pressed')).toBe('false');
+    expect(course10MinBtn?.getAttribute('aria-pressed')).toBe('true');
     expect(window.location.search).toBe(initialSearch);
     expect(replaceStateSpy).not.toHaveBeenCalled();
     expect(pushStateSpy).not.toHaveBeenCalled();
@@ -555,7 +611,7 @@ describe('TypingTool 待機画面（コース選択・IME案内）テスト', ()
       course1MinBtn?.click();
     });
     expect(course1MinBtn?.getAttribute('aria-pressed')).toBe('true');
-    expect(course3MinBtn?.getAttribute('aria-pressed')).toBe('false');
+    expect(course10MinBtn?.getAttribute('aria-pressed')).toBe('false');
     expect(window.location.search).toBe(initialSearch);
     expect(replaceStateSpy).not.toHaveBeenCalled();
     expect(pushStateSpy).not.toHaveBeenCalled();
@@ -1108,5 +1164,216 @@ describe('TypingTool タイムアップ時の未送信文字自動集計テス�
     });
     expect(dialog.textContent).toContain('コースを選択');
     expect(window.localStorage.getItem('sawara_typing_best_records_v1')).toBeNull();
+  });
+});
+
+describe('TypingTool 新コース・判定ボタン削除・半角スペース可視化テスト', () => {
+  let container: HTMLDivElement;
+  let root: Root;
+  let mockStorage: Storage;
+  let originalLocalStorage: PropertyDescriptor | undefined;
+
+  beforeEach(() => {
+    vi.useFakeTimers();
+    originalLocalStorage = Object.getOwnPropertyDescriptor(window, 'localStorage');
+    mockStorage = createMemoryStorage();
+    Object.defineProperty(window, 'localStorage', {
+      configurable: true,
+      writable: true,
+      value: mockStorage,
+    });
+    container = document.createElement('div');
+    document.body.appendChild(container);
+    root = createRoot(container);
+  });
+
+  afterEach(() => {
+    act(() => {
+      root.unmount();
+    });
+    container.remove();
+    if (originalLocalStorage) {
+      Object.defineProperty(window, 'localStorage', originalLocalStorage);
+    } else {
+      delete (window as { localStorage?: unknown }).localStorage;
+    }
+    vi.restoreAllMocks();
+    vi.useRealTimers();
+  });
+
+  it('プレイ画面に「判定」ボタンが表示されず、Enter キーで正常に消化判定できること', () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0.9999);
+    act(() => {
+      root.render(<TypingTool />);
+    });
+
+    const dialog = openTypingModal(container);
+    act(() => {
+      findButtonByText(dialog, 'スタート')?.click();
+    });
+    completeCountdown();
+
+    // 入力欄横の「判定」ボタンが存在しないこと
+    expect(findButtonByText(dialog, '判定')).toBeUndefined();
+
+    const input = dialog.querySelector('input[type="text"]') as HTMLInputElement | null;
+    expect(input).not.toBeNull();
+    if (!input) return;
+
+    const firstChars = Array.from(TYPING_PASSAGES[0].text.normalize('NFC')).slice(0, 4).join('');
+    act(() => {
+      setInputValue(input, firstChars);
+    });
+    act(() => {
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true })
+      );
+    });
+
+    expect(input.value).toBe('');
+    expect(dialog.textContent).toContain('進捗: 4 /');
+    expect(dialog.textContent).toContain('消化文字数4');
+  });
+
+  it('課題文の半角スペースが未消化・現在位置・消化済みの各状態でスペース印付き描画され、入力欄には印が付かないこと', () => {
+    // 決定論的シャッフルで先頭に半角スペースを含む例文（TYPING_PASSAGES[0]）を配置
+    vi.spyOn(Math, 'random').mockReturnValue(0.9999);
+    const targetPassage = TYPING_PASSAGES[0].text;
+    const chars = Array.from(targetPassage.normalize('NFC'));
+    const firstSpaceIndex = chars.indexOf(' ');
+    const totalSpaces = chars.filter((c) => c === ' ').length;
+    expect(firstSpaceIndex).toBeGreaterThan(0);
+    expect(totalSpaces).toBeGreaterThan(0);
+
+    act(() => {
+      root.render(<TypingTool />);
+    });
+
+    const dialog = openTypingModal(container);
+    act(() => {
+      findButtonByText(dialog, 'スタート')?.click();
+    });
+    completeCountdown();
+
+    const passageBox = dialog.querySelector('[role="region"]') as HTMLElement | null;
+    const input = dialog.querySelector('input[type="text"]') as HTMLInputElement | null;
+    expect(passageBox).not.toBeNull();
+    expect(input).not.toBeNull();
+    if (!passageBox || !input) return;
+
+    // 1. 初期状態：DOM のテキスト内容は元の例文と完全一致し、すべての半角スペースに remaining 印が付く
+    expect(passageBox.textContent).toBe(targetPassage);
+    const initialMarkers = passageBox.querySelectorAll('[data-space-marker="remaining"]');
+    expect(initialMarkers).toHaveLength(totalSpaces);
+    initialMarkers.forEach((el) => {
+      expect(el.textContent).toBe(' ');
+    });
+
+    // 2. 最初の半角スペース直前まで消化すると、現在入力位置の半角スペースに current 印が付く
+    act(() => {
+      setInputValue(input, chars.slice(0, firstSpaceIndex).join(''));
+    });
+    act(() => {
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true })
+      );
+    });
+    const currentMarkers = passageBox.querySelectorAll('[data-space-marker="current"]');
+    expect(currentMarkers).toHaveLength(1);
+    expect(currentMarkers[0].textContent).toBe(' ');
+    expect(passageBox.querySelectorAll('[data-space-marker="remaining"]')).toHaveLength(
+      totalSpaces - 1
+    );
+
+    // 3. 入力欄に半角スペースを入力しても、入力欄（背面色分けミラー含む）にはスペース印が付かないこと
+    act(() => {
+      setInputValue(input, ' ');
+    });
+    const allMarkersInDialog = dialog.querySelectorAll('[data-space-marker]');
+    const allMarkersInPassage = passageBox.querySelectorAll('[data-space-marker]');
+    expect(allMarkersInDialog.length).toBe(allMarkersInPassage.length);
+
+    // 4. 半角スペースを Enter で消化すると digested 印へ移ること
+    act(() => {
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true })
+      );
+    });
+    const digestedMarkers = passageBox.querySelectorAll('[data-space-marker="digested"]');
+    expect(digestedMarkers).toHaveLength(1);
+    expect(digestedMarkers[0].textContent).toBe(' ');
+    expect(passageBox.querySelectorAll('[data-space-marker="current"]')).toHaveLength(0);
+    expect(passageBox.textContent).toBe(targetPassage);
+  });
+
+  it('5分コース（05:00）および10分コース（10:00）でプレイ・タイムアップ集計・自己ベスト保存が正常に動作すること', () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0.9999);
+    act(() => {
+      root.render(<TypingTool />);
+    });
+
+    // 5分コースでプレイし、タイムアップで結果画面・LocalStorage 保存を確認
+    const dialog = openTypingModal(container);
+    act(() => {
+      findButtonByText(dialog, '5分コース')?.click();
+    });
+    act(() => {
+      findButtonByText(dialog, 'スタート')?.click();
+    });
+    completeCountdown();
+
+    expect(dialog.textContent).toContain('05:00');
+    const input5 = dialog.querySelector('input[type="text"]') as HTMLInputElement | null;
+    expect(input5).not.toBeNull();
+    if (!input5) return;
+
+    const firstTen = Array.from(TYPING_PASSAGES[0].text.normalize('NFC')).slice(0, 10).join('');
+    act(() => {
+      setInputValue(input5, firstTen);
+    });
+    act(() => {
+      vi.advanceTimersByTime(300_200);
+    });
+
+    expect(dialog.textContent).toContain('タイムアップ！結果発表');
+    expect(dialog.textContent).toContain('5分コース');
+    const savedAfter5Min = JSON.parse(
+      window.localStorage.getItem('sawara_typing_best_records_v1') ?? '{}'
+    ) as Record<string, { chars: number; cpm: number }>;
+    expect(savedAfter5Min['300']?.chars).toBe(10);
+    expect(savedAfter5Min['300']?.cpm).toBe(2);
+
+    // コース選択へ戻り、10分コース（10:00）でプレイ開始・タイムアップ集計を確認
+    act(() => {
+      findButtonByText(dialog, 'コース選択へ戻る')?.click();
+    });
+    act(() => {
+      findButtonByText(dialog, '10分コース')?.click();
+    });
+    act(() => {
+      findButtonByText(dialog, 'スタート')?.click();
+    });
+    completeCountdown();
+
+    expect(dialog.textContent).toContain('10:00');
+    const input10 = dialog.querySelector('input[type="text"]') as HTMLInputElement | null;
+    expect(input10).not.toBeNull();
+    if (!input10) return;
+
+    act(() => {
+      setInputValue(input10, firstTen);
+    });
+    act(() => {
+      vi.advanceTimersByTime(600_200);
+    });
+
+    expect(dialog.textContent).toContain('タイムアップ！結果発表');
+    expect(dialog.textContent).toContain('10分コース');
+    const savedAfter10Min = JSON.parse(
+      window.localStorage.getItem('sawara_typing_best_records_v1') ?? '{}'
+    ) as Record<string, { chars: number; cpm: number }>;
+    expect(savedAfter10Min['300']?.chars).toBe(10);
+    expect(savedAfter10Min['600']?.chars).toBe(10);
+    expect(savedAfter10Min['600']?.cpm).toBe(1);
   });
 });

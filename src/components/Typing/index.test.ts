@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import {
+  AVAILABLE_COURSES,
   TYPING_BEST_STORAGE_KEY,
   TYPING_VERSION,
   buildTypingShareText,
@@ -280,13 +281,19 @@ describe('Typing Tool Pure Logic Suite', () => {
   // =========================================================================
   describe('スコア指標とランク判定', () => {
     it('ツールバージョン定数がセマンティックバージョン形式で定義されていること', () => {
-      expect(TYPING_VERSION).toBe('1.1.0');
+      expect(TYPING_VERSION).toBe('1.2.0');
       expect(TYPING_VERSION).toMatch(/^\d+\.\d+\.\d+$/);
     });
 
-    it('1分コースと3分コースの CPM を正しく算出すること', () => {
+    it('利用可能なコース一覧が1分・3分・5分・10分の4コースで定義されていること', () => {
+      expect(AVAILABLE_COURSES).toEqual([60, 180, 300, 600]);
+    });
+
+    it('1分・3分・5分・10分コースの CPM を正しく算出すること', () => {
       expect(calculateCpm(120, 60)).toBe(120);
       expect(calculateCpm(360, 180)).toBe(120);
+      expect(calculateCpm(600, 300)).toBe(120);
+      expect(calculateCpm(1500, 600)).toBe(150);
       expect(calculateCpm(0, 60)).toBe(0);
     });
 
@@ -320,6 +327,8 @@ describe('Typing Tool Pure Logic Suite', () => {
     it('formatRemainingTime が残りミリ秒を MM:SS へ正しく整形すること', () => {
       expect(formatRemainingTime(60000)).toBe('01:00');
       expect(formatRemainingTime(180000)).toBe('03:00');
+      expect(formatRemainingTime(300000)).toBe('05:00');
+      expect(formatRemainingTime(600000)).toBe('10:00');
       expect(formatRemainingTime(9100)).toBe('00:10');
       expect(formatRemainingTime(0)).toBe('00:00');
       expect(formatRemainingTime(-500)).toBe('00:00');
@@ -472,17 +481,33 @@ describe('Typing Tool Pure Logic Suite', () => {
       expect(res3.previousBest).toEqual(first);
       expect(loadBestRecords(mockStorage)[60]).toEqual(higher);
 
-      // 3分コースは独立して保存されること
+      // 3分・5分・10分コースはそれぞれ独立して保存・復元されること
       const course3Min: BestRecord = {
         chars: 420,
         cpm: 140,
         completedPassages: 3,
         achievedAt: '2026-11-23T01:00:00.000Z',
       };
+      const course5Min: BestRecord = {
+        chars: 780,
+        cpm: 156,
+        completedPassages: 7,
+        achievedAt: '2026-11-27T01:00:00.000Z',
+      };
+      const course10Min: BestRecord = {
+        chars: 1520,
+        cpm: 152,
+        completedPassages: 13,
+        achievedAt: '2026-11-27T02:00:00.000Z',
+      };
       saveBestRecordIfImproved(180, course3Min, mockStorage);
+      saveBestRecordIfImproved(300, course5Min, mockStorage);
+      saveBestRecordIfImproved(600, course10Min, mockStorage);
       const loaded = loadBestRecords(mockStorage);
       expect(loaded[60]).toEqual(higher);
       expect(loaded[180]).toEqual(course3Min);
+      expect(loaded[300]).toEqual(course5Min);
+      expect(loaded[600]).toEqual(course10Min);
     });
 
     it('既存の accuracy を含む LocalStorage データも後方互換で読み込め、更新できること', () => {
