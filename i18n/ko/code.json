@@ -3076,5 +3076,14 @@
   },
   "typing.idle.imeNotice": {
     "message": "시작 버튼을 누르기 전에 일본어 입력(IME)을 ON으로 설정해 주세요."
+  },
+  "typing.action.openModal": {
+    "message": "타이핑 연습 시작"
+  },
+  "typing.modal.title": {
+    "message": "일본어 변환 타이핑"
+  },
+  "typing.action.closeModal": {
+    "message": "모달 닫기"
   }
 }

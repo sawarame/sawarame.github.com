@@ -2929,5 +2929,14 @@
   },
   "typing.idle.imeNotice": {
     "message": "Please turn on Japanese input (IME) before pressing Start."
+  },
+  "typing.action.openModal": {
+    "message": "Start Typing Practice"
+  },
+  "typing.modal.title": {
+    "message": "Japanese IME Typing"
+  },
+  "typing.action.closeModal": {
+    "message": "Close modal"
   }
 }

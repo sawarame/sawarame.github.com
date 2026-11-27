@@ -1,6 +1,15 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Translate, { translate } from '@docusaurus/Translate';
-import { Box, Button, Chip, CircularProgress, LinearProgress } from '@mui/material';
+import {
+  Box,
+  Button,
+  Chip,
+  CircularProgress,
+  Dialog,
+  DialogContent,
+  IconButton,
+  LinearProgress,
+} from '@mui/material';
 import {
   AlertCircle,
   ArrowLeft,
@@ -488,7 +497,8 @@ export async function generateTypingResultImage(
  * @returns タイピングツールの JSX 要素
  */
 function TypingToolContent(): JSX.Element {
-  // コース・画面フェーズ状態
+  // モーダル表示・コース・画面フェーズ状態
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [course, setCourse] = useState<CourseDuration>(DEFAULT_COURSE);
   const [phase, setPhase] = useState<GamePhase>('idle');
   const [countdown, setCountdown] = useState<number>(3);
@@ -513,11 +523,8 @@ function TypingToolContent(): JSX.Element {
   // 結果画面の状態
   const [outcome, setOutcome] = useState<SessionOutcome | null>(null);
   const [isSharing, setIsSharing] = useState<boolean>(false);
-  // スタート／リトライ／もう一度押下時にタイピング領域へスクロールするためのトリガーカウンタ
-  const [scrollRequestCount, setScrollRequestCount] = useState<number>(0);
 
   // タイマー・IME・スクロール同期・最新スコア／入力状態参照用 Ref
-  const containerRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const mirrorRef = useRef<HTMLDivElement | null>(null);
   const isComposingRef = useRef<boolean>(false);
@@ -535,33 +542,6 @@ function TypingToolContent(): JSX.Element {
   useEffect(() => {
     setBestRecords(loadBestRecords());
   }, []);
-
-  /**
-   * タイピング領域のコンテナ上端へスムーズスクロールする
-   * prefers-reduced-motion が有効な場合は即時スクロールし、未対応環境では安全にスキップする
-   */
-  const scrollToTypingArea = useCallback(() => {
-    const containerEl = containerRef.current;
-    if (!containerEl || typeof containerEl.scrollIntoView !== 'function') {
-      return;
-    }
-    const prefersReducedMotion =
-      typeof window !== 'undefined' &&
-      typeof window.matchMedia === 'function' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    containerEl.scrollIntoView({
-      behavior: prefersReducedMotion ? 'auto' : 'smooth',
-      block: 'start',
-    });
-  }, []);
-
-  // セッション開始（スタート／リトライ／もう一度）の描画コミット後にタイピング領域へスクロールする
-  useEffect(() => {
-    if (scrollRequestCount === 0) {
-      return;
-    }
-    scrollToTypingArea();
-  }, [scrollRequestCount, scrollToTypingArea]);
 
   /**
    * 選択コースを更新する（URL クエリパラメータは変更しない）
@@ -646,7 +626,7 @@ function TypingToolContent(): JSX.Element {
   }, [course]);
 
   /**
-   * 新しいセッションを初期化して 3 秒カウントダウンを開始し、タイピング領域へスクロールする
+   * 新しいセッションを初期化して 3 秒カウントダウンを開始する
    */
   const startCountdown = useCallback(() => {
     const shuffled = shufflePassages(TYPING_PASSAGES);
@@ -674,11 +654,10 @@ function TypingToolContent(): JSX.Element {
     setIsSharing(false);
     setCountdown(3);
     setPhase('countdown');
-    setScrollRequestCount((prev) => prev + 1);
   }, [course]);
 
   /**
-   * 進行中のカウントダウンまたはプレイを中断し、待機画面へ戻る
+   * 進行中のカウントダウンまたはプレイを中断し、待機画面（コース選択）へ戻す
    */
   const handleAbortToIdle = useCallback(() => {
     hasFinishedRef.current = true;
@@ -690,13 +669,59 @@ function TypingToolContent(): JSX.Element {
     setFeedback(null);
     setIsInputError(false);
     setIsShaking(false);
+    setOutcome(null);
+    setIsSharing(false);
     setRemainingMs(course * 1000);
     setPhase('idle');
   }, [course]);
 
+  // カウントダウン中・プレイ中は誤操作（IMEキャンセル時のEsc連打や背景クリック）による中断を防止する
+  const isActiveSession = phase === 'countdown' || phase === 'playing';
+
+  /**
+   * タイピング練習モーダルをコース選択画面（idle）で開く
+   */
+  const handleOpenModal = useCallback(() => {
+    handleAbortToIdle();
+    setIsModalOpen(true);
+  }, [handleAbortToIdle]);
+
+  /**
+   * 進行中のタイマーや入力状態を安全に停止してモーダルを閉じる
+   */
+  const handleCloseModal = useCallback(() => {
+    hasFinishedRef.current = true;
+    isComposingRef.current = false;
+    cursorRef.current = 0;
+    inputValueRef.current = '';
+    setIsComposing(false);
+    setInputValue('');
+    setFeedback(null);
+    setIsInputError(false);
+    setIsShaking(false);
+    setIsSharing(false);
+    setIsModalOpen(false);
+  }, []);
+
+  /**
+   * MUI Dialog の onClose ハンドラ
+   * カウントダウン中・プレイ中の背景クリックおよび Esc キーによるクローズを無効化する
+   * @param _event - ダイアログクローズイベント
+   * @param reason - クローズ理由（backdropClick / escapeKeyDown）
+   */
+  const handleDialogClose = useCallback(
+    (_event: object, reason: 'backdropClick' | 'escapeKeyDown') => {
+      if (isActiveSession && (reason === 'backdropClick' || reason === 'escapeKeyDown')) {
+        return;
+      }
+      handleCloseModal();
+    },
+    [isActiveSession, handleCloseModal]
+  );
+
   // カウントダウン（3 -> 2 -> 1 -> プレイ開始）の制御
   useEffect(() => {
-    if (phase !== 'countdown') {
+    if (!isModalOpen || phase !== 'countdown') {
       return undefined;
     }
 
@@ -711,22 +736,22 @@ function TypingToolContent(): JSX.Element {
     }, 1000);
 
     return () => window.clearTimeout(timerId);
-  }, [phase, countdown, course]);
+  }, [isModalOpen, phase, countdown, course]);
 
-  // プレイ開始直後に入力欄へ自動フォーカスする（合わせたスクロール位置がズレないよう preventScroll を指定）
+  // プレイ開始直後に入力欄へ自動フォーカスする
   useEffect(() => {
-    if (phase !== 'playing') {
+    if (!isModalOpen || phase !== 'playing') {
       return undefined;
     }
     const rafId = window.requestAnimationFrame(() => {
       inputRef.current?.focus({ preventScroll: true });
     });
     return () => window.cancelAnimationFrame(rafId);
-  }, [phase]);
+  }, [isModalOpen, phase]);
 
   // プレイ中の残り時間カウントダウン（実経過時間基準でズレを防止）
   useEffect(() => {
-    if (phase !== 'playing') {
+    if (!isModalOpen || phase !== 'playing') {
       return undefined;
     }
 
@@ -741,7 +766,7 @@ function TypingToolContent(): JSX.Element {
     }, 100);
 
     return () => window.clearInterval(intervalId);
-  }, [phase, finishSession]);
+  }, [isModalOpen, phase, finishSession]);
 
   const currentPassage = deck[deckIndex] ?? TYPING_PASSAGES[0];
 
@@ -1019,534 +1044,552 @@ function TypingToolContent(): JSX.Element {
   const useColorOverlay = !isComposing && inputValue.length > 0;
 
   return (
-    <div ref={containerRef} className={styles.container}>
-      {phase === 'idle' && (
-        <>
-          <section className={styles.card}>
-            <h2 className={styles.sectionTitle}>
-              <Timer size={20} strokeWidth={2} />
-              <Translate id="typing.course.label">コースを選択</Translate>
-            </h2>
+    <div className={styles.launcherContainer}>
+      <Button
+        variant="contained"
+        size="large"
+        className={styles.primaryGradientButton}
+        startIcon={<Keyboard size={20} strokeWidth={2} />}
+        onClick={handleOpenModal}
+      >
+        <Translate id="typing.action.openModal">タイピング練習を開始</Translate>
+      </Button>
 
-            <div className={styles.courseGrid}>
-              {AVAILABLE_COURSES.map((duration) => {
-                const isActive = course === duration;
-                const record = bestRecords[duration];
-                return (
-                  <button
-                    key={duration}
-                    type="button"
-                    className={`${styles.courseCard} ${isActive ? styles.courseCardActive : ''}`}
-                    onClick={() => handleSelectCourse(duration)}
-                    aria-pressed={isActive}
-                  >
-                    <div className={styles.courseCardHeader}>
-                      <span className={styles.courseName}>{getCourseLabel(duration)}</span>
-                      <Chip
-                        size="small"
-                        color={isActive ? 'primary' : 'default'}
-                        variant={isActive ? 'filled' : 'outlined'}
-                        label={
-                          duration === 60
-                            ? translate({
-                                id: 'typing.course.1minSub',
-                                message: '60秒・短期集中',
-                              })
-                            : translate({
-                                id: 'typing.course.3minSub',
-                                message: '180秒・長文持久',
-                              })
-                        }
-                      />
-                    </div>
-
-                    <div className={styles.courseBestBox}>
-                      <span>
-                        <Trophy
-                          size={14}
-                          strokeWidth={2}
-                          style={{ verticalAlign: '-2px', marginRight: 4 }}
-                        />
-                        <Translate id="typing.best.title">コース別自己ベスト</Translate>
-                      </span>
-                      {record ? (
-                        <span className={styles.courseBestValue}>
-                          {record.chars}
-                          <Translate id="typing.best.charsUnit">文字</Translate> / {record.cpm}{' '}
-                          CPM
-                        </span>
-                      ) : (
-                        <span>
-                          <Translate id="typing.best.noRecord">まだ記録がありません</Translate>
-                        </span>
-                      )}
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className={styles.imeNotice} role="note">
-              <Info size={18} strokeWidth={2} className={styles.imeNoticeIcon} aria-hidden="true" />
-              <span>
-                <Translate id="typing.idle.imeNotice">
-                  スタートボタンを押す前に、日本語入力（IME）をONにしておいてください。
-                </Translate>
-              </span>
-            </div>
-
-            <div className={styles.startActionRow}>
-              <Button
-                variant="contained"
-                size="large"
-                className={styles.primaryGradientButton}
-                startIcon={<Play size={20} strokeWidth={2} />}
-                onClick={startCountdown}
-              >
-                <Translate id="typing.action.start">スタート</Translate>
-              </Button>
-            </div>
-          </section>
-
-          <section className={styles.card}>
-            <h2 className={styles.sectionTitle}>
-              <Keyboard size={20} strokeWidth={2} />
-              <Translate id="typing.rules.title">遊び方・判定ルール</Translate>
-            </h2>
-            <ul className={styles.rulesList}>
-              <li>
-                <Translate id="typing.rules.item1">
-                  日本語IMEで変換確定したあと、もう一度 Enter を押すと入力文字列を判定します。
-                </Translate>
-              </li>
-              <li>
-                <Translate id="typing.rules.item2">
-                  送信前でも入力欄内の文字はリアルタイムに照合され、合っている文字は緑・合っていない文字は赤で表示されます。Enter 時は先頭一致分のみ消化され、不一致部分は入力欄に残ります。
-                </Translate>
-              </li>
-              <li>
-                <Translate id="typing.rules.item3">
-                  英数字・記号・スペースの半角／全角、および「ー」と「-」は同一視されますが、アルファベットの大文字・小文字は厳密に区別されます。
-                </Translate>
-              </li>
-              <li>
-                <Translate id="typing.rules.item4">
-                  出題例文は全ロケール共通で日本語長文が出題されます。ペーストおよびドロップ入力は無効です。
-                </Translate>
-              </li>
-              <li>
-                <Translate id="typing.rules.item5">
-                  制限時間終了時に入力欄へ未送信の文字が残っている場合は、自動で判定（先頭一致分を加算）してスコアに集計されます。
-                </Translate>
-              </li>
-            </ul>
-          </section>
-        </>
-      )}
-
-      {phase === 'countdown' && (
-        <section className={`${styles.card} ${styles.countdownCard}`} aria-live="polite">
-          <Chip color="primary" label={getCourseLabel(course)} />
-          <div key={countdown} className={styles.countdownNumber}>
-            {countdown}
-          </div>
-          <p className={styles.countdownSubtitle}>
-            <Translate id="typing.countdown.ready">まもなくスタートします...</Translate>
-          </p>
-          <p className={styles.countdownHint}>
-            <Translate id="typing.countdown.hint">
-              開始と同時に自動で入力欄にフォーカスされます
-            </Translate>
-          </p>
-          <Button
-            variant="outlined"
-            color="inherit"
-            startIcon={<X size={16} strokeWidth={2} />}
-            onClick={handleAbortToIdle}
-            sx={{ mt: 1, borderRadius: 3, textTransform: 'none' }}
+      <Dialog
+        open={isModalOpen}
+        onClose={handleDialogClose}
+        disableEscapeKeyDown={isActiveSession}
+        maxWidth="md"
+        fullWidth
+        aria-labelledby="typing-modal-title"
+        slotProps={{
+          paper: {
+            className: styles.modalPaper,
+          },
+          transition: {
+            onExited: handleAbortToIdle,
+          },
+        }}
+      >
+        <div className={styles.modalHeader}>
+          <h2 id="typing-modal-title" className={styles.modalTitle}>
+            <Keyboard size={20} strokeWidth={2} aria-hidden="true" />
+            <Translate id="typing.modal.title">日本語変換タイピング</Translate>
+          </h2>
+          <IconButton
+            onClick={handleCloseModal}
+            size="small"
+            className={styles.modalCloseButton}
+            aria-label={translate({
+              id: 'typing.action.closeModal',
+              message: 'モーダルを閉じる',
+            })}
           >
-            <Translate id="typing.action.cancel">中断して戻る</Translate>
-          </Button>
-        </section>
-      )}
+            <X size={20} strokeWidth={2} />
+          </IconButton>
+        </div>
 
-      {phase === 'playing' && (
-        <>
-          <section className={styles.card}>
-            <div className={styles.passageHeader}>
-              <div className={styles.passageMeta}>
-                <Chip
-                  size="small"
-                  color="primary"
-                  variant="outlined"
-                  label={getGenreLabel(currentPassage.genre)}
-                />
-                <span className={styles.passageTitle}>{currentPassage.title}</span>
-              </div>
-              <span className={styles.passageCounter}>
-                <Translate id="typing.playing.passageProgress">進捗</Translate>: {cursor} /{' '}
-                {passageChars.length}
-              </span>
-            </div>
+        <DialogContent className={styles.modalContent}>
+          {phase === 'idle' && (
+            <div className={styles.idlePane}>
+              <div>
+                <h3 className={styles.sectionTitle}>
+                  <Timer size={20} strokeWidth={2} />
+                  <Translate id="typing.course.label">コースを選択</Translate>
+                </h3>
 
-            <div
-              className={styles.passageBox}
-              onClick={() => inputRef.current?.focus()}
-              role="region"
-              aria-label={currentPassage.title}
-            >
-              <span className={styles.charDigested}>{digestedSegment}</span>
-              {currentCharSegment && (
-                <span className={styles.charCurrent}>{currentCharSegment}</span>
-              )}
-              <span className={styles.charRemaining}>{remainingSegment}</span>
-            </div>
+                <div className={styles.courseGrid}>
+                  {AVAILABLE_COURSES.map((duration) => {
+                    const isActive = course === duration;
+                    const record = bestRecords[duration];
+                    return (
+                      <button
+                        key={duration}
+                        type="button"
+                        className={`${styles.courseCard} ${isActive ? styles.courseCardActive : ''}`}
+                        onClick={() => handleSelectCourse(duration)}
+                        aria-pressed={isActive}
+                      >
+                        <div className={styles.courseCardHeader}>
+                          <span className={styles.courseName}>{getCourseLabel(duration)}</span>
+                          <Chip
+                            size="small"
+                            color={isActive ? 'primary' : 'default'}
+                            variant={isActive ? 'filled' : 'outlined'}
+                            label={
+                              duration === 60
+                                ? translate({
+                                    id: 'typing.course.1minSub',
+                                    message: '60秒・短期集中',
+                                  })
+                                : translate({
+                                    id: 'typing.course.3minSub',
+                                    message: '180秒・長文持久',
+                                  })
+                            }
+                          />
+                        </div>
 
-            <Box className={styles.inputSection} sx={{ mt: 3 }}>
-              <div className={styles.inputRow}>
-                <div className={styles.inputWrap}>
-                  <div
-                    className={`${styles.richInputContainer} ${
-                      isInputError ? styles.richInputContainerError : ''
-                    } ${
-                      isShaking
-                        ? shakeTrigger % 2 === 1
-                          ? styles.inputShakeA
-                          : styles.inputShakeB
-                        : ''
-                    }`}
-                    onAnimationEnd={() => setIsShaking(false)}
-                  >
-                    <div
-                      ref={mirrorRef}
-                      className={`${styles.richInputMirror} ${
-                        useColorOverlay ? '' : styles.richInputMirrorHidden
-                      }`}
-                      aria-hidden="true"
-                    >
-                      {inputPreviewChars.map((item, idx) => (
-                        <span
-                          key={`${idx}-${item.isMatch ? 'm' : 'x'}`}
-                          className={
-                            item.isMatch ? styles.inputCharMatch : styles.inputCharMismatch
-                          }
-                        >
-                          {item.char}
-                        </span>
-                      ))}
-                    </div>
-                    <input
-                      ref={inputRef}
-                      type="text"
-                      className={`${styles.richInputField} ${
-                        useColorOverlay ? styles.richInputFieldOverlay : ''
-                      }`}
-                      value={inputValue}
-                      aria-invalid={isInputError}
-                      aria-label={translate({
-                        id: 'typing.playing.inputPlaceholder',
-                        message: '変換確定後に Enter で判定...',
-                      })}
-                      autoComplete="off"
-                      autoCorrect="off"
-                      autoCapitalize="off"
-                      spellCheck={false}
-                      placeholder={translate({
-                        id: 'typing.playing.inputPlaceholder',
-                        message: '変換確定後に Enter で判定...',
-                      })}
-                      onChange={(event) => {
-                        inputValueRef.current = event.target.value;
-                        setInputValue(event.target.value);
-                        if (isInputError) {
-                          setIsInputError(false);
-                        }
-                        syncInputScroll();
-                      }}
-                      onCompositionStart={() => {
-                        isComposingRef.current = true;
-                        setIsComposing(true);
-                      }}
-                      onCompositionEnd={() => {
-                        isComposingRef.current = false;
-                        lastCompositionEndMsRef.current = performance.now();
-                        setIsComposing(false);
-                        syncInputScroll();
-                      }}
-                      onKeyDown={handleInputKeyDown}
-                      onKeyUp={syncInputScroll}
-                      onScroll={syncInputScroll}
-                      onClick={syncInputScroll}
-                      onSelect={syncInputScroll}
-                      onPaste={handleBlockPasteOrDrop}
-                      onDrop={handleBlockPasteOrDrop}
-                      onDragOver={(event) => event.preventDefault()}
-                    />
-                  </div>
-                  <div className={styles.timerProgressWrap}>
-                    <LinearProgress
-                      variant="determinate"
-                      value={timerProgress}
-                      color={isTimeWarning ? 'error' : 'primary'}
-                      aria-label={translate({
-                        id: 'typing.playing.remainingTime',
-                        message: '残り時間',
-                      })}
-                      sx={{ height: 8, borderRadius: 4 }}
-                    />
-                  </div>
-                  <p className={styles.inputHelperText}>
-                    {translate({
-                      id: 'typing.playing.inputHelper',
-                      message:
-                        'IME変換確定の Enter では判定されません。確定後にもう一度 Enter で送信してください。',
-                    })}
-                  </p>
+                        <div className={styles.courseBestBox}>
+                          <span>
+                            <Trophy
+                              size={14}
+                              strokeWidth={2}
+                              style={{ verticalAlign: '-2px', marginRight: 4 }}
+                            />
+                            <Translate id="typing.best.title">コース別自己ベスト</Translate>
+                          </span>
+                          {record ? (
+                            <span className={styles.courseBestValue}>
+                              {record.chars}
+                              <Translate id="typing.best.charsUnit">文字</Translate> / {record.cpm}{' '}
+                              CPM
+                            </span>
+                          ) : (
+                            <span>
+                              <Translate id="typing.best.noRecord">まだ記録がありません</Translate>
+                            </span>
+                          )}
+                        </div>
+                      </button>
+                    );
+                  })}
                 </div>
+              </div>
+
+              <div className={styles.imeNotice} role="note">
+                <Info
+                  size={18}
+                  strokeWidth={2}
+                  className={styles.imeNoticeIcon}
+                  aria-hidden="true"
+                />
+                <span>
+                  <Translate id="typing.idle.imeNotice">
+                    スタートボタンを押す前に、日本語入力（IME）をONにしておいてください。
+                  </Translate>
+                </span>
+              </div>
+
+              <div className={styles.startActionRow}>
                 <Button
                   variant="contained"
-                  color="primary"
-                  onMouseDown={(event) => event.preventDefault()}
-                  onClick={() => {
-                    handleSubmitInput();
-                    inputRef.current?.focus();
-                  }}
-                  sx={{
-                    borderRadius: 3,
-                    px: 3,
-                    height: 56,
-                    fontWeight: 700,
-                    textTransform: 'none',
-                    flexShrink: 0,
-                  }}
+                  size="large"
+                  className={styles.primaryGradientButton}
+                  startIcon={<Play size={20} strokeWidth={2} />}
+                  onClick={startCountdown}
                 >
-                  <Translate id="typing.playing.submitButton">判定 (Enter)</Translate>
+                  <Translate id="typing.action.start">スタート</Translate>
                 </Button>
               </div>
-
-              <div className={styles.feedbackSlot} aria-live="polite">
-                {feedback && (
-                  <span
-                    key={feedback.key}
-                    className={`${styles.feedbackBadge} ${
-                      feedback.type === 'success'
-                        ? styles.feedbackSuccess
-                        : feedback.type === 'warning'
-                          ? styles.feedbackWarning
-                          : styles.feedbackError
-                    }`}
-                  >
-                    {feedback.type === 'success' ? (
-                      <CheckCircle2 size={16} strokeWidth={2} />
-                    ) : (
-                      <AlertCircle size={16} strokeWidth={2} />
-                    )}
-                    {feedback.message}
-                  </span>
-                )}
-              </div>
-            </Box>
-          </section>
-
-          <section className={styles.card}>
-            <div className={styles.statusBar}>
-              <div className={styles.statCard}>
-                <span className={styles.statLabel}>
-                  <Timer size={15} strokeWidth={2} />
-                  <Translate id="typing.playing.remainingTime">残り時間</Translate>
-                </span>
-                <span
-                  className={`${styles.statValue} ${isTimeWarning ? styles.statValueWarning : ''}`}
-                >
-                  {formatRemainingTime(remainingMs)}
-                </span>
-              </div>
-
-              <div className={styles.statCard}>
-                <span className={styles.statLabel}>
-                  <Target size={15} strokeWidth={2} />
-                  <Translate id="typing.playing.digestedChars">消化文字数</Translate>
-                </span>
-                <span className={styles.statValue}>{digestedChars}</span>
-              </div>
-
-              <div className={styles.statCard}>
-                <span className={styles.statLabel}>
-                  <FileCheck2 size={15} strokeWidth={2} />
-                  <Translate id="typing.playing.completedPassages">完走文章</Translate>
-                </span>
-                <span className={styles.statValue}>{completedPassages}</span>
-              </div>
             </div>
+          )}
 
-            <Box className={styles.playingControls} sx={{ mt: 2 }}>
-              <Button
-                variant="outlined"
-                color="primary"
-                startIcon={<RotateCcw size={16} strokeWidth={2} />}
-                onClick={startCountdown}
-                sx={{ borderRadius: 3, textTransform: 'none' }}
-              >
-                <Translate id="typing.action.retry">リトライ</Translate>
-              </Button>
+          {phase === 'countdown' && (
+            <div className={styles.countdownPane} aria-live="polite">
+              <Chip color="primary" label={getCourseLabel(course)} />
+              <div key={countdown} className={styles.countdownNumber}>
+                {countdown}
+              </div>
+              <p className={styles.countdownSubtitle}>
+                <Translate id="typing.countdown.ready">まもなくスタートします...</Translate>
+              </p>
+              <p className={styles.countdownHint}>
+                <Translate id="typing.countdown.hint">
+                  開始と同時に自動で入力欄にフォーカスされます
+                </Translate>
+              </p>
               <Button
                 variant="outlined"
                 color="inherit"
                 startIcon={<X size={16} strokeWidth={2} />}
                 onClick={handleAbortToIdle}
-                sx={{ borderRadius: 3, textTransform: 'none' }}
+                sx={{ mt: 1, borderRadius: 3, textTransform: 'none' }}
               >
-                <Translate id="typing.action.abort">中断</Translate>
+                <Translate id="typing.action.cancel">中断して戻る</Translate>
               </Button>
-            </Box>
-          </section>
-        </>
-      )}
+            </div>
+          )}
 
-      {phase === 'result' && outcome && (
-        <section className={styles.card}>
-          <div className={styles.resultHeader}>
-            <div className={styles.resultHero}>
-              <div className={`${styles.rankBadge} ${getRankClassName(outcome.metrics.rank)}`}>
-                <span className={styles.rankBadgeLabel}>RANK</span>
-                <span className={styles.rankBadgeValue}>{outcome.metrics.rank}</span>
-              </div>
-
-              <div className={styles.resultScoreBlock}>
-                <div className={styles.resultTitleRow}>
-                  <h2 className={styles.resultHeading}>
-                    <Translate id="typing.result.title">タイムアップ！結果発表</Translate>
-                  </h2>
-                  <Chip size="small" color="primary" label={getCourseLabel(outcome.course)} />
-                  {outcome.isNewBest && (
-                    <span className={styles.newBestBadge}>
-                      <Sparkles size={14} strokeWidth={2} />
-                      <Translate id="typing.result.newBest">NEW BEST!</Translate>
-                    </span>
-                  )}
-                </div>
-
-                <div className={styles.mainScoreRow}>
-                  <span className={styles.mainScoreValue}>{outcome.metrics.digestedChars}</span>
-                  <span className={styles.mainScoreUnit}>
-                    <Translate id="typing.best.charsUnit">文字</Translate>（
-                    <Translate id="typing.result.totalDigested">総消化文字数</Translate>）
+          {phase === 'playing' && (
+            <div className={styles.playingPane}>
+              <div className={styles.playingMain}>
+                <div className={styles.passageHeader}>
+                  <div className={styles.passageMeta}>
+                    <Chip
+                      size="small"
+                      color="primary"
+                      variant="outlined"
+                      label={getGenreLabel(currentPassage.genre)}
+                    />
+                    <span className={styles.passageTitle}>{currentPassage.title}</span>
+                  </div>
+                  <span className={styles.passageCounter}>
+                    <Translate id="typing.playing.passageProgress">進捗</Translate>: {cursor} /{' '}
+                    {passageChars.length}
                   </span>
                 </div>
 
-                <p className={styles.rankDescription}>
-                  {getRankDescription(outcome.metrics.rank)}
-                </p>
+                <div
+                  className={styles.passageBox}
+                  onClick={() => inputRef.current?.focus()}
+                  role="region"
+                  aria-label={currentPassage.title}
+                >
+                  <span className={styles.charDigested}>{digestedSegment}</span>
+                  {currentCharSegment && (
+                    <span className={styles.charCurrent}>{currentCharSegment}</span>
+                  )}
+                  <span className={styles.charRemaining}>{remainingSegment}</span>
+                </div>
+
+                <Box className={styles.inputSection} sx={{ mt: 2 }}>
+                  <div className={styles.inputRow}>
+                    <div className={styles.inputWrap}>
+                      <div
+                        className={`${styles.richInputContainer} ${
+                          isInputError ? styles.richInputContainerError : ''
+                        } ${
+                          isShaking
+                            ? shakeTrigger % 2 === 1
+                              ? styles.inputShakeA
+                              : styles.inputShakeB
+                            : ''
+                        }`}
+                        onAnimationEnd={() => setIsShaking(false)}
+                      >
+                        <div
+                          ref={mirrorRef}
+                          className={`${styles.richInputMirror} ${
+                            useColorOverlay ? '' : styles.richInputMirrorHidden
+                          }`}
+                          aria-hidden="true"
+                        >
+                          {inputPreviewChars.map((item, idx) => (
+                            <span
+                              key={`${idx}-${item.isMatch ? 'm' : 'x'}`}
+                              className={
+                                item.isMatch ? styles.inputCharMatch : styles.inputCharMismatch
+                              }
+                            >
+                              {item.char}
+                            </span>
+                          ))}
+                        </div>
+                        <input
+                          ref={inputRef}
+                          type="text"
+                          className={`${styles.richInputField} ${
+                            useColorOverlay ? styles.richInputFieldOverlay : ''
+                          }`}
+                          value={inputValue}
+                          aria-invalid={isInputError}
+                          aria-label={translate({
+                            id: 'typing.playing.inputPlaceholder',
+                            message: '変換確定後に Enter で判定...',
+                          })}
+                          autoComplete="off"
+                          autoCorrect="off"
+                          autoCapitalize="off"
+                          spellCheck={false}
+                          placeholder={translate({
+                            id: 'typing.playing.inputPlaceholder',
+                            message: '変換確定後に Enter で判定...',
+                          })}
+                          onChange={(event) => {
+                            inputValueRef.current = event.target.value;
+                            setInputValue(event.target.value);
+                            if (isInputError) {
+                              setIsInputError(false);
+                            }
+                            syncInputScroll();
+                          }}
+                          onCompositionStart={() => {
+                            isComposingRef.current = true;
+                            setIsComposing(true);
+                          }}
+                          onCompositionEnd={() => {
+                            isComposingRef.current = false;
+                            lastCompositionEndMsRef.current = performance.now();
+                            setIsComposing(false);
+                            syncInputScroll();
+                          }}
+                          onKeyDown={handleInputKeyDown}
+                          onKeyUp={syncInputScroll}
+                          onScroll={syncInputScroll}
+                          onClick={syncInputScroll}
+                          onSelect={syncInputScroll}
+                          onPaste={handleBlockPasteOrDrop}
+                          onDrop={handleBlockPasteOrDrop}
+                          onDragOver={(event) => event.preventDefault()}
+                        />
+                      </div>
+                      <div className={styles.timerProgressWrap}>
+                        <LinearProgress
+                          variant="determinate"
+                          value={timerProgress}
+                          color={isTimeWarning ? 'error' : 'primary'}
+                          aria-label={translate({
+                            id: 'typing.playing.remainingTime',
+                            message: '残り時間',
+                          })}
+                          sx={{ height: 8, borderRadius: 4 }}
+                        />
+                      </div>
+                      <p className={styles.inputHelperText}>
+                        {translate({
+                          id: 'typing.playing.inputHelper',
+                          message:
+                            'IME変換確定の Enter では判定されません。確定後にもう一度 Enter で送信してください。',
+                        })}
+                      </p>
+                    </div>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onMouseDown={(event) => event.preventDefault()}
+                      onClick={() => {
+                        handleSubmitInput();
+                        inputRef.current?.focus();
+                      }}
+                      sx={{
+                        borderRadius: 3,
+                        px: 3,
+                        height: 56,
+                        fontWeight: 700,
+                        textTransform: 'none',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <Translate id="typing.playing.submitButton">判定 (Enter)</Translate>
+                    </Button>
+                  </div>
+
+                  <div className={styles.feedbackSlot} aria-live="polite">
+                    {feedback && (
+                      <span
+                        key={feedback.key}
+                        className={`${styles.feedbackBadge} ${
+                          feedback.type === 'success'
+                            ? styles.feedbackSuccess
+                            : feedback.type === 'warning'
+                              ? styles.feedbackWarning
+                              : styles.feedbackError
+                        }`}
+                      >
+                        {feedback.type === 'success' ? (
+                          <CheckCircle2 size={16} strokeWidth={2} />
+                        ) : (
+                          <AlertCircle size={16} strokeWidth={2} />
+                        )}
+                        {feedback.message}
+                      </span>
+                    )}
+                  </div>
+                </Box>
+              </div>
+
+              <div className={styles.playingFooter}>
+                <div className={styles.statusBar}>
+                  <div className={styles.statCard}>
+                    <span className={styles.statLabel}>
+                      <Timer size={15} strokeWidth={2} />
+                      <Translate id="typing.playing.remainingTime">残り時間</Translate>
+                    </span>
+                    <span
+                      className={`${styles.statValue} ${isTimeWarning ? styles.statValueWarning : ''}`}
+                    >
+                      {formatRemainingTime(remainingMs)}
+                    </span>
+                  </div>
+
+                  <div className={styles.statCard}>
+                    <span className={styles.statLabel}>
+                      <Target size={15} strokeWidth={2} />
+                      <Translate id="typing.playing.digestedChars">消化文字数</Translate>
+                    </span>
+                    <span className={styles.statValue}>{digestedChars}</span>
+                  </div>
+
+                  <div className={styles.statCard}>
+                    <span className={styles.statLabel}>
+                      <FileCheck2 size={15} strokeWidth={2} />
+                      <Translate id="typing.playing.completedPassages">完走文章</Translate>
+                    </span>
+                    <span className={styles.statValue}>{completedPassages}</span>
+                  </div>
+                </div>
+
+                <Box className={styles.playingControls} sx={{ mt: 1.5 }}>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    startIcon={<RotateCcw size={16} strokeWidth={2} />}
+                    onClick={startCountdown}
+                    sx={{ borderRadius: 3, textTransform: 'none' }}
+                  >
+                    <Translate id="typing.action.retry">リトライ</Translate>
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="inherit"
+                    startIcon={<X size={16} strokeWidth={2} />}
+                    onClick={handleAbortToIdle}
+                    sx={{ borderRadius: 3, textTransform: 'none' }}
+                  >
+                    <Translate id="typing.action.abort">中断</Translate>
+                  </Button>
+                </Box>
               </div>
             </div>
-          </div>
+          )}
 
-          <div className={styles.metricsGrid}>
-            <div className={styles.statCard}>
-              <span className={styles.statLabel}>
-                <Award size={15} strokeWidth={2} />
-                <Translate id="typing.result.cpm">CPM（文字/分）</Translate>
-              </span>
-              <span className={styles.statValue}>{outcome.metrics.cpm}</span>
+          {phase === 'result' && outcome && (
+            <div className={styles.resultPane}>
+              <div className={styles.resultHeader}>
+                <div className={styles.resultHero}>
+                  <div className={`${styles.rankBadge} ${getRankClassName(outcome.metrics.rank)}`}>
+                    <span className={styles.rankBadgeLabel}>RANK</span>
+                    <span className={styles.rankBadgeValue}>{outcome.metrics.rank}</span>
+                  </div>
+
+                  <div className={styles.resultScoreBlock}>
+                    <div className={styles.resultTitleRow}>
+                      <h3 className={styles.resultHeading}>
+                        <Translate id="typing.result.title">タイムアップ！結果発表</Translate>
+                      </h3>
+                      <Chip size="small" color="primary" label={getCourseLabel(outcome.course)} />
+                      {outcome.isNewBest && (
+                        <span className={styles.newBestBadge}>
+                          <Sparkles size={14} strokeWidth={2} />
+                          <Translate id="typing.result.newBest">NEW BEST!</Translate>
+                        </span>
+                      )}
+                    </div>
+
+                    <div className={styles.mainScoreRow}>
+                      <span className={styles.mainScoreValue}>{outcome.metrics.digestedChars}</span>
+                      <span className={styles.mainScoreUnit}>
+                        <Translate id="typing.best.charsUnit">文字</Translate>（
+                        <Translate id="typing.result.totalDigested">総消化文字数</Translate>）
+                      </span>
+                    </div>
+
+                    <p className={styles.rankDescription}>
+                      {getRankDescription(outcome.metrics.rank)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.metricsGrid}>
+                <div className={styles.statCard}>
+                  <span className={styles.statLabel}>
+                    <Award size={15} strokeWidth={2} />
+                    <Translate id="typing.result.cpm">CPM（文字/分）</Translate>
+                  </span>
+                  <span className={styles.statValue}>{outcome.metrics.cpm}</span>
+                </div>
+
+                <div className={styles.statCard}>
+                  <span className={styles.statLabel}>
+                    <FileCheck2 size={15} strokeWidth={2} />
+                    <Translate id="typing.result.completedPassages">完走文章数</Translate>
+                  </span>
+                  <span className={styles.statValue}>
+                    {outcome.metrics.completedPassages}
+                    <Translate id="typing.best.passagesUnit">本</Translate>
+                  </span>
+                </div>
+              </div>
+
+              <div className={styles.bestComparisonBox}>
+                <div className={styles.bestComparisonText}>
+                  <Trophy size={18} strokeWidth={2} />
+                  <span>
+                    {outcome.metrics.digestedChars === 0 ? (
+                      <Translate id="typing.result.noScore">
+                        消化文字数が 0 のため自己ベストは更新されませんでした。
+                      </Translate>
+                    ) : outcome.isNewBest && !outcome.previousBest ? (
+                      <Translate id="typing.result.firstRecord">初回記録を保存しました！</Translate>
+                    ) : outcome.isNewBest && outcome.previousBest ? (
+                      translate(
+                        {
+                          id: 'typing.result.beatBestBy',
+                          message: '前回の自己ベスト（{prev}文字）を +{diff}文字 更新しました！',
+                        },
+                        {
+                          prev: outcome.previousBest.chars,
+                          diff: outcome.metrics.digestedChars - outcome.previousBest.chars,
+                        }
+                      )
+                    ) : outcome.previousBest &&
+                      outcome.metrics.digestedChars === outcome.previousBest.chars ? (
+                      translate(
+                        {
+                          id: 'typing.result.tiedBest',
+                          message: '自己ベスト（{best}文字）と同点です！',
+                        },
+                        { best: outcome.previousBest.chars }
+                      )
+                    ) : outcome.previousBest ? (
+                      translate(
+                        {
+                          id: 'typing.result.diffFromBest',
+                          message: '自己ベスト（{best}文字）まであと {diff}文字',
+                        },
+                        {
+                          best: outcome.previousBest.chars,
+                          diff: outcome.previousBest.chars - outcome.metrics.digestedChars,
+                        }
+                      )
+                    ) : null}
+                  </span>
+                </div>
+              </div>
+
+              <div className={styles.resultActions}>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  startIcon={
+                    isSharing ? (
+                      <CircularProgress size={18} color="inherit" />
+                    ) : (
+                      <Share2 size={18} strokeWidth={2} />
+                    )
+                  }
+                  onClick={handleShareResult}
+                  disabled={isSharing}
+                  sx={{ borderRadius: 3, px: 3, py: 1.25, textTransform: 'none', fontWeight: 700 }}
+                >
+                  <Translate id="typing.action.shareResult">結果を共有</Translate>
+                </Button>
+
+                <Button
+                  variant="contained"
+                  className={styles.primaryGradientButton}
+                  startIcon={<RotateCcw size={18} strokeWidth={2} />}
+                  onClick={startCountdown}
+                >
+                  <Translate id="typing.action.playAgain">同じコースでもう一度</Translate>
+                </Button>
+
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  startIcon={<ArrowLeft size={18} strokeWidth={2} />}
+                  onClick={handleAbortToIdle}
+                  sx={{ borderRadius: 3, px: 3, py: 1.25, textTransform: 'none', fontWeight: 600 }}
+                >
+                  <Translate id="typing.action.backToSelect">コース選択へ戻る</Translate>
+                </Button>
+              </div>
             </div>
-
-            <div className={styles.statCard}>
-              <span className={styles.statLabel}>
-                <FileCheck2 size={15} strokeWidth={2} />
-                <Translate id="typing.result.completedPassages">完走文章数</Translate>
-              </span>
-              <span className={styles.statValue}>
-                {outcome.metrics.completedPassages}
-                <Translate id="typing.best.passagesUnit">本</Translate>
-              </span>
-            </div>
-          </div>
-
-          <div className={styles.bestComparisonBox}>
-            <div className={styles.bestComparisonText}>
-              <Trophy size={18} strokeWidth={2} />
-              <span>
-                {outcome.metrics.digestedChars === 0 ? (
-                  <Translate id="typing.result.noScore">
-                    消化文字数が 0 のため自己ベストは更新されませんでした。
-                  </Translate>
-                ) : outcome.isNewBest && !outcome.previousBest ? (
-                  <Translate id="typing.result.firstRecord">初回記録を保存しました！</Translate>
-                ) : outcome.isNewBest && outcome.previousBest ? (
-                  translate(
-                    {
-                      id: 'typing.result.beatBestBy',
-                      message: '前回の自己ベスト（{prev}文字）を +{diff}文字 更新しました！',
-                    },
-                    {
-                      prev: outcome.previousBest.chars,
-                      diff: outcome.metrics.digestedChars - outcome.previousBest.chars,
-                    }
-                  )
-                ) : outcome.previousBest &&
-                  outcome.metrics.digestedChars === outcome.previousBest.chars ? (
-                  translate(
-                    {
-                      id: 'typing.result.tiedBest',
-                      message: '自己ベスト（{best}文字）と同点です！',
-                    },
-                    { best: outcome.previousBest.chars }
-                  )
-                ) : outcome.previousBest ? (
-                  translate(
-                    {
-                      id: 'typing.result.diffFromBest',
-                      message: '自己ベスト（{best}文字）まであと {diff}文字',
-                    },
-                    {
-                      best: outcome.previousBest.chars,
-                      diff: outcome.previousBest.chars - outcome.metrics.digestedChars,
-                    }
-                  )
-                ) : null}
-              </span>
-            </div>
-          </div>
-
-          <div className={styles.resultActions}>
-            <Button
-              variant="outlined"
-              color="primary"
-              startIcon={
-                isSharing ? (
-                  <CircularProgress size={18} color="inherit" />
-                ) : (
-                  <Share2 size={18} strokeWidth={2} />
-                )
-              }
-              onClick={handleShareResult}
-              disabled={isSharing}
-              sx={{ borderRadius: 3, px: 3, py: 1.25, textTransform: 'none', fontWeight: 700 }}
-            >
-              <Translate id="typing.action.shareResult">結果を共有</Translate>
-            </Button>
-
-            <Button
-              variant="contained"
-              className={styles.primaryGradientButton}
-              startIcon={<RotateCcw size={18} strokeWidth={2} />}
-              onClick={startCountdown}
-            >
-              <Translate id="typing.action.playAgain">同じコースでもう一度</Translate>
-            </Button>
-
-            <Button
-              variant="outlined"
-              color="inherit"
-              startIcon={<ArrowLeft size={18} strokeWidth={2} />}
-              onClick={handleAbortToIdle}
-              sx={{ borderRadius: 3, px: 3, py: 1.25, textTransform: 'none', fontWeight: 600 }}
-            >
-              <Translate id="typing.action.backToSelect">コース選択へ戻る</Translate>
-            </Button>
-          </div>
-        </section>
-      )}
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
