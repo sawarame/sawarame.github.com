@@ -3,12 +3,12 @@ import { type TypingPassage } from './passages';
 /**
  * 日本語変換タイピングツールのセマンティックバージョン
  */
-export const TYPING_VERSION = '1.1.0';
+export const TYPING_VERSION = '1.2.0';
 
 /**
  * 選択可能なタイピングコースの制限時間（秒）
  */
-export type CourseDuration = 60 | 180;
+export type CourseDuration = 60 | 180 | 300 | 600;
 
 /**
  * タイピングツールの画面フェーズ
@@ -93,7 +93,7 @@ export const TYPING_BEST_STORAGE_KEY = 'sawara_typing_best_records_v1';
 /**
  * 利用可能なコース一覧（秒）
  */
-export const AVAILABLE_COURSES: readonly CourseDuration[] = [60, 180];
+export const AVAILABLE_COURSES: readonly CourseDuration[] = [60, 180, 300, 600];
 
 /**
  * デフォルトのコース時間（秒）

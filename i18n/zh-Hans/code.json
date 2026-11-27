@@ -2906,11 +2906,23 @@
   "typing.course.3min": {
     "message": "3分钟课程"
   },
+  "typing.course.5min": {
+    "message": "5分钟课程"
+  },
+  "typing.course.10min": {
+    "message": "10分钟课程"
+  },
   "typing.course.1minSub": {
     "message": "60秒 · 短期冲刺"
   },
   "typing.course.3minSub": {
     "message": "180秒 · 长文耐力"
+  },
+  "typing.course.5minSub": {
+    "message": "300秒 · 深度练习"
+  },
+  "typing.course.10minSub": {
+    "message": "600秒 · 马拉松"
   },
   "typing.course.label": {
     "message": "选择课程"
@@ -2989,9 +3001,6 @@
   },
   "typing.playing.inputHelper": {
     "message": "IME 转换确认时的 Enter 不会触发判定，确认后请再按一次 Enter 提交。"
-  },
-  "typing.playing.submitButton": {
-    "message": "判定 (Enter)"
   },
   "typing.feedback.matchedAll": {
     "message": "已消化 {count} 个字符"
