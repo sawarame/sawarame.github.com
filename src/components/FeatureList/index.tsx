@@ -63,7 +63,7 @@ export const tools = [
     titleId: 'home.tools.typing.title',
     title: '日本語変換タイピング',
     descriptionId: 'home.tools.typing.desc',
-    description: 'IME変換確定後の文字を長文例文と照合して消化するタイピング練習ツール。英数字・記号混在の実務的な日本語入力力をブラウザ完結で測定できます。',
+    description: 'アルファベットを打つだけでなく、実際の日本語変換（IME）と数字・記号の入力まで同時に練習できる実践型タイピングツール。ブラウザ完結で実務レベルの入力力を測定できます。',
     link: '/typing',
     gradient: 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)',
   },
