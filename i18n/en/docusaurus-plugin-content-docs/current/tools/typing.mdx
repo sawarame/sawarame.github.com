@@ -11,11 +11,19 @@ import { Keyboard } from "lucide-react";
 
 <ToolPageHeader
   title="Japanese IME Typing"
-  desc="A practical Japanese long-text typing tool that evaluates committed IME text against realistic passages containing kanji, kana, letters, numbers, and symbols—100% client-side."
+  desc="Unlike traditional romaji-only typing games, this practical Japanese typing tool evaluates real IME conversion along with numbers, symbols, and letters—all safely in your browser."
   icon={<Keyboard size={48} color="#fff" />}
 />
 
 <TypingTool />
+
+## Why "Japanese IME Typing"? (How It Differs from Traditional Typing Software)
+
+Most traditional Japanese typing games focus on typing prescribed alphabet (romaji) characters one keystroke at a time. While helpful for memorizing key positions, they leave a gap when it comes to the skills real-world Japanese input actually demands—such as converting kana to kanji, deciding clause boundaries, and selecting and committing conversion candidates.
+
+This tool evaluates the text you actually convert and commit with your everyday Japanese IME against each passage. Rather than measuring raw romaji keystroke speed alone, it trains your practical Japanese typing ability end to end—from forming phrases in your head to converting and committing accurate sentences smoothly.
+
+Furthermore, everyday work such as emails, chat messages, documentation, and software development rarely consists of Japanese text alone; numbers, symbols (`%`, `/`, `-`, `:`, `()`, etc.), and English letters appear constantly throughout. By typing realistic long-form passages that naturally combine all of these elements, you can practice input mode switching and conversion habits for truly practical typing proficiency.
 
 ## How to Use
 
@@ -33,7 +41,7 @@ import { Keyboard } from "lucide-react";
 ## Matching Rules & Features
 
 ### 1. Committed-Text Evaluation for Real-World Japanese Typing
-Instead of judging individual romaji keystrokes, this tool measures your practical ability to type and convert accurate Japanese sentences using your own IME—whether you submit short phrases or longer clauses.
+Evaluation is performed on the finalized text committed through your IME. You can submit short phrases after each clause or convert and commit longer segments at once—using predictive conversion and your usual typing workflow freely.
 
 ### 2. Normalization, Hyphen/Prolonged-Sound Equivalence & Live Color Preview
 - **Live pre-submit color preview**: Before pressing Enter, characters currently in the input box are compared in real time against the passage—matching characters appear in green and mismatched characters appear in red.
